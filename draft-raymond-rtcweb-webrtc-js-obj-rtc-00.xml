@@ -480,11 +480,12 @@ var myConstraints = internalChangeConstraints();
 alice_connection.setConstraints(myConstraints, "receive");
 
 // alice signals changed constraints to bob
-var data = JSON.jsonify(alice_connection.getConstraints("receive"));
-mysignal(data);
+var sigConstraints = JSON.stringify(
+  alice_connection.getConstraints("receive"));
+mysignal(sigConstraints);
 
 // bob changes sending constraints
-bob_connection.setConstraints(JSON.parse(data), "send");
+bob_connection.setConstraints(JSON.parse(sigConstraints), "send");
 ]]></artwork></figure>
 
 </section>
@@ -505,6 +506,66 @@ bob_connection.setConstraints(JSON.parse(data), "send");
 <section anchor="parallelforking" title="Parallel Forking">
 
 <t>As the offer / answer state machine is not imposed on a WebRTC JavaScript object model, and forking is supported, parallel forking is also supported. Each answer has it’s own fork, and the various forks can be managed independently. There is no need to disconnect any fork, and each connections’ constraints, descriptions, streams and lifetime is entirely in the control of the JavaScript application.</t>
+
+</section>
+<section anchor="forking-example-code" title="Forking Example Code">
+
+<t>Example pseudo-code of how forking can be accomplished (most of which would happen in parallel but illustrated sequentially):</t>
+
+<figure><artwork><![CDATA[
+//-------------------------------------------------------------------
+// alice makes offer
+var aliceDesc = alice_connection.getDescription();
+
+mysignal("to:bob", JSON.stringify(aliceDesc));
+
+//-------------------------------------------------------------------
+// bob device-1 replies
+var bob1_connection = new ORTC.Connection();
+bob1_connection.setDescription(JSON.parse(aliceDesc), "remote");
+
+var bob1Desc = bob1_connection.getDescription();
+mysignal("to:alice", JSON.stringify(bob1Desc));
+
+//-------------------------------------------------------------------
+// alice sees bob1 reply
+alice_connection.setDescription(JSON.parse(bob1Desc), "remote");
+
+//-------------------------------------------------------------------
+// tightly couple trickle ICE (usually sent over signaling channel)
+alice_connection.onconnectionandidate = function(candidate) {
+    bob1_connection.addConnectionCandidate(
+      JSON.parse(JSON.stringify(candidate)));
+});
+bob1_connection.onconnectioncandidate = function(candidate) {
+    alice_connection.addConnectionCandidate(
+      JSON.parse(JSON.stringify(candidate)));
+});
+
+//-------------------------------------------------------------------
+// bob device-2 replies
+var bob2_connection = new ORTC.Connection();
+bob2_connection.setDescription(JSON.parse(aliceDesc), "remote");
+
+var bob2Desc = bob2_connection.getDescription();
+mysignal("to:alice", JSON.stringify(bob2Desc));
+
+//-------------------------------------------------------------------
+// alice sees bob2 reply and forks the connection object
+var alice2_connection = alice1_connection.fork();
+alice2_connection.setDescription(JSON.parse(bob1Desc), "remote");
+
+//-------------------------------------------------------------------
+// tightly couple trickle ICE (usually sent over signaling channel)
+alice2_connection.onconnectionandidate = function(candidate) {
+    bob2_connection.addConnectionCandidate(
+      JSON.parse(JSON.stringify(candidate)));
+});
+bob2_connection.onconnectioncandidate = function(candidate) {
+    alice2_connection.addConnectionCandidate(
+      JSON.parse(JSON.stringify(candidate)));
+});
+]]></artwork></figure>
 
 </section>
 </section>
