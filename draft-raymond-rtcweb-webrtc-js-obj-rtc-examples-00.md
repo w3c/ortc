@@ -675,7 +675,7 @@ Scenario:
     
     //  Bob sends the SDP Answer to Alice
     var sendDescription = function(){
-      mySignal(sdp: bob_RTCPeerConnection.localDescription);
+      mySignal({sdp: bob_RTCPeerConnection.localDescription});
     }
     
     // Alice receives the Answer from Bob and processes it
