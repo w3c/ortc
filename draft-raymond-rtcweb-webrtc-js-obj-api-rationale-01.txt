@@ -22,8 +22,8 @@ Abstract
    surface API for interfacing with WebRTC.  The document outlines the
    issues and pitfalls as well as use cases that are difficult (or
    impossible) with SDP with offer / answer [RFC3264], and explains the
-   benefits and goals of an alternative JavaScript Object Model
-   [WebRTCJSObj] approach.
+   benefits and goals of an alternative JavaScript object model
+   approach.
 
 Status of This Memo
 
@@ -693,11 +693,10 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    model requirement yields a road block to achieving alternative WebRTC
    signaling protocols other than SIP.
 
-   An alternative WebRTC JavaScript Object Model [WebRTCJSObj] approach
-   that does not require an all-encompassing session description and
-   related state machine is being proposed as an alternative solution so
-   the RTCWEB charter can complete its defined goals in a timely
-   fashion.
+   An alternative WebRTC JavaScript object model approach that does not
+   require an all-encompassing session description and related state
+   machine is being proposed as an alternative solution so the RTCWEB
+   charter can complete its defined goals in a timely fashion.
 
 2.10.1.  Example Oddities That Need Definition
 
@@ -721,6 +720,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    Nominally referencing the SDP RFC will not be sufficient, and deltas
    from the established standards when violated will need to be defined
    when the rules change.
+
 
 
 
@@ -814,10 +814,10 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    instead of fixing the original problem, i.e. the state machine being
    required.
 
-   A WebRTC JavaScript object Model [WebRTCJSObj] is designed to easily
-   allow forking but does not care if an upper shim supports SDP / SIP
-   style forking in the negotiation or not, so long as the basic rules
-   of the RTC media engine is respected.
+   A WebRTC JavaScript object model is designed to easily allow forking
+   but does not care if an upper shim supports SDP / SIP style forking
+   in the negotiation or not, so long as the basic rules of the RTC
+   media engine is respected.
 
 3.  Alternatives to Fixing these Issues Now
 
@@ -907,11 +907,11 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 3.2.  Session Description Format Construction API
 
    An alternative JavaScript model has in the past been floated around,
-   other than the model [WebRTCJSObj] advocated in this draft.  That
-   model creates a JavaScript session description format construction
-   API in the browser.  Such an API would use JavaScript objects to
-   construct the session description format rather than allowing direct
-   control of how media should be plumbed together from JavaScript.
+   other than the model advocated in this draft.  That model creates a
+   JavaScript session description format construction API in the
+   browser.  Such an API would use JavaScript objects to construct the
+   session description format rather than allowing direct control of how
+   media should be plumbed together from JavaScript.
 
    While using SDP as the chosen format for WebRTC highlights the issues
    described in this draft particularly well, using an alternative
@@ -968,11 +968,11 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    detail.
 
    The standardization requirements for such an approach would increase
-   substantially over the WebRTC JavaScript Object Model [WebRTCJSObj]
-   advocated by this draft since not only would such a JavaScript format
-   construction API have to be standardized (as any JavaScript Model
-   would) but the formatting rules and state machine it relies upon
-   needs to become standardized in detail as well.
+   substantially over the WebRTC JavaScript object model advocated by
+   this draft since not only would such a JavaScript format construction
+   API have to be standardized (as any JavaScript Model would) but the
+   formatting rules and state machine it relies upon needs to become
+   standardized in detail as well.
 
    Every combination of this all-encompassing format would need to be
    outlined, rather than minimal definition of fixed properties needed
@@ -992,9 +992,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    a media signaling exchange format rather than in the logic of how the
    media should be controlled and pipelined.
 
-   The WebRTC JavaScript Object Model [WebRTCJSObj] is being proposed as
-   the alternative.  In a follow-up to this draft the model will
-   describe how the JavaScript developer gains control over the stream's
+   The WebRTC JavaScript object model is being proposed as the
+   alternative.  In a follow-up to this draft the model will describe
+   how the JavaScript developer gains control over the stream's
    pipelining for the browser's media/RTC engine and thus free the
    JavaScript developer to express signaling and state machines using
    whatever mechanism desired.  A simplified shim implemented entirely
@@ -1178,10 +1178,10 @@ Raymond, et al.         Expires January 07, 2014               [Page 21]
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
-   A JavaScript shim approach on a WebRTC JavaScript Object Model
-   [WebRTCJSObj] and without offer / answer could achieve the same (or
-   better) "SIP interoperability" without breaking other stateless
-   negotiation models, such as one-sided negotiation.
+   A JavaScript shim approach on a WebRTC JavaScript object model and
+   without offer / answer could achieve the same (or better) "SIP
+   interoperability" without breaking other stateless negotiation
+   models, such as one-sided negotiation.
 
 4.3.  Meet-me Negotiation Use Case Scenario
 
@@ -1208,9 +1208,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    concerns since identities will be verified and keys negotiated for
    each peer-to-peer connection.
 
-   A JavaScript Object Model [WebRTCJSObj] approach would allow for this
-   kind of scenario without independent round trip negotiations for each
-   WebRTC client in the mesh.
+   A JavaScript object model approach would allow for this kind of
+   scenario without independent round trip negotiations for each WebRTC
+   client in the mesh.
 
 4.4.  Browser to Browser Compatibility Extension Compatibility Issue
       Scenario
@@ -1431,22 +1431,22 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    alternative on-the-wire session description format.
 
    The object model described in the solution is presented in a related
-   draft [WebRTCJSObj].  This solution will allow for the RTCWEB Working
-   Group to complete its chartered mandate without starting from
-   scratch.  If adopted, all of the drafts proposed to solve issues in
-   expressing SDP for WebRTC can be moved to more appropriate working
-   groups.  For example, SDP for SIP issues can be moved to the
-   appropriate SIP working groups and multi-party SDP to the MMUSIC
-   (e.g. drafts like PlanA or PlanB).
+   draft.  This solution will allow for the RTCWEB Working Group to
+   complete its chartered mandate without starting from scratch.  If
+   adopted, all of the drafts proposed to solve issues in expressing SDP
+   for WebRTC can be moved to more appropriate working groups.  For
+   example, SDP for SIP issues can be moved to the appropriate SIP
+   working groups and multi-party SDP to the MMUSIC (e.g. drafts like
+   PlanA or PlanB).
 
 5.2.  Benefits
 
 5.2.1.  Greater compatibility
 
-   By having a WebRTC JavaScript object model [WebRTCJSObj], the exact
-   inputs, outputs, properties and events can be well defined on
-   individual objects and each object will be designed to be a specific
-   contract between browser vendors and JavaScript developers.
+   By having a WebRTC JavaScript object model, the exact inputs,
+   outputs, properties and events can be well defined on individual
+   objects and each object will be designed to be a specific contract
+   between browser vendors and JavaScript developers.
 
 5.2.2.  Easier to extend
 
@@ -1579,9 +1579,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    An API must describe specific API behavior sets to the browser
    vendors so they have the appropriate guidelines for implementation,
    including the mapping to on-the-wire to RTC protocols.  The API
-   presented in the related draft [WebRTCJSObj] may be the input to a
-   W3C efforts to define specific and exact expected behavior sets for
-   an object based JavaScript API for an official WebRTC 1.0 release.
+   presented in the related draft may be the input to a W3C efforts to
+   define specific and exact expected behavior sets for an object based
+   JavaScript API for an official WebRTC 1.0 release.
 
 5.3.6.  Data Channel
 
@@ -1599,10 +1599,10 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 5.3.8.  SIP/SDP and current WebRTC API shim compatibility statement
 
-   The goal of the object model [WebRTCJSObj] is to allow for a
-   JavaScript shim that provides a simple mechanism for parsing and
-   generating SDP for basic compatibility with SIP networks (capable of
-   supporting the WebRTC wire protocols).
+   The goal of the object model is to allow for a JavaScript shim that
+   provides a simple mechanism for parsing and generating SDP for basic
+   compatibility with SIP networks (capable of supporting the WebRTC
+   wire protocols).
 
    The goal of this object based model is not to provide working
    JavaScript shim on top that is a 1-for-1 matching of the current
@@ -1659,8 +1659,8 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    should any exist.
 
    Any specific issues for the proposed JavaScript object model will be
-   outlined in the separated draft WebRTC JavaScript Object Model draft
-   [WebRTCJSObj] as needed and warranted.
+   outlined in the separated draft WebRTC JavaScript object model draft
+   as needed and warranted.
 
 7.  References
 
@@ -1750,11 +1750,6 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
               Browsers", August 2012,
               <http://www.w3.org/TR/2012/WD-webrtc-20120821/>.
 
-   [WebRTCJSObj]
-              Raymond, R., "WebRTC JavaScript Object RTC", July 2013,
-              <http://tools.ietf.org/html/draft-raymond-rtcweb-webrtc-
-              js-obj-rtc-00>.
-
 Authors' Addresses
 
    Robin Raymond
@@ -1783,17 +1778,6 @@ Authors' Addresses
    Email: ibc@aliax.net
 
 
-
-
-
-
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 32]
-
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
-
-
    Roman Shpount
    TurboBridge
    4905 Del Ray Ave Suite 300
@@ -1805,44 +1789,4 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 33]
+Raymond, et al.         Expires January 07, 2014               [Page 32]
