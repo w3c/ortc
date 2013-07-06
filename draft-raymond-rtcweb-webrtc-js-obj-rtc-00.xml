@@ -533,7 +533,7 @@
   <t>flag to mux RTP and RTCP on a single port (default), or to use two independent ports, one for RTP and the other for RTCP (ports should be sequential, with the first port being even)</t>
   <t>list of optional stun servers to perform reflexive IP discovery (default, browser specific)</t>
   <t>list of optional turn servers to act as relays (default, browser specific)</t>
-  <t>restrictive list of media “kinds” to restrict the socket to only carry certain kinds of media (default, no restriction)</t>
+  <t>restrictive list of media “kinds” (see MediaStreamTrack <xref target="MediaCapture"/>) to restrict the socket to only carry certain kinds of media (default, no restriction)</t>
   <t>alternative public / private key pair (default, internal browser generated public / private key)</t>
 </list></t>
 

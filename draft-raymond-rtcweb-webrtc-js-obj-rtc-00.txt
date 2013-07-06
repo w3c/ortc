@@ -1443,12 +1443,12 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    o  list of optional turn servers to act as relays (default, browser
       specific)
 
-   o  restrictive list of media "kinds" to restrict the socket to only
-      carry certain kinds of media (default, no restriction)
+   o  restrictive list of media "kinds" (see MediaStreamTrack
+      [MediaCapture]) to restrict the socket to only carry certain kinds
+      of media (default, no restriction)
 
    o  alternative public / private key pair (default, internal browser
       generated public / private key)
-
 
 
 

@@ -520,9 +520,11 @@ The code reflects only those changes needed to accomplish the task. In other wor
     alice_connection.setConstraints( JSON.parse(
       msg_constraints_for_alice), "send");
     
-    var aliceDtmfTrackToBob = new ORTC.DtmfMediaStreamTrack(alice_aTrans);
-    var aliceMediaStreamForBob = new ORTC.MediaStream([aliceDtmfTrackToBob]);
-
+    var aliceDtmfTrackToBob = 
+        new ORTC.DtmfMediaStreamTrack(alice_aTrans);
+    var aliceMediaStreamForBob =
+        new ORTC.MediaStream([aliceDtmfTrackToBob]);
+    
     alice_connection.sendStream(aliceMediaStreamForBob);
     
     //-------------------------------------------------------------------
