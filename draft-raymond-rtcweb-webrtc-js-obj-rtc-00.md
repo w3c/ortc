@@ -231,6 +231,14 @@ A context identifier is used not only for the ICE username, it must be a common 
 
 The information contained in a connection's description must be exchanged with a remote peer's connection object before any candidate connectivity checks may be performed by the browser. The exact method and timing of the exchange must be left to the discretion of the JavaScript developer.
 
+
+### Connection Negotiation ###
+
+The local peer has a connection description. The remote peer has a connection description. Each peer must exchange the information in the connection description with the other through signaling. The contextId becomes the useFrag, and the secret becomes the password for ICE signaling (see {{RFC5245}}). The CNAME is used as part of the RTCP reporting (see {{RFC3550}}) so that each peer can establish stream to peer correlation.
+
+Each connection has an array of fingerprints for each socket added to the connection that supports DTLS {{RFC6347}}. These fingerprints must be signaled in order to preserve the fingerprint to DTLS mapping of each socket. The connection object is responsible for ensuring any remotely connected peer's fingerprint during DTLS exchange matches the fingerprint provided in the connection description of the remote peer. If the fingerprint does not match, the connection must be closed.
+
+
 ### ICE ###      {#objice}
 
 ICE {{RFC5245}} is a standard used for discovering peer connectivity. A browser must support both ICE, and the ICE modification extension trickle ICE {{I-D.rescorla-mmusic-ice-trickle}} connectivity discovery mechanisms. The browser may support additional peer connectivity methods other than ICE.
