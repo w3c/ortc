@@ -207,13 +207,13 @@
 
 <t>The information contained in a connection’s description must be exchanged with a remote peer’s connection object before any candidate connectivity checks may be performed by the browser. The exact method and timing of the exchange must be left to the discretion of the JavaScript developer.</t>
 
-</section>
-<section anchor="connection-negotiation" title="Connection Negotiation">
+<section anchor="connection-description-negotiation" title="Connection Description Negotiation">
 
 <t>The local peer has a connection description. The remote peer has a connection description. Each peer must exchange the information in the connection description with the other through signaling. The contextId becomes the useFrag, and the secret becomes the password for ICE signaling (see <xref target="RFC5245"/>). The CNAME is used as part of the RTCP reporting (see <xref target="RFC3550"/>) so that each peer can establish stream to peer correlation.</t>
 
 <t>Each connection has an array of fingerprints for each socket added to the connection that supports DTLS <xref target="RFC6347"/>. These fingerprints must be signaled in order to preserve the fingerprint to DTLS mapping of each socket. The connection object is responsible for ensuring any remotely connected peer’s fingerprint during DTLS exchange matches the fingerprint provided in the connection description of the remote peer. If the fingerprint does not match, the connection must be closed.</t>
 
+</section>
 </section>
 <section anchor="objice" title="ICE">
 
@@ -259,6 +259,8 @@
 
 <t>Send constraints indicate media constraints that apply to media flowing from the local to the remote peer. Receive constraints apply to the media flowing to the local peer from a remote peer. The constraints may be identical in both directions, or the constraints may be a negotiated subset, or the constraints may be unique per direction (i.e. send versus receive). A developer’s JavaScript must must be able to set the constraints on either direction, at will, and obtain the possible constraints for a connection.</t>
 
+<section anchor="constraints-negotiation" title="Constraints Negotiation">
+
 <t>The media constraints must be exchanged via some external signaling method by the developer’s JavaScript. The local send constraints must be (at minimal) a subset of the received constraints of the remote peer, and the received constraints must be (at minimal) a subset of the send constraints of the remote peer. Should the browser be unable to fulfill the provided constraints for any reason (for example, none of the codecs were compatible), an error most be propagated to the developer’s JavaScript, which should handle this condition rather than silently fail. The RTCWEB Working Group must define a mandatory common set of codecs and encryption algorithms to help alleviate the possibility of codec and algorithm failure conditions.</t>
 
 <t>The browser must not dictate the timing or format of how constraints are exchanged, nor the rules of how each peer must provide the information, nor how the information is signaled.</t>
@@ -275,6 +277,7 @@
 
 <t>The browser should only implement standardized constraints and must namespace non-standardized constraints appropriately to avoid conflict with constraints that might be standardized in the future.</t>
 
+</section>
 </section>
 <section anchor="objstreamdescriptions" title="Media Stream (and Media Stream Track) Descriptions">
 

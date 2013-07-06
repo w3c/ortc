@@ -232,7 +232,7 @@ A context identifier is used not only for the ICE username, it must be a common 
 The information contained in a connection's description must be exchanged with a remote peer's connection object before any candidate connectivity checks may be performed by the browser. The exact method and timing of the exchange must be left to the discretion of the JavaScript developer.
 
 
-### Connection Negotiation ###
+#### Connection Description Negotiation ####
 
 The local peer has a connection description. The remote peer has a connection description. Each peer must exchange the information in the connection description with the other through signaling. The contextId becomes the useFrag, and the secret becomes the password for ICE signaling (see {{RFC5245}}). The CNAME is used as part of the RTCP reporting (see {{RFC3550}}) so that each peer can establish stream to peer correlation.
 
@@ -280,6 +280,8 @@ The candidate descriptions may be relayed to the remote peer independent of othe
 Constraints consist of a list of media codecs and cryptographic encryption algorithms allowed to be used as part of the transmission of media. Constraints can consist of additional rules or limitations, for example; video size or bandwidth limitations. A developer's JavaScript must be able to obtain the types of constraints supported by the browser ({{objfeaturediscovery}}), and the default set of codecs and algorithms available.
 
 Send constraints indicate media constraints that apply to media flowing from the local to the remote peer. Receive constraints apply to the media flowing to the local peer from a remote peer. The constraints may be identical in both directions, or the constraints may be a negotiated subset, or the constraints may be unique per direction (i.e. send versus receive). A developer's JavaScript must must be able to set the constraints on either direction, at will, and obtain the possible constraints for a connection.
+
+#### Constraints Negotiation ####
 
 The media constraints must be exchanged via some external signaling method by the developer's JavaScript. The local send constraints must be (at minimal) a subset of the received constraints of the remote peer, and the received constraints must be (at minimal) a subset of the send constraints of the remote peer. Should the browser be unable to fulfill the provided constraints for any reason (for example, none of the codecs were compatible), an error most be propagated to the developer's JavaScript, which should handle this condition rather than silently fail. The RTCWEB Working Group must define a mandatory common set of codecs and encryption algorithms to help alleviate the possibility of codec and algorithm failure conditions.
 
