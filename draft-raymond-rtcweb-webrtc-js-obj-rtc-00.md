@@ -238,6 +238,17 @@ The local peer has a connection description. The remote peer has a connection de
 
 Each connection has an array of fingerprints for each socket added to the connection that supports DTLS {{RFC6347}}. These fingerprints must be signaled in order to preserve the fingerprint to DTLS mapping of each socket. The connection object is responsible for ensuring any remotely connected peer's fingerprint during DTLS exchange matches the fingerprint provided in the connection description of the remote peer. If the fingerprint does not match, the connection must be closed.
 
+Example pseudo-code of how negotiated could be accomplished:
+
+    // alice makes offer
+    var alice_connection = new ORTC.Connection();
+    var aliceDesc = alice_connection.getDescription();
+    
+    mysignal("to:bob", JSON.stringify(aliceDesc));
+    
+    var bob_connection = new ORTC.Connection();
+    bob_connection.setDescription(JSON.parse(aliceDesc), "remote");
+
 
 ### ICE ###      {#objice}
 
