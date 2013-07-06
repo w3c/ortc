@@ -1,0 +1,203 @@
+<html><head>
+<link rel="stylesheet" href="style.css">
+<script src="/ui/jquery.js"></script>
+<script src="/ui/require.js"></script>
+</head><body>
+
+<div class="view view-callcontrol">
+
+    <table class="flow">
+        <tr>
+            <th>Alice</th>
+            <td rowspan="4" class="internet"></td>
+            <th>Bob</th>
+        </tr>
+        <tr>
+            <td class="video">
+                <div>
+                    <video id="alice_localVideo" class="local" autoplay="autoplay" muted="true"></video>
+                    <video id="alice_remoteVideo" class="remote" autoplay="autoplay"></video>
+                </div>
+            </td>
+            <td class="video">
+                <div>
+                    <video id="bob_localVideo" class="local" autoplay="autoplay" muted="true"></video>
+                    <video id="bob_remoteVideo" class="remote" autoplay="autoplay"></video>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><button onclick="call()">Call</button> <button onclick="hangupOffer()">Hangup</button></td>
+            <td><button onclick="accept()">Accept</button> <button onclick="decline()">Decline</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="hangup()">Hangup</button></td>
+            <td><button onclick="hangup()">Hangup</button></td>
+        </tr>
+    </table>
+
+</div>
+
+<script>
+
+requirejs.config({
+    paths: {
+        "ortc": "/lib"
+    }
+});
+require([
+    "ortc/ortc",
+    "ortc/webrtc-shim"
+], function(ORTC, WEBRTC_SHIM) {
+
+    var alice_peerConnection = null;
+    var bob_peerConnection = null;
+    var alice_stream = null;
+    var bob_stream = null;
+
+    // We setup two clients and connections in the same page and tightly couple them
+    // to demonstrate call control and how to hook up the media streams.
+
+    window.accept = function() {
+
+        disableButtons([ 'hangupOffer', 'accept', 'decline' ]);
+        enableButtons([ 'hangup' ]);
+
+// ############################################################
+// ############################################################
+// ### < Simple Example >
+// ############################################################
+// ############################################################
+
+        alice_peerConnection = new WEBRTC_SHIM.PeerConnection(WEBRTC_SHIM.PeerConnConfig);
+        bob_peerConnection = new WEBRTC_SHIM.PeerConnection(WEBRTC_SHIM.PeerConnConfig);
+
+        // Request access to local webcam and microphone.
+        WEBRTC_SHIM.getUserMedia({
+            'audio': true,
+            'video': true
+        }, function (alice_stream) {
+
+            WEBRTC_SHIM.getUserMedia({
+                'audio': true,
+                'video': true
+            }, function (bob_stream) {
+
+                if (!alice_peerConnection || !bob_peerConnection) {
+                    alice_stream.stop();
+                    bob_stream.stop();
+                    return;
+                }
+
+                // Show video HTML elements.
+                $('TD.video > DIV').show();
+
+                // Show local video & audio stream to the local video HTML elements.
+                $('#alice_localVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(alice_stream));
+                $('#bob_localVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(bob_stream));
+
+                // When a remote video & audio stream is added show it in the remote video HTML elements.
+                alice_peerConnection.onaddstream = function (event) {
+                    $('#alice_remoteVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(event.stream));
+                };
+                bob_peerConnection.onaddstream = function (event) {
+                    $('#bob_remoteVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(event.stream));
+                };
+
+                // Attach local video & audio stream to connection to stream it to peer.
+                alice_peerConnection.addStream(alice_stream);
+                bob_peerConnection.addStream(bob_stream);
+
+                // Tightly couple trickle ICE.
+                alice_peerConnection.onicecandidate = function(event) {
+                    if (!event.candidate) return;
+                    bob_peerConnection.addIceCandidate(new WEBRTC_SHIM.IceCandidate(JSON.parse(JSON.stringify(event.candidate))));
+                }
+                bob_peerConnection.onicecandidate = function(event) {
+                    if (!event.candidate) return;
+                    alice_peerConnection.addIceCandidate(new WEBRTC_SHIM.IceCandidate(JSON.parse(JSON.stringify(event.candidate))));
+                }
+
+                // Tightly couple session description exchange.
+                alice_peerConnection.createOffer(function (sessionDescription) {
+                    alice_peerConnection.setLocalDescription(sessionDescription);
+                    bob_peerConnection.setRemoteDescription(new WEBRTC_SHIM.SessionDescription(JSON.parse(JSON.stringify(sessionDescription))));
+                    bob_peerConnection.createAnswer(function (sessionDescription) {
+                        bob_peerConnection.setLocalDescription(sessionDescription);
+                        alice_peerConnection.setRemoteDescription(new WEBRTC_SHIM.SessionDescription(JSON.parse(JSON.stringify(sessionDescription))));
+                    });
+                }, fail);
+            }, fail);
+        }, fail);
+
+// ############################################################
+// ############################################################
+// ### </ Simple Example >
+// ############################################################
+// ############################################################
+
+    }
+
+    function fail(err) {
+        console.error(err, err.stack);
+        alert('Failure code: ' + err.code);
+    }
+
+    window.call = function() {
+        disableButtons([ 'call' ]);
+        enableButtons([ 'hangupOffer', 'accept', 'decline']);
+    }
+
+    window.hangupOffer = function() {
+        disableButtons([ 'hangupOffer', 'accept', 'decline' ]);
+        enableButtons([ 'call' ]);
+    }
+
+    window.decline = function() {
+        disableButtons([ 'hangupOffer', 'accept', 'decline' ]);
+        enableButtons([ 'call' ]);
+    }
+
+    window.hangup = function() {
+        if (alice_peerConnection) alice_peerConnection.close();
+        if (bob_peerConnection) bob_peerConnection.close();
+        if (alice_stream) alice_stream.stop();
+        if (bob_stream) bob_stream.stop();
+        $('TD.video > DIV').hide();
+        disableButtons([ 'hangup' ]);
+        enableButtons([ 'call' ]);
+    }
+
+    // ############################################################
+    // # Helpers for UI
+    // ############################################################
+
+    function enableButtons(names) {
+        names.forEach(function(name) {
+            var btn = $('BUTTON[onclick="' + name + '()"]');
+            btn.addClass('active');
+            btn.removeAttr('disabled');
+        });
+    }
+
+    function disableButtons(names) {
+        names.forEach(function(name) {
+            var btn = $('BUTTON[onclick="' + name + '()"]');
+            btn.removeClass('active');
+            btn.attr('disabled','disabled');
+        });
+    }
+
+    // ############################################################
+    // # Init
+    // ############################################################
+
+    $('BUTTON').attr('disabled','disabled');
+    $('TD.video > DIV').hide();
+    enableButtons([ 'call' ]);
+
+});
+
+</script>
+
+</body></html>

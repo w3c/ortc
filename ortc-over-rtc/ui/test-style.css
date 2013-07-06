@@ -1,0 +1,145 @@
+HTML, BODY {
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    font-family: Tahoma;
+}
+
+BODY > A > IMG {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 0;
+}
+
+BUTTON {
+    font-size: 14px;
+    border-collapse: collapse;
+    border: 1px solid #000000;
+    background-color: #dcdcdc;
+}
+
+:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+DIV.view-home {
+    padding: 50px;
+    padding-left: 80px;
+    font-size: 18px;
+}
+
+DIV.view-home > H1 {
+    margin-bottom: 50px;
+}
+
+DIV.view-home > UL > LI {
+    margin-bottom: 20px;
+}
+
+DIV.view-callcontrol {
+    padding-top: 20px;
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+TABLE.flow {
+    width: 90%;
+    margin-left: 5%;
+    border-collapse: collapse;
+    border-spacing: 1px;
+    border-left: 1px solid #bcbcbc;
+    border-right: 1px solid #bcbcbc;
+}
+
+TABLE.flow > TBODY > TR > TH {
+    background-color: #ececec;
+    width: 50%;
+}
+
+TABLE.flow > TBODY > TR > :first-child {
+    border-right: 1px solid #bcbcbc;
+}
+
+TABLE.flow > TBODY > TR > :last-child {
+    border-left: 1px solid #bcbcbc;
+}
+
+TABLE.flow > TBODY > TR > TD,
+TABLE.flow > TBODY > TR > TH {
+    border-top: 1px solid #bcbcbc;
+    padding: 1px;
+}
+
+TABLE.flow > TBODY > TR:last-child > TD {
+    border-bottom: 1px solid #bcbcbc;
+}
+
+TABLE.flow > TBODY > TR > TD {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+TABLE.flow > TBODY > TR > TD:first-child {
+    text-align: right;
+}
+
+TABLE.flow > TBODY > TR > TD.internet {
+    border: 0px;
+    width: 30px;
+    max-width: 30px;
+    overflow: hidden;
+}
+
+TABLE.flow > TBODY > TR > TD.internet > DIV {
+    width: 30px;
+    max-width: 30px;
+    font-style: italic;
+    font-size: 20px;
+    color: #bcbcbc;
+    white-space: nowrap;
+    -webkit-transform: rotate(-90deg);
+    letter-spacing: 3px;
+}
+
+
+TABLE.flow > TBODY > TR > TD.video {
+    text-align: center;
+    padding: 20px;
+    height: 300px;
+}
+
+TD.video > DIV {
+    display: inline-block;
+    position: relative;
+    width: 335px;
+    height: 250px;
+}
+
+VIDEO.local {
+    position: absolute;
+    height: 30%;
+    width: 30%;
+    bottom: 10px;
+    right: 10px;
+    border: 1px solid black;
+    z-index: 10px;
+}
+
+VIDEO.remote {
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+
+#mocha-stats {
+    position: relative;
+    float: right;
+    top: 0px;
+    right: 0px;
+    padding-left: 20px !important;
+}

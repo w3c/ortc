@@ -1,0 +1,82 @@
+
+HTML, BODY {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    font-family: Tahoma;
+}
+
+BODY > TABLE {
+    width: 100%;
+    height: 100%;
+}
+
+BODY > TABLE > TBODY {
+    height: 100%;
+}
+
+BODY > TABLE > TBODY > TR {
+    height: 100%;
+}
+
+BODY > TABLE > TBODY > TR > TD {
+    vertical-align: top;
+    white-space: nowrap;
+    height: 100%;
+}
+
+BODY > TABLE > TBODY > TR > TD > H1 {
+    font-size: 16px;
+}
+
+BODY > TABLE > TBODY > TR > TD:nth-child(1) {
+    width: 20%;
+    background-color: #ececec;
+    padding: 10px;
+    padding-right: 20px;
+}
+BODY > TABLE > TBODY > TR > TD:nth-child(2) {
+    width: 80%;
+}
+
+BODY > TABLE > TBODY > TR > TD:nth-child(2) > IFRAME {
+    width: 100%;
+    height: 100%;
+    border: 0px;
+}
+
+#docs {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 14px;
+    border-bottom: 5px solid #ececec;
+}
+
+#actions {
+    float: right;
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+#actions > UL > LI {
+    list-style: none;
+}
+#actions > UL > LI > BUTTON {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 14px;
+}
+#actions > UL > LI > BUTTON:hover {
+    cursor: pointer;
+}
+
+#mocha-stats {
+    position: relative;
+    float: right;
+    top: 0px;
+    right: 0px;
+    padding-left: 20px !important;
+}
