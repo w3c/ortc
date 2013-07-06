@@ -470,7 +470,22 @@
 
 <t>Another model for negotiation is “one-sided” constraints negotiation. In this model, each peer derives a set of “receive” constraints, which are set to the remote peer. Each peer is allowed to update their respective “receive” constraints at any time, which must be adhered by the remote party. This is useful to be able to send streams at will without requiring constant back and forth “offer”, “answer’ and “negotiated” states.</t>
 
-<t>To perform this model, each side obtains its “receive” constraints using “getDescription” on the “receive” direction. The constraints information is then mutually exchanged as needed. The ICE candidate information is only exchanged upon start and the session lasts for the lifetime of the connection. Imposing a state machine like offer / answer hampers the simplicity of this signaling model. Whereas, SDP requires that the offer and answer contain the “send” constraints and not the “receive” constraints. To make this work with offer / answer and SDP requires a fair amount of SDP jerry-rigging (see <xref target="WebRTCJSObjExamples"/> for an example).</t>
+<t>To perform this model, each side obtains its “receive” constraints using “getConstraints” on the “receive” direction. The constraints information is then mutually exchanged as needed. The ICE candidate information is only exchanged upon start and the session lasts for the lifetime of the connection. Imposing a state machine like offer / answer hampers the simplicity of this signaling model. Whereas, SDP requires that the offer and answer contain the “send” constraints and not the “receive” constraints. To make this work with offer / answer and SDP requires a fair amount of SDP jerry-rigging (see <xref target="WebRTCJSObjExamples"/> for an example).</t>
+
+<t>Example pseudo-code of how constraints could be re-signaled:</t>
+
+<figure><artwork><![CDATA[
+// alice changes constraints locally
+var myConstraints = internalChangeConstraints();
+alice_connection.setConstraints(myConstraints, "receive");
+
+// alice signals changed constraints to bob
+var data = JSON.jsonify(alice_connection.getConstraints("receive"));
+mysignal(data);
+
+// bob changes sending constraints
+bob_connection.setConstraints(JSON.parse(data), "send");
+]]></artwork></figure>
 
 </section>
 <section anchor="xmpp" title="XMPP">
