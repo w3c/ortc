@@ -5,14 +5,14 @@
 Network Working Group                                         R. Raymond
 Internet-Draft                                                 Hookflash
 Intended status: Standards Track                                 C. Dorn
-Expires: January 06, 2014                                    Independent
+Expires: January 07, 2014                                    Independent
                                                              E. Lagerway
                                                                Hookflash
                                                          I. Baz Castillo
                                                                Versatica
                                                               R. Shpount
                                                              TurboBridge
-                                                           July 05, 2013
+                                                           July 06, 2013
 
 
                       WebRTC JavaScript Object RTC
@@ -33,30 +33,33 @@ Abstract
    WebRTC JS Object API Rationale draft
    [I-D.raymond-rtcweb-webrtc-js-obj-api-rationale].
 
-   This draft outlines how the JavaScript constructs can be used to
-   control on-the-wire Real-Time Communication interpretations, while
-   resulting in more flexibility for signaling protocols other than
-   those based on SDP/SIP [RFC3261] (but not to exclude SDP/SIP).  The
-   flexibility to implement other signaling options is achieved by not
-   imposing an all-encompassing session description format and the offer
-   / answer state machine, such as described in JSEP
-   [I-D.ietf-rtcweb-jsep].  Finally this draft outlines how a reference
-   shim can be implemented on top of this proposal for those who would
-   prefer a JSEP / SDP model for their signaling.
+   This draft outlines how WebRTC signaling negotiation information
+   required to perform RTC on-the-wire can be organized into object-like
+   constructs to minimize cross-dependencies between negotiated
+   information, round-trip signaling, and co-dependency in negotiated
+   state transitions.  This results in greater flexibility for signaling
+   protocols other than those based on SDP/SIP [RFC3261] (but not to
+   exclude SDP/SIP).  The flexibility to implement other signaling
+   options is achieved by not imposing an all-encompassing session
+   description format and the offer / answer state machine, such as
+   described in JSEP [I-D.ietf-rtcweb-jsep].  Finally, this draft
+   outlines how a reference shim can be implemented on top of this
+   proposal for those who would prefer a JSEP / SDP model for their
+   signaling.
 
 Status of This Memo
 
-   This Internet-Draft is submitted in full conformance with the
-   provisions of BCP 78 and BCP 79.
 
 
 
 
-
-Raymond, et al.         Expires January 06, 2014                [Page 1]
+Raymond, et al.         Expires January 07, 2014                [Page 1]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
 
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
@@ -68,7 +71,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 06, 2014.
+   This Internet-Draft will expire on January 07, 2014.
 
 Copyright Notice
 
@@ -88,7 +91,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   4
-     1.1.  General Design of WebRTC JS Object Model  . . . . . . . .   4
+     1.1.  General Design of WebRTC JS Object Model  . . . . . . . .   5
      1.2.  Other Approaches Considered . . . . . . . . . . . . . . .   6
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   7
    3.  Object, Data and Control Model  . . . . . . . . . . . . . . .   7
@@ -103,17 +106,17 @@ Table of Contents
        3.2.7.  Receiving Streams (over RTP)  . . . . . . . . . . . .  16
        3.2.8.  Data Stream Description . . . . . . . . . . . . . . .  18
        3.2.9.  Sending Data Streams (over DataSocekt)  . . . . . . .  18
-       3.2.10. Receiving Data Streams (over DataSocket)  . . . . . .  18
-     3.3.  RTC Feature Discovery . . . . . . . . . . . . . . . . . .  18
-     3.4.  Example: DTMFMediaStreamTrack Specialization  . . . . . .  19
 
 
 
-Raymond, et al.         Expires January 06, 2014                [Page 2]
+Raymond, et al.         Expires January 07, 2014                [Page 2]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
+       3.2.10. Receiving Data Streams (over DataSocket)  . . . . . .  18
+     3.3.  RTC Feature Discovery . . . . . . . . . . . . . . . . . .  18
+     3.4.  Example: DTMFMediaStreamTrack Specialization  . . . . . .  19
      3.5.  Example: DataStream Specialization  . . . . . . . . . . .  19
    4.  Signaling Models  . . . . . . . . . . . . . . . . . . . . . .  20
      4.1.  SDP with Offer / Answer . . . . . . . . . . . . . . . . .  20
@@ -159,17 +162,17 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
        5.5.18. setDescription  . . . . . . . . . . . . . . . . . . .  31
        5.5.19. getConstraints  . . . . . . . . . . . . . . . . . . .  31
        5.5.20. setConstraints  . . . . . . . . . . . . . . . . . . .  31
-       5.5.21. sendStream  . . . . . . . . . . . . . . . . . . . . .  31
-       5.5.22. receiveStream . . . . . . . . . . . . . . . . . . . .  31
-       5.5.23. fork  . . . . . . . . . . . . . . . . . . . . . . . .  32
 
 
 
-Raymond, et al.         Expires January 06, 2014                [Page 3]
+Raymond, et al.         Expires January 07, 2014                [Page 3]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
+       5.5.21. sendStream  . . . . . . . . . . . . . . . . . . . . .  31
+       5.5.22. receiveStream . . . . . . . . . . . . . . . . . . . .  31
+       5.5.23. fork  . . . . . . . . . . . . . . . . . . . . . . . .  32
        5.5.24. Stream Relationship Management  . . . . . . . . . . .  32
      5.6.  Example: DTMFMediaStreamTrack Specialization  . . . . . .  32
        5.6.1.  Construction  . . . . . . . . . . . . . . . . . . . .  33
@@ -202,29 +205,31 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 1.  Introduction
 
-   This draft describes how an example supplied JavaScript object model
-   can be used to control Real-Time Communications (RTC) from the
-   Browser.  The provided example API is presented merely as input
-   guidelines for the W3C to ensure their final API constructs allow for
-   the correct interpretation to on-the-wire RTC control and signaling
+   This draft describes how an object-like construct model can be used
+   to control the setup, manage, negotiate and control Real-Time
+   Communications (RTC) from the Browser and how these concepts are
+   transform into on-the-wire constructs, as an alternative to JSEP's
+   approach.  The provided example-only API is presented merely as input
+   guidelines for the W3C to ensure their API constructs allow for the
+   correct interpretation to on-the-wire RTC control and signaling
    constructs needed as defined in the various use case drafts related
    to RTCWEB.  The draft outlines an alternative JavaScript RTC control
    model that does not require a complex all-encompassing session
    description format, like SDP, or related offer / answer state machine
    to describe the entire transport and media states.  This allows for
    greater flexibility with other non-SDP offer / answer based signaling
+
+
+
+Raymond, et al.         Expires January 07, 2014                [Page 4]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    protocols.  The actual final API is entirely within the scope of the
    W3C (as it should be).
 
 1.1.  General Design of WebRTC JS Object Model
-
-
-
-
-Raymond, et al.         Expires January 06, 2014                [Page 4]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    The design of this object model is to split the information required
    to setup a RTC session into logical object components, information
@@ -269,18 +274,19 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
    This model further reduces the requirements imposed on traditional /
    legacy devices by not requiring these devices to understand a vastly
+
+
+
+Raymond, et al.         Expires January 07, 2014                [Page 5]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    more complex session description format or by requiring an
    intermediary to interpret this complex master session description and
    state machine into something more palatable for the device.
 
    The main design goals are to:
-
-
-
-Raymond, et al.         Expires January 06, 2014                [Page 5]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    1.  allow multiple alternative on-the-wire signaling alternatives
        without imposing a know-everything media description format and
@@ -324,20 +330,20 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    required to exchange it into logical well-defined components with
    non-specified requirements on how the information must be exchanged
    allows for greater understanding of the information and flexibility
+
+
+
+Raymond, et al.         Expires January 07, 2014                [Page 6]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    in signaling.  The net result should be less brittle implementations
    that are not dependent upon an ever evolving, adaptable and expanding
    master know-everything format.
 
    Contrary to the assertions stated in JSEP [I-D.ietf-rtcweb-jsep] "1.2
    Other Approaches Considered", the WebRTC JavaScript object model
-
-
-
-Raymond, et al.         Expires January 06, 2014                [Page 6]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    proposed does not result in overly complex JavaScript code to perform
    simple and basic WebRTC implementations.  The simple scenarios for
    RTC control from JavaScript are no more complex than the simple JSEP
@@ -380,20 +386,20 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    and MediaDataMuxSocket can carry media streams whereas the DataSocket
    and MediaDataMuxSocket can be used to carry data streams.
 
+
+
+
+Raymond, et al.         Expires January 07, 2014                [Page 7]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    Under most usual conditions, a developer would want a "multipurpose"
    MediaDataMuxSocket, which is why a connection Section 3.2 object by
    default creates this type of socket.  However, there are rarer
    conditions where a developer may wish to split out the ports rather
    than mux them, thus they can create individualized sockets only when
    needed and provide them to the connection object.  For example, a
-
-
-
-Raymond, et al.         Expires January 06, 2014                [Page 7]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    connected device may require the data and media sockets separate
    because it cannot support demuxing.  Or the developer desires to
    split the audio and video to prevent the audio port buffering from
@@ -401,9 +407,9 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
    The developer must be able to provide each of these sockets a list of
    stun and turn servers.  This allows the socket to discover other
-   network reflective network mappings, and open up relay networks
-   sockets to allow the socket to be "remoted" when direct connections
-   to the socket are not possible.
+   network-reflective network mappings and open up relay network sockets
+   to allow the socket to be "remoted" when direct connections to the
+   socket are not possible.
 
    Should the socket supports DTLS [RFC6347] (or DTLS/SCTP [RFC4960]),
    the developer's JavaScript must be able to be provided an alternative
@@ -436,20 +442,20 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    by programmatic intent or by timeout failure, upon which time a
    disconnect event must be fired to indicate the disconnection state
    with the appropriate listed reason.  Should the connection fail to
+
+
+
+Raymond, et al.         Expires January 07, 2014                [Page 8]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    connect, a disconnection event must fire with the appropriate listed
    reason.
 
    Once a connection is established between peers, a connection can be
    used to transmit media or data utilizing the associated media or data
    sockets as appropriate.  Appropriate constraints (Section 3.2.4) for
-
-
-
-Raymond, et al.         Expires January 06, 2014                [Page 8]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    each connection must be exchanged before media streams may flow
    between peers.
 
@@ -493,18 +499,17 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    o  fingerprints - an ordered list of all the hash fingerprints of any
       public keys used in the sockets (see Section 8.1.1).
 
+
+
+Raymond, et al.         Expires January 07, 2014                [Page 9]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    A context identifier is used not only for the ICE username, it must
    be a common id that remains stable across forked connections.  This
    allows the developer to correlate the forked connections as
    appropriate by a JavaScript developer.
-
-
-
-
-Raymond, et al.         Expires January 06, 2014                [Page 9]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    The information contained in a connection's description must be
    exchanged with a remote peer's connection object before any candidate
@@ -548,19 +553,19 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    connection's description information (Section 3.2.2) must be received
    from a remote peer's connection.
 
+
+
+
+
+Raymond, et al.         Expires January 07, 2014               [Page 10]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
 3.2.3.2.  ICE Candidate Description
 
    Each ICE candidate has description information containing the
    following:
-
-
-
-
-
-Raymond, et al.         Expires January 06, 2014               [Page 10]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    o  socket id - the socket identifier where the candidate was
       discovered, matching the identifier specified in the MediaSocket,
@@ -608,12 +613,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-
-
-
-
-
-Raymond, et al.         Expires January 06, 2014               [Page 11]
+Raymond, et al.         Expires January 07, 2014               [Page 11]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -669,7 +669,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 12]
+Raymond, et al.         Expires January 07, 2014               [Page 12]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -725,7 +725,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 13]
+Raymond, et al.         Expires January 07, 2014               [Page 13]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -781,7 +781,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 14]
+Raymond, et al.         Expires January 07, 2014               [Page 14]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -837,7 +837,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 15]
+Raymond, et al.         Expires January 07, 2014               [Page 15]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -893,7 +893,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 16]
+Raymond, et al.         Expires January 07, 2014               [Page 16]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -949,7 +949,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 17]
+Raymond, et al.         Expires January 07, 2014               [Page 17]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1005,7 +1005,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 18]
+Raymond, et al.         Expires January 07, 2014               [Page 18]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1061,7 +1061,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 19]
+Raymond, et al.         Expires January 07, 2014               [Page 19]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1117,7 +1117,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 20]
+Raymond, et al.         Expires January 07, 2014               [Page 20]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1173,7 +1173,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 21]
+Raymond, et al.         Expires January 07, 2014               [Page 21]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1229,7 +1229,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 22]
+Raymond, et al.         Expires January 07, 2014               [Page 22]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1285,7 +1285,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 23]
+Raymond, et al.         Expires January 07, 2014               [Page 23]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1341,7 +1341,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 24]
+Raymond, et al.         Expires January 07, 2014               [Page 24]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1397,7 +1397,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 25]
+Raymond, et al.         Expires January 07, 2014               [Page 25]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1453,7 +1453,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 26]
+Raymond, et al.         Expires January 07, 2014               [Page 26]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1509,7 +1509,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 27]
+Raymond, et al.         Expires January 07, 2014               [Page 27]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1565,7 +1565,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 28]
+Raymond, et al.         Expires January 07, 2014               [Page 28]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1621,7 +1621,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 29]
+Raymond, et al.         Expires January 07, 2014               [Page 29]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1677,7 +1677,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 30]
+Raymond, et al.         Expires January 07, 2014               [Page 30]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1733,7 +1733,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 31]
+Raymond, et al.         Expires January 07, 2014               [Page 31]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1789,7 +1789,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 32]
+Raymond, et al.         Expires January 07, 2014               [Page 32]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1845,7 +1845,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 33]
+Raymond, et al.         Expires January 07, 2014               [Page 33]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1901,7 +1901,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 34]
+Raymond, et al.         Expires January 07, 2014               [Page 34]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1957,7 +1957,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 35]
+Raymond, et al.         Expires January 07, 2014               [Page 35]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2013,7 +2013,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 36]
+Raymond, et al.         Expires January 07, 2014               [Page 36]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2069,7 +2069,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 37]
+Raymond, et al.         Expires January 07, 2014               [Page 37]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2125,7 +2125,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 38]
+Raymond, et al.         Expires January 07, 2014               [Page 38]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2181,7 +2181,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 39]
+Raymond, et al.         Expires January 07, 2014               [Page 39]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2237,7 +2237,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 40]
+Raymond, et al.         Expires January 07, 2014               [Page 40]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2293,7 +2293,7 @@ Authors' Addresses
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 41]
+Raymond, et al.         Expires January 07, 2014               [Page 41]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2349,4 +2349,4 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 06, 2014               [Page 42]
+Raymond, et al.         Expires January 07, 2014               [Page 42]
