@@ -662,5 +662,12 @@ JavaScript as a browser language itself has security consideration but nothing i
 
 Any specific issues for the proposed JavaScript object model will be outlined in the separated draft WebRTC JavaScript object model draft as needed and warranted.
 
+
+IANA Considerations
+===================
+
+This document requires no actions from IANA.
+
+
 --- back
 

@@ -839,6 +839,10 @@ Security Considerations
 As this is merely an informative example draft, the security considerations are identical to the related draft proposal found in the WebRTC JavaScript Object RTC draft {{WebRTCJSObj}}.
 
 
+IANA Considerations
+===================
+
+This document requires no actions from IANA.
 
 
 --- back

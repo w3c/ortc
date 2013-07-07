@@ -5,14 +5,14 @@
 Network Working Group                                         R. Raymond
 Internet-Draft                                                 Hookflash
 Intended status: Informational                                   C. Dorn
-Expires: January 07, 2014                                    Independent
+Expires: January 08, 2014                                    Independent
                                                              E. Lagerway
                                                                Hookflash
                                                          I. Baz Castillo
                                                                Versatica
                                                               R. Shpount
                                                              TurboBridge
-                                                           July 06, 2013
+                                                           July 07, 2013
 
 
                  WebRTC JavaScript Object RTC Examples
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 07, 2014.
+   This Internet-Draft will expire on January 08, 2014.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 1]
+Raymond, et al.         Expires January 08, 2014                [Page 1]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -93,9 +93,10 @@ Table of Contents
        5.2.2.  Loose Description . . . . . . . . . . . . . . . . . .  18
      5.3.  Constraints . . . . . . . . . . . . . . . . . . . . . . .  19
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  20
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  20
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 1.  Introduction
@@ -105,15 +106,15 @@ Table of Contents
    object model.  The code is written in a sequential fashion where both
    "Alice" and "Bob" roles are merged into a single code stream even
    though they would actually be split across the network.  This is
-   helpful for code illustration purposes, otherwise a sequence diagram
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 2]
+Raymond, et al.         Expires January 08, 2014                [Page 2]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
+   helpful for code illustration purposes, otherwise a sequence diagram
    and event firings to incorporate custom signaling would confuse the
    example but add virtually no value in understanding the sequences
    needing to be called to setup RTC communications.
@@ -161,14 +162,15 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    var msg_connection_info_for_bob = JSON.stringify(
      alice_connection.getDescription());
    var msg_constraints_for_bob = JSON.stringify(
-     alice_connection.getConstraints("receive"));
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 3]
+Raymond, et al.         Expires January 08, 2014                [Page 3]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
+
+     alice_connection.getConstraints("receive"));
 
    alice_connection.receiveStream(aliceMediaStreamFromBob);
 
@@ -216,15 +218,16 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    //-------------------------------------------------------------------
    // STEP 6: Browser A and B are connected
    alice_connection.onconnected = function() {
-     // ... horray ...
-   }
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 4]
+Raymond, et al.         Expires January 08, 2014                [Page 4]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
+
+     // ... horray ...
+   }
 
    bob_connection.onconnected = function() {
      // ... horray ...
@@ -272,15 +275,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    9.   Bob set the new regenerated "replacement" answer back to the
         browser as a replacement answer
 
-   10.  Bob signals "mysignal" format on the wire back to Alice
 
 
-
-
-Raymond, et al.         Expires January 07, 2014                [Page 5]
+Raymond, et al.         Expires January 08, 2014                [Page 5]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
+
+   10.  Bob signals "mysignal" format on the wire back to Alice
 
    11.  Alice generates a replacement offer based on Bob's codecs from
         "mysignal" format
@@ -331,9 +333,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-
-
-Raymond, et al.         Expires January 07, 2014                [Page 6]
+Raymond, et al.         Expires January 08, 2014                [Page 6]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -389,7 +389,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 7]
+Raymond, et al.         Expires January 08, 2014                [Page 7]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -445,7 +445,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 8]
+Raymond, et al.         Expires January 08, 2014                [Page 8]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -501,7 +501,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 9]
+Raymond, et al.         Expires January 08, 2014                [Page 9]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -557,7 +557,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 10]
+Raymond, et al.         Expires January 08, 2014               [Page 10]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -613,7 +613,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 11]
+Raymond, et al.         Expires January 08, 2014               [Page 11]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -669,7 +669,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 12]
+Raymond, et al.         Expires January 08, 2014               [Page 12]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -725,7 +725,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 13]
+Raymond, et al.         Expires January 08, 2014               [Page 13]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -781,7 +781,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 14]
+Raymond, et al.         Expires January 08, 2014               [Page 14]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -837,7 +837,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 15]
+Raymond, et al.         Expires January 08, 2014               [Page 15]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -893,7 +893,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 16]
+Raymond, et al.         Expires January 08, 2014               [Page 16]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -949,7 +949,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 17]
+Raymond, et al.         Expires January 08, 2014               [Page 17]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -1005,7 +1005,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 18]
+Raymond, et al.         Expires January 08, 2014               [Page 18]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -1061,7 +1061,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 19]
+Raymond, et al.         Expires January 08, 2014               [Page 19]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -1091,16 +1091,20 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    considerations are identical to the related draft proposal found in
    the WebRTC JavaScript Object RTC draft [WebRTCJSObj].
 
-7.  References
+7.  IANA Considerations
 
-7.1.  Normative References
+   This document requires no actions from IANA.
+
+8.  References
+
+8.1.  Normative References
 
    [WebRTCJSObj]
               Raymond, R., "WebRTC JavaScript Object RTC", July 2013,
               <http://tools.ietf.org/html/draft-raymond-rtcweb-webrtc-
               js-obj-rtc-00>.
 
-7.2.  Informative References
+8.2.  Informative References
 
    [I-D.ietf-rtcweb-jsep]
               Uberti, J. and C. Jennings, "Javascript Session
@@ -1110,18 +1114,18 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    [I-D.raymond-rtcweb-webrtc-js-obj-api-rationale]
               Raymond, R., Lagerway, E., Castillo, I., and R. Shpount,
               "WebRTC JavaScript Object API Rationale", draft-raymond-
-              rtcweb-webrtc-js-obj-api-rationale-00 (work in progress),
-              June 2013.
-
-   [MediaCapture]
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 20]
+Raymond, et al.         Expires January 08, 2014               [Page 20]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
+              rtcweb-webrtc-js-obj-api-rationale-01 (work in progress),
+              July 2013.
+
+   [MediaCapture]
               Burnett, D., "Media Capture and Streams", May 2013, <http:
               //www.w3.org/TR/2013/WD-mediacapture-streams-20130516/>.
 
@@ -1161,6 +1165,19 @@ Authors' Addresses
    Email: erik@hookflash.com
 
 
+
+
+
+
+
+
+
+
+Raymond, et al.         Expires January 08, 2014               [Page 21]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
    Inaki Baz Castillo
    Versatica
    Barakaldo
@@ -1168,14 +1185,6 @@ Authors' Addresses
    Spain
 
    Email: ibc@aliax.net
-
-
-
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 21]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
    Roman Shpount
@@ -1220,13 +1229,4 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 22]
+Raymond, et al.         Expires January 08, 2014               [Page 22]

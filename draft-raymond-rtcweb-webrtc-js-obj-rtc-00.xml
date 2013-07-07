@@ -1011,6 +1011,11 @@ bob2_connection.onconnectioncandidate = function(candidate) {
 </section>
 </section>
 </section>
+<section anchor="iana-considerations" title="IANA Considerations">
+
+<t>This document requires no actions from IANA.</t>
+
+</section>
 
 
   </middle>
@@ -1243,15 +1248,15 @@ bob2_connection.onconnectioncandidate = function(candidate) {
     <organization />
 </author>
 
-<date month='June' day='25' year='2013' />
+<date month='July' day='6' year='2013' />
 
-<abstract><t>This document describes the reasons why a JavaScript Object API approach is a far better solution than using SDP [RFC4566] as a surface API for interfacing with WebRTC.  The document outlines the issues and pitfalls as well as use cases that are difficult (or impossible) with SDP with offer / answer [RFC3264], and explains the benefits and goals of an alternative JavaScript Object API approach.</t></abstract>
+<abstract><t>This document describes the reasons why a JavaScript Object Model approach is a far better solution than using SDP [RFC4566] as a surface API for interfacing with WebRTC.  The document outlines the issues and pitfalls as well as use cases that are difficult (or impossible) with SDP with offer / answer [RFC3264], and explains the benefits and goals of an alternative JavaScript object model approach.</t></abstract>
 
 </front>
 
-<seriesInfo name='Internet-Draft' value='draft-raymond-rtcweb-webrtc-js-obj-api-rationale-00' />
+<seriesInfo name='Internet-Draft' value='draft-raymond-rtcweb-webrtc-js-obj-api-rationale-01' />
 <format type='TXT'
-        target='http://www.ietf.org/internet-drafts/draft-raymond-rtcweb-webrtc-js-obj-api-rationale-00.txt' />
+        target='http://www.ietf.org/internet-drafts/draft-raymond-rtcweb-webrtc-js-obj-api-rationale-01.txt' />
 </reference>
 
 

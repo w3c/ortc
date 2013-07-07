@@ -673,6 +673,11 @@
 <t>Any specific issues for the proposed JavaScript object model will be outlined in the separated draft WebRTC JavaScript object model draft as needed and warranted.</t>
 
 </section>
+<section anchor="iana-considerations" title="IANA Considerations">
+
+<t>This document requires no actions from IANA.</t>
+
+</section>
 
 
   </middle>

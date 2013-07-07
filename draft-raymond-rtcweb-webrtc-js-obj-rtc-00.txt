@@ -5,14 +5,14 @@
 Network Working Group                                         R. Raymond
 Internet-Draft                                                 Hookflash
 Intended status: Standards Track                                 C. Dorn
-Expires: January 07, 2014                                    Independent
+Expires: January 08, 2014                                    Independent
                                                              E. Lagerway
                                                                Hookflash
                                                          I. Baz Castillo
                                                                Versatica
                                                               R. Shpount
                                                              TurboBridge
-                                                           July 06, 2013
+                                                           July 07, 2013
 
 
                       WebRTC JavaScript Object RTC
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 1]
+Raymond, et al.         Expires January 08, 2014                [Page 1]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -71,7 +71,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 07, 2014.
+   This Internet-Draft will expire on January 08, 2014.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 2]
+Raymond, et al.         Expires January 08, 2014                [Page 2]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -165,7 +165,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 3]
+Raymond, et al.         Expires January 08, 2014                [Page 3]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -199,9 +199,10 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
        8.1.2.  IdP . . . . . . . . . . . . . . . . . . . . . . . . .  41
        8.1.3.  JavaScript Provided DTLS Certificates . . . . . . . .  41
        8.1.4.  DTLS / SRTP vs SDES / SRTP  . . . . . . . . . . . . .  42
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  42
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  42
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  43
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  42
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  42
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  42
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  43
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  45
 
 1.  Introduction
@@ -217,15 +218,15 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    to RTCWEB.  The draft outlines an alternative JavaScript RTC control
    model that does not require a complex all-encompassing session
    description format, like SDP, or related offer / answer state machine
-   to describe the entire transport and media states.  This allows for
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 4]
+Raymond, et al.         Expires January 08, 2014                [Page 4]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
+   to describe the entire transport and media states.  This allows for
    greater flexibility with other non-SDP offer / answer based signaling
    protocols.  The actual final API is entirely within the scope of the
    W3C (as it should be).
@@ -276,8 +277,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-
-Raymond, et al.         Expires January 07, 2014                [Page 5]
+Raymond, et al.         Expires January 08, 2014                [Page 5]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -333,7 +333,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 6]
+Raymond, et al.         Expires January 08, 2014                [Page 6]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -389,7 +389,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 7]
+Raymond, et al.         Expires January 08, 2014                [Page 7]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -445,7 +445,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 8]
+Raymond, et al.         Expires January 08, 2014                [Page 8]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -501,7 +501,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 9]
+Raymond, et al.         Expires January 08, 2014                [Page 9]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -557,7 +557,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 10]
+Raymond, et al.         Expires January 08, 2014               [Page 10]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -613,7 +613,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 11]
+Raymond, et al.         Expires January 08, 2014               [Page 11]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -669,7 +669,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 12]
+Raymond, et al.         Expires January 08, 2014               [Page 12]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -725,7 +725,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 13]
+Raymond, et al.         Expires January 08, 2014               [Page 13]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -781,7 +781,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 14]
+Raymond, et al.         Expires January 08, 2014               [Page 14]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -837,7 +837,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 15]
+Raymond, et al.         Expires January 08, 2014               [Page 15]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -893,7 +893,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 16]
+Raymond, et al.         Expires January 08, 2014               [Page 16]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -949,7 +949,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 17]
+Raymond, et al.         Expires January 08, 2014               [Page 17]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1005,7 +1005,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 18]
+Raymond, et al.         Expires January 08, 2014               [Page 18]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1061,7 +1061,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 19]
+Raymond, et al.         Expires January 08, 2014               [Page 19]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1117,7 +1117,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 20]
+Raymond, et al.         Expires January 08, 2014               [Page 20]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1173,7 +1173,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 21]
+Raymond, et al.         Expires January 08, 2014               [Page 21]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1229,7 +1229,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 22]
+Raymond, et al.         Expires January 08, 2014               [Page 22]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1285,7 +1285,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 23]
+Raymond, et al.         Expires January 08, 2014               [Page 23]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1341,7 +1341,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 24]
+Raymond, et al.         Expires January 08, 2014               [Page 24]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1397,7 +1397,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 25]
+Raymond, et al.         Expires January 08, 2014               [Page 25]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1453,7 +1453,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 26]
+Raymond, et al.         Expires January 08, 2014               [Page 26]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1509,7 +1509,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 27]
+Raymond, et al.         Expires January 08, 2014               [Page 27]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1565,7 +1565,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 28]
+Raymond, et al.         Expires January 08, 2014               [Page 28]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1621,7 +1621,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 29]
+Raymond, et al.         Expires January 08, 2014               [Page 29]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1677,7 +1677,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 30]
+Raymond, et al.         Expires January 08, 2014               [Page 30]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1733,7 +1733,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 31]
+Raymond, et al.         Expires January 08, 2014               [Page 31]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1789,7 +1789,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 32]
+Raymond, et al.         Expires January 08, 2014               [Page 32]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1845,7 +1845,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 33]
+Raymond, et al.         Expires January 08, 2014               [Page 33]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1901,7 +1901,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 34]
+Raymond, et al.         Expires January 08, 2014               [Page 34]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1957,7 +1957,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 35]
+Raymond, et al.         Expires January 08, 2014               [Page 35]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2013,7 +2013,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 36]
+Raymond, et al.         Expires January 08, 2014               [Page 36]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2069,7 +2069,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 37]
+Raymond, et al.         Expires January 08, 2014               [Page 37]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2125,7 +2125,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 38]
+Raymond, et al.         Expires January 08, 2014               [Page 38]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2181,7 +2181,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 39]
+Raymond, et al.         Expires January 08, 2014               [Page 39]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2237,7 +2237,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 40]
+Raymond, et al.         Expires January 08, 2014               [Page 40]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2293,7 +2293,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 41]
+Raymond, et al.         Expires January 08, 2014               [Page 41]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2322,9 +2322,13 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    negotiation over DTLS must be made by the RTCWEB WG before any RTC
    JavaScript interface can be completed.
 
-9.  References
+9.  IANA Considerations
 
-9.1.  Normative References
+   This document requires no actions from IANA.
+
+10.  References
+
+10.1.  Normative References
 
    [I-D.ietf-rtcweb-rtp-usage]
               Perkins, C., Westerlund, M., and J. Ott, "Web Real-Time
@@ -2342,18 +2346,18 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
               Rescorla, E., Uberti, J., and E. Ivov, "Trickle ICE:
               Incremental Provisioning of Candidates for the Interactive
               Connectivity Establishment (ICE) Protocol", draft-
-              rescorla-mmusic-ice-trickle-01 (work in progress), October
-              2012.
-
-   [MediaStreams]
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 42]
+Raymond, et al.         Expires January 08, 2014               [Page 42]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
+              rescorla-mmusic-ice-trickle-01 (work in progress), October
+              2012.
+
+   [MediaStreams]
               Burnett, D., "Media Capture and Streams", March 2013,
               <http://www.w3.org/TR/2013/WD-mediacapture-
               streams-20130516/>.
@@ -2367,7 +2371,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
               Traversal for Offer/Answer Protocols", RFC 5245, April
               2010.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [I-D.ietf-avtcore-6222bis]
               Begen, A., Perkins, C., Wing, D., and E. Rescorla,
@@ -2397,18 +2401,19 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
               progress), February 2013.
 
    [I-D.raymond-rtcweb-webrtc-js-obj-api-rationale]
-              Raymond, R., Lagerway, E., Castillo, I., and R. Shpount,
-              "WebRTC JavaScript Object API Rationale", draft-raymond-
-              rtcweb-webrtc-js-obj-api-rationale-00 (work in progress),
-              June 2013.
 
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 43]
+Raymond, et al.         Expires January 08, 2014               [Page 43]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
+
+              Raymond, R., Lagerway, E., Castillo, I., and R. Shpount,
+              "WebRTC JavaScript Object API Rationale", draft-raymond-
+              rtcweb-webrtc-js-obj-api-rationale-01 (work in progress),
+              July 2013.
 
    [I-D.roach-rtcweb-plan-a]
               Roach, A. and M. Thomson, "Using SDP with Large Numbers of
@@ -2454,17 +2459,15 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
               Digits, Telephony Tones, and Telephony Signals", RFC 4733,
               December 2006.
 
-   [RFC4960]  Stewart, R., "Stream Control Transmission Protocol", RFC
-              4960, September 2007.
 
 
-
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 44]
+Raymond, et al.         Expires January 08, 2014               [Page 44]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
+
+   [RFC4960]  Stewart, R., "Stream Control Transmission Protocol", RFC
+              4960, September 2007.
 
    [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
               "Session Traversal Utilities for NAT (STUN)", RFC 5389,
@@ -2506,6 +2509,19 @@ Authors' Addresses
    Email: christoph@christophdorn.com
 
 
+
+
+
+
+
+
+
+
+Raymond, et al.         Expires January 08, 2014               [Page 45]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    Erik Lagerway
    Hookflash
    436, 3553 31 St. NW
@@ -2513,13 +2529,6 @@ Authors' Addresses
    Canada
 
    Email: erik@hookflash.com
-
-
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 45]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
    Inaki Baz Castillo
@@ -2564,13 +2573,4 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 46]
+Raymond, et al.         Expires January 08, 2014               [Page 46]

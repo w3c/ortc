@@ -988,5 +988,11 @@ The RTCWEB WG must come to a decision to allow this feature or not.
 Auto-keying for RTP could be done through a DTLS handshakes extensions as opposed to using SDES. If DTLS becomes the mandated method to perform media key negotiation then the implementation bar is raised for what a remote device must support to communicate, and many legacy devices and networks do not support this feature. DTLS without an absolutely foolproof man-in-the-middle attack prevention scheme (i.e. fingerprint validation, see {{idp}}) provides little security if the stream can be intercepted, and may in fact be weaker than allowing the browsers to exchange SDES credentials privately during their negotiation (e.g. keying via an HTTPS proxy). The final decision to mandate, recommend or allow for media key negotiation over DTLS must be made by the RTCWEB WG before any RTC JavaScript interface can be completed.
 
 
+IANA Considerations
+===================
+
+This document requires no actions from IANA.
+
+
 --- back
 

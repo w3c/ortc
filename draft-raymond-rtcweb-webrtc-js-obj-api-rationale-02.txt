@@ -5,11 +5,11 @@
 Network Working Group                                         R. Raymond
 Internet-Draft                                               E. Lagerway
 Intended status: Informational                                 Hookflash
-Expires: January 07, 2014                                I. Baz Castillo
+Expires: January 08, 2014                                I. Baz Castillo
                                                                Versatica
                                                               R. Shpount
                                                              TurboBridge
-                                                           July 06, 2013
+                                                           July 07, 2013
 
 
                  WebRTC JavaScript Object API Rationale
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 07, 2014.
+   This Internet-Draft will expire on January 08, 2014.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 1]
+Raymond, et al.         Expires January 08, 2014                [Page 1]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 2]
+Raymond, et al.         Expires January 08, 2014                [Page 2]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -135,9 +135,10 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
        5.3.9.  Greater Separation of RTCWEB Working Group and Other
                Working Groups  . . . . . . . . . . . . . . . . . . .  30
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  30
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  30
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  30
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  31
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  30
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  30
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  30
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  31
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
 
 1.  Introduction
@@ -164,8 +165,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-
-Raymond, et al.         Expires January 07, 2014                [Page 3]
+Raymond, et al.         Expires January 08, 2014                [Page 3]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -221,7 +221,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 4]
+Raymond, et al.         Expires January 08, 2014                [Page 4]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -277,7 +277,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 5]
+Raymond, et al.         Expires January 08, 2014                [Page 5]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -333,7 +333,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 6]
+Raymond, et al.         Expires January 08, 2014                [Page 6]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -389,7 +389,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 7]
+Raymond, et al.         Expires January 08, 2014                [Page 7]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -445,7 +445,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 8]
+Raymond, et al.         Expires January 08, 2014                [Page 8]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -501,7 +501,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014                [Page 9]
+Raymond, et al.         Expires January 08, 2014                [Page 9]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -557,7 +557,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 10]
+Raymond, et al.         Expires January 08, 2014               [Page 10]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -613,7 +613,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 11]
+Raymond, et al.         Expires January 08, 2014               [Page 11]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -669,7 +669,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 12]
+Raymond, et al.         Expires January 08, 2014               [Page 12]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -725,7 +725,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 13]
+Raymond, et al.         Expires January 08, 2014               [Page 13]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -781,7 +781,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 14]
+Raymond, et al.         Expires January 08, 2014               [Page 14]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -837,7 +837,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 15]
+Raymond, et al.         Expires January 08, 2014               [Page 15]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -893,7 +893,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 16]
+Raymond, et al.         Expires January 08, 2014               [Page 16]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -949,7 +949,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 17]
+Raymond, et al.         Expires January 08, 2014               [Page 17]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1005,7 +1005,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 18]
+Raymond, et al.         Expires January 08, 2014               [Page 18]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1061,7 +1061,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 19]
+Raymond, et al.         Expires January 08, 2014               [Page 19]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1117,7 +1117,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 20]
+Raymond, et al.         Expires January 08, 2014               [Page 20]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1173,7 +1173,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 21]
+Raymond, et al.         Expires January 08, 2014               [Page 21]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1229,7 +1229,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 22]
+Raymond, et al.         Expires January 08, 2014               [Page 22]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1285,7 +1285,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 23]
+Raymond, et al.         Expires January 08, 2014               [Page 23]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1341,7 +1341,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 24]
+Raymond, et al.         Expires January 08, 2014               [Page 24]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1397,7 +1397,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 25]
+Raymond, et al.         Expires January 08, 2014               [Page 25]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1453,7 +1453,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 26]
+Raymond, et al.         Expires January 08, 2014               [Page 26]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1509,7 +1509,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 27]
+Raymond, et al.         Expires January 08, 2014               [Page 27]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1565,7 +1565,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 28]
+Raymond, et al.         Expires January 08, 2014               [Page 28]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1621,7 +1621,7 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 29]
+Raymond, et al.         Expires January 08, 2014               [Page 29]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
@@ -1662,27 +1662,30 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
    outlined in the separated draft WebRTC JavaScript object model draft
    as needed and warranted.
 
-7.  References
+7.  IANA Considerations
 
-7.1.  Normative References
+   This document requires no actions from IANA.
+
+8.  References
+
+8.1.  Normative References
 
    [RFC3264]  Rosenberg, J. and H. Schulzrinne, "An Offer/Answer Model
               with Session Description Protocol (SDP)", RFC 3264, June
               2002.
 
-   [RFC4566]  Handley, M., Jacobson, V., and C. Perkins, "SDP: Session
-              Description Protocol", RFC 4566, July 2006.
 
 
 
-
-
-Raymond, et al.         Expires January 07, 2014               [Page 30]
+Raymond, et al.         Expires January 08, 2014               [Page 30]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
-7.2.  Informative References
+   [RFC4566]  Handley, M., Jacobson, V., and C. Perkins, "SDP: Session
+              Description Protocol", RFC 4566, July 2006.
+
+8.2.  Informative References
 
    [I-D.ietf-mmusic-sdpng]
               Kutscher, D., Ott, J., and C. Bormann, "Session
@@ -1726,17 +1729,18 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
               Traversal for Offer/Answer Protocols", RFC 5245, April
               2010.
 
-   [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
-              "Session Traversal Utilities for NAT (STUN)", RFC 5389,
-              October 2008.
 
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 31]
+Raymond, et al.         Expires January 08, 2014               [Page 31]
 
 Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
+
+   [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
+              "Session Traversal Utilities for NAT (STUN)", RFC 5389,
+              October 2008.
 
    [RFC5766]  Mahy, R., Matthews, P., and J. Rosenberg, "Traversal Using
               Relays around NAT (TURN): Relay Extensions to Session
@@ -1778,6 +1782,18 @@ Authors' Addresses
    Email: ibc@aliax.net
 
 
+
+
+
+
+
+
+
+Raymond, et al.         Expires January 08, 2014               [Page 32]
+
+Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+
+
    Roman Shpount
    TurboBridge
    4905 Del Ray Ave Suite 300
@@ -1789,4 +1805,44 @@ Authors' Addresses
 
 
 
-Raymond, et al.         Expires January 07, 2014               [Page 32]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Raymond, et al.         Expires January 08, 2014               [Page 33]
