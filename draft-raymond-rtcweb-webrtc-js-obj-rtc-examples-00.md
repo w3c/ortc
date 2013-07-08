@@ -464,15 +464,15 @@ The code reflects only those changes needed to accomplish the task. In other wor
     //-------------------------------------------------------------------
     // STEP 1: Browser A creates sockets and a connection
     
-    var alice_aTrans = new ORTC.MediaSocket(
+    var alice_aSock = new ORTC.MediaSocket(
       "audio",
       {kinds:["audio", "dtmf"]});
-    var alice_vTrans = new ORTC.MediaSocket(
+    var alice_vSock = new ORTC.MediaSocket(
       "video",
       {kinds:["video"]});
-    var alice_dTrans = new ORTC.DataSocket();
+    var alice_dSock = new ORTC.DataSocket();
     var alice_connection = new ORTC.Connection(
-      {sockets:[alice_aTrans, alice_vTrans, alice_dTrans]});
+      {sockets:[alice_aSock, alice_vSock, alice_dSock]});
     
     //-------------------------------------------------------------------
     // STEP 2: Browser A indicates the desire to connect to Browser B
@@ -488,15 +488,15 @@ The code reflects only those changes needed to accomplish the task. In other wor
     
     //-------------------------------------------------------------------
     // STEP 3: Browser B creates a connection
-    var bob_aTrans = new ORTC.MediaSocket(
+    var bob_aSock = new ORTC.MediaSocket(
       "audio",
       {kinds:["audio", "dtmf"]});
-    var bob_vTrans = new ORTC.MediaSocket(
+    var bob_vSock = new ORTC.MediaSocket(
       "video",
       {kinds:["video"]});
-    var bob_dTrans = new ORTC.DataSocket();
+    var bob_dSock = new ORTC.DataSocket();
     var bob_connection = new ORTC.Connection(
-      {sockets:[bob_aTrans, bob_vTrans, bob_dTrans]});
+      {sockets:[bob_aSock, bob_vSock, bob_dSock]});
     
     bob_connection.setDescription( JSON.parse(
       msg_connection_info_for_bob),"remote");
@@ -521,7 +521,7 @@ The code reflects only those changes needed to accomplish the task. In other wor
       msg_constraints_for_alice), "send");
     
     var aliceDtmfTrackToBob = 
-        new ORTC.DtmfMediaStreamTrack(alice_aTrans);
+        new ORTC.DtmfMediaStreamTrack(alice_aSock);
     var aliceMediaStreamForBob =
         new ORTC.MediaStream([aliceDtmfTrackToBob]);
     
