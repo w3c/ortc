@@ -171,8 +171,8 @@
             this.fingerprints[this._sockets[i].id] = this._sockets[i].fingerprint;
         }
 
-        this.localDescription = this.getDescription(false);
-        this.remoteDescription = null;
+        this._localDescription = this.getDescription(false);
+        this._remoteDescription = null;
 
         this._streams = {};
     };
@@ -348,7 +348,7 @@
         var streamId = null;
         if (typeof selector === "string") {
             if (selector === "local" || selector === "remote") {
-                return ORTC._deepCopy(this[selector + "Description"] || (selector === "local" && (this[selector + "Description"] = {
+                return ORTC._deepCopy(this["_" + selector + "Description"] || (selector === "local" && (this["_" + selector + "Description"] = {
                     // the cname value is per RTP "session" as per their rules (is the scoping correct??? -- would be nicer if it scoped more locally to be used for msid/track coordination)
                     cname: ORTC._getRandomString(32),
                     // this is be used as the userFrag for the iceCandidate and for input into the cyrptographic salt to prevent SSRC collision resolution issues
@@ -356,7 +356,7 @@
                     // this is used for the password for the iceCandidate and can be used for other purposes too
                     secret: ORTC._getRandomString(32),
                     fingerprints: this.fingerprints
-                }))) || null;
+                })) || null) || null;
             } else {
                 streamId = selector;
             }
@@ -367,7 +367,7 @@
             streamId = selector.id;
         }
 
-        if (this._streams[streamId]) {
+        if (this._streams[streamId] && this._streams[streamId].description) {
             return ORTC._deepCopy(this._streams[streamId].description);
         }
 
@@ -486,7 +486,7 @@
         var streamId = null;
         if (typeof selector === "string") {
             if (selector === "remote" || selector === "local") {
-                self[selector + "Description"] = description;
+                self["_" + selector + "Description"] = description;
                 return;
             } else {
                 streamId = selector;
@@ -499,8 +499,6 @@
 
         // TODO: Carry this in `descriptor` or change requirement for needing to know `kind`.
         self._streams[streamId].kind = self._streams[streamId].kind || "MediaStream";
-        // TODO: Use `self.getConstraints(true)`
-        self._streams[streamId].constraints = self._streams[streamId].constraints || self._receiveConstraints;
 
         // NOTE: We assume that we are setting description for a `receive` stream
         //       so we can default some properties although we don't set the `direction` property yet.
@@ -508,49 +506,61 @@
         //       must be called before being able to call `setDescription` for the receive stream.
         // TODO: If `direction` not set, default to `receive`?
         //self._streams[streamId].direction = self._streams[streamId].direction || "receive";
+        self._streams[streamId].constraints = self._streams[streamId].constraints || self.getConstraints("receive");
 
         self._streams[streamId].description = description;
     }
 
-    //------------------------------------------------------------------------
-    // get the send, receive, stream or track constraints in use, or prepares new constraints for a stream not yet sent
+    /**
+     * Get the send, receive, stream or track constraints in use, or prepares new constraints for a stream not yet sent
+     */
     Connection.prototype.getConstraints = function(selector, track, ssrc, socketId) {
-        selector = selector || false;
-
-        if (typeof selector === "string") {
-            if (selector === "receive") {
-                selector = true;
-            } else
-            if (selector === "send") {
-                selector = false;
-            }
+        if (typeof selector === "undefined") {
+            selector = false;
         }
 
-        if (selector === false) {
-            return this._sendConstraints;
-        } else
-        if (selector === true) {
-            return this._receiveConstraints;
+        if (typeof selector === "boolean") {
+            selector = (selector === true) ? "receive" : "send";
+        }
+
+        var streamId = null;
+        if (typeof selector === "string") {
+            if (selector === "send" || selector === "receive") {
+                return ORTC._deepCopy(this["_" + selector + "Constraints"]);
+            } else {
+                streamId = selector;
+            }
         } else {
             ASSERT.isObject(selector);
-            if (!(selector instanceof MediaStream)) {
-                throw Error("must specify a media stream");
-            }
-
-            if (typeof track === "object") {
-                if (!(track instanceof MediaStreamTrack)) {
-                    throw Error("must specify a media stream track");
-                }
-
-                return this.internalFindTrack(stream, track, ssrc, socketId).constraints;
-            }
-
-            if (selector instanceof MediaStream) {
-               return this._streams[selector.id].constraints;
-            }
-
+            ASSERT.isString(selector.id);
+            streamId = selector.id;
         }
-        return null;
+
+/*
+        if (typeof track === "object") {
+            if (!(track instanceof MediaStreamTrack)) {
+                throw Error("must specify a media stream track");
+            }
+
+            return this.internalFindTrack(stream, track, ssrc, socketId).constraints;
+        }
+*/
+
+        if (this._streams[streamId] && this._streams[streamId].constraints) {
+            return ORTC._deepCopy(this._streams[streamId].constraints);
+        }
+
+        var direction = (this._streams[streamId] && this._streams[streamId].direction) || "send";
+        var constraints = this.getConstraints(direction);
+
+        if (!this._streams[streamId]) {
+            this._streams[streamId] = {
+                id: streamId
+            };
+        }
+        this._streams[streamId].constraints = constraints;
+
+        return ORTC._deepCopy(constraints);
     }
 
     //------------------------------------------------------------------------
@@ -626,22 +636,22 @@
             options.constraints = options.constraints || this._streams[stream.id].constraints;
         }
 
-        var description = options.description || this.getDescription(stream);
+        if (!this._streams[stream.id]) {
+            this._streams[stream.id] = {
+                id: stream.id,
+                kind: "MediaStream",
+                stream: stream,
+                direction: "send"
+            };
+        }
+
+        this._streams[stream.id].description = options.description || this.getDescription(stream);
         delete options.description;
 
-        // TODO: Use `this.getConstraints(false)`
-        var constraints = options.constraints || this._sendConstraints;
+        this._streams[stream.id].constraints = options.constraints || this.getConstraints(stream);
         delete options.constraints;
 
-        this._streams[stream.id] = {
-            id: stream.id,
-            kind: "MediaStream",
-            stream: stream,
-            direction: "send",
-            options: options,
-            description: description,
-            constraints: constraints
-        };
+        this._streams[stream.id].options = options;
 
         return stream;
     }

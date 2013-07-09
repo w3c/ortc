@@ -15,6 +15,7 @@ define([
         self._localSessionVersion = 0;
         self._remoteSessionId = UTIL.getRandomNumber(10);
         self._remoteSessionVersion = 0;
+        self._sendStreams = {};
 		self._connection = new ORTC.Connection({
             stunServers: options.iceServers.map(function(server) {
             	server = server.url.split(":");
@@ -47,7 +48,14 @@ define([
 	}
 
 	PeerConnection.prototype.addStream = function(stream) {
-	    return this._connection.sendStream(stream);
+	    stream = this._connection.sendStream(stream);
+	    this._sendStreams[stream.id] = {
+	    	id: stream.id,
+	    	kind: "MediaStream",
+	    	description: this._connection.getDescription(stream.id),
+	    	constraints: this._connection.getConstraints(stream.id)
+	    };
+	    return stream;
 	}
 
 	PeerConnection.prototype.addIceCandidate = function(candidate) {
@@ -82,13 +90,9 @@ define([
 
 	PeerConnection.prototype.createOffer = function(callback, errCallback) {
 		try {
-// TODO: Meed a public method or property to get streams.
-			var streams = this._connection._streams;
 	        var sendStreams = [];
-	        for (var streamId in this._connection._streams) {
-	            if (this._connection._streams[streamId].direction === "send") {
-	                sendStreams.push(this._connection._streams[streamId]);
-	            }
+	        for (var streamId in this._sendStreams) {
+                sendStreams.push(this._sendStreams[streamId]);
 	        }
 	        this._localSessionVersion += 1;
 	        callback(new WEBRTC_SHIM.SessionDescription({
@@ -105,13 +109,9 @@ define([
 
 	PeerConnection.prototype.createAnswer = function(callback, errCallback) {
 		try {
-// TODO: Meed a public method or property to get streams.
-			var streams = this._connection._streams;
 	        var sendStreams = [];
-	        for (var streamId in this._connection._streams) {
-	            if (this._connection._streams[streamId].direction === "send") {
-	                sendStreams.push(this._connection._streams[streamId]);
-	            }
+	        for (var streamId in this._sendStreams) {
+                sendStreams.push(this._sendStreams[streamId]);
 	        }
 	        this._remoteSessionVersion += 1;
 	        callback(new WEBRTC_SHIM.SessionDescription({

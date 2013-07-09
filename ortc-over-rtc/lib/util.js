@@ -202,6 +202,12 @@ define([
     }
 
     UTIL.deepCopy = function(obj) {
+        if (
+            obj === null ||
+            typeof obj === "undefined" ||
+            typeof obj === "number" ||
+            typeof obj === "string"
+        ) return obj;
         if (Object.prototype.toString.call(obj) === '[object Array]') {
             var out = [], i = 0, len = obj.length;
             for ( ; i < len; i++ ) {
