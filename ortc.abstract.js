@@ -739,16 +739,6 @@
         return stream;
     }
 
-    //------------------------------------------------------------------------
-    // calling this rountine will setup a brand new connection from the existing with the identical constraints, but fork will contain no remote candidates, streams or remote constraints.
-    //
-    // This is only to be used in situations where the same set of constraints were sent to multiple locations, each giving their own candidate/constraint responses,
-    // e.g. Alice calls Bob but Bob has two devices and both devices reply with candidates/constraints.
-    //
-    // Normally a new connection object should be created to ensure each remote party has their own constraints for security reasons.
-    Connection.prototype.fork = function() {
-    }
-
 
 
     /* ########################################################################
