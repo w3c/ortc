@@ -9,7 +9,7 @@ define([
     "ortc/rtc"
 ], function (WEBRTC_SHIM, ORTC, RTC) {
 
-    suite("NotSpecified", function() {
+    suite("FAIL-NotSpecified", function() {
 
         test("Lazy receive stream registration - need new `ssrc` event as a new incoming stream is detected without having pre-registered it", function() {
             // Needed to get '20-IdealSimpleDemo-NotWorking.js' working.

@@ -1,5 +1,7 @@
 
-define(function() {
+define([
+    "ortc/util"
+], function(UTIL) {
 
     var SDP = function() {};
 
@@ -244,6 +246,151 @@ define(function() {
         sdp.push('');
 
         return sdp.join("\r\n");
+    }
+
+    SDP.prototype.generateSdpObject = function(info, streams) {
+
+        var sdp = {
+            protocol: {
+                "version": 0
+            },
+            session: {
+                "username": "-",
+                "id": info._sessionId,
+                "version": info._sessionVersion,
+                "ip": "0.0.0.0",
+                "name": "-",
+                "timeFrom": "0",
+                "timeTo": "0",
+                "group": "-",
+                "msid-semantic": "WMS"
+            }
+        };
+
+        streams.forEach(function(streamInfo) {
+
+            if (streamInfo.kind === "MediaStream") {
+
+                sdp.session["group"] = "BUNDLE " + streamInfo.description.tracks.map(function(track) {
+                    return track.kind;
+                }).join(" ");
+                sdp.session["msid-semantic"] = "WMS " + streamInfo.id;
+
+                sdp.media = {};
+
+                streamInfo.description.tracks.forEach(function (track) {
+
+                    var ssrcs = {};
+
+                    ssrcs[parseInt(track.ssrc)] = {
+                        cname: streamInfo.description.cname,
+                        msid: streamInfo.id + " " + streamInfo.id + track.kind.substring(0, 1) + "0",
+                        mslabel: streamInfo.id,
+                        label: streamInfo.id + track.kind.substring(0, 1) + "0"
+                    };
+
+                    var codecs = {};
+                    var media = {
+                        "name": track.kind,
+                        "index": "1",
+                        "transport": "RTP/SAVPF",
+                        "codecPriority": streamInfo.constraints.codecs.filter(function(codec) {
+                            if (codec.kind === track.kind) return true;
+                            return false;
+                        }).map(function(codec) {
+                            codecs[codec.payloadId] = codec;
+                            return codec.payloadId;
+                        }),
+                        "codecs": codecs,
+                        "crypto": streamInfo.constraints.crypto.map(function(crypto) {
+                            crypto = UTIL.deepCopy(crypto);
+                            crypto.keysalt = (streamInfo.description.secret + streamInfo.description.contextId).substring(0, 40);
+                            return crypto;
+                        }),
+                        "ssrcs": ssrcs,
+                        "ip": "0.0.0.0",
+                        "rtcp": "1 IN IP4 0.0.0.0",
+                        // chrome uses: randomHex(8)
+                        // NOTE: We only include the first 8 chars here as that is the maximum number of characters
+                        //       we can recover when contextId comes from being concatenated to key in crypto lines.
+//                        "ice-ufrag": streamInfo.description.contextId.substring(0, 16),
+                        "ice-ufrag": streamInfo.description.contextId.substring(0, 8),
+                        // chrome uses: randomHex(12)
+                        "ice-pwd": streamInfo.description.secret.substring(0, 24),
+                        "ice-options": "google-ice",
+                        "streamMode": "sendrecv",
+                        "mid": track.kind,
+                        "rtcp-mux": true
+                    }
+                    if (track.kind === "audio") {
+                        media.maxptime = 60;
+                        media.extmap = "1 urn:ietf:params:rtp-hdrext:ssrc-audio-level";
+                    } else
+                    if (track.kind === "video") {
+                        media.extmap = "2 urn:ietf:params:rtp-hdrext:toffset";
+                    }
+                    sdp.media[track.kind + ":1"] = media;
+                });
+
+            } else {
+                throw new Error("Stream type for id '" + streamInfo.id + "' not supported!");
+            }
+        });
+
+        return sdp;
+    }
+
+    SDP.prototype.parseSdpObject = function(sdpObject) {
+
+        var info = {
+            sessionId: sdpObject.session.id,
+            sessionVersion: sdpObject.session.version,
+            streams: {}
+        };
+
+        for (var mediaId in sdpObject.media) {
+            var media = sdpObject.media[mediaId];
+
+            for (var ssrcId in media.ssrcs) {
+                var ssrc = media.ssrcs[ssrcId];
+
+                var stream = {
+                    id: ssrc.msid.split(" ")[0]
+                };
+                if (info.streams[stream.id]) {
+                    stream = info.streams[stream.id];
+                } else {
+                    info.streams[stream.id] = stream;
+                }
+
+                stream.description = {
+                    cname: ssrc.cname,
+                    // NOTE: We can only recover a partial `contextId` from crypto key as crypto key cannot be longer than 40 chars.
+                    contextId: media.crypto[0].keysalt.substring(32),
+                    secret: media.crypto[0].keysalt.substring(0, 32),
+                    tracks: (stream.description && stream.description.tracks) || []
+                };
+                stream.description.tracks.push({
+                    kind: media.mid,
+                    ssrc: parseInt(ssrcId),
+                    track: ssrc.msid.split(" ")[1]
+                });
+
+                stream.constraints = {
+                    codecs: ((stream.constraints && stream.constraints.codecs) || []).concat(media.codecPriority.map(function(payloadId) {
+                        return media.codecs[payloadId];
+                    })),
+                    crypto: [
+                        {
+                            algorithm: media.crypto[0].algorithm,
+                            priority: parseInt(media.crypto[0].priority)
+                        }
+                    ]
+                };
+            }
+        }
+
+        return info;
     }
 
     return new SDP();

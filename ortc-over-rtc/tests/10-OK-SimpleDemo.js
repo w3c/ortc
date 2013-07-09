@@ -9,7 +9,7 @@ define([
     "ortc/rtc"
 ], function (WEBRTC_SHIM, ORTC, RTC) {
 
-    suite("SimpleDemo-Working", function() {
+    suite("OK-SimpleDemo", function() {
 
         test("setup", function() {
             $('DIV.view-callcontrol').show();

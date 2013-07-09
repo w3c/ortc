@@ -1,5 +1,6 @@
 <html><head>
 <link rel="stylesheet" href="style.css">
+<script src="/ui/chai.js"></script>
 <script src="/ui/jquery.js"></script>
 <script src="/ui/require.js"></script>
 </head><body>
@@ -40,15 +41,17 @@
 
 <script>
 
+window.ASSERT = chai.assert;
+
 requirejs.config({
     paths: {
         "ortc": "/lib"
     }
 });
+
 require([
-    "ortc/ortc",
-    "ortc/webrtc-shim"
-], function(ORTC, WEBRTC_SHIM) {
+    "ortc/rtc-over-ortc"
+], function(RTC) {
 
     var alice_peerConnection = null;
     var bob_peerConnection = null;
@@ -63,25 +66,35 @@ require([
         disableButtons([ 'hangupOffer', 'accept', 'decline' ]);
         enableButtons([ 'hangup' ]);
 
+        var connectionOptions = {
+            iceServers: [
+                {
+                    url: "stun:stun.l.google.com:19302"
+                }
+            ]
+        };
+
 // ############################################################
 // ############################################################
 // ### < Simple Example >
 // ############################################################
 // ############################################################
 
-        alice_peerConnection = new WEBRTC_SHIM.PeerConnection(WEBRTC_SHIM.PeerConnConfig);
-        bob_peerConnection = new WEBRTC_SHIM.PeerConnection(WEBRTC_SHIM.PeerConnConfig);
+        alice_peerConnection = new RTC.PeerConnection(connectionOptions);
+        bob_peerConnection = new RTC.PeerConnection(connectionOptions);
 
         // Request access to local webcam and microphone.
-        WEBRTC_SHIM.getUserMedia({
+        RTC.getUserMedia({
             'audio': true,
             'video': true
-        }, function (alice_stream) {
+        }, function (_alice_stream) {
+            alice_stream = _alice_stream;
 
-            WEBRTC_SHIM.getUserMedia({
+            RTC.getUserMedia({
                 'audio': true,
                 'video': true
-            }, function (bob_stream) {
+            }, function (_bob_stream) {
+                bob_stream = _bob_stream;
 
                 if (!alice_peerConnection || !bob_peerConnection) {
                     alice_stream.stop();
@@ -93,15 +106,15 @@ require([
                 $('TD.video > DIV').show();
 
                 // Show local video & audio stream to the local video HTML elements.
-                $('#alice_localVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(alice_stream));
-                $('#bob_localVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(bob_stream));
+                $('#alice_localVideo').attr('src', RTC.URL.createObjectURL(alice_stream));
+                $('#bob_localVideo').attr('src', RTC.URL.createObjectURL(bob_stream));
 
                 // When a remote video & audio stream is added show it in the remote video HTML elements.
                 alice_peerConnection.onaddstream = function (event) {
-                    $('#alice_remoteVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(event.stream));
+                    $('#alice_remoteVideo').attr('src', RTC.URL.createObjectURL(event.stream));
                 };
                 bob_peerConnection.onaddstream = function (event) {
-                    $('#bob_remoteVideo').attr('src', WEBRTC_SHIM.URL.createObjectURL(event.stream));
+                    $('#bob_remoteVideo').attr('src', RTC.URL.createObjectURL(event.stream));
                 };
 
                 // Attach local video & audio stream to connection to stream it to peer.
@@ -111,21 +124,21 @@ require([
                 // Tightly couple trickle ICE.
                 alice_peerConnection.onicecandidate = function(event) {
                     if (!event.candidate) return;
-                    bob_peerConnection.addIceCandidate(new WEBRTC_SHIM.IceCandidate(JSON.parse(JSON.stringify(event.candidate))));
+                    bob_peerConnection.addIceCandidate(new RTC.IceCandidate(JSON.parse(JSON.stringify(event.candidate))));
                 }
                 bob_peerConnection.onicecandidate = function(event) {
                     if (!event.candidate) return;
-                    alice_peerConnection.addIceCandidate(new WEBRTC_SHIM.IceCandidate(JSON.parse(JSON.stringify(event.candidate))));
+                    alice_peerConnection.addIceCandidate(new RTC.IceCandidate(JSON.parse(JSON.stringify(event.candidate))));
                 }
 
                 // Tightly couple session description exchange.
                 alice_peerConnection.createOffer(function (sessionDescription) {
                     alice_peerConnection.setLocalDescription(sessionDescription);
-                    bob_peerConnection.setRemoteDescription(new WEBRTC_SHIM.SessionDescription(JSON.parse(JSON.stringify(sessionDescription))));
+                    bob_peerConnection.setRemoteDescription(new RTC.SessionDescription(JSON.parse(JSON.stringify(sessionDescription))));
                     bob_peerConnection.createAnswer(function (sessionDescription) {
                         bob_peerConnection.setLocalDescription(sessionDescription);
-                        alice_peerConnection.setRemoteDescription(new WEBRTC_SHIM.SessionDescription(JSON.parse(JSON.stringify(sessionDescription))));
-                    });
+                        alice_peerConnection.setRemoteDescription(new RTC.SessionDescription(JSON.parse(JSON.stringify(sessionDescription))));
+                    }, fail);
                 }, fail);
             }, fail);
         }, fail);

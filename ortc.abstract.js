@@ -417,7 +417,7 @@
                     description.tracks.push({
                         kind: "audio",
                         track: track.id,
-                        ssrc: ORTC._getRandomNumber(9),
+                        ssrc: parseInt(ORTC._getRandomNumber(9)),
                         socketId: self._sockets[0].id
 //                        constraints: {}
                     });
@@ -428,7 +428,7 @@
                     description.tracks.push({
                         kind: "video",
                         track: track.id,
-                        ssrc: ORTC._getRandomNumber(9),
+                        ssrc: parseInt(ORTC._getRandomNumber(9)),
                         socketId: self._sockets[0].id
 //                        constraints: {}
                     });
@@ -455,6 +455,7 @@
      * @return void
      */
     Connection.prototype.setDescription = function(description, selector) {
+        var self = this;
 
         ASSERT.isObject(description);
 
@@ -465,10 +466,27 @@
             selector = (selector === true) ? "remote" : "local";
         }
 
+        var defaultDescription = self.getDescription(selector);
+        for (var key in defaultDescription) {
+            description[key] = description[key] || defaultDescription[key];
+        }
+
+        if (description.tracks) {
+            description.tracks = description.tracks.map(function(track) {
+                ASSERT.isString(track.kind);
+                ASSERT.isString(track.track);
+                ASSERT.isNumber(track.ssrc);
+                if (typeof track.socketId === "undefined") {
+                    track.socketId = self._sockets[0].id;
+                }
+                return track;
+            });
+        }
+
         var streamId = null;
         if (typeof selector === "string") {
             if (selector === "remote" || selector === "local") {
-                this[selector + "Description"] = description;
+                self[selector + "Description"] = description;
                 return;
             } else {
                 streamId = selector;
@@ -479,20 +497,19 @@
             streamId = selector.id;
         }
 
-        if (!this._streams[streamId]) {
-            // NOTE: We assume that we are setting description for a `receive` stream
-            //       so we can default some properties although we don't set the `direction` property yet.
-            // TODO: Decide if we should assume this is a receive stream or mandate that `receiveStream`
-            //       must be called before being able to call `setDescription` for the receive stream.
-            this._streams[streamId] = {
-                id: streamId,
-                // TODO: Carry this in `descriptor` or change requirement for needing to know `kind`.
-                kind: "MediaStream",
-                // TODO: Use `this.getConstraints(true)`
-                constraints: this._receiveConstraints
-            };
-        }
-        this._streams[streamId].description = description;
+        // TODO: Carry this in `descriptor` or change requirement for needing to know `kind`.
+        self._streams[streamId].kind = self._streams[streamId].kind || "MediaStream";
+        // TODO: Use `self.getConstraints(true)`
+        self._streams[streamId].constraints = self._streams[streamId].constraints || self._receiveConstraints;
+
+        // NOTE: We assume that we are setting description for a `receive` stream
+        //       so we can default some properties although we don't set the `direction` property yet.
+        // TODO: Decide if we should assume this is a receive stream or mandate that `receiveStream`
+        //       must be called before being able to call `setDescription` for the receive stream.
+        // TODO: If `direction` not set, default to `receive`?
+        //self._streams[streamId].direction = self._streams[streamId].direction || "receive";
+
+        self._streams[streamId].description = description;
     }
 
     //------------------------------------------------------------------------

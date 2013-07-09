@@ -9,7 +9,7 @@ define([
     "ortc/rtc"
 ], function (WEBRTC_SHIM, ORTC, RTC) {
 
-    suite("Specified-NotYetImplemented", function() {
+    suite("FAIL-Specified-NotYetImplemented", function() {
 
         test("Create `MediaStream` for `receiveStream(<stream>)` - need `new MediaStream()`", function() {
         });

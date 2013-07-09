@@ -5,8 +5,6 @@ A simple example using basic `WebRTC compatible API` over `ORTC API` running ove
 
 Not all `WebRTC API` features are implemented.
 
-**NOTE: Not using ORTC yet!**
-
 Requirements
 ------------
 
