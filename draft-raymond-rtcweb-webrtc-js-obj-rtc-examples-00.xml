@@ -157,11 +157,27 @@ var msg_constraints_for_bob = JSON.stringify(
 
 alice_connection.receiveStream(aliceMediaStreamFromBob);
 
+// Send Bob the connection description as it is
 mysignal(msg_connection_info_for_bob, msg_constraints_for_bob);
+
+// Or convert it to the desired format before sending
+var custom_description_for_bob = my_lib_ORTC2MyFormat(
+  msg_connection_info_for_bob, msg_constraints_for_bob
+);
+mysignal(custom_message_for_bob);
 
 //-------------------------------------------------------------------
 // STEP 3: Browser B creates a connection
-var bob_connection = new ORTC.Connection();    
+
+// re-format the connection information if needed
+var message = my_lib_MyFormat2ORTC(
+  custom_message_for_bob
+);
+var msg_connection_info_for_bob = message.connection_description;
+var msg_constraints_for_bob = message.connection_contraints;
+
+
+var bob_connection = new ORTC.Connection();
 bob_connection.setDescription( JSON.parse(
   msg_connection_info_for_bob),"remote");
 bob_connection.setConstraints( JSON.parse(
@@ -177,7 +193,23 @@ var msg_connection_info_for_alice = JSON.stringify(
 var msg_constraints_for_alice = JSON.stringify(
   bob_connection.getConstraints("receive"));
 
+// Send Alice the connection description as it is
 mysignal(msg_connection_info_for_alice, msg_constraints_for_alice);
+
+// Or convert it to the desired format before sending
+var custom_description_for_alice = my_lib_ORTC2MyFormat(
+  msg_connection_info_for_alice, 
+  msg_constraints_for_alice
+);
+mysignal(custom_message_for_alice);
+
+
+// re-format the connection information if needed
+var message = my_lib_MyFormat2ORTC(
+  custom_message_for_alice
+);
+var msg_connection_info_for_alice = message.connection_description;
+var msg_constraints_for_alice = message.connection_contraints;
 
 alice_connection.setDescription( JSON.parse(
   msg_connection_info_for_alice), "remote");
