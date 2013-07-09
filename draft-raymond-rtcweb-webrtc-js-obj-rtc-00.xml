@@ -1281,15 +1281,15 @@ bob2_connection.onconnectioncandidate = function(candidate) {
     <organization />
 </author>
 
-<date month='June' day='19' year='2013' />
+<date month='July' day='8' year='2013' />
 
 <abstract><t>The RTP Control Protocol (RTCP) Canonical Name (CNAME) is a persistent transport-level identifier for an RTP endpoint.  While the Synchronization Source (SSRC) identifier of an RTP endpoint may change if a collision is detected or when the RTP application is restarted, its RTCP CNAME is meant to stay unchanged, so that RTP endpoints can be uniquely identified and associated with their RTP media streams.  For proper functionality, RTCP CNAMEs should be unique within the participants of an RTP session.  However, the existing guidelines for choosing the RTCP CNAME provided in the RTP standard are insufficient to achieve this uniqueness.  RFC 6222 was published to update those guidelines to allow endpoints to choose unique RTCP CNAMEs. Unfortunately, later investigations showed that some parts of the new algorithms were unnecessarily complicated and/or ineffective.  This document addresses these concerns and replaces RFC 6222.</t></abstract>
 
 </front>
 
-<seriesInfo name='Internet-Draft' value='draft-ietf-avtcore-6222bis-04' />
+<seriesInfo name='Internet-Draft' value='draft-ietf-avtcore-6222bis-05' />
 <format type='TXT'
-        target='http://www.ietf.org/internet-drafts/draft-ietf-avtcore-6222bis-04.txt' />
+        target='http://www.ietf.org/internet-drafts/draft-ietf-avtcore-6222bis-05.txt' />
 </reference>
 
 
