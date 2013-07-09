@@ -563,33 +563,42 @@
         return ORTC._deepCopy(constraints);
     }
 
-    //------------------------------------------------------------------------
-    // set the send, receive, stream or track constraints in use
+    /**
+     * Set the send, receive, stream or track constraints in use.
+     */
     Connection.prototype.setConstraints = function(constraints, selector, track, ssrc, socketId) {
-        applyLocal = selector || false;
+        var self = this;
 
-        if (typeof selector === "string") {
-            if (selector === "receive") {
-                selector = true;
-            } else
-            if (selector === "send") {
-                selector = false;
-            }
+        ASSERT.isObject(constraints);
+
+        if (typeof selector === "undefined") {
+            selector = false;
+        }
+        if (typeof selector === "boolean") {
+            selector = (selector === true) ? "receive" : "send";
         }
 
-        ASSERT.isBoolean(selector);
-
-        if (selector === false) {
-            this._sendConstraints = constraints;
-        } else
-        if (selector === true) {
-            this._receiveConstraints = constraints;
+        var streamId = null;
+        if (typeof selector === "string") {
+            if (selector === "receive" || selector === "send") {
+                self["_" + selector + "Constraints"] = constraints;
+                return;
+            } else {
+                streamId = selector;
+            }
         } else {
             ASSERT.isObject(selector);
+            ASSERT.isString(selector.id);
+            streamId = selector.id;
+        }
 
-            if (!(selector instanceof MediaStream)) {
-                throw Error("must be an instance of a media stream");
-            }
+        if (!self._streams[streamId]) {
+            self._streams[streamId] = {
+                id: streamId
+            };
+        }
+
+        /*
             if (typeof track === "object") {
                 if (!(selector instanceof MediaStreamTrack)) {
                     throw Error("must be an instance of a media track");
@@ -597,9 +606,9 @@
                 this.internalFindTrack(stream, track, ssrc, socketId).constraints = constraints;
                 return;
             }
+        */
 
-            this._streams[selector.id].constraints = constraints;
-        }
+        self._streams[streamId].constraints = constraints;
     }
 
     /**
