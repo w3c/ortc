@@ -969,7 +969,11 @@ The browser must expose the fingerprints involved from the Connection {{objconne
 
 ### IdP ### {#idp}
 
-The identity provider model has not be mandated. The model is far away from completion, and the round trips to perform validation before a stream can be rendered is not desirable. IdP requires an identity model that might not exist conceptually for many web services. Further, in many simple cases this model is not required as a WebSocket with TLS can be used to exchange fingerprints for a private service providing the same level of trust from the provider since the fingerprints are exchanged in a private manner. IdP also suggest domain federation is possible but federation is only possible if two clients run the same JavaScript signaling model on both ends and signaling is federated across domains. The IdP federation identity model is complex for web services that wish to perform simple WebRTC use cases.
+The identity provider model (IdP) should not be mandated. This allows the IdP draft to become perfected until it is ready for usage and all scenarios and usages of IdP have been thoroughly thought through. Regardless, IdP should not be mandated. Not all WebRTC servers have an identity model for their users.
+
+The IdP model is far from completion at the time of this draft. The current model requires round trips to perform validation before a stream can be rendered, which is not desirable. In simple use cases, the IdP model is not required as a WebSocket with TLS can be used to exchange fingerprints for a private service, which provides the same level of trust from a provider as IdP since the fingerprints are exchanged in a private and secure manner via a trusted provider. The complexity of any identity model must be factored, especially in consideration basic and simple WebRTC use cases.
+
+Should IdP becomes perfected, the connection description {{objconnectiondescription}} can be extended to include the identity information as part of connection negotiation.
 
 
 ### JavaScript Provided DTLS Certificates ### {#jscertificates}
@@ -985,7 +989,9 @@ The RTCWEB WG must come to a decision to allow this feature or not.
 
 ### DTLS / SRTP vs SDES / SRTP ### {#dtlssrtp}
 
-Auto-keying for RTP could be done through a DTLS handshakes extensions as opposed to using SDES. If DTLS becomes the mandated method to perform media key negotiation then the implementation bar is raised for what a remote device must support to communicate, and many legacy devices and networks do not support this feature. DTLS without an absolutely foolproof man-in-the-middle attack prevention scheme (i.e. fingerprint validation, see {{idp}}) provides little security if the stream can be intercepted, and may in fact be weaker than allowing the browsers to exchange SDES credentials privately during their negotiation (e.g. keying via an HTTPS proxy). The final decision to mandate, recommend or allow for media key negotiation over DTLS must be made by the RTCWEB WG before any RTC JavaScript interface can be completed.
+Auto-keying for SRTP must be done through a DTLS handshakes extensions as opposed to requiring SDES {{RFC4568}}. DTLS must have a foolproof man-in-the-middle attack prevention scheme (i.e. fingerprint validation, see {{idp}}). Without the fingerprint validation, little security is provided should the stream be intercepted.
+
+If substantial push-back exists over mandating the usage of DTLS for keying over SDES, then the keying for SDES can be easily be included as part of the constraints structure {{objconstraints}}. The final decision to mandate, recommend or allow for media key negotiation over DTLS must be made by the RTCWEB WG before any RTC JavaScript interface can be completed.
 
 
 IANA Considerations
