@@ -101,11 +101,11 @@ Table of Contents
        3.2.2.  Connection Description  . . . . . . . . . . . . . . .   9
        3.2.3.  ICE . . . . . . . . . . . . . . . . . . . . . . . . .  11
        3.2.4.  Constraints . . . . . . . . . . . . . . . . . . . . .  13
-       3.2.5.  Media Stream (and Media Stream Track) Descriptions  .  15
-       3.2.6.  Sending Media Streams (over RTP)  . . . . . . . . . .  17
-       3.2.7.  Receiving Streams (over RTP)  . . . . . . . . . . . .  18
-       3.2.8.  Data Stream Description . . . . . . . . . . . . . . .  20
-       3.2.9.  Sending Data Streams (over DataSocekt)  . . . . . . .  20
+       3.2.5.  Media Stream (and Media Stream Track) Descriptions  .  16
+       3.2.6.  Sending Media Streams (over RTP)  . . . . . . . . . .  19
+       3.2.7.  Receiving Streams (over RTP)  . . . . . . . . . . . .  20
+       3.2.8.  Data Stream Description . . . . . . . . . . . . . . .  23
+       3.2.9.  Sending Data Streams (over DataSocekt)  . . . . . . .  23
 
 
 
@@ -114,54 +114,54 @@ Raymond, et al.         Expires January 10, 2014                [Page 2]
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
-       3.2.10. Receiving Data Streams (over DataSocket)  . . . . . .  20
-     3.3.  RTC Feature Discovery . . . . . . . . . . . . . . . . . .  21
-     3.4.  Example: DTMFMediaStreamTrack Specialization  . . . . . .  21
-     3.5.  Example: DataStream Specialization  . . . . . . . . . . .  22
-   4.  Signaling Models  . . . . . . . . . . . . . . . . . . . . . .  22
-     4.1.  SDP with Offer / Answer . . . . . . . . . . . . . . . . .  22
-       4.1.1.  Constructing an Offer . . . . . . . . . . . . . . . .  23
-       4.1.2.  Parsing an Offer  . . . . . . . . . . . . . . . . . .  23
-       4.1.3.  Generating an Answer  . . . . . . . . . . . . . . . .  24
-       4.1.4.  Parsing an Answer . . . . . . . . . . . . . . . . . .  24
-       4.1.5.  Use of Provisional Answers  . . . . . . . . . . . . .  24
-       4.1.6.  Rollback  . . . . . . . . . . . . . . . . . . . . . .  25
-       4.1.7.  Configurable SDP Parameters . . . . . . . . . . . . .  25
-       4.1.8.  SDP Offer / Answer State Machine in JS  . . . . . . .  25
-     4.2.  One-side Constraints  . . . . . . . . . . . . . . . . . .  25
-     4.3.  XMPP  . . . . . . . . . . . . . . . . . . . . . . . . . .  26
-     4.4.  Interactions With Forking . . . . . . . . . . . . . . . .  26
-       4.4.1.  Sequential Forking  . . . . . . . . . . . . . . . . .  27
-       4.4.2.  Parallel Forking  . . . . . . . . . . . . . . . . . .  27
-       4.4.3.  Forking Example Code  . . . . . . . . . . . . . . . .  27
-     4.5.  Session Rehydration . . . . . . . . . . . . . . . . . . .  28
-   5.  Interface . . . . . . . . . . . . . . . . . . . . . . . . . .  29
-     5.1.  Object RTC Global Methods . . . . . . . . . . . . . . . .  29
-       5.1.1.  getFeatures . . . . . . . . . . . . . . . . . . . . .  29
-       5.1.2.  getConstraints  . . . . . . . . . . . . . . . . . . .  29
-     5.2.  MediaSocket . . . . . . . . . . . . . . . . . . . . . . .  29
-     5.3.  DataSocket  . . . . . . . . . . . . . . . . . . . . . . .  30
-     5.4.  MediaDataMuxSocket  . . . . . . . . . . . . . . . . . . .  31
-     5.5.  Connection  . . . . . . . . . . . . . . . . . . . . . . .  31
-       5.5.1.  Construction  . . . . . . . . . . . . . . . . . . . .  31
-       5.5.2.  onconnectioncandidate . . . . . . . . . . . . . . . .  32
-       5.5.3.  onconnectioncandidatesdone  . . . . . . . . . . . . .  32
-       5.5.4.  onactiveconnectioncandidate . . . . . . . . . . . . .  32
-       5.5.5.  onconnected . . . . . . . . . . . . . . . . . . . . .  32
-       5.5.6.  ondisconnected  . . . . . . . . . . . . . . . . . . .  32
-       5.5.7.  onstreamconnected . . . . . . . . . . . . . . . . . .  33
-       5.5.8.  onstreamdisconnected  . . . . . . . . . . . . . . . .  33
-       5.5.9.  onsteamreport . . . . . . . . . . . . . . . . . . . .  33
-       5.5.10. ontrackconnected  . . . . . . . . . . . . . . . . . .  33
-       5.5.11. ontrackdisconnected . . . . . . . . . . . . . . . . .  33
-       5.5.12. ontrackcontributors . . . . . . . . . . . . . . . . .  33
-       5.5.13. ontrackreport . . . . . . . . . . . . . . . . . . . .  33
-       5.5.14. activate  . . . . . . . . . . . . . . . . . . . . . .  34
-       5.5.15. disconnect  . . . . . . . . . . . . . . . . . . . . .  34
-       5.5.16. setRemoteConnectionCandidate  . . . . . . . . . . . .  34
-       5.5.17. getDescription  . . . . . . . . . . . . . . . . . . .  34
-       5.5.18. setDescription  . . . . . . . . . . . . . . . . . . .  34
-       5.5.19. getConstraints  . . . . . . . . . . . . . . . . . . .  35
+       3.2.10. Receiving Data Streams (over DataSocket)  . . . . . .  23
+     3.3.  RTC Feature Discovery . . . . . . . . . . . . . . . . . .  23
+     3.4.  Example: DTMFMediaStreamTrack Specialization  . . . . . .  24
+     3.5.  Example: DataStream Specialization  . . . . . . . . . . .  25
+   4.  Signaling Models  . . . . . . . . . . . . . . . . . . . . . .  25
+     4.1.  SDP with Offer / Answer . . . . . . . . . . . . . . . . .  25
+       4.1.1.  Constructing an Offer . . . . . . . . . . . . . . . .  26
+       4.1.2.  Parsing an Offer  . . . . . . . . . . . . . . . . . .  26
+       4.1.3.  Generating an Answer  . . . . . . . . . . . . . . . .  27
+       4.1.4.  Parsing an Answer . . . . . . . . . . . . . . . . . .  27
+       4.1.5.  Use of Provisional Answers  . . . . . . . . . . . . .  27
+       4.1.6.  Rollback  . . . . . . . . . . . . . . . . . . . . . .  28
+       4.1.7.  Configurable SDP Parameters . . . . . . . . . . . . .  28
+       4.1.8.  SDP Offer / Answer State Machine in JS  . . . . . . .  28
+     4.2.  One-side Constraints  . . . . . . . . . . . . . . . . . .  28
+     4.3.  XMPP  . . . . . . . . . . . . . . . . . . . . . . . . . .  29
+     4.4.  Interactions With Forking . . . . . . . . . . . . . . . .  29
+       4.4.1.  Sequential Forking  . . . . . . . . . . . . . . . . .  30
+       4.4.2.  Parallel Forking  . . . . . . . . . . . . . . . . . .  30
+       4.4.3.  Forking Example Code  . . . . . . . . . . . . . . . .  30
+     4.5.  Session Rehydration . . . . . . . . . . . . . . . . . . .  31
+   5.  Interface . . . . . . . . . . . . . . . . . . . . . . . . . .  32
+     5.1.  Object RTC Global Methods . . . . . . . . . . . . . . . .  32
+       5.1.1.  getFeatures . . . . . . . . . . . . . . . . . . . . .  32
+       5.1.2.  getConstraints  . . . . . . . . . . . . . . . . . . .  32
+     5.2.  MediaSocket . . . . . . . . . . . . . . . . . . . . . . .  32
+     5.3.  DataSocket  . . . . . . . . . . . . . . . . . . . . . . .  33
+     5.4.  MediaDataMuxSocket  . . . . . . . . . . . . . . . . . . .  34
+     5.5.  Connection  . . . . . . . . . . . . . . . . . . . . . . .  34
+       5.5.1.  Construction  . . . . . . . . . . . . . . . . . . . .  34
+       5.5.2.  onconnectioncandidate . . . . . . . . . . . . . . . .  35
+       5.5.3.  onconnectioncandidatesdone  . . . . . . . . . . . . .  35
+       5.5.4.  onactiveconnectioncandidate . . . . . . . . . . . . .  35
+       5.5.5.  onconnected . . . . . . . . . . . . . . . . . . . . .  35
+       5.5.6.  ondisconnected  . . . . . . . . . . . . . . . . . . .  35
+       5.5.7.  onstreamconnected . . . . . . . . . . . . . . . . . .  36
+       5.5.8.  onstreamdisconnected  . . . . . . . . . . . . . . . .  36
+       5.5.9.  onsteamreport . . . . . . . . . . . . . . . . . . . .  36
+       5.5.10. ontrackconnected  . . . . . . . . . . . . . . . . . .  36
+       5.5.11. ontrackdisconnected . . . . . . . . . . . . . . . . .  36
+       5.5.12. ontrackcontributors . . . . . . . . . . . . . . . . .  36
+       5.5.13. ontrackreport . . . . . . . . . . . . . . . . . . . .  36
+       5.5.14. activate  . . . . . . . . . . . . . . . . . . . . . .  37
+       5.5.15. disconnect  . . . . . . . . . . . . . . . . . . . . .  37
+       5.5.16. setRemoteConnectionCandidate  . . . . . . . . . . . .  37
+       5.5.17. getDescription  . . . . . . . . . . . . . . . . . . .  37
+       5.5.18. setDescription  . . . . . . . . . . . . . . . . . . .  37
+       5.5.19. getConstraints  . . . . . . . . . . . . . . . . . . .  38
 
 
 
@@ -170,40 +170,40 @@ Raymond, et al.         Expires January 10, 2014                [Page 3]
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
-       5.5.20. setConstraints  . . . . . . . . . . . . . . . . . . .  35
-       5.5.21. sendStream  . . . . . . . . . . . . . . . . . . . . .  35
-       5.5.22. receiveStream . . . . . . . . . . . . . . . . . . . .  35
-       5.5.23. fork  . . . . . . . . . . . . . . . . . . . . . . . .  35
-       5.5.24. Stream Relationship Management  . . . . . . . . . . .  36
-     5.6.  Example: DTMFMediaStreamTrack Specialization  . . . . . .  36
-       5.6.1.  Construction  . . . . . . . . . . . . . . . . . . . .  36
-       5.6.2.  startTone . . . . . . . . . . . . . . . . . . . . . .  37
-       5.6.3.  stopTone  . . . . . . . . . . . . . . . . . . . . . .  37
-       5.6.4.  playTones . . . . . . . . . . . . . . . . . . . . . .  37
-       5.6.5.  flush . . . . . . . . . . . . . . . . . . . . . . . .  37
-       5.6.6.  ontonestart . . . . . . . . . . . . . . . . . . . . .  37
-       5.6.7.  ontonestop  . . . . . . . . . . . . . . . . . . . . .  37
-     5.7.  Example: DataStream Specialization  . . . . . . . . . . .  37
-       5.7.1.  Construction  . . . . . . . . . . . . . . . . . . . .  38
-       5.7.2.  onreceive . . . . . . . . . . . . . . . . . . . . . .  38
-       5.7.3.  send  . . . . . . . . . . . . . . . . . . . . . . . .  38
-       5.7.4.  close . . . . . . . . . . . . . . . . . . . . . . . .  38
-   6.  Comparison to Other Approaches  . . . . . . . . . . . . . . .  38
-     6.1.  JSEP  . . . . . . . . . . . . . . . . . . . . . . . . . .  38
-     6.2.  PlanA or PlanB  . . . . . . . . . . . . . . . . . . . . .  39
-     6.3.  NoPlan  . . . . . . . . . . . . . . . . . . . . . . . . .  39
-   7.  Requirements Compliance Statement . . . . . . . . . . . . . .  40
-   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  40
-     8.1.  DTLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  40
-       8.1.1.  DTLS Fingerprint Responsibility . . . . . . . . . . .  40
-       8.1.2.  IdP . . . . . . . . . . . . . . . . . . . . . . . . .  41
-       8.1.3.  JavaScript Provided DTLS Certificates . . . . . . . .  41
-       8.1.4.  DTLS / SRTP vs SDES / SRTP  . . . . . . . . . . . . .  42
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  42
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  42
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  42
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  43
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  45
+       5.5.20. setConstraints  . . . . . . . . . . . . . . . . . . .  38
+       5.5.21. sendStream  . . . . . . . . . . . . . . . . . . . . .  38
+       5.5.22. receiveStream . . . . . . . . . . . . . . . . . . . .  38
+       5.5.23. fork  . . . . . . . . . . . . . . . . . . . . . . . .  38
+       5.5.24. Stream Relationship Management  . . . . . . . . . . .  39
+     5.6.  Example: DTMFMediaStreamTrack Specialization  . . . . . .  39
+       5.6.1.  Construction  . . . . . . . . . . . . . . . . . . . .  39
+       5.6.2.  startTone . . . . . . . . . . . . . . . . . . . . . .  40
+       5.6.3.  stopTone  . . . . . . . . . . . . . . . . . . . . . .  40
+       5.6.4.  playTones . . . . . . . . . . . . . . . . . . . . . .  40
+       5.6.5.  flush . . . . . . . . . . . . . . . . . . . . . . . .  40
+       5.6.6.  ontonestart . . . . . . . . . . . . . . . . . . . . .  40
+       5.6.7.  ontonestop  . . . . . . . . . . . . . . . . . . . . .  40
+     5.7.  Example: DataStream Specialization  . . . . . . . . . . .  40
+       5.7.1.  Construction  . . . . . . . . . . . . . . . . . . . .  41
+       5.7.2.  onreceive . . . . . . . . . . . . . . . . . . . . . .  41
+       5.7.3.  send  . . . . . . . . . . . . . . . . . . . . . . . .  41
+       5.7.4.  close . . . . . . . . . . . . . . . . . . . . . . . .  41
+   6.  Comparison to Other Approaches  . . . . . . . . . . . . . . .  41
+     6.1.  JSEP  . . . . . . . . . . . . . . . . . . . . . . . . . .  41
+     6.2.  PlanA or PlanB  . . . . . . . . . . . . . . . . . . . . .  42
+     6.3.  NoPlan  . . . . . . . . . . . . . . . . . . . . . . . . .  42
+   7.  Requirements Compliance Statement . . . . . . . . . . . . . .  43
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  43
+     8.1.  DTLS  . . . . . . . . . . . . . . . . . . . . . . . . . .  43
+       8.1.1.  DTLS Fingerprint Responsibility . . . . . . . . . . .  43
+       8.1.2.  IdP . . . . . . . . . . . . . . . . . . . . . . . . .  44
+       8.1.3.  JavaScript Provided DTLS Certificates . . . . . . . .  44
+       8.1.4.  DTLS / SRTP vs SDES / SRTP  . . . . . . . . . . . . .  45
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  45
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  45
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  45
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  46
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  48
 
 1.  Introduction
 
@@ -526,7 +526,21 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    method and timing of the exchange must be left to the discretion of
    the JavaScript developer.
 
-3.2.2.1.  Connection Description Negotiation
+3.2.2.1.  Connection Description Expressed as a Structure
+
+   This is an example-only connection description expressed as a
+   JavaScript structure.  This example is not a signaling on-the-wire
+   format mandate.
+
+   var myConnectionDescription = {
+       cname: "<value>",
+       contextId: "<random-id>",
+       secret: "<random>",
+       fingerprints: ["<hash1>","<hash2>"]
+   };
+
+
+3.2.2.2.  Connection Description Negotiation
 
    The local peer has a connection description.  The remote peer has a
    connection description.  Each peer must exchange the information in
@@ -540,6 +554,14 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    the connection that supports DTLS [RFC6347].  These fingerprints must
    be signaled in order to preserve the fingerprint to DTLS mapping of
    each socket.  The connection object is responsible for ensuring any
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 10]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    remotely connected peer's fingerprint during DTLS exchange matches
    the fingerprint provided in the connection description of the remote
    peer.  If the fingerprint does not match, the connection must be
@@ -553,14 +575,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    var aliceDesc = alice_connection.getDescription();
 
    mysignal("to:bob", JSON.stringify(aliceDesc));
-
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 10]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    var bob_connection = new ORTC.Connection();
    bob_connection.setDescription(JSON.parse(aliceDesc), "remote");
@@ -589,6 +603,21 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 3.2.3.1.  ICE Candidate Trickling
 
+
+
+
+
+
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 11]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    The browser must support trickle ICE
    [I-D.rescorla-mmusic-ice-trickle] discovery mechanism.  This
    mechanism allows the browser to provide candidate information as they
@@ -607,17 +636,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    Each ICE candidate has description information containing the
    following:
 
-
-
-
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 11]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    o  socket id - the socket identifier where the candidate was
       discovered, matching the identifier specified in the MediaSocket,
       DataSocekt or MediaDataMuxSocket (Section 3.1) provided to the
@@ -635,8 +653,8 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
    o  connection port (as as defined in RFC5245)
 
-   o  type (defined as "srflx", "prflx", or "relay" whose meaning is
-      derived from RFC5245)
+   o  type (defined as "host", srflx", "prflx", or "relay" whose meaning
+      is derived from RFC5245)
 
    o  related address (as as defined in RFC5245)
 
@@ -648,6 +666,14 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    confused with potential standardized candidate types.  By using
    standardized descriptions, the browser will help facilitate
    translation to alternative signaling protocols.  The developer's
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 12]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    JavaScript should be able to transport the candidate description
    information 'as is' even if the description information is not
    understood so long as the developer's signaling protocol allows for
@@ -661,17 +687,24 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    the bundling of other types of descriptions, such as constraint
    descriptions (Section 3.2.4) or stream descriptions (Section 3.2.5).
 
+3.2.3.2.1.  Candidate Description Expressed as a Structure
 
+   This is an example-only candidate description expressed as a
+   JavaScript structure.  This example is not a signaling on-the-wire
+   format mandate.
 
-
-
-
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 12]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+   var myCandidateDescription = {
+       socketId: "my-socket",
+       foundation: 1,
+       component: 1,
+       transport: "udp",
+       priority: 1694498815,
+       connectionAddress: "192.0.2.33",
+       connectionPort: 10000,
+       type: "host"
+       // relatedAddress: "1.2.3.4",
+       // relatedPort: 34232
+   };
 
 
 3.2.4.  Constraints
@@ -689,11 +722,55 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    to the media flowing to the local peer from a remote peer.  The
    constraints may be identical in both directions, or the constraints
    may be a negotiated subset, or the constraints may be unique per
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 13]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    direction (i.e. send versus receive).  A developer's JavaScript must
    must be able to set the constraints on either direction, at will, and
    obtain the possible constraints for a connection.
 
-3.2.4.1.  Constraints Negotiation
+3.2.4.1.  Constraints Description Expressed as a Structure
+
+   This is an example-only constraints description expressed as a
+   JavaScript structure.  This example is not a signaling on-the-wire
+   format mandate.  Individual codecs may have varying properties
+   according to the definition of each codec type.
+
+   var myConstraints = {
+       codecs: [
+           {
+               payloadId: 96,
+               kind: "audio",
+               name: "<name>",
+               hzRate: 32000,
+               channels: 1
+               // ...
+           },
+           {
+               payloadId: 96,
+               kind: "video",
+               name: "<name>",
+               hzRate: 96000
+               // ...
+           }
+       ],
+       required: {
+       },
+       optional: {
+           video: {
+               maxWdith: 1280,
+               maxHeight: 720
+           }
+       }
+   };
+
+
+3.2.4.2.  Constraints Negotiation
 
    The media constraints must be exchanged via some external signaling
    method by the developer's JavaScript.  The local send constraints
@@ -701,6 +778,14 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    remote peer, and the received constraints must be (at minimal) a
    subset of the send constraints of the remote peer.  Should the
    browser be unable to fulfill the provided constraints for any reason
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 14]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    (for example, none of the codecs were compatible), an error most be
    propagated to the developer's JavaScript, which should handle this
    condition rather than silently fail.  The RTCWEB Working Group must
@@ -722,14 +807,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    protocols may translate the standardized codecs and algorithms into
    their respective signaling protocols.  If a browser does not have
    specific knowledge of a codec, or an encryption algorithm supplied by
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 13]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    a developer's JavaScript, it must ignore the non-understood codecs,
    and / or algorithms.  A JavaScript developer may encode and signal
    non-standard codecs and algorithms so long as none of the browser
@@ -757,6 +834,14 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
    Optional "other" constraints must be considered optional and any
    constraint property of this nature may be ignored.  However, if the
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 15]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    browser or the developer's JavaScript understands the constraint
    property, the property must be respected.
 
@@ -777,14 +862,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    var aliceConstraints = JSON.stringify(
      alice_connection.getConstraints("receive"));
    mysignal("to:bob", aliceConstraints);
-
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 14]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    // bob changes sending constraints
    bob_connection.setConstraints(JSON.parse(aliceConstraints), "send");
@@ -814,6 +891,13 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    coordination to be able to synchronize the streams from one peer to
    another.
 
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 16]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    Other features, like FEC (Forward Error Correction), are not
    described in WebRTC stream objects because they are a feature of a
    transport.  Each stream could allow a media track to be sent
@@ -834,13 +918,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    FEC or simulcast.  The exact mapping structures for the stream must
    be clearly defined in exacting detail, describing the expected
    behaviors and use cases a browser must support.
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 15]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    For each track in a stream the browser must supply the following
    information:
@@ -869,6 +946,14 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    (NOTE: FEC is a complex subject with alternative methods to perform
    the same levels of redundancy.  This draft takes no position on the
    best techniques and practices and only suggests one method for
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 17]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    describing FEC within the steam description.  As other description
    formats are able to support various FEC scenarios, the descriptive
    information for various FEC scenarios could easily be added into this
@@ -891,13 +976,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
    alice_connection.sendStream(aliceMediaStreamToBob);
 
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 16]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    mysignal("to:bob", JSON.stringify(aliceStreamDesc));
 
    // bob receives stream
@@ -909,7 +987,48 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    bob_connection.receiveStream(bobMediaStreamFromAlice);
 
 
-3.2.5.1.  Future Media Stream Descriptions
+3.2.5.1.  Media Stream Description Expressed as a Structure
+
+   This is an example-only media stream description expressed as a
+   JavaScript structure.  This example is not a signaling on-the-wire
+   format mandate.
+
+   var myStreamDescription = [
+       { // audio
+           track: "<track-id>",
+           ssrc: 5,
+           redundencySsrc: 10,
+           socketId: "my-audio-port",
+           constraints: { /* optional constraints */ }
+       },
+       { // video
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 18]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
+           kind: "video",
+           ssrc: 10,
+           socketId: "my-video-port",
+           constraints: { /* optional constraints */ }
+        },
+        { // dtmf
+           kind: "dtmf",
+           ssrc: 5,
+           socketId: "my-audio-port",
+           constraints: { /* optional constraints */ }
+        },
+        { // unspecified
+            track: "poor-taste-track-id",
+            omit: true
+        }
+   ];
+
+
+3.2.5.2.  Future Media Stream Descriptions
 
    The complexity in describing streams and tracks is mostly born
    because RTP lacks sufficient definition to reassemble RTP media
@@ -931,7 +1050,21 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    JavaScript must be able to indicate to the browser the stream and
    track mappings (in the form of a stream description) if the transport
    requires this information (assuming it is required, see
-   Section 3.2.5.1).
+   Section 3.2.5.2).
+
+
+
+
+
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 19]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
 
    The browser must respect the media stream track mapping to the socket
    Section 3.1, SSRC, and optional constraints.  The "kind" property for
@@ -940,19 +1073,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    JavaScript must be able to specify that individual media stream track
    may be omitted from sending, while other media stream tracks are
    sent.
-
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 17]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
 
    The developer's JavaScript must be able to control the exact timing
    when a stream starts to send and when a stream stops sending.  At any
@@ -992,6 +1112,16 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    streams manually should the developer not wish to provide a stream
    definition.
 
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 20]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    The browser must be able to render the same media stream track as
    part of multiple media stream objects, to allow a stream definition
    to contain the same track in multiple streams.
@@ -1002,14 +1132,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    the browser must only support demuxing the same media "kind" with the
    same SSRC if the payload id used only matches one set of constraints
    for a particular track on the receiving stream.  A developer's
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 18]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    JavaScript should not mux the same "kind" of media on the same SSRC.
    A developer's JavaScript should not mux different "kinds" of media on
    the same SSRC.
@@ -1048,6 +1170,14 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    follow when receiving streams that make most sense for their
    anticipated use cases.
 
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 21]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    The intention of allowing for loose rules is to allow for a larger
    variety of signaling scenarios where simple "loose" rules could be
    used to match the media stream tracks rather than always mandating
@@ -1058,14 +1188,6 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    Example pseudo-code of how streams could be sent with loose matching
    media stream descriptions:
 
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 19]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
    // alice sends information about stream to bob
    alice_connection.sendStream(aliceMediaStreamToBob);
 
@@ -1074,6 +1196,51 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    // bob receives stream (auto-loose matching will work in simple case)
    var bobMediaStreamFromAlice = new MediaStream();
    bob_connection.receiveStream(bobMediaStreamFromAlice);
+
+
+3.2.7.2.  Loosely Matching Media Stream Description Expressed as a
+          Structure
+
+   This is an example-only loose matching media stream description
+   expressed as a JavaScript structure.  This example is not a signaling
+   on-the-wire format mandate.
+
+   var myStreamDescriptionLooseExampleA = [
+       {
+           kind: "audio"
+       },
+       {
+           kind: "video"
+       }
+   ];
+
+   var myStreamDescriptionLooseExampleB = [
+       {
+           kind: "audio",
+           ssrc: 5,
+           socketId: "my-audio-port"
+       },
+       {
+           kind: "video",
+           socketId: "my-video-port",
+       },
+       {
+           kind: "dtmf"
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 22]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
+       },
+       {
+           track: "<existing-track-id>",
+           ssrc: 17,
+           socketId: "my-other-port"
+       }
+   ];
 
 
 3.2.8.  Data Stream Description
@@ -1109,25 +1276,20 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
    available data stream without needing any specifier to handle simple
    signaling scenarios where specific stream mappings are unimportant.
 
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 10, 2014               [Page 20]
-
-Internet-Draft        WebRTC JavaScript Object RTC             July 2013
-
-
 3.3.  RTC Feature Discovery
 
    The browser must have a method to allow a developer's JavaScript to
    determine what RTP features are available from the browser's RTC
    engine without performing browser and browser version detection.
    While some features can be probed by way of checking if an object
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 23]
+
+Internet-Draft        WebRTC JavaScript Object RTC             July 2013
+
+
    exists to support the feature, other features cannot.  For example;
    the developer's JavaScript should be able to probe the browser to
    answer "Does the RTC engine support FEC?"
@@ -1173,7 +1335,13 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 21]
+
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 24]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1229,7 +1397,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 22]
+Raymond, et al.         Expires January 10, 2014               [Page 25]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1285,7 +1453,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 23]
+Raymond, et al.         Expires January 10, 2014               [Page 26]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1341,7 +1509,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 24]
+Raymond, et al.         Expires January 10, 2014               [Page 27]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1397,7 +1565,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 25]
+Raymond, et al.         Expires January 10, 2014               [Page 28]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1453,7 +1621,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 26]
+Raymond, et al.         Expires January 10, 2014               [Page 29]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1509,7 +1677,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 27]
+Raymond, et al.         Expires January 10, 2014               [Page 30]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1565,7 +1733,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 28]
+Raymond, et al.         Expires January 10, 2014               [Page 31]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1621,7 +1789,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 29]
+Raymond, et al.         Expires January 10, 2014               [Page 32]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1677,7 +1845,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 30]
+Raymond, et al.         Expires January 10, 2014               [Page 33]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1733,7 +1901,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 31]
+Raymond, et al.         Expires January 10, 2014               [Page 34]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1789,7 +1957,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 32]
+Raymond, et al.         Expires January 10, 2014               [Page 35]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1845,7 +2013,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 33]
+Raymond, et al.         Expires January 10, 2014               [Page 36]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1901,7 +2069,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 34]
+Raymond, et al.         Expires January 10, 2014               [Page 37]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -1957,7 +2125,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 35]
+Raymond, et al.         Expires January 10, 2014               [Page 38]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2013,7 +2181,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 36]
+Raymond, et al.         Expires January 10, 2014               [Page 39]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2069,7 +2237,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 37]
+Raymond, et al.         Expires January 10, 2014               [Page 40]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2125,7 +2293,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 38]
+Raymond, et al.         Expires January 10, 2014               [Page 41]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2181,7 +2349,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 39]
+Raymond, et al.         Expires January 10, 2014               [Page 42]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2237,7 +2405,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 40]
+Raymond, et al.         Expires January 10, 2014               [Page 43]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2293,7 +2461,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 41]
+Raymond, et al.         Expires January 10, 2014               [Page 44]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2349,7 +2517,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 42]
+Raymond, et al.         Expires January 10, 2014               [Page 45]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2405,7 +2573,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 43]
+Raymond, et al.         Expires January 10, 2014               [Page 46]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2461,7 +2629,7 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 44]
+Raymond, et al.         Expires January 10, 2014               [Page 47]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2517,7 +2685,7 @@ Authors' Addresses
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 45]
+Raymond, et al.         Expires January 10, 2014               [Page 48]
 
 Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
@@ -2573,4 +2741,4 @@ Internet-Draft        WebRTC JavaScript Object RTC             July 2013
 
 
 
-Raymond, et al.         Expires January 10, 2014               [Page 46]
+Raymond, et al.         Expires January 10, 2014               [Page 49]

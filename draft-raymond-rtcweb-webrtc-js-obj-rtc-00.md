@@ -231,6 +231,16 @@ A context identifier is used not only for the ICE username, it must be a common 
 
 The information contained in a connection's description must be exchanged with a remote peer's connection object before any candidate connectivity checks may be performed by the browser. The exact method and timing of the exchange must be left to the discretion of the JavaScript developer.
 
+#### Connection Description Expressed as a Structure ####
+
+This is an example-only connection description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myConnectionDescription = {
+        cname: "<value>",
+        contextId: "<random-id>",
+        secret: "<random>",
+        fingerprints: ["<hash1>","<hash2>"]
+    };
 
 #### Connection Description Negotiation ####
 
@@ -277,7 +287,7 @@ Each ICE candidate has description information containing the following:
   * priority (as as defined in RFC5245)
   * connection address (as as defined in RFC5245)
   * connection port (as as defined in RFC5245)
-  * type (defined as "srflx", "prflx", or "relay" whose meaning is derived from RFC5245)
+  * type (defined as "host", srflx", "prflx", or "relay" whose meaning is derived from RFC5245)
   * related address (as as defined in RFC5245)
   * related port (as as defined in RFC5245)
 
@@ -286,11 +296,61 @@ Other non-ICE candidate types may contain other types of description information
 The candidate descriptions may be relayed to the remote peer independent of other description information or bundled together with other descriptions as determined by the needs of the JavaScript developer. The browser must not impose restrictions on external signaling protocols related to the exchange of candidates, or require the bundling of other types of descriptions, such as constraint descriptions ({{objconstraints}}) or stream descriptions ({{objstreamdescriptions}}).
 
 
+##### Candidate Description Expressed as a Structure #####
+
+This is an example-only candidate description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myCandidateDescription = {
+        socketId: "my-socket",
+        foundation: 1,
+        component: 1,
+        transport: "udp",
+        priority: 1694498815,
+        connectionAddress: "192.0.2.33",
+        connectionPort: 10000,
+        type: "host"
+        // relatedAddress: "1.2.3.4",
+        // relatedPort: 34232
+    };
+
+
 ### Constraints ### {#objconstraints}
 
 Constraints consist of a list of media codecs and cryptographic encryption algorithms allowed to be used as part of the transmission of media. Constraints can consist of additional rules or limitations, for example; video size or bandwidth limitations. A developer's JavaScript must be able to obtain the types of constraints supported by the browser ({{objfeaturediscovery}}), and the default set of codecs and algorithms available.
 
 Send constraints indicate media constraints that apply to media flowing from the local to the remote peer. Receive constraints apply to the media flowing to the local peer from a remote peer. The constraints may be identical in both directions, or the constraints may be a negotiated subset, or the constraints may be unique per direction (i.e. send versus receive). A developer's JavaScript must must be able to set the constraints on either direction, at will, and obtain the possible constraints for a connection.
+
+#### Constraints Description Expressed as a Structure ####
+
+This is an example-only constraints description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate. Individual codecs may have varying properties according to the definition of each codec type.
+
+    var myConstraints = {
+        codecs: [
+            {
+                payloadId: 96,
+                kind: "audio",
+                name: "<name>",
+                hzRate: 32000,
+                channels: 1
+                // ...
+            },
+            {
+                payloadId: 96,
+                kind: "video",
+                name: "<name>",
+                hzRate: 96000
+                // ...
+            }
+        ],
+        required: {
+        },
+        optional: {
+            video: {
+                maxWdith: 1280,
+                maxHeight: 720
+            }
+        }
+    };
 
 
 #### Constraints Negotiation ####
@@ -380,6 +440,36 @@ Example pseudo-code of how streams could be sent and signaled:
     bob_connection.receiveStream(bobMediaStreamFromAlice);
 
 
+#### Media Stream Description Expressed as a Structure ####
+
+This is an example-only media stream description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myStreamDescription = [
+        { // audio
+            track: "<track-id>",
+            ssrc: 5,
+            redundencySsrc: 10,
+            socketId: "my-audio-port",
+            constraints: { /* optional constraints */ }
+        },
+        { // video
+            kind: "video",
+            ssrc: 10,
+            socketId: "my-video-port",
+            constraints: { /* optional constraints */ }
+         },
+         { // dtmf
+            kind: "dtmf",
+            ssrc: 5,
+            socketId: "my-audio-port",
+            constraints: { /* optional constraints */ }
+         },
+         { // unspecified
+             track: "poor-taste-track-id",
+             omit: true
+         }
+    ];
+
 
 #### Future Media Stream Descriptions #### {#objfuturestreamdescriptions}
 
@@ -435,6 +525,41 @@ Example pseudo-code of how streams could be sent with loose matching media strea
     // bob receives stream (auto-loose matching will work in simple case)
     var bobMediaStreamFromAlice = new MediaStream();
     bob_connection.receiveStream(bobMediaStreamFromAlice);
+
+
+#### Loosely Matching Media Stream Description Expressed as a Structure ####
+
+This is an example-only loose matching media stream description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myStreamDescriptionLooseExampleA = [
+        {
+            kind: "audio"
+        },
+        {
+            kind: "video"
+        }
+    ];
+    
+    var myStreamDescriptionLooseExampleB = [
+        {
+            kind: "audio",
+            ssrc: 5,
+            socketId: "my-audio-port"
+        },
+        {
+            kind: "video",
+            socketId: "my-video-port",
+        },
+        {
+            kind: "dtmf"
+        },
+        {
+            track: "<existing-track-id>",
+            ssrc: 17,
+            socketId: "my-other-port"
+        }
+    ];
+
 
 
 ### Data Stream Description ###  {#objdatastreamdescription}
