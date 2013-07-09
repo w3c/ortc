@@ -5,14 +5,14 @@
 Network Working Group                                         R. Raymond
 Internet-Draft                                                 Hookflash
 Intended status: Informational                                   C. Dorn
-Expires: January 09, 2014                                    Independent
+Expires: January 10, 2014                                    Independent
                                                              E. Lagerway
                                                                Hookflash
                                                          I. Baz Castillo
                                                                Versatica
                                                               R. Shpount
                                                              TurboBridge
-                                                           July 08, 2013
+                                                           July 09, 2013
 
 
                  WebRTC JavaScript Object RTC Examples
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 09, 2014.
+   This Internet-Draft will expire on January 10, 2014.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Raymond, et al.         Expires January 09, 2014                [Page 1]
+Raymond, et al.         Expires January 10, 2014                [Page 1]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -70,33 +70,33 @@ Table of Contents
    3.  Example Use Cases . . . . . . . . . . . . . . . . . . . . . .   3
      3.1.  Simple  . . . . . . . . . . . . . . . . . . . . . . . . .   3
        3.1.1.  Example Code  . . . . . . . . . . . . . . . . . . . .   3
-       3.1.2.  Same Under JSEP . . . . . . . . . . . . . . . . . . .   5
+       3.1.2.  Same Under JSEP . . . . . . . . . . . . . . . . . . .   6
      3.2.  More Complex  . . . . . . . . . . . . . . . . . . . . . .   7
-       3.2.1.  Example Code  . . . . . . . . . . . . . . . . . . . .   7
-     3.3.  Adding / Removing Streams . . . . . . . . . . . . . . . .   9
-       3.3.1.  Simple Example  . . . . . . . . . . . . . . . . . . .   9
-       3.3.2.  Complex Example . . . . . . . . . . . . . . . . . . .  10
+       3.2.1.  Example Code  . . . . . . . . . . . . . . . . . . . .   8
+     3.3.  Adding / Removing Streams . . . . . . . . . . . . . . . .  10
+       3.3.1.  Simple Example  . . . . . . . . . . . . . . . . . . .  10
+       3.3.2.  Complex Example . . . . . . . . . . . . . . . . . . .  11
      3.4.  Audio with DTMF, Video and Data Sockets . . . . . . . . .  12
        3.4.1.  Use case  . . . . . . . . . . . . . . . . . . . . . .  12
-       3.4.2.  Example Code  . . . . . . . . . . . . . . . . . . . .  12
+       3.4.2.  Example Code  . . . . . . . . . . . . . . . . . . . .  13
    4.  WebRTC 1.0 Comparison Example Usage Cases . . . . . . . . . .  15
      4.1.  Stream Added  . . . . . . . . . . . . . . . . . . . . . .  15
        4.1.1.  WebRTC 1.0  . . . . . . . . . . . . . . . . . . . . .  15
-       4.1.2.  Same Under WebRTC JS Object Model . . . . . . . . . .  15
+       4.1.2.  Same Under WebRTC JS Object Model . . . . . . . . . .  16
      4.2.  Stream Removed  . . . . . . . . . . . . . . . . . . . . .  16
        4.2.1.  WebRTC 1.0  . . . . . . . . . . . . . . . . . . . . .  16
        4.2.2.  Same Under WebRTC JS Object Model . . . . . . . . . .  17
-   5.  Example Descriptions and Constraints  . . . . . . . . . . . .  17
-     5.1.  Connection Description  . . . . . . . . . . . . . . . . .  17
+   5.  Example Descriptions and Constraints  . . . . . . . . . . . .  18
+     5.1.  Connection Description  . . . . . . . . . . . . . . . . .  18
      5.2.  Stream Description  . . . . . . . . . . . . . . . . . . .  18
        5.2.1.  Full Description  . . . . . . . . . . . . . . . . . .  18
-       5.2.2.  Loose Description . . . . . . . . . . . . . . . . . .  18
+       5.2.2.  Loose Description . . . . . . . . . . . . . . . . . .  19
      5.3.  Constraints . . . . . . . . . . . . . . . . . . . . . . .  19
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  20
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  20
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  20
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  20
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  21
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  21
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  21
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  21
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 1.  Introduction
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Raymond, et al.         Expires January 09, 2014                [Page 2]
+Raymond, et al.         Expires January 10, 2014                [Page 2]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -165,7 +165,7 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-Raymond, et al.         Expires January 09, 2014                [Page 3]
+Raymond, et al.         Expires January 10, 2014                [Page 3]
 
 Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
@@ -174,10 +174,26 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    alice_connection.receiveStream(aliceMediaStreamFromBob);
 
+   // Send Bob the connection description as it is
    mysignal(msg_connection_info_for_bob, msg_constraints_for_bob);
+
+   // Or convert it to the desired format before sending
+   var custom_description_for_bob = my_lib_ORTC2MyFormat(
+     msg_connection_info_for_bob, msg_constraints_for_bob
+   );
+   mysignal(custom_message_for_bob);
 
    //-------------------------------------------------------------------
    // STEP 3: Browser B creates a connection
+
+   // re-format the connection information if needed
+   var message = my_lib_MyFormat2ORTC(
+     custom_message_for_bob
+   );
+   var msg_connection_info_for_bob = message.connection_description;
+   var msg_constraints_for_bob = message.connection_contraints;
+
+
    var bob_connection = new ORTC.Connection();
    bob_connection.setDescription( JSON.parse(
      msg_connection_info_for_bob),"remote");
@@ -194,7 +210,31 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    var msg_constraints_for_alice = JSON.stringify(
      bob_connection.getConstraints("receive"));
 
+   // Send Alice the connection description as it is
    mysignal(msg_connection_info_for_alice, msg_constraints_for_alice);
+
+   // Or convert it to the desired format before sending
+   var custom_description_for_alice = my_lib_ORTC2MyFormat(
+     msg_connection_info_for_alice,
+     msg_constraints_for_alice
+   );
+
+
+
+Raymond, et al.         Expires January 10, 2014                [Page 4]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
+   mysignal(custom_message_for_alice);
+
+
+   // re-format the connection information if needed
+   var message = my_lib_MyFormat2ORTC(
+     custom_message_for_alice
+   );
+   var msg_connection_info_for_alice = message.connection_description;
+   var msg_constraints_for_alice = message.connection_contraints;
 
    alice_connection.setDescription( JSON.parse(
      msg_connection_info_for_alice), "remote");
@@ -218,14 +258,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    //-------------------------------------------------------------------
    // STEP 6: Browser A and B are connected
    alice_connection.onconnected = function() {
-
-
-
-Raymond, et al.         Expires January 09, 2014                [Page 4]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
      // ... horray ...
    }
 
@@ -242,6 +274,12 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    bob_connection.onstreamconnected = function(stream) {
      // ... horray ... stream can play now...
    }
+
+
+
+Raymond, et al.         Expires January 10, 2014                [Page 5]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 3.1.2.  Same Under JSEP
@@ -275,13 +313,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    9.   Bob set the new regenerated "replacement" answer back to the
         browser as a replacement answer
 
-
-
-Raymond, et al.         Expires January 09, 2014                [Page 5]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    10.  Bob signals "mysignal" format on the wire back to Alice
 
    11.  Alice generates a replacement offer based on Bob's codecs from
@@ -298,6 +329,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    1.  Requires SDP parsing, generating and format mangling to set
        "basic" things like codecs
+
+
+
+
+Raymond, et al.         Expires January 10, 2014                [Page 6]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    2.  Requires the SDP format to be understood, including the SSRC
        bundling information, even though only the codecs are re-arranged
@@ -331,13 +370,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    This is merely one of many cases that is quite complex under JSEP.
 
-
-
-Raymond, et al.         Expires January 09, 2014                [Page 6]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
 3.2.  More Complex
 
    1.  Browser A creates a connection
@@ -353,6 +385,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    5.  Browser A and B exchange candidates
 
    6.  Browser A and B are connected
+
+
+
+
+Raymond, et al.         Expires January 10, 2014                [Page 7]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    7.  Browser A and Browser B send media as defined in the stream
        descriptions
@@ -387,13 +427,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
      msg_stream_info_for_bob
      );
 
-
-
-Raymond, et al.         Expires January 09, 2014                [Page 7]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    //-------------------------------------------------------------------
    // STEP 3: Browser B creates a connection
    var bob_connection = new ORTC.Connection();
@@ -409,6 +442,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    //-------------------------------------------------------------------
    // STEP 4: Browser B sends response to Browser A
+
+
+
+Raymond, et al.         Expires January 10, 2014                [Page 8]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
    var msg_connection_info_for_alice = JSON.stringify(
      bob_connection.getDescription());
    var msg_constraints_for_alice = JSON.stringify(
@@ -443,13 +484,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
          JSON.parse(JSON.stringify(candidate)));
    });
 
-
-
-Raymond, et al.         Expires January 09, 2014                [Page 8]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    //-------------------------------------------------------------------
    // STEP 6: Browser A and B are connected
    alice_connection.onconnected = function() {
@@ -464,6 +498,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    // STEP 7: Browser A and Browser B send media
 
    alice_connection.onstreamconnected = function(stream) {
+
+
+
+Raymond, et al.         Expires January 10, 2014                [Page 9]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
      // ... horray ... stream can play now...
    }
    bob_connection.onstreamconnected = function(stream) {
@@ -493,19 +535,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    9.  Browser A removes first media stream
 
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 09, 2014                [Page 9]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
 3.3.1.1.  Example Code
 
    Steps 1-7 follow the example steps from the simple example
@@ -524,6 +553,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    mysignal("to:bob", "+stream: fish tank cam");
 
    bob_connection.receiveStream(addedStreamFromAlice);
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 10]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    //-------------------------------------------------------------------
    // STEP 9: Browser A removes first media stream
@@ -553,15 +590,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    6.   Browser A and B are connected
 
-
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 10]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    7.   Browser A and Browser B send media as defined in the stream
         descriptions
 
@@ -581,6 +609,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    //-------------------------------------------------------------------
    // STEP 1 .. STEP 7: follows more complex example steps
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 11]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    // ... see more complex example ...
 
@@ -610,14 +646,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    alice_connection.sendStream(aliceFishTankStreamForBob);
 
 
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 11]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
 3.4.  Audio with DTMF, Video and Data Sockets
 
 3.4.1.  Use case
@@ -636,6 +664,15 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
        stream
 
    4.  Bob listens for the DTMF media stream track to connect
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 12]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    5.  Bob distinguishes the type of stream connected, i.e. media vs
        data (for unspecified purpose)
@@ -666,14 +703,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    var msg_connection_info_for_bob = JSON.stringify(
      alice_connection.getDescription());
    var msg_constraints_for_bob = JSON.stringify(
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 12]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
      alice_connection.getConstraints("receive"));
 
    alice_connection.receiveStream(aliceMediaStreamFromBob);
@@ -692,6 +721,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    var bob_dSock = new ORTC.DataSocket();
    var bob_connection = new ORTC.Connection(
      {sockets:[bob_aSock, bob_vSock, bob_dSock]});
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 13]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    bob_connection.setDescription( JSON.parse(
      msg_connection_info_for_bob),"remote");
@@ -722,14 +759,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
    alice_connection.sendStream(aliceMediaStreamForBob);
 
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 13]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    //-------------------------------------------------------------------
    // STEP 5: Browser A and B exchange candidates
    // - tightly couple trickle ICE (usually sent over signaling channel)
@@ -749,6 +778,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    }
 
    bob_connection.onconnected = function() {
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 14]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
      // ... horray ...
    }
 
@@ -777,15 +814,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    }
 
 
-
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 14]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
 4.  WebRTC 1.0 Comparison Example Usage Cases
 
 4.1.  Stream Added
@@ -806,6 +834,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    var localDescriptionCreated = function(description) {
      alice_RTCPeerConnection.setLocalDescription(
        description, sendDescription, rtcError);
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 15]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
    }
 
    var sendDescription = function() {
@@ -833,15 +869,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 4.1.2.  Same Under WebRTC JS Object Model
 
-
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 15]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    //-------------------------------------------------------------------
    // Alice sends the description of a new stream to Bob and prepares
    // the stream to be send after ICE discovery.
@@ -861,6 +888,15 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    1.  Alice removes a stream on an established session with Bob.
 
 4.2.1.  WebRTC 1.0
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 16]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    //-------------------------------------------------------------------
    // Alice removes a stream from the RTCPeerconnection and sends
@@ -891,13 +927,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
      // stream removed
    }
 
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 16]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    //  Bob sends the SDP Answer to Alice
    var sendDescription = function(){
      mySignal({sdp: bob_RTCPeerConnection.localDescription});
@@ -917,6 +946,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    alice_connection.sendStream(stream, false);
 
    // Bob is informed about the stream disconnection
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 17]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
    bob_connection.onstreamdisconnected = function(stream) {
      // stream removed
    }
@@ -939,19 +976,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
        secret: "<random>",
        fingerprints: ["<hash1>","<hash2>"]
    };
-
-
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 17]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 5.2.  Stream Description
@@ -978,6 +1002,14 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
            ssrc: 5,
            socketId: "my-audio-port",
            constraints: { /* optional constraints */ }
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 18]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
+
         },
         { // unspecified
             track: "poor-taste-track-id",
@@ -1002,14 +1034,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    //-------------------------------------------------------------------
    // In this example a more specific definition is given,
    // but some things are still auto-mapped
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 18]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    var myStreamDescriptionLooseExampleB = [
        {
            kind: "audio",
@@ -1032,6 +1056,15 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 5.3.  Constraints
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 19]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    //-------------------------------------------------------------------
    var myConstraints = {
@@ -1058,14 +1091,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
                priority: 0,
                // mki: "<octects>",
                key: "<random>"
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 19]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
            },
            {
                algorithm: "<name>",
@@ -1086,6 +1111,16 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 6.  Security Considerations
+
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 20]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    As this is merely an informative example draft, the security
    considerations are identical to the related draft proposal found in
@@ -1114,14 +1149,6 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
    [I-D.raymond-rtcweb-webrtc-js-obj-api-rationale]
               Raymond, R., Lagerway, E., Castillo, I., and R. Shpount,
               "WebRTC JavaScript Object API Rationale", draft-raymond-
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 20]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
               rtcweb-webrtc-js-obj-api-rationale-01 (work in progress),
               July 2013.
 
@@ -1138,6 +1165,18 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
               <http://www.w3.org/TR/2012/WD-webrtc-20120821/>.
 
 Authors' Addresses
+
+
+
+
+
+
+
+
+Raymond, et al.         Expires January 10, 2014               [Page 21]
+
+Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
+
 
    Robin Raymond
    Hookflash
@@ -1165,19 +1204,6 @@ Authors' Addresses
    Email: erik@hookflash.com
 
 
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 21]
-
-Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
-
-
    Inaki Baz Castillo
    Versatica
    Barakaldo
@@ -1203,30 +1229,4 @@ Internet-Draft    WebRTC JavaScript Object RTC Examples        July 2013
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Raymond, et al.         Expires January 09, 2014               [Page 22]
+Raymond, et al.         Expires January 10, 2014               [Page 22]
