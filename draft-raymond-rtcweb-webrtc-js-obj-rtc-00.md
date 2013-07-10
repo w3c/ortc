@@ -231,6 +231,16 @@ A context identifier is used not only for the ICE username, it must be a common 
 
 The information contained in a connection's description must be exchanged with a remote peer's connection object before any candidate connectivity checks may be performed by the browser. The exact method and timing of the exchange must be left to the discretion of the JavaScript developer.
 
+#### Connection Description Expressed as a Structure ####
+
+This is an example-only connection description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myConnectionDescription = {
+        cname: "<value>",
+        contextId: "<random-id>",
+        secret: "<random>",
+        fingerprints: ["<hash1>","<hash2>"]
+    };
 
 #### Connection Description Negotiation ####
 
@@ -277,7 +287,7 @@ Each ICE candidate has description information containing the following:
   * priority (as as defined in RFC5245)
   * connection address (as as defined in RFC5245)
   * connection port (as as defined in RFC5245)
-  * type (defined as "srflx", "prflx", or "relay" whose meaning is derived from RFC5245)
+  * type (defined as "host", srflx", "prflx", or "relay" whose meaning is derived from RFC5245)
   * related address (as as defined in RFC5245)
   * related port (as as defined in RFC5245)
 
@@ -286,11 +296,61 @@ Other non-ICE candidate types may contain other types of description information
 The candidate descriptions may be relayed to the remote peer independent of other description information or bundled together with other descriptions as determined by the needs of the JavaScript developer. The browser must not impose restrictions on external signaling protocols related to the exchange of candidates, or require the bundling of other types of descriptions, such as constraint descriptions ({{objconstraints}}) or stream descriptions ({{objstreamdescriptions}}).
 
 
+##### Candidate Description Expressed as a Structure #####
+
+This is an example-only candidate description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myCandidateDescription = {
+        socketId: "my-socket",
+        foundation: 1,
+        component: 1,
+        transport: "udp",
+        priority: 1694498815,
+        connectionAddress: "192.0.2.33",
+        connectionPort: 10000,
+        type: "host"
+        // relatedAddress: "1.2.3.4",
+        // relatedPort: 34232
+    };
+
+
 ### Constraints ### {#objconstraints}
 
 Constraints consist of a list of media codecs and cryptographic encryption algorithms allowed to be used as part of the transmission of media. Constraints can consist of additional rules or limitations, for example; video size or bandwidth limitations. A developer's JavaScript must be able to obtain the types of constraints supported by the browser ({{objfeaturediscovery}}), and the default set of codecs and algorithms available.
 
 Send constraints indicate media constraints that apply to media flowing from the local to the remote peer. Receive constraints apply to the media flowing to the local peer from a remote peer. The constraints may be identical in both directions, or the constraints may be a negotiated subset, or the constraints may be unique per direction (i.e. send versus receive). A developer's JavaScript must must be able to set the constraints on either direction, at will, and obtain the possible constraints for a connection.
+
+#### Constraints Description Expressed as a Structure ####
+
+This is an example-only constraints description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate. Individual codecs may have varying properties according to the definition of each codec type.
+
+    var myConstraints = {
+        codecs: [
+            {
+                payloadId: 96,
+                kind: "audio",
+                name: "<name>",
+                hzRate: 32000,
+                channels: 1
+                // ...
+            },
+            {
+                payloadId: 96,
+                kind: "video",
+                name: "<name>",
+                hzRate: 96000
+                // ...
+            }
+        ],
+        required: {
+        },
+        optional: {
+            video: {
+                maxWdith: 1280,
+                maxHeight: 720
+            }
+        }
+    };
 
 
 #### Constraints Negotiation ####
@@ -380,6 +440,36 @@ Example pseudo-code of how streams could be sent and signaled:
     bob_connection.receiveStream(bobMediaStreamFromAlice);
 
 
+#### Media Stream Description Expressed as a Structure ####
+
+This is an example-only media stream description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myStreamDescription = [
+        { // audio
+            track: "<track-id>",
+            ssrc: 5,
+            redundencySsrc: 10,
+            socketId: "my-audio-port",
+            constraints: { /* optional constraints */ }
+        },
+        { // video
+            kind: "video",
+            ssrc: 10,
+            socketId: "my-video-port",
+            constraints: { /* optional constraints */ }
+         },
+         { // dtmf
+            kind: "dtmf",
+            ssrc: 5,
+            socketId: "my-audio-port",
+            constraints: { /* optional constraints */ }
+         },
+         { // unspecified
+             track: "poor-taste-track-id",
+             omit: true
+         }
+    ];
+
 
 #### Future Media Stream Descriptions #### {#objfuturestreamdescriptions}
 
@@ -435,6 +525,41 @@ Example pseudo-code of how streams could be sent with loose matching media strea
     // bob receives stream (auto-loose matching will work in simple case)
     var bobMediaStreamFromAlice = new MediaStream();
     bob_connection.receiveStream(bobMediaStreamFromAlice);
+
+
+#### Loosely Matching Media Stream Description Expressed as a Structure ####
+
+This is an example-only loose matching media stream description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.
+
+    var myStreamDescriptionLooseExampleA = [
+        {
+            kind: "audio"
+        },
+        {
+            kind: "video"
+        }
+    ];
+    
+    var myStreamDescriptionLooseExampleB = [
+        {
+            kind: "audio",
+            ssrc: 5,
+            socketId: "my-audio-port"
+        },
+        {
+            kind: "video",
+            socketId: "my-video-port",
+        },
+        {
+            kind: "dtmf"
+        },
+        {
+            track: "<existing-track-id>",
+            ssrc: 17,
+            socketId: "my-other-port"
+        }
+    ];
+
 
 
 ### Data Stream Description ###  {#objdatastreamdescription}
@@ -969,7 +1094,11 @@ The browser must expose the fingerprints involved from the Connection {{objconne
 
 ### IdP ### {#idp}
 
-The identity provider model has not be mandated. The model is far away from completion, and the round trips to perform validation before a stream can be rendered is not desirable. IdP requires an identity model that might not exist conceptually for many web services. Further, in many simple cases this model is not required as a WebSocket with TLS can be used to exchange fingerprints for a private service providing the same level of trust from the provider since the fingerprints are exchanged in a private manner. IdP also suggest domain federation is possible but federation is only possible if two clients run the same JavaScript signaling model on both ends and signaling is federated across domains. The IdP federation identity model is complex for web services that wish to perform simple WebRTC use cases.
+The identity provider model (IdP) should not be mandated. This allows the IdP draft to become perfected until it is ready for usage and all scenarios and usages of IdP have been thoroughly thought through. Regardless, IdP should not be mandated. Not all WebRTC servers have an identity model for their users.
+
+The IdP model is far from completion at the time of this draft. The current model requires round trips to perform validation before a stream can be rendered, which is not desirable. In simple use cases, the IdP model is not required as a WebSocket with TLS can be used to exchange fingerprints for a private service, which provides the same level of trust from a provider as IdP since the fingerprints are exchanged in a private and secure manner via a trusted provider. The complexity of any identity model must be factored, especially in consideration basic and simple WebRTC use cases.
+
+Should IdP becomes perfected, the connection description {{objconnectiondescription}} can be extended to include the identity information as part of connection negotiation.
 
 
 ### JavaScript Provided DTLS Certificates ### {#jscertificates}
@@ -985,7 +1114,9 @@ The RTCWEB WG must come to a decision to allow this feature or not.
 
 ### DTLS / SRTP vs SDES / SRTP ### {#dtlssrtp}
 
-Auto-keying for RTP could be done through a DTLS handshakes extensions as opposed to using SDES. If DTLS becomes the mandated method to perform media key negotiation then the implementation bar is raised for what a remote device must support to communicate, and many legacy devices and networks do not support this feature. DTLS without an absolutely foolproof man-in-the-middle attack prevention scheme (i.e. fingerprint validation, see {{idp}}) provides little security if the stream can be intercepted, and may in fact be weaker than allowing the browsers to exchange SDES credentials privately during their negotiation (e.g. keying via an HTTPS proxy). The final decision to mandate, recommend or allow for media key negotiation over DTLS must be made by the RTCWEB WG before any RTC JavaScript interface can be completed.
+Auto-keying for SRTP must be done through a DTLS handshakes extensions as opposed to requiring SDES {{RFC4568}}. DTLS must have a foolproof man-in-the-middle attack prevention scheme (i.e. fingerprint validation, see {{idp}}). Without the fingerprint validation, little security is provided should the stream be intercepted.
+
+If substantial push-back exists over mandating the usage of DTLS for keying over SDES, then the keying for SDES can be easily be included as part of the constraints structure {{objconstraints}}. The final decision to mandate, recommend or allow for media key negotiation over DTLS must be made by the RTCWEB WG before any RTC JavaScript interface can be completed.
 
 
 IANA Considerations
