@@ -5,9 +5,8 @@ A DataStream and Video demo.
 */
 define([
     "ortc/webrtc-shim",
-    "ortc/ortc",
-    "ortc/rtc"
-], function (WEBRTC_SHIM, ORTC, RTC) {
+    "ortc/ortc"
+], function (WEBRTC_SHIM, ORTC) {
 
     suite("OK-DataAndVideo", function() {
 

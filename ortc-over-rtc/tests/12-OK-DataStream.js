@@ -4,10 +4,8 @@ A DataStream demo.
 
 */
 define([
-    "ortc/webrtc-shim",
-    "ortc/ortc",
-    "ortc/rtc"
-], function (WEBRTC_SHIM, ORTC, RTC) {
+    "ortc/ortc"
+], function (ORTC) {
 
     suite("OK-DataStream", function() {
 
