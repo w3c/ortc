@@ -1,9 +1,8 @@
 {
     "name": "ortc-over-rtc",
-    "version": "0.0.0",
-    "private": true,
-    "main": "server.js",
-    "dependencies": {
+    "version": "0.1.0",
+    "main": "lib/ortc.js",
+    "devDependencies": {
         "express": "~3.1.0",
         "hbs": "~2.1.0",
         "glob": "~3.1.21",
@@ -14,6 +13,6 @@
         "marked": "~0.2.8"
     },
     "scripts": {
-        "start": "node ."
+        "start": "node server.js"
     }
 }
