@@ -117,11 +117,16 @@
         this._turnServers = options.turnServers || [];
         this._kinds = options.kinds || [];
         this._rtcRtcpMux = options.rtcRtcpMux || true;
+        this._reliable = true;
+        if (typeof options.reliable !== "undefined") {
+            this._reliable = options.reliable;
+        }
 
         ASSERT.isArray(this._stunServers);
         ASSERT.isArray(this._turnServers);
         ASSERT.isArray(this._kinds);
         ASSERT.isBoolean(this._rtcRtcpMux);
+        ASSERT.isBoolean(this._reliable);
 
         if (options.publicKey || options.privateKey) {
             ASSERT.isString(options.publicKey);   // public key certificate in base-64
@@ -174,7 +179,8 @@
         this._localDescription = this.getDescription(false);
         this._remoteDescription = null;
 
-        this._streams = {};
+        this._sendStreams = {};
+        this._receiveStreams = {};
     };
 
     /**
@@ -325,6 +331,26 @@
         }
     }
 
+    Connection.prototype._getStreamInfo = function(streamId, createDirection) {
+        if (this._sendStreams[streamId]) {
+            return this._sendStreams[streamId];
+        } else
+        if (this._receiveStreams[streamId]) {
+            return this._receiveStreams[streamId];
+        } else {
+            if (createDirection === "local") {
+                createDirection = "send";
+            } else
+            if (createDirection === "remote") {
+                createDirection = "receive";
+            }
+            return (this["_" + createDirection + "Streams"][streamId] = {
+                id: streamId,
+                direction: createDirection
+            });
+        }
+    }
+
     /**
      * @param `selector` <mixed>  false|true|"local"|"remote"|<stream>
      * @return <object>  Description
@@ -367,12 +393,13 @@
             streamId = selector.id;
         }
 
-        if (this._streams[streamId] && this._streams[streamId].description) {
-            return ORTC._deepCopy(this._streams[streamId].description);
+        var streamInfo = this._getStreamInfo(streamId, options.direction || "send");
+
+        if (streamInfo.description) {
+            return ORTC._deepCopy(streamInfo.description);
         }
 
-        var direction = (this._streams[streamId] && this._streams[streamId].direction) || "send";
-        var description = this.getDescription((direction === "send") ? "local" : "remote");
+        var description = this.getDescription((streamInfo.direction === "send") ? "local" : "remote");
 
         if (stream) {
             var self = this;
@@ -412,36 +439,45 @@
             // TODO: Take existing from `options.tracks` and augment missing properties.
             description.tracks = [];
 
-            if (typeof stream.getAudioTracks === "function") {
-                stream.getAudioTracks().forEach(function(track) {
-                    description.tracks.push({
-                        kind: "audio",
-                        track: track.id,
-                        ssrc: parseInt(ORTC._getRandomNumber(9)),
-                        socketId: self._sockets[0].id
+            if (stream instanceof ORTC.DataStream) {
+                var track = {
+                    kind: "data",
+                    track: ORTC._getRandomString(32),
+                    ssrc: parseInt(ORTC._getRandomNumber(9)),
+                    socketId: self._sockets[0].id
 //                        constraints: {}
+                };
+                if (typeof options.msid !== "undefined") {
+                    track.msid = options.msid;
+                }
+                description.tracks.push(track);
+            } else {
+                if (typeof stream.getAudioTracks === "function") {
+                    stream.getAudioTracks().forEach(function(track) {
+                        description.tracks.push({
+                            kind: "audio",
+                            track: track.id,
+                            ssrc: parseInt(ORTC._getRandomNumber(9)),
+                            socketId: self._sockets[0].id
+    //                        constraints: {}
+                        });
                     });
-                });
-            }
-            if (typeof stream.getVideoTracks === "function") {
-                stream.getVideoTracks().forEach(function(track) {
-                    description.tracks.push({
-                        kind: "video",
-                        track: track.id,
-                        ssrc: parseInt(ORTC._getRandomNumber(9)),
-                        socketId: self._sockets[0].id
-//                        constraints: {}
+                }
+                if (typeof stream.getVideoTracks === "function") {
+                    stream.getVideoTracks().forEach(function(track) {
+                        description.tracks.push({
+                            kind: "video",
+                            track: track.id,
+                            ssrc: parseInt(ORTC._getRandomNumber(9)),
+                            socketId: self._sockets[0].id
+    //                        constraints: {}
+                        });
                     });
-                });
+                }
             }
         }
 
-        if (!this._streams[streamId]) {
-            this._streams[streamId] = {
-                id: streamId
-            };
-        }
-        this._streams[streamId].description = description;
+        streamInfo.description = description;
 /*
         if (stream instanceof DataStream) {
             description.socketId = options.socketId || socket.internalFindFirstDataSocketId();
@@ -466,7 +502,9 @@
             selector = (selector === true) ? "remote" : "local";
         }
 
-        var defaultDescription = self.getDescription(selector);
+        var defaultDescription = self.getDescription(selector, {
+            direction: "remote"
+        });
         for (var key in defaultDescription) {
             description[key] = description[key] || defaultDescription[key];
         }
@@ -497,8 +535,10 @@
             streamId = selector.id;
         }
 
+        var streamInfo = this._getStreamInfo(streamId, "receive");
+
         // TODO: Carry this in `descriptor` or change requirement for needing to know `kind`.
-        self._streams[streamId].kind = self._streams[streamId].kind || "MediaStream";
+        streamInfo.kind = streamInfo.kind || "MediaStream";
 
         // NOTE: We assume that we are setting description for a `receive` stream
         //       so we can default some properties although we don't set the `direction` property yet.
@@ -506,9 +546,9 @@
         //       must be called before being able to call `setDescription` for the receive stream.
         // TODO: If `direction` not set, default to `receive`?
         //self._streams[streamId].direction = self._streams[streamId].direction || "receive";
-        self._streams[streamId].constraints = self._streams[streamId].constraints || self.getConstraints("receive");
+        streamInfo.constraints = streamInfo.constraints || self.getConstraints(streamInfo.direction);
 
-        self._streams[streamId].description = description;
+        streamInfo.description = description;
     }
 
     /**
@@ -545,20 +585,15 @@
             return this.internalFindTrack(stream, track, ssrc, socketId).constraints;
         }
 */
+        var streamInfo = this._getStreamInfo(streamId, "send");
 
-        if (this._streams[streamId] && this._streams[streamId].constraints) {
-            return ORTC._deepCopy(this._streams[streamId].constraints);
+        if (streamInfo.constraints) {
+            return ORTC._deepCopy(streamInfo.constraints);
         }
 
-        var direction = (this._streams[streamId] && this._streams[streamId].direction) || "send";
-        var constraints = this.getConstraints(direction);
+        var constraints = this.getConstraints(streamInfo.direction);
 
-        if (!this._streams[streamId]) {
-            this._streams[streamId] = {
-                id: streamId
-            };
-        }
-        this._streams[streamId].constraints = constraints;
+        streamInfo.constraints = constraints;
 
         return ORTC._deepCopy(constraints);
     }
@@ -592,11 +627,7 @@
             streamId = selector.id;
         }
 
-        if (!self._streams[streamId]) {
-            self._streams[streamId] = {
-                id: streamId
-            };
-        }
+        var streamInfo = this._getStreamInfo(streamId, "receive");
 
         /*
             if (typeof track === "object") {
@@ -608,7 +639,7 @@
             }
         */
 
-        self._streams[streamId].constraints = constraints;
+        streamInfo.constraints = constraints;
     }
 
     /**
@@ -628,39 +659,36 @@
 
         ASSERT.isObject(options);
 
-        if (this._streams[stream.id]) {
-            if (
-                this._streams[stream.id].direction &&
-                this._streams[stream.id].direction === "receive"
-            ) {
-                throw new Error("Send stream with id '" + stream.id + "' is already attached as a receive stream!");
-            }
-
-            if (options.remove) {
-                delete this._streams[stream.id];
-                return stream;
-            }
-
-            options.description = options.description || this._streams[stream.id].description;
-            options.constraints = options.constraints || this._streams[stream.id].constraints;
+        if (options.remove) {
+            delete this._sendStreams[stream.id];
+            return stream;
         }
 
-        if (!this._streams[stream.id]) {
-            this._streams[stream.id] = {
-                id: stream.id,
-                kind: "MediaStream",
-                stream: stream,
-                direction: "send"
-            };
-        }
+        var streamInfo = this._getStreamInfo(stream.id, "send");
 
-        this._streams[stream.id].description = options.description || this.getDescription(stream);
+        options.description = options.description || streamInfo.description;
+        options.constraints = options.constraints || streamInfo.constraints;
+
+        streamInfo.stream = stream;
+
+        var kind = "MediaStream";
+        if (stream instanceof ORTC.DataStream) {
+            kind = "DataStream";
+        }
+        streamInfo.kind = streamInfo.kind || kind;
+
+        streamInfo.description = options.description || this.getDescription(stream, options);
         delete options.description;
 
-        this._streams[stream.id].constraints = options.constraints || this.getConstraints(stream);
+        streamInfo.constraints = options.constraints || this.getConstraints(stream);
         delete options.constraints;
 
-        this._streams[stream.id].options = options;
+        if (typeof options.reliable === "undefined") {
+            options.reliable = this._sockets[0]._reliable || false
+        }
+        ASSERT.isBoolean(options.reliable);
+
+        streamInfo.options = options;
 
         return stream;
     }
@@ -810,15 +838,22 @@
         options = options || {};
 
         ASSERT.isObject(options);
-        if (options.reliable) ASSERT.isBoolean(options.reliable);
 
-        this.reliable = options.reliable || true;
-        ASSERT.isBoolean(this.reliable)
+        this.id = ORTC._getRandomString(32);
+    }
+
+    DataStream.prototype.onerror = function(err) {
     }
 
     //------------------------------------------------------------------------
     // notify data has been received from the network
-    DataStream.prototype.onreceive = function(data) {
+    DataStream.prototype.onmessage = function(data) {
+    }
+
+    DataStream.prototype.onopen = function(data) {
+    }
+
+    DataStream.prototype.onclose = function(data) {
     }
 
     //------------------------------------------------------------------------

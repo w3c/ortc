@@ -3,9 +3,9 @@ define([
     "ortc/util"
 ], function(UTIL) {
 
-    var SDP = function() {};
+    var SDP = {};
 
-    SDP.prototype.parse = function(sdp) {
+    SDP.parse = function(sdp) {
 
         var info = {
             protocol: {},
@@ -147,7 +147,7 @@ define([
         return info;
     }
 
-    SDP.prototype.generate = function(info) {
+    SDP.generate = function(info) {
 
         // @see http://en.wikipedia.org/wiki/Session_Description_Protocol
 
@@ -156,7 +156,7 @@ define([
             'o=' + info.session.username + ' ' + info.session.id + ' ' + info.session.version + ' IN IP4 ' + info.session.ip,
             's=' + info.session.name,
             't=' + info.session.timeFrom + ' ' + info.session.timeTo,
-            'a=group:' + info.session.group,
+            'a=group:' + ((typeof info.session.group === "string") ? info.session.group : ("BUNDLE " + Object.keys(info.session.group).join(" "))),
             'a=msid-semantic: ' + info.session["msid-semantic"]
         ];
 
@@ -182,6 +182,9 @@ define([
 
             if (media.mid) {
                 sdp.push('a=mid:' + media.mid);
+            }
+            if (media.bandwidth) {
+                sdp.push('b=' + media.bandwidth);
             }
             if (media["rtcp-mux"]) {
                 // Transport option `rtcp-mux`: true|false
@@ -248,7 +251,7 @@ define([
         return sdp.join("\r\n");
     }
 
-    SDP.prototype.generateSdpObject = function(info, streams) {
+    SDP.generateSdpObject = function(info, streams) {
 
         var sdp = {
             protocol: {
@@ -269,29 +272,32 @@ define([
 
         streams.forEach(function(streamInfo) {
 
-            if (streamInfo.kind === "MediaStream") {
+            if (streamInfo.kind === "MediaStream" || streamInfo.kind === "DataStream") {
 
-                sdp.session["group"] = "BUNDLE " + streamInfo.description.tracks.map(function(track) {
-                    return track.kind;
-                }).join(" ");
-                sdp.session["msid-semantic"] = "WMS " + streamInfo.id;
+                sdp.session["msid-semantic"] = "WMS";
 
-                sdp.media = {};
+                if (!sdp.media) {
+                    sdp.media = {};
+                }
 
                 streamInfo.description.tracks.forEach(function (track) {
+                    if (typeof sdp.session["group"] === "string") {
+                        sdp.session["group"] = {};
+                    }
+                    sdp.session["group"][track.kind] = true;
 
                     var ssrcs = {};
 
                     ssrcs[parseInt(track.ssrc)] = {
                         cname: streamInfo.description.cname,
-                        msid: streamInfo.id + " " + streamInfo.id + track.kind.substring(0, 1) + "0",
-                        mslabel: streamInfo.id,
-                        label: streamInfo.id + track.kind.substring(0, 1) + "0"
+                        msid: (track.msid || streamInfo.id) + " " + (track.msid || streamInfo.id) + track.kind.substring(0, 1) + "0",
+                        mslabel: (track.msid || streamInfo.id),
+                        label: (track.msid || streamInfo.id) + track.kind.substring(0, 1) + "0"
                     };
 
                     var codecs = {};
                     var media = {
-                        "name": track.kind,
+                        "name": (track.kind === "data") ? "application" : track.kind,
                         "index": "1",
                         "transport": "RTP/SAVPF",
                         "codecPriority": streamInfo.constraints.codecs.filter(function(codec) {
@@ -328,6 +334,9 @@ define([
                     } else
                     if (track.kind === "video") {
                         media.extmap = "2 urn:ietf:params:rtp-hdrext:toffset";
+                    } else
+                    if (track.kind === "data") {
+                        media.bandwidth = "AS:30";
                     }
                     sdp.media[track.kind + ":1"] = media;
                 });
@@ -340,7 +349,7 @@ define([
         return sdp;
     }
 
-    SDP.prototype.parseSdpObject = function(sdpObject) {
+    SDP.parseSdpObject = function(sdpObject) {
 
         var info = {
             sessionId: sdpObject.session.id,
@@ -393,6 +402,6 @@ define([
         return info;
     }
 
-    return new SDP();
+    return SDP;
 
 });

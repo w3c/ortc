@@ -13,6 +13,12 @@ define([
         return {
             "codecs": [
                 {
+                    "payloadId": 101,
+                    "kind": "data",
+                    "name": "google-data",
+                    "hzRate": 90000
+                },
+                {
                     "payloadId": 111,
                     "kind": "audio",
                     "name": "opus",

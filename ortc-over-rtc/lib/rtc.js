@@ -29,7 +29,13 @@ define([
         }
 
         try {
-            self._pc = new WEBRTC_SHIM.PeerConnection(config);
+            self._pc = new WEBRTC_SHIM.PeerConnection(config, {
+                optional: [
+                    {
+                        RtpDataChannels: true
+                    }
+                ]
+            });
         } catch(err) {
             console.error(err.stack);
             throw err;
@@ -52,6 +58,10 @@ define([
         self._pc.onaddstream = function (event) {
             self.emit("onaddstream", event.stream);
         };
+
+        self._pc.ondatachannel = function(event) {
+            self.emit("ondatachannel", event.channel);
+        }
     }
 
     RTC.prototype = Object.create(EVENTS.prototype);
@@ -74,6 +84,39 @@ define([
         this._pc.addStream(streamInfo.stream);
     }
 
+    RTC.prototype.createDataChannel = function(streamInfo) {
+
+        var channel = this._pc.createDataChannel(streamInfo.description.tracks[0].msid, {
+            reliable: streamInfo.options.reliable || false
+        });        
+
+        channel.onerror = function(err) {
+            if (streamInfo.stream.hasOwnProperty("onerror")) {
+                streamInfo.stream.onerror(err);
+            }
+        }
+
+        channel.onopen = function() {
+            if (streamInfo.stream.hasOwnProperty("onopen")) {
+                streamInfo.stream.onopen();
+            }
+        }
+        channel.onmessage = function(event) {
+            if (streamInfo.stream.hasOwnProperty("onmessage")) {
+                streamInfo.stream.onmessage(event.data);
+            }
+        }
+        channel.onclose = function() {
+            if (streamInfo.stream.hasOwnProperty("onclose")) {
+                streamInfo.stream.onclose();
+            }
+        }
+
+        streamInfo.stream.send = function(data) {
+            channel.send(data);
+        }
+    }
+
     RTC.prototype.notifyChange = function() {
         var self = this;
 
@@ -85,12 +128,11 @@ define([
 
         var sendStreams = [];
         var receiveStreams = [];
-        for (var streamId in self._connection._streams) {
-            if (self._connection._streams[streamId].direction === "send") {
-                sendStreams.push(self._connection._streams[streamId]);
-            } else {
-                receiveStreams.push(self._connection._streams[streamId]);
-            }
+        for (var streamId in self._connection._sendStreams) {
+            sendStreams.push(self._connection._sendStreams[streamId]);
+        }
+        for (var streamId in self._connection._receiveStreams) {
+            receiveStreams.push(self._connection._receiveStreams[streamId]);
         }
 
         var offerSdp = SDP.generate(self._generateSdpObject(sendStreams));
@@ -100,7 +142,6 @@ define([
             type: "offer",
             sdp: offerSdp
         }));
-
         self._pc.setRemoteDescription(new WEBRTC_SHIM.SessionDescription({
             type: "answer",
             sdp: answerSdp
