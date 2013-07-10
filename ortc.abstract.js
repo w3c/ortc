@@ -376,11 +376,11 @@
             if (selector === "local" || selector === "remote") {
                 return ORTC._deepCopy(this["_" + selector + "Description"] || (selector === "local" && (this["_" + selector + "Description"] = {
                     // the cname value is per RTP "session" as per their rules (is the scoping correct??? -- would be nicer if it scoped more locally to be used for msid/track coordination)
-                    cname: ORTC._getRandomString(32),
-                    // this is be used as the userFrag for the iceCandidate and for input into the cyrptographic salt to prevent SSRC collision resolution issues
-                    contextId: ORTC._getRandomString(32),
+                    cname: ORTC._getRandomString(16),
+                    // this is be used as the userFrag for the iceCandidate
+                    contextId: ORTC._getRandomString(16),
                     // this is used for the password for the iceCandidate and can be used for other purposes too
-                    secret: ORTC._getRandomString(32),
+                    secret: ORTC._getRandomString(40),
                     fingerprints: this.fingerprints
                 })) || null) || null;
             } else {

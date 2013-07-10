@@ -310,17 +310,13 @@ define([
                         "codecs": codecs,
                         "crypto": streamInfo.constraints.crypto.map(function(crypto) {
                             crypto = UTIL.deepCopy(crypto);
-                            crypto.keysalt = (streamInfo.description.secret + streamInfo.description.contextId).substring(0, 40);
+                            crypto.keysalt = streamInfo.description.secret;
                             return crypto;
                         }),
                         "ssrcs": ssrcs,
                         "ip": "0.0.0.0",
                         "rtcp": "1 IN IP4 0.0.0.0",
-                        // chrome uses: randomHex(8)
-                        // NOTE: We only include the first 8 chars here as that is the maximum number of characters
-                        //       we can recover when contextId comes from being concatenated to key in crypto lines.
-//                        "ice-ufrag": streamInfo.description.contextId.substring(0, 16),
-                        "ice-ufrag": streamInfo.description.contextId.substring(0, 8),
+                        "ice-ufrag": streamInfo.description.contextId,
                         // chrome uses: randomHex(12)
                         "ice-pwd": streamInfo.description.secret.substring(0, 24),
                         "ice-options": "google-ice",
@@ -374,9 +370,8 @@ define([
 
                 stream.description = {
                     cname: ssrc.cname,
-                    // NOTE: We can only recover a partial `contextId` from crypto key as crypto key cannot be longer than 40 chars.
-                    contextId: media.crypto[0].keysalt.substring(32),
-                    secret: media.crypto[0].keysalt.substring(0, 32),
+                    contextId: media["ice-ufrag"],
+                    secret: media.crypto[0].keysalt,
                     tracks: (stream.description && stream.description.tracks) || []
                 };
                 stream.description.tracks.push({
