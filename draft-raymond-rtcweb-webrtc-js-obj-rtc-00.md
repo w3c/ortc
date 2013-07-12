@@ -448,7 +448,7 @@ This is an example-only media stream description expressed as a JavaScript struc
         { // audio
             track: "<track-id>",
             ssrc: 5,
-            redundencySsrc: 10,
+            redundancySsrc: 10,
             socketId: "my-audio-port",
             constraints: { /* optional constraints */ }
         },

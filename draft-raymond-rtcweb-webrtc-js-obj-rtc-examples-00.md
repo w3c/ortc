@@ -757,7 +757,7 @@ Stream Description
         { // audio
             track: "<track-id>",
             ssrc: 5,
-            redundencySsrc: 10,
+            redundancySsrc: 10,
             socketId: "my-audio-port",
             constraints: { /* optional constraints */ }
         },
