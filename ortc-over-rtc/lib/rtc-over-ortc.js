@@ -71,7 +71,7 @@ define([
 
 		for (var streamId in sdpInfo.streams) {			
 			this._connection.setDescription(sdpInfo.streams[streamId].description, streamId);
-//			this._connection.setConstraints(sdpInfo.streams[streamId].constraints, streamId);
+			this._connection.setConstraints(sdpInfo.streams[streamId].constraints, streamId);
 		}
 	}
 
@@ -84,7 +84,7 @@ define([
 
 		for (var streamId in sdpInfo.streams) {
 			this._connection.setDescription(sdpInfo.streams[streamId].description, streamId);
-//			this._connection.setConstraints(sdpInfo.streams[streamId].constraints, streamId);
+			this._connection.setConstraints(sdpInfo.streams[streamId].constraints, streamId);
 		}
 	}
 

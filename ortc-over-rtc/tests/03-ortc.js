@@ -106,9 +106,6 @@ define([
             test('must export function `receiveStream`', function() {
                 ASSERT.isFunction(pc.receiveStream);
             });
-            test('must export function `fork`', function() {
-                ASSERT.isFunction(pc.fork);
-            });
 
         });
 

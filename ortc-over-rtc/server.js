@@ -1,6 +1,7 @@
 
 const PATH = require("path");
 const EXPRESS = require("express");
+const HTTPS = require("https");
 const HBS = require("hbs");
 const GLOB = require("glob");
 const FS = require("fs-extra");
@@ -37,9 +38,13 @@ exports.main = function(callback) {
         mountStaticDir(app, /^\/lib\/(.*)$/, PATH.join(__dirname, "lib"));
         mountStaticDir(app, /^\/lib\/q\/(.*)$/, PATH.join(__dirname, "node_modules/q"));
 
-        var server = app.listen(PORT);
+        var server = HTTPS.createServer({
+            key: FS.readFileSync(PATH.join(__dirname, "server-key.pem")),
+            cert: FS.readFileSync(PATH.join(__dirname, "server-cert.pem"))
+        }, app);
+        server.listen(PORT);
 
-        console.log("open http://localhost:" + PORT + "/");
+        console.log("open https://localhost:" + PORT + "/");
 
         return callback(null, {
             server: server,

@@ -47,6 +47,43 @@ define([
             }
         });
 
+        self._rtcSession.on("ondatachannel", function(channel) {
+
+            var stream = new ORTC.DataStream();
+
+            channel.onerror = function(err) {
+                if (stream.hasOwnProperty("onerror")) {
+                    stream.onerror(err);
+                }
+            }
+
+            channel.onopen = function() {
+                if (self.hasOwnProperty("onstreamconnected")) {
+                    // TODO: Include options for second argument.
+                    self.onstreamconnected(stream, {});
+                }
+                if (stream.hasOwnProperty("onopen")) {
+                    stream.onopen();
+                }
+            }
+            channel.onmessage = function(event) {
+                if (stream.hasOwnProperty("onmessage")) {
+                    stream.onmessage(event.data);
+                }
+            }
+            channel.onclose = function() {
+                if (stream.hasOwnProperty("onclose")) {
+                    stream.onclose();
+                }
+            }
+
+            stream.send = function(data) {
+                channel.send(data);
+            }
+
+            // TODO: Call `self.receiveStream()`?
+        });
+
         self._rtcSession.on("connected", function() {
             if (self.hasOwnProperty("onconnected")) {
                 self.onconnected();
@@ -85,7 +122,13 @@ define([
 
     Connection.prototype.sendStream = function(stream, options) {
         SUPER_Connection.prototype.sendStream.apply(this, arguments);
-        this._rtcSession.setStream(this._streams[stream.id]);
+        var streamInfo = this._getStreamInfo(stream.id);
+        if (streamInfo.kind === "MediaStream") {
+            this._rtcSession.setStream(streamInfo);
+        } else
+        if (streamInfo.kind === "DataStream") {
+            this._rtcSession.createDataChannel(streamInfo);
+        }
         return stream;
     }
 
