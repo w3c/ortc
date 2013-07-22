@@ -339,7 +339,7 @@ __ontrackreport__ of type EventHandler,
 
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|candidate | RTCMediaStreamTrack | no | no | |
+|track | RTCMediaStreamTrack | no | no | |
 
 > Return type: *void*
 
@@ -347,7 +347,7 @@ __ontrackreport__ of type EventHandler,
 
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|candidate |RTCMediaStreamTrack | no | no | |
+|track |RTCMediaStreamTrack | no | no | |
 
 > Return type: *void*
 
