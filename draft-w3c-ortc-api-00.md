@@ -1,4 +1,4 @@
-## The RTCConnection Object
+## The RTCConnection Class
 
 
 ### Overview
@@ -135,6 +135,8 @@ Return type: *void*
 >
 Return type: *void*
 
+TODO: removeSocket?
+
 
 ##### getSockets
 
@@ -151,12 +153,12 @@ Return type: sequence<*RTCSocket*>
 >
 No parameters.
 >
-Return type: sequence<*RTCMediastreamDescriptionDictionary*>
+Return type: sequence<*RTCMediaStreamDescriptionDictionary*>
 
 
 ##### getRemoteStreams
 
-> Returns a sequence of {{RTCMediastream}} objects representing the streams that are currently received with this {{RTCConnection}} object.
+> Returns a sequence of {{RTCMediaStream}} objects representing the streams that are currently received with this {{RTCConnection}} object.
 >
 No parameters.
 >
@@ -168,7 +170,7 @@ Return type: sequence<*RTCMediastreamDescriptionDictionary*>
 
 __cname__ of type DOMString
 
-> Optional cname override to use for all RTP streams within the connection
+> Optional cname override to use for all RTP streams within the connection.
 
 
 __context-id__ of type DOMString
@@ -193,7 +195,7 @@ __optional__ type of sequence<Audio/Video options>
 __required__ type of sequence<Audio/Video options>
 
 
-##### CodecsDictionary
+##### The CodecsDictionary Object
 
 
 __payload-id__ of type unsigned int
@@ -214,7 +216,7 @@ __channels__: of type unsigned int
 ##### Audio/Video options
 
 
-__maxWdith__ of type unsigned int
+__maxWidth__ of type unsigned int
 
 
 __maxHeight__ of type unsigned int
@@ -245,7 +247,7 @@ __maxHeight__ of type unsigned int
   },
   optional: {
       video: {
-          maxWdith: 1280,
+          maxWidth: 1280,
           maxHeight: 720
       }
   }
@@ -253,18 +255,18 @@ __maxHeight__ of type unsigned int
 ```
 
 
-## The RTCSocket Object
+## The RTCSocket Class
 
 
 ### Overview
 
-TBD
+An {{RTCSocket}} instance establishes a transport with the remote peer for sending and receiving RTP tracks or data. Such a transport is established by following ICE procedures.
 
 
 ### Interface Definition
 
 ```webidl
-[Constructor (RTCSocketServers servers, optional RTCSocketOptions options)]
+[Constructor (RTCIceServer[] iceServers, optional RTCSocketOptions options)]
 interface RTCSocket : EventTarget  {
     void                        setRemoteCandidate ();
     void                        getDescription ();
@@ -349,7 +351,26 @@ __keys__ of type sequence<keys>
 
 
 
-#### The RTCSocketServers Object
+#### The RTCIceServer Object
+
+
+__url__ of type DOMString
+
+> A STUN or TURN URI as defined in {{STUN-URI}} and {{TURN-URI}}.
+
+
+__credential__ of type DOMString, nullable
+
+> If the url element is a {{TURN-URI}}, then this is the credential to use with that TURN server.
+
+
+In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
+
+An example array of {{RTCIceServer}} objects is:
+
+```
+[ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]
+```
 
 
 #### The RTCCandidateDescriptionDictionary Object
@@ -395,18 +416,18 @@ __type__ of type DOMString
 ```
 
 
-## The RTCMediaStream Object
+## The RTCMediaStream Class
 
 
 ### Overview
 
-TBD
+An {{RTCMediaStream}} instance represents a grouping of local or remote {{RTCMediaStreamTrack}} instances. Those tracks may belong to the same JavaScript MediaCapture MediaStream or not. The application can add or remove tracks in the {{RTCMediaStream}} at any time.
 
 
 ### Interface Definition
 
 ```webidl
-[Constructor (RTCMediaStreamDescriptionDictionary|| MediaCapture MediaStream)]
+[Constructor (RTCMediaStreamDescriptionDictionary || MediaCapture MediaStream)]
 interface RTCMediaStream : EventTarget  {
     void                        addTrack ();
     void                        removeTrack ();
@@ -452,7 +473,7 @@ __ontrackreport__ of type EventHandler,
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|track | RTCMediaStreamTrack | no | no | |
+|track |RTCMediaStreamTrack | no | no | |
 >
 Return type: *void*
 
@@ -486,6 +507,8 @@ Return type: *void*
 
 ##### stop
 
+TODO: what does it do? should also be "resume"?
+
 > No parameters.
 >
 Return type: *void*
@@ -497,7 +520,7 @@ __tracks__ type of sequence<RTCMediaStreamTrack>
 
 
 
-## The RTCMediaStreamTrack Object
+## The RTCMediaStreamTrack Class
 
 
 ### Overview
