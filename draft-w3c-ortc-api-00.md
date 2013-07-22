@@ -102,7 +102,7 @@ __onstreamreport__ of type EventHandler,
 
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-| socket | RTCSocketDescriptionDictionary | no | no | |
+| socket | RTCSocket | no | no | |
 
 >Return type: *void*
 
