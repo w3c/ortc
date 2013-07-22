@@ -3,7 +3,7 @@
 
 ### Overview
 
-TBD
+An {{RTCConnection}} instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving both media streams or data. Communication is signaled via HTTP or WebSocket through a web server or WebSocket server by unspecified means.
 
 
 ### Interface Definition
@@ -143,17 +143,6 @@ Return type: *void*
 No parameters.
 >
 Return type: sequence<*RTCSocket*>
-
-
-##### fork
-
-> This method allows peering a local {{RTCConnection}} with multiple remote peers. Each forked connection can be given a unique set of remote connection candidates from each potentially responding peer.  The streams attached and the setup for each forked connection must be unique.
->
-The options are copied from the original forked connection but can set unique per fork.  Each forked connection object must be considered a unique object, except that it shares the same originating connection context, and sockets.
->
-No parameters.
->
-Return type: *RTCConnectionDescriptionDictionary*
 
 
 ##### getLocalStreams
