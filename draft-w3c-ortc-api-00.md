@@ -110,7 +110,7 @@ __onstreamreport__ of type EventHandler,
 > Returns a sequence of {{RTCSocket}} objects that are currently used to send and receive media streams with this {{RTCConnection}} object.
 
 >No parameters.
-Return type: sequence<*RTCSocketDescriptionDictionary*>
+Return type: sequence<*RTCSocket*>
 
 #### fork
 > This method allows peering a local {{RTCConnection}} with multiple remote peers. Each forked connection can be given a unique set of remote connection candidates from each potentially responding peer.  The streams attached and the setup for each forked connection must be unique.
