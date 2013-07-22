@@ -2,15 +2,15 @@
 
 ```webidl
 [Constructor (optional RTCConnectionDescriptionDictionary description,
-  optional RTCConnectionConstraintsDictionary constraints)]
+  optional RTCConnectionOptionsDictionary options)]
 [Constructor (optional RTCConnectionDescriptionDictionary description]
-[Constructor (optional RTCConnectionConstraintsDictionary constraints)]
+[Constructor (optional RTCConnectionOptionsDictionary options)]
 [Constructor ()]
 interface RTCConnection : EventTarget  {
     RTCDescriptionDictionary  getDescription ();
     void                      setDescription ();
-    RTCConstraintsDictionary  getConstraints ();
-    void                      setConstraints ();
+    RTCOptionsDictionary      getOptions ();
+    void                      setOptions ();
     void                      sendStream ();
     void                      receiveStream ();
     void                      addSocket ();
@@ -57,21 +57,21 @@ __onstreamreport__ of type EventHandler,
 
 >Return type: *void*
 
-#### getConstraints
-> Returns the current restrictions on "send" or "receive" streams. Exposes the restrictions placed on media streams for codecs, encryption algorithms, or other extension constraints.
+#### getOptions
+> Returns the current restrictions on "send" or "receive" streams. Exposes the restrictions placed on media streams for codecs, encryption algorithms, or other extension options.
 
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |direction |DOMString | no | no | |
 
-> Return type: *RTCConnectionConstraintsDictionary*
+> Return type: *RTCConnectionOptionsDictionary*
 
-#### setConstraints
-> Sets restrictions on "send" or "receive" streams. Imposes the restrictions placed on media streams for codecs, encryption algorithms, or other extension constraints.
+#### setOptions
+> Sets restrictions on "send" or "receive" streams. Imposes the restrictions placed on media streams for codecs, encryption algorithms, or other extension options.
 
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|constraints |RTCConnectionConstraintsDictionary | yes | yes | |
+|options |RTCConnectionOptionsDictionary | yes | yes | |
 |direction |DOMString | no | no | |
 
 > Return type: *void*
@@ -115,7 +115,7 @@ Return type: sequence<*RTCSocket*>
 #### fork
 > This method allows peering a local {{RTCConnection}} with multiple remote peers. Each forked connection can be given a unique set of remote connection candidates from each potentially responding peer.  The streams attached and the setup for each forked connection must be unique.
 
-> The constraints are copied from the original forked connection but can set unique per fork.  Each forked connection object must be considered a unique object, except that it shares the same originating connection context, and sockets.
+> The options are copied from the original forked connection but can set unique per fork.  Each forked connection object must be considered a unique object, except that it shares the same originating connection context, and sockets.
 
 > No parameters.
 Return type: *RTCConnectionDescriptionDictionary*
@@ -143,7 +143,7 @@ __context-id__ of type DOMString
 __secret__ of type DOMString
   > Cryptographic random string that can be used within the context of the connection as needed, which has a dual purpose of serving as the ICE password.  If the secret is used in any other signaling keying, it must be appropriately salted using standard cryptographic salting principles.
 
-### The RTCConnectionConstraintsDictionary Object
+### The RTCConnectionOptionsDictionary Object
 
 __codecs__ type of sequence<CodecsDictionary>
 
@@ -418,4 +418,4 @@ __ssrc__ of type DOMString
 
 __kind__ of type sequence<DOMString>
 
-__constraints__
+__options__
