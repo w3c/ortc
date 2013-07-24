@@ -20,18 +20,18 @@ interface RTCSession : EventTarget  {
     void                                removeStream ();
     void                                sendStream ();
     void                                sendTrack ();
-    void                                addChannel ();
-    void                                removeChannel ();
-    sequence<RTCChannel>                getChannels ();
-    void                                setChannelForStream ();
-    void                                setChannelForTrack ();
+    void                                addConnection ();
+    void                                removeConnection ();
+    sequence<RTCConnection>             getConnections ();
+    void                                setConnectionForStream ();
+    void                                setConnectionForTrack ();
     sequence<MediaStream>               getLocalStreams ();
     sequence<MediaStream>               getRemoteStreams ();
     void                                close ();
                 attribute EventHandler          onaddstream;
                 attribute EventHandler          onremovestream;
-                attribute EventHandler          onchannelconnected;
-                attribute EventHandler          onchanneldisconnected;
+                attribute EventHandler          onconnected;
+                attribute EventHandler          ondisconnected;
 };
 ```
 
@@ -57,22 +57,22 @@ __onremovestream__ of type EventHandler,
 |{{MediaStream}} |The {{MediaStream}} instance being removed by the remote peer. |
 
 
-__onchannelconnected__ of type EventHandler,
+__onconnected__ of type EventHandler,
 
-> This event handler, of event handler event type {{channelconnected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCChannel}} within this {{RTCSession}} has been paired with its remote and the ICE connection has been established.
+> This event handler, of event handler event type {{connected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCSession}} has been paired with its remote and the ICE connection has been established.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
-|{{RTCChannel}} |The connected {{RTCChannel}}. |
+|{{RTCConnection}} |The connected {{RTCConnection}}. |
 
 
-__onchanneldisconnected__ of type EventHandler,
+__ondisconnected__ of type EventHandler,
 
-> This event handler, of event handler event type {{channeldisconnected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCChannel}} within this {{RTCSession}} has been disconnected.
+> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCSession}} has been disconnected.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
-|{{RTCChannel}} |The disconnected {{RTCChannel}}. |
+|{{RTCConnection}} |The disconnected {{RTCConnection}}. |
 
 
 
@@ -132,7 +132,7 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### sendStream
 
-> Starts sending the tracks of the given {{MediaStream}} via RTP. If the {{RTCChannel}} is not yet connected, it will wait until it gets connected.
+> Starts sending the tracks of the given {{MediaStream}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -141,56 +141,56 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### sendTrack
 
-> Starts sending the given {{MediaStreamTrack}} via RTP. If the {{RTCChannel}} is not yet connected, it will wait until it gets connected.
+> Starts sending the given {{MediaStreamTrack}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |track |{{MediaStreamTrack}} | no | no | |
 
 
-##### addChannel
+##### addConnection
 
-> Adds the given {{RTCChannel}} to the {{RTCSession}}. The first given {{RTCChannel}} will be used for carrying all the tracks unless a specific {{RTCChannel}} is assigned to a {{MediaStream}} or {{MediaStreamTrack}}.
+> Adds the given {{RTCConnection}} to the {{RTCSession}}. The first given {{RTCConnection}} will be used for carrying all the tracks unless a specific {{RTCConnection}} is assigned to a {{MediaStream}} or {{MediaStreamTrack}}.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|channel |{{RTCChannel}} | no | no | |
+|connection |{{RTCConnection}} | no | no | |
 
 
-##### removeChannel
+##### removeConnection
 
-> Removes the given {{RTCChannel}} from the {{RTCSession}}. If there is any {{MediaStreamTrack}} being carried over the given {{RTCChannel}}, this method throws an exception (TODO: define the exception).
+> Removes the given {{RTCConnection}} from the {{RTCSession}}. If there is any {{MediaStreamTrack}} being carried over the given {{RTCConnection}}, this method throws an exception (TODO: define the exception).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|channel |{{RTCChannel}} | no | no | |
+|connection |{{RTCConnection}} | no | no | |
 
 
-##### getChannels
+##### getConnections
 
-> Get a sequence of all the {{RTCChannel}} instances within the {{RTCSession}}.
+> Get a sequence of all the {{RTCConnection}} instances within the {{RTCSession}}.
 >
 Parameters: none
 
 
-##### setChannelForStream
+##### setConnectionForStream
 
-> Set the given {{RTCChannel}} as the transport for all the tracks in the given {{MediaStream}}.
+> Set the given {{RTCConnection}} as the transport for all the tracks in the given {{MediaStream}}.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |stream |{{MediaStream}} | no | no | |
-|channel |{{RTCChannel}} | no | no | |
+|connection |{{RTCConnection}} | no | no | |
 
 
-##### setChannelForTrack
+##### setConnectionForTrack
 
-> Set the given {{RTCChannel}} as the transport for the given {{MediaStreamTrack}}.
+> Set the given {{RTCConnection}} as the transport for the given {{MediaStreamTrack}}.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |track |{{MediaStreamTrack}} | no | no | |
-|channel |{{RTCChannel}} | no | no | |
+|connection |{{RTCConnection}} | no | no | |
 
 
 ##### getLocalStreams
@@ -209,7 +209,7 @@ Parameters: none
 
 ##### close
 
-> Closes all the {{RTCChannel}} instances and stops sending RTP to the peer.
+> Closes all the {{RTCConnection}} instances and stops sending RTP to the peer.
 >
 Parameters: none
 
@@ -243,7 +243,7 @@ dictionary RTCCodec {
     DOMString   kind;
     DOMString?  name;
     int?        hzRate;
-    int?        channels;
+    int?        connections;
 };
 ```
 
@@ -263,7 +263,7 @@ __name__: of type DOMString
 __hzRate__: of type unsigned int
 
 
-__channels__: of type unsigned int
+__connections__: of type unsigned int
 
 
 *TODO:* TBD
@@ -302,7 +302,7 @@ __videoMaxHeight__ of type unsigned int
           kind: "audio",
           name: "<name>",
           hzRate: 32000,
-          channels: 1
+          connections: 1
           // ...
       },
       {
@@ -337,7 +337,7 @@ dictionary RTCTrackDescription {
     DOMString                           kind;
     DOMString                           ssrc;
     DOMString                           msid;
-    DOMString                           channel-id;
+    DOMString                           connection-id;
     sequence<RTCCodec>                  codecs;
     sequence<RTCMediaAttributes>?       mediaAttributes;
 };
@@ -355,9 +355,9 @@ __ssrc__ of type DOMString
 
 __msid__ of type DOMString
 
-__channel-id__ of type DOMString
+__connection-id__ of type DOMString
 
-> The identificator of the {{RTCChannel}} transporting this track.
+> The identificator of the {{RTCConnection}} transporting this track.
 
 
 
@@ -370,19 +370,19 @@ __channel-id__ of type DOMString
       kind: "audio",
       ssrc: "1234",
       msid: "m1",
-      channel-id: "c1",
+      connection-id: "c1",
       codecs: [
           {
               payload-id: 96,
               kind: "audio",
               hzRate: 32000,
-              channels: 1
+              connections: 1
           },
           {
               payload-id: 97,
               kind: "audio",
               hzRate: 96000,
-              channels: 1
+              connections: 1
           }
       ]
   },
@@ -396,7 +396,7 @@ __channel-id__ of type DOMString
 
 ### The RTCSessionDescriptionFilter Object
 
-This Object is used to filter the output of both *getLocalDescription* and *getRemoteDescription* methods of {{RTCSession}}. By passing a {{MediaStream}} *id* attribute (which matches the *misd* attribute in the {{RTCTrackDescription}}) and/or a {{RTCChannel}} *id* attribute (which matches the *channel-id* attribute in the {{RTCTrackDescription}}), just those tracks with the given attribute values are returned.
+This Object is used to filter the output of both *getLocalDescription* and *getRemoteDescription* methods of {{RTCSession}}. By passing a {{MediaStream}} *id* attribute (which matches the *misd* attribute in the {{RTCTrackDescription}}) and/or a {{RTCConnection}} *id* attribute (which matches the *connection-id* attribute in the {{RTCTrackDescription}}), just those tracks with the given attribute values are returned.
 
 This can be useful for a wire protocol in which just incremental media changes are signaled. By using the filter capability just the desired information is retrieved (i.e. the description of just the tracks within a newly added local {{MediaStream}}).
 
@@ -404,7 +404,7 @@ This can be useful for a wire protocol in which just incremental media changes a
 ```webidl
 dictionary RTCSessionDescriptionFilter {
     DOMString?          msid;
-    DOMString?          channel-id;
+    DOMString?          connection-id;
 };
 ```
 
@@ -412,40 +412,40 @@ dictionary RTCSessionDescriptionFilter {
 
 __msid__ of type DOMString
 
-__channel-id__ of type DOMString
+__connection-id__ of type DOMString
 
 
 
 
-## The RTCChannel Class
+## The RTCConnection Class
 
 
 ### Overview
 
-An {{RTCChannel}} instance establishes a transport with the remote peer for sending and receiving RTP tracks or data. Such a transport is established by following ICE procedures.
+An {{RTCConnection}} instance establishes a transport with the remote peer for sending and receiving RTP tracks or data. Such a transport is established by following ICE procedures.
 
-Once the {{RTCChannel}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
+Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
 
 ### Operation
 
-The WebRTC session initiator initializes a {{RTCChannel}} by just passing as argument the optional sequence of {{RTCIceServer}}. Then the initiator signals its {{RTCChannel}} local description to the remote peer (which includes a *channel-id* field along with the list of local ICE candidates gathered by that moment).
+The WebRTC session initiator initializes a {{RTCConnection}} by just passing as argument the optional sequence of {{RTCIceServer}}. Then the initiator signals its {{RTCConnection}} local description to the remote peer (which includes a *connection-id* field along with the list of local ICE candidates gathered by that moment).
 
-The remote peer initializes then its own {{RTCChannel}} instance by passing an optional sequence of {{RTCIceServer}} and the received channel description, so this new {{RTCChannel}} will be created having the same *channel-id* and both peers can reference the connected channel via signaling.
+The remote peer initializes then its own {{RTCConnection}} instance by passing an optional sequence of {{RTCIceServer}} and the received connection description, so this new {{RTCConnection}} will be created having the same *connection-id* and both peers can reference the connected connection via signaling.
 
-ICE candidates can be signaled one to each other at any time (trickle-ICE). Calling the method *connect* of both instances of {{RTCChannel}} allows the ICE connection procedure to begin between both peers.
+ICE candidates can be signaled one to each other at any time (trickle-ICE). Calling the method *connect* of both instances of {{RTCConnection}} allows the ICE connection procedure to begin between both peers.
 
 
 
 ### Interface Definition
 
 ```webidl
-[Constructor (RTCIceServer[] iceServers, optional RTCChannelDescription remoteDescription)]
-interface RTCChannel : EventTarget  {
+[Constructor (RTCIceServer[] iceServers, optional RTCConnectionDescription remoteDescription)]
+interface RTCConnection : EventTarget  {
     readonly    attribute DOMString     id;
-    RTCChannelDescription               getLocalDescription ();
+    RTCConnectionDescription               getLocalDescription ();
     void                                setRemoteDescription ();
-    RTCChannelDescription               getRemoteDescription ();
+    RTCConnectionDescription               getRemoteDescription ();
     void                                setRemoteCandidate ();
     void                                connect ();
     void                                update ();
@@ -460,7 +460,7 @@ interface RTCChannel : EventTarget  {
 
 __id__ of type DOMString (read only)
 
-> The string identifier of the {{RTCChannel}}.
+> The string identifier of the {{RTCConnection}}.
 
 
 #### Events
@@ -497,30 +497,30 @@ __onactivecandidate__ of type EventHandler,
 
 ##### getLocalDescription
 
-Returns the local {{RTCChannelDescription}} containing the channel identificator along with discovered ICE candidates in the moment it is called.
+Returns the local {{RTCConnectionDescription}} containing the connection identificator along with discovered ICE candidates in the moment it is called.
 >
 Parameters: none
 
 
 ##### setRemoteDescription
 
-Sets the given remote {{RTCChannelDescription}} to the {{RTCChannel}} instance.
+Sets the given remote {{RTCConnectionDescription}} to the {{RTCConnection}} instance.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|description |{{RTCChannelDescription}} | no | no | |
+|description |{{RTCConnectionDescription}} | no | no | |
 
 
 ##### getRemoteDescription
 
-Returns the remote {{RTCChannelDescription}} containing the channel identificator along with remote ICE candidates in the moment it is called.
+Returns the remote {{RTCConnectionDescription}} containing the connection identificator along with remote ICE candidates in the moment it is called.
 >
 Parameters: none
 
 
 ##### setRemoteCandidate
 
-Adds a remote ICE candidate to the {{RTCChannel}}.
+Adds a remote ICE candidate to the {{RTCConnection}}.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -536,7 +536,7 @@ Parameters: none
 
 ##### update
 
-This method will usually be called upon network interfaces change (i.e. in mobile network). By calling this method the ICE gathering procedure starts again as when the {{RTCChannel}} was instantiated.
+This method will usually be called upon network interfaces change (i.e. in mobile network). By calling this method the ICE gathering procedure starts again as when the {{RTCConnection}} was instantiated.
 >
 Parameters: none
 
@@ -574,11 +574,11 @@ An example array of {{RTCIceServer}} objects is:
 ```
 
 
-#### The RTCChannelDescription Object
+#### The RTCConnectionDescription Object
 
 ```webidl
-dictionary RTCChannelDescription {
-    DOMString                                   channel-id;
+dictionary RTCConnectionDescription {
+    DOMString                                   connection-id;
     DOMString                                   usefrag;
     DOMString                                   secret;
     sequence<DOMString>                         fingerprints;
@@ -589,7 +589,7 @@ dictionary RTCChannelDescription {
 ##### Attributes
 
 
-__channel-id__ of type DOMString
+__connection-id__ of type DOMString
 
 
 __usefrag__ of type DOMString
