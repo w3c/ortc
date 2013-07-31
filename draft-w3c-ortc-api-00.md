@@ -1,21 +1,21 @@
-## The RTCSession Class
+## The RTCMediaSession Class
 
 
 ### Overview
 
-An {{RTCSession}} instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving both media streams or data. Communication is signaled via HTTP or WebSocket through a web server or WebSocket server by unspecified means.
+An {{RTCMediaSession}} instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving both media streams or data. Communication is signaled via HTTP or WebSocket through a web server or WebSocket server by unspecified means.
 
-The {{RTCSession}} is provided with media streams and transports for carrying them, along with option parameters.
+The {{RTCMediaSession}} is provided with media streams and transports for carrying them, along with option parameters.
 
 
 ### Interface Definition
 
 ```webidl
-[Constructor (optional RTCSessionOptions options)]
-interface RTCSession : EventTarget  {
-    RTCSessionDescription               getLocalDescription ();
+[Constructor (optional RTCMediaSessionOptions options)]
+interface RTCMediaSession : EventTarget  {
+    RTCMediaSessionDescription          getLocalDescription ();
     void                                setRemoteDescription ();
-    RTCSessionDescription               getRemoteDescription ();
+    RTCMediaSessionDescription          getRemoteDescription ();
     void                                addStream ();
     void                                removeStream ();
     void                                sendStream ();
@@ -59,7 +59,7 @@ __onremovestream__ of type EventHandler,
 
 __onconnected__ of type EventHandler,
 
-> This event handler, of event handler event type {{connected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCSession}} has been paired with its remote and the ICE connection has been established.
+> This event handler, of event handler event type {{connected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCMediaSession}} has been paired with its remote and the ICE connection has been established.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
@@ -68,7 +68,7 @@ __onconnected__ of type EventHandler,
 
 __ondisconnected__ of type EventHandler,
 
-> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCSession}} has been disconnected.
+> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCMediaSession}} has been disconnected.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
@@ -81,23 +81,23 @@ __ondisconnected__ of type EventHandler,
 
 ##### getLocalDescription
 
-> Returns the {{RTCSessionDescription}} with the collection of local {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
+> Returns the {{RTCMediaSessionDescription}} with the collection of local {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|filter |{{RTCSessionDescriptionFilter}} | yes | yes |A filter to restrict the tracks to be retrieved. |
+|filter |{{RTCMediaSessionDescriptionFilter}} | yes | yes |A filter to restrict the tracks to be retrieved. |
 
 
 
 ##### setRemoteDescription
 
-> Set the remote {{RTCSessionDescription}}.
+> Set the remote {{RTCMediaSessionDescription}}.
 >
-If the second argument "incremental" is false (default value) the given {{RTCSessionDescription}} represents the full {{RTCTrackDescription}} collection of the remote peer. If it is "true", then it represents an incremental modification in the {{RTCTrackDescription}} collection of the remote peer.
+If the second argument "incremental" is false (default value) the given {{RTCMediaSessionDescription}} represents the full {{RTCTrackDescription}} collection of the remote peer. If it is "true", then it represents an incremental modification in the {{RTCTrackDescription}} collection of the remote peer.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|description |{{RTCSessionDescription}} | yes | yes |The remote {{RTCSessionDescription}}. |
+|description |{{RTCMediaSessionDescription}} | yes | yes |The remote {{RTCMediaSessionDescription}}. |
 |incremental |Boolean | yes | yes | Whether the given description is a full or incremental description. |
 >
 When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indicated by setting a *delete* property with value *true* within the {{RTCTrackDescription}} associated to the track.
@@ -105,16 +105,16 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### getRemoteDescription
 
-> Returns the {{RTCSessionDescription}} with the collection of remote {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
+> Returns the {{RTCMediaSessionDescription}} with the collection of remote {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|filter |{{RTCSessionDescriptionFilter}} | yes | yes |A filter to restrict the tracks to be retrieved. |
+|filter |{{RTCMediaSessionDescriptionFilter}} | yes | yes |A filter to restrict the tracks to be retrieved. |
 
 
 ##### addStream
 
-> Adds the given {{MediaStream}} to the {{RTCSession}}. It does not automatically start sending it via RTP.
+> Adds the given {{MediaStream}} to the {{RTCMediaSession}}. It does not automatically start sending it via RTP.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -123,7 +123,7 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### removeStream
 
-> Removes the given {{MediaStream}} from the {{RTCSession}}. It does automatically stop sending it via RTP.
+> Removes the given {{MediaStream}} from the {{RTCMediaSession}}. It does automatically stop sending it via RTP.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -150,7 +150,7 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### addConnection
 
-> Adds the given {{RTCConnection}} to the {{RTCSession}}. The first given {{RTCConnection}} will be used for carrying all the tracks unless a specific {{RTCConnection}} is assigned to a {{MediaStream}} or {{MediaStreamTrack}}.
+> Adds the given {{RTCConnection}} to the {{RTCMediaSession}}. The first given {{RTCConnection}} will be used for carrying all the tracks unless a specific {{RTCConnection}} is assigned to a {{MediaStream}} or {{MediaStreamTrack}}.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -159,7 +159,7 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### removeConnection
 
-> Removes the given {{RTCConnection}} from the {{RTCSession}}. If there is any {{MediaStreamTrack}} being carried over the given {{RTCConnection}}, this method throws an exception (TODO: define the exception).
+> Removes the given {{RTCConnection}} from the {{RTCMediaSession}}. If there is any {{MediaStreamTrack}} being carried over the given {{RTCConnection}}, this method throws an exception (TODO: define the exception).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -168,7 +168,7 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### getConnections
 
-> Get a sequence of all the {{RTCConnection}} instances within the {{RTCSession}}.
+> Get a sequence of all the {{RTCConnection}} instances within the {{RTCMediaSession}}.
 >
 Parameters: none
 
@@ -195,14 +195,14 @@ Parameters: none
 
 ##### getLocalStreams
 
-> Get a sequence of the local {{MediaStream}} instances within the {{RTCSession}}.
+> Get a sequence of the local {{MediaStream}} instances within the {{RTCMediaSession}}.
 >
 Parameters: none
 
 
 ##### getRemoteStreams
 
-> Get a sequence of the remote {{MediaStream}} instances within the {{RTCSession}}.
+> Get a sequence of the remote {{MediaStream}} instances within the {{RTCMediaSession}}.
 >
 Parameters: none
 
@@ -216,12 +216,12 @@ Parameters: none
 
 
 
-#### The RTCSessionOptions Object
+#### The RTCMediaSessionOptions Object
 
-With this object the developer can select the preference of audio and video codecs along with other media attributes. If not given, the browser will produce its default values depending on its media capabilities. The resulting settings will be applied to each local {{MediaStreamTrack}} within this {{RTCSession}} (which will be representing in the corresponding {{RTCTrackDescription}}).
+With this object the developer can select the preference of audio and video codecs along with other media attributes. If not given, the browser will produce its default values depending on its media capabilities. The resulting settings will be applied to each local {{MediaStreamTrack}} within this {{RTCMediaSession}} (which will be representing in the corresponding {{RTCTrackDescription}}).
 
 ```webidl
-dictionary RTCSessionOptions {
+dictionary RTCMediaSessionOptions {
     sequence<RTCCodec>?                 codecs;
     sequence<RTCMediaAttributes>?       mediaAttributes;
 };
@@ -292,7 +292,7 @@ __videoMaxHeight__ of type unsigned int
 
 
 
-##### RTCSessionOptions Example
+##### RTCMediaSessionOptions Example
 
 ```javascript
 {
@@ -324,9 +324,9 @@ __videoMaxHeight__ of type unsigned int
 
 
 
-### The RTCSessionDescription Object
+### The RTCMediaSessionDescription Object
 
-The {{RTCSessionDescription}} is an Object which keys are the *id* attribute of a {{MediaStreamTrack}} with the corresponding {{RTCTrackDescription}} as value.
+The {{RTCMediaSessionDescription}} is an Object which keys are the *id* attribute of a {{MediaStreamTrack}} with the corresponding {{RTCTrackDescription}} as value.
 
 
 #### The RTCTrackDescription Object
@@ -361,7 +361,7 @@ __connection-id__ of type DOMString
 
 
 
-#### RTCSessionDescription Example
+#### RTCMediaSessionDescription Example
 
 ```javascript
 {
@@ -394,15 +394,15 @@ __connection-id__ of type DOMString
 ```
 
 
-### The RTCSessionDescriptionFilter Object
+### The RTCMediaSessionDescriptionFilter Object
 
-This Object is used to filter the output of both *getLocalDescription* and *getRemoteDescription* methods of {{RTCSession}}. By passing a {{MediaStream}} *id* attribute (which matches the *misd* attribute in the {{RTCTrackDescription}}) and/or a {{RTCConnection}} *id* attribute (which matches the *connection-id* attribute in the {{RTCTrackDescription}}), just those tracks with the given attribute values are returned.
+This Object is used to filter the output of both *getLocalDescription* and *getRemoteDescription* methods of {{RTCMediaSession}}. By passing a {{MediaStream}} *id* attribute (which matches the *misd* attribute in the {{RTCTrackDescription}}) and/or a {{RTCConnection}} *id* attribute (which matches the *connection-id* attribute in the {{RTCTrackDescription}}), just those tracks with the given attribute values are returned.
 
 This can be useful for a wire protocol in which just incremental media changes are signaled. By using the filter capability just the desired information is retrieved (i.e. the description of just the tracks within a newly added local {{MediaStream}}).
 
 
 ```webidl
-dictionary RTCSessionDescriptionFilter {
+dictionary RTCMediaSessionDescriptionFilter {
     DOMString?          msid;
     DOMString?          connection-id;
 };
