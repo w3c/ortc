@@ -25,8 +25,8 @@ interface RTCMediaSession : EventTarget  {
     sequence<RTCConnection>             getConnections ();
     void                                setConnectionForStream ();
     void                                setConnectionForTrack ();
-    sequence<MediaStream>               getLocalStreams ();
-    sequence<MediaStream>               getRemoteStreams ();
+    sequence<MediaStream>               getSendingStreams ();
+    sequence<MediaStream>               getReceivingStreams ();
     void                                close ();
                 attribute EventHandler          onaddstream;
                 attribute EventHandler          onremovestream;
@@ -39,7 +39,7 @@ interface RTCMediaSession : EventTarget  {
 
 __onaddstream__ of type EventHandler,
 
-> This event handler, of event handler event type {{addstream}}, must be fired to allow a developer's JavaScript to be notified when a remote {{MediaStream}} is added. It is fired when the remote peer signals the addition of a {{MediaStreamTrack}} with a new *msid*.
+> This event handler, of event handler event type {{addstream}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{MediaStream}} is added. It is fired when the remote peer signals the addition of a {{MediaStreamTrack}} with a new *msid*.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
@@ -48,7 +48,7 @@ __onaddstream__ of type EventHandler,
 
 __onremovestream__ of type EventHandler,
 
-> This event handler, of event handler event type {{removestream}}, must be fired to allow a developer's JavaScript to be notified when a remote {{MediaStream}} is removed. It is fired when the remote peer signals the removal of all the {{MediaStreamTrack}} with same *msid*.
+> This event handler, of event handler event type {{removestream}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{MediaStream}} is removed. It is fired when the remote peer signals the removal of all the {{MediaStreamTrack}} with same *msid*.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
@@ -61,7 +61,7 @@ __onremovestream__ of type EventHandler,
 
 ##### getLocalDescription
 
-> Returns the {{RTCMediaSessionDescription}} with the collection of local {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
+> Returns the {{RTCMediaSessionDescription}} with the collection of sending {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -85,7 +85,7 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### getRemoteDescription
 
-> Returns the {{RTCMediaSessionDescription}} with the collection of remote {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
+> Returns the {{RTCMediaSessionDescription}} with the collection of receiving {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -173,16 +173,16 @@ Parameters: none
 |connection |{{RTCConnection}} | no | no | |
 
 
-##### getLocalStreams
+##### getSendingStreams
 
-> Get a sequence of the local {{MediaStream}} instances within the {{RTCMediaSession}}.
+> Get a sequence of the sending {{MediaStream}} instances within the {{RTCMediaSession}}.
 >
 Parameters: none
 
 
-##### getRemoteStreams
+##### getReceivingStreams
 
-> Get a sequence of the remote {{MediaStream}} instances within the {{RTCMediaSession}}.
+> Get a sequence of the receiving {{MediaStream}} instances within the {{RTCMediaSession}}.
 >
 Parameters: none
 
@@ -198,7 +198,7 @@ Parameters: none
 
 #### The RTCMediaSessionOptions Object
 
-With this object the developer can select the preference of audio and video codecs along with other media attributes. If not given, the browser will produce its default values depending on its media capabilities. The resulting settings will be applied to each local {{MediaStreamTrack}} within this {{RTCMediaSession}} (which will be representing in the corresponding {{RTCTrackDescription}}).
+With this object the developer can select the preference of audio and video codecs along with other media attributes. If not given, the browser will produce its default values depending on its media capabilities. The resulting settings will be applied to each sending {{MediaStreamTrack}} within this {{RTCMediaSession}} (which will be representing in the corresponding {{RTCTrackDescription}}).
 
 ```webidl
 dictionary RTCMediaSessionOptions {
@@ -423,9 +423,9 @@ ICE candidates can be signaled one to each other at any time (trickle-ICE). Call
 [Constructor (RTCIceServer[] iceServers, optional RTCConnectionDescription remoteDescription)]
 interface RTCConnection : EventTarget  {
     readonly    attribute DOMString     id;
-    RTCConnectionDescription               getLocalDescription ();
+    RTCConnectionDescription            getLocalDescription ();
     void                                setRemoteDescription ();
-    RTCConnectionDescription               getRemoteDescription ();
+    RTCConnectionDescription            getRemoteDescription ();
     void                                setRemoteCandidate ();
     void                                connect ();
     void                                update ();
