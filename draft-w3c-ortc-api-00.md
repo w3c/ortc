@@ -30,8 +30,6 @@ interface RTCMediaSession : EventTarget  {
     void                                close ();
                 attribute EventHandler          onaddstream;
                 attribute EventHandler          onremovestream;
-                attribute EventHandler          onconnected;
-                attribute EventHandler          ondisconnected;
 };
 ```
 
@@ -55,24 +53,6 @@ __onremovestream__ of type EventHandler,
 | *Event Argument* | *Description* |
 |--- | --- |
 |{{MediaStream}} |The {{MediaStream}} instance being removed by the remote peer. |
-
-
-__onconnected__ of type EventHandler,
-
-> This event handler, of event handler event type {{connected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCMediaSession}} has been paired with its remote and the ICE connection has been established.
->
-| *Event Argument* | *Description* |
-|--- | --- |
-|{{RTCConnection}} |The connected {{RTCConnection}}. |
-
-
-__ondisconnected__ of type EventHandler,
-
-> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when {{RTCConnection}} within this {{RTCMediaSession}} has been disconnected.
->
-| *Event Argument* | *Description* |
-|--- | --- |
-|{{RTCConnection}} |The disconnected {{RTCConnection}}. |
 
 
 
@@ -452,6 +432,8 @@ interface RTCConnection : EventTarget  {
                 attribute EventHandler          oncandidate;
                 attribute EventHandler          oncandidatesdone;
                 attribute EventHandler          onactivecandidate;
+                attribute EventHandler          onconnected;
+                attribute EventHandler          ondisconnected;
 };
 ```
 
@@ -489,6 +471,20 @@ __onactivecandidate__ of type EventHandler,
 | *Event Argument* | *Description* |
 |--- | --- |
 |{{RTCIceCandidateDescription}} |The connected local ICE candidate. |
+
+
+__onconnected__ of type EventHandler,
+
+> This event handler, of event handler event type {{connected}}, must be fired to allow a developer's JavaScript to be notified when the {{RTCConnection}} has been paired with its remote and the ICE connection has been established.
+>
+Event arguments: none
+
+
+__ondisconnected__ of type EventHandler,
+
+> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when the {{RTCConnection}} has been disconnected.
+>
+Event arguments: none
 
 
 
