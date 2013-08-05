@@ -23,8 +23,7 @@ interface RTCMediaSession : EventTarget  {
     void                                addConnection ();
     void                                removeConnection ();
     sequence<RTCConnection>             getConnections ();
-    void                                setConnectionForStream ();
-    void                                setConnectionForTrack ();
+    void                                setTrackParams();
     sequence<MediaStream>               getSendingStreams ();
     sequence<MediaStream>               getReceivingStreams ();
     void                                close ();
@@ -153,24 +152,14 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 Parameters: none
 
 
-##### setConnectionForStream
+##### setTrackParams
 
-> Set the given {{RTCConnection}} as the transport for all the tracks in the given {{MediaStream}}.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|stream |{{MediaStream}} | no | no | |
-|connection |{{RTCConnection}} | no | no | |
-
-
-##### setConnectionForTrack
-
-> Set the given {{RTCConnection}} as the transport for the given {{MediaStreamTrack}}.
+> Applies the given {{RTCTrackDescription}} to the given {{MediaStreamTrack}}. This allows setting individual parameters for specific sending tracks. Once this method is invoked, calling {{getLocalDescription}} returns the updated description of the track.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |track |{{MediaStreamTrack}} | no | no | |
-|connection |{{RTCConnection}} | no | no | |
+|description |{{RTCTrackDescription}} | no | no | |
 
 
 ##### getSendingStreams
@@ -663,7 +652,7 @@ __type__ of type DOMString
 
 ### Overview
 
-An {{RTCDTMFTrack}} class adds DTMF sending capabilities to a sending audio track. An instance of {{RTCDTMFTrack}} is created and must be added into a sending {{MediaStream}} contatining, at least, an audio {{MediaStreamTrack}}. After that, the JavaScript code must call to {{getLocalDescription}} method in the associated {{RTCMediaSession}} instance so the internal mapping is created and the new DTMF track inherits the SSRC value of the first audio track in the {{RTCMediaSession}}.
+An {{RTCDTMFTrack}} class adds DTMF sending capabilities to a sending audio track. An instance of {{RTCDTMFTrack}} is created and must be added into a sending {{MediaStream}} contatining, at least, an audio {{MediaStreamTrack}}. After that, the JavaScript code must call to {{sendTrack}} method in the associated {{RTCMediaSession}} instance so the internal track mapping is created and the new DTMF track inherits the SSRC value of the first audio track in the {{RTCMediaSession}}.
 
 
 ### Interface Definition
