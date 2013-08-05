@@ -658,6 +658,48 @@ __type__ of type DOMString
 
 
 
+## The RTCDTMFTrack
+
+
+### Overview
+
+An {{RTCDTMFTrack}} class adds DTMF sending capabilities to a sending audio track. An instance of {{RTCDTMFTrack}} is created and must be added into a sending {{MediaStream}} contatining, at least, an audio {{MediaStreamTrack}}. After that, the JavaScript code must call to {{getLocalDescription}} method in the associated {{RTCMediaSession}} instance so the internal mapping is created and the new DTMF track inherits the SSRC value of the first audio track in the {{RTCMediaSession}}.
+
+
+### Interface Definition
+
+```webidl
+[Constructor ()]
+interface RTCDTMFTrack : EventTarget  {
+    readonly    attribute DOMString     id;
+    readonly    attribute DOMString     label;
+    readonly    attribute DOMString     toneBuffer;
+    readonly    attribute long          duration;
+    readonly    attribute long          interToneGap;
+    void insertDTMF (DOMString tones, optional long duration, optional long interToneGap);
+};
+```
+
+
+#### Methods
+
+
+##### insertDTMF
+
+> Method used for sending DTMF tones. The tones parameter is treated as a series of characters. The characters 0 through 9, A through D, #, and * generate the associated DTMF tones. The characters a to d are equivalent to A to D. The character ',' indicates a delay of 2 seconds before processing the next character in the tones parameter. Unrecognized characters are ignored.
+>
+The duration parameter indicates the duration in ms to use for each character passed in the tones parameters. The duration cannot be more than 6000 ms or less than 70 ms. The default duration is 100 ms for each tone.
+>
+The interToneGap parameter indicates the gap between tones. It must be at least 50 ms. The default value is 50 ms.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|tones |{{DOMString}} | no | no | |
+|duration |{{long}} | no | yes | |
+|interToneGap |{{long}} | no | yes | |
+
+
+
 ## Extensions to MediaCapture MediaStream
 
 This specification extends the MediaCapture MediaStream class for remote streams received from the network, by adding the following events:
