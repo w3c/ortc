@@ -155,6 +155,8 @@ Parameters: none
 ##### setTrackParams
 
 > Applies the given {{RTCTrackDescription}} to the given {{MediaStreamTrack}}. This allows setting individual parameters for specific sending tracks. Once this method is invoked, calling {{getLocalDescription}} returns the updated description of the track.
+
+> TODO: Not all the keys within the {{RTCTrackDescription}} can be overriden (i.e. id, kind, ssrc, msid cannot be modified).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -393,31 +395,32 @@ __connection-id__ of type DOMString
 
 An {{RTCConnection}} instance establishes a transport with the remote peer for sending and receiving RTP tracks or data. Such a transport is established by following ICE procedures.
 
-Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
 
 ### Operation
 
-The WebRTC session initiator initializes a {{RTCConnection}} by just passing as argument the optional sequence of {{RTCIceServer}}. Then the initiator signals its {{RTCConnection}} local description to the remote peer (which includes a *connection-id* field along with the list of local ICE candidates gathered by that moment).
+The {{RTCConnection}} instance must be provided with a local {{RTCSocket}} instance. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
-The remote peer initializes then its own {{RTCConnection}} instance by passing an optional sequence of {{RTCIceServer}} and the received connection description, so this new {{RTCConnection}} will be created having the same *connection-id* and both peers can reference the connected connection via signaling.
+ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called, by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
 
-ICE candidates can be signaled one to each other at any time (trickle-ICE). Calling the method *connect* of both instances of {{RTCConnection}} allows the ICE connection procedure to begin between both peers.
+The *id* attribute of the {{RTCConnection}} must be signaled to the remote peer since such a connection identifier will be shared by both peers and will be used as the value of the *connection-id* attribute when both peers signal their {{RTCTrackDescription}} to each other.
+
+> In this way, both peers can agree on which connection to use for sending each track.
+
+Calling the method *connect* of both instances of {{RTCConnection}} allows the ICE connection procedure to begin between both peers.
 
 
 
 ### Interface Definition
 
 ```webidl
-[Constructor (RTCIceServer[] iceServers, optional RTCConnectionDescription remoteDescription)]
+[Constructor (RTCSocket socket)]
 interface RTCConnection : EventTarget  {
     readonly    attribute DOMString     id;
-    RTCConnectionDescription            getLocalDescription ();
-    void                                setRemoteDescription ();
-    RTCConnectionDescription            getRemoteDescription ();
-    void                                setRemoteCandidate ();
     void                                connect ();
     void                                update ();
+    void                                setLocalCandidate ();
+    void                                setRemoteCandidate ();
                 attribute EventHandler          oncandidate;
                 attribute EventHandler          oncandidatesdone;
                 attribute EventHandler          onactivecandidate;
@@ -480,27 +483,13 @@ Event arguments: none
 #### Methods
 
 
-##### getLocalDescription
+##### setLocalCandidate
 
-Returns the local {{RTCConnectionDescription}} containing the connection identificator along with discovered ICE candidates in the moment it is called.
->
-Parameters: none
-
-
-##### setRemoteDescription
-
-Sets the given remote {{RTCConnectionDescription}} to the {{RTCConnection}} instance.
+Adds a local ICE candidate to the {{RTCConnection}} (retrieved within the *oncandidate* event).
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|description |{{RTCConnectionDescription}} | no | no | |
-
-
-##### getRemoteDescription
-
-Returns the remote {{RTCConnectionDescription}} containing the connection identificator along with remote ICE candidates in the moment it is called.
->
-Parameters: none
+|candidate |RTCIceCandidateDescription | no | no | |
 
 
 ##### setRemoteCandidate
@@ -524,6 +513,41 @@ Parameters: none
 This method will usually be called upon network interfaces change (i.e. in mobile network). By calling this method the ICE gathering procedure starts again as when the {{RTCConnection}} was instantiated.
 >
 Parameters: none
+
+
+
+
+## The RTCSocket Class
+
+
+### Overview
+
+The {{RTCSocket}} class describes a local socket. A local socket can be reused within different {{RTCConnection}} instances (useful for serial and parallel media forking).
+
+
+
+### Interface Definition
+
+```webidl
+[Constructor (RTCIceServer[] iceServers)]
+interface RTCSocket  {
+    DOMString                           usefrag;
+    DOMString                           secret;
+    sequence<DOMString>                 fingerprints;
+};
+```
+
+
+##### Attributes
+
+
+__usefrag__ of type DOMString
+
+
+__secret__ of type DOMString
+
+
+__fingerprints__ of type sequence<DOMString>
 
 
 
@@ -557,38 +581,6 @@ An example array of {{RTCIceServer}} objects is:
 ```
 [ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]
 ```
-
-
-#### The RTCConnectionDescription Object
-
-```webidl
-dictionary RTCConnectionDescription {
-    DOMString                                   connection-id;
-    DOMString                                   usefrag;
-    DOMString                                   secret;
-    sequence<DOMString>                         fingerprints;
-    sequence<RTCIceCandidateDescription>?       candidates;
-};
-```
-
-##### Attributes
-
-
-__connection-id__ of type DOMString
-
-
-__usefrag__ of type DOMString
-
-
-__secret__ of type DOMString
-
-
-__fingerprints__ of type sequence<DOMString>
-
-
-__candidates__ of type sequence<RTCIceCandidateDescription>
-
-
 
 
 #### The RTCIceCandidateDescription Object
