@@ -42,7 +42,7 @@ __onaddstream__ of type EventHandler,
 >
 | *Event Argument* | *Description* |
 |--- | --- |
-|{{MediaStream}} |The {{MediaStream}} instance being added by the remote peer. |
+|{{MediaStream}} stream |The {{MediaStream}} instance being added by the remote peer. |
 
 
 __onremovestream__ of type EventHandler,
@@ -51,7 +51,7 @@ __onremovestream__ of type EventHandler,
 >
 | *Event Argument* | *Description* |
 |--- | --- |
-|{{MediaStream}} |The {{MediaStream}} instance being removed by the remote peer. |
+|{{MediaStream}} stream |The {{MediaStream}} instance being removed by the remote peer. |
 
 
 
@@ -399,30 +399,35 @@ An {{RTCConnection}} instance establishes a transport with the remote peer for s
 
 ### Operation
 
-The {{RTCConnection}} instance must be provided with a local {{RTCSocket}} instance. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
+The offerer peer instantiates a {{RTCConnection}} by passing a local {{RTCSocket}}. The offerer peer can, at any time, signal the {{RTCConnectionDescription}} along with its discovered {{RTCIceCandidateDescription}} values.
 
-ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called, by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
+The offered peer instantiates a {{RTCConnection}} by passing a local {{RTCSocket}} and the remote {{RTCConnectionDescription}}. By passing such a remote {{RTCConnectionDescription}} as second argument, the {{RTCConnection}} being instantiated in the offered gets the same *id* attribute than the one present in the remote description. The offered signals its {{RTCConnectionDescription}} and {{RTCIceCandidateDescription}} values to the offerer peer. The offerer peer applies the remote {{RTCConnectionDescription}} by calling to the *setRemoteDescription* method. 
 
-The *id* attribute of the {{RTCConnection}} must be signaled to the remote peer since such a connection identifier will be shared by both peers and will be used as the value of the *connection-id* attribute when both peers signal their {{RTCTrackDescription}} to each other.
+Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
-> In this way, both peers can agree on which connection to use for sending each track.
+ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called, by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
 
-Calling the method *connect* of both instances of {{RTCConnection}} allows the ICE connection procedure to begin between both peers.
+The *id* attribute of the {{RTCConnection}} is shared by both peers, and will be used as the value of the *connection-id* attribute when both peers signal their {{RTCTrackDescription}} values to each other.
+
+Calling the method *connect* of both instances of {{RTCConnection}} allows the ICE connection procedure to begin between both peers, and ICE related events begin.
 
 
 
 ### Interface Definition
 
 ```webidl
-[Constructor (RTCSocket socket)]
+[Constructor (RTCSocket localSocket)]
+[Constructor (RTCSocket localSocket, RTCConnectionDescription remoteDescription)]
 interface RTCConnection : EventTarget  {
     readonly    attribute DOMString     id;
-    void                                connect ();
-    void                                update ();
+    void                                getLocalDescription ();
+    void                                setRemoteDescription ();
     void                                setLocalCandidate ();
     void                                setRemoteCandidate ();
+    void                                connect ();
+    void                                update ();
                 attribute EventHandler          oncandidate;
-                attribute EventHandler          oncandidatesdone;
+                attribute EventHandler          onendofcandidates;
                 attribute EventHandler          onactivecandidate;
                 attribute EventHandler          onconnected;
                 attribute EventHandler          ondisconnected;
@@ -446,23 +451,24 @@ __oncandidate__ of type EventHandler,
 >
 | *Event Argument* | *Description* |
 |--- | --- |
-|{{RTCIceCandidateDescription}} |The local ICE candidate being added. |
+|{{RTCIceCandidateDescription}} candidate |A local ICE candidate. |
 
 
-__oncandidatesdone__ of type EventHandler,
+__onendofcandidates__ of type EventHandler,
 
-> This event handler, of event handler event type {{candidatesdone}}, must be fired to allow a developer's JavaScript to be notified when all candidate discoveries have completed.
+> This event handler, of event handler event type {{endofcandidates}}, must be fired to allow a developer's JavaScript to be notified when all candidate discoveries have completed.
 >
 Event arguments: none
 
 
 __onactivecandidate__ of type EventHandler,
 
-> This event handler, of event handler event type {{activecandidate}}, must be fired to allow a developer's JavaScript to be notified which active ICE candidate local/remote pairing the connection is using.
+> This event handler, of event handler event type {{activecandidate}}, must be fired to allow a developer's JavaScript to be notified which active ICE candidate local/remote pairing the connection is using. This event could change over time as more optimal routes are discovered.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
-|{{RTCIceCandidateDescription}} |The connected local ICE candidate. |
+|{{RTCIceCandidateDescription}} localCandidate |The connected local ICE candidate. |
+|{{RTCIceCandidateDescription}} remoteCandidate |The connected remote ICE candidate. |
 
 
 __onconnected__ of type EventHandler,
@@ -481,6 +487,23 @@ Event arguments: none
 
 
 #### Methods
+
+
+##### getLocalDescription
+
+Get the local {{RTCConnectionDescription}}.
+>
+Parameters: none
+
+
+##### setRemoteDescription
+
+Applies the remote {{RTCConnectionDescription}} into this {{RTCConnection}}. This method must be only used by the offerer peer.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|remoteDescription |RTCConnectionDescription | no | no | |
+
 
 
 ##### setLocalCandidate
@@ -515,6 +538,93 @@ This method will usually be called upon network interfaces change (i.e. in mobil
 Parameters: none
 
 
+#### The RTCConnectionDescription Object
+
+```webidl
+dictionary RTCConnectionDescription {
+    DOMString                           connection-id;
+    DOMString                           usefrag;
+    DOMString                           secret;
+    sequence<DOMString>                 fingerprints;
+};
+ ```
+
+
+##### Attributes
+
+
+__usefrag__ of type DOMString
+
+
+__secret__ of type DOMString
+
+
+__fingerprints__ of type sequence<DOMString>
+
+
+
+#### The RTCIceCandidateDescription Object
+
+
+```webidl
+dictionary RTCIceCandidateDescription {
+    DOMString                           connection-id;
+    DOMString                           foundation;
+    int                                 component;
+    DOMString                           transport;
+    int                                 priority;
+    DOMString                           connectionAddress;
+    int                                 connectionPort;
+    DOMString                           type;
+};
+```
+
+
+##### Attributes
+
+
+__connection-id__ of type unsinged DOMString
+
+> The *id* of the {{RTCConnection}} this ICE candidate belongs to.
+
+
+__foundation__ of type unsinged DOMString
+
+
+__component__ of type unsigned int
+
+
+__transport__ of type DOMString
+
+
+__priority__ of type unsigned int
+
+
+__connectionAddress__ of type DOMString
+
+
+__connectionPort__ of type unsigned int
+
+
+__type__ of type DOMString
+
+
+##### RTCIceCandidateDescription Example
+
+```javascript
+{
+  connection-id: "conn1",
+  foundation: "abcd1234",
+  component: 1,
+  transport: "udp",
+  priority: 1694498815,
+  connectionAddress: "192.0.2.33",
+  connectionPort: 10000,
+  type: "host"
+};
+```
+
+
 
 
 ## The RTCSocket Class
@@ -529,26 +639,9 @@ The {{RTCSocket}} class describes a local socket. A local socket can be reused w
 ### Interface Definition
 
 ```webidl
-[Constructor (RTCIceServer[] iceServers)]
-interface RTCSocket  {
-    DOMString                           usefrag;
-    DOMString                           secret;
-    sequence<DOMString>                 fingerprints;
-};
+[Constructor (optional RTCIceServer[] iceServers)]
+interface RTCSocket  {};
 ```
-
-
-##### Attributes
-
-
-__usefrag__ of type DOMString
-
-
-__secret__ of type DOMString
-
-
-__fingerprints__ of type sequence<DOMString>
-
 
 
 #### The RTCIceServer Object
@@ -580,61 +673,6 @@ An example array of {{RTCIceServer}} objects is:
 
 ```
 [ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]
-```
-
-
-#### The RTCIceCandidateDescription Object
-
-
-```webidl
-dictionary RTCIceCandidateDescription {
-    DOMString                                   foundation;
-    int                                         component;
-    DOMString                                   transport;
-    int                                         priority;
-    DOMString                                   connectionAddress;
-    int                                         connectionPort;
-    DOMString                                   type;
-};
-```
-
-
-##### Attributes
-
-
-__foundation__ of type unsinged DOMString
-
-
-__component__ of type unsigned int
-
-
-__transport__ of type DOMString
-
-
-__priority__ of type unsigned int
-
-
-__connectionAddress__ of type DOMString
-
-
-__connectionPort__ of type unsigned int
-
-
-__type__ of type DOMString
-
-
-##### RTCIceCandidateDescription Example
-
-```javascript
-{
-  foundation: "abcd1234",
-  component: 1,
-  transport: "udp",
-  priority: 1694498815,
-  connectionAddress: "192.0.2.33",
-  connectionPort: 10000,
-  type: "host"
-};
 ```
 
 
