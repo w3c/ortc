@@ -29,6 +29,7 @@ interface RTCMediaSession : EventTarget  {
     void                                close ();
                 attribute EventHandler          onaddstream;
                 attribute EventHandler          onremovestream;
+                attribute EventHandler          onunknowntrack;
 };
 ```
 
@@ -53,6 +54,24 @@ __onremovestream__ of type EventHandler,
 |--- | --- |
 |{{MediaStream}} stream |The {{MediaStream}} instance being removed by the remote peer. |
 
+
+__onunknowntrack__ of type EventHandler,
+
+> This event handler, of event handler event type {{unknowntrack}}, must be fired to allow a developer's JavaScript to be notified when a track for which there is not {{{RTCTrackDescription}}} has been connected from the remote peer.
+>
+It is possible for a peer to receive a track for which its {{{RTCTrackDescription}}} has not yet been received (via wire signaling) or for which there won't be {{{RTCTrackDescription}}} at all. If an unknown track (for which there is no {{{RTCTrackDescription}}}) is connected this event fires by providing a coolection of the RTP extension headers present in the RTP packets.
+>
+The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the {{unknowntrack}} event fires.
+>
+| *Event Argument* | *Description* |
+|--- | --- |
+|rtpExtHeaders |A collection of RTP extension header and value pairs. |
+
+
+
+| *Event Argument* | *Description* |
+|--- | --- |
+|{{MediaStream}} stream |The {{MediaStream}} instance being removed by the remote peer. |
 
 
 #### Methods
@@ -311,6 +330,7 @@ dictionary RTCTrackDescription {
     DOMString                           connection-id;
     sequence<RTCCodec>                  codecs;
     sequence<RTCMediaAttributes>?       mediaAttributes;
+    Object?                             rtpExtHeaders;
 };
 ```
 
@@ -329,6 +349,12 @@ __msid__ of type DOMString
 __connection-id__ of type DOMString
 
 > The identificator of the {{RTCConnection}} transporting this track.
+
+__mediaAttributes__ of type sequence<RTCMediaAttributes>
+
+__rtpExtHeaders__ of type Object.
+
+> An Object which RTP extension header name and value pairs (useful for the {{{onunknowntrack}}} event usage in {{{RTCMediaSession}}}.
 
 
 
@@ -716,6 +742,8 @@ The interToneGap parameter indicates the gap between tones. It must be at least 
 |tones |{{DOMString}} | no | no | |
 |duration |{{long}} | no | yes | |
 |interToneGap |{{long}} | no | yes | |
+
+
 
 
 
