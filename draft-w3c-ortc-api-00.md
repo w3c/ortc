@@ -69,10 +69,6 @@ The offerer can then indicate, via custom wire signaling, those desired RTP exte
 
 
 
-| *Event Argument* | *Description* |
-|--- | --- |
-|{{MediaStream}} stream |The {{MediaStream}} instance being removed by the remote peer. |
-
 
 #### Methods
 
