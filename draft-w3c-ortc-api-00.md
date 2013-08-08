@@ -218,7 +218,7 @@ dictionary RTCMediaSessionOptions {
 ```
 
 
-__codecs__ type of sequence<RTCCodecs>
+__codecs__ type of sequence<RTCCodec>
 
 
 __mediaAttributes__ type of sequence<RTCMediaAttributes>
@@ -229,34 +229,24 @@ __mediaAttributes__ type of sequence<RTCMediaAttributes>
 
 ```webidl
 dictionary RTCCodec {
-    int         payload-id;
-    DOMString   kind;
-    DOMString?  name;
-    int?        hzRate;
-    int?        connections;
-};
+    unsigned byte       payload-id;
+    DOMString           kind;
+    DOMString           name;
+    unsigned int?       clockRate;
+    unsigned int?       numChannels;
+    RTCCodecParam[]     params;
+}
 ```
 
 
-##### Attributes
+```webidl
+dictionary RTCCodecParam {
+    DOMString           name;
+    DOMString?          value;
+}
+```
 
 
-__payload-id__ of type unsigned int
-
-
-__kind__ of type DOMString
-
-
-__name__: of type DOMString
-
-
-__hzRate__: of type unsigned int
-
-
-__connections__: of type unsigned int
-
-
-*TODO:* TBD
 
 
 ##### The RTCMediaAttributes Object
