@@ -3,7 +3,7 @@
 
 ### Overview
 
-An {{RTCMediaSession}} instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving both media streams or data. Communication is signaled via HTTP or WebSocket through a web server or WebSocket server by unspecified means.
+An {{RTCMediaSession}} instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving media streams. Communication is signaled via HTTP or WebSocket through a web server or WebSocket server by unspecified means.
 
 The {{RTCMediaSession}} is provided with media streams and transports for carrying them, along with option parameters.
 
