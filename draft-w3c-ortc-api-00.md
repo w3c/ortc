@@ -23,7 +23,7 @@ interface RTCMediaSession : EventTarget  {
     void                                addConnection ();
     void                                removeConnection ();
     sequence<RTCConnection>             getConnections ();
-    void                                setTrackParams();
+    void                                setTrackProperties();
     sequence<MediaStream>               getSendingStreams ();
     sequence<MediaStream>               getReceivingStreams ();
     void                                close ();
@@ -167,7 +167,7 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 Parameters: none
 
 
-##### setTrackParams
+##### setTrackProperties
 
 > Applies the given {{RTCTrackDescription}} to the given {{MediaStreamTrack}}. This allows setting individual parameters for specific sending tracks. Once this method is invoked, calling {{getLocalDescription}} returns the updated description of the track.
 
