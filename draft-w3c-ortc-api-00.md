@@ -57,9 +57,9 @@ __onremovestream__ of type EventHandler,
 
 __onunknowntrack__ of type EventHandler,
 
-> This event handler, of event handler event type {{unknowntrack}}, must be fired to allow a developer's JavaScript to be notified when a track for which there is not {{{RTCTrackDescription}}} has been connected from the remote peer.
+> This event handler, of event handler event type {{unknowntrack}}, must be fired to allow a developer's JavaScript to be notified when a track for which there is not {{RTCTrackDescription}} has been connected from the remote peer.
 >
-It is possible for a peer to receive a track for which its {{{RTCTrackDescription}}} has not yet been received (via wire signaling) or for which there won't be {{{RTCTrackDescription}}} at all. If an unknown track (for which there is no {{{RTCTrackDescription}}}) is connected this event fires by providing a coolection of the RTP extension headers present in the RTP packets.
+It is possible for a peer to receive a track for which its {{RTCTrackDescription}} has not yet been received (via wire signaling) or for which there won't be {{RTCTrackDescription}} at all. If an unknown track (for which there is no {{RTCTrackDescription}}) is connected this event fires by providing a coolection of the RTP extension headers present in the RTP packets.
 >
 The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the {{unknowntrack}} event fires.
 >
@@ -126,20 +126,22 @@ When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indica
 
 ##### sendStream
 
-> Starts sending the tracks of the given {{MediaStream}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected.
+> Starts sending the tracks of the given {{MediaStream}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected. If false is provided as argument, all the tracks are stopped.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |stream |{{MediaStream}} | no | no | |
+|stop |{{Boolean}} | yes | yes | |
 
 
 ##### sendTrack
 
-> Starts sending the given {{MediaStreamTrack}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected.
+> Starts sending the given {{MediaStreamTrack}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected. If false is provided as argument, the track are stopped.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |track |{{MediaStreamTrack}} | no | no | |
+|stop |{{Boolean}} | yes | yes | |
 
 
 ##### addConnection
@@ -340,7 +342,7 @@ __mediaAttributes__ of type sequence<RTCMediaAttributes>
 
 __rtpExtHeaders__ of type Object.
 
-> An Object which RTP extension header name and value pairs (useful for the {{{onunknowntrack}}} event usage in {{{RTCMediaSession}}}.
+> An Object which RTP extension header name and value pairs (useful for the {{onunknowntrack}} event usage in {{RTCMediaSession}}.
 
 
 
