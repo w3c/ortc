@@ -796,5 +796,6 @@ incrementalDesc[trackToRemove] = { delete: true };
 
 mySession.setRemoteDescription(incrementalDesc, true);
 
-// This will fire ontrackremoved event on the corresponding remote MediaStream.
+// This will fire ontrackremoved event on the corresponding remote MediaStream (along with
+// onremovestream on the RTCMediaSession if there are no more tracks with same msid).
 ```
