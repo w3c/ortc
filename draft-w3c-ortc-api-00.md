@@ -662,8 +662,8 @@ interface RTCSocket  {};
 
 ```webidl
 dictionary RTCIceServer {
-    DOMString  url;
-    DOMString? credential;
+    sequence<DOMString>         url;
+    DOMString?                  credential;
 };
 ```
 
