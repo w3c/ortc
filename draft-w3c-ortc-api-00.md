@@ -557,9 +557,9 @@ Parameters: none
 ```webidl
 dictionary RTCConnectionDescription {
     DOMString                           connection-id;
-    DOMString                           usefrag;
-    DOMString                           secret;
-    sequence<DOMString>                 fingerprints;
+    DOMString                           iceUsernameFrag;
+    DOMString                           icePassword;
+    DOMString                           fingerprint;
 };
  ```
 
@@ -567,13 +567,13 @@ dictionary RTCConnectionDescription {
 ##### Attributes
 
 
-__usefrag__ of type DOMString
+__iceUsernameFrag__ of type DOMString
 
 
-__secret__ of type DOMString
+__icePassword__ of type DOMString
 
 
-__fingerprints__ of type sequence<DOMString>
+__fingerprint__ of type DOMString
 
 
 
