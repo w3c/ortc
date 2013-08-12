@@ -733,6 +733,10 @@ The interToneGap parameter indicates the gap between tones. It must be at least 
 
 
 
+## RTCP
+
+This specification determines that RTCP packets must be multiplexed with the RTP packets as defined by {{RFC5761}}.
+
 
 
 ## Extensions to MediaCapture MediaStream
