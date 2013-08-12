@@ -759,7 +759,7 @@ Return value: The cloned {{MediaStreamTrack}} instance.
 ###### Usage in WebRTC
 
 ```
-// Let mySession and myStream to be a RTCMediaSession and a MediaCapture MediaStream instances,
+// Let mySession and myStream be a RTCMediaSession and a MediaCapture MediaStream instances,
 // and myTrack a separate MediaCapture MediaStreamTrack.
 
 // Let's add myStream to mySession:
@@ -768,7 +768,7 @@ mySession.addStream(myStream);
 // Tell it to start sending the RTP for all the tracks in myStream:
 mySession.sendStream(myStream);
 
-// Add myTrack into myStream and store the cloned track into a new variable clonedTrack:
+// Add myTrack into myStream and store the cloned track into a new variable:
 var clonedTrack = myStream.addTrack(myTrack);
 
 // Tell mySession to start sending the RTP for the cloned track:
