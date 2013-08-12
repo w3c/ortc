@@ -737,8 +737,46 @@ The interToneGap parameter indicates the gap between tones. It must be at least 
 
 ## Extensions to MediaCapture MediaStream
 
-This specification extends the MediaCapture MediaStream class for remote streams received from the network, by adding the following events:
+This specification extends the MediaCapture MediaStream class for remote streams received from the network, by adding/modifying the following methods and events:
 
+
+
+#### Methods
+
+
+##### addTrack
+
+> This method, already present in the {{MediaStream}} class, allows the JS to add a new {{MediaStreamTrack}} within the stream. Currently it is unclear whether the given {{MediaStreamTrack}} remains the same or it is cloned into the stream (so becomes a new {{MediaStreamTrack}} instance (see the reported [issue](https://code.google.com/p/webrtc/issues/detail?id=2209) in Chrome browser).
+>
+In case the given {{MediaStreamTrack}} is cloned, this specification modifies the {{addTrack}} method so instead of returning void it returns the new {{MediaStreamTrack}} instance:
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|track |{{MediaStreamTrack}} | no | no | |
+>
+Return value: The cloned {{MediaStreamTrack}} instance.
+
+###### Usage in WebRTC
+
+```
+// Let mySession and myStream to be a RTCMediaSession and a MediaCapture MediaStream instances,
+// and myTrack a separate MediaCapture MediaStreamTrack.
+
+// Let's add myStream to mySession:
+mySession.addStream(myStream);
+
+// Tell it to start sending the RTP for all the tracks in myStream:
+mySession.sendStream(myStream);
+
+// Add myTrack into myStream and store the cloned track into a new variable clonedTrack:
+var clonedTrack = myStream.addTrack(myTrack);
+
+// Tell mySession to start sending the RTP for the cloned track:
+mySession.sendTrack(clonedTrack);
+```
+
+
+#### Events
 
 __onconnected__ of type EventHandler,
 
@@ -759,6 +797,8 @@ Event arguments: none
 
 This specification extends the MediaCapture MediaStreamTrack class for remote tracks received from the network, by adding the following events:
 
+
+#### Events
 
 __onconnected__ of type EventHandler,
 
