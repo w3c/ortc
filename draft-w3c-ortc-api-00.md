@@ -775,6 +775,12 @@ var clonedTrack = myStream.addTrack(myTrack);
 mySession.sendTrack(clonedTrack);
 ```
 
+In case it is decided that the `addTrack()` method does not clone the given track (but keeps the same {{MediaStreamTrack}} instance), then that means that the same {{MediaStreamTrack}} should not be added to two different {{MediaStream}} within the same {{RTCMediaSession}}. This is because the {{RTCMediaSessionDescription}} is a collection of {{RTCTrackDescription}} objects, each one representing a {{MediaStreamTrack}}.
+
+It is unclear the benefit of adding the same track into two media streams, and thus this specification advocates for the cloning solution.
+
+
+
 
 #### Events
 
