@@ -94,7 +94,7 @@
       </address>
     </author>
 
-    <date year="2013" month="July" day="05"/>
+    <date year="2013" month="August" day="12"/>
 
     <area>General</area>
     <workgroup>Network Working Group</workgroup>
@@ -127,11 +127,7 @@
 
 <t>By splitting the RTC concepts into logical objects components, the choice of approaches for the signaling path becomes even more flexible and the information needed for each component becomes minimized and much easier to standardize. The local object components can be replaced in the future should the information required for each component change, or if a new type of object is needed for different types of media or RTP engine features.</t>
 
-<t>For example, some of the complex information required to exchange for RTP is the media stream track to SSRC associations. This information must be signaled to correctly reassemble RTP media into proper streams on the remote side. However, the only reason this mapping needs to be in signaling is because of the limitations of current RTC engines / protocols, which do not understand the concept of streams, or other features like FEC. Should a better RTP engine / protocol be defined in the future, it will be possible to replace the RTP component with “next gen RTP”. Such an object that does understand things like streams and FEC and the component and information would not necessarily need mappings and might become a simplified alternative to the RTP model.</t>
-
-<t>This WebRTC JavaScript object model still allows all the key information required for various signaling models, and the information can be exchanged easily as the information is modular, limited, and accessible. For the average JavaScript developer, the objects model is simplistic but still allows those developers who require greater control and flexible access to the constructs they require from an RTC engine inside the browser without needing to perform extensive parsing, mangling and regeneration of a master know-everything session format (such as SDP).</t>
-
-<t>This model further reduces the requirements imposed on traditional / legacy devices by not requiring these devices to understand a vastly more complex session description format or by requiring an intermediary to interpret this complex master session description and state machine into something more palatable for the device.</t>
+<t>This WebRTC JavaScript object model approach still exposes all the key information required for various signaling models, but limits the information needed to only the information required to actually control the media engine and nothing more. For the average JavaScript developer, the objects model is simplistic but still allows those developers who require greater control and flexible access to the constructs they require from an RTC engine inside the browser without needing to perform extensive parsing, mangling and regeneration of a master know-everything session format (such as SDP).</t>
 
 <t>The main design goals are to:</t>
 
@@ -149,11 +145,13 @@
 </section>
 <section anchor="other-approaches-considered" title="Other Approaches Considered">
 
-<t>By not imposing a master transport and media description format, a JavaScript developer will not be exposed to a complex unfamiliar session description format with little high level control over what’s happening at protocol layers. The current approach requires developers to perform extensive parsing, interpret or transform this master session description when more control is required. Decoupling the master know-everything session format and the state machine required to exchange it into logical well-defined components with non-specified requirements on how the information must be exchanged allows for greater understanding of the information and flexibility in signaling. The net result should be less brittle implementations that are not dependent upon an ever evolving, adaptable and expanding master know-everything format.</t>
+<t>By not imposing a master transport and media description format, a JavaScript developer will not be exposed to a complex unfamiliar session description format with little high level control over what’s happening at protocol layers. The current SDP JSEP approach requires developers to perform extensive parsing, interpret or transform this master session description when more control is required. Decoupling a single describe-everything format and the state machine into logical well-defined components with no specific requirements on how the information must be exchanged allows for greater flexibility in signaling.</t>
 
-<t>Contrary to the assertions stated in JSEP <xref target="I-D.ietf-rtcweb-jsep"/> “1.2 Other Approaches Considered”, the WebRTC JavaScript object model proposed does not result in overly complex JavaScript code to perform simple and basic WebRTC implementations. The simple scenarios for RTC control from JavaScript are no more complex than the simple JSEP examples and do not require dependency on additional libraries to create a reasonable reference implementation. Whereas the complexity required to implement other more advanced scenarios that do not follow the specific offer / answer state machine model is greatly reduced relative to JSEP’s requirements. The manual manipulation and transformation of a complex session description format generated by the browser is all but eliminated. Only those who must implement a particular type of session format will be required to parse and generate that format without imposing that format upon others.</t>
+<t>SDP is a complex format that describes many more things than are actually required to control an RTP engine. By not imposing a particular format, the net result should be less brittle implementations that are not dependent upon an ever evolving, adaptable and expanding master format.</t>
 
-<t>The WebRTC JS Object Model does not implement or add any features other than those already existing in WebRTC 1.0, but because of it’s granular object based approach, it allows for a variety of alternative signaling scenarios that are difficult to achieve with the current WebRTC API <xref target="WebRTC10"/>. In fact, the requirements for a browser are eased by virtue of not having to handle an all-encompassing media description format with an offer / state machine. Both models need to perform all the same logic routines internally, including all the RTP data muxing rules, but the WebRTC object model removes many of the unneeded restrictions and burdens placed on a JavaScript developer on how a signaling protocol must work, and decouples the data needed to transform the object information into alternative formats.</t>
+<t>Contrary to the assertions stated in JSEP <xref target="I-D.ietf-rtcweb-jsep"/> “1.2 Other Approaches Considered”, the WebRTC JavaScript object model proposed does not result in overly complex JavaScript code to perform simple and basic WebRTC implementations. The simple scenarios for RTC control from JavaScript are no more complex than the simple JSEP examples and do not require dependency on additional libraries to create a reasonable reference implementation. Whereas the complexity required to implement other more advanced scenarios that do not follow the specific offer / answer state machine model is greatly reduced relative to JSEP’s requirements. The manual manipulation and transformation of a complex session description format generated by the browser is all but eliminated. Only those who must implement a particular type of session format will be required to parse and generate that format without imposing that format upon others, and amongst those who need a particular format, their output will be tailored to their exacting needs.</t>
+
+<t>The WebRTC JS Object Model does not implement or add any features other than those already existing in WebRTC 1.0, but because of it’s granular object based approach, it allows for a variety of alternative signaling scenarios that are difficult to achieve with the current WebRTC API <xref target="WebRTC10"/>. In fact, the requirements for a browser are eased by virtue of not having to handle an all-encompassing media description format with an offer / state machine. Both a JSEP or object based model would need to perform all the same logic routines internally, including all the RTP data muxing rules, but the WebRTC object model removes many of the unneeded restrictions and burdens placed on a JavaScript developer and the browser vendor on how a signaling protocol must work.</t>
 
 </section>
 </section>
@@ -164,32 +162,27 @@
 </section>
 <section anchor="object-data-and-control-model" title="Object, Data and Control Model">
 
-<section anchor="objsocket" title="MediaSocket, DataSocket, MediaDataMuxSocket">
+<section anchor="objsocket" title="RTC Socket">
 
-<t>Each one of these types of transports is capable of carrying the appropriate type of streams implied by their name. The MediaSocket and MediaDataMuxSocket can carry media streams whereas the DataSocket and MediaDataMuxSocket can be used to carry data streams.</t>
+<t>This object represents a local media IP port opened to send and receive media or data. Each port is capable of carrying RTP, RTCP, or DTLS/SCTP streams but the mapping of what each socket must be under the control of the Javascript layer.</t>
 
-<t>Under most usual conditions, a developer would want a “multipurpose” MediaDataMuxSocket, which is why a connection <xref target="objconnection"/> object by default creates this type of socket. However, there are rarer conditions where a developer may wish to split out the ports rather than mux them, thus they can create individualized sockets only when needed and provide them to the connection object. For example, a connected device may require the data and media sockets separate because it cannot support demuxing. Or the developer desires to split the audio and video to prevent the audio port buffering from being overflowed from video buffering.</t>
+<t>The developer must be able to provide each of these sockets a list of stun and turn servers. This allows the socket to discover other network-reflective port mappings and open up relay network sockets to allow the socket to be “remoted” when direct media connections to the socket are not possible.</t>
 
-<t>The developer must be able to provide each of these sockets a list of stun and turn servers. This allows the socket to discover other network-reflective network mappings and open up relay network sockets to allow the socket to be “remoted” when direct connections to the socket are not possible.</t>
-
-<t>Should the socket supports DTLS <xref target="RFC6347"/> (or DTLS/SCTP <xref target="RFC4960"/>), the developer’s JavaScript must be able to be provided an alternative private / public certificate pair, rather than utilizing the browser’s pre-generated certificate(s) (for further discussion on this issue see the Security Section (<xref target="jscertificates"/>)). The media sockets may be provided a restrictive list of media “kinds” they are allowed to transport, for example “audio”, and / or “video”. This allows the media socket to restrict the kinds of media stream tracks allowed to be transported on a particular socket. For example, a developer might wish audio to send over one socket and video to be sent over a different socket.</t>
-
-<t>The JavaScript developer must be able to control the mapping of what kind of streams or tracks go over which socket(s).</t>
+<t>The socket must support DTLS <xref target="RFC6347"/> / SCTP <xref target="RFC4960"/>), the developer’s JavaScript must be able to must be able to obtain the fingerprint utilized in the private / public certificate pair generated by the browser (for further discussion on this issue see the Security Section (<xref target="fingerprintresponsibility"/>)).
+354</t>
 
 </section>
-<section anchor="objconnection" title="Connection">
+<section anchor="objconnection" title="RTC Connection">
 
-<t>A connection is an object that represents the logical connection between two Internet peers. Each peer constructs a connection object that gathers candidates (i.e. possible methods to connect over the Internet) and allows an external signaling mechanism to exchange these candidates between the peers. The peers test the candidates for connectivity and establish a connection once a candidate pairing discovers connectivity (see <xref target="I-D.rescorla-mmusic-ice-trickle"/>).</t>
+<t>A connection is an object that represents the logical connection between two Internet peers. Each peer constructs a connection object that gathers candidates (i.e. possible methods to connect over the Internet) from an RTC socket and allows an external signaling mechanism to exchange these candidates to each other. The peers test the candidates for connectivity and establish a connection once a candidate pairing discovers connectivity (see <xref target="I-D.rescorla-mmusic-ice-trickle"/>).</t>
 
 <t>Once a connection is established on all sockets, an event must be fired to the developer’s JavaScript / application to indicate connectivity. The connection remains established until disconnected by programmatic intent or by timeout failure, upon which time a disconnect event must be fired to indicate the disconnection state with the appropriate listed reason. Should the connection fail to connect, a disconnection event must fire with the appropriate listed reason.</t>
 
-<t>Once a connection is established between peers, a connection can be used to transmit media or data utilizing the associated media or data sockets as appropriate. Appropriate constraints (<xref target="objconstraints"/>) for each connection must be exchanged before media streams may flow between peers.</t>
-
-<t>A connection must provide by default a multipurpose socket (<xref target="objsocket"/>) (e.g. MediaDataMuxSocket) capable of carrying a variety of stream types if no socket is specified.</t>
+<t>Once a connection is established between peers, a connection can be used to transmit media or data utilizing the associated media or data socket. Appropriate capabilities (<xref target="objcapabilities"/> / stream mappings) for each connection must be exchanged before media streams may flow between peers.</t>
 
 <section anchor="relationship-to-socket" title="Relationship to Socket">
 
-<t>Each connection {#objconnection} object must have one or more sockets ({#objsocket}), and multiple connections can share the same socket objects. By default, a connection creates a multipurpose socket (e.g. MediaDataMuxSocket) if none is specified. In a forked condition (<xref target="interactionforking"/>), the connections will share the same socket objects. A socket represents a single logical connection binding on a network interface, thus a unique set of negotiations occurs for each ICE (<xref target="objice"/>) session on each socket despite the negotiation being performed on the same connection (which is demuxed by way of the “socket id” on the candidate description (<xref target="objcandidatedescription"/>)).</t>
+<t>Each connection {#objconnection} object must be related to a single socket ({#objsocket}), and multiple connections can share the same socket objects. This allows a single socket to be connected to multiple peers with a unique connection to each peer. A socket represents a single logical connection binding on a network interface, thus a unique ICE (<xref target="objice"/>) negotiation occurs for each connection since ICE negotiation represents a local to remote socket connection negotiation.</t>
 
 </section>
 <section anchor="objconnectiondescription" title="Connection Description">
@@ -197,13 +190,13 @@
 <t>While a connection might have a variety of other properties, every connection object has a description structure that must have the following properties:</t>
 
 <t><list style='symbols'>
-  <t>cname - an optional cname override to use for all RTP streams within the connection (if none is provided a default will be selected).</t>
-  <t>contextId - a cryptographic random identifier for the connection auto-generated by the browser, which has a dual purpose of serving as the ICE userFrag.</t>
-  <t>secret - a cryptographic random string that can be used within the context of the connection as needed, which has a dual purpose of serving as the ICE password. If the secret is used in any other signaling keying, it must be appropriately salted using standard cryptographic salting principles.</t>
-  <t>fingerprints - an ordered list of all the hash fingerprints of any public keys used in the sockets (see <xref target="fingerprintresponsibility"/>).</t>
+  <t>connection-id - an identifier to distinguish between connection objects in stream/track mappings.</t>
+  <t>iceUsernameFrag - a cryptographic random identifier for the connection auto-generated by the browser for use as the ICE userFrag.</t>
+  <t>icePassword - a cryptographic random string serving as the ICE password.</t>
+  <t>fingerprint - the hash fingerprint of any public keys certificate used in the sockets (see <xref target="fingerprintresponsibility"/>).</t>
 </list></t>
 
-<t>A context identifier is used not only for the ICE username, it must be a common id that remains stable across forked connections. This allows the developer to correlate the forked connections as appropriate by a JavaScript developer.</t>
+<t>The ICE username frag, password and fingerprint must remain identical for every connection using the same RTC Socket object to allow for forking scenarios. This allows the developer to correlate forked connections as appropriate by a JavaScript developer.</t>
 
 <t>The information contained in a connection’s description must be exchanged with a remote peer’s connection object before any candidate connectivity checks may be performed by the browser. The exact method and timing of the exchange must be left to the discretion of the JavaScript developer.</t>
 
@@ -213,19 +206,19 @@
 
 <figure><artwork><![CDATA[
 var myConnectionDescription = {
-    cname: "<value>",
-    contextId: "<random-id>",
-    secret: "<random>",
-    fingerprints: ["<hash1>","<hash2>"]
+    connection-id: "<value>",
+    iceUsernameFrag: "<random-id>",
+    icePassword: "<random>",
+    fingerprint: "<hash>"
 };
 ]]></artwork></figure>
 
 </section>
 <section anchor="connection-description-negotiation" title="Connection Description Negotiation">
 
-<t>The local peer has a connection description. The remote peer has a connection description. Each peer must exchange the information in the connection description with the other through signaling. The contextId becomes the useFrag, and the secret becomes the password for ICE signaling (see <xref target="RFC5245"/>). The CNAME is used as part of the RTCP reporting (see <xref target="RFC3550"/>) so that each peer can establish stream to peer correlation.</t>
+<t>The local peer has a connection description. The remote peer has a connection description. Each peer must exchange the information in the connection description with the other through signaling. The the iceUsernameFrag and the icePassword are used in the for ICE signaling process (see <xref target="RFC5245"/>).</t>
 
-<t>Each connection has an array of fingerprints for each socket added to the connection that supports DTLS <xref target="RFC6347"/>. These fingerprints must be signaled in order to preserve the fingerprint to DTLS mapping of each socket. The connection object is responsible for ensuring any remotely connected peer’s fingerprint during DTLS exchange matches the fingerprint provided in the connection description of the remote peer. If the fingerprint does not match, the connection must be closed.</t>
+<t>Each connection has a fingerprint for each socket DTLS <xref target="RFC6347"/> / SCTP <xref target="RFC4960"/>. The fingerprint must be signaled in order to for each connection to ensure it’s connected to the correct remote peer. The connection object is responsible for ensuring any remotely connected peer’s fingerprint during DTLS exchange matches the fingerprint provided in the connection description of the remote peer. If the fingerprint does not match, the connection must be closed.</t>
 
 <t>Example pseudo-code of how connection negotiated could be accomplished:</t>
 
@@ -246,9 +239,7 @@ bob_connection.setDescription(JSON.parse(aliceDesc), "remote");
 
 <t>ICE <xref target="RFC5245"/> is a standard used for discovering peer connectivity. A browser must support both ICE, and the ICE modification extension trickle ICE <xref target="I-D.rescorla-mmusic-ice-trickle"/> connectivity discovery mechanisms. The browser may support additional peer connectivity methods other than ICE.</t>
 
-<t>When the browser detects a candidate is available, the candidate must be sent as an event to the developer’s JavaScript. If all possible candidates have been discovered, the browser must send a discovery completion event to the developer’s JavaScript.</t>
-
-<t>Should the browser fire non-ICE candidate events to the developer’s JavaScript, the developer’s JavaScript should be able to deliver the candidate information to the remote peer ‘as is’ if the developer’s signaling protocol allows for alternative non-ICE candidates. The browser must define a clear method to distinguish standard ICE discovered candidates from non-ICE extension candidates for signaling protocols unable to handle non-ICE connection candidates.</t>
+<t>When the browser detects a candidate is available, the candidate must be sent as an event to the developer’s JavaScript. If all possible candidates have been discovered, the browser must send an end of candidates event to the developer’s JavaScript.</t>
 
 <section anchor="ice-candidate-trickling" title="ICE Candidate Trickling">
 
@@ -262,7 +253,7 @@ bob_connection.setDescription(JSON.parse(aliceDesc), "remote");
 <t>Each ICE candidate has description information containing the following:</t>
 
 <t><list style='symbols'>
-  <t>socket id - the socket identifier where the candidate was discovered, matching the identifier specified in the MediaSocket, DataSocekt or MediaDataMuxSocket (<xref target="objsocket"/>) provided to the connection (<xref target="objconnection"/>) object</t>
+  <t>connection id - the connection identifier where the candidate was discovered, matching the identifier specified in the RTC Connection (<xref target="objconnection"/>)</t>
   <t>foundation (as as defined in RFC5245 <xref target="RFC5245"/>)</t>
   <t>component id (as as defined in RFC5245)</t>
   <t>transport (as as defined in RFC5245)</t>
@@ -274,9 +265,9 @@ bob_connection.setDescription(JSON.parse(aliceDesc), "remote");
   <t>related port (as as defined in RFC5245)</t>
 </list></t>
 
-<t>Other non-ICE candidate types may contain other types of description information. The browser should implement only well described candidate types, or namespace the candidate type to not become confused with potential standardized candidate types. By using standardized descriptions, the browser will help facilitate translation to alternative signaling protocols. The developer’s JavaScript should be able to transport the candidate description information ‘as is’ even if the description information is not understood so long as the developer’s signaling protocol allows for alternative candidate types.</t>
+<t>The developer’s JavaScript should be able to transport the candidate description information ‘as is’ even if the description information is not understood so long as the developer’s signaling protocol allows for alternative candidate types.</t>
 
-<t>The candidate descriptions may be relayed to the remote peer independent of other description information or bundled together with other descriptions as determined by the needs of the JavaScript developer. The browser must not impose restrictions on external signaling protocols related to the exchange of candidates, or require the bundling of other types of descriptions, such as constraint descriptions (<xref target="objconstraints"/>) or stream descriptions (<xref target="objstreamdescriptions"/>).</t>
+<t>The candidate descriptions may be relayed to the remote peer independent of other description information or bundled together with other descriptions as determined by the needs of the JavaScript developer. The browser must not impose restrictions on external signaling protocols related to the exchange of candidates, or require the bundling of other types of descriptions, such as capabilities descriptions (<xref target="objcapabilities"/>) or stream descriptions (<xref target="objstreamdescriptions"/>).</t>
 
 <section anchor="candidate-description-expressed-as-a-structure" title="Candidate Description Expressed as a Structure">
 
@@ -284,7 +275,7 @@ bob_connection.setDescription(JSON.parse(aliceDesc), "remote");
 
 <figure><artwork><![CDATA[
 var myCandidateDescription = {
-    socketId: "my-socket",
+    connection-id: "<value>",
     foundation: 1,
     component: 1,
     transport: "udp",
@@ -300,18 +291,16 @@ var myCandidateDescription = {
 </section>
 </section>
 </section>
-<section anchor="objconstraints" title="Constraints">
+<section anchor="objcapabilities" title="Capabilities">
 
-<t>Constraints consist of a list of media codecs and cryptographic encryption algorithms allowed to be used as part of the transmission of media. Constraints can consist of additional rules or limitations, for example; video size or bandwidth limitations. A developer’s JavaScript must be able to obtain the types of constraints supported by the browser (<xref target="objfeaturediscovery"/>), and the default set of codecs and algorithms available.</t>
+<t>Capabilities consist of a list of media codecs and RTC options allowed to be used as part of the transmission of media. Capabilities can consist of additional rules or limitations, for example; video size or bandwidth limitations. A developer’s JavaScript must be able to obtain the types of capabilities supported by the browser (<xref target="objfeaturediscovery"/>), and the default set of codecs and algorithms available.</t>
 
-<t>Send constraints indicate media constraints that apply to media flowing from the local to the remote peer. Receive constraints apply to the media flowing to the local peer from a remote peer. The constraints may be identical in both directions, or the constraints may be a negotiated subset, or the constraints may be unique per direction (i.e. send versus receive). A developer’s JavaScript must must be able to set the constraints on either direction, at will, and obtain the possible constraints for a connection.</t>
+<section anchor="capabilities-description-expressed-as-a-structure" title="Capabilities Description Expressed as a Structure">
 
-<section anchor="constraints-description-expressed-as-a-structure" title="Constraints Description Expressed as a Structure">
-
-<t>This is an example-only constraints description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate. Individual codecs may have varying properties according to the definition of each codec type.</t>
+<t>This is an example-only capabilities description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate. Individual codecs may have varying properties according to the definition of each codec type.</t>
 
 <figure><artwork><![CDATA[
-var myConstraints = {
+var myCapabilities = {
     codecs: [
         {
             payloadId: 96,
@@ -341,42 +330,39 @@ var myConstraints = {
 ]]></artwork></figure>
 
 </section>
-<section anchor="constraints-negotiation" title="Constraints Negotiation">
+<section anchor="capability-negotiation" title="Capability Negotiation">
 
-<t>The media constraints must be exchanged via some external signaling method by the developer’s JavaScript. The local send constraints must be (at minimal) a subset of the received constraints of the remote peer, and the received constraints must be (at minimal) a subset of the send constraints of the remote peer. Should the browser be unable to fulfill the provided constraints for any reason (for example, none of the codecs were compatible), an error most be propagated to the developer’s JavaScript, which should handle this condition rather than silently fail. The RTCWEB Working Group must define a mandatory common set of codecs and encryption algorithms to help alleviate the possibility of codec and algorithm failure conditions.</t>
+<t>The media capabilities must be exchanged via some external signaling method by the developer’s JavaScript. The local capabilities must be (at minimal) a subset of the available capabilities of the local and remote peer. Should the browser be unable to fulfill the provided capabilities for any reason (for example, none of the codecs were compatible), an error most be propagated to the developer’s JavaScript, which should handle this condition rather than silently fail. The RTCWEB Working Group must define a mandatory common set of codecs to help alleviate the possibility of codec and algorithm failure conditions.</t>
 
-<t>The browser must not dictate the timing or format of how constraints are exchanged, nor the rules of how each peer must provide the information, nor how the information is signaled.</t>
+<t>The browser must not dictate the timing or format of how capabilities are exchanged, nor the rules of how each peer must provide the information, nor how the information is signaled.</t>
 
-<t>The browser should only support codecs and algorithms that are well documented standards. The browser must namespace non-standard codecs and encryption algorithms using a method that will not cause confusion with codecs and algorithms that might become standardized in the future. The properties for each standardized codec and encryption algorithm must be defined clearly. By defining each codec and encryption algorithms’ properties, alternative signaling protocols may translate the standardized codecs and algorithms into their respective signaling protocols. If a browser does not have specific knowledge of a codec, or an encryption algorithm supplied by a developer’s JavaScript, it must ignore the non-understood codecs, and / or algorithms. A JavaScript developer may encode and signal non-standard codecs and algorithms so long as none of the browser provided properties (for the codecs and encryption algorithms) are lost during signaling exchange.</t>
+<t>The browser should only support codecs that are well documented standards. The browser must namespace non-standard codecs using a method that will not cause confusion with codecs that might become standardized in the future. The properties for each standardized codec must be defined clearly. By defining each codecs’ properties, alternative signaling protocols may translate the standardized codecs into their respective signaling protocols. If a browser does not have specific knowledge of a codec supplied by a developer’s JavaScript, it must ignore the non-understood codecs. A JavaScript developer may encode and signal non-standard codecs so long as none of the browser provided properties are lost during signaling exchange.</t>
 
-<t>Other non-codec and non-encryption constraints may be set for a connection. For example; a developer may wish to set the maximum video dimensions for a connection. The browser should only implement standardized constraints and namespace non-standard constraints to ensure that no conflict arises should a constraint become standardized.</t>
+<t>Other non-codec capabilities and properties may be set for a connection. For example; a developer may wish to set the maximum video dimensions for a connection. The browser should only implement standardized capabilities and namespace non-standard capabilities to ensure that no conflict arises should capabilities become standardized.</t>
 
-<t>These “other” types of constraints are split into two categories: required (i.e. mandatory) or optional. The browser should not generate “other” mandatory constraints by default but must allow the developer’s JavaScript to dictate mandatory constraints. If the mandatory constraint cannot be fulfilled or is not understood by the browser, the browser must propagate an error to the developer’s JavaScript. A developer’s JavaScript should properly handle a failure condition and must act appropriately (i.e. fail accordingly) when receiving a mandatory constraint that it is unable to fulfill, correctly signal (if applicable), or correctly understand. Mandatory constraints should be used sparingly.</t>
+<t>A developer’s JavaScript may choose what capabilities to signal to a remote peer, or not. The developer must only set capabilities that are either understood, or were generated by the browser and signaled ‘as is’ to the remote party. A developer should attempt to signal all capabilities generated by the browser to the remote party, but may choose to filter only the understood capabilities.</t>
 
-<t>Optional “other” constraints must be considered optional and any constraint property of this nature may be ignored. However, if the browser or the developer’s JavaScript understands the constraint property, the property must be respected.</t>
+<t>The browser should only implement standardized capabilities and must namespace non-standardized capabilities appropriately to avoid conflict with capabilities that might be standardized in the future.</t>
 
-<t>A developer’s JavaScript may choose what constraints to signal to a remote peer, or not. The developer must only set constraints that are either understood, or were generated by the browser and signaled ‘as is’ to the remote party. A developer should attempt to signal all constraints generated by the browser to the remote party, but may choose to filter only the understood constraints.</t>
-
-<t>The browser should only implement standardized constraints and must namespace non-standardized constraints appropriately to avoid conflict with constraints that might be standardized in the future.</t>
-
-<t>Example pseudo-code of how constraints could be negotiated:</t>
+<t>Example pseudo-code of how capabilities could be negotiated:</t>
 
 <figure><artwork><![CDATA[
-// alice signals constraints to bob
-var aliceConstraints = JSON.stringify(
-  alice_connection.getConstraints("receive"));
-mysignal("to:bob", aliceConstraints);
+// alice signals capabilities to bob
+var aliceCapabilities = JSON.stringify(
+  alice_session.getCapabilities("receive"));
+mysignal("to:bob", aliceCapabilities);
 
-// bob changes sending constraints
-bob_connection.setConstraints(JSON.parse(aliceConstraints), "send");
+// bob changes sending capabilities
+bob_connection.setCapabilities(
+  JSON.parse(aliceCapabilities), "send");
 
-// bob signals constraints to alice
-var bobConstraints = JSON.stringify(
-  bob_connection.getConstraints("receive"));
-mysignal("to:alice", bobConstraints);
+// bob signals capabilities to alice
+var bobCapabilities = JSON.stringify(
+  bob_session.getCapabilities("receive"));
+mysignal("to:alice", bobCapabilities);
 
-// alice changes sending constraints
-alice_connection.setConstraints(JSON.parse(bobConstraints), "send");
+// alice changes sending capabilities
+alice_session.setCapabilities(JSON.parse(bobCapabilities), "send");
 ]]></artwork></figure>
 
 </section>
@@ -397,10 +383,11 @@ alice_connection.setConstraints(JSON.parse(bobConstraints), "send");
 
 <t><list style='symbols'>
   <t>track-id - the identifier of the track (i.e. from MediaStreamTrack.id <xref target="MediaCapture"/>)</t>
-  <t>socket id - the identifier correlating to the media socket (<xref target="objsocket"/>)</t>
+  <t>media-stream-id - the identifier of the associated media stream (i.e. from MediaStream.id <xref target="MediaCapture"/>)</t>
   <t>ssrc - the SSRC of the track as defined by RFC3550 <xref target="RFC3550"/></t>
   <t>kind - the kind of media being transported (meaning derived from MediaStreamTrack <xref target="MediaCapture"/>)</t>
-  <t>constraints - (optional, the default send / receive connection (<xref target="objconnection"/>) constraints apply if not specified)</t>
+  <t>connection id - the identifier correlating to the connection object (<xref target="objconnection"/>)</t>
+  <t>codecs - (optional, the default send / receive codecs capabilities apply if not specified)</t>
 </list></t>
 
 <t>If FEC is supported by the browser and the developer’s JavaScript has enabled the feature, the browser must supply the following additional information on FEC tracks:</t>
@@ -411,7 +398,7 @@ alice_connection.setConstraints(JSON.parse(bobConstraints), "send");
 
 <t>(NOTE: FEC is a complex subject with alternative methods to perform the same levels of redundancy. This draft takes no position on the best techniques and practices and only suggests one method for describing FEC within the steam description. As other description formats are able to support various FEC scenarios, the descriptive information for various FEC scenarios could easily be added into this draft depending on what the IETF/W3C wish to support by default.)</t>
 
-<t>The browser must support a developer’s JavaScript specifying constraints per track on both the send and receive ends of the track. As each SSRC can be demuxed from other SSRCs at the RTP layer, the constraints can be applied per track.</t>
+<t>The browser must support a developer’s JavaScript specifying capabilities per track on both the send and receive ends of the track. As each SSRC can be demuxed from other SSRCs at the RTP layer, the capabilities can be applied per track.</t>
 
 <t>While these stream (and track) descriptions are intended to be sent to remote peers, the browser must not mandate the timing, format, or the signaling of these stream descriptions.</t>
 
@@ -420,15 +407,15 @@ alice_connection.setConstraints(JSON.parse(bobConstraints), "send");
 <figure><artwork><![CDATA[
 // alice sends information about stream to bob
 var aliceStreamDesc = JSON.stringify(
-  alice_connection.getDescription(aliceMediaStreamToBob));
+  alice_session.getDescription(aliceMediaStreamToBob));
 
-alice_connection.sendStream(aliceMediaStreamToBob);
+alice_session.sendStream(aliceMediaStreamToBob);
 
 mysignal("to:bob", JSON.stringify(aliceStreamDesc));
 
 // bob receives stream
 var bobMediaStreamFromAlice = new MediaStream();
-bob_connection.setDescription(
+bob_session.setDescription(
   bobMediaStreamFromAlice,
   JSON.parse(aliceStreamDesc)
   );
@@ -445,122 +432,51 @@ var myStreamDescription = [
         track: "<track-id>",
         ssrc: 5,
         redundancySsrc: 10,
-        socketId: "my-audio-port",
-        constraints: { /* optional constraints */ }
+        connection-id: "<value>",
+        capabilities: { /* optional capabilities */ }
     },
     { // video
         kind: "video",
         ssrc: 10,
-        socketId: "my-video-port",
-        constraints: { /* optional constraints */ }
+        connection-id: "<value>",
+        capabilities: { /* optional capabilities */ }
      },
      { // dtmf
         kind: "dtmf",
         ssrc: 5,
-        socketId: "my-audio-port",
-        constraints: { /* optional constraints */ }
-     },
-     { // unspecified
-         track: "poor-taste-track-id",
-         omit: true
+        connectin-id: "<value>",
+        capabilities: { /* optional capabilities */ }
      }
 ];
 ]]></artwork></figure>
 
 </section>
-<section anchor="objfuturestreamdescriptions" title="Future Media Stream Descriptions">
-
-<t>The complexity in describing streams and tracks is mostly born because RTP lacks sufficient definition to reassemble RTP media tracks into streams on a remote peer. In the future, a new “next generation” RTP may become standard. In such a case, the “next generation” RTP layer may support the concept of tracks, streams, or things like FEC, and simulcasting.</t>
-
-<t>If a “next generation” RTP transport becomes defined, a stream description might be different or not required at all, or perhaps with other properties yet to be defined. Each new supported transport type must define exactly the stream definition expected to be produced by the browser, if any at all.</t>
-
-</section>
 </section>
 <section anchor="sending-media-streams-over-rtp" title="Sending Media Streams (over RTP)">
 
-<t>The browser must be able to support sending streams via a connection <xref target="objconnection"/> over the socket(s) <xref target="objsocket"/>. The developer’s JavaScript must be able to indicate to the browser the stream and track mappings (in the form of a stream description) if the transport requires this information (assuming it is required, see <xref target="objfuturestreamdescriptions"/>).</t>
+<t>The browser must be able to support sending streams via connections <xref target="objconnection"/> over the socket <xref target="objsocket"/>. The developer’s JavaScript must be able to indicate to the browser the stream and track mappings (in the form of a stream description).</t>
 
-<t>The browser must respect the media stream track mapping to the socket <xref target="objsocket"/>, SSRC, and optional constraints. The “kind” property for sending is merely information but is not explicitly required, but if set, must match the media stream track’s “kind”. The developer’s JavaScript must be able to specify that individual media stream track may be omitted from sending, while other media stream tracks are sent.</t>
+<t>The browser must respect the media stream track mapping to the socket <xref target="objsocket"/>, SSRC, and optional capabilities. The “kind” property for sending is merely information but is not explicitly required, but if set, must match the media stream track’s “kind”.</t>
 
-<t>The developer’s JavaScript must be able to control the exact timing when a stream starts to send and when a stream stops sending. At any time, the developer’s JavaScript must be able to change the track mapping and constraints without the browser imposing any signaling requirements to a remote peer, thus allowing for various alternative signaling scenarios.</t>
+<t>The developer’s JavaScript must be able to control the exact timing when a stream starts to send and when a stream stops sending. At any time, the developer’s JavaScript must be able to change the track mapping and capabilities without the browser imposing any signaling requirements to a remote peer, thus allowing for various alternative signaling scenarios.</t>
 
-<t>The browser must only utilize the codecs within the constraints provided for sending, and alternate codecs at will. A browser should decide which codec is best suited for the network conditions amongst all the codecs within the send constraints. If a developer’s JavaScript wishes to limit to a particular codec, the send constraints should only contain the codec desired.</t>
+<t>The browser must only utilize the codecs within the capabilities provided for sending, and alternate codecs at will. A browser should decide which codec is best suited for the network conditions amongst all the codecs within the capabilities. If a developer’s JavaScript wishes to limit to a particular codec, the capabilities should only contain the codec desired.</t>
 
 <t>If FEC is supported, the browser must coordinate the sending of the FEC RTP redundancy tracks.</t>
 
 </section>
 <section anchor="receiving-streams-over-rtp" title="Receiving Streams (over RTP)">
 
-<t>The browser must be able to support receiving streams via a connection <xref target="objconnection"/> over the socket(s) <xref target="objsocket"/>. The developer’s JavaScript must be able to specify the streams expectations for any streams about to be received (or currently being received).</t>
+<t>The browser must be able to support receiving streams via connections <xref target="objconnection"/> over the socket <xref target="objsocket"/>. The developer’s JavaScript must be able to specify the streams expectations for any streams about to be received (or currently being received).</t>
 
 <t>The developer’s JavaScript is not required to signal the stream mapping should the developer not care about stream and stream track reassembly, or if the developer will manually assemble the streams tracks into streams based on their own logic. If media tracks arrive without any stream definition, the browser must render the RTP streams as media stream tracks unattached to a particular stream. Should the developer’s JavaScript eventually specify a stream definition, the browser must assemble the individual tracks into streams according to the stream definitions. The developer’s JavaScript must be able to assemble individual stream tracks into streams manually should the developer not wish to provide a stream definition.</t>
 
 <t>The browser must be able to render the same media stream track as part of multiple media stream objects, to allow a stream definition to contain the same track in multiple streams.</t>
 
-<t>Each media stream track is demuxed first by the socket (<xref target="objsocket"/>), then by the SSRC, then by “kind” based upon the codec “kind” of the payload. While technically possible to demux upon the same “kind”, the browser must only support demuxing the same media “kind” with the same SSRC if the payload id used only matches one set of constraints for a particular track on the receiving stream. A developer’s JavaScript should not mux the same “kind” of media on the same SSRC. A developer’s JavaScript should not mux different “kinds” of media on the same SSRC.</t>
+<t>Each media stream track is demuxed first by the connection (<xref target="objsocket"/>), then by the SSRC, then by “kind” based upon the codec “kind” of the payload. While technically possible to demux upon the same “kind”, the browser must only support demuxing the same media “kind” with the same SSRC if the payload id used only matches one set of capabilities for a particular track on the receiving stream. A developer’s JavaScript should not mux the same “kind” of media on the same SSRC. A developer’s JavaScript should not mux different “kinds” of media on the same SSRC.</t>
 
 <t>A developer’s JavaScript must provide a stream definition to receive any streams that utilize the FEC feature when transmitting over RTP.</t>
 
-<section anchor="loosedescriptions" title="Loosely Matching Media Stream Descriptions">
-
-<t>The browser must support loose definitions for streams where a signaling was not used to send stream descriptions between peers. This allows the browser to support simpler signaling protocols which are either incapable or unwilling to signal stream descriptions.</t>
-
-<t>The browser should be able to receive a stream without specifying any details. In this case, the browser will attach all incoming media stream tracks of different media kinds into the stream specified. In such a case, the browser will apply loose rules to automatically determine which track belongs to which stream, factoring in such things as the sockets, kinds of media on each socket, and the constraints provided (and perhaps timing). This allows for very simple signaling use cases where the developer doesn’t need to signal stream details needlessly for the most common use cases. Alternatively, the developer’s JavaScript should be able to specify partial or complete details such as socket id, to indicate a particular socket, or a “kind” to filter on particular kinds of media, or even on an SSRC that was generated and presumed based on an algorithm of the developer’s choosing. This allows the developer’s JavaScript complete control over the level of precision in the stream matching they can expect.</t>
-
-<t>When filters are used for a stream description to define specific track definitions, the browser should match upon the most specific rule if items like the SSRC are specified in the rules. As the browser API defined by the W3C, the W3C must define specific rules to follow when receiving streams that make most sense for their anticipated use cases.</t>
-
-<t>The intention of allowing for loose rules is to allow for a larger variety of signaling scenarios where simple “loose” rules could be used to match the media stream tracks rather than always mandating signaling be exchanged. Loose rules may work well for many and most common use cases, but still allows the developer to signal specifics when they do not suffice.</t>
-
-<t>Example pseudo-code of how streams could be sent with loose matching media stream descriptions:</t>
-
-<figure><artwork><![CDATA[
-// alice sends information about stream to bob
-alice_connection.sendStream(aliceMediaStreamToBob);
-
-mysignal("to:bob", "+stream");
-
-// bob receives stream (auto-loose matching will work in simple case)
-var bobMediaStreamFromAlice = new MediaStream();
-bob_connection.receiveStream(bobMediaStreamFromAlice);
-]]></artwork></figure>
-
-</section>
-<section anchor="loosely-matching-media-stream-description-expressed-as-a-structure" title="Loosely Matching Media Stream Description Expressed as a Structure">
-
-<t>This is an example-only loose matching media stream description expressed as a JavaScript structure. This example is not a signaling on-the-wire format mandate.</t>
-
-<figure><artwork><![CDATA[
-var myStreamDescriptionLooseExampleA = [
-    {
-        kind: "audio"
-    },
-    {
-        kind: "video"
-    }
-];
-
-var myStreamDescriptionLooseExampleB = [
-    {
-        kind: "audio",
-        ssrc: 5,
-        socketId: "my-audio-port"
-    },
-    {
-        kind: "video",
-        socketId: "my-video-port",
-    },
-    {
-        kind: "dtmf"
-    },
-    {
-        track: "<existing-track-id>",
-        ssrc: 17,
-        socketId: "my-other-port"
-    }
-];
-]]></artwork></figure>
-
-</section>
 </section>
 <section anchor="objdatastreamdescription" title="Data Stream Description">
 
@@ -568,7 +484,7 @@ var myStreamDescriptionLooseExampleB = [
 
 <t><list style='symbols'>
   <t>stream id - the identifier for the data stream (from MediaStream.id <xref target="MediaCapture"/>)</t>
-  <t>socket id - the socket to carry the data stream (<xref target="objsocket"/>)</t>
+  <t>connection id - the connection to carry the data stream (<xref target="objsocket"/>)</t>
 </list></t>
 
 <t>The browser must not define or specify how or when the signaling for the data stream description is sent.</t>
@@ -576,7 +492,7 @@ var myStreamDescriptionLooseExampleB = [
 </section>
 <section anchor="sending-data-streams-over-datasocekt" title="Sending Data Streams (over DataSocekt)">
 
-<t>The browser must be able to send a data stream over the connection as long as a data stream compatible socket has been added, otherwise an error must be propagated to the developer’s JavaScript. For the simple case, the developer’s JavaScript should be able to send the stream without any additional information being specified to allow for simple signaling scenarios where the data stream mapping is unimportant.</t>
+<t>The browser must be able to send a data stream over the connection. For the simple case, the developer’s JavaScript should be able to send the stream without any additional information being specified to allow for simple signaling scenarios where the data stream mapping is unimportant.</t>
 
 </section>
 <section anchor="receiving-data-streams-over-datasocket" title="Receiving Data Streams (over DataSocket)">
@@ -625,38 +541,38 @@ var myStreamDescriptionLooseExampleB = [
 
 <section anchor="constructing-an-offer" title="Constructing an Offer">
 
-<t>The first step required is creating a connection object. The connection object can optionally be constructed with various socket configurations for transport, such as separating audio and video RTP sockets, or muxing the data on the same socket as RTP. The developer can obtain the send constraints and populate the “m=” line(s) for the media desired, as well as all the codec and cryptography information. The ice userFrag and password information is available from the connection object. If the SDP must generate SSRC mappings, the “getDescription” method can be used to obtain the mapping information in order to generate the various SDP SSRC entries accordingly. Finally, the ICE candidates will be notified using an “onconnectioncandidate” event and the offer can either be generated before all candidates arrive, or after once all candidates are ready.</t>
+<t>The first step required is creating a connection object. The connection object can optionally be constructed with various socket configurations for transport, such as separating audio and video RTP sockets, or muxing the data on the same socket as RTP. The developer can obtain the send capabilities and populate the “m=” line(s) for the media desired, as well as all the codec information. The ice userFrag and password information is available from the connection object. If the SDP must generate SSRC mappings, the “getDescription” method can be used to obtain the mapping information in order to generate the various SDP SSRC entries accordingly. Finally, the ICE candidates will be notified using an “onconnectioncandidate” event and the offer can either be generated before all candidates arrive, or after once all candidates are ready.</t>
 
 <t>The peer can be put into an “offer” state.</t>
 
 </section>
 <section anchor="parsing-an-offer" title="Parsing an Offer">
 
-<t>When a remote peer receives an offer, the peer must construct an answer, but it must parse the offer before this. The first step is to parse out the SDP information as per the expectations of how it was generated. Since the offer was constructed with JavaScript and not by the browser, the exact parameters and fields will be exactly how the JavaScript decided with no surprises (outside of fixable JavaScript bugs). The remote peer can construct a connection object in the same manner as the offer peer. The SDP is extracted for its ICE credentials, where “setDescription” is called for the connection with the relevant information from the offer about the ICE userFrag, password and the ICE candidates can be set using “setRemoteConnectionCandidate”. The codecs and encryption algorithms are pulled from the SDP and “setConstraints” is called to indicate the “receive” constraints. If SSRC mapping was supported, the SSRC maps can be pulled out of the SDP and set using “setDescription” with a “receive” stream object provided.</t>
+<t>When a remote peer receives an offer, the peer must construct an answer, but it must parse the offer before this. The first step is to parse out the SDP information as per the expectations of how it was generated. Since the offer was constructed with JavaScript and not by the browser, the exact parameters and fields will be exactly how the JavaScript decided with no surprises (outside of fixable JavaScript bugs). The remote peer can construct a connection object in the same manner as the offer peer. The SDP is extracted for its ICE credentials, where “setDescription” is called for the connection with the relevant information from the offer about the ICE userFrag, password and the ICE candidates can be set using “setRemoteConnectionCandidate”. The codecs are pulled from the SDP and “setCapabilities” is called to indicate the “receive” capabilities. If SSRC mapping was supported, the SSRC maps can be pulled out of the SDP and set using “setDescription” with a “receive” stream object provided.</t>
 
 </section>
 <section anchor="generating-an-answer" title="Generating an Answer">
 
-<t>To construct answer, the ICE credentials are pulled from the connection object using the “getDescription”. The candidates will arrive on the “onconnectioncandidate” and can be placed in the SDP. The constraints for the “send” can be obtained by calling “getConstraints” for the “send” direction (and only mutually agreed codecs can be filtered in if desired). The “m=” line can be generated for the specific medias with the related “a=” codec mappings. If the SDP must generate SSRC mappings, the “getDescription” method can be used to obtain the mapping information in order to generate the various SDP SSRC entries in the answer.</t>
+<t>To construct answer, the ICE credentials are pulled from the connection object using the “getDescription”. The candidates will arrive on the “onconnectioncandidate” and can be placed in the SDP. The capabilities for the “send” can be obtained by calling “getCapabilities” for the “send” direction (and only mutually agreed codecs can be filtered in if desired). The “m=” line can be generated for the specific medias with the related “a=” codec mappings. If the SDP must generate SSRC mappings, the “getDescription” method can be used to obtain the mapping information in order to generate the various SDP SSRC entries in the answer.</t>
 
 <t>The remote peer can be put into the “negotiated” state.</t>
 
 </section>
 <section anchor="parsing-an-answer" title="Parsing an Answer">
 
-<t>When a peer in the offer state receives an answer, the peer must parse the answer. The first step is to parse out the SDP information as per the expectations of how it was generated. Since the offer was constructed with JavaScript and not by the browser, the exact parameters and fields will be exactly how the JavaScript decided with no surprises (outside of fixable JavaScript bugs). The peer has a connection object already. The SDP is extracted for its ICE credentials, where “setDescription” is called for the connection with the relevant information from the answer about the ICE userFrag, password and the ICE candidates can be set using “setRemoteConnectionCandidate”. The codecs and encryption algorithms are pulled from the SDP and “setConstraints” is called to indicate the “receive” constraints. If SSRC mapping was supported, the SSRC maps can be pulled out of the SDP and set using “setDescription” with a “receive” stream object provided.</t>
+<t>When a peer in the offer state receives an answer, the peer must parse the answer. The first step is to parse out the SDP information as per the expectations of how it was generated. Since the offer was constructed with JavaScript and not by the browser, the exact parameters and fields will be exactly how the JavaScript decided with no surprises (outside of fixable JavaScript bugs). The peer has a connection object already. The SDP is extracted for its ICE credentials, where “setDescription” is called for the connection with the relevant information from the answer about the ICE userFrag, password and the ICE candidates can be set using “setRemoteConnectionCandidate”. The codecs are pulled from the SDP and “setCapabilities” is called to indicate the “receive” capabilities. If SSRC mapping was supported, the SSRC maps can be pulled out of the SDP and set using “setDescription” with a “receive” stream object provided.</t>
 
 <t>The peer can be put into the “negotiated” state.</t>
 
 </section>
 <section anchor="use-of-provisional-answers" title="Use of Provisional Answers">
 
-<t>In the object model, any connection can be forked (<xref target="interactionforking"/>) at any time. If a provisional answer is needed as another answer has arrived from an offer, the developer only needs to call the “fork” method on the connection. The developer will then have a connection which can be independently managed with a unique set of ICE candidates, constraints, encryption algorithms, and streams. Each forked connection is its own object and thus allows for independent negotiation with each forked peer.</t>
+<t>In the object model, any connection can be forked (<xref target="interactionforking"/>) at any time by reusing the same socket object. If a provisional answer is needed as another answer has arrived from an offer, the developer only need only create a new connection object. The developer will then have a connection which can be independently managed with a unique set of ICE candidates, capabilities, and streams. Each connection is its own object and thus allows for independent negotiation with each forked offer which receives an answer.</t>
 
 </section>
 <section anchor="rollback" title="Rollback">
 
-<t>As all the descriptions and constraints for each object can be maintained easily in an offer / answer state machine, the state machine can obtain all this information prior to constructing a new offer with new information. If the offer is rejected, the state can be rolled back to the previous state immediately, or, alternatively a new state can be applied only when an offer has been accepted. The browser does not need to know the state machine or the previous states, as all of this information can easily be set from JavaScript.</t>
+<t>As all the descriptions and capabilities for each object can be maintained easily in an offer / answer state machine, the state machine can obtain all this information prior to constructing a new offer with new information. If the offer is rejected, the state can be rolled back to the previous state immediately, or, alternatively a new state can be applied only when an offer has been accepted. The browser does not need to know the state machine or the previous states, as all of this information can easily be set from JavaScript.</t>
 
 </section>
 <section anchor="configurable-sdp-parameters" title="Configurable SDP Parameters">
@@ -670,37 +586,37 @@ var myStreamDescriptionLooseExampleB = [
 
 </section>
 </section>
-<section anchor="one-side-constraints" title="One-side Constraints">
+<section anchor="one-side-capabilities" title="One-side Capabilities">
 
-<t>Another model for negotiation is “one-sided” constraints negotiation. In this model, each peer derives a set of “receive” constraints, which are set to the remote peer. Each peer is allowed to update their respective “receive” constraints at any time, which must be adhered by the remote party. This is useful to be able to send streams at will without requiring constant back and forth “offer”, “answer’ and “negotiated” states.</t>
+<t>Another model for negotiation is “one-sided” capabilities negotiation. In this model, each peer derives a set of “receive” capabilities, which are set to the remote peer. Each peer is allowed to update their respective “receive” capabilities at any time, which must be adhered by the remote party. This is useful to be able to send streams at will without requiring constant back and forth “offer”, “answer’ and “negotiated” states.</t>
 
-<t>To perform this model, each side obtains its “receive” constraints using “getConstraints” on the “receive” direction. The constraints information is then mutually exchanged as needed. The ICE candidate information is only exchanged upon start and the session lasts for the lifetime of the connection. Imposing a state machine like offer / answer hampers the simplicity of this signaling model. Whereas, SDP requires that the offer and answer contain the “send” constraints and not the “receive” constraints. To make this work with offer / answer and SDP requires a fair amount of SDP jerry-rigging (see <xref target="WebRTCJSObjExamples"/> for an example).</t>
+<t>To perform this model, each side obtains its “receive” capabilities using “getCapabilities” on the “receive” direction. The capabilities information is then mutually exchanged as needed. The ICE candidate information is only exchanged upon start and the session lasts for the lifetime of the connection. Imposing a state machine like offer / answer hampers the simplicity of this signaling model. Whereas, SDP requires that the offer and answer contain the “send” capabilities and not the “receive” capabilities. To make this work with offer / answer and SDP requires a fair amount of SDP jerry-rigging (see <xref target="WebRTCJSObjExamples"/> for an example).</t>
 
-<t>Example pseudo-code of how constraints could be re-signaled:</t>
+<t>Example pseudo-code of how capabilities could be re-signaled:</t>
 
 <figure><artwork><![CDATA[
-// alice changes constraints locally
-var myConstraints = internalChangeConstraints();
-alice_connection.setConstraints(myConstraints, "receive");
+// alice changes capabilities locally
+var myCapabilities = internalChangeCapabilities();
+alice_session.setCapabilities(myCapabilities, "receive");
 
-// alice signals changed constraints to bob
-var sigConstraints = JSON.stringify(
-  alice_connection.getConstraints("receive"));
-mysignal(sigConstraints);
+// alice signals changed capabilities to bob
+var sigCapabilities = JSON.stringify(
+  alice_session.getCapabilities("receive"));
+mysignal(sigCapabilities);
 
-// bob changes sending constraints
-bob_connection.setConstraints(JSON.parse(sigConstraints), "send");
+// bob changes sending capabilities
+bob_session.setCapabilities(JSON.parse(sigCapabilities), "send");
 ]]></artwork></figure>
 
 </section>
 <section anchor="xmpp" title="XMPP">
 
-<t>XMPP using Jingle <xref target="Jingle"/> as a signaling mechanism. XMPP requires no SDP at all and uses XML as the mechanism for expressing constraints. By allowing XMPP to directly obtain structured data in JavaScript as well as direct control over the objects without imposing signaling mandates, XMPP implementations are free of the burden imposed with parsing and generating an unfamiliar SDP format, or adhering to the SIP definition of offer / answer, rather than adhering to the Jingle state machine.</t>
+<t>XMPP using Jingle <xref target="Jingle"/> as a signaling mechanism. XMPP requires no SDP at all and uses XML as the mechanism for expressing capabilities. By allowing XMPP to directly obtain structured data in JavaScript as well as direct control over the objects without imposing signaling mandates, XMPP implementations are free of the burden imposed with parsing and generating an unfamiliar SDP format, or adhering to the SIP definition of offer / answer, rather than adhering to the Jingle state machine.</t>
 
 </section>
 <section anchor="interactionforking" title="Interactions With Forking">
 
-<t>Some signaling scenarios allow forking. With forking, an offer for a connection is made, but multiple peers might answer to the request to connect. For example, Alice might call Bob but Bob has two devices so both of Bob’s devices might answer. The answers can arrive at any time after the offer to connect request has been made. For example, SIP <xref target="RFC3261"/> defines “Parallel Search”, as well as “Sequential Search”. The browser must support forking by allowing a connection object to become forked at any time. This allows each connection to share common ICE userFrag and password credentials with the constraints defaulted identically, but each fork is allowed to negotiate its own ICE candidates, constraints, connection and stream descriptions. By doing so, the JavaScript developer can fully support signaling protocols where the forking is allowed, such as SIP.</t>
+<t>Some signaling scenarios allow forking. With forking, an offer for a connection is made, but multiple peers might answer to the request to connect. For example, Alice might call Bob but Bob has two devices so both of Bob’s devices might answer. The answers can arrive at any time after the offer to connect request has been made. For example, SIP <xref target="RFC3261"/> defines “Parallel Search”, as well as “Sequential Search”. The browser must support forking by allowing a connection object to become forked at any time. This allows each connection to share common ICE userFrag and password credentials with the capabilities defaulted identically, but each fork is allowed to negotiate its own ICE candidates, capabilities, connection and stream descriptions. By doing so, the JavaScript developer can fully support signaling protocols where the forking is allowed, such as SIP.</t>
 
 <section anchor="sequentialforking" title="Sequential Forking">
 
@@ -709,67 +625,7 @@ bob_connection.setConstraints(JSON.parse(sigConstraints), "send");
 </section>
 <section anchor="parallelforking" title="Parallel Forking">
 
-<t>As the offer / answer state machine is not imposed on a WebRTC JavaScript object model, and forking is supported, parallel forking is also supported. Each answer has it’s own fork, and the various forks can be managed independently. There is no need to disconnect any fork, and each connections’ constraints, descriptions, streams and lifetime is entirely in the control of the JavaScript application.</t>
-
-</section>
-<section anchor="forking-example-code" title="Forking Example Code">
-
-<t>Example pseudo-code of how forking can be accomplished (most of which would happen in parallel but illustrated sequentially):</t>
-
-<figure><artwork><![CDATA[
-//-------------------------------------------------------------------
-// alice makes offer
-var aliceDesc = alice_connection.getDescription();
-
-mysignal("to:bob", JSON.stringify(aliceDesc));
-
-//-------------------------------------------------------------------
-// bob device-1 replies
-var bob1_connection = new ORTC.Connection();
-bob1_connection.setDescription(JSON.parse(aliceDesc), "remote");
-
-var bob1Desc = bob1_connection.getDescription();
-mysignal("to:alice", JSON.stringify(bob1Desc));
-
-//-------------------------------------------------------------------
-// alice sees bob1 reply
-alice_connection.setDescription(JSON.parse(bob1Desc), "remote");
-
-//-------------------------------------------------------------------
-// tightly couple trickle ICE (usually sent over signaling channel)
-alice_connection.onconnectionandidate = function(candidate) {
-    bob1_connection.addConnectionCandidate(
-      JSON.parse(JSON.stringify(candidate)));
-});
-bob1_connection.onconnectioncandidate = function(candidate) {
-    alice_connection.addConnectionCandidate(
-      JSON.parse(JSON.stringify(candidate)));
-});
-
-//-------------------------------------------------------------------
-// bob device-2 replies
-var bob2_connection = new ORTC.Connection();
-bob2_connection.setDescription(JSON.parse(aliceDesc), "remote");
-
-var bob2Desc = bob2_connection.getDescription();
-mysignal("to:alice", JSON.stringify(bob2Desc));
-
-//-------------------------------------------------------------------
-// alice sees bob2 reply and forks the connection object
-var alice2_connection = alice1_connection.fork();
-alice2_connection.setDescription(JSON.parse(bob1Desc), "remote");
-
-//-------------------------------------------------------------------
-// tightly couple trickle ICE (usually sent over signaling channel)
-alice2_connection.onconnectionandidate = function(candidate) {
-    bob2_connection.addConnectionCandidate(
-      JSON.parse(JSON.stringify(candidate)));
-});
-bob2_connection.onconnectioncandidate = function(candidate) {
-    alice2_connection.addConnectionCandidate(
-      JSON.parse(JSON.stringify(candidate)));
-});
-]]></artwork></figure>
+<t>As the offer / answer state machine is not imposed on a WebRTC JavaScript object model, and forking is supported, parallel forking is also supported. Each answer has it’s own fork, and the various forks can be managed independently. There is no need to disconnect any fork, and each connections’ capabilities, descriptions, streams and lifetime is entirely in the control of the JavaScript application.</t>
 
 </section>
 </section>
@@ -786,272 +642,6 @@ bob2_connection.onconnectioncandidate = function(candidate) {
 
 </section>
 </section>
-<section anchor="interface" title="Interface">
-
-<t>This section details the basic operations that must be present to implement the RTC JavaScript Object Model functionality.  The actual API exposed in the W3C API may have somewhat different syntax, but should map easily to these concepts.</t>
-
-<section anchor="object-rtc-global-methods" title="Object RTC Global Methods">
-
-<section anchor="getfeatures" title="getFeatures">
-
-<t>The browser must supply a method to obtain well defined feature sets that are supported by the RTC engine (see <xref target="objfeaturediscovery"/>).</t>
-
-</section>
-<section anchor="getconstraints" title="getConstraints">
-
-<t>The browser must supply a method to obtain the default system constraints (see <xref target="objconstraints"/>).</t>
-
-</section>
-</section>
-<section anchor="mediasocket" title="MediaSocket">
-
-<t>The media socket object is responsible for sending RTP packets over the wire and providing raw connectivity to the network, including setting up connections with related stun and turn servers.</t>
-
-<t>The media socket can be constructed with a few options specified by the developer’s JavaScript:</t>
-
-<t><list style='symbols'>
-  <t>flag to mux RTP and RTCP on a single port (default), or to use two independent ports, one for RTP and the other for RTCP (ports should be sequential, with the first port being even)</t>
-  <t>list of optional stun servers to perform reflexive IP discovery (default, browser specific)</t>
-  <t>list of optional turn servers to act as relays (default, browser specific)</t>
-  <t>restrictive list of media “kinds” (see MediaStreamTrack <xref target="MediaCapture"/>) to restrict the socket to only carry certain kinds of media (default, no restriction)</t>
-  <t>alternative public / private key pair (default, internal browser generated public / private key)</t>
-</list></t>
-
-<t>The browser must not allow access via JavaScript to any public / private keys internally generated by the browser, but must allow a developer’s JavaScript to provide an alternative public / private key pair.</t>
-
-<t>The fingerprint property representing the hash of the public key on a socket object supporting DTLS <xref target="RFC6347"/> must be retrievable (for further discussion <xref target="dtlssrtp"/>).</t>
-
-</section>
-<section anchor="datasocket" title="DataSocket">
-
-<t>The data socket object is responsible for sending data streams over the wire and providing raw connectivity to the network, and this includes setting up connections with related stun and turn servers.</t>
-
-<t>The data socket can be constructed with a few options specified by the developer’s JavaScript:</t>
-
-<t><list style='symbols'>
-  <t>list of optional stun servers to perform reflexive IP discovery (default, browser specific)</t>
-  <t>list of optional turn servers to act as relays (default, browser specific)</t>
-  <t>alternative public / private key pair (default, internal browser generated public / private key)</t>
-</list></t>
-
-<t>The browser must not allow access via JavaScript to any public / private keys internally generated by the browser, but must allow a developer’s JavaScript to provide an alternative public / private key pair.</t>
-
-<t>The fingerprint property representing the hash of the public key on a socket object supporting DTLS <xref target="RFC6347"/> must be retrievable.</t>
-
-</section>
-<section anchor="mediadatamuxsocket" title="MediaDataMuxSocket">
-
-<t>The media / data mux socket object is a multiplexed socket object allowing either RTP or DTLS/SCTP <xref target="RFC6347"/>/<xref target="RFC4960"/> information to be carried on the same port. The object carries the same options and properties as both the media socket object (<xref target="mediasocket"/>) and the data socket object (<xref target="datasocket"/>).</t>
-
-</section>
-<section anchor="connection" title="Connection">
-
-<t>The connection object represents the interface to a connection between the local browser and a remote peer (or server).</t>
-
-<section anchor="construction" title="Construction">
-
-<t>The connection object allows for the following optional information to be specified on construction:</t>
-
-<t><list style='symbols'>
-  <t>list of sockets (if none provided, default MediaDataMuxSocket (<xref target="mediadatamuxsocket"/>) with id “default” is created)</t>
-  <t>activate state (default is “true”, i.e. active, “false” therefor would mean that streams are prevented from sending or receiving)</t>
-  <t>send constraints - list of codec, algorithms and “other” constraint restrictions placed upon send streams by default (defaults to system constraints)</t>
-  <t>receive constraints - list of codec, algorithms and “other” constraint restrictions placed upon send streams by default (defaults to system constraints)</t>
-</list></t>
-
-<t>The constructor is also responsible for setting up the following information:</t>
-
-<t><list style='symbols'>
-  <t>context id - all connections that are forked from the same root share the same context id (where as each connection still has a unique id)</t>
-  <t>secret - a randomly generated secret for the connection, which is shared by all forked connections</t>
-  <t>cname - optionally passed into as an option (default by the system according Guidelines for Choosing RTP Control Protocol (RTCP) Canonical Names (CNAMEs) (<xref target="I-D.ietf-avtcore-6222bis"/>))</t>
-</list></t>
-
-<t>The context id and the secret serve a dual role as being used for the ICE <xref target="RFC5245"/> userFrag and password during ICE connectivity checks, and may be used for other purposes. The secret must not be compromised by a developer’s JavaScript but the value must be available to JavaScript to facilitate alternative signaling protocols.</t>
-
-</section>
-<section anchor="onconnectioncandidate" title="onconnectioncandidate">
-
-<t>The “onconnectioncandidate” event must fire to allow a developer’s JavaScript to receive a discovered connection candidate. The developer’s JavaScript is responsible for signaling the candidate to a remote peer.</t>
-
-</section>
-<section anchor="onconnectioncandidatesdone" title="onconnectioncandidatesdone">
-
-<t>The “onconnectioncandidatesdone” event must fire to allow a developer’s JavaScript to be notified when all candidate discoveries have completed. This is required to allow for signaling protocols that cannot or do not wish to trickle ICE candidates as they are discovered. The developer’s JavaScript is responsible for signaling the candidates to a remote peer.</t>
-
-</section>
-<section anchor="onactiveconnectioncandidate" title="onactiveconnectioncandidate">
-
-<t>The “onactiveconnectioncandidate” event must fire to allow a developer’s JavaScript to be notified which active candidate local / remote pairing the connection is using. This is required to allow for signaling protocols that may be required to report the active connection candidates.</t>
-
-</section>
-<section anchor="onconnected" title="onconnected">
-
-<t>The “onconnected” event must fire to allow a developer’s JavaScript to be notified when a connection is connected. This is required to allow signaling protocols to start utilizing the established connection.</t>
-
-</section>
-<section anchor="ondisconnected" title="ondisconnected">
-
-<t>The “ondisconnected” event must fire to allow a developer’s JavaScript to be notified when a connection is disconnected. This is required to allow signaling protocols to react to a disconnection in whatever manner is appropriate given the reason why the connection failed as part of the event. If a single socket should fail then the entire connection will disconnect. If that behavior is undesirable, the developer may create multiple connections rather than a single connection so that a failure on one socket does not affect another socket.</t>
-
-</section>
-<section anchor="onstreamconnected" title="onstreamconnected">
-
-<t>The “onstreamconnected” event must fire to allow a developer’s JavaScript to be notified when a stream has connected. This is required to allow signaling protocols to have knowledge when media or data can flow between peers.</t>
-
-</section>
-<section anchor="onstreamdisconnected" title="onstreamdisconnected">
-
-<t>The “onstreamdisconnected” event must fire to allow a developer’s JavaScript to be notified when a stream has disconnected. This is required to allow signaling protocols to have knowledge when media or data flowing between peers has stopped.</t>
-
-</section>
-<section anchor="onsteamreport" title="onsteamreport">
-
-<t>The “onsteamreport” event may fire to allow a developer’s JavaScript to be notified of stream’s conditions or statistics. The signaling protocol may wish to react based upon stream conditions, for example, to choose a downgraded stream when bandwidth is limited.</t>
-
-</section>
-<section anchor="ontrackconnected" title="ontrackconnected">
-
-<t>The “ontrackconnected” event must fire to allow a developer’s JavaScript to be notified when a media stream track has connected. This is required to allow signaling protocols to have knowledge when individual media stream tracks have connected.</t>
-
-</section>
-<section anchor="ontrackdisconnected" title="ontrackdisconnected">
-
-<t>The “ontrackdisconnected” event must fire to allow a developer’s JavaScript to be notified when a media stream track has disconnected. This is required to allow signaling protocols to have knowledge when individual media stream tracks have disconnected.</t>
-
-</section>
-<section anchor="ontrackcontributors" title="ontrackcontributors">
-
-<t>The “ontrackcontributors” event must fire to allow a developer’s JavaScript to be notified when the contributing sources for a media stream track have changed. This is required to allow signaling protocols to have knowledge of the contributors active in a given media stream, for example, in a conferencing scenario. Since the contributing sources can change per packet, the browser may impose reasonable rules on how frequently this event will fire.</t>
-
-</section>
-<section anchor="ontrackreport" title="ontrackreport">
-
-<t>The “ontrackreport” event may fire to allow a developer’s JavaScript to be notified of media stream track’s conditions or statistics. The signaling protocol may wish to react based upon media stream track conditions, for example, to choose a downgraded stream when bandwidth is limited.</t>
-
-</section>
-<section anchor="activate" title="activate">
-
-<t>This method allows the developer’s JavaScript to temporarily “pause” all media flowing in and out of the RTC engine. This may be required in some signaling scenarios where the setup process is more involved and the setup requires better synchronization.</t>
-
-</section>
-<section anchor="disconnect" title="disconnect">
-
-<t>This method allows the developer’s JavaScript to disconnect the connection. This is required by signaling protocols to tear down connections.</t>
-
-</section>
-<section anchor="setremoteconnectioncandidate" title="setRemoteConnectionCandidate">
-
-<t>This method allows the developer’s JavaScript to notify the connection about a remote peer’s discovered connection candidate as part of the connection setup process.</t>
-
-</section>
-<section anchor="getdescription" title="getDescription">
-
-<t>This method allows the developer’s JavaScript to obtain description information on connection (<xref target="objconnectiondescription"/>), media streams (<xref target="objstreamdescriptions"/>), and other streams like data streams (<xref target="objdatastreamdescription"/>). These descriptions must be obtainable in order to correctly signal information about connections and streams.</t>
-
-</section>
-<section anchor="setdescription" title="setDescription">
-
-<t>This method allows the developer’s JavaScript to set the description information on a connection (<xref target="objconnectiondescription"/>), media streams (<xref target="objstreamdescriptions"/>), and other streams like data streams (<xref target="objdatastreamdescription"/>). These descriptions must be changeable in order to allow for a variety of signaling scenarios, or when the description for the remote peer must be set on the local peer in order to correctly establish communications.</t>
-
-</section>
-<section anchor="getconstraints-1" title="getConstraints">
-
-<t>This method allows the developer’s JavaScript to obtain the current restrictions on “send” or “receive” connections, streams, or individual tracks mapped into an RTP stream. This method is needed for the signaling protocol to obtain the current restriction placed on media streams for codecs, encryption algorithms, or other extension constraints.</t>
-
-</section>
-<section anchor="setconstraints" title="setConstraints">
-
-<t>This method allows the developer’s JavaScript to set the current restrictions on “send” or “receive” connections, streams, or individual tracks mapped into an RTP stream. This method is needed to set the current restrictions placed on media streams for codecs, encryption algorithms, or other extension constraints by signaling protocols.</t>
-
-</section>
-<section anchor="sendstream" title="sendStream">
-
-<t>This method allows the developer’s JavaScript to send a stream to the remote peer, or remove a stream from sending with “false” specified. This is required to allow the signaling protocol to control when a stream is to be sent to the remote peer, and when a stream is to stop sending to the remote peer.</t>
-
-</section>
-<section anchor="receivestream" title="receiveStream">
-
-<t>This method allows the developer’s JavaScript to receive a stream from the remote peer, or to stop receiving a stream with “false” specified. The receive stream must allow signaling protocols to use either a loose description (<xref target="loosedescriptions"/>), or with a specific stream description obtained from the remote party calling “getDescription(stream)” and signaling this information. By allowing for either loose, or specific descriptions, the browser allows a variety of signaling protocols to be implementable.</t>
-
-</section>
-<section anchor="fork" title="fork">
-
-<t>This method allows the developer’s JavaScript to offer a single connection’s description to multiple peers, allowing for multiple connection responses in cases of signaling protocols that allow sequential forking (<xref target="sequentialforking"/>) or parallel forking (<xref target="parallelforking"/>). Only the first connection (<xref target="objconnection"/>) object created must receive all the discovered connection candidates, but each forked connection can be given a unique set of remote connection candidates from each potentially responding peer. The streams attached and the setup for each forked connection must be unique. The constraints are copied from the original forked connection but can set unique per fork. Each forked connection object must be considered a unique object, except that it shares the same originating connection context, and sockets.</t>
-
-</section>
-<section anchor="stream-relationship-management" title="Stream Relationship Management">
-
-<t>The connection object has relationships to streams, e.g. media (<xref target="MediaCapture"/>) or data streams (<xref target="datastream"/>). A stream can either be sent, or received on a single connection but should not be both, even if the stream is bi-directional (e.g. a data stream). A data stream (<xref target="datastream"/>) only needs one peer to send and the other will receive the “onstreamconnected” event. The recommended method for performing loopback media (where media is sent back where it is received from) is to create a new stream with the old tracks in those rare use cases, as this allows signaling protocol implementation to be absolutely clear as to which direction constraints are being applied when applied at a media stream level.</t>
-
-</section>
-</section>
-<section anchor="example-dtmfmediastreamtrack-specialization" title="Example: DTMFMediaStreamTrack Specialization">
-
-<t>The DTMF media stream track is an example of a specialized type of media stream track <xref target="MediaCapture"/> that can be implemented to facilitate IVR interactions via DTMF <xref target="RFC4733"/>. This example is illustrates the flexibility of adding new specialized object types without affecting, or expanding the behaviors (or methods) of other existing objects. Only if a JavaScript developer wishes to use these extension objects will they receive the additional behaviors. The exact features and support requirements for DTMF should be decided by the RTCWEB WG. This merely demonstrates what could be implemented, not what must be implemented.</t>
-
-<section anchor="construction-1" title="Construction">
-
-<t>The DTMF media stream track should be constructed as a loose object that can be attached to an existing media stream object. By default, the browser must mux the DTMF track with the same SSRC as the first audio track in the stream when sending a stream as per the rules defined in RFC4733 <xref target="RFC4733"/>. As DTMF represents a different “kind” of media and has a unique codec attribute, the DTMF track can be easily demuxed into a unique DTMF media stream track by the receiving peer.</t>
-
-</section>
-<section anchor="starttone" title="startTone">
-
-<t>This is an example method allowing the developer’s JavaScript to start playing a DTMF tone over the media stream track.</t>
-
-</section>
-<section anchor="stoptone" title="stopTone">
-
-<t>This is an example method allowing the developer’s JavaScript to stop playing a DTMF tone over the media stream track.</t>
-
-</section>
-<section anchor="playtones" title="playTones">
-
-<t>This is an example method allowing the developer’s JavaScript to easily pre-play an array of DTMF tones using equal or specific timings.</t>
-
-</section>
-<section anchor="flush" title="flush">
-
-<t>This is an example method allowing the developer’s JavaScript to easily stop all pre-playing DTMF tones.</t>
-
-</section>
-<section anchor="ontonestart" title="ontonestart">
-
-<t>This is an example event the developer’s JavaScript could receive to be notified that a DTMF tone has started playing on a DTMF media stream track (if support for incoming DTMF events is decided to be optional / mandatory in the browser).</t>
-
-</section>
-<section anchor="ontonestop" title="ontonestop">
-
-<t>This is an example event the developer’s JavaScript could receive to be notified that a DTMF tone has stopped playing on a DTMF media stream track (if support for incoming DTMF events is desired to be optional / mandatory in the browser).</t>
-
-</section>
-</section>
-<section anchor="example-datastream-specialization" title="Example: DataStream Specialization">
-
-<t>The data stream is an example of a specialized type of media stream <xref target="MediaCapture"/> that can be implemented to facilitate arbitrary data transmission between peers. This example illustrates the flexibility of adding new specialized object types without affecting, or expanding the behaviors (or methods) of other existing objects. Only if a JavaScript developer wishes to use these extension objects will they receive the additional behaviors. Data streams are useful in a variety of signaling scenarios and informational where information can be transmitted directly peer-to-peer, e.g. file transfer.</t>
-
-<section anchor="construction-2" title="Construction">
-
-<t>In the example, the data stream has an option to specify the reliability of the stream so the stream can be sent in an “envelop” or “fifo” fashion. This is required to allow for alternative signaling methods that wish to send fast updates to a remote peer but may be unreliably sent, or reliably sent in a first-in-first-out fashion. As this is an example only, the actual implementation can be expanded to contain whatever features the RTCWEB WG and W3C ultimately decide upon for data streams.</t>
-
-</section>
-<section anchor="onreceive" title="onreceive">
-
-<t>This is an example event the developer’s JavaScript could receive to be notified of incoming data.</t>
-
-</section>
-<section anchor="send" title="send">
-
-<t>This is an example method the developer’s JavaScript could call to send data over the data stream.</t>
-
-</section>
-<section anchor="close" title="close">
-
-<t>This is an example method the developer’s JavaScript could call to close the data stream.</t>
-
-</section>
-</section>
-</section>
 <section anchor="comparison-to-other-approaches" title="Comparison to Other Approaches">
 
 <section anchor="jsep" title="JSEP">
@@ -1059,7 +649,7 @@ bob2_connection.onconnectioncandidate = function(candidate) {
 <t>The main differences in the WebRTC Object vs JSEP:</t>
 
 <t><list style='numbers'>
-  <t>JSEP requires an all-encompassing complete description of media, transports, constraints and streams.</t>
+  <t>JSEP requires an all-encompassing complete description of media, transports, capabilities and streams.</t>
   <t>Enforces an offer / answer state machine upon all signaling.</t>
   <t>Enforces SDP offer / answer negotiation.</t>
   <t>Requires other signaling protocols to transcode from an unfamiliar SDP format.</t>
@@ -1074,7 +664,7 @@ bob2_connection.onconnectioncandidate = function(candidate) {
 <t><list style='numbers'>
   <t>Modularizes the information needed into independent components.</t>
   <t>Enforces no signaling mandates, other than candidate connectivity checking.</t>
-  <t>Treats constraints as independent and updateable as signaling protocols might require.</t>
+  <t>Treats capabilities as independent and updateable as signaling protocols might require.</t>
   <t>Allows JavaScript developers to utilize well known JavaScript structures to obtain information.</t>
   <t>Exposes all the content in a granular fashion.</t>
   <t>Allows simple WebRTC scenarios to be easily implemented.</t>
@@ -1135,22 +725,11 @@ bob2_connection.onconnectioncandidate = function(candidate) {
 <t>Should IdP becomes perfected, the connection description <xref target="objconnectiondescription"/> can be extended to include the identity information as part of connection negotiation.</t>
 
 </section>
-<section anchor="jscertificates" title="JavaScript Provided DTLS Certificates">
-
-<t>Controversy exists in allowing JavaScript to provide an alternate certificate to the browser’s private certificate. Most of the controversy is over how to display the correct level of security, since allowing JavaScript to provide a certificate may weaken security. There are two forms of this weakness: malicious or accidental.</t>
-
-<t>Preventing weakness due to a provider intentionally using malicious JavaScript is virtually impossible. The browser could have 100% on-the-wire security and still be compromised. The browser is in complete control over where to send streams (so long as ICE permission is granted). In other words, malicious JavaScript code could duplicate user generated streams to whatever destination they choose, which causes on-the-wire security to be essentially meaningless.</t>
-
-<t>If the goal is preventing accidental errors in security, a custom certificate is not the only weak area in code to cause accidental compromises. For example, directing the stream to the wrong location by mistaken negotiation is possible, as are mistakes in server security infrastructure, along with the potential for basic mistakes like JavaScript choosing to contact the wrong party in the first place. Prevention against accidents is a lofty goal, but likely unobtainable without many additional usage restrictions.</t>
-
-<t>The RTCWEB WG must come to a decision to allow this feature or not.</t>
-
-</section>
 <section anchor="dtlssrtp" title="DTLS / SRTP vs SDES / SRTP">
 
 <t>Auto-keying for SRTP must be done through a DTLS handshakes extensions as opposed to requiring SDES <xref target="RFC4568"/>. DTLS must have a foolproof man-in-the-middle attack prevention scheme (i.e. fingerprint validation, see <xref target="idp"/>). Without the fingerprint validation, little security is provided should the stream be intercepted.</t>
 
-<t>If substantial push-back exists over mandating the usage of DTLS for keying over SDES, then the keying for SDES can be easily be included as part of the constraints structure <xref target="objconstraints"/>. The final decision to mandate, recommend or allow for media key negotiation over DTLS must be made by the RTCWEB WG before any RTC JavaScript interface can be completed.</t>
+<t>If substantial push-back exists over mandating the usage of DTLS for keying over SDES, then the keying for SDES can be easily be included as part of the capabilities structure <xref target="objcapabilities"/>. The final decision to mandate, recommend or allow for media key negotiation over DTLS must be made by the RTCWEB WG before any RTC JavaScript interface can be completed.</t>
 
 </section>
 </section>
@@ -1217,15 +796,15 @@ bob2_connection.onconnectioncandidate = function(candidate) {
     <organization />
 </author>
 
-<date month='February' day='25' year='2013' />
+<date month='July' day='15' year='2013' />
 
-<abstract><t>The Web Real-Time Communication (WebRTC) framework provides support for direct interactive rich communication using audio, video, text, collaboration, games, etc. between two peers' web-browsers.  This memo describes the media transport aspects of the WebRTC framework. It specifies how the Real-time Transport Protocol (RTP) is used in the WebRTC context, and gives requirements for which RTP features, profiles, and extensions need to be supported.</t></abstract>
+<abstract><t>The Web Real-Time Communication (WebRTC) framework provides support for direct interactive rich communication using audio, video, text, collaboration, games, etc.  between two peers' web-browsers.  This memo describes the media transport aspects of the WebRTC framework. It specifies how the Real-time Transport Protocol (RTP) is used in the WebRTC context, and gives requirements for which RTP features, profiles, and extensions need to be supported.</t></abstract>
 
 </front>
 
-<seriesInfo name='Internet-Draft' value='draft-ietf-rtcweb-rtp-usage-06' />
+<seriesInfo name='Internet-Draft' value='draft-ietf-rtcweb-rtp-usage-07' />
 <format type='TXT'
-        target='http://www.ietf.org/internet-drafts/draft-ietf-rtcweb-rtp-usage-06.txt' />
+        target='http://www.ietf.org/internet-drafts/draft-ietf-rtcweb-rtp-usage-07.txt' />
 </reference>
 
 
@@ -1425,15 +1004,15 @@ bob2_connection.onconnectioncandidate = function(candidate) {
     <organization />
 </author>
 
-<date month='July' day='8' year='2013' />
+<date month='July' day='14' year='2013' />
 
 <abstract><t>The RTP Control Protocol (RTCP) Canonical Name (CNAME) is a persistent transport-level identifier for an RTP endpoint.  While the Synchronization Source (SSRC) identifier of an RTP endpoint may change if a collision is detected or when the RTP application is restarted, its RTCP CNAME is meant to stay unchanged, so that RTP endpoints can be uniquely identified and associated with their RTP media streams.  For proper functionality, RTCP CNAMEs should be unique within the participants of an RTP session.  However, the existing guidelines for choosing the RTCP CNAME provided in the RTP standard are insufficient to achieve this uniqueness.  RFC 6222 was published to update those guidelines to allow endpoints to choose unique RTCP CNAMEs. Unfortunately, later investigations showed that some parts of the new algorithms were unnecessarily complicated and/or ineffective.  This document addresses these concerns and replaces RFC 6222.</t></abstract>
 
 </front>
 
-<seriesInfo name='Internet-Draft' value='draft-ietf-avtcore-6222bis-05' />
+<seriesInfo name='Internet-Draft' value='draft-ietf-avtcore-6222bis-06' />
 <format type='TXT'
-        target='http://www.ietf.org/internet-drafts/draft-ietf-avtcore-6222bis-05.txt' />
+        target='http://www.ietf.org/internet-drafts/draft-ietf-avtcore-6222bis-06.txt' />
 </reference>
 
 

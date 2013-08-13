@@ -94,7 +94,7 @@
       </address>
     </author>
 
-    <date year="2013" month="July" day="05"/>
+    <date year="2013" month="August" day="12"/>
 
     <area>General</area>
     <workgroup>Network Working Group</workgroup>
@@ -102,6 +102,8 @@
 
     <abstract>
 
+
+<t><spanx style='verb'>WARNING: THIS DOCUMENT IS NOW OBSOLETE AND NEEDS REVISING</spanx></t>
 
 <t>This draft outlines example use cases with example code for using the WebRTC JavaScript Object RTC.</t>
 
@@ -117,6 +119,8 @@
 
 <section anchor="problems" title="Introduction">
 
+<t><spanx style='verb'>WARNING: THIS DOCUMENT IS NOW OBSOLETE AND NEEDS REVISING</spanx></t>
+
 <t>This draft is supplementary to the WebRTC JavaScript Object RTC draft <xref target="WebRTCJSObj"/> and outlines code examples when using the proposed object model. The code is written in a sequential fashion where both “Alice” and “Bob” roles are merged into a single code stream even though they would actually be split across the network. This is helpful for code illustration purposes, otherwise a sequence diagram and event firings to incorporate custom signaling would confuse the example but add virtually no value in understanding the sequences needing to be called to setup RTC communications.</t>
 
 </section>
@@ -126,6 +130,8 @@
 
 </section>
 <section anchor="example-use-cases" title="Example Use Cases">
+
+<t><spanx style='verb'>WARNING: THIS DOCUMENT IS NOW OBSOLETE AND NEEDS REVISING</spanx></t>
 
 <section anchor="simple" title="Simple">
 
