@@ -5,11 +5,11 @@
 Network Working Group                                         R. Raymond
 Internet-Draft                                               E. Lagerway
 Intended status: Informational                                 Hookflash
-Expires: January 13, 2014                                I. Baz Castillo
+Expires: February 13, 2014                               I. Baz Castillo
                                                                Versatica
                                                               R. Shpount
                                                              TurboBridge
-                                                           July 12, 2013
+                                                         August 12, 2013
 
 
                  WebRTC JavaScript Object API Rationale
@@ -40,7 +40,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 13, 2014.
+   This Internet-Draft will expire on February 13, 2014.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 1]
+Raymond, et al.         Expires February 13, 2014               [Page 1]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    publication of this document.  Please review these documents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 2]
+Raymond, et al.         Expires February 13, 2014               [Page 2]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
      5.1.  Overview  . . . . . . . . . . . . . . . . . . . . . . . .  26
@@ -165,9 +165,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 3]
+Raymond, et al.         Expires February 13, 2014               [Page 3]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    4.  We must have some kind of universal exchange format.
@@ -221,9 +221,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 4]
+Raymond, et al.         Expires February 13, 2014               [Page 4]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    While the currently mandated SDP based API allows developers to
@@ -277,9 +277,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 5]
+Raymond, et al.         Expires February 13, 2014               [Page 5]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    10.  Using alternative signaling formats will require complete
@@ -333,9 +333,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 6]
+Raymond, et al.         Expires February 13, 2014               [Page 6]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    The mandate for the RTCWEB charter is to simply define requirements,
@@ -389,9 +389,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 7]
+Raymond, et al.         Expires February 13, 2014               [Page 7]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    to saying "if you plan to send anything, make sure it conforms to the
@@ -445,9 +445,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 8]
+Raymond, et al.         Expires February 13, 2014               [Page 8]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    This creates a parsing and SDP generation compatibility issues.  If
@@ -501,9 +501,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014                [Page 9]
+Raymond, et al.         Expires February 13, 2014               [Page 9]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    Worse, a flood of extensions to SDP for WebRTC are being written to
@@ -557,9 +557,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 10]
+Raymond, et al.         Expires February 13, 2014              [Page 10]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    giving that modified SDP back to Browser A to change it's behavior
@@ -613,9 +613,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 11]
+Raymond, et al.         Expires February 13, 2014              [Page 11]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    to exacting expectations for their network regardless of the browser
@@ -669,9 +669,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 12]
+Raymond, et al.         Expires February 13, 2014              [Page 12]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
 2.10.  Impossible API to implement to achieve browser compatibility
@@ -725,9 +725,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 13]
+Raymond, et al.         Expires February 13, 2014              [Page 13]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
 2.11.  Plan A, Plan B vs NoPlan
@@ -781,9 +781,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 14]
+Raymond, et al.         Expires February 13, 2014              [Page 14]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    Certainly JavaScript programmers and the W3C should not be impacted
@@ -837,9 +837,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 15]
+Raymond, et al.         Expires February 13, 2014              [Page 15]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
 3.1.1.  Cost now to fix versus fixing later
@@ -893,9 +893,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 16]
+Raymond, et al.         Expires February 13, 2014              [Page 16]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    Having a good solid simple foundation is key to ensuring basic
@@ -949,9 +949,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 17]
+Raymond, et al.         Expires February 13, 2014              [Page 17]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    implementation.  Whatever format is selected, each browser or
@@ -1005,9 +1005,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 18]
+Raymond, et al.         Expires February 13, 2014              [Page 18]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    is strictly under the control of the service provider and not the
@@ -1061,9 +1061,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 19]
+Raymond, et al.         Expires February 13, 2014              [Page 19]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    2.  All future createOffer/createAnswer calls from Browser A must be
@@ -1117,9 +1117,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 20]
+Raymond, et al.         Expires February 13, 2014              [Page 20]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    With this model, browser A must be capable of independently modifying
@@ -1173,9 +1173,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 21]
+Raymond, et al.         Expires February 13, 2014              [Page 21]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    A JavaScript shim approach on a WebRTC JavaScript object model and
@@ -1229,9 +1229,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 22]
+Raymond, et al.         Expires February 13, 2014              [Page 22]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    Under this scenario, what should browser B do?  To reject the offer
@@ -1285,9 +1285,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 23]
+Raymond, et al.         Expires February 13, 2014              [Page 23]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    6.  Browser Vendor B updates their browser SDP generator (with a
@@ -1341,9 +1341,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 24]
+Raymond, et al.         Expires February 13, 2014              [Page 24]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    3.  The users starts to communicate and the bit-rate is adjusted to
@@ -1397,9 +1397,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 25]
+Raymond, et al.         Expires February 13, 2014              [Page 25]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    incorrectly assumes she's in a video conversation.  In order to solve
@@ -1453,9 +1453,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 26]
+Raymond, et al.         Expires February 13, 2014              [Page 26]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    New objects and methods can be added without breaking existing
@@ -1509,9 +1509,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 27]
+Raymond, et al.         Expires February 13, 2014              [Page 27]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
 5.2.6.  Alternative formats
@@ -1565,9 +1565,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 28]
+Raymond, et al.         Expires February 13, 2014              [Page 28]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    As any design, there may be limitations but the design should hold up
@@ -1621,9 +1621,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 29]
+Raymond, et al.         Expires February 13, 2014              [Page 29]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    Compatibility with the SDP used in all SIP networks is not a stated
@@ -1677,9 +1677,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 30]
+Raymond, et al.         Expires February 13, 2014              [Page 30]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    [RFC4566]  Handley, M., Jacobson, V., and C. Perkins, "SDP: Session
@@ -1733,9 +1733,9 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 31]
+Raymond, et al.         Expires February 13, 2014              [Page 31]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
@@ -1789,9 +1789,9 @@ Authors' Addresses
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 32]
+Raymond, et al.         Expires February 13, 2014              [Page 32]
 
-Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
+Internet-Draft   WebRTC JavaScript Object API Rationale      August 2013
 
 
    Roman Shpount
@@ -1845,4 +1845,4 @@ Internet-Draft   WebRTC JavaScript Object API Rationale        July 2013
 
 
 
-Raymond, et al.         Expires January 13, 2014               [Page 33]
+Raymond, et al.         Expires February 13, 2014              [Page 33]

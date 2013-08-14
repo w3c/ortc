@@ -2,7 +2,7 @@
 title: WebRTC JavaScript Object RTC Examples
 # abbrev: WebRTCJSObjExamples
 docname: draft-raymond-rtcweb-webrtc-js-obj-rtc-examples-00
-date: 2013-07-05
+date: 2013-08-12
 category: info
 
 ipr: trust200902
@@ -94,12 +94,16 @@ informative:
 
 --- abstract
 
+```WARNING: THIS DOCUMENT IS NOW OBSOLETE AND NEEDS REVISING```
+
 This draft outlines example use cases with example code for using the WebRTC JavaScript Object RTC.
 
 --- middle
 
 Introduction        {#problems}
 ============
+
+```WARNING: THIS DOCUMENT IS NOW OBSOLETE AND NEEDS REVISING```
 
 This draft is supplementary to the WebRTC JavaScript Object RTC draft {{WebRTCJSObj}} and outlines code examples when using the proposed object model. The code is written in a sequential fashion where both "Alice" and "Bob" roles are merged into a single code stream even though they would actually be split across the network. This is helpful for code illustration purposes, otherwise a sequence diagram and event firings to incorporate custom signaling would confuse the example but add virtually no value in understanding the sequences needing to be called to setup RTC communications.
 
@@ -114,6 +118,8 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 Example Use Cases
 =================
+
+```WARNING: THIS DOCUMENT IS NOW OBSOLETE AND NEEDS REVISING```
 
 Simple {#simple}
 ------

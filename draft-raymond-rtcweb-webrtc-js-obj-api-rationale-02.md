@@ -2,7 +2,7 @@
 title: WebRTC JavaScript Object API Rationale
 # abbrev: WebRTCJSObjRationale
 docname: draft-raymond-rtcweb-webrtc-js-obj-api-rationale-01
-date: 2013-07-06
+date: 2013-08-12
 category: info
 
 ipr: trust200902

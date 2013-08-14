@@ -279,7 +279,7 @@ __videoMaxHeight__ of type unsigned int
           payload-id: 96,
           kind: "audio",
           name: "<name>",
-          hzRate: 32000,
+          clockRate: 32000,
           connections: 1
           // ...
       },
@@ -287,7 +287,7 @@ __videoMaxHeight__ of type unsigned int
           payload-id: 96,
           kind: "video",
           name: "<name>",
-          hzRate: 96000
+          clockRate: 96000
           // ...
       }
   ],
@@ -360,13 +360,13 @@ __rtpExtHeaders__ of type Object.
           {
               payload-id: 96,
               kind: "audio",
-              hzRate: 32000,
+              clockRate: 32000,
               connections: 1
           },
           {
               payload-id: 97,
               kind: "audio",
-              hzRate: 96000,
+              clockRate: 96000,
               connections: 1
           }
       ]
@@ -557,8 +557,8 @@ Parameters: none
 ```webidl
 dictionary RTCConnectionDescription {
     DOMString                           connection-id;
-    DOMString                           usefrag;
-    DOMString                           secret;
+    DOMString                           iceUsernameFrag;
+    DOMString                           icePassword;
     CertificateFingerprints             fingerprint;
 };
  ```
@@ -570,10 +570,10 @@ dictionary RTCConnectionDescription {
 __connection-id__ of type DOMString
 
 
-__usefrag__ of type DOMString
+__iceUsernameFrag__ of type DOMString
 
 
-__secret__ of type DOMString
+__icePassword__ of type DOMString
 
 
 __fingerprint__ of type CertificateFingerprints, readonly
