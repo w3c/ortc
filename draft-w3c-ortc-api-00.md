@@ -276,18 +276,18 @@ __videoMaxHeight__ of type unsigned int
 {
   codecs: [
       {
-          payload-id: 96,
+          payload-id: 101,
           kind: "audio",
-          name: "<name>",
-          clockRate: 32000,
-          connections: 1
+          name: "opus",
+          clockRate: 48000,
+          numChannels: 2
           // ...
       },
       {
-          payload-id: 96,
+          payload-id: 102,
           kind: "video",
-          name: "<name>",
-          clockRate: 96000
+          name: "VP8",
+          clockRate: 90000
           // ...
       }
   ],
@@ -360,14 +360,9 @@ __rtpExtHeaders__ of type Object.
           {
               payload-id: 96,
               kind: "audio",
-              clockRate: 32000,
-              connections: 1
-          },
-          {
-              payload-id: 97,
-              kind: "audio",
-              clockRate: 96000,
-              connections: 1
+              name: "opus",
+              clockRate: 48000,
+              numChannels: 2
           }
       ]
   },
