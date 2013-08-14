@@ -559,12 +559,15 @@ dictionary RTCConnectionDescription {
     DOMString                           connection-id;
     DOMString                           usefrag;
     DOMString                           secret;
-    sequence<DOMString>                 fingerprints;
+    CertificateFingerprints             fingerprint;
 };
  ```
 
 
 ##### Attributes
+
+
+__connection-id__ of type DOMString
 
 
 __usefrag__ of type DOMString
@@ -573,7 +576,9 @@ __usefrag__ of type DOMString
 __secret__ of type DOMString
 
 
-__fingerprints__ of type sequence<DOMString>
+__fingerprint__ of type CertificateFingerprints, readonly
+
+> A dictionary containing fingerprints for the certificate. Keys are the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
 
 
 
