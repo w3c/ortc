@@ -1,399 +1,9 @@
-## The RTCMediaSession Class
+# Object RTC (ORTC) API for WebRTC
 
 
-### Overview
+## Overview
 
-An {{RTCMediaSession}} instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving media streams. Communication is signaled via HTTP or WebSocket through a web server or WebSocket server by unspecified means.
-
-The {{RTCMediaSession}} is provided with media streams and transports for carrying them, along with option parameters.
-
-
-### Interface Definition
-
-```webidl
-[Constructor (optional RTCMediaSessionOptions options)]
-interface RTCMediaSession : EventTarget  {
-    RTCMediaSessionDescription          getLocalDescription ();
-    void                                setRemoteDescription ();
-    RTCMediaSessionDescription          getRemoteDescription ();
-    void                                addStream ();
-    void                                removeStream ();
-    void                                sendStream ();
-    void                                sendTrack ();
-    void                                addConnection ();
-    void                                removeConnection ();
-    sequence<RTCConnection>             getConnections ();
-    void                                setTrackProperties();
-    sequence<MediaStream>               getSendingStreams ();
-    sequence<MediaStream>               getReceivingStreams ();
-    void                                close ();
-                attribute EventHandler          onaddstream;
-                attribute EventHandler          onremovestream;
-                attribute EventHandler          onunknowntrack;
-};
-```
-
-
-#### Events
-
-
-__onaddstream__ of type EventHandler,
-
-> This event handler, of event handler event type {{addstream}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{MediaStream}} is added. It is fired when the remote peer signals the addition of a {{MediaStreamTrack}} with a new *msid*.
->
-| *Event Argument* | *Description* |
-|--- | --- |
-|{{MediaStream}} stream |The {{MediaStream}} instance being added by the remote peer. |
-
-
-__onremovestream__ of type EventHandler,
-
-> This event handler, of event handler event type {{removestream}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{MediaStream}} is removed. It is fired when the remote peer signals the removal of all the {{MediaStreamTrack}} with same *msid*.
->
-| *Event Argument* | *Description* |
-|--- | --- |
-|{{MediaStream}} stream |The {{MediaStream}} instance being removed by the remote peer. |
-
-
-__onunknowntrack__ of type EventHandler,
-
-> This event handler, of event handler event type {{unknowntrack}}, must be fired to allow a developer's JavaScript to be notified when a track for which there is not {{RTCTrackDescription}} has been connected from the remote peer.
->
-It is possible for a peer to receive a track for which its {{RTCTrackDescription}} has not yet been received (via wire signaling) or for which there won't be {{RTCTrackDescription}} at all. If an unknown track (for which there is no {{RTCTrackDescription}}) is connected this event fires by providing a coolection of the RTP extension headers present in the RTP packets.
->
-The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the {{unknowntrack}} event fires.
->
-| *Event Argument* | *Description* |
-|--- | --- |
-|rtpExtHeaders |A collection of RTP extension header and value pairs. |
-
-
-
-
-#### Methods
-
-
-##### getLocalDescription
-
-> Returns the {{RTCMediaSessionDescription}} with the collection of sending {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|filter |{{RTCMediaSessionDescriptionFilter}} | yes | yes |A filter to restrict the tracks to be retrieved. |
-
-
-
-##### setRemoteDescription
-
-> Set the remote {{RTCMediaSessionDescription}}.
->
-If the second argument "incremental" is false (default value) the given {{RTCMediaSessionDescription}} represents the full {{RTCTrackDescription}} collection of the remote peer. If it is "true", then it represents an incremental modification in the {{RTCTrackDescription}} collection of the remote peer.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|description |{{RTCMediaSessionDescription}} | yes | yes |The remote {{RTCMediaSessionDescription}}. |
-|incremental |Boolean | yes | yes | Whether the given description is a full or incremental description. |
->
-When using the "incremental" mode, a {{MediaStreamTrack}} removal must be indicated by setting a *delete* property with value *true* within the {{RTCTrackDescription}} associated to the track.
-
-
-##### getRemoteDescription
-
-> Returns the {{RTCMediaSessionDescription}} with the collection of receiving {{MediaStreamTrack}} and parameters associated to each one (represented by their {{RTCTrackDescription}} object).
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|filter |{{RTCMediaSessionDescriptionFilter}} | yes | yes |A filter to restrict the tracks to be retrieved. |
-
-
-##### addStream
-
-> Adds the given {{MediaStream}} to the {{RTCMediaSession}}. It does not automatically start sending it via RTP.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|stream |{{MediaStream}} | no | no | |
-
-
-##### removeStream
-
-> Removes the given {{MediaStream}} from the {{RTCMediaSession}}. It does automatically stop sending it via RTP.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|stream |{{MediaStream}} | no | no | |
-
-
-##### sendStream
-
-> Starts sending the tracks of the given {{MediaStream}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected. If false is provided as argument, all the tracks are stopped.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|stream |{{MediaStream}} | no | no | |
-|stop |{{Boolean}} | yes | yes | |
-
-
-##### sendTrack
-
-> Starts sending the given {{MediaStreamTrack}} via RTP. If the {{RTCConnection}} is not yet connected, it will wait until it gets connected. If false is provided as argument, the track are stopped.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|track |{{MediaStreamTrack}} | no | no | |
-|stop |{{Boolean}} | yes | yes | |
-
-
-##### addConnection
-
-> Adds the given {{RTCConnection}} to the {{RTCMediaSession}}. The first given {{RTCConnection}} will be used for carrying all the tracks unless a specific {{RTCConnection}} is assigned to a {{MediaStream}} or {{MediaStreamTrack}}.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|connection |{{RTCConnection}} | no | no | |
-
-
-##### removeConnection
-
-> Removes the given {{RTCConnection}} from the {{RTCMediaSession}}. If there is any {{MediaStreamTrack}} being carried over the given {{RTCConnection}}, this method throws an exception (TODO: define the exception).
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|connection |{{RTCConnection}} | no | no | |
-
-
-##### getConnections
-
-> Get a sequence of all the {{RTCConnection}} instances within the {{RTCMediaSession}}.
->
-Parameters: none
-
-
-##### setTrackProperties
-
-> Applies the given {{RTCTrackDescription}} to the given {{MediaStreamTrack}}. This allows setting individual parameters for specific sending tracks. Once this method is invoked, calling {{getLocalDescription}} returns the updated description of the track.
-
-> TODO: Not all the keys within the {{RTCTrackDescription}} can be overriden (i.e. id, kind, ssrc, msid cannot be modified).
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|track |{{MediaStreamTrack}} | no | no | |
-|description |{{RTCTrackDescription}} | no | no | |
-
-
-##### getSendingStreams
-
-> Get a sequence of the sending {{MediaStream}} instances within the {{RTCMediaSession}}.
->
-Parameters: none
-
-
-##### getReceivingStreams
-
-> Get a sequence of the receiving {{MediaStream}} instances within the {{RTCMediaSession}}.
->
-Parameters: none
-
-
-##### close
-
-> Closes all the {{RTCConnection}} instances and stops sending RTP to the peer.
->
-Parameters: none
-
-
-
-
-#### The RTCMediaSessionOptions Object
-
-With this object the developer can select the preference of audio and video codecs along with other media attributes. If not given, the browser will produce its default values depending on its media capabilities. The resulting settings will be applied to each sending {{MediaStreamTrack}} within this {{RTCMediaSession}} (which will be representing in the corresponding {{RTCTrackDescription}}).
-
-```webidl
-dictionary RTCMediaSessionOptions {
-    sequence<RTCCodec>?                 codecs;
-    sequence<RTCMediaAttributes>?       mediaAttributes;
-};
-```
-
-
-__codecs__ type of sequence<RTCCodec>
-
-
-__mediaAttributes__ type of sequence<RTCMediaAttributes>
-
-
-
-##### The RTCCodec Object
-
-```webidl
-dictionary RTCCodec {
-    unsigned byte       payload-id;
-    DOMString           kind;
-    DOMString           name;
-    unsigned int?       clockRate;
-    unsigned int?       numChannels;
-    RTCCodecParam[]     params;
-}
-```
-
-
-```webidl
-dictionary RTCCodecParam {
-    DOMString           name;
-    DOMString?          value;
-}
-```
-
-
-
-
-##### The RTCMediaAttributes Object
-
-```webidl
-dictionary RTCMediaAttributes {
-    int?        videoMaxWidth;
-    int?        videoMaxHeight;
-};
-```
-
-
-##### Attributes
-
-
-__videoMaxWidth__ of type unsigned int
-
-
-__videoMaxHeight__ of type unsigned int
-
-
-*TODO:* TBD
-
-
-
-##### RTCMediaSessionOptions Example
-
-```javascript
-{
-  codecs: [
-      {
-          payload-id: 101,
-          kind: "audio",
-          name: "opus",
-          clockRate: 48000,
-          numChannels: 2
-          // ...
-      },
-      {
-          payload-id: 102,
-          kind: "video",
-          name: "VP8",
-          clockRate: 90000
-          // ...
-      }
-  ],
-  mediaAttributes: {
-      videoMaxWidth: 1280,
-      videoMaxHeight: 720
-      // ...
-  }
-};
-```
-
-
-
-
-### The RTCMediaSessionDescription Object
-
-The {{RTCMediaSessionDescription}} is an Object which keys are the *id* attribute of a {{MediaStreamTrack}} with the corresponding {{RTCTrackDescription}} as value.
-
-
-#### The RTCTrackDescription Object
-
-```webidl
-dictionary RTCTrackDescription {
-    DOMString                           id;
-    DOMString                           kind;
-    DOMString                           ssrc;
-    DOMString                           msid;
-    DOMString                           connection-id;
-    sequence<RTCCodec>                  codecs;
-    sequence<RTCMediaAttributes>?       mediaAttributes;
-    Object?                             rtpExtHeaders;
-};
-```
-
-__id__ of type DOMString
-
-> The *id* attribute of the {{MediaStreamTrack}}.
-
-__kind__ of type DOMString
-
-> Can be "audio", "video", "dtmf" (TODO).
-
-__ssrc__ of type DOMString
-
-__msid__ of type DOMString
-
-__connection-id__ of type DOMString
-
-> The identificator of the {{RTCConnection}} transporting this track.
-
-__mediaAttributes__ of type sequence<RTCMediaAttributes>
-
-__rtpExtHeaders__ of type Object.
-
-> An Object which RTP extension header name and value pairs (useful for the {{onunknowntrack}} event usage in {{RTCMediaSession}}.
-
-
-
-#### RTCMediaSessionDescription Example
-
-```javascript
-{
-  "track-audio-01": {
-      id: "track-audio-01",
-      kind: "audio",
-      ssrc: "1234",
-      msid: "m1",
-      connection-id: "c1",
-      codecs: [
-          {
-              payload-id: 96,
-              kind: "audio",
-              name: "opus",
-              clockRate: 48000,
-              numChannels: 2
-          }
-      ]
-  },
-  
-  "track-audio-02": { ... },
-  
-  "track-video-01": { ... }
-}
-```
-
-
-### The RTCMediaSessionDescriptionFilter Object
-
-This Object is used to filter the output of both *getLocalDescription* and *getRemoteDescription* methods of {{RTCMediaSession}}. By passing a {{MediaStream}} *id* attribute (which matches the *misd* attribute in the {{RTCTrackDescription}}) and/or a {{RTCConnection}} *id* attribute (which matches the *connection-id* attribute in the {{RTCTrackDescription}}), just those tracks with the given attribute values are returned.
-
-This can be useful for a wire protocol in which just incremental media changes are signaled. By using the filter capability just the desired information is retrieved (i.e. the description of just the tracks within a newly added local {{MediaStream}}).
-
-
-```webidl
-dictionary RTCMediaSessionDescriptionFilter {
-    DOMString?          msid;
-    DOMString?          connection-id;
-};
-```
-
-#### Attributes
-
-__msid__ of type DOMString
-
-__connection-id__ of type DOMString
-
+ORTC provides a powerful API for the development of WebRTC based applications. ORTC does not mandate a media signaling protocol or format (as the current WebRTC 1.0 does by mandating SDP Offer/Answer). ORTC focuses on "connections" and "tracks" being carried over those connections.
 
 
 
@@ -402,23 +12,17 @@ __connection-id__ of type DOMString
 
 ### Overview
 
-An {{RTCConnection}} instance establishes a transport with the remote peer for sending and receiving RTP tracks or data. Such a transport is established by following ICE procedures.
+{{RTCConnection}} is the main class of ORTC. A {{RTCConnection}} instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving media stream tracks. Communication is signaled via HTTP or WebSocket through a web server or WebSocket server by unspecified means. 
 
 
 
 ### Operation
 
-The offerer peer instantiates a {{RTCConnection}} by passing a local {{RTCSocket}}. The offerer peer can, at any time, signal the {{RTCConnectionDescription}} along with its discovered {{RTCIceCandidateDescription}} values.
+A peer instantiates a {{RTCConnection}} by passing an optional local {{RTCSocket}}. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
-The offered peer instantiates a {{RTCConnection}} by passing a local {{RTCSocket}} and the remote {{RTCConnectionDescription}}. By passing such a remote {{RTCConnectionDescription}} as second argument, the {{RTCConnection}} being instantiated in the offered gets the same *id* attribute than the one present in the remote description. The offered signals its {{RTCConnectionDescription}} and {{RTCIceCandidateDescription}} values to the offerer peer. The offerer peer applies the remote {{RTCConnectionDescription}} by calling to the *setRemoteDescription* method. 
+The peer can, at any time, signal its {{RTCConnectionDescription}} to the remote peer. Once the remote {{RTCConnectionDescription}} is entered into the {{RTCConnection}}, ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
 
-Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
-
-ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called, by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
-
-The *id* attribute of the {{RTCConnection}} is shared by both peers, and will be used as the value of the *connection-id* attribute when both peers signal their {{RTCTrackDescription}} values to each other.
-
-Calling the method *connect* of both instances of {{RTCConnection}} allows the ICE connection procedure to begin between both peers, and ICE related events begin.
+The developer's JavaScript can attach {{MediaStream}} instances to the {{RTCConnection}} to be sent to the remote. Audio/video sending tracks can be individually managed by getting their associated {{RTCTrack}} instance via the *track* method. The developer's JavaScript can also signal the receiving tracks information by providing their {{RTCTrackDescription}} via the *receiveTrack* method.
 
 
 
@@ -426,29 +30,32 @@ Calling the method *connect* of both instances of {{RTCConnection}} allows the I
 
 ```webidl
 [Constructor (RTCSocket localSocket)]
-[Constructor (RTCSocket localSocket, RTCConnectionDescription remoteDescription)]
 interface RTCConnection : EventTarget  {
-    readonly    attribute DOMString     id;
-    void                                getLocalDescription ();
-    void                                setRemoteDescription ();
+    RTCConnectionDescription            getLocalDescription ();
+    RTCSocket                           getLocalSocket ();
     void                                setLocalCandidate ();
     void                                setRemoteCandidate ();
     void                                connect ();
     void                                update ();
+    void                                addStream ();
+    void                                removeStream ();
+    void                                track ();
+    void                                tracks ();
+    void                                receiveTrack ();
+    sequence<MediaStream>               getSendingStreams ();
+    sequence<MediaStream>               getReceivingStreams ();
+    RTCConnection                       clone ();
+    void                                close ();
                 attribute EventHandler          oncandidate;
                 attribute EventHandler          onendofcandidates;
                 attribute EventHandler          onactivecandidate;
                 attribute EventHandler          onconnected;
                 attribute EventHandler          ondisconnected;
+                attribute EventHandler          onaddstream;
+                attribute EventHandler          onunknowntrack;
 };
 ```
 
-
-#### Attributes
-
-__id__ of type DOMString (read only)
-
-> The string identifier of the {{RTCConnection}}.
 
 
 #### Events
@@ -494,6 +101,29 @@ __ondisconnected__ of type EventHandler,
 Event arguments: none
 
 
+__onaddstream__ of type EventHandler,
+
+> This event handler, of event handler event type {{addstream}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{MediaStream}} is added. It is fired when calling the *receiveTrack* method by passing as argument a {{RTCTrackDescription}} with a *msid* value which does not match the *msid* of other receiving tracks.
+>
+| *Event Argument* | *Description* |
+|--- | --- |
+|{{MediaStream}} stream |The {{MediaStream}} instance being added by the remote peer. |
+
+
+
+__onunknowntrack__ of type EventHandler,
+
+> This event handler, of event handler event type {{unknowntrack}}, must be fired to allow a developer's JavaScript to be notified when a track for which there is not {{RTCTrackDescription}} has been connected from the remote peer.
+>
+It is possible for a peer to receive a track for which its {{RTCTrackDescription}} has not yet been received (via wire signaling) or for which there won't be {{RTCTrackDescription}} at all. If an unknown track (for which there is no {{RTCTrackDescription}}) is connected this event fires by providing a collection of the RTP extension headers present in the RTP packets.
+>
+The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the {{unknowntrack}} event fires.
+>
+| *Event Argument* | *Description* |
+|--- | --- |
+|rtpExtHeaders |A collection of RTP extension header and value pairs. |
+
+
 
 #### Methods
 
@@ -505,13 +135,12 @@ Get the local {{RTCConnectionDescription}}.
 Parameters: none
 
 
-##### setRemoteDescription
 
-Applies the remote {{RTCConnectionDescription}} into this {{RTCConnection}}. This method must be only used by the offerer peer.
+##### getLocalSocket
+
+Get the local {{RTCSocket}}.
 >
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|remoteDescription |RTCConnectionDescription | no | no | |
+Parameters: none
 
 
 
@@ -521,7 +150,8 @@ Adds a local ICE candidate to the {{RTCConnection}} (retrieved within the *oncan
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|candidate |RTCIceCandidateDescription | no | no | |
+|candidate |{{RTCIceCandidateDescription}} | no | no | |
+
 
 
 ##### setRemoteCandidate
@@ -530,14 +160,18 @@ Adds a remote ICE candidate to the {{RTCConnection}}.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|candidate |RTCIceCandidateDescription | no | no | |
+|candidate |{{RTCIceCandidateDescription}} | no | no | |
+
 
 
 ##### connect
 
 Starts the ICE establishment procedure with the peer. If new local or remote ICE candidates are provided once this method has been called, they will be also considered for the ICE connection procedure.
 >
-Parameters: none
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|remoteDescription |{{RTCConnectionDescription}} | no | no | The remote connection description. |
+
 
 
 ##### update
@@ -547,11 +181,94 @@ This method will usually be called upon network interfaces change (i.e. in mobil
 Parameters: none
 
 
+
+##### addStream
+
+> Adds a sending {{MediaStream}} to the {{RTCConnection}}.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|stream |{{MediaStream}} | no | no | |
+|autostart |Boolean | yes | yes | If set to true (default value) tracks within the stream are automatically sent to the remote one the connection is established. |
+
+
+##### removeStream
+
+> Removes a sending {{MediaStream}} from the {{RTCConnection}}. It does automatically stop sending it via RTP.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|stream |{{MediaStream}} | no | no | |
+
+
+##### track
+
+> Returns the {{RTCTrack}} instance associated to the sending {{MediaStreamTrack}} given as argument.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|track |{{MediaStreamTrack}} | no | no | |
+
+
+
+##### tracks
+
+> Returns a sequence of {{RTCTrack}} instances associated to the sending {{MediaStreamTrack}} in the {{RTCConnection}}. If a filter is given as parameter, the returned sequence could be a subset of the existing sending tracks.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|filter |{{RTCTrackFilter}} | yes | yes | Filters the returned elements. |
+
+
+
+##### receiveTrack
+
+> Tell the {{RTCConnection}} to be ready to receive a track with the information provided in the given {{RTCTrackDescription}}.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|trackDescription |{{RTCTrackDescription}} | no | no | |
+
+
+
+##### getSendingStreams
+
+> Get a sequence of the sending {{MediaStream}} instances within the {{RTCMediaSession}}.
+>
+Parameters: none
+
+
+
+##### getReceivingStreams
+
+> Get a sequence of the receiving {{MediaStream}} instances within the {{RTCMediaSession}}.
+>
+Parameters: none
+
+
+##### clone
+
+> Clones the current {{RTCConnection}} and returns a new instance with the same local {{RTCSocket}} and same attached {{MediaStream}} instances. Events must be defined for this new instance, and connection procedure must be started again by calling *connect* (after providing local and remote ICE candidates).
+>
+Cloning a {{RTCConnection}} means reusing the same local binding for two separate connections, which becomes very helpful for implementing parallel forking in protocols like SIP.
+>
+Parameters: none
+
+
+
+##### close
+
+> Closes the connection.
+>
+Parameters: none
+
+
+
+
 #### The RTCConnectionDescription Object
 
 ```webidl
 dictionary RTCConnectionDescription {
-    DOMString                           connection-id;
     DOMString                           iceUsernameFrag;
     DOMString                           icePassword;
     CertificateFingerprints             fingerprint;
@@ -560,9 +277,6 @@ dictionary RTCConnectionDescription {
 
 
 ##### Attributes
-
-
-__connection-id__ of type DOMString
 
 
 __iceUsernameFrag__ of type DOMString
@@ -582,7 +296,6 @@ __fingerprint__ of type CertificateFingerprints, readonly
 
 ```webidl
 dictionary RTCIceCandidateDescription {
-    DOMString                           connection-id;
     DOMString                           foundation;
     int                                 component;
     DOMString                           transport;
@@ -595,11 +308,6 @@ dictionary RTCIceCandidateDescription {
 
 
 ##### Attributes
-
-
-__connection-id__ of type unsinged DOMString
-
-> The *id* of the {{RTCConnection}} this ICE candidate belongs to.
 
 
 __foundation__ of type unsinged DOMString
@@ -627,7 +335,6 @@ __type__ of type DOMString
 
 ```javascript
 {
-  connection-id: "conn1",
   foundation: "abcd1234",
   component: 1,
   transport: "udp",
@@ -637,6 +344,29 @@ __type__ of type DOMString
   type: "host"
 };
 ```
+
+
+
+#### The RTCTrackFilter Object
+
+This Object is used to filter the output of the *tracks* method in {{RTCConnection}}.
+
+```webidl
+dictionary RTCTrackFilter {
+    DOMString?          mediaStream;
+    DOMString?          kind;
+};
+```
+
+#### Attributes
+
+__mediaStream__ of type {{MediaStream}}
+
+> Just {{RTCTrack}} instances within the given {{MediaStream}} are returned.
+
+__kind__ of type DOMString
+
+> Just {{RTCTrack}} instances of the given kind ("audio" or "video") are returned.
 
 
 
@@ -691,12 +421,170 @@ An example array of {{RTCIceServer}} objects is:
 
 
 
-## The RTCDTMFTrack
+
+## The RTCTrack Class
 
 
 ### Overview
 
-An {{RTCDTMFTrack}} class adds DTMF sending capabilities to a sending audio track. An instance of {{RTCDTMFTrack}} is created and must be added into a sending {{MediaStream}} contatining, at least, an audio {{MediaStreamTrack}}. After that, the JavaScript code must call to {{sendTrack}} method in the associated {{RTCMediaSession}} instance so the internal track mapping is created and the new DTMF track inherits the SSRC value of the first audio track in the {{RTCMediaSession}}.
+An {{RTCTrack}} instance is associated to a sending {{MediaStreamTrack}} and provides RTC related methods to it.
+
+
+
+### Operation
+
+A {{RTCTrack}} instance is retrieved from a {{RTCConnection}} via the *track* or *tracks* methods.
+
+
+
+### Interface Definition
+
+```webidl
+interface RTCTrack  {
+    readonly    attribute {{MediaStreamTrack}}  mediaStreamTrack;
+    RTCTrackDescription                 getDescription ();
+    void                                start ();
+    void                                stop ();
+    void                                remove ();
+    
+    TBD: getters and setters for parameters (msid, codecs...).
+```
+
+
+#### Attributes
+
+
+__mediaStreamTrack__ of type unsinged {{MediaStreamTrack}}
+
+> The associated {{MediaStreamTrack}} instance.
+
+
+#### Methods
+
+
+##### getDescription
+
+Gets the {{RTCTrackDescription}} of this {{RTCTrack}}.
+
+
+##### start
+
+Starts sending the track on the wire (if the {{RTCConnection}} is connected, or wait until it becomes connected).
+>
+Parameters: none
+
+
+
+##### stop
+
+Stops sending the track on the wire.
+
+
+
+##### remove
+
+Remove this sending track from the {{RTCConnection}} (automatically stops sending it on the wire). This method does not alter the original {{MediaStream}}, but just tells the {{RTCConnection}} to ignore the track.
+
+
+
+
+#### The RTCTrackDescription Object
+
+```webidl
+dictionary RTCTrackDescription {
+    DOMString                           kind;
+    DOMString                           ssrc;
+    sequence<DOMString>                 msid;
+    sequence<RTCCodec>                  codecs;
+    sequence<RTCMediaAttributes>?       mediaAttributes;
+    Object?                             rtpExtHeaders;
+};
+```
+
+__kind__ of type DOMString
+
+> Can be "audio", "video", "dtmf" (TODO).
+
+__ssrc__ of type DOMString
+
+__msid__ of type sequence<DOMString>
+
+> A sequence of *id* attributes of the {{MediaStream}} instance this track belongs to.
+
+__codecs__ of type sequence<RTCCodec>
+
+__mediaAttributes__ of type sequence<RTCMediaAttributes>
+
+__rtpExtHeaders__ of type Object.
+
+> An Object which RTP extension header name and value pairs (useful for the {{onunknowntrack}} event usage in {{RTCMediaSession}}.
+
+
+
+##### RTCTrackDescription Example
+
+```javascript
+{
+  kind: "audio",
+  ssrc: "1234",
+  msid: ["m1"],
+  codecs: [
+      {
+          payload-id: 96,
+          kind: "audio",
+          name: "opus",
+          clockRate: 48000,
+          numChannels: 2
+      }
+  ]
+}
+```
+
+
+##### The RTCCodec Object
+
+```webidl
+dictionary RTCCodec {
+    unsigned byte       payload-id;
+    DOMString           kind;
+    DOMString           name;
+    unsigned int?       clockRate;
+    unsigned int?       numChannels;
+    RTCCodecParam[]     params;
+}
+```
+
+
+```webidl
+dictionary RTCCodecParam {
+    DOMString           name;
+    DOMString?          value;
+}
+```
+
+
+
+
+##### The RTCMediaAttributes Object
+
+```webidl
+dictionary RTCMediaAttributes {
+    int?        videoMaxWidth;
+    int?        videoMaxHeight;
+};
+```
+
+*TODO:* TBD
+
+
+
+
+## The RTCDTMFTrack Class
+
+
+### Overview
+
+An {{RTCDTMFTrack}} class adds DTMF sending capabilities to a sending audio track. An instance of {{RTCDTMFTrack}} is created and must be added into a sending {{MediaStream}} contatining, at least, an audio {{MediaStreamTrack}}. The new DTMF track inherits the SSRC value of the first audio track in the {{RTCConnection}}.
 
 
 ### Interface Definition
@@ -733,6 +621,7 @@ The interToneGap parameter indicates the gap between tones. It must be at least 
 
 
 
+
 ## RTCP
 
 This specification determines that RTCP packets must be multiplexed with the RTP packets as defined by {{RFC5761}}.
@@ -760,26 +649,8 @@ In case the given {{MediaStreamTrack}} is cloned, this specification modifies th
 >
 Return value: The cloned {{MediaStreamTrack}} instance.
 
-###### Usage in WebRTC
 
-```
-// Let mySession and myStream be a RTCMediaSession and a MediaCapture MediaStream instances,
-// and myTrack a separate MediaCapture MediaStreamTrack.
-
-// Let's add myStream to mySession:
-mySession.addStream(myStream);
-
-// Tell it to start sending the RTP for all the tracks in myStream:
-mySession.sendStream(myStream);
-
-// Add myTrack into myStream and store the cloned track into a new variable:
-var clonedTrack = myStream.addTrack(myTrack);
-
-// Tell mySession to start sending the RTP for the cloned track:
-mySession.sendTrack(clonedTrack);
-```
-
-In case it is decided that the `addTrack()` method does not clone the given track (but keeps the same {{MediaStreamTrack}} instance), then that means that the same {{MediaStreamTrack}} should not be added to two different {{MediaStream}} within the same {{RTCMediaSession}}. This is because the {{RTCMediaSessionDescription}} is a collection of {{RTCTrackDescription}} objects, each one representing a {{MediaStreamTrack}}.
+In case it is decided that the `addTrack()` method does not clone the given track (but keeps the same {{MediaStreamTrack}} instance), then that means that the same {{MediaStreamTrack}} should not be added to two different {{MediaStream}} within the same {{RTCConnection}}.
 
 It is unclear the benefit of adding the same track into two media streams, and thus this specification advocates for the cloning solution.
 
@@ -797,7 +668,7 @@ Event arguments: none
 
 __ondisconnected__ of type EventHandler,
 
-> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when a remote {{MediaStream}} is disconnected, which means that a RTP BYE has been received or RTP timeout occurred for the last remaining track in this {{MediaStream}}.
+> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when a remote {{MediaStream}} is disconnected, which means that a RTCP BYE has been received or RTP timeout occurred for the last remaining track in this {{MediaStream}}.
 >
 Event arguments: none
 
@@ -821,33 +692,7 @@ Event arguments: none
 
 __ondisconnected__ of type EventHandler,
 
-> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when a remote {{MediaStreamTrack}} is disconnected, which means that a RTP BYE has been received or RTP timeout occurred.
+> This event handler, of event handler event type {{disconnected}}, must be fired to allow a developer's JavaScript to be notified when a remote {{MediaStreamTrack}} is disconnected, which means that a RTCP BYE has been received or RTP timeout occurred.
 >
 Event arguments: none
 
-
-
-## Examples
-
-
-### Usage of setRemoteDescription with "incremental" mode
-
-Alice signals to Bob (via custom wire protocol) that she will stop sending an audio track which *id* is "audio-track-01":
-
-```javascript
-// Alice's browser:
-
-signalToBob("{ deleteTrack: 'audio-track-01' }");
-
-
-// Bob's browser:
-
-var trackToRemove = JSON.parse(messageFromAlice)['deleteTrack'];
-var incrementalDesc = {};
-incrementalDesc[trackToRemove] = { delete: true };
-
-mySession.setRemoteDescription(incrementalDesc, true);
-
-// This will fire ontrackremoved event on the corresponding remote MediaStream (along with
-// onremovestream on the RTCMediaSession if there are no more tracks with same msid).
-```
