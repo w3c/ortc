@@ -39,8 +39,8 @@ interface RTCConnection : EventTarget  {
     void                                update ();
     void                                addStream ();
     void                                removeStream ();
-    void                                track ();
-    void                                tracks ();
+    RTCTrack                            track ();
+    sequence<RTCTrack>                  tracks ();
     void                                receiveTrack ();
     sequence<MediaStream>               getSendingStreams ();
     sequence<MediaStream>               getReceivingStreams ();
