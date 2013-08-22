@@ -189,7 +189,7 @@ Parameters: none
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |stream |{{MediaStream}} | no | no | |
-|autostart |Boolean | yes | yes | If set to true (default value) tracks within the stream are automatically sent to the remote one the connection is established. |
+|autostart |Boolean | yes | yes | If set to true (default value) tracks within the stream are automatically sent to the remote once the connection is established. |
 
 
 ##### removeStream
@@ -273,7 +273,7 @@ dictionary RTCConnectionDescription {
     DOMString                           icePassword;
     CertificateFingerprints             fingerprint;
 };
- ```
+```
 
 
 ##### Attributes
@@ -287,9 +287,19 @@ __icePassword__ of type DOMString
 
 __fingerprint__ of type CertificateFingerprints, readonly
 
-> A dictionary containing fingerprints for the certificate. Keys are the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
 
 
+##### The CertificateFingerprints Object
+
+```webidl
+dictionary CertificateFingerprints {
+    getter ArrayBuffer (DOMString hashFunction);
+};
+```
+
+A dictionary containing fingerprints for the certificate. Keys are the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
+ 
+ 
 
 #### The RTCIceCandidateDescription Object
 
