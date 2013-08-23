@@ -754,7 +754,7 @@ Event arguments: none
 
 ### Simple Peer-to-peer Example
 
-In this example provides a basic audio&video session between two browsers.
+This example code provides a basic audio&video session between two browsers.
 
 
 ```
