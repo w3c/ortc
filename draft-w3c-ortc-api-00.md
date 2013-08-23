@@ -20,7 +20,7 @@ ORTC provides a powerful API for the development of WebRTC based applications. O
 
 A peer instantiates a {{RTCConnection}} by passing an optional local {{RTCSocket}}. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
-The peer can, at any time, signal its {{RTCConnectionDescription}} to the remote peer. Once the remote {{RTCConnectionDescription}} is entered into the {{RTCConnection}}, ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
+The peer can, at any time, signal its {{RTCIceDescription}} to the remote peer. Once the remote {{RTCIceDescription}} is entered into the {{RTCConnection}} ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
 
 The developer's JavaScript can attach {{MediaStream}} instances to the {{RTCConnection}} to be sent to the remote. Audio/video sending tracks can be individually managed by getting their associated {{RTCTrack}} instance via the *track* method. The developer's JavaScript can also signal the receiving tracks information by providing their {{RTCTrackDescription}} via the *receiveTrack* method.
 
@@ -31,12 +31,14 @@ The developer's JavaScript can attach {{MediaStream}} instances to the {{RTCConn
 ```webidl
 [Constructor (RTCSocket localSocket)]
 interface RTCConnection : EventTarget  {
-    RTCConnectionDescription            getLocalDescription ();
+    RTCIceDescription                   getLocalIceDescription ();
     RTCSocket                           getLocalSocket ();
     void                                setLocalCandidate ();
     void                                setRemoteCandidate ();
     void                                connect ();
     void                                update ();
+    CertificateFingerprint              getLocalFingerprint ();
+    CertificateFingerprint              getRemoteFingerprint ();
     void                                addStream ();
     void                                removeStream ();
     RTCTrack                            track ();
@@ -128,9 +130,9 @@ The offerer can then indicate, via custom wire signaling, those desired RTP exte
 #### Methods
 
 
-##### getLocalDescription
+##### getLocalIceDescription
 
-Get the local {{RTCConnectionDescription}}.
+Get the local {{RTCIceDescription}}.
 >
 Parameters: none
 
@@ -170,13 +172,29 @@ Starts the ICE establishment procedure with the peer. If new local or remote ICE
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|remoteDescription |{{RTCConnectionDescription}} | no | no | The remote connection description. |
+|remoteIceDescription |{{RTCIceDescription}} | no | no | The remote ICE description. |
 
 
 
 ##### update
 
 This method will usually be called upon network interfaces change (i.e. in mobile network). By calling this method the ICE gathering procedure starts again as when the {{RTCConnection}} was instantiated.
+>
+Parameters: none
+
+
+
+##### getLocalFingerprint
+
+Get the local {{CertificateFingerprint}} of the DTLS connection.
+>
+Parameters: none
+
+
+
+##### getRemoteFingerprint
+
+Get the remote {{CertificateFingerprint}} of the DTLS connection. If it is called before the connection is established it returns null.
 >
 Parameters: none
 
@@ -233,7 +251,7 @@ Parameters: none
 
 ##### getSendingStreams
 
-> Get a sequence of the sending {{MediaStream}} instances within the {{RTCMediaSession}}.
+> Get a sequence of the sending {{MediaStream}} instances within the {{RTCConnection}}.
 >
 Parameters: none
 
@@ -241,7 +259,7 @@ Parameters: none
 
 ##### getReceivingStreams
 
-> Get a sequence of the receiving {{MediaStream}} instances within the {{RTCMediaSession}}.
+> Get a sequence of the receiving {{MediaStream}} instances within the {{RTCConnection}}.
 >
 Parameters: none
 
@@ -265,13 +283,12 @@ Parameters: none
 
 
 
-#### The RTCConnectionDescription Object
+#### The RTCIceDescription Object
 
 ```webidl
-dictionary RTCConnectionDescription {
+dictionary RTCIceDescription {
     DOMString                           iceUsernameFrag;
     DOMString                           icePassword;
-    CertificateFingerprints             fingerprint;
 };
 ```
 
@@ -279,25 +296,24 @@ dictionary RTCConnectionDescription {
 ##### Attributes
 
 
-__iceUsernameFrag__ of type DOMString
+__iceUsernameFrag__ of type DOMString, readonly
 
 
-__icePassword__ of type DOMString
-
-
-__fingerprint__ of type CertificateFingerprints, readonly
+__icePassword__ of type DOMString, readonly
 
 
 
-##### The CertificateFingerprints Object
+
+##### The CertificateFingerprint Object
 
 ```webidl
-dictionary CertificateFingerprints {
-    getter ArrayBuffer (DOMString hashFunction);
+dictionary CertificateFingerprint {
+    DOMString                           hash;
+    ArrayBuffer                         value;
 };
 ```
 
-A dictionary containing fingerprints for the certificate. Keys are the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
+A dictionary containing a certificate fingerprint. *hash* is the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); *value* is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
  
  
 
@@ -354,6 +370,31 @@ __type__ of type DOMString
   type: "host"
 };
 ```
+
+
+
+#### The CertificateFingerprint Object
+
+```webidl
+dictionary CertificateFingerprint {
+    DOMString                           hash;
+    ArrayBuffer                         value;
+};
+```
+
+A dictionary containing a certificate fingerprint.
+
+
+##### Attributes
+
+__hash__ of type DOMString, readonly
+
+> The [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml).
+
+__value__ of type ArrayBuffer, readonly
+
+> The value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
+
 
 
 
@@ -464,7 +505,7 @@ interface RTCTrack  {
 #### Attributes
 
 
-__mediaStreamTrack__ of type unsinged {{MediaStreamTrack}}
+__mediaStreamTrack__ of type {{MediaStreamTrack}}
 
 > The associated {{MediaStreamTrack}} instance.
 
@@ -527,7 +568,7 @@ __mediaAttributes__ of type sequence<RTCMediaAttributes>
 
 __rtpExtHeaders__ of type Object.
 
-> An Object which RTP extension header name and value pairs (useful for the {{onunknowntrack}} event usage in {{RTCMediaSession}}.
+> An Object which RTP extension header name and value pairs (useful for the {{onunknowntrack}} event usage in {{RTCConnection}}.
 
 
 
