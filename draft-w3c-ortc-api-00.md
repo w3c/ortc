@@ -747,3 +747,70 @@ __ondisconnected__ of type EventHandler,
 >
 Event arguments: none
 
+
+
+## Examples
+
+
+### Simple audio&video session
+
+In this example provides a basic audio&video session between two browsers.
+
+
+```
+var signalingChannel = new SignalingChannel();
+var conn;
+
+
+// call start() to initiate
+function start() {
+    var sock = new RTCSocket([{ url: "stun:stun.example.org" }]);
+    conn = new RTCConnection(sock);
+
+    // send my ICE details to the other peer
+    signalingChannel.send(JSON.stringify({ "iceDescription": conn.getLocalIceDescription() }));
+    
+    // apply any local ICE candidate and send it to the remote
+    conn.oncandidate = function (evt) {
+        conn.setLocalCandidate(evt.candidate);
+        signalingChannel.send(JSON.stringify({ "candidate": evt.candidate }));
+    }
+
+    // once remote stream arrives, show it in the remote video element
+    conn.onaddstream = function (evt) {
+        remoteView.src = URL.createObjectURL(evt.stream);
+    };
+
+    // get a local stream, show it in a self-view and add it to be sent
+    navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
+        selfView.src = URL.createObjectURL(stream);
+        conn.addStream(stream);
+        // send tracks description to the peer
+        conn.tracks().forEach(track) {
+            signalingChannel.send(JSON.stringify({ "track": track.getDescription() }));
+        }
+    }, logError);
+}
+
+
+signalingChannel.onmessage = function (evt) {
+    if (!conn)
+        start();
+
+    var message = JSON.parse(evt.data);
+    if (message.iceDescription) {
+        conn.connect(message.iceDescription);
+    }
+    if (message.candidate) {
+        conn.setRemoteCandidate(message.candidate);
+    }
+    if (message.track) {
+        conn.receiveTrack(message.track);
+    }
+};
+
+
+function logError(error) {
+    log(error.name + ": " + error.message);
+}
+```
