@@ -752,7 +752,7 @@ Event arguments: none
 ## Examples
 
 
-### Simple audio&video session
+### Simple Peer-to-peer Example
 
 In this example provides a basic audio&video session between two browsers.
 
@@ -786,9 +786,9 @@ function start() {
         selfView.src = URL.createObjectURL(stream);
         conn.addStream(stream);
         // send tracks description to the peer
-        conn.tracks().forEach(track) {
+        conn.tracks().forEach(function(track) {
             signalingChannel.send(JSON.stringify({ "track": track.getDescription() }));
-        }
+        });
     }, logError);
 }
 
