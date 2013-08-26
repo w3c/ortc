@@ -502,22 +502,48 @@ A {{RTCTrack}} instance is retrieved from a {{RTCConnection}} via the *track* or
 
 ```webidl
 interface RTCTrack  {
-    readonly    attribute {{MediaStreamTrack}}  mediaStreamTrack;
+    readonly    attribute {{MediaStreamTrack}}          mediaStreamTrack;
+    readonly    attribute DOMString                     kind;
+    readonly    attribute DOMString                     ssrc;
+                attribute sequence<DOMString>           msid;
+                attribute sequence<RTCCodec>            codecs;
+                attribute sequence<RTCMediaAttributes>  mediaAttributes;
+                attribute Object                        rtpExtHeaders;
+                
     RTCTrackDescription                 getDescription ();
     void                                start ();
     void                                stop ();
     void                                remove ();
-    
-    TBD: getters and setters for parameters (msid, codecs...).
 ```
 
 
+ 
 #### Attributes
 
 
-__mediaStreamTrack__ of type {{MediaStreamTrack}}
+__mediaStreamTrack__ of type {{MediaStreamTrack}}, readonly
 
 > The associated {{MediaStreamTrack}} instance.
+
+__kind__  of type DOMString, readonly
+
+> Can be "audio", "video", "dtmf".
+
+__ssrc__ of type DOMString, readonly
+
+__msid__ of type sequence<DOMString>
+
+> A sequence of *id* attributes of the {{MediaStream}} instances this track belongs to.
+
+__codecs__ of type sequence<RTCCodec>
+
+> When setting the codec list for a sending track, the browser must choose the first supported codec in the list.
+
+__mediaAttributes__ of type sequence<RTCMediaAttributes>
+
+__rtpExtHeaders__ of type Object.
+
+> An Object which RTP extension header name and value pairs (useful for the {{onunknowntrack}} event usage in {{RTCConnection}}.
 
 
 #### Methods
@@ -562,23 +588,11 @@ dictionary RTCTrackDescription {
 };
 ```
 
-__kind__ of type DOMString
+The meaning of attributes of {{RTCTrackDescription}} is the same as in the {{RTCTrack}} interface.
 
-> Can be "audio", "video", "dtmf" (TODO).
+When passing a {{RTCTrackDescription}} to the *receiveTrack* method of a {{RTCConnection}}, the values in the *codecs* field tells the browser to be ready to receive RTP with any of the listed codecs.
 
-__ssrc__ of type DOMString
-
-__msid__ of type sequence<DOMString>
-
-> A sequence of *id* attributes of the {{MediaStream}} instance this track belongs to.
-
-__codecs__ of type sequence<RTCCodec>
-
-__mediaAttributes__ of type sequence<RTCMediaAttributes>
-
-__rtpExtHeaders__ of type Object.
-
-> An Object which RTP extension header name and value pairs (useful for the {{onunknowntrack}} event usage in {{RTCConnection}}.
+TODO: *RTCConnection.receiveTrack()* should throw an exception in case the browser does not support any of the codec in the given {{RTCTrackDescription}}.
 
 
 
@@ -635,7 +649,7 @@ dictionary RTCMediaAttributes {
 };
 ```
 
-*TODO:* TBD
+*TODO:* Complete.
 
 
 
@@ -686,6 +700,67 @@ The interToneGap parameter indicates the gap between tones. It must be at least 
 ## RTCP
 
 This specification determines that RTCP packets must be multiplexed with the RTP packets as defined by {{RFC5761}}.
+
+
+
+## Capabilities
+
+ORTC extends the *Navigator* interface for providing WebRTC capabilities to the developer's JavaScript.
+
+```webidl
+interface Navigator {
+    RTCCapabilities                     getRTCCapabilities ();
+    RTCCodec                            getRTCCodec ();
+};
+```
+
+
+#### Methods
+
+
+##### getRTCCapabilities
+
+Get the browser WebRTC capabilities by returning a {{RTCCapabilities}} object.
+>
+Parameters: none
+
+
+##### getRTCCodec
+
+Get a {{RTCCodec}} object for the given codec name or null if the browser does not support it.
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|name |DOMString | no | no |The *name* of the codec (i.e. "opus"). |
+
+
+
+#### The RTCCapabilities Object
+
+```webidl
+dictionary RTCCapabilities {
+    sequence<RTCCodec>                  audioCodecs;
+    sequence<RTCCodec>                  videoCodecs;
+};
+```
+
+*TODO:* Complete.
+
+
+##### Attributes
+
+
+__audioCodecs__ of type sequence<RTCCodec>, readonly
+
+> The list of supported audio codecs.
+
+
+__videoCodecs__ of type sequence<RTCCodec>, readonly
+
+> The list of supported video codecs.
+
+
+
 
 
 
