@@ -329,6 +329,8 @@ dictionary RTCIceCandidateDescription {
     DOMString                           connectionAddress;
     int                                 connectionPort;
     DOMString                           type;
+    DOMString                           relAddress;
+    int                                 relPort;
 };
 ```
 
@@ -355,6 +357,14 @@ __connectionPort__ of type unsigned int
 
 
 __type__ of type DOMString
+
+
+__relAddress__ of type DOMString
+
+
+__relPort__ of type unsigned int
+
+
 
 
 ##### RTCIceCandidateDescription Example
