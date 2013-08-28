@@ -308,13 +308,13 @@ __icePassword__ of type DOMString, readonly
 
 ```webidl
 dictionary CertificateFingerprint {
-    DOMString                           hash;
-    ArrayBuffer                         value;
+    getter ArrayBuffer (DOMString hashFunction);
 };
 ```
 
-A dictionary containing a certificate fingerprint. *hash* is the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); *value* is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
- 
+A dictionary containing fingerprints for the certificate. Keys are the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
+
+
  
 
 #### The RTCIceCandidateDescription Object
