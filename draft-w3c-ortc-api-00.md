@@ -370,7 +370,7 @@ __relPort__ of type unsigned int
 
 
 
-##### The CertificateFingerprint Object
+#### The CertificateFingerprint Object
 
 ```webidl
 dictionary CertificateFingerprint {
@@ -389,12 +389,12 @@ This Object is used to filter the output of the *tracks* method in {{RTCConnecti
 
 ```webidl
 dictionary RTCTrackFilter {
-    DOMString?          mediaStream;
+    MediaStream?        mediaStream;
     DOMString?          kind;
 };
 ```
 
-#### Attributes
+##### Attributes
 
 __mediaStream__ of type {{MediaStream}}
 
@@ -403,6 +403,8 @@ __mediaStream__ of type {{MediaStream}}
 __kind__ of type DOMString
 
 > Just {{RTCTrack}} instances of the given kind ("audio" or "video") are returned.
+>
+TODO: what about "dtmf"? should it be a different "kind"?
 
 
 
@@ -650,6 +652,8 @@ interface RTCDTMFTrack : EventTarget  {
     void insertDTMF (DOMString tones, optional long duration, optional long interToneGap);
 };
 ```
+
+TODO: events for incoming DTMF, should they fire here? or in the RTCConnection?
 
 
 #### Methods
