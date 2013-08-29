@@ -18,7 +18,7 @@ ORTC provides a powerful API for the development of WebRTC based applications. O
 
 ### Operation
 
-A peer instantiates a {{RTCConnection}} by passing an optional local {{RTCSocket}}. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
+A peer instantiates a {{RTCConnection}} by passing a local {{RTCSocket}}. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
 The peer can, at any time, signal its {{RTCIceDescription}} to the remote peer. Once the remote {{RTCIceDescription}} is entered into the {{RTCConnection}} ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
 
