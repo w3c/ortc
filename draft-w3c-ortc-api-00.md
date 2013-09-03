@@ -18,9 +18,9 @@ ORTC provides a powerful API for the development of WebRTC based applications. O
 
 ### Operation
 
-A peer instantiates a {{RTCConnection}} by passing a local {{RTCSocket}}. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
+A peer instantiates a {{RTCConnection}}. Once the {{RTCConnection}} has been instantiated the ICE gathering procedure automatically starts for retrieving local ICE candidates.
 
-The peer can, at any time, signal its {{RTCIceDescription}} to the remote peer. Once the remote {{RTCIceDescription}} is entered into the {{RTCConnection}} ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
+The peer can, at any time, signal its ICE information to the remote peer. Once the remote ICE information is entered into the {{RTCConnection}} ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one to each other at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the {{RTCConnection}} the method *setLocalCandidate* must be called by passing as argument the {{RTCIceCandidateDescription}} provided in the *oncandidate* event. Same for remote ICE candidates by using the *setRemoteCandidate* method.
 
 The developer's JavaScript can attach {{MediaStream}} instances to the {{RTCConnection}} to be sent to the remote. Audio/video sending tracks can be individually managed by getting their associated {{RTCTrack}} instance via the *track* method. The developer's JavaScript can also signal the receiving tracks information by providing their {{RTCTrackDescription}} via the *receiveTrack* method.
 
@@ -29,16 +29,15 @@ The developer's JavaScript can attach {{MediaStream}} instances to the {{RTCConn
 ### Interface Definition
 
 ```webidl
-[Constructor (RTCSocket localSocket)]
+[Constructor (RTCConnectionOptions options)]
 interface RTCConnection : EventTarget  {
-    RTCIceDescription                   getLocalIceDescription ();
+                attribute {{RTCConnectionSide}}         local;
+                attribute {{RTCConnectionSide}}         remote;
     RTCSocket                           getLocalSocket ();
     void                                setLocalCandidate ();
     void                                setRemoteCandidate ();
     void                                connect ();
     void                                update ();
-    CertificateFingerprint              getLocalFingerprint ();
-    CertificateFingerprint              getRemoteFingerprint ();
     void                                addStream ();
     void                                removeStream ();
     RTCTrack                            track ();
@@ -47,19 +46,17 @@ interface RTCConnection : EventTarget  {
     RTCDTMFTrack                        addDtmfTrack ();
     sequence<MediaStream>               getSendingStreams ();
     sequence<MediaStream>               getReceivingStreams ();
-    RTCConnection                       clone ();
     void                                close ();
-                attribute EventHandler          oncandidate;
-                attribute EventHandler          onendofcandidates;
-                attribute EventHandler          onactivecandidate;
-                attribute EventHandler          onconnected;
-                attribute EventHandler          ondisconnected;
-                attribute EventHandler          onaddstream;
-                attribute EventHandler          onunknowntrack;
-                attribute EventHandler          onadddtmftrack;
+                attribute EventHandler                  oncandidate;
+                attribute EventHandler                  onendofcandidates;
+                attribute EventHandler                  onactivecandidate;
+                attribute EventHandler                  onconnected;
+                attribute EventHandler                  ondisconnected;
+                attribute EventHandler                  onaddstream;
+                attribute EventHandler                  onunknowntrack;
+                attribute EventHandler                  onadddtmftrack;
 };
 ```
-
 
 
 #### Events
@@ -141,14 +138,6 @@ __onadddtmftrack__ of type EventHandler,
 #### Methods
 
 
-##### getLocalIceDescription
-
-Get the local {{RTCIceDescription}}.
->
-Parameters: none
-
-
-
 ##### getLocalSocket
 
 Get the local {{RTCSocket}}.
@@ -181,10 +170,9 @@ Adds a remote ICE candidate to the {{RTCConnection}}.
 
 Starts the ICE establishment procedure with the peer. If new local or remote ICE candidates are provided once this method has been called, they will be also considered for the ICE connection procedure.
 >
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|remoteIceDescription |{{RTCIceDescription}} | no | no | The remote ICE description. |
-
+Connection data for the remote side (the *iceUsernameFrag* and *icePassword* attributes within the *remote* {{RTCConnectionSide}} attribute) must be set before calling this method.
+>
+Parameters: none
 
 
 ##### update
@@ -192,23 +180,6 @@ Starts the ICE establishment procedure with the peer. If new local or remote ICE
 This method will usually be called upon network interfaces change (i.e. in mobile network). By calling this method the ICE gathering procedure starts again as when the {{RTCConnection}} was instantiated.
 >
 Parameters: none
-
-
-
-##### getLocalFingerprint
-
-Get the local {{CertificateFingerprint}} of the DTLS connection.
->
-Parameters: none
-
-
-
-##### getRemoteFingerprint
-
-Get the remote {{CertificateFingerprint}} of the DTLS connection. If it is called before the connection is established it returns null.
->
-Parameters: none
-
 
 
 ##### addStream
@@ -292,15 +263,6 @@ Parameters: none
 Parameters: none
 
 
-##### clone
-
-> Clones the current {{RTCConnection}} and returns a new instance with the same local {{RTCSocket}} and same attached {{MediaStream}} instances. Events must be defined for this new instance, and connection procedure must be started again by calling *connect* (after providing local and remote ICE candidates).
->
-Cloning a {{RTCConnection}} means reusing the same local binding for two separate connections, which becomes very helpful for implementing parallel forking in protocols like SIP.
->
-Parameters: none
-
-
 
 ##### close
 
@@ -311,12 +273,38 @@ Parameters: none
 
 
 
-#### The RTCIceDescription Object
+
+#### The RTCConnectionOptions Object
 
 ```webidl
-dictionary RTCIceDescription {
-    DOMString                           iceUsernameFrag;
-    DOMString                           icePassword;
+dictionary RTCConnectionOptions {
+    sequence<RTCIceServer>?     iceServers
+    RTCSocket?                  socket
+};
+```
+
+
+##### Attributes
+
+__iceServers__ of type sequence<RTCIceServer>
+
+> A sequence of {{RTCIceServer}} objects.
+
+
+__socket__ of type RTCSocket
+
+> A local {{RTCSocket}} to be reused (which can be retrieved from another {{RTCConnection}} instance via the *getLocalSocket* method).
+>
+Reusing the same local socket can be used to implement media forking.
+
+
+
+#### The RTCIceServer Object
+
+```webidl
+dictionary RTCIceServer {
+    sequence<DOMString>         url;
+    DOMString?                  credential;
 };
 ```
 
@@ -324,10 +312,73 @@ dictionary RTCIceDescription {
 ##### Attributes
 
 
-__iceUsernameFrag__ of type DOMString, readonly
+__url__ of type DOMString
+
+> A STUN or TURN URI as defined in {{STUN-URI}} and {{TURN-URI}}.
 
 
-__icePassword__ of type DOMString, readonly
+__credential__ of type DOMString, nullable
+
+> If the url element is a {{TURN-URI}}, then this is the credential to use with that TURN server.
+
+
+In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
+
+An example array of {{RTCIceServer}} objects is:
+
+```
+[ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]
+```
+
+
+#### The RTCSocket Class
+
+The {{RTCSocket}} class describes a local socket. A local socket can be reused within different {{RTCConnection}} instances (useful for media forking).
+
+A {{RTCSocket}} can be retrieved from its {{RTCConnection}} by calling the *getLocalSocket* method on it.
+
+
+
+#### The RTCConnectionSide Object
+
+The {{RTCConnectionSide}} Object contains information for both sides of the connection. An {{RTCConnection}} has both a local {{RTCConnectionSide}} (whose attributes are readonly) and a remote {{RTCConnectionSide}} (whose attributes must be set by the JavaScript's developer before attempting the connection procedure (this is, before calling *connect* on the {{RTCConnection}}).
+
+
+```webidl
+dictionary RTCConnectionSide {
+    DOMString                   iceUsernameFrag;
+    DOMString                   icePassword;
+    CertificateFingerprint      fingerprint;
+};
+```
+##### Attributes
+
+
+__iceUsernameFrag__ of type DOMString
+
+> Within the *local* {{RTCConnectionSide}} this attribute is readonly, and must be set for the *remote* side.
+
+
+__icePassword__ of type DOMString
+
+> Within the *local* {{RTCConnectionSide}} this attribute is readonly, and must be set for the *remote* side.
+
+
+__fingerprint__ of type {{CertificateFingerprint}}
+
+> The DTLS fingerprint of the connection for the local or the remote side. The local side is readonly and can be retrieved at any time. The remote side is also readonly and can only be retrieved once the connection is established (it returns null otherwise).
+
+
+
+##### The CertificateFingerprint Object
+
+```webidl
+dictionary CertificateFingerprint {
+    getter ArrayBuffer (DOMString hashFunction);
+};
+```
+
+A dictionary containing fingerprints for the certificate. Keys are the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
 
 
 
@@ -397,20 +448,6 @@ __relPort__ of type unsigned int
 ```
 
 
-
-#### The CertificateFingerprint Object
-
-```webidl
-dictionary CertificateFingerprint {
-    getter ArrayBuffer (DOMString hashFunction);
-};
-```
-
-A dictionary containing fingerprints for the certificate. Keys are the [textual name for the hash function](http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml); the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).
-
-
-
-
 #### The RTCTrackFilter Object
 
 This Object is used to filter the output of the *tracks* method in {{RTCConnection}}.
@@ -432,57 +469,6 @@ __kind__ of type DOMString
 
 > Just {{RTCTrack}} instances of the given kind ("audio", "video" or "dtmf") are returned.
 
-
-
-
-
-## The RTCSocket Class
-
-
-### Overview
-
-The {{RTCSocket}} class describes a local socket. A local socket can be reused within different {{RTCConnection}} instances (useful for serial and parallel media forking).
-
-
-
-### Interface Definition
-
-```webidl
-[Constructor (optional RTCIceServer[] iceServers)]
-interface RTCSocket  {};
-```
-
-
-#### The RTCIceServer Object
-
-```webidl
-dictionary RTCIceServer {
-    sequence<DOMString>         url;
-    DOMString?                  credential;
-};
-```
-
-
-##### Attributes
-
-
-__url__ of type DOMString
-
-> A STUN or TURN URI as defined in {{STUN-URI}} and {{TURN-URI}}.
-
-
-__credential__ of type DOMString, nullable
-
-> If the url element is a {{TURN-URI}}, then this is the credential to use with that TURN server.
-
-
-In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
-
-An example array of {{RTCIceServer}} objects is:
-
-```
-[ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]
-```
 
 
 
@@ -620,7 +606,7 @@ TODO: *RTCConnection.receiveTrack()* should throw an exception in case the brows
 ```
 
 
-##### The RTCCodec Object
+#### The RTCCodec Object
 
 ```webidl
 dictionary RTCCodec {
@@ -644,7 +630,7 @@ dictionary RTCCodecParam {
 
 
 
-##### The RTCMediaAttributes Object
+#### The RTCMediaAttributes Object
 
 ```webidl
 dictionary RTCMediaAttributes {
@@ -720,13 +706,13 @@ The interToneGap parameter indicates the gap between tones. It must be at least 
 
 
 
-## RTCP
+## RTCP Protocol
 
 This specification determines that RTCP packets must be multiplexed with the RTP packets as defined by {{RFC5761}}.
 
 
 
-## Capabilities
+## RTC Capabilities
 
 ORTC extends the *Navigator* interface for providing WebRTC capabilities to the developer's JavaScript.
 
@@ -872,11 +858,10 @@ var conn;
 
 // call start() to initiate
 function start() {
-    var sock = new RTCSocket([{ url: "stun:stun.example.org" }]);
-    conn = new RTCConnection(sock);
+    conn = new RTCConnection({ iceServers: [{ url: "stun:stun.example.org" }] });
 
-    // send my ICE details to the other peer
-    signalingChannel.send(JSON.stringify({ "iceDescription": conn.getLocalIceDescription() }));
+    // send my ICE information to the other peer
+    signalingChannel.send(JSON.stringify({ "iceInfo": { "usernameFrag": conn.local.iceUsernameFrag, "password": conn.local.icePassword } }));
     
     // apply any local ICE candidate and send it to the remote
     conn.oncandidate = function (evt) {
@@ -906,8 +891,10 @@ signalingChannel.onmessage = function (evt) {
         start();
 
     var message = JSON.parse(evt.data);
-    if (message.iceDescription) {
-        conn.connect(message.iceDescription);
+    if (message.iceInfo) {
+        conn.remote.iceUsernameFrag = message.iceInfo.usernameFrag;
+        conn.remote.icePassword = message.iceInfo.password;
+        conn.connect();
     }
     if (message.candidate) {
         conn.setRemoteCandidate(message.candidate);
