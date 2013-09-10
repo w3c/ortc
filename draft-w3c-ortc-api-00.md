@@ -43,7 +43,7 @@ interface RTCConnection : EventTarget  {
     RTCTrack                            track ();
     sequence<RTCTrack>                  tracks ();
     void                                receiveTrack ();
-    RTCDTMFTrack                        addDtmfTrack ();
+    RTCDTMFHandler                      addDtmfHandler ();
     sequence<MediaStream>               getSendingStreams ();
     sequence<MediaStream>               getReceivingStreams ();
     void                                close ();
@@ -54,7 +54,7 @@ interface RTCConnection : EventTarget  {
                 attribute EventHandler                  ondisconnected;
                 attribute EventHandler                  onaddstream;
                 attribute EventHandler                  onunknowntrack;
-                attribute EventHandler                  onadddtmftrack;
+                attribute EventHandler                  onadddtmfhandler;
 };
 ```
 
@@ -125,13 +125,13 @@ The offerer can then indicate, via custom wire signaling, those desired RTP exte
 |rtpExtHeaders |A collection of RTP extension header and value pairs. |
 
 
-__onadddtmftrack__ of type EventHandler,
+__onadddtmfhandler__ of type EventHandler,
 
-> This event handler, of event handler event type {{adddtmftrack}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{RTCDTMFTrack}} is added. It is fired when calling the *receiveTrack* method by passing as argument the {{RTCTrackDescription}} of a receiving {{RTCDTMFTrack}}.
+> This event handler, of event handler event type {{adddtmfhandler}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{RTCDTMFHandler}} is added. It is fired when calling the *receiveTrack* method by passing as argument the {{RTCTrackDescription}} of a receiving audio {{MediaStreamTrack}} including a "dtmf" codec.
 >
 | *Event Argument* | *Description* |
 |--- | --- |
-|{{RTCDTMFTrack}} dtmfTrack |The {{RTCDTMFTrack}} instance being added by the remote peer. |
+|{{RTCDTMFHandler}} handler |The {{RTCDTMFHandler}} instance being added by the remote peer. |
 
 
 
@@ -231,16 +231,17 @@ Parameters: none
 
 
 
-##### addDtmfTrack
+##### addDtmfHandler
 
-> Adds a sending {{RTCDTMFTrack}} to the {{RTCConnection}}. The sending {{RTCDTMFTrack}} has its corresponding {{RTCTrack}} instance (which can be retrieved via the *track* or *tracks* methods) with same SSRC and *msid* values than the audio track it is attached to, but different *kind* attribute ("dtmf") and codec.
-At RTP level, a DTMF track shares the same SSRC value as an audio track, but uses a different payload-id.
+> Adds DTMF sending capabilities to the {{RTCConnection}}. The method returns a {{RTCDTMFHandler}} instance for sending DTMF tones to the remote peer.
+>
+Internally the DTMF handler is attached to an existing sending audio track in the {{RTCConnection}} by introducing a new "dtmf" codec in the list of codecs of its associated {{RTCTrack}}. At RTP level, a DTMF track shares the same SSRC value as its audio track, but uses a different payload-id.
 >
 The function can be called with an optional "container" argument which can be:
 >
-* no argument: the DTMF track is attached to the first sending audio track in the {{RTCConnection}}.
-* {{MediaStream}}: the DTMF track is attached to the first sending audio track in the given {{MediaStream}}.
-* {{MediaStreamTrack}}: the DTMF track is attached to the given audio {{MediaStreamTrack}}.
+* no argument: the DTMF handler is attached to the first sending audio track in the {{RTCConnection}}.
+* {{MediaStream}}: the DTMF handler is attached to the first sending audio track in the given {{MediaStream}}.
+* {{MediaStreamTrack}}: the DTMF handler is attached to the given audio {{MediaStreamTrack}}.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
@@ -467,7 +468,7 @@ __mediaStream__ of type {{MediaStream}}
 
 __kind__ of type DOMString
 
-> Just {{RTCTrack}} instances of the given kind ("audio", "video" or "dtmf") are returned.
+> Just {{RTCTrack}} instances of the given kind ("audio" or "video") are returned.
 
 
 
@@ -478,7 +479,7 @@ __kind__ of type DOMString
 
 ### Overview
 
-An {{RTCTrack}} instance is associated to a sending {{MediaStreamTrack}} (or a sending {{RTCDTMFTrack}}) and provides RTC related methods to it.
+An {{RTCTrack}} instance is associated to a sending {{MediaStreamTrack}} and provides RTC related methods to it.
 
 
 
@@ -492,13 +493,13 @@ A {{RTCTrack}} instance is retrieved from a {{RTCConnection}} via the *track* or
 
 ```webidl
 interface RTCTrack  {
-    readonly    attribute {{MediaStreamTrack}} or {{RTCDTMFTrack}}      source;
-    readonly    attribute DOMString                                     kind;
-    readonly    attribute DOMString                                     ssrc;
-                attribute sequence<DOMString>                           msid;
-                attribute sequence<RTCCodec>                            codecs;
-                attribute sequence<RTCMediaAttributes>                  mediaAttributes;
-                attribute Object                                        rtpExtHeaders;
+    readonly    attribute {{MediaStreamTrack}}                source;
+    readonly    attribute DOMString                           kind;
+    readonly    attribute DOMString                           ssrc;
+                attribute sequence<DOMString>                 msid;
+                attribute sequence<RTCCodec>                  codecs;
+                attribute sequence<RTCMediaAttributes>        mediaAttributes;
+                attribute Object                              rtpExtHeaders;
                 
     RTCTrackDescription                 getDescription ();
     void                                start ();
@@ -511,13 +512,13 @@ interface RTCTrack  {
 #### Attributes
 
 
-__source__ of type {{MediaStreamTrack}} or {{RTCDTMFTrack}}, readonly
+__source__ of type {{MediaStreamTrack}}, readonly
 
-> The associated {{MediaStreamTrack}} or {{RTCDTMFTrack}} instance.
+> The associated {{MediaStreamTrack}} instance.
 
 __kind__  of type DOMString, readonly
 
-> Can be "audio", "video" or "dtmf".
+> Can be "audio" or "video".
 
 __ssrc__ of type DOMString, readonly
 
@@ -596,7 +597,6 @@ TODO: *RTCConnection.receiveTrack()* should throw an exception in case the brows
   codecs: [
       {
           payload-id: 96,
-          kind: "audio",
           name: "opus",
           clockRate: 48000,
           numChannels: 2
@@ -611,7 +611,6 @@ TODO: *RTCConnection.receiveTrack()* should throw an exception in case the brows
 ```webidl
 dictionary RTCCodec {
     unsigned byte       payload-id;
-    DOMString           kind;
     DOMString           name;
     unsigned int?       clockRate;
     unsigned int?       numChannels;
@@ -644,21 +643,21 @@ dictionary RTCMediaAttributes {
 
 
 
-## The RTCDTMFTrack Class
+## The RTCDTMFHandler Class
 
 
 ### Overview
 
-An {{RTCDTMFTrack}} class instance allows sending DTMF tones to the remote peer or receiving them (but not both at the same time):
-* A sending {{RTCDTMFTrack}} is returned by the {{addDtmfTrack}} method on the {{RTCConnection}}. The method {{insertDTMF}} can only be used on a sending {{RTCDTMFTrack}}.
-* A receiving {{RTCDTMFTrack}} is generated via the {{onadddtmftrack}} event on the {{RTCConnection}}. The event {{ondtmf}} can only be set on a receiving {{RTCDTMFTrack}}.
+An {{RTCDTMFHandler}} class instance allows sending DTMF tones to the remote peer or receiving them (but not both at the same time):
+* A sending {{RTCDTMFHandler}} is returned by the {{addDtmfHandler}} method on the {{RTCConnection}}. The method {{insertDTMF}} can only be used on a sending {{RTCDTMFHandler}}.
+* A receiving {{RTCDTMFHandler}} is generated via the {{onadddtmfhandler}} event on the {{RTCConnection}}. The event {{ondtmf}} can only be set on a receiving {{RTCDTMFHandler}}.
 
 
 ### Interface Definition
 
 
 ```webidl
-interface RTCDTMFTrack : EventTarget  {
+interface RTCDTMFHandler : EventTarget  {
     readonly    attribute DOMString     id;
     readonly    attribute DOMString     label;
     readonly    attribute DOMString     toneBuffer;
@@ -705,6 +704,32 @@ The interToneGap parameter indicates the gap between tones. It must be at least 
 
 
 
+#### Audio RTCTrackDescription Example with DTMF
+
+Calling *addDtmfHandler* method on a {{RTCConnection}} (including at least one audio {{MediaStreamTrack}}) would enhance the {{RTCTrack}} of the audio track as follows:
+
+
+```javascript
+{
+  kind: "audio",
+  ssrc: "1234",
+  msid: ["m1"],
+  codecs: [
+      {
+          payload-id: 96,
+          name: "opus",
+          clockRate: 48000,
+          numChannels: 2
+      },
+      {
+          payload-id: 101,
+          name: "dtmf"
+      }
+  ]
+}
+```
+
+
 
 ## RTCP Protocol
 
@@ -736,7 +761,7 @@ Parameters: none
 
 ##### getRTCCodec
 
-Get a {{RTCCodec}} object for the given codec name or null if the browser does not support it. The mandatory list of codec names are: *opus*, *alaw*, *ulaw*, *vp8*, *h264* and *dtmf*.
+Get a {{RTCCodec}} object for the given codec name or null if the browser does not support it. The mandatory list of codec names are: *opus*, *alaw*, *ulaw*, *dtmf*, *vp8* and *h264*.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
