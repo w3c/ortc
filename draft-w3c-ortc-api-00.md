@@ -31,8 +31,9 @@ The developer's JavaScript can attach {{MediaStream}} instances to the {{RTCConn
 ```webidl
 [Constructor (RTCConnectionOptions options)]
 interface RTCConnection : EventTarget  {
-                attribute {{RTCConnectionSide}}         local;
-                attribute {{RTCConnectionSide}}         remote;
+    attribute {{RTCConnectionSide}}     local;
+    attribute {{RTCConnectionSide}}     remote;
+
     RTCSocket                           getLocalSocket ();
     void                                setLocalCandidate ();
     void                                setRemoteCandidate ();
@@ -347,28 +348,53 @@ The {{RTCConnectionSide}} Object contains information for both sides of the conn
 
 ```webidl
 dictionary RTCConnectionSide {
-    DOMString                   iceUsernameFrag;
-    DOMString                   icePassword;
-    CertificateFingerprint      fingerprint;
+    attribute {{RTCIceConnectionInfo}}  ice;
+    attribute {{RTCDtlsConnectionInfo}} dtls;
 };
 ```
+
 ##### Attributes
 
 
-__iceUsernameFrag__ of type DOMString
+__ice__ of type {{RTCIceConnectionInfo}}
+
+__dtls__ of type {{RTCDtlsConnectionInfo}}
+
+
+#### The RTCIceConnectionInfo Object
+
+```webidl
+dictionary RTCIceConnectionInfo {
+    DOMString                   usernameFrag;
+    DOMString                   password;
+};
+```
+
+##### Attributes
+
+__usernameFrag__ of type DOMString
 
 > Within the *local* {{RTCConnectionSide}} this attribute is readonly, and must be set for the *remote* side.
 
 
-__icePassword__ of type DOMString
+__password__ of type DOMString
 
 > Within the *local* {{RTCConnectionSide}} this attribute is readonly, and must be set for the *remote* side.
 
+
+#### The RTCDtlsConnectionInfo Object
+
+```webidl
+dictionary RTCDtlsConnectionInfo {
+    attribute {{CertificateFingerprint}}   fingerprint;
+};
+```
+
+##### Attributes
 
 __fingerprint__ of type {{CertificateFingerprint}}
 
 > The DTLS fingerprint of the connection for the local or the remote side. The local side is readonly and can be retrieved at any time. The remote side is also readonly and can only be retrieved once the connection is established (it returns null otherwise).
-
 
 
 ##### The CertificateFingerprint Object
@@ -886,7 +912,7 @@ function start() {
     conn = new RTCConnection({ iceServers: [{ url: "stun:stun.example.org" }] });
 
     // send my ICE information to the other peer
-    signalingChannel.send(JSON.stringify({ "iceInfo": { "usernameFrag": conn.local.iceUsernameFrag, "password": conn.local.icePassword } }));
+    signalingChannel.send(JSON.stringify({ "iceInfo": { "usernameFrag": conn.local.ice.usernameFrag, "password": conn.local.ice.password } }));
     
     // apply any local ICE candidate and send it to the remote
     conn.oncandidate = function (evt) {
@@ -917,8 +943,8 @@ signalingChannel.onmessage = function (evt) {
 
     var message = JSON.parse(evt.data);
     if (message.iceInfo) {
-        conn.remote.iceUsernameFrag = message.iceInfo.usernameFrag;
-        conn.remote.icePassword = message.iceInfo.password;
+        conn.remote.ice.usernameFrag = message.iceInfo.usernameFrag;
+        conn.remote.ice.password = message.iceInfo.password;
         conn.connect();
     }
     if (message.candidate) {
