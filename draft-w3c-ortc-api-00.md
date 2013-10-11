@@ -44,7 +44,6 @@ interface RTCConnection : EventTarget  {
     RTCTrack                            track ();
     sequence<RTCTrack>                  tracks ();
     void                                receiveTrack ();
-    RTCDTMFHandler                      addDtmfHandler ();
     sequence<MediaStream>               getSendingStreams ();
     sequence<MediaStream>               getReceivingStreams ();
     void                                close ();
@@ -55,7 +54,6 @@ interface RTCConnection : EventTarget  {
                 attribute EventHandler                  ondisconnected;
                 attribute EventHandler                  onaddstream;
                 attribute EventHandler                  onunknowntrack;
-                attribute EventHandler                  onadddtmfhandler;
 };
 ```
 
@@ -124,15 +122,6 @@ The offerer can then indicate, via custom wire signaling, those desired RTP exte
 | *Event Argument* | *Description* |
 |--- | --- |
 |rtpExtHeaders |A collection of RTP extension header and value pairs. |
-
-
-__onadddtmfhandler__ of type EventHandler,
-
-> This event handler, of event handler event type {{adddtmfhandler}}, must be fired to allow a developer's JavaScript to be notified when a receiving {{RTCDTMFHandler}} is added. It is fired when calling the *receiveTrack* method by passing as argument the {{RTCTrackDescription}} of a receiving audio {{MediaStreamTrack}} including a "dtmf" codec.
->
-| *Event Argument* | *Description* |
-|--- | --- |
-|{{RTCDTMFHandler}} handler |The {{RTCDTMFHandler}} instance being added by the remote peer. |
 
 
 
@@ -229,24 +218,6 @@ Parameters: none
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
 |trackDescription |{{RTCTrackDescription}} | no | no | |
-
-
-
-##### addDtmfHandler
-
-> Adds DTMF sending capabilities to the {{RTCConnection}}. The method returns a {{RTCDTMFHandler}} instance for sending DTMF tones to the remote peer.
->
-Internally the DTMF handler is attached to an existing sending audio track in the {{RTCConnection}} by introducing a new "dtmf" codec in the list of codecs of its associated {{RTCTrack}}. At RTP level, a DTMF track shares the same SSRC value as its audio track, but uses a different payload-id.
->
-The function can be called with an optional "container" argument which can be:
->
-* no argument: the DTMF handler is attached to the first sending audio track in the {{RTCConnection}}.
-* {{MediaStream}}: the DTMF handler is attached to the first sending audio track in the given {{MediaStream}}.
-* {{MediaStreamTrack}}: the DTMF handler is attached to the given audio {{MediaStreamTrack}}.
->
-| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
-|--- | --- | --- | --- | --- |
-|container |{{MediaStream}}|{{MediaStreamTrack}} | yes | yes | |
 
 
 
@@ -653,8 +624,6 @@ dictionary RTCCodecParam {
 ```
 
 
-
-
 #### The RTCMediaAttributes Object
 
 ```webidl
@@ -669,68 +638,112 @@ dictionary RTCMediaAttributes {
 
 
 
-## The RTCDTMFHandler Class
-
+## DTMFMediaStreamTrack
 
 ### Overview
 
-An {{RTCDTMFHandler}} class instance allows sending DTMF tones to the remote peer or receiving them (but not both at the same time):
-* A sending {{RTCDTMFHandler}} is returned by the {{addDtmfHandler}} method on the {{RTCConnection}}. The method {{insertDTMF}} can only be used on a sending {{RTCDTMFHandler}}.
-* A receiving {{RTCDTMFHandler}} is generated via the {{onadddtmfhandler}} event on the {{RTCConnection}}. The event {{ondtmf}} can only be set on a receiving {{RTCDTMFHandler}}.
-
-
-### Interface Definition
+The {{DTMFMediaStreamTrack}} is a specialized type of MediaStreamTrack that can be constructed or received as an incoming stream track track of kind "dtmf".
 
 
 ```webidl
-interface RTCDTMFHandler : EventTarget  {
-    readonly    attribute DOMString     id;
-    readonly    attribute DOMString     label;
-    readonly    attribute DOMString     toneBuffer;
-    readonly    attribute long          duration;
-    readonly    attribute long          interToneGap;
-    void insertDTMF (DOMString tones, optional long duration, optional long interToneGap);
-                attribute EventHandler          ondtmf;
+[Constructor]
+interface DTMFMediaStreamTrack : MediaStreamTrack
+{
+    void play();
+    void flush();
+
+    void tonestart();
+    void tonestop();
+
+    attribute EventHandler ontonestart();
+    attribute EventHandler ontonestop();
+    attribute EventHandler ontone();
 };
 ```
 
+### Methods
 
+#### play
 
-#### Events
+Adds DTMF digit(s) to play. Three optional paramter types. If specifying a DOM string, the tones are played in sequence with defaulted durations and inter tone gaps. If specifying a single DTMF Tone then a single tone is played. If specifying a sequence of tones then the sequence of tones is added to the DTMF play buffer.
 
-
-__ondtmf__ of type EventHandler,
-
-> This event handler, of event handler event type {{candidate}}, must be fired to allow a developer's JavaScript to receive a DTMF tone from the remote peer.
->
-| *Event Argument* | *Description* |
-|--- | --- |
-|DOMString tone |The received DTMF tone. |
-};
-```
-
-
-
-#### Methods
-
-
-##### insertDTMF
-
-> Method used for sending DTMF tones. The tones parameter is treated as a series of characters. The characters 0 through 9, A through D, #, and * generate the associated DTMF tones. The characters a to d are equivalent to A to D. The character ',' indicates a delay of 2 seconds before processing the next character in the tones parameter. Unrecognized characters are ignored.
->
-The duration parameter indicates the duration in ms to use for each character passed in the tones parameters. The duration cannot be more than 6000 ms or less than 70 ms. The default duration is 100 ms for each tone.
->
-The interToneGap parameter indicates the gap between tones. It must be at least 50 ms. The default value is 50 ms.
 >
 | *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
 |--- | --- | --- | --- | --- |
-|tones |{{DOMString}} | no | no | |
-|duration |{{long}} | no | yes | |
-|interToneGap |{{long}} | no | yes | |
+|digits |DOMString | no | yes | |
+|tone |{{DTMFTone}} | no | yes | |
+|tones |sequence<DTMFTone> | no | yes | |
+
+#### flush
+
+Stops any active tones being played.
+
+#### tonestart
+
+Starts playing a particular tone until "tonestop" is called. This allows for a depressed DTMF digit to continue ongoing until released. The tone will not start until all tones in the play buffer have completed.
+
+>
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|digit |DOMString | no | no | |
+
+#### tonestop
+
+Stop a tone in progress from playing. This is synonymous to a DTMF digit key being released.
 
 
+### Events
 
-#### Audio RTCTrackDescription Example with DTMF
+__ontonestart__ of type EventHandler
+
+This event fires when a tone has started to render.
+
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|digit |DOMString | no | no | The DTMF digit that is about to render |
+
+__ontonestop__ of type EventHandler
+
+This event fires when a tone has stopped rendering.
+
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|digit |DOMString | no | no | The tone which was rendering |
+
+
+__ontonetone__ of type EventHandler
+
+This event fires when a single DTMF tone digit has completed rendering.
+
+| *Parameter* | *Type* | *Nullable* | *Optional* | *Description* |
+|--- | --- | --- | --- | --- |
+|tone |{{DTMFTone}} | no | no | The DTMF tone information after rendered. |
+
+
+### DTMFTone
+
+```webidl
+dictionary DTMFTone {
+    attribute DOMString   digits;
+    attribute long        duration;
+    attribute long        interToneGap;
+}
+```
+
+__digits__ of type EventHandler
+
+The DTMF digit(s) that are rendered.
+
+__duration__ of type EventHandler
+
+The duration of each digit rendered (in milliseconds).
+
+__interToneGap__ of type EventHandler
+
+The gap of silence after each rendered DTMF digit.
+
+
+### Audio RTCTrackDescription Example with DTMF
 
 Calling *addDtmfHandler* method on a {{RTCConnection}} (including at least one audio {{MediaStreamTrack}}) would enhance the {{RTCTrack}} of the audio track as follows:
 
@@ -744,12 +757,14 @@ Calling *addDtmfHandler* method on a {{RTCConnection}} (including at least one a
       {
           payload-id: 96,
           name: "opus",
+          kind: "audio",
           clockRate: 48000,
           numChannels: 2
       },
       {
           payload-id: 101,
-          name: "dtmf"
+          name: "dtmf",
+          kind: "dtmf"
       }
   ]
 }
