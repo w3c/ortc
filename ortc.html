@@ -172,7 +172,7 @@ table.simple {
         <li class="tocline"><a href="#interface-definition" class="tocxref"><span class="secno">2.3 </span>Interface Definition</a>
           <ul class="toc">
             <li class="tocline"><a href="#events" class="tocxref"><span class="secno">2.3.1 </span>Events</a></li>
-            <li class="tocline"><a href="#methods" class="tocxref"><span class="secno">2.3.2</span>Methods</a></li>
+            <li class="tocline"><a href="#methods" class="tocxref"><span class="secno">2.3.2 </span>Methods</a></li>
             <li class="tocline"><a href="#the-rtcconnectionoptions-object" class="tocxref"><span class="secno">2.3.3 </span>The RTCConnectionOptions Object</a>
               <ul class="toc">
                 <li class="tocline"><a href="#attributes" class="tocxref"><span class="secno">2.3.3.1 </span>Attributes</a></li>
@@ -247,7 +247,16 @@ table.simple {
       </ul>
     </li>
     <li class="tocline"><a href="#rtcp-protocol" class="tocxref"><span class="secno">5. </span>RTCP Protocol</a></li>
-    <li class="tocline"><a href="#rtc-capabilities" class="tocxref"><span class="secno">6. </span>RTC Capabilities</a></li>
+    <li class="tocline"><a href="#rtc-capabilities" class="tocxref"><span class="secno">6. </span>RTC Capabilities</a>
+      <ul class="toc">
+        <li class="tocline"><a href="#rtc-capabilities-methods" class="tocxref"><span class="secno">6.1 </span>Methods</a></li>
+        <li class="tocline"><a href="#rtc-capabilities-object" class="tocxref"><span class="secno">6.2 </span>The RTCCapabilities Object</a>
+          <ul class="toc">
+            <li class="tocline"><a href="#rtc-capabilities-object-attributes" class="tocxref"><span class="secno">6.2.1 </span>Attributes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
     <li class="tocline"><a href="#extensions-to-mediacapture-mediastream" class="tocxref"><span class="secno">7. </span>Extensions to MediaCapture MediaStream</a>
       <ul class="toc">
         <li class="tocline"><a href="#extensions-to-mediacapture-mediastream-methods" class="tocxref"><span class="secno">7.1 </span>Methods</a></li>
@@ -1236,8 +1245,8 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
   <section>
-    <section>
-      <h4 id="methods-3" aria-level="3" role="heading"><span class="secno">6.1 </span>Methods</h4>
+    <section id="rtc-capabilities-methods" typeof="bibo:Chapter" resource="#rtc-capabilities-methods" rel="bibo:chapter">
+      <h4 id="h4_rtc-capabilities-methods" aria-level="3" role="heading"><span class="secno">6.1 </span>Methods</h4>
 
       <p><strong>getRTCCapabilities</strong></p>
       <blockquote>
@@ -1269,8 +1278,8 @@ interface RTCConnection : EventTarget  {
       </blockquote>
     </section>
 
-    <section id="the-rtccapabilities-object" typeof="bibo:Chapter" resource="#the-rtccapabilities-object" rel="bibo:chapter">
-      <h4 aria-level="3" role="heading" id="h4_the-rtccapabilities-object"><span class="secno">6.2 </span>The RTCCapabilities Object</h4>
+    <section id="rtc-capabilities-object" typeof="bibo:Chapter" resource="#rtc-capabilities-object" rel="bibo:chapter">
+      <h4 aria-level="3" role="heading" id="h4_rtc-capabilities"><span class="secno">6.2 </span>The RTCCapabilities Object</h4>
 
 <pre><code class="webidl">dictionary RTCCapabilities {
     sequence&lt;RTCCodec&gt;                  audioCodecs;
@@ -1280,8 +1289,8 @@ interface RTCConnection : EventTarget  {
 
       <p><em>TODO:</em> Complete.</p>
 
-      <section>
-        <h5 id="attributes-8" aria-level="4" role="heading"><span class="secno">6.2.1 </span>Attributes</h5>
+      <section id="rtc-capabilities-object-attributes">
+        <h5 id="h5_rtc-capabilities-object-attributes" aria-level="4" role="heading"><span class="secno">6.2.1 </span>Attributes</h5>
 
         <p><strong>audioCodecs</strong> of type sequence<rtccodec>, readonly</rtccodec></p>
         <blockquote>
@@ -1303,8 +1312,8 @@ interface RTCConnection : EventTarget  {
   <p>This specification extends the MediaCapture MediaStream class for remote streams received from the network, by adding/modifying the following methods and events:</p>
 
   <section>
-    <section>
-      <h4 id="extensions-to-mediacapture-mediastream-methods" aria-level="3" role="heading"><span class="secno">7.1 </span>Methods</h4>
+    <section id="extensions-to-mediacapture-mediastream-methods">
+      <h4 id="h4_extensions-to-mediacapture-mediastream-methods" aria-level="3" role="heading"><span class="secno">7.1 </span>Methods</h4>
 
       <p><strong>addTrack</strong></p>
       <blockquote>
@@ -1335,8 +1344,8 @@ interface RTCConnection : EventTarget  {
       </blockquote>
     </section>
 
-    <section>
-      <h4 id="extensions-to-mediacapture-mediastream-events" aria-level="3" role="heading"><span class="secno">7.2 </span>Events</h4>
+    <section id="extensions-to-mediacapture-mediastream-events">
+      <h4 id="h4_extensions-to-mediacapture-mediastream-events" aria-level="3" role="heading"><span class="secno">7.2 </span>Events</h4>
 
       <p><strong>onconnected</strong> of type EventHandler,</p>
 
@@ -1363,8 +1372,8 @@ interface RTCConnection : EventTarget  {
   <p>This specification extends the MediaCapture MediaStreamTrack class for remote tracks received from the network, by adding the following events:</p>
 
   <section>
-    <section>
-      <h4 id="extensions-to-mediacapture-mediastreamtrack-events" aria-level="3" role="heading"><span class="secno">8.1 </span>Events</h4>
+    <section id="extensions-to-mediacapture-mediastreamtrack-events">
+      <h4 id="h4_extensions-to-mediacapture-mediastreamtrack-events" aria-level="3" role="heading"><span class="secno">8.1 </span>Events</h4>
 
       <p><strong>onconnected</strong> of type EventHandler,</p>
       <blockquote>
