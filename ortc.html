@@ -128,7 +128,7 @@ table.simple {
     <dd class="p-author h-card vcard" rel="bibo:editor" inlist=""><span typeof="foaf:Person"><a class="u-url url p-name fn" rel="foaf:homepage" property="foaf:name" content="Robin Raymond" href="http://about.me/robinraymond">Robin Raymond</a>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.hookflash.com/">Hookflash</a></span></dd>
     
     <dt>Authors:</dt>
-    <dd class="p-author h-card vcard" rel="dcterms:contributor"><span typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Inaki Baz Castillo</span>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://versatica.com/">Versatica</a></span></dd>
+    <dd class="p-author h-card vcard" rel="dcterms:contributor"><span typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Iñaki Baz Castillo</span>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://versatica.com/">Versatica</a></span></dd>
     <dd class="p-author h-card vcard" rel="dcterms:contributor"><span typeof="foaf:Person"><span property="foaf:name" class="p-name fn">José Luis Millán</span>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://versatica.com/">Versatica</a></span></dd>
     <dd class="p-author h-card vcard" rel="dcterms:contributor"><span typeof="foaf:Person"><a class="u-url url p-name fn" rel="foaf:homepage" property="foaf:name" content="Christoph Dorn" href="http://christophdorn.com/About/">Christoph Dorn</a>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://christophdorn.com/">Independent</a></span></dd>
     <dd class="p-author h-card vcard" rel="dcterms:contributor"><span typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Roman Shpount</span>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://turbobridge.com/">TurboBridge</a></span></dd>
@@ -167,9 +167,10 @@ table.simple {
   <ul class="toc" role="directory" id="respecContents">
     <li class="tocline"><a href="#overview" class="tocxref"><span class="secno">1. </span>Overview</a></li>
     <li class="tocline"><a href="#rtcconnection" class="tocxref"><span class="secno">2. </span>The RTCConnection Object</a>
-      <ul class="toc"><li class="tocline"><a href="#overview-1" class="tocxref"><span class="secno">2.1 </span>Overview</a></li>
-        <li class="tocline"><a href="#operation" class="tocxref"><span class="secno">2.2 </span>Operation</a></li>
-        <li class="tocline"><a href="#interface-definition" class="tocxref"><span class="secno">2.3 </span>Interface Definition</a>
+      <ul class="toc">
+        <li class="tocline"><a href="#rtcconnection-overview" class="tocxref"><span class="secno">2.1 </span>Overview</a></li>
+        <li class="tocline"><a href="#rtcconnection-operation" class="tocxref"><span class="secno">2.2 </span>Operation</a></li>
+        <li class="tocline"><a href="#rtcconnection-interface-definition" class="tocxref"><span class="secno">2.3 </span>Interface Definition</a>
           <ul class="toc">
             <li class="tocline"><a href="#rtcconnection-events" class="tocxref"><span class="secno">2.3.1 </span>Events</a></li>
             <li class="tocline"><a href="#rtcconnection-methods" class="tocxref"><span class="secno">2.3.2 </span>Methods</a></li>
@@ -310,36 +311,36 @@ table.simple {
 <section id="rtcconnection" typeof="bibo:Chapter" resource="#rtcconnection" rel="bibo:chapter">
   <!--OddPage--><h2 aria-level="1" role="heading" id="h2_rtcconnection"><span class="secno">2. </span>The RTCConnection Object</h2>
 
-  <section id="overview-1">
-    <h3 aria-level="2" role="heading" id="h3_overview-1"><span class="secno">2.1 </span>Overview</h3>
+  <section id="rtcconnection-overview" typeof="bibo:Chapter" resource="#rtcconnection-overview" rel="bibo:chapter">
+    <h3 aria-level="2" role="heading" id="h3_rtcconnection-overview"><span class="secno">2.1 </span>Overview</h3>
 
-    <p><a>RTCConnection</a> is the main class of ORTC. A <a>RTCConnection</a> instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving media stream tracks. Communication is signaled through an external means such as via HTTP or WebSocket through a web server or WebSocket server by unspecified means.</p>
-
-  </section>
-
-  <section id="operation" typeof="bibo:Chapter" resource="#operation" rel="bibo:chapter">
-
-    <h3 aria-level="2" role="heading" id="h3_operation"><span class="secno">2.2 </span>Operation</h3>
-
-    <p>A peer instantiates a <a>RTCConnection</a>. Once the <a>RTCConnection</a> has been instantiated and the <a>connect</a> method called, the ICE gathering procedure automatically starts retrieving local ICE candidates.</p>
-
-    <p>The peer can, at any time, signal its ICE information to the remote peer. Once the remote ICE information is entered into the <a>RTCConnection</a> ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one by one to each other or at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the <a>RTCConnection</a> the event <a>oncandidate</a> is called by passing as argument the <a>RTCIceCandidateInfo</a>. The remote ICE candidates are added to the <a>RTCConnection</a> by using the <a>addRemoteCandidate</a> method.</p>
-
-    <p>The developer's JavaScript can attach <a>MediaStream</a> instances to the <a>RTCConnection</a> to be sent to the remote peer. Audio/video sending tracks can be individually managed by constructing their associated <a>RTCTrack</a> instance via the <a>send</a> method. The developer's JavaScript can also signal the receiving tracks information by providing an <a>RTCTrack</a> to the <a>receive</a> method.</p>
+    <p><a href="#rtcconnection">RTCConnection</a> is the main class of ORTC. A <a href="#rtcconnection">RTCConnection</a> instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving media stream tracks. Communication is signaled through an external means such as via HTTP or WebSocket through a web server or WebSocket server by unspecified means.</p>
 
   </section>
 
-  <section id="interface-definition" typeof="bibo:Chapter" resource="#interface-definition" rel="bibo:chapter">
+  <section id="rtcconnection-operation" typeof="bibo:Chapter" resource="#rtcconnection-operation" rel="bibo:chapter">
 
-    <h3 aria-level="2" role="heading" id="h3_interface-definition"><span class="secno">2.3 </span>Interface Definition</h3>
+    <h3 aria-level="2" role="heading" id="h3_rtcconnection-operation"><span class="secno">2.2 </span>Operation</h3>
+
+    <p>A peer instantiates a <a href="#rtcconnection">RTCConnection</a>. Once the <a href="#rtcconnection">RTCConnection</a> has been instantiated and the <a href="#rtcconnection-connect">connect</a> method called, the ICE gathering procedure automatically starts retrieving local ICE candidates.</p>
+
+    <p>The peer can, at any time, signal its ICE information to the remote peer. Once the remote ICE information is entered into the <a href="#rtcconnection">RTCConnection</a> ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one by one to each other or at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the <a href="#rtcconnection">RTCConnection</a> the event <a href="#rtcconnection-oncandidate">oncandidate</a> is called by passing as argument the <a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a>. The remote ICE candidates are added to the <a href="#rtcconnection">RTCConnection</a> by using the <a href="#rtcconnection-addremotecandidate">addRemoteCandidate</a> method.</p>
+
+    <p>The developer's JavaScript can attach <a>MediaStream</a> instances to the <a href="#rtcconnection">RTCConnection</a> to be sent to the remote peer. Audio/video sending tracks can be individually managed by constructing their associated <a href="#rtctrack">RTCTrack</a> instance via the <a href="#rtcconnection-send">send</a> method. The developer's JavaScript can also signal the receiving tracks information by providing an <a href="#rtctrack">RTCTrack</a> to the <a href="#rtcconnection-receive">receive</a> method.</p>
+
+  </section>
+
+  <section id="rtcconnection-interface-definition" typeof="bibo:Chapter" resource="#rtcconnection-interface-definition" rel="bibo:chapter">
+
+    <h3 aria-level="2" role="heading" id="h3_rtcconnection-interface-definition"><span class="secno">2.3 </span>Interface Definition</h3>
 
 <pre><code class="webidl">[Constructor(RTCConnectionOptions options)]
 interface RTCConnection : EventTarget  {
-    readonly  attribute <a>RTCSocket</a>             socket;
-    readonly  attribute <a>RTCConnectionState</a>    state;
-              attribute <a>RTCConnectionRole</a>     role;
-    readonly  attribute <a>RTCConnectionInfo</a>     local;
-              attribute <a>RTCConnectionInfo</a>     remote;
+    readonly  attribute <a href="#rtcsocket">RTCSocket</a>             socket;
+    readonly  attribute <a href="#rtcconnectionstate">RTCConnectionState</a>    state;
+              attribute <a href="#rtcconnectionrole">RTCConnectionRole</a>     role;
+    readonly  attribute <a href="#rtcconnectioninfo">RTCConnectionInfo</a>     local;
+              attribute <a href="#rtcconnectioninfo">RTCConnectionInfo</a>     remote;
 
     void                        addRemoteCandidate(RTCCandidateDescription candidate);
     void                        connect();
@@ -365,10 +366,10 @@ interface RTCConnection : EventTarget  {
 
       <h4 aria-level="3" role="heading" id="h4_rtcconnection-events"><span class="secno">2.3.1 </span>Events</h4>
 
-      <p><strong>oncandidate</strong> of type EventHandler,</p>
+      <p id="rtcconnection-oncandidate"><strong>oncandidate</strong> of type EventHandler,</p>
 
       <blockquote>
-        <p>This event handler, of event handler event type <a>candidate</a>, must be fired to allow a developer's JavaScript to receive a discovered ICE candidate (<a>RTCIceCandidateInfo</a>).</p>
+        <p>This event handler, of event handler event type <a>candidate</a>, must be fired to allow a developer's JavaScript to receive a discovered ICE candidate (<a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a>).</p>
 
         <p>To preserve privacy, this event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>). The default action is to add the candidate to the list of connectivity tests and therefor canceling the candidate will prevent connectivity tests on the candidate.</p>
 
@@ -378,21 +379,21 @@ interface RTCConnection : EventTarget  {
             <td><em>Description</em></td>
           </tr>
           <tr>
-            <td><a>RTCIceCandidateInfo</a> candidate</td>
+            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a> candidate</td>
             <td>A local ICE candidate.</td>
           </tr>
         </table>
       </blockquote>
 
-      <p><strong>onendofcandidates</strong> of type EventHandler,</p>
+      <p id="rtcconnection-onendofcandidates"><strong>onendofcandidates</strong> of type EventHandler,</p>
 
       <blockquote>
-        <p>This event handler, of event handler event type <a>endofcandidates</a>, must be fired to allow a developer's JavaScript to be notified when all candidate discoveries have completed after the <a>connect</a> method is called and after the <a>gather</a> method executes and completes.</p>
+        <p>This event handler, of event handler event type <a>endofcandidates</a>, must be fired to allow a developer's JavaScript to be notified when all candidate discoveries have completed after the <a href="#rtcconnection-connect">connect</a> method is called and after the <a href="#rtcconnection-gather">gather</a> method executes and completes.</p>
 
         <p>Event arguments: none</p>
       </blockquote>
 
-      <p><strong>onactivecandidate</strong> of type EventHandler,</p>
+      <p id="rtcconnection-onactivecandidate"><strong>onactivecandidate</strong> of type EventHandler,</p>
 
       <blockquote>
         <p>This event handler, of event handler event type <a>activecandidate</a>, must be fired to allow a developer's JavaScript to be notified which active ICE candidate local/remote pairing the connection is using. This event could change over time as more optimal routes are discovered.</p>
@@ -403,20 +404,20 @@ interface RTCConnection : EventTarget  {
             <td><em>Description</em></td>
           </tr>
           <tr>
-            <td><a>RTCIceCandidateInfo</a> localCandidate</td>
+            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a> localCandidate</td>
             <td>The connected local ICE candidate.</td>
           </tr>
           <tr>
-            <td><a>RTCIceCandidateInfo</a> remoteCandidate</td>
+            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a> remoteCandidate</td>
             <td>The connected remote ICE candidate.</td>
           </tr>
         </table>
       </blockquote>
 
-      <p><strong>onstatechanged</strong> of type EventHandler,</p>
+      <p id="rtcconnection-onstatechanged"><strong>onstatechanged</strong> of type EventHandler,</p>
 
       <blockquote>
-        <p>This event handler, of event handler event type <a>connected</a>, must be fired to allow a developer's JavaScript to be notified when the <a>RTCConnection</a> object state has changed.</p>
+        <p>This event handler, of event handler event type <a>statechanged</a>, must be fired to allow a developer's JavaScript to be notified when the <a href="#rtcconnection">RTCConnection</a> object state has changed.</p>
 
         <table border="1">
           <tr>
@@ -424,30 +425,30 @@ interface RTCConnection : EventTarget  {
             <td><em>Description</em></td>
           </tr>
           <tr>
-            <td><a>RTCConnectionState</a> state</td>
+            <td><a href="#rtcconnectionstate">RTCConnectionState</a> state</td>
             <td>The state at the time this event fired.</td>
           </tr>
         </table>
       </blockquote>
 
-      <p><strong>onnetworkchange</strong> of type EventHandler,</p>
+      <p id="rtcconnection-onnetworkchange"><strong>onnetworkchange</strong> of type EventHandler,</p>
 
       <blockquote>
-        <p>This event handler, of event handler event type <a>onnetworkchange</a>, must be fired to allow a developer's JavaScript to be notified when a change has been detected in the network topology.</p>
+        <p>This event handler, of event handler event type <a>networkchange</a>, must be fired to allow a developer's JavaScript to be notified when a change has been detected in the network topology.</p>
 
-        <p>The default action is to automatically call the <a>RTCConnection</a> <a>gather</a> method. This event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>).</p>
+        <p>The default action is to automatically call the <a href="#rtcconnection">RTCConnection</a> <a href="#rtcconnection-gather">gather</a> method. This event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>).</p>
 
         <p>Event arguments: none</p>
       </blockquote>
 
-      <p><strong>onunknowntrack</strong> of type EventHandler,</p>
+      <p id="rtcconnection-onunknowntrack"><strong>onunknowntrack</strong> of type EventHandler,</p>
 
       <blockquote>
-        <p>This event handler, of event handler event type <a>unknowntrack</a>, must be fired to allow a developer's JavaScript to be notified when a track for which there is not <a>RTCTrack</a> has been connected from the remote peer.</p>
+        <p>This event handler, of event handler event type <a>unknowntrack</a>, must be fired to allow a developer's JavaScript to be notified when a track for which there is not <a href="#rtctrack">RTCTrack</a> has been connected from the remote peer.</p>
 
-        <p>It is possible for a peer to receive a track for which its <a>RTCTrack</a> information has not yet been received (via wire signaling) and added via the receive method or for which there won't be <a>RTCTrack</a> known in advance at all. If an unknown track (for which there is no <a>RTCTrack</a>) is connected this event fires by providing the <a>RTCTrack</a> and a collection of the RTP extension headers present in the RTP packets.</p>
+        <p>It is possible for a peer to receive a track for which its <a href="#rtctrack">RTCTrack</a> information has not yet been received (via wire signaling) and added via the receive method or for which there won't be <a href="#rtctrack">RTCTrack</a> known in advance at all. If an unknown track (for which there is no <a href="#rtctrack">RTCTrack</a>) is connected this event fires by providing the <a href="#rtctrack">RTCTrack</a> and a collection of the RTP extension headers present in the RTP packets.</p>
 
-        <p>The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the <a>onunknowntrack</a> event fires.</p>
+        <p>The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the <a href="#rtcconnection-onunknowntrack">onunknowntrack</a> event fires.</p>
 
         <table border="1">
           <tr>
@@ -455,7 +456,7 @@ interface RTCConnection : EventTarget  {
             <td><em>Description</em></td>
           </tr>
           <tr>
-            <td><a>RTCTrack</a> track</td>
+            <td><a href="#rtctrack">RTCTrack</a> track</td>
             <td>The newly discovered track object.</td>
           </tr>
           <tr>
@@ -470,9 +471,9 @@ interface RTCConnection : EventTarget  {
     <section id="rtcconnection-methods" typeof="bibo:Chapter" resource="#rtcconnection-methods" rel="bibo:chapter">
       <h4 aria-level="3" role="heading" id="h4_rtcconnection-methods"><span class="secno">2.3.2 </span>Methods</h4>
 
-      <p><strong>addRemoteCandidate</strong></p>
+      <p id="rtcconnection-addremotecandidate"><strong>addRemoteCandidate</strong></p>
       <blockquote>
-        <p>Adds a remote ICE candidate to the <a>RTCConnection</a>.</p>
+        <p>Adds a remote ICE candidate to the <a href="#rtcconnection">RTCConnection</a>.</p>
 
         <table border="1">
           <tr>
@@ -484,7 +485,7 @@ interface RTCConnection : EventTarget  {
           </tr>
           <tr>
             <td>candidate</td>
-            <td><a>RTCIceCandidateInfo</a></td>
+            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a></td>
             <td>no</td>
             <td>no</td>
             <td></td>
@@ -492,29 +493,33 @@ interface RTCConnection : EventTarget  {
         </table>
       </blockquote>
 
-      <p><strong>connect</strong></p>
+      <p id="rtcconnection-connect"><strong>connect</strong></p>
       <blockquote>
-        <p>Starts the ICE establishment procedure with the peer. If remote ICE candidates are provided once this method has been called, they will be also considered for the ICE connection connectivity testing procedure.</p>
+        <p>Starts the ICE connectivity tests and establishment procedure with the peer. If remote ICE candidates are provided once this method has been called, they will be also considered for the ICE connection connectivity testing procedure.</p>
 
-        <p>Connection data for the remote side (the <a>iceUsernameFrag</a> and <a>icePassword</a> attributes within the <a>remote</a> <a>RTCConnectionInfo</a> attribute) must be set before calling this method.</p>
+        <p>If <a href="#rtcconnection-gather">gather</a> has not been called at this point then it is implicitly called to start the candidate discovery process.</a>
+
+        <p>Connection data for the remote side (the <a>iceUsernameFrag</a> and <a>icePassword</a> attributes within the <a>remote</a> <a href="#rtcconnectioninfo">RTCConnectionInfo</a> attribute) must be set before calling this method.</p>
 
         <p>Parameters: none</p>
       </blockquote>
 
-      <p><strong>gather</strong></p>
+      <p id="rtcconnection-gather"><strong>gather</strong></p>
       <blockquote>
-        <p>This method will usually be called automatically upon <a>onnetworkchange</a> but can be called manually when a higher layer detects a network topology change (e.g. in mobile network). By calling this method the ICE candidate gathering procedure re-starts again as it did when the <a>RTCConnection</a> was instantiated and <a>onendofcandidates</a> will be called again when no more candidates are able to be discovered.</p>
+        <p>This method will usually be called automatically upon <a href="#rtcconnection-onnetworkchange">onnetworkchange</a> but can be called manually when a higher layer detects a network topology change (e.g. in mobile network). By calling this method the ICE candidate gathering procedure re-starts again as it did when the <a href="#rtcconnection">RTCConnection</a> was instantiated and <a href="#rtcconnection-onendofcandidates">onendofcandidates</a> will be called again when no more candidates are able to be discovered.</p>
+
+        <p>If <a href="#rtcconnection-gather">gather</a> is called before <a href="#rtcconnection-connect">connect</a>, the ICE candidate gathering process will start immediately but no connectivity checks will be performed until <a href="#rtcconnection-connect">connect</a> is called.</p>
 
         <p>Parameters: none</p>
       </blockquote>
 
-      <p><strong>send</strong></p>
+      <p id="rtcconnection-send"><strong>send</strong></p>
       <blockquote>
-        <p>Starts sending a <a>MediaStream</a> or <a>MediaStreamTrack</a> over an <a>RTCConnection</a>.</p>
+        <p>Starts sending a <a>MediaStream</a> or <a>MediaStreamTrack</a> over an <a href="#rtcconnection">RTCConnection</a>.</p>
 
-        <p>If an <a>MediaStream</a> is passed in an <a>RTCStream</a> is returned. If an <a>MediaStreamTrack is passed in an <a>RTCTrack</a> is returned.</p>
+        <p>If an <a>MediaStream</a> is passed in an <a href="#rtcstream">RTCStream</a> is returned. If an <a>MediaStreamTrack is passed in an <a href="#rtctrack">RTCTrack</a> is returned.</p>
 
-        <p>To send or update the attributes for an existing <a>RTCStream</a> or an <a>RTCTrack</a> call the method with the updated object values. Upon success the same object is returned.</p>
+        <p>To send or update the attributes for an existing <a href="#rtcstream">RTCStream</a> or an <a href="#rtctrack">RTCTrack</a> call the method with the updated object values. Upon success the same object is returned.</p>
 
         <table border="1">
           <tr>
@@ -526,7 +531,7 @@ interface RTCConnection : EventTarget  {
           </tr>
           <tr>
             <td>streamOrTrack</td>
-            <td><a>MediaStream</a> or <a>MediaStreamTrack</a> or <a>RTCStream</a> or <a>RTCTrack</a></td>
+            <td><a>MediaStream</a> or <a>MediaStreamTrack</a> or <a href="#rtcstream">RTCStream</a> or <a href="#rtctrack">RTCTrack</a></td>
             <td>no</td>
             <td>no</td>
             <td></td>
@@ -534,11 +539,11 @@ interface RTCConnection : EventTarget  {
         </table>
       </blockquote>
 
-      <p><strong>receive</strong></p>
+      <p id="rtcconnection-receive"><strong>receive</strong></p>
       <blockquote>
-        <p>Tell the <a>RTCConnection</a> to expect to start receiving a <a>RTCStream</a> or <a>RTCTrack</a> from the remote peer.</p>
+        <p>Tell the <a href="#rtcconnection">RTCConnection</a> to expect to start receiving a <a href="#rtcstream">RTCStream</a> or <a href="#rtctrack">RTCTrack</a> from the remote peer.</p>
 
-        <p>By creating an <a>RTCStream</a> or an <a>RTCTrack</a> with the correct values pre-filled this method will start the receive process for the stream or track from the <a>RTCConnection</a>. Upon success the source for the respective <a>RTCStream</a> and <a>RTCTrack</a> are filled with the <a>MediaStream</a> or </a>MediaStreamTrack</a> objects.</p>
+        <p>By creating an <a href="#rtcstream">RTCStream</a> or an <a href="#rtctrack">RTCTrack</a> with the correct values pre-filled this method will start the receive process for the stream or track from the <a href="#rtcconnection">RTCConnection</a>. Upon success the source for the respective <a href="#rtcstream">RTCStream</a> and <a href="#rtctrack">RTCTrack</a> are filled with the <a>MediaStream</a> or </a>MediaStreamTrack</a> objects.</p>
 
         <table border="1">
           <tr>
@@ -550,7 +555,7 @@ interface RTCConnection : EventTarget  {
           </tr>
           <tr>
             <td>streamOrTrack</td>
-            <td><a>RTCStream</a> or <a>RTCTrack</a></td>
+            <td><a href="#rtcstream">RTCStream</a> or <a href="#rtctrack">RTCTrack</a></td>
             <td>no</td>
             <td>no</td>
             <td></td>
@@ -558,35 +563,35 @@ interface RTCConnection : EventTarget  {
         </table>
       </blockquote>
 
-      <p><strong>sendStreams</strong></p>
+      <p id="rtcconnection-sendstreams"><strong>sendStreams</strong></p>
       <blockquote>
-        <p>Returns a sequence of <a>RTCStream</a> instances being sent over the <a>RTCConnection<a>.</p>
+        <p>Returns a sequence of <a href="#rtcstream">RTCStream</a> instances being sent over the <a href="#rtcconnection">RTCConnection</a>.</p>
 
         <p>Parameters: none</p>
       </blockquote>
 
-      <p><strong>sendTracks</strong></p>
+      <p id="rtcconnection-sendtracks"><strong>sendTracks</strong></p>
       <blockquote>
-        <p>Returns a sequence of <a>RTCTrack</a> instances being sent over the <a>RTCConnection<a>.</p>
+        <p>Returns a sequence of <a href="#rtctrack">RTCTrack</a> instances being sent over the <a href="#rtcconnection">RTCConnection</a>.</p>
 
         <p>Parameters: none</p>
       </blockquote>
 
-      <p><strong>receiveStreams</strong></p>
+      <p id="rtcconnection-receivestreams"><strong>receiveStreams</strong></p>
       <blockquote>
-        <p>Returns a sequence of <a>RTCStream</a> instances being received over the <a>RTCConnection<a>.</p>
+        <p>Returns a sequence of <a href="#rtcstream">RTCStream</a> instances being received over the <a href="#rtcconnection">RTCConnection</a>.</p>
 
         <p>Parameters: none</p>
       </blockquote>
 
-      <p><strong>receiveTracks</strong></p>
+      <p id="rtcconnection-receivetracks"><strong>receiveTracks</strong></p>
       <blockquote>
-        <p>Returns a sequence of <a>RTCTrack</a> instances being received over the <a>RTCConnection<a>.</p>
+        <p>Returns a sequence of <a href="#rtctrack">RTCTrack</a> instances being received over the <a href="#rtcconnection">RTCConnection</a>.</p>
 
         <p>Parameters: none</p>
       </blockquote>
 
-      <p><strong>close</strong></p>
+      <p id="rtcconnection-close"><strong>close</strong></p>
       <blockquote>
         <p>Closes the connection. Once closed the object is shutdown an no longer re-useable.</p>
 
@@ -599,29 +604,29 @@ interface RTCConnection : EventTarget  {
     <section id="rtcconnection-attributes" typeof="bibo:Chapter" resource="#methods" rel="bibo:chapter">
       <h4 aria-level="3" role="heading" id="h4_rtcconnection-attributes"><span class="secno">2.3.3 </span>Attributes</h4>
 
-        <p><strong>socket</strong> of type <a>RTCSocket</a></p>
+        <p><strong>socket</strong> of type <a href="#rtcsocket">RTCSocket</a></p>
         <blockquote>
-          <p>The readonly value points to the <a>RTCSocket</a> object associated to the RTCConnection. If an <a>RTCSocket</a> object is not specified in the <a>RTCConnectionOptions</a> object then an <a>RTCSocket</a> object is automatically created and attached to the <a>RTCConnectin</a>.</p>
+          <p>The readonly value points to the <a href="#rtcsocket">RTCSocket</a> object associated to the RTCConnection. If an <a href="#rtcsocket">RTCSocket</a> object is not specified in the <a href="#rtcconnectionoptions">RTCConnectionOptions</a> object then an <a href="#rtcsocket">RTCSocket</a> object is automatically created and attached to the <a href="#rtcconnection">RTCConnection</a>.</p>
         </blockquote>
 
-        <p><strong>state</strong> of type <a>RTCConnectionState</a></p>
+        <p><strong>state</strong> of type <a href="#rtcconnectionstate">RTCConnectionState</a></p>
         <blockquote>
-          <p>The current <a>RTCConnectionState</a> connectivity state of the RTCConnection object.</p>
+          <p>The current <a href="#rtcconnectionstate">RTCConnectionState</a> connectivity state of the RTCConnection object.</p>
         </blockquote>
 
-        <p><strong>role</strong> of type <a>RTCConnectionRole</a></p>
+        <p><strong>role</strong> of type <a href="#rtcconnectionrole">RTCConnectionRole</a></p>
         <blockquote>
-          <p>The current <a>RTCConnectionRole</a> of the RTCConnection object.</p>
+          <p>The current <a href="#rtcconnectionrole">RTCConnectionRole</a> of the RTCConnection object.</p>
         </blockquote>
 
-        <p><strong>local</strong> of type <a>RTCConnectionInfo</a></p>
+        <p><strong>local</strong> of type <a href="#rtcconnectioninfo">RTCConnectionInfo</a></p>
         <blockquote>
           <p>Contains readonly information about the local connection, including the ICE negotiation attributes and the DTLS fingerprints.</p>
         </blockquote>
 
-        <p><strong>remote</strong> of type <a>RTCConnectionInfo</a></p>
+        <p><strong>remote</strong> of type <a href="#rtcconnectioninfo">RTCConnectionInfo</a></p>
         <blockquote>
-          <p>Contains information about the remote connection, including the ICE negotiation attributes and the readonly remote DTLS fingerprints as negotiated during the DTLS negotiation phase that are valid once the <a>RTCConnection</a> enters the <a>RTCConnectionState</a> <a>connected</a> state.</p>
+          <p>Contains information about the remote connection, including the ICE negotiation attributes and the readonly remote DTLS fingerprints as negotiated during the DTLS negotiation phase that are valid once the <a href="#rtcconnection">RTCConnection</a> enters the <a href="#rtcconnectionstate">RTCConnectionState</a> <a>connected</a> state.</p>
         </blockquote>
     </section>
 
@@ -645,7 +650,7 @@ interface RTCConnection : EventTarget  {
           </tr>
           <tr>
             <td>new</td>
-            <td>RTCConnection object connect has not been called and no candidate discovery or candidatee search is being performed.</td>
+            <td>RTCConnection object connect has not been called and no candidate discovery or candidate search is being performed.</td>
           </tr>
           <tr>
             <td>searching</td>
@@ -678,9 +683,9 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
       <blockquote>
-        <p>Prior to the <a>RTCConnection</a> <a>connect</a> method being called, this is the suggested role for the object. The object can automatically switch roles upon entering the <a>RTCConnectionState</a> <a>connected</a> state.</p>
+        <p>Prior to the <a href="#rtcconnection">RTCConnection</a> <a href="#rtcconnection-connect">connect</a> method being called, this is the suggested role for the object. The object can automatically switch roles upon entering the <a href="#rtcconnectionstate">RTCConnectionState</a> <a>connected</a> state.</p>
 
-        <p>The default value for the role is <a>controlling</a> and the attribute becomes readonly once the <a>RTCConnection</a> <a>connect</a> method is called.</p>
+        <p>The default value for the role is <a>controlling</a> and the attribute becomes readonly once the <a href="#rtcconnection">RTCConnection</a> <a href="#rtcconnection-connect">connect</a> method is called.</p>
 
         <table border="1">
           <tr>
@@ -715,13 +720,13 @@ interface RTCConnection : EventTarget  {
         <p><strong>iceServers</strong> of type sequence<rtciceserver></rtciceserver></p>
 
         <blockquote>
-          <p>A sequence of <a>RTCIceServer</a> objects.</p>
+          <p>A sequence of <a href="#rtciceserver">RTCIceServer</a> objects.</p>
         </blockquote>
 
         <p><strong>socket</strong> of type RTCSocket</p>
 
         <blockquote>
-          <p>A local <a>RTCSocket</a> to be reused (which can be retrieved from another <a>RTCConnection</a> instance via the <em>socket</em> attribute).</p>
+          <p>A local <a href="#rtcsocket">RTCSocket</a> to be reused (which can be retrieved from another <a href="#rtcconnection">RTCConnection</a> instance via the <em>socket</em> attribute).</p>
 
           <p>Reusing the same local socket can be used to implement media forking.</p>
         </blockquote>
@@ -754,7 +759,7 @@ interface RTCConnection : EventTarget  {
 
         <p>In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.</p>
 
-        <p>An example array of <a>RTCIceServer</a> objects is:</p>
+        <p>An example array of <a href="#rtciceserver">RTCIceServer</a> objects is:</p>
 
         <pre><code>[ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]</code></pre>
       </section>
@@ -763,20 +768,20 @@ interface RTCConnection : EventTarget  {
     <section id="rtcconnectioninfo" typeof="bibo:Chapter" resource="#rtcconnectioninfo" rel="bibo:chapter">
       <h4 aria-level="3" role="heading" id="h4_rtcconnectioninfo"><span class="secno">2.3.8 </span>The RTCConnectionInfo Object</h4>
 
-      <p>The <a>RTCConnectionInfo</a> object contains information for the local and remote connection connection. An <a>RTCConnection</a> has both a local <a>RTCConnectionInfo</a> (whose attributes are readonly) and a remote <a>RTCConnectionInfo</a> (whose attributes must be set by the JavaScript's developer before attempting the connection procedure (this is, before calling <em>connect</em> on the <a>RTCConnection</a>).</p>
+      <p>The <a href="#rtcconnectioninfo">RTCConnectionInfo</a> object contains information for the local and remote connection connection. An <a href="#rtcconnection">RTCConnection</a> has both a local <a href="#rtcconnectioninfo">RTCConnectionInfo</a> (whose attributes are readonly) and a remote <a href="#rtcconnectioninfo">RTCConnectionInfo</a> (whose attributes must be set by the JavaScript's developer before attempting the connection procedure (this is, before calling <em>connect</em> on the <a href="#rtcconnection">RTCConnection</a>).</p>
 
 <pre><code class="webidl">dictionary RTCConnectionInfo {
-                attribute <a>RTCIceConnectionInfo</a>   ice;
-    readonly    attribute <a>RTCDtlsConnectionInfo</a>  dtls;
+                attribute <a href="#rtciceconnectioninfo">RTCIceConnectionInfo</a>   ice;
+    readonly    attribute <a href="#rtcdtlsconnectioninfo">RTCDtlsConnectionInfo</a>  dtls;
 };
 </code></pre>
 
       <section id="rtcconnectioninfo-attributes">
         <h5 aria-level="4" role="heading" id="h5_rtcconnectioninfo-attributes"><span class="secno">2.3.8.1 </span>Attributes</h5>
 
-        <p><strong>ice</strong> of type <a>RTCIceConnectionInfo</a></p>
+        <p><strong>ice</strong> of type <a href="#rtciceconnectioninfo">RTCIceConnectionInfo</a></p>
 
-        <p><strong>dtls</strong> of type <a>RTCDtlsConnectionInfo</a></p>
+        <p><strong>dtls</strong> of type <a href="#rtcdtlsconnectioninfo">RTCDtlsConnectionInfo</a></p>
       </section>
     </section>
 
@@ -795,13 +800,13 @@ interface RTCConnection : EventTarget  {
         <p><strong>usernameFrag</strong> of type DOMString</p>
 
         <blockquote>
-          <p>Within the <a>local</a> <a>RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</p>
+          <p>Within the <a>local</a> <a href="#rtcconnectioninfo">RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</p>
         </blockquote>
 
         <p><strong>password</strong> of type DOMString</p>
 
         <blockquote>
-          <p>Within the <a>local</a> <a>RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</p>
+          <p>Within the <a>local</a> <a href="#rtcconnectioninfo">RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</p>
         </blockquote>
       </section>
     </section>
@@ -810,17 +815,17 @@ interface RTCConnection : EventTarget  {
       <h4 aria-level="3" role="heading" id="h4_rtcdtlsconnectioninfo"><span class="secno">2.3.10 </span>The RTCDtlsConnectionInfo Object</h4>
 
 <pre><code class="webidl">dictionary RTCDtlsConnectionInfo {
-    attribute <a>CertificateFingerprint</a>   fingerprint;
+    attribute <a href="#certificatefingerprint">CertificateFingerprint</a>   fingerprint;
 };
 </code></pre>
 
       <section id="rtcdtlsconnectioninfo-attributes">
         <h5 aria-level="4" role="heading" id="h5_rtcdtlsconnectioninfo-attributes"><span class="secno">2.3.10.1 </span>Attributes</h5>
 
-        <p><strong>fingerprint</strong> of type <a>CertificateFingerprint</a></p>
+        <p><strong>fingerprint</strong> of type <a href="#certificatefingerprint">CertificateFingerprint</a></p>
 
         <blockquote>
-          <p>The DTLS fingerprint of the connection for the local or the remote side. The local side is readonly and can be retrieved at any time. The remote side is also readonly and can only be retrieved once the <a>RTCConnection</a> enters the <a>RTCConnectionState</a> <a>connected</a> state (and are null otherwise).</p>
+          <p>The DTLS fingerprint of the connection for the local or the remote side. The local side is readonly and can be retrieved at any time. The remote side is also readonly and can only be retrieved once the <a href="#rtcconnection">RTCConnection</a> enters the <a href="#rtcconnectionstate">RTCConnectionState</a> <a>connected</a> state (and are null otherwise).</p>
         </blockquote>
       </section>
 
@@ -900,13 +905,13 @@ interface RTCConnection : EventTarget  {
   <section id="rtcsocket-overview">
     <h3 aria-level="2" role="heading" id="h3_rtcsocket-overview"><span class="secno">2.1 </span>Overview</h3>
 
-    <p>The <a>RTCSocket</a> object describes a local physical socket. A local socket can be reused within different <a>RTCConnection</a> instances (useful for media forking situations).</p>
+    <p>The <a href="#rtcsocket">RTCSocket</a> object describes a local physical socket. A local socket can be reused within different <a href="#rtcconnection">RTCConnection</a> instances (useful for media forking situations).</p>
   </section>
 
   <section id="rtcsocket-operation">
     <h3 aria-level="2" role="heading" id="h3_rtcsocket-operation"><span class="secno">2.2 </span>Operation</h3>
 
-    <p>A <a>RTCSocket</a> instance is retrieved from a <a>RTCConnection</a> via the <em>socket</em> attribute.</p>
+    <p>A <a href="#rtcsocket">RTCSocket</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>socket</em> attribute.</p>
   </section>
 
   <section id="rtcsocket-interface-definition">
@@ -927,13 +932,13 @@ interface RTCConnection : EventTarget  {
   <section id="rtcstream-overview">
     <h3 aria-level="2" role="heading" id="h3_rtcstream-overview"><span class="secno">3.1 </span>Overview</h3>
 
-    <p>An <a>RTCStream</a> instance is associated to a sending or receiving <a>MediaStream</a> and provides RTC related methods to it.</p>
+    <p>An <a href="#rtcstream">RTCStream</a> instance is associated to a sending or receiving <a>MediaStream</a> and provides RTC related methods to it.</p>
   </section>
 
   <section id="rtcstream-operation">
     <h3 aria-level="2" role="heading" id="h3_rtcstream-operation"><span class="secno">3.2 </span>Operation</h3>
 
-    <p>A <a>RTCStream</a> instance is retrieved from a <a>RTCConnection</a> via the <em>sendStreams</em> or <em>receiveStreams</em> methods.</p>
+    <p>A <a href="#rtcstream">RTCStream</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>sendStreams</em> or <em>receiveStreams</em> methods.</p>
   </section>
 
   <section id="rtcstream-interface-definition">
@@ -970,7 +975,7 @@ interface RTCTrack  {
       <p><strong>tracks</strong> of type sequence&lt;RTCTrack&gt;</p>
 
       <blockquote>
-        <p>A sequence of contained <a>RTCTrack</a> instances</p>
+        <p>A sequence of contained <a href="#rtctrack">RTCTrack</a> instances</p>
       </blockquote>
     </section>
 
@@ -979,7 +984,7 @@ interface RTCTrack  {
 
       <p><strong>start</strong></p>
       <blockquote>
-        <p>Starts sending the track on the wire (if the <a>RTCConnection</a> is connected, or wait until it becomes connected).</p>
+        <p>Starts sending the track on the wire (if the <a href="#rtcconnection">RTCConnection</a> is connected, or wait until it becomes connected).</p>
 
         <p>Parameters: none</p>
       </blockquote>
@@ -991,7 +996,7 @@ interface RTCTrack  {
 
       <p><strong>remove</strong></p>
       <blockquote>
-        <p>Remove this sending stream from the <a>RTCConnection</a> (automatically stops sending it on the wire). This method does not alter the original <a>MediaStream</a>, but just tells the <a>RTCConnection</a> to ignore the stream.</p>
+        <p>Remove this sending stream from the <a href="#rtcconnection">RTCConnection</a> (automatically stops sending it on the wire). This method does not alter the original <a>MediaStream</a>, but just tells the <a href="#rtcconnection">RTCConnection</a> to ignore the stream.</p>
       </blockquote>
     </section>
 
@@ -1007,13 +1012,13 @@ interface RTCTrack  {
   <section id="rtctrack-overview">
     <h3 aria-level="2" role="heading" id="h3_rtctrack-overview"><span class="secno">4.1 </span>Overview</h3>
 
-    <p>An <a>RTCTrack</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
+    <p>An <a href="#rtctrack">RTCTrack</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
   </section>
 
   <section id="rtctrack-operation">
     <h3 aria-level="2" role="heading" id="h3_rtctrack-operation"><span class="secno">4.2 </span>Operation</h3>
 
-    <p>A <a>RTCTrack</a> instance is retrieved from a <a>RTCConnection</a> via the <em>track</em> or <em>tracks</em> methods or constructed from an <a>MediaStreamTrack</a> object.</p>
+    <p>A <a href="#rtctrack">RTCTrack</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>track</em> or <em>tracks</em> methods or constructed from an <a>MediaStreamTrack</a> object.</p>
   </section>
 
   <section id="rtctrack-interface-definition">
@@ -1071,7 +1076,7 @@ interface RTCTrack  {
       <p><strong>rtpExtHeaders</strong> of type Object.</p>
 
       <blockquote>
-        <p>An Object which RTP extension header name and value pairs (useful for the <a>onunknowntrack</a> event usage in <a>RTCConnection</a>.</p>
+        <p>An Object which RTP extension header name and value pairs (useful for the <a href="#rtcconnection-onunknowntrack">onunknowntrack</a> event usage in <a href="#rtcconnection">RTCConnection</a>.</p>
       </blockquote>
     </section>
 
@@ -1080,7 +1085,7 @@ interface RTCTrack  {
 
       <p><strong>start</strong></p>
       <blockquote>
-        <p>Starts sending the track on the wire (if the <a>RTCConnection</a> is connected, or wait until it becomes connected).</p>
+        <p>Starts sending the track on the wire (if the <a href="#rtcconnection">RTCConnection</a> is connected, or wait until it becomes connected).</p>
 
         <p>Parameters: none</p>
       </blockquote>
@@ -1092,7 +1097,7 @@ interface RTCTrack  {
 
       <p><strong>remove</strong></p>
       <blockquote>
-        <p>Remove this sending track from the <a>RTCConnection</a> (automatically stops sending it on the wire). This method does not alter the original <a>MediaStream</a>, but just tells the <a>RTCConnection</a> to ignore the track.</p>
+        <p>Remove this sending track from the <a href="#rtcconnection">RTCConnection</a> (automatically stops sending it on the wire). This method does not alter the original <a>MediaStream</a>, but just tells the <a href="#rtcconnection">RTCConnection</a> to ignore the track.</p>
       </blockquote>
     </section>
 
@@ -1157,7 +1162,7 @@ interface RTCTrack  {
   <section id="rtcdtmftrack-overview">
     <h3 aria-level="2" role="heading" id="h3_rtcdtmftrack-overview"><span class="secno">5.1 </span>Overview</h3>
 
-    <p>An <a>RTCDTMFTrack</a> class instance allows sending DTMF tones to/from the remote peer.</p>
+    <p>An <a href="#rtcdtmftrack">RTCDTMFTrack</a> class instance allows sending DTMF tones to/from the remote peer.</p>
   </section>
 
   <section id="rtcdtmftrack-interface-definition">
@@ -1179,7 +1184,7 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
       <p><strong>ontone</strong> of type EventHandler</p>
 
       <blockquote>
-        <p>This event handler, of event handler event type <a>ontone</a>, must be fired to allow a developer's JavaScript to receive a DTMF tone from the remote peer.</p>
+        <p>This event handler, of event handler event type <a>tone</a>, must be fired to allow a developer's JavaScript to receive a DTMF tone from the remote peer.</p>
 
         <table border="1">
           <tr>
@@ -1245,7 +1250,7 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
     <section id="audio-rtcdtmftrack-example" typeof="bibo:Chapter" resource="#audio-rtcdtmftrack-examplef" rel="bibo:chapter">
       <h4 aria-level="3" role="heading" id="h4_audio-rtcdtmftrack-example"><span class="secno">5.2.3 </span>Audio RTCDTMFTrack Example</h4>
 
-      <p>Calling the constructor method of <a>RTCDTMFTrack</a> with a <a>MediaStreamTrack</a> would enhance the <a>RTCTrack</a> and result in a structure as follows:</p>
+      <p>Calling the constructor method of <a href="#rtcdtmftrack">RTCDTMFTrack</a> with a <a>MediaStreamTrack</a> would enhance the <a href="#rtctrack">RTCTrack</a> and result in a structure as follows:</p>
 
 <pre><code class="javascript">{
   id: "id",
@@ -1278,7 +1283,7 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
     <h3 aria-level="2" role="heading" id="h3_rtcdtmftrack-overview"><span class="secno">6.1 </span>Overview</h3>
 
     <p>
-      An <a>RTCDataChannel</a> class instance allows sending data messages to/from the remote peer.
+      An <a href="#rtcdatachannel">RTCDataChannel</a> class instance allows sending data messages to/from the remote peer.
     </p>
   </section>
 
@@ -1299,7 +1304,7 @@ interface RTCDataChannel : EventTarget  {
       <p><strong>ondata</strong> of type EventHandler</p>
 
       <blockquote>
-        <p>This event handler, of event handler event type <a>ondata</a>, must be fired to allow a developer's JavaScript to receive data from a remote peer.</p>
+        <p>This event handler, of event handler event type <a>data</a>, must be fired to allow a developer's JavaScript to receive data from a remote peer.</p>
 
         <table border="1">
           <tr>
@@ -1366,14 +1371,14 @@ interface RTCDataChannel : EventTarget  {
 
       <p><strong>getRTCCapabilities</strong></p>
       <blockquote>
-        <p>Get the browser WebRTC capabilities by returning a <a>RTCCapabilities</a> object.</p>
+        <p>Get the browser WebRTC capabilities by returning a <a href="#rtccapabilities">RTCCapabilities</a> object.</p>
 
         <p>Parameters: none</p>
       </blockquote>
 
       <p><strong>getRTCCodec</strong></p>
       <blockquote>
-        <p>Get a <a>RTCCodec</a> object for the given codec name or null if the browser does not support it. The mandatory list of codec names are: <em>opus</em>, <em>alaw</em>, <em>ulaw</em>, <em>dtmf</em>, <em>vp8</em> and <em>h264</em>.</p>
+        <p>Get a <a href="#rtccodec">RTCCodec</a> object for the given codec name or null if the browser does not support it. The mandatory list of codec names are: <em>opus</em>, <em>alaw</em>, <em>ulaw</em>, <em>dtmf</em>, <em>vp8</em> and <em>h264</em>.</p>
 
         <table border="1">
           <tr>
@@ -1454,7 +1459,7 @@ interface RTCDataChannel : EventTarget  {
           </tr>
         </table>
 
-        <p>In case it is decided that the <code>addTrack()</code> method does not clone the given track (but keeps the same <a>MediaStreamTrack</a> instance), then that means that the same <a>MediaStreamTrack</a> should not be added to two different <a>MediaStream</a> within the same <a>RTCConnection</a>.</p>
+        <p>In case it is decided that the <code>addTrack()</code> method does not clone the given track (but keeps the same <a>MediaStreamTrack</a> instance), then that means that the same <a>MediaStreamTrack</a> should not be added to two different <a>MediaStream</a> within the same <a href="#rtcconnection">RTCConnection</a>.</p>
 
         <p>It is unclear the benefit of adding the same track into two media streams, and thus this specification advocates for the cloning solution.</p>
       </blockquote>
