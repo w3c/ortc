@@ -82,157 +82,35 @@ var respecConfig = {
 
     <p>A peer instantiates a <a href="#rtcconnection">RTCConnection</a>. Once the <a href="#rtcconnection">RTCConnection</a> has been instantiated and the <a href="#rtcconnection-connect">connect</a> method called, the ICE gathering procedure automatically starts retrieving local ICE candidates.</p>
 
-    <p>The peer can, at any time, signal its ICE information to the remote peer. Once the remote ICE information is entered into the <a href="#rtcconnection">RTCConnection</a> ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one by one to each other or at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the <a href="#rtcconnection">RTCConnection</a> the event <a href="#rtcconnection-oncandidate">oncandidate</a> is called by passing as argument the <a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a>. The remote ICE candidates are added to the <a href="#rtcconnection">RTCConnection</a> by using the <a href="#rtcconnection-addremotecandidate">addRemoteCandidate</a> method.</p>
+    <p>The peer can, at any time, signal its ICE information to the remote peer. Once the remote ICE information is entered into the <a href="#rtcconnection">RTCConnection</a> ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one by one to each other or at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the <a href="#rtcconnection">RTCConnection</a> the event <a href="#rtcconnection-oncandidate">oncandidate</a> is called by passing as argument the <a>RTCIceCandidateInfo</a>. The remote ICE candidates are added to the <a href="#rtcconnection">RTCConnection</a> by using the <a href="#rtcconnection-addremotecandidate">addRemoteCandidate</a> method.</p>
 
     <p>The developer's JavaScript can attach <a>MediaStream</a> instances to the <a href="#rtcconnection">RTCConnection</a> to be sent to the remote peer. Audio/video sending tracks can be individually managed by constructing their associated <a href="#rtctrack">RTCTrack</a> instance via the <a href="#rtcconnection-send">send</a> method. The developer's JavaScript can also signal the receiving tracks information by providing an <a href="#rtctrack">RTCTrack</a> to the <a href="#rtcconnection-receive">receive</a> method.</p>
 
   </section>
 
   <section id="rtcconnection-interface-definition*">
-
     <h3>Interface Definition</h3>
+    
+    <dl class="idl" title="[Constructor(RTCConnectionOptions options)] interface RTCConnection : EventTarget">
+      <dt>readonly  attribute RTCSocket>             socket</dt>
+      <dd>The readonly value points to the <a>RTCSocket</a> object associated to the RTCConnection. If an <a>RTCSocket</a> object is not specified in the <a href="#rtcconnectionoptions">RTCConnectionOptions</a> object then an <a>RTCSocket</a> object is automatically created and attached to the <a href="#rtcconnection">RTCConnection</a>.</dd>
 
-<pre><code class="webidl">[Constructor(RTCConnectionOptions options)]
-interface RTCConnection : EventTarget  {
-    readonly  attribute <a>RTCSocket</a>             socket;
-    readonly  attribute <a href="#rtcconnectionstate">RTCConnectionState</a>    state;
-              attribute <a href="#rtcconnectionrole">RTCConnectionRole</a>     role;
-    readonly  attribute RTCConnectionInfo</a>     local;
-              attribute RTCConnectionInfo</a>     remote;
+      <dt>readonly  attribute RTCConnectionState    state</dt>
+      <dd>The current <a href="#rtcconnectionstate">RTCConnectionState</a> connectivity state of the RTCConnection object.</dd>
 
-    void                        addRemoteCandidate(RTCCandidateDescription candidate);
-    void                        connect();
-    void                        gather();
-    (RTCSTream? or RTCTrack?)   send((MediaStream or MediaStreamTrack or RTCTrack or RTCStream) streamOrTrack);
-    (RTCStream? or RTCTrack?)   receive((RTCStream or RTCTrack) streamOrTrack);
-    sequence&lt;RTCStream&gt;         sendStreams();
-    sequence&lt;RTCTrack&gt;          sendTracks();
-    sequence&lt;RTCStream&gt;         receiveStreams();
-    sequence&lt;RTCTrack&gt;          receiveTracks();
-    void                        close ();
+      <dt>attribute RTCConnectionRole     role</dt>
+      <dd>The current <a>RTCConnectionRole</a> of the RTCConnection object.</dd>
 
-              attribute EventHandler              oncandidate;
-              attribute EventHandler              onendofcandidates;
-              attribute EventHandler              onactivecandidate;
-              attribute EventHandler              onstatechanged;
-              attribute EventHandler              onnetworkchange;
-              attribute EventHandler              onunknowntrack;
-};
-</code></pre>
+      <dt>readonly  attribute RTCConnectionInfo     local</dt>
+      <dd>Contains readonly information about the local connection, including the ICE negotiation attributes and the DTLS fingerprints.</dd>
 
-    <section id="rtcconnection-events*">
-
-      <h4>Events</h4>
-
-      <p id="rtcconnection-oncandidate"><strong>oncandidate</strong> of type EventHandler,</p>
-
-      <blockquote>
-        <p>This event handler, of event handler event type <a>candidate</a>, must be fired to allow a developer's JavaScript to receive a discovered ICE candidate (<a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a>).</p>
-
-        <p>To preserve privacy, this event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>). The default action is to add the candidate to the list of connectivity tests and therefor canceling the candidate will prevent connectivity tests on the candidate.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a> candidate</td>
-            <td>A local ICE candidate.</td>
-          </tr>
-        </table>
-      </blockquote>
-
-      <p id="rtcconnection-onendofcandidates"><strong>onendofcandidates</strong> of type EventHandler,</p>
-
-      <blockquote>
-        <p>This event handler, of event handler event type <a>endofcandidates</a>, must be fired to allow a developer's JavaScript to be notified when all candidate discoveries have completed after the <a href="#rtcconnection-connect">connect</a> method is called and after the <a href="#rtcconnection-gather">gather</a> method executes and completes.</p>
-
-        <p>Event arguments: none</p>
-      </blockquote>
-
-      <p id="rtcconnection-onactivecandidate"><strong>onactivecandidate</strong> of type EventHandler,</p>
-
-      <blockquote>
-        <p>This event handler, of event handler event type <a>activecandidate</a>, must be fired to allow a developer's JavaScript to be notified which active ICE candidate local/remote pairing the connection is using. This event could change over time as more optimal routes are discovered.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a> localCandidate</td>
-            <td>The connected local ICE candidate.</td>
-          </tr>
-          <tr>
-            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a> remoteCandidate</td>
-            <td>The connected remote ICE candidate.</td>
-          </tr>
-        </table>
-      </blockquote>
-
-      <p id="rtcconnection-onstatechanged"><strong>onstatechanged</strong> of type EventHandler,</p>
-
-      <blockquote>
-        <p>This event handler, of event handler event type <a>statechanged</a>, must be fired to allow a developer's JavaScript to be notified when the <a href="#rtcconnection">RTCConnection</a> object state has changed.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a href="#rtcconnectionstate">RTCConnectionState</a> state</td>
-            <td>The state at the time this event fired.</td>
-          </tr>
-        </table>
-      </blockquote>
-
-      <p id="rtcconnection-onnetworkchange"><strong>onnetworkchange</strong> of type EventHandler,</p>
-
-      <blockquote>
-        <p>This event handler, of event handler event type <a>networkchange</a>, must be fired to allow a developer's JavaScript to be notified when a change has been detected in the network topology.</p>
-
-        <p>The default action is to automatically call the <a href="#rtcconnection">RTCConnection</a> <a href="#rtcconnection-gather">gather</a> method. This event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>).</p>
-
-        <p>Event arguments: none</p>
-      </blockquote>
-
-      <p id="rtcconnection-onunknowntrack"><strong>onunknowntrack</strong> of type EventHandler,</p>
-
-      <blockquote>
-        <p>This event handler, of event handler event type <a>unknowntrack</a>, must be fired to allow a developer's JavaScript to be notified when a track for which there is not <a href="#rtctrack">RTCTrack</a> has been connected from the remote peer.</p>
-
-        <p>It is possible for a peer to receive a track for which its <a href="#rtctrack">RTCTrack</a> information has not yet been received (via wire signaling) and added via the receive method or for which there won't be <a href="#rtctrack">RTCTrack</a> known in advance at all. If an unknown track (for which there is no <a href="#rtctrack">RTCTrack</a>) is connected this event fires by providing the <a href="#rtctrack">RTCTrack</a> and a collection of the RTP extension headers present in the RTP packets.</p>
-
-        <p>The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the <a href="#rtcconnection-onunknowntrack">onunknowntrack</a> event fires.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a href="#rtctrack">RTCTrack</a> track</td>
-            <td>The newly discovered track object.</td>
-          </tr>
-          <tr>
-            <td>Object rtpExtHeaders</td>
-            <td>A collection of RTP extension header and value pairs.</td>
-          </tr>
-        </table>
-      </blockquote>
-
-    </section>
-
-    <section id="rtcconnection-methods*">
-      <h4>Methods</h4>
-
-      <p id="rtcconnection-addremotecandidate"><strong>addRemoteCandidate</strong></p>
-      <blockquote>
+      <dt>attribute RTCConnectionInfo     remote</dt>
+      <dd>Contains information about the remote connection, including the ICE negotiation attributes and the readonly remote DTLS fingerprints as negotiated during the DTLS negotiation phase that are valid once the <a>RTCConnection</a> enters the <a>RTCConnectionState</a> <a>connected</a> state.</dd>
+      
+      <dt>void                        addRemoteCandidate(RTCCandidateDescription candidate)</dt>
+      <dd>
         <p>Adds a remote ICE candidate to the <a href="#rtcconnection">RTCConnection</a>.</p>
-
+        
         <table border="1">
           <tr>
             <td><em>Parameter</em></td>
@@ -243,36 +121,34 @@ interface RTCConnection : EventTarget  {
           </tr>
           <tr>
             <td>candidate</td>
-            <td><a href="#rtcicecandidateinfo">RTCIceCandidateInfo</a></td>
+            <td><a>RTCIceCandidateInfo</a></td>
             <td>no</td>
             <td>no</td>
             <td></td>
           </tr>
         </table>
-      </blockquote>
-
-      <p id="rtcconnection-connect"><strong>connect</strong></p>
-      <blockquote>
+      </dd>
+      
+      <dt>void                        connect()</dt>
+      <dd>
         <p>Starts the ICE connectivity tests and establishment procedure with the peer. If remote ICE candidates are provided once this method has been called, they will be also considered for the ICE connection connectivity testing procedure.</p>
-
-        <p>If <a href="#rtcconnection-gather">gather</a> has not been called at this point then it is implicitly called to start the candidate discovery process.</a>
+        
+        <p>If <a href="#rtcconnection-gather">gather</a> has not been called at this point then it is implicitly called to start the candidate discovery process.</p>
 
         <p>Connection data for the remote side (the <a>iceUsernameFrag</a> and <a>icePassword</a> attributes within the <a>remote</a> <a>RTCConnectionInfo</a> attribute) must be set before calling this method.</p>
-
+        
         <p>Parameters: none</p>
-      </blockquote>
-
-      <p id="rtcconnection-gather"><strong>gather</strong></p>
-      <blockquote>
+      </dd>
+      
+      <dt>void                        gather()</dt>
+      <dd>
         <p>This method will usually be called automatically upon <a href="#rtcconnection-onnetworkchange">onnetworkchange</a> but can be called manually when a higher layer detects a network topology change (e.g. in mobile network). By calling this method the ICE candidate gathering procedure re-starts again as it did when the <a href="#rtcconnection">RTCConnection</a> was instantiated and <a href="#rtcconnection-onendofcandidates">onendofcandidates</a> will be called again when no more candidates are able to be discovered.</p>
 
         <p>If <a href="#rtcconnection-gather">gather</a> is called before <a href="#rtcconnection-connect">connect</a>, the ICE candidate gathering process will start immediately but no connectivity checks will be performed until <a href="#rtcconnection-connect">connect</a> is called.</p>
+      </dd>
 
-        <p>Parameters: none</p>
-      </blockquote>
-
-      <p id="rtcconnection-send"><strong>send</strong></p>
-      <blockquote>
+      <dt>(RTCSTream? or RTCTrack?)   send((MediaStream or MediaStreamTrack or RTCTrack or RTCStream) streamOrTrack)</dt>
+      <dd>
         <p>Starts sending a <a>MediaStream</a> or <a>MediaStreamTrack</a> over an <a href="#rtcconnection">RTCConnection</a>.</p>
 
         <p>If an <a>MediaStream</a> is passed in an <a href="#rtcstream">RTCStream</a> is returned. If an <a>MediaStreamTrack is passed in an <a href="#rtctrack">RTCTrack</a> is returned.</p>
@@ -295,14 +171,14 @@ interface RTCConnection : EventTarget  {
             <td></td>
           </tr>
         </table>
-      </blockquote>
+      </dd>
 
-      <p id="rtcconnection-receive"><strong>receive</strong></p>
-      <blockquote>
+      <dt>(RTCStream? or RTCTrack?)   receive((RTCStream or RTCTrack) streamOrTrack)</dt>
+      <dd>
         <p>Tell the <a href="#rtcconnection">RTCConnection</a> to expect to start receiving a <a href="#rtcstream">RTCStream</a> or <a href="#rtctrack">RTCTrack</a> from the remote peer.</p>
-
-        <p>By creating an <a href="#rtcstream">RTCStream</a> or an <a href="#rtctrack">RTCTrack</a> with the correct values pre-filled this method will start the receive process for the stream or track from the <a href="#rtcconnection">RTCConnection</a>. Upon success the source for the respective <a href="#rtcstream">RTCStream</a> and <a href="#rtctrack">RTCTrack</a> are filled with the <a>MediaStream</a> or </a>MediaStreamTrack</a> objects.</p>
-
+        
+        <p>By creating an <a>RTCStream</a> or an <a>RTCTrack</a> with the correct values pre-filled this method will start the receive process for the stream or track from the <a>RTCConnection</a>. Upon success the source for the respective <a>RTCStream</a> and <a>RTCTrack</a> are filled with the <a>MediaStream</a> or <a>MediaStreamTrack</a> objects.</p>
+        
         <table border="1">
           <tr>
             <td><em>Parameter</em></td>
@@ -319,74 +195,120 @@ interface RTCConnection : EventTarget  {
             <td></td>
           </tr>
         </table>
-      </blockquote>
+      </dd>
 
-      <p id="rtcconnection-sendstreams"><strong>sendStreams</strong></p>
-      <blockquote>
+      <dt>sequence&lt;RTCStream&gt;         sendStreams()</dt>
+      <dd>
         <p>Returns a sequence of <a href="#rtcstream">RTCStream</a> instances being sent over the <a href="#rtcconnection">RTCConnection</a>.</p>
-
-        <p>Parameters: none</p>
-      </blockquote>
-
-      <p id="rtcconnection-sendtracks"><strong>sendTracks</strong></p>
-      <blockquote>
-        <p>Returns a sequence of <a href="#rtctrack">RTCTrack</a> instances being sent over the <a href="#rtcconnection">RTCConnection</a>.</p>
-
-        <p>Parameters: none</p>
-      </blockquote>
-
-      <p id="rtcconnection-receivestreams"><strong>receiveStreams</strong></p>
-      <blockquote>
-        <p>Returns a sequence of <a href="#rtcstream">RTCStream</a> instances being received over the <a href="#rtcconnection">RTCConnection</a>.</p>
-
-        <p>Parameters: none</p>
-      </blockquote>
-
-      <p id="rtcconnection-receivetracks"><strong>receiveTracks</strong></p>
-      <blockquote>
+      </dd>
+      
+      <dt>sequence&lt;RTCTrack&gt;          sendTracks()</dt>
+      <dd>
+        Returns a sequence of <a>RTCTrack</a> instances being sent over the <a href="#rtcconnection">RTCConnection</a>.
+      </dd>
+      
+      <dt>sequence&lt;RTCStream&gt;         receiveStreams()</dt>
+      <dd>Returns a sequence of <a href="#rtcstream">RTCStream</a> instances being received over the <a href="#rtcconnection">RTCConnection</a>.</dd>
+      <dt>sequence&lt;RTCTrack&gt;          receiveTracks()</dt>
+      <dd>
         <p>Returns a sequence of <a href="#rtctrack">RTCTrack</a> instances being received over the <a href="#rtcconnection">RTCConnection</a>.</p>
+      </dd>
+      <dt>void                        close()</dt>
+      <dd>Closes the connection. Once closed the object is shutdown an no longer re-useable.</dd>
+      
+      <dt>attribute EventHandler              oncandidate</dt>
+      <dd>
+        <p>This event handler, of event handler event type <a>candidate</a>, must be fired to allow a developer's JavaScript to receive a discovered ICE candidate (<a>RTCIceCandidateInfo</a>).</p>
+        
+        <p>To preserve privacy, this event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>). The default action is to add the candidate to the list of connectivity tests.  Canceling the candidate event will prevent connectivity tests on the candidate.</p>
+        
+        <table border="1">
+          <tr>
+            <td><em>Event Argument</em></td>
+            <td><em>Description</em></td>
+          </tr>
+          <tr>
+            <td><a>RTCIceCandidateInfo</a> candidate</td>
+            <td>A local ICE candidate.</td>
+          </tr>
+        </table>
+      </dd>
 
-        <p>Parameters: none</p>
-      </blockquote>
+      <dt>attribute EventHandler              onendofcandidates</dt>
+      <dd>
+        <p>This event handler, of event handler event type <a>endofcandidates</a>, must be fired to allow a developer's JavaScript to be notified when all candidate discoveries have completed after the <a href="#rtcconnection-connect">connect</a> method is called and after the <a href="#rtcconnection-gather">gather</a> method executes and completes.</p>
 
-      <p id="rtcconnection-close"><strong>close</strong></p>
-      <blockquote>
-        <p>Closes the connection. Once closed the object is shutdown an no longer re-useable.</p>
+        <p>Event arguments: none</p>
+      </dd>
 
-        <p>Parameters: none</p>
-      </blockquote>
-    </section>
+      <dt>attribute EventHandler              onactivecandidate</dt>
+      <dd>
+        <p>This event handler, of event handler event type <a>activecandidate</a>, must be fired to allow a developer's JavaScript to be notified which active ICE candidate local/remote pairing the connection is using. This event could change over time as more optimal routes are discovered.</p>
 
+        <table border="1">
+          <tr>
+            <td><em>Event Argument</em></td>
+            <td><em>Description</em></td>
+          </tr>
+          <tr>
+            <td><a>RTCIceCandidateInfo</a> localCandidate</td>
+            <td>The connected local ICE candidate.</td>
+          </tr>
+          <tr>
+            <td><a>RTCIceCandidateInfo</a> remoteCandidate</td>
+            <td>The connected remote ICE candidate.</td>
+          </tr>
+        </table>
+      </dd>
+      <dt>attribute EventHandler              onstatechanged</dt>
+      <dd>
+        <p>This event handler, of event handler event type <a>statechanged</a>, must be fired to allow a developer's JavaScript to be notified when the <a href="#rtcconnection">RTCConnection</a> object state has changed.</p>
 
+        <table border="1">
+          <tr>
+            <td><em>Event Argument</em></td>
+            <td><em>Description</em></td>
+          </tr>
+          <tr>
+            <td><a href="#rtcconnectionstate">RTCConnectionState</a> state</td>
+            <td>The state at the time this event fired.</td>
+          </tr>
+        </table>
+      </dd>
 
-    <section id="rtcconnection-attributes*">
-      <h4>Attributes</h4>
+      <dt>attribute EventHandler              onnetworkchange</dt>
+      <dd>
+        <p>This event handler, of event handler event type <a>networkchange</a>, must be fired to allow a developer's JavaScript to be notified when a change has been detected in the network topology.</p>
 
-        <p><strong>socket</strong> of type <a>RTCSocket</a></p>
-        <blockquote>
-          <p>The readonly value points to the <a>RTCSocket</a> object associated to the RTCConnection. If an <a>RTCSocket</a> object is not specified in the <a href="#rtcconnectionoptions">RTCConnectionOptions</a> object then an <a>RTCSocket</a> object is automatically created and attached to the <a href="#rtcconnection">RTCConnection</a>.</p>
-        </blockquote>
+        <p>The default action is to automatically call the <a href="#rtcconnection">RTCConnection</a> <a href="#rtcconnection-gather">gather</a> method. This event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>).</p>
 
-        <p><strong>state</strong> of type <a href="#rtcconnectionstate">RTCConnectionState</a></p>
-        <blockquote>
-          <p>The current <a href="#rtcconnectionstate">RTCConnectionState</a> connectivity state of the RTCConnection object.</p>
-        </blockquote>
+        <p>Event arguments: none</p>
+      </dd>
+      <dt>attribute EventHandler              onunknowntrack</dt>
+      <dd>
+        <p>This event handler, of event handler event type <a>unknowntrack</a>, must be fired to allow a developer's JavaScript to be notified when a track for which there is not <a href="#rtctrack">RTCTrack</a> has been connected from the remote peer.</p>
 
-        <p><strong>role</strong> of type <a href="#rtcconnectionrole">RTCConnectionRole</a></p>
-        <blockquote>
-          <p>The current <a href="#rtcconnectionrole">RTCConnectionRole</a> of the RTCConnection object.</p>
-        </blockquote>
+        <p>It is possible for a peer to receive a track for which its <a href="#rtctrack">RTCTrack</a> information has not yet been received (via wire signaling) and added via the receive method or for which there won't be <a href="#rtctrack">RTCTrack</a> known in advance at all. If an unknown track (for which there is no <a href="#rtctrack">RTCTrack</a>) is connected this event fires by providing the <a href="#rtctrack">RTCTrack</a> and a collection of the RTP extension headers present in the RTP packets.</p>
 
-        <p><strong>local</strong> of type <a>RTCConnectionInfo</a></p>
-        <blockquote>
-          <p>Contains readonly information about the local connection, including the ICE negotiation attributes and the DTLS fingerprints.</p>
-        </blockquote>
+        <p>The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the <a href="#rtcconnection-onunknowntrack">onunknowntrack</a> event fires.</p>
 
-        <p><strong>remote</strong> of type <a>RTCConnectionInfo</a></p>
-        <blockquote>
-          <p>Contains information about the remote connection, including the ICE negotiation attributes and the readonly remote DTLS fingerprints as negotiated during the DTLS negotiation phase that are valid once the <a href="#rtcconnection">RTCConnection</a> enters the <a href="#rtcconnectionstate">RTCConnectionState</a> <a>connected</a> state.</p>
-        </blockquote>
-    </section>
+        <table border="1">
+          <tr>
+            <td><em>Event Argument</em></td>
+            <td><em>Description</em></td>
+          </tr>
+          <tr>
+            <td><a href="#rtctrack">RTCTrack</a> track</td>
+            <td>The newly discovered track object.</td>
+          </tr>
+          <tr>
+            <td>Object rtpExtHeaders</td>
+            <td>A collection of RTP extension header and value pairs.</td>
+          </tr>
+        </table>
+      </dd>
+
+    </dl>
 
     <section id="rtcconnectionstate*">
       <h4>The RTCConnectionState Enum</h4>
@@ -543,6 +465,9 @@ interface RTCConnection : EventTarget  {
     <section id="rtcicecandidateinfo*">
       <h4>The RTCIceCandidateInfo Object</h4>
 
+      <p>
+        The <dfn>RTCIceCandidateInfo</dfn> includes all information relevant to an ICE candidate.
+      </p>
 
       <pre class="example"><code class="javascript">{
   foundation: "abcd1234",
@@ -553,7 +478,7 @@ interface RTCConnection : EventTarget  {
   connectionPort: 10000,
   type: "host"
 };
-</code></pre>
+      </code></pre>
 
       <dl class="idl" title="dictionary RTCIceCandidateInfo">
         <dt>DOMString                           foundation</dt>
