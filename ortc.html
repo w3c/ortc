@@ -264,8 +264,9 @@ table.simple {
         <li class="tocline"><a href="#rtcdatachannel-overview" class="tocxref"><span class="secno">6.1 </span>Overview</a></li>
         <li class="tocline"><a href="#rtcdatachannel-interface-definition" class="tocxref"><span class="secno">6.2 </span>Interface Definition</a>
           <ul class="toc">
-            <li class="tocline"><a href="#rtcdatachannel-events" class="tocxref"><span class="secno">6.2.1 </span>Events</a></li>
-            <li class="tocline"><a href="#rtcdatachannel-methods" class="tocxref"><span class="secno">6.2.2 </span>Methods</a></li>
+            <li class="tocline"><a href="#rtcdatachannel-attributes" class="tocxref"><span class="secno">6.2.1 </span>Attributes</a></li>
+            <li class="tocline"><a href="#rtcdatachannel-events" class="tocxref"><span class="secno">6.2.2 </span>Events</a></li>
+            <li class="tocline"><a href="#rtcdatachannel-methods" class="tocxref"><span class="secno">6.2.3 </span>Methods</a></li>
           </ul>
         </li>
       </ul>
@@ -1287,19 +1288,42 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
     </p>
   </section>
 
-  <section id="rtcdatachannel-interface-definition-2">
-    <h3 aria-level="2" role="heading" id="h3_rtcdtmftrack-interface-definition-2"><span class="secno">6.2 </span>Interface Definition</h3>
+  <section id="rtcdatachannel-interface-definition">
+    <h3 aria-level="2" role="heading" id="h3_rtcdtmftrack-interface-definition"><span class="secno">6.2 </span>Interface Definition</h3>
 
-<pre><code class="webidl">[Constructor(RTCConnection connection, optional DOMString dataChannelType)]
+<pre><code class="webidl">[Constructor(RTCConnection connection, DOMString id, optional DOMString dataChannelType)]
 interface RTCDataChannel : EventTarget  {
+    readonly <a href="#rtcconnection">RTCConnection</a>           connection;
+    readonly attribute DOMString     id;
+    readonly attribute DOMString     type;
+
     void send(Object data);
 
                 attribute EventHandler          ondata;
 };
 </code></pre>
 
+    <section id="rtcdatachannel-attributes">
+      <h4 aria-level="3" role="heading" id="h4_rtcdatachannel-attributes"><span class="secno">6.2.1 </span>Attributes</h4>
+
+      <p><strong>connection</strong> of type <a href="#rtcconnection">RTCConnection</a></p>
+      <blockquote>
+        <p>The readonly value referring to the related connection object.</p>
+      </blockquote>
+
+      <p><strong>id</strong> of type <a>DOMString</a></p>
+      <blockquote>
+        <p>The readonly value containing the identifier of the data channel.</p>
+      </blockquote>
+
+      <p><strong>type</strong> of type <a>DOMString</a></p>
+      <blockquote>
+        <p>The readonly value containing the type of data channel being used.</p>
+      </blockquote>
+    </section>
+
     <section id="rtcdatachannel-events">
-      <h4 aria-level="3" role="heading" id="h4_events-1"><span class="secno">6.2.1 </span>Events</h4>
+      <h4 aria-level="3" role="heading" id="h4_rtcdatachannel-events"><span class="secno">6.2.2 </span>Events</h4>
 
       <p><strong>ondata</strong> of type EventHandler</p>
 
@@ -1320,7 +1344,7 @@ interface RTCDataChannel : EventTarget  {
     </section>
 
     <section id="rtcdatachannel-methods">
-      <h4 aria-level="3" role="heading" id="h4_rtcdtmftrack-methods"><span class="secno">6.2.2 </span>Methods</h4>
+      <h4 aria-level="3" role="heading" id="h4_rtcdatachannel-methods"><span class="secno">6.2.3 </span>Methods</h4>
 
       <p><strong>send</strong></p>
       <blockquote>
