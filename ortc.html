@@ -523,75 +523,28 @@ interface RTCConnection : EventTarget  {
     <section id="rtcdtlsconnectioninfo*">
       <h4>The RTCDtlsConnectionInfo Object</h4>
 
-<pre><code class="webidl">dictionary RTCDtlsConnectionInfo {
-    attribute <a href="#certificatefingerprint">CertificateFingerprint</a>   fingerprint;
-};
-</code></pre>
-
-      <section id="rtcdtlsconnectioninfo-attributes*">
-        <h5>Attributes</h5>
-
-        <p><strong>fingerprint</strong> of type <a href="#certificatefingerprint">CertificateFingerprint</a></p>
-
-        <blockquote>
-          <p>The DTLS fingerprint of the connection for the local or the remote side. The local side is readonly and can be retrieved at any time. The remote side is also readonly and can only be retrieved once the <a href="#rtcconnection">RTCConnection</a> enters the <a href="#rtcconnectionstate">RTCConnectionState</a> <a>connected</a> state (and are null otherwise).</p>
-        </blockquote>
-      </section>
+      <dl class="idl" title="dictionary RTCDtlsConnectionInfo">
+        <dt>attribute CertificateFingerprint   fingerprint</dt>
+        <dd>
+          The DTLS fingerprint of the connection for the local or the remote side. The local side is readonly and can be retrieved at any time. The remote side is also readonly and can only be retrieved once the <a href="#rtcconnection">RTCConnection</a> enters the <a href="#rtcconnectionstate">RTCConnectionState</a> <a>connected</a> state (and are null otherwise).
+        </dd>
+      </dl>
 
       <section id="certificatefingerprint*">
         <h5>The CertificateFingerprint Object</h5>
 
-<pre><code class="webidl">dictionary CertificateFingerprint {
-    getter ArrayBuffer (DOMString hashFunction);
-};
-</code></pre>
-
-        <p>A dictionary containing fingerprints for the certificate. Keys are the <a href="http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml">textual name for the hash function</a>; the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).</p>
+        <dl class="idl" title="dictionary CertificateFingerprint">
+          <dt>getter ArrayBuffer (DOMString hashFunction)</dt>
+          <dd>A dictionary containing fingerprints for the certificate. Keys are the <a href="http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml">textual name for the hash function</a>; the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).</dd>
+        </dl>
       </section>
     </section>
 
     <section id="rtcicecandidateinfo*">
       <h4>The RTCIceCandidateInfo Object</h4>
 
-<pre><code class="webidl">dictionary RTCIceCandidateInfo {
-    DOMString                           foundation;
-    int                                 component;
-    DOMString                           transport;
-    int                                 priority;
-    DOMString                           connectionAddress;
-    int                                 connectionPort;
-    DOMString                           type;
-    DOMString                           relAddress;
-    int                                 relPort;
-};
-</code></pre>
 
-      <section id="rtcicecandidateinfo-attributes*">
-        <h5>Attributes</h5>
-
-        <p><strong>foundation</strong> of type unsinged DOMString</p>
-
-        <p><strong>component</strong> of type unsigned int</p>
-
-        <p><strong>transport</strong> of type DOMString</p>
-
-        <p><strong>priority</strong> of type unsigned int</p>
-
-        <p><strong>connectionAddress</strong> of type DOMString</p>
-
-        <p><strong>connectionPort</strong> of type unsigned int</p>
-
-        <p><strong>type</strong> of type DOMString</p>
-
-        <p><strong>relAddress</strong> of type DOMString</p>
-
-        <p><strong>relPort</strong> of type unsigned int</p>
-      </section>
-
-      <section id="rtcicecandidateinfo-example*">
-        <h5>RTCIceCandidateInfo Example</h5>
-
-<pre><code class="javascript">{
+      <pre class="example"><code class="javascript">{
   foundation: "abcd1234",
   component: 1,
   transport: "udp",
@@ -602,7 +555,17 @@ interface RTCConnection : EventTarget  {
 };
 </code></pre>
 
-      </section>
+      <dl class="idl" title="dictionary RTCIceCandidateInfo">
+        <dt>DOMString                           foundation</dt>
+        <dt>int                                 component</dt>
+        <dt>DOMString                           transport</dt>
+        <dt>int                                 priority</dt>
+        <dt>DOMString                           connectionAddress</dt>
+        <dt>int                                 connectionPort</dt>
+        <dt>DOMString                           type</dt>
+        <dt>DOMString                           relAddress</dt>
+        <dt>int                                 relPort</dt>
+      </dl>
     </section>
 
   </section>
