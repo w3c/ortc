@@ -94,11 +94,11 @@ var respecConfig = {
 
 <pre><code class="webidl">[Constructor(RTCConnectionOptions options)]
 interface RTCConnection : EventTarget  {
-    readonly  attribute <a href="#rtcsocket">RTCSocket</a>             socket;
+    readonly  attribute <a>RTCSocket</a>             socket;
     readonly  attribute <a href="#rtcconnectionstate">RTCConnectionState</a>    state;
               attribute <a href="#rtcconnectionrole">RTCConnectionRole</a>     role;
-    readonly  attribute <a href="#rtcconnectioninfo">RTCConnectionInfo</a>     local;
-              attribute <a href="#rtcconnectioninfo">RTCConnectionInfo</a>     remote;
+    readonly  attribute RTCConnectionInfo</a>     local;
+              attribute RTCConnectionInfo</a>     remote;
 
     void                        addRemoteCandidate(RTCCandidateDescription candidate);
     void                        connect();
@@ -257,7 +257,7 @@ interface RTCConnection : EventTarget  {
 
         <p>If <a href="#rtcconnection-gather">gather</a> has not been called at this point then it is implicitly called to start the candidate discovery process.</a>
 
-        <p>Connection data for the remote side (the <a>iceUsernameFrag</a> and <a>icePassword</a> attributes within the <a>remote</a> <a href="#rtcconnectioninfo">RTCConnectionInfo</a> attribute) must be set before calling this method.</p>
+        <p>Connection data for the remote side (the <a>iceUsernameFrag</a> and <a>icePassword</a> attributes within the <a>remote</a> <a>RTCConnectionInfo</a> attribute) must be set before calling this method.</p>
 
         <p>Parameters: none</p>
       </blockquote>
@@ -362,9 +362,9 @@ interface RTCConnection : EventTarget  {
     <section id="rtcconnection-attributes*">
       <h4>Attributes</h4>
 
-        <p><strong>socket</strong> of type <a href="#rtcsocket">RTCSocket</a></p>
+        <p><strong>socket</strong> of type <a>RTCSocket</a></p>
         <blockquote>
-          <p>The readonly value points to the <a href="#rtcsocket">RTCSocket</a> object associated to the RTCConnection. If an <a href="#rtcsocket">RTCSocket</a> object is not specified in the <a href="#rtcconnectionoptions">RTCConnectionOptions</a> object then an <a href="#rtcsocket">RTCSocket</a> object is automatically created and attached to the <a href="#rtcconnection">RTCConnection</a>.</p>
+          <p>The readonly value points to the <a>RTCSocket</a> object associated to the RTCConnection. If an <a>RTCSocket</a> object is not specified in the <a href="#rtcconnectionoptions">RTCConnectionOptions</a> object then an <a>RTCSocket</a> object is automatically created and attached to the <a href="#rtcconnection">RTCConnection</a>.</p>
         </blockquote>
 
         <p><strong>state</strong> of type <a href="#rtcconnectionstate">RTCConnectionState</a></p>
@@ -377,12 +377,12 @@ interface RTCConnection : EventTarget  {
           <p>The current <a href="#rtcconnectionrole">RTCConnectionRole</a> of the RTCConnection object.</p>
         </blockquote>
 
-        <p><strong>local</strong> of type <a href="#rtcconnectioninfo">RTCConnectionInfo</a></p>
+        <p><strong>local</strong> of type <a>RTCConnectionInfo</a></p>
         <blockquote>
           <p>Contains readonly information about the local connection, including the ICE negotiation attributes and the DTLS fingerprints.</p>
         </blockquote>
 
-        <p><strong>remote</strong> of type <a href="#rtcconnectioninfo">RTCConnectionInfo</a></p>
+        <p><strong>remote</strong> of type <a>RTCConnectionInfo</a></p>
         <blockquote>
           <p>Contains information about the remote connection, including the ICE negotiation attributes and the readonly remote DTLS fingerprints as negotiated during the DTLS negotiation phase that are valid once the <a href="#rtcconnection">RTCConnection</a> enters the <a href="#rtcconnectionstate">RTCConnectionState</a> <a>connected</a> state.</p>
         </blockquote>
@@ -466,107 +466,58 @@ interface RTCConnection : EventTarget  {
     <section id="rtcconnectionoptions*">
       <h4>The RTCConnectionOptions Object</h4>
 
-<pre><code class="webidl">dictionary RTCConnectionOptions {
-    sequence&lt;RTCIceServer&gt;?     iceServers
-    RTCSocket?                  socket
-};
-</code></pre>
+      <dl class="idl" title="dictionary RTCConnectionOptions">
+        <dt>sequence&lt;RTCIceServer&gt;?     iceServers</dt>
+        <dd>A sequence of <a>RTCIceServer</a> objects.</dd>
 
-      <section id="attributes*">
-        <h5>Attributes</h5>
-
-        <p><strong>iceServers</strong> of type sequence<rtciceserver></rtciceserver></p>
-
-        <blockquote>
-          <p>A sequence of <a href="#rtciceserver">RTCIceServer</a> objects.</p>
-        </blockquote>
-
-        <p><strong>socket</strong> of type RTCSocket</p>
-
-        <blockquote>
-          <p>A local <a href="#rtcsocket">RTCSocket</a> to be reused (which can be retrieved from another <a href="#rtcconnection">RTCConnection</a> instance via the <em>socket</em> attribute).</p>
+        <dt>RTCSocket?                  socket</dt>
+        <dd>
+          <p>A local <a>RTCSocket</a> to be reused (which can be retrieved from another <a href="#rtcconnection">RTCConnection</a> instance via the <em>socket</em> attribute).</p>
 
           <p>Reusing the same local socket can be used to implement media forking.</p>
-        </blockquote>
-      </section>
+        </dd>
+      </dl>
     </section>
 
     <section id="rtciceserver*">
       <h4>The RTCIceServer Object</h4>
+      <p>The <dfn>RTCIceServer</dfn> is used to provide STUN or TURN server configuration.</p>
+      
+      <p>In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.</p>
 
-<pre><code class="webidl">dictionary RTCIceServer {
-    sequence&lt;DOMString&gt;         url;
-    DOMString?                  credential;
-};
-</code></pre>
+      <p>An example array of <a>RTCIceServer</a> objects is:</p>
 
-      <section id="rtciceserver-attributes*">
-        <h5>Attributes</h5>
+      <pre><code>[ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]</code></pre>
 
-        <p><strong>url</strong> of type DOMString</p>
+      <dl class="idl" title="dictionary RTCIceServer">
+        <dt>sequence&lt;DOMString&gt;         url</dt>
+        <dd>A STUN or TURN URI as defined in [[STUN-URI]] and [[TURN-URI]].</dd>
+        <dt>DOMString?                  credential</dt>
+        <dd>If the url element is a <a>TURN-URI</a>, then this is the credential to use with that TURN server.</dd>
+      </dl>
 
-        <blockquote>
-          <p>A STUN or TURN URI as defined in <a>STUN-URI</a> and <a>TURN-URI</a>.</p>
-        </blockquote>
-
-        <p><strong>credential</strong> of type DOMString, nullable</p>
-
-        <blockquote>
-          <p>If the url element is a <a>TURN-URI</a>, then this is the credential to use with that TURN server.</p>
-        </blockquote>
-
-        <p>In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.</p>
-
-        <p>An example array of <a href="#rtciceserver">RTCIceServer</a> objects is:</p>
-
-        <pre><code>[ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]</code></pre>
-      </section>
     </section>
 
     <section id="rtcconnectioninfo*">
       <h4>The RTCConnectionInfo Object</h4>
 
-      <p>The <a href="#rtcconnectioninfo">RTCConnectionInfo</a> object contains information for the local and remote connection connection. An <a href="#rtcconnection">RTCConnection</a> has both a local <a href="#rtcconnectioninfo">RTCConnectionInfo</a> (whose attributes are readonly) and a remote <a href="#rtcconnectioninfo">RTCConnectionInfo</a> (whose attributes must be set by the JavaScript's developer before attempting the connection procedure (this is, before calling <em>connect</em> on the <a href="#rtcconnection">RTCConnection</a>).</p>
+      <p>The <dfn>RTCConnectionInfo</dfn> object contains information for the local and remote connection connection. An <a href="#rtcconnection">RTCConnection</a> has both a local <a>RTCConnectionInfo</a> (whose attributes are readonly) and a remote <a>RTCConnectionInfo</a> (whose attributes must be set by the JavaScript's developer before attempting the connection procedure (this is, before calling <em>connect</em> on the <a href="#rtcconnection">RTCConnection</a>).</p>
 
-<pre><code class="webidl">dictionary RTCConnectionInfo {
-                attribute <a href="#rtciceconnectioninfo">RTCIceConnectionInfo</a>   ice;
-    readonly    attribute <a href="#rtcdtlsconnectioninfo">RTCDtlsConnectionInfo</a>  dtls;
-};
-</code></pre>
-
-      <section id="rtcconnectioninfo-attributes*">
-        <h5>Attributes</h5>
-
-        <p><strong>ice</strong> of type <a href="#rtciceconnectioninfo">RTCIceConnectionInfo</a></p>
-
-        <p><strong>dtls</strong> of type <a href="#rtcdtlsconnectioninfo">RTCDtlsConnectionInfo</a></p>
-      </section>
+<dl class="idl" title="dictionary RTCConnectionInfo">
+  <dt>attribute RTCIceConnectionInfo   ice</dt>
+  <dt>readonly    attribute <a href="#rtcdtlsconnectioninfo">RTCDtlsConnectionInfo</a>  dtls</dt>
+</dl>
     </section>
 
     <section id="rtciceconnectioninfo*">
       <h4>The RTCIceConnectionInfo Object</h4>
-
-<pre><code class="webidl">dictionary RTCIceConnectionInfo {
-    DOMString                   usernameFrag;
-    DOMString                   password;
-};
-</code></pre>
-
-      <section id="rtciceconnectioninfo-attributes*">
-        <h5>Attributes</h5>
-
-        <p><strong>usernameFrag</strong> of type DOMString</p>
-
-        <blockquote>
-          <p>Within the <a>local</a> <a href="#rtcconnectioninfo">RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</p>
-        </blockquote>
-
-        <p><strong>password</strong> of type DOMString</p>
-
-        <blockquote>
-          <p>Within the <a>local</a> <a href="#rtcconnectioninfo">RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</p>
-        </blockquote>
-      </section>
+      
+      <dl class="idl" title="dictionary RTCIceConnectionInfo">
+        <dt>DOMString                   usernameFrag</dt>
+        <dd>Within the <a>local</a> <a>RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</dd>
+        <dt>DOMString                   password</dt>
+        <dd>Within the <a>local</a> <a>RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</dd>
+      </dl>
     </section>
 
     <section id="rtcdtlsconnectioninfo*">
@@ -659,25 +610,14 @@ interface RTCConnection : EventTarget  {
 
 <section id="rtcsocket*">
   <h2>The RTCSocket Object</h2>
-
-  <section id="rtcsocket-overview*">
-    <h3>Overview</h3>
-
-    <p>The <a href="#rtcsocket">RTCSocket</a> object describes a local physical socket. A local socket can be reused within different <a href="#rtcconnection">RTCConnection</a> instances (useful for media forking situations).</p>
-  </section>
-
-  <section id="rtcsocket-operation*">
-    <h3>Operation</h3>
-
-    <p>A <a href="#rtcsocket">RTCSocket</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>socket</em> attribute.</p>
-  </section>
-
-  <section id="rtcsocket-interface-definition*">
-    <h3>Interface Definition</h3>
-
-<pre><code class="webidl">interface RTCSocket  {
-};</code></pre>
-
+    <p>
+      The <dfn>RTCSocket</dfn> object describes a local physical socket. A local socket can be reused within different <a href="#rtcconnection">RTCConnection</a> instances (useful for media forking situations).
+    </p>
+    <p>
+      A <a>RTCSocket</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>socket</em> attribute.
+    </p>
+    <dl class="idl" title="interface RTCSocket">
+    </dl>
   </section>
 
 </section>
