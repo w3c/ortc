@@ -423,8 +423,6 @@ var respecConfig = {
 
       <pre class="example"><code class="javascript">{
   foundation: "abcd1234",
-  component: 1,
-  transport: "udp",
   priority: 1694498815,
   connectionAddress: "192.0.2.33",
   connectionPort: 10000,
@@ -433,16 +431,43 @@ var respecConfig = {
       </code></pre>
 
       <dl class="idl" title="dictionary RTCIceCandidateInfo">
-        <dt>DOMString                           foundation</dt>
-        <dt>int                                 component</dt>
-        <dt>DOMString                           transport</dt>
-        <dt>int                                 priority</dt>
-        <dt>DOMString                           connectionAddress</dt>
-        <dt>int                                 connectionPort</dt>
-        <dt>DOMString                           type</dt>
-        <dt>DOMString                           relAddress</dt>
-        <dt>int                                 relPort</dt>
+        <dt>DOMString foundation</dt>
+        <dd>
+          A unique identifier that allows ICE to correlate candidates that appear on
+        multiple <a>RTCConnection</a>s.
+        </dd>
+        <dt>unsigned long priority</dt>
+        <dd>The assigned priority of the candidate.  This is automatically populated by the browser.</dd>
+        <dt>DOMString ip</dt>
+        <dd>The IP address of the candidate.</dd>
+        <dt>unsigned short port</dt>
+        <dd>The UDP port for the candidate.</dd>
+        <dt>RTCIceCandidateType type</dt>
+        <dd>The type of candidate.</dd>
+        <dt>RTCIceCandidateInfo hostCandidate</dt>
+        <dd>
+          For candidates that are derived from others, such as relay or reflexive candidates, this
+          refers to the host candidate that these are derived from.  This value is not present on
+          host candidates.
+        </dd>
       </dl>
+
+      <section>
+        <h5>The RTCIceCandidateType</h5>
+        <p>
+          The <dfn>RTCIceCandidateType</dfn> includes the type of candidate.
+        </p>
+        <dl class="idl" title="enum RTCIceCandidateType">
+          <dt>host</dt>
+          <dd>A host candidate.</dd>
+          <dt>srflx</dt>
+          <dd>A server reflexive candidate.</dd>
+          <dt>prflx</dt>
+          <dd>A peer reflexive candidate.</dd>
+          <dt>relay</dt>
+          <dd>A relay candidate.</dd>
+        </dl>
+      </section>
     </section>
 
   </section>
