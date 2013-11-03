@@ -436,7 +436,7 @@ interface RTCConnection : EventTarget  {
 
 <pre><code class="webidl">enum RTCConnectionRole {
   "controlling",
-  "controlled
+  "controlled"
 };
 </code></pre>
 
@@ -1129,13 +1129,13 @@ interface RTCDataChannel : EventTarget  {
 </section>
 
 <section id="rtcp-protocol*">
-  <h2 id="h2_rtcp-protocol">RTCP Protocol</h2>
+  <h2>RTCP Protocol</h2>
 
   <p>This specification determines that RTCP packets must be multiplexed with the RTP packets as defined by <a>RFC5761</a>.</p>
 </section>
 
 <section id="rtc-capabilities*">
-  <h2 id="h2_rtc-capabilities">RTC Capabilities</h2>
+  <h2>RTC Capabilities</h2>
 
   <p>ORTC extends the <em>Navigator</em> interface for providing WebRTC capabilities to the developer's JavaScript.</p>
 
@@ -1147,7 +1147,7 @@ interface RTCDataChannel : EventTarget  {
 
   <section>
     <section id="rtc-capabilities-methods*">
-      <h4 id="h4_rtc-capabilities-methods">Methods</h4>
+      <h4>Methods</h4>
 
       <p><strong>getRTCCapabilities</strong></p>
       <blockquote>
@@ -1180,7 +1180,7 @@ interface RTCDataChannel : EventTarget  {
     </section>
 
     <section id="rtc-capabilities-object*">
-      <h4 id="h4_rtc-capabilities">The RTCCapabilities Object</h4>
+      <h4>The RTCCapabilities Object</h4>
 
 <pre><code class="webidl">dictionary RTCCapabilities {
     sequence&lt;RTCCodec&gt;                  audioCodecs;
@@ -1191,7 +1191,7 @@ interface RTCDataChannel : EventTarget  {
       <p><em>TODO:</em> Complete.</p>
 
       <section id="rtc-capabilities-object-attributes*">
-        <h5 id="h5_rtc-capabilities-object-attributes">Attributes</h5>
+        <h5>Attributes</h5>
 
         <p><strong>audioCodecs</strong> of type sequence<rtccodec>, readonly</rtccodec></p>
         <blockquote>
@@ -1208,13 +1208,13 @@ interface RTCDataChannel : EventTarget  {
 </section>
 
 <section id="extensions-to-mediacapture-mediastream*">
-  <h2 id="h2_extensions-to-mediacapture-mediastream">Extensions to MediaCapture MediaStream</h2>
+  <h2>Extensions to MediaCapture MediaStream</h2>
 
   <p>This specification extends the MediaCapture MediaStream class for remote streams received from the network, by adding/modifying the following methods and events:</p>
 
   <section>
     <section id="extensions-to-mediacapture-mediastream-methods*">
-      <h4 id="h4_extensions-to-mediacapture-mediastream-methods">Methods</h4>
+      <h4>Methods</h4>
 
       <p><strong>addTrack</strong></p>
       <blockquote>
@@ -1246,7 +1246,7 @@ interface RTCDataChannel : EventTarget  {
     </section>
 
     <section id="extensions-to-mediacapture-mediastream-events*">
-      <h4 id="h4_extensions-to-mediacapture-mediastream-events">Events</h4>
+      <h4>Events</h4>
 
       <p><strong>onconnected</strong> of type EventHandler,</p>
 
@@ -1268,13 +1268,13 @@ interface RTCDataChannel : EventTarget  {
 </section>
 
 <section id="extensions-to-mediacapture-mediastreamtrack*">
-  <h2 id="h2_extensions-to-mediacapture-mediastreamtrack">Extensions to MediaCapture MediaStreamTrack</h2>
+  <h2>Extensions to MediaCapture MediaStreamTrack</h2>
 
   <p>This specification extends the MediaCapture MediaStreamTrack class for remote tracks received from the network, by adding the following events:</p>
 
   <section>
     <section id="extensions-to-mediacapture-mediastreamtrack-events*">
-      <h4 id="h4_extensions-to-mediacapture-mediastreamtrack-events">Events</h4>
+      <h4>Events</h4>
 
       <p><strong>onconnected</strong> of type EventHandler,</p>
       <blockquote>
@@ -1296,10 +1296,10 @@ interface RTCDataChannel : EventTarget  {
 </section>
 
 <section id="examples*">
-  <h2 id="h2_examples">Examples</h2>
+  <h2>Examples</h2>
 
   <section id="simple-peer-to-peer-example*">
-    <h3 id="h3_simple-peer-to-peer-example">Simple Peer-to-peer Example</h3>
+    <h3>Simple Peer-to-peer Example</h3>
 
     <p>This example code provides a basic audio&amp;video session between two browsers.</p>
 
