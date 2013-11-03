@@ -60,17 +60,17 @@ var respecConfig = {
 
 <section id="overview*">
 
-  <h2 id="h2_overview"><span class="secno">1. </span>Overview</h2>
+  <h2><span class="secno">1. </span>Overview</h2>
 
   <p>ORTC provides a powerful API for the development of WebRTC based applications. ORTC does not mandate a media signaling protocol or format (as the current WebRTC 1.0 does by mandating SDP Offer/Answer). ORTC focuses on "connections" and "tracks" being carried over those connections.</p>
 
 </section>
 
 <section id="rtcconnection*">
-  <h2 id="h2_rtcconnection">The RTCConnection Object</h2>
+  <h2>The RTCConnection Object</h2>
 
   <section id="rtcconnection-overview*">
-    <h3 id="h3_rtcconnection-overview">Overview</h3>
+    <h3>Overview</h3>
 
     <p><a href="#rtcconnection">RTCConnection</a> is the main class of ORTC. A <a href="#rtcconnection">RTCConnection</a> instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving media stream tracks. Communication is signaled through an external means such as via HTTP or WebSocket through a web server or WebSocket server by unspecified means.</p>
 
@@ -78,7 +78,7 @@ var respecConfig = {
 
   <section id="rtcconnection-operation*">
 
-    <h3 id="h3_rtcconnection-operation">Operation</h3>
+    <h3>Operation</h3>
 
     <p>A peer instantiates a <a href="#rtcconnection">RTCConnection</a>. Once the <a href="#rtcconnection">RTCConnection</a> has been instantiated and the <a href="#rtcconnection-connect">connect</a> method called, the ICE gathering procedure automatically starts retrieving local ICE candidates.</p>
 
@@ -90,7 +90,7 @@ var respecConfig = {
 
   <section id="rtcconnection-interface-definition*">
 
-    <h3 id="h3_rtcconnection-interface-definition">Interface Definition</h3>
+    <h3>Interface Definition</h3>
 
 <pre><code class="webidl">[Constructor(RTCConnectionOptions options)]
 interface RTCConnection : EventTarget  {
@@ -122,7 +122,7 @@ interface RTCConnection : EventTarget  {
 
     <section id="rtcconnection-events*">
 
-      <h4 id="h4_rtcconnection-events">Events</h4>
+      <h4>Events</h4>
 
       <p id="rtcconnection-oncandidate"><strong>oncandidate</strong> of type EventHandler,</p>
 
@@ -227,7 +227,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtcconnection-methods*">
-      <h4 id="h4_rtcconnection-methods">Methods</h4>
+      <h4>Methods</h4>
 
       <p id="rtcconnection-addremotecandidate"><strong>addRemoteCandidate</strong></p>
       <blockquote>
@@ -360,7 +360,7 @@ interface RTCConnection : EventTarget  {
 
 
     <section id="rtcconnection-attributes*">
-      <h4 id="h4_rtcconnection-attributes">Attributes</h4>
+      <h4>Attributes</h4>
 
         <p><strong>socket</strong> of type <a href="#rtcsocket">RTCSocket</a></p>
         <blockquote>
@@ -389,7 +389,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtcconnectionstate*">
-      <h4 id="h4_rtcconnectionstate">The RTCConnectionState Enum</h4>
+      <h4>The RTCConnectionState Enum</h4>
 
 <pre><code class="webidl">enum RTCConnectionState {
   "new",
@@ -432,7 +432,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtcconnectionrole*">
-      <h4 id="h4_rtcconnectionstate">The RTCConnectionRole Enum</h4>
+      <h4>The RTCConnectionRole Enum</h4>
 
 <pre><code class="webidl">enum RTCConnectionRole {
   "controlling",
@@ -464,7 +464,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtcconnectionoptions*">
-      <h4 id="h4_rtcconnectionoptions">The RTCConnectionOptions Object</h4>
+      <h4>The RTCConnectionOptions Object</h4>
 
 <pre><code class="webidl">dictionary RTCConnectionOptions {
     sequence&lt;RTCIceServer&gt;?     iceServers
@@ -473,7 +473,7 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
       <section id="attributes*">
-        <h5 id="h5_attributes">Attributes</h5>
+        <h5>Attributes</h5>
 
         <p><strong>iceServers</strong> of type sequence<rtciceserver></rtciceserver></p>
 
@@ -492,7 +492,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtciceserver*">
-      <h4 id="h4_rtciceserver">The RTCIceServer Object</h4>
+      <h4>The RTCIceServer Object</h4>
 
 <pre><code class="webidl">dictionary RTCIceServer {
     sequence&lt;DOMString&gt;         url;
@@ -501,7 +501,7 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
       <section id="rtciceserver-attributes*">
-        <h5 id="h5_rtciceserver-attributes">Attributes</h5>
+        <h5>Attributes</h5>
 
         <p><strong>url</strong> of type DOMString</p>
 
@@ -524,7 +524,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtcconnectioninfo*">
-      <h4 id="h4_rtcconnectioninfo">The RTCConnectionInfo Object</h4>
+      <h4>The RTCConnectionInfo Object</h4>
 
       <p>The <a href="#rtcconnectioninfo">RTCConnectionInfo</a> object contains information for the local and remote connection connection. An <a href="#rtcconnection">RTCConnection</a> has both a local <a href="#rtcconnectioninfo">RTCConnectionInfo</a> (whose attributes are readonly) and a remote <a href="#rtcconnectioninfo">RTCConnectionInfo</a> (whose attributes must be set by the JavaScript's developer before attempting the connection procedure (this is, before calling <em>connect</em> on the <a href="#rtcconnection">RTCConnection</a>).</p>
 
@@ -535,7 +535,7 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
       <section id="rtcconnectioninfo-attributes*">
-        <h5 id="h5_rtcconnectioninfo-attributes">Attributes</h5>
+        <h5>Attributes</h5>
 
         <p><strong>ice</strong> of type <a href="#rtciceconnectioninfo">RTCIceConnectionInfo</a></p>
 
@@ -544,7 +544,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtciceconnectioninfo*">
-      <h4 id="h4_rtciceconnectioninfo">The RTCIceConnectionInfo Object</h4>
+      <h4>The RTCIceConnectionInfo Object</h4>
 
 <pre><code class="webidl">dictionary RTCIceConnectionInfo {
     DOMString                   usernameFrag;
@@ -553,7 +553,7 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
       <section id="rtciceconnectioninfo-attributes*">
-        <h5 id="h5_rtciceconnectioninfo-attributes">Attributes</h5>
+        <h5>Attributes</h5>
 
         <p><strong>usernameFrag</strong> of type DOMString</p>
 
@@ -570,7 +570,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtcdtlsconnectioninfo*">
-      <h4 id="h4_rtcdtlsconnectioninfo">The RTCDtlsConnectionInfo Object</h4>
+      <h4>The RTCDtlsConnectionInfo Object</h4>
 
 <pre><code class="webidl">dictionary RTCDtlsConnectionInfo {
     attribute <a href="#certificatefingerprint">CertificateFingerprint</a>   fingerprint;
@@ -578,7 +578,7 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
       <section id="rtcdtlsconnectioninfo-attributes*">
-        <h5 id="h5_rtcdtlsconnectioninfo-attributes">Attributes</h5>
+        <h5>Attributes</h5>
 
         <p><strong>fingerprint</strong> of type <a href="#certificatefingerprint">CertificateFingerprint</a></p>
 
@@ -588,7 +588,7 @@ interface RTCConnection : EventTarget  {
       </section>
 
       <section id="certificatefingerprint*">
-        <h5 id="h5_certificatefingerprint">The CertificateFingerprint Object</h5>
+        <h5>The CertificateFingerprint Object</h5>
 
 <pre><code class="webidl">dictionary CertificateFingerprint {
     getter ArrayBuffer (DOMString hashFunction);
@@ -600,7 +600,7 @@ interface RTCConnection : EventTarget  {
     </section>
 
     <section id="rtcicecandidateinfo*">
-      <h4 id="h4_rtcicecandidateinfo">The RTCIceCandidateInfo Object</h4>
+      <h4>The RTCIceCandidateInfo Object</h4>
 
 <pre><code class="webidl">dictionary RTCIceCandidateInfo {
     DOMString                           foundation;
@@ -616,7 +616,7 @@ interface RTCConnection : EventTarget  {
 </code></pre>
 
       <section id="rtcicecandidateinfo-attributes*">
-        <h5 id="h5_rtcicecandidateinfo-attributes">Attributes</h5>
+        <h5>Attributes</h5>
 
         <p><strong>foundation</strong> of type unsinged DOMString</p>
 
@@ -638,7 +638,7 @@ interface RTCConnection : EventTarget  {
       </section>
 
       <section id="rtcicecandidateinfo-example*">
-        <h5 id="h5_rtcicecandidateinfo-example">RTCIceCandidateInfo Example</h5>
+        <h5>RTCIceCandidateInfo Example</h5>
 
 <pre><code class="javascript">{
   foundation: "abcd1234",
@@ -658,22 +658,22 @@ interface RTCConnection : EventTarget  {
 </section>
 
 <section id="rtcsocket*">
-  <h2 id="h2_rtcsocket">The RTCSocket Object</h2>
+  <h2>The RTCSocket Object</h2>
 
   <section id="rtcsocket-overview*">
-    <h3 id="h3_rtcsocket-overview">Overview</h3>
+    <h3>Overview</h3>
 
     <p>The <a href="#rtcsocket">RTCSocket</a> object describes a local physical socket. A local socket can be reused within different <a href="#rtcconnection">RTCConnection</a> instances (useful for media forking situations).</p>
   </section>
 
   <section id="rtcsocket-operation*">
-    <h3 id="h3_rtcsocket-operation">Operation</h3>
+    <h3>Operation</h3>
 
     <p>A <a href="#rtcsocket">RTCSocket</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>socket</em> attribute.</p>
   </section>
 
   <section id="rtcsocket-interface-definition*">
-    <h3 id="h3_rtcsocket-interface-definition">Interface Definition</h3>
+    <h3>Interface Definition</h3>
 
 <pre><code class="webidl">interface RTCSocket  {
 };</code></pre>
@@ -685,22 +685,22 @@ interface RTCConnection : EventTarget  {
 
 
 <section id="rtcstream*">
-  <h2 id="h2_rtcstream">The RTCStream Object</h2>
+  <h2>The RTCStream Object</h2>
 
   <section id="rtcstream-overview*">
-    <h3 id="h3_rtcstream-overview">Overview</h3>
+    <h3>Overview</h3>
 
     <p>An <a href="#rtcstream">RTCStream</a> instance is associated to a sending or receiving <a>MediaStream</a> and provides RTC related methods to it.</p>
   </section>
 
   <section id="rtcstream-operation*">
-    <h3 id="h3_rtcstream-operation">Operation</h3>
+    <h3>Operation</h3>
 
     <p>A <a href="#rtcstream">RTCStream</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>sendStreams</em> or <em>receiveStreams</em> methods.</p>
   </section>
 
   <section id="rtcstream-interface-definition*">
-    <h3 id="h3_rtcstream-interface-definition">Interface Definition</h3>
+    <h3>Interface Definition</h3>
 
 <pre><code class="webidl">[Constructor,
  Constructor(MediaStream)]
@@ -715,7 +715,7 @@ interface RTCTrack  {
 };</code></pre>
   
     <section id="rtcstream-attributes*">
-      <h4 id="h4_rtcstream-attributes">Attributes</h4>
+      <h4>Attributes</h4>
 
       <p><strong>source</strong> of type <a>MediaStream</a></p>
 
@@ -737,7 +737,7 @@ interface RTCTrack  {
     </section>
 
     <section id="rtcstream-methods*">
-      <h4 id="h4_rtcstream-methods">Methods</h4>
+      <h4>Methods</h4>
 
       <p><strong>start</strong></p>
       <blockquote>
@@ -764,22 +764,22 @@ interface RTCTrack  {
 
 
 <section id="rtctrack*">
-  <h2 id="h2_rtctrack">The RTCTrack Object</h2>
+  <h2>The RTCTrack Object</h2>
 
   <section id="rtctrack-overview*">
-    <h3 id="h3_rtctrack-overview">Overview</h3>
+    <h3>Overview</h3>
 
     <p>An <a href="#rtctrack">RTCTrack</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
   </section>
 
   <section id="rtctrack-operation*">
-    <h3 id="h3_rtctrack-operation">Operation</h3>
+    <h3>Operation</h3>
 
     <p>A <a href="#rtctrack">RTCTrack</a> instance is retrieved from a <a href="#rtcconnection">RTCConnection</a> via the <em>track</em> or <em>tracks</em> methods or constructed from an <a>MediaStreamTrack</a> object.</p>
   </section>
 
   <section id="rtctrack-interface-definition*">
-    <h3 id="h3_rtctrack-interface-definition">Interface Definition</h3>
+    <h3>Interface Definition</h3>
 
 <pre><code class="webidl">[Constructor,
  Constructor(MediaStreamTrack)]
@@ -798,7 +798,7 @@ interface RTCTrack  {
 };</code></pre>
   
     <section id="rtctrack-attributes*">
-      <h4 id="h4_rtctrack-attributes">Attributes</h4>
+      <h4>Attributes</h4>
 
       <p><strong>source</strong> of type <a>MediaStreamTrack</a></p>
 
@@ -838,7 +838,7 @@ interface RTCTrack  {
     </section>
 
     <section id="rtctrack-methods*">
-      <h4 id="h4_rtctrack-methods">Methods</h4>
+      <h4>Methods</h4>
 
       <p><strong>start</strong></p>
       <blockquote>
@@ -859,7 +859,7 @@ interface RTCTrack  {
     </section>
 
     <section id="rtctrack-example*">
-      <h4 id="h4_rtctrack-example">Example</h4>
+      <h4>Example</h4>
 
       <blockquote>
 
@@ -880,7 +880,7 @@ interface RTCTrack  {
     </section>
 
     <section id="rtccodec*">
-      <h4 id="h4_rtccodec">The RTCCodec Object</h4>
+      <h4>The RTCCodec Object</h4>
 
 <pre><code class="webidl">dictionary RTCCodec {
     unsigned byte       payload-id;
@@ -900,7 +900,7 @@ interface RTCTrack  {
     </section>
 
     <section id="rtcmediaattributes*">
-      <h4 id="h4_rtcmediaattributes">The RTCMediaAttributes Object</h4>
+      <h4>The RTCMediaAttributes Object</h4>
 
 <pre><code class="webidl">dictionary RTCMediaAttributes {
     int?        videoMaxWidth;
@@ -914,16 +914,16 @@ interface RTCTrack  {
 </section>
 
 <section id="rtcdtmftrack*">
-  <h2 id="h2_rtcdtmftrack">The RTCDTMFTrack Object</h2>
+  <h2>The RTCDTMFTrack Object</h2>
 
   <section id="rtcdtmftrack-overview*">
-    <h3 id="h3_rtcdtmftrack-overview">Overview</h3>
+    <h3>Overview</h3>
 
     <p>An <a href="#rtcdtmftrack">RTCDTMFTrack</a> class instance allows sending DTMF tones to/from the remote peer.</p>
   </section>
 
   <section id="rtcdtmftrack-interface-definition*">
-    <h3 id="h3_rtcdtmftrack-interface-definition">Interface Definition</h3>
+    <h3>Interface Definition</h3>
 
 <pre><code class="webidl">[Constructor,
  Constructor(RTCTrack),
@@ -936,7 +936,7 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
 </code></pre>
 
     <section id="rtcdtmftrack-events*">
-      <h4 id="h4_events-1">Events</h4>
+      <h4>Events</h4>
 
       <p><strong>ontone</strong> of type EventHandler</p>
 
@@ -961,7 +961,7 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
     </section>
 
     <section id="rtcdtmftrack-methods*">
-      <h4 id="h4_rtcdtmftrack-methods">Methods</h4>
+      <h4>Methods</h4>
 
       <p><strong>playTones</strong></p>
       <blockquote>
@@ -1005,7 +1005,7 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
     </section>
 
     <section id="audio-rtcdtmftrack-example*">
-      <h4 id="h4_audio-rtcdtmftrack-example">Audio RTCDTMFTrack Example</h4>
+      <h4>Audio RTCDTMFTrack Example</h4>
 
       <p>Calling the constructor method of <a href="#rtcdtmftrack">RTCDTMFTrack</a> with a <a>MediaStreamTrack</a> would enhance the <a href="#rtctrack">RTCTrack</a> and result in a structure as follows:</p>
 
@@ -1034,10 +1034,10 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
 </section>
 
 <section id="rtcdatachannel*">
-  <h2 id="h2_rtcdatachannel">The RTCDataChannel Object</h2>
+  <h2>The RTCDataChannel Object</h2>
 
   <section id="rtcdatachannel-overview*">
-    <h3 id="h3_rtcdtmftrack-overview">Overview</h3>
+    <h3>Overview</h3>
 
     <p>
       An <a href="#rtcdatachannel">RTCDataChannel</a> class instance allows sending data messages to/from the remote peer.
@@ -1045,7 +1045,7 @@ interface RTCDTMFTrack : RTCTrack, EventTarget  {
   </section>
 
   <section id="rtcdatachannel-interface-definition*">
-    <h3 id="h3_rtcdtmftrack-interface-definition">Interface Definition</h3>
+    <h3>Interface Definition</h3>
 
 <pre><code class="webidl">[Constructor(RTCConnection connection, DOMString id, optional DOMString dataChannelType)]
 interface RTCDataChannel : EventTarget  {
@@ -1060,7 +1060,7 @@ interface RTCDataChannel : EventTarget  {
 </code></pre>
 
     <section id="rtcdatachannel-attributes*">
-      <h4 id="h4_rtcdatachannel-attributes">Attributes</h4>
+      <h4>Attributes</h4>
 
       <p><strong>connection</strong> of type <a href="#rtcconnection">RTCConnection</a></p>
       <blockquote>
@@ -1079,7 +1079,7 @@ interface RTCDataChannel : EventTarget  {
     </section>
 
     <section id="rtcdatachannel-events*">
-      <h4 id="h4_rtcdatachannel-events">Events</h4>
+      <h4>Events</h4>
 
       <p><strong>ondata</strong> of type EventHandler</p>
 
@@ -1100,7 +1100,7 @@ interface RTCDataChannel : EventTarget  {
     </section>
 
     <section id="rtcdatachannel-methods*">
-      <h4 id="h4_rtcdatachannel-methods">Methods</h4>
+      <h4>Methods</h4>
 
       <p><strong>send</strong></p>
       <blockquote>
