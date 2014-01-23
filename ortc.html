@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Object RTC (ORTC) API for WebRTC</title>
+    <meta charset='utf-8'>
   
   <script src="http://www.w3.org/Tools/respec/respec-w3c-common"
           async class="remove"></script>
@@ -60,6 +61,9 @@ var respecConfig = {
   </p>
 </section>
 
+<section id='sotd'>
+</section>
+
 <section id="overview*">
 
   <h2><span class="secno">1. </span>Overview</h2>
@@ -68,569 +72,607 @@ var respecConfig = {
 
 </section>
 
-<section id="rtcconnection*">
-  <h2>The RTCConnection Object</h2>
 
-  <section id="rtcconnection-overview*">
+
+
+<section id="rtcdtlstransport*">
+  <h2>The RTCDtlsTransport Object</h2>
+
+  <section id="rtcdtlstransport-overview*">
     <h3>Overview</h3>
 
-    <p><a>RTCConnection</a> is the main class of ORTC. A <a>RTCConnection</a> instance provides the interface for a browser to directly communicate with another browser or a compliant device, for sending and receiving media stream tracks. Communication is signaled through an external means such as via HTTP or WebSocket through a web server or WebSocket server by unspecified means.</p>
-
+    <p>An <a>RTCDtlsTransport</a> instance is associated to a <a>RTCRtpSender</a> or <a>RTCRtpReceiver</a>.</p>
   </section>
 
-  <section id="rtcconnection-operation*">
+  <section id="rtcdtlstransport-operation*">
     <h3>Operation</h3>
 
-    <p>A peer instantiates a <a>RTCConnection</a>. Once the <a>RTCConnection</a> has been instantiated and the <a href="#widl-RTCConnection-connect-void">connect</a> method called, the ICE gathering procedure automatically starts retrieving local ICE candidates.</p>
-
-    <p>The peer can, at any time, signal its ICE information to the remote peer. Once the remote ICE information is entered into the <a>RTCConnection</a> ICE establishment procedure begins until the connection is established. ICE candidates can be signaled one by one to each other or at any time (trickle-ICE). In order to apply a discovered local ICE candidate in the <a>RTCConnection</a> the event <a href="#widl-RTCConnection-oncandidate">oncandidate</a> is called by passing as argument the <a>RTCIceCandidateInfo</a>. The remote ICE candidates are added to the <a>RTCConnection</a> by using the <a href="#widl-RTCConnection-addremotecandidate">addRemoteCandidate</a> method.</p>
-
-    <p>The developer's JavaScript can attach <a>MediaStream</a> instances to the <a>RTCConnection</a> to be sent to the remote peer. Audio/video sending tracks can be individually managed by constructing their associated <a>RTCTrack</a> instance via the <a href="#widl-RTCConnection-send-void">send</a> method. The developer's JavaScript can also signal the receiving tracks information by providing an <a>RTCTrack</a> to the <a href="#widl-RTCConnection-receive-void">receive</a> method.</p>
-
+    <p>A <a>RTCDtlsTransport</a> instance is optionally constructed from a <a>RTCIceTransport</a> object or an <a>RTCIceTransport</a> is automatically constructed.</p>
   </section>
 
-  <section id="rtcconnection-interface-definition*">
+  <section id="rtcdtlstransport-interface-definition*">
     <h3>Interface Definition</h3>
-    
-    <dl class="idl" title="[Constructor(RTCConnectionOptions options)] interface RTCConnection : EventTarget">
-      <dt>readonly  attribute RTCSocket>             socket</dt>
-      <dd>The readonly value points to the <a>RTCSocket</a> object associated to the RTCConnection. If an <a>RTCSocket</a> object is not specified in the <a>RTCConnectionOptions</a> object then an <a>RTCSocket</a> object is automatically created and attached to the <a>RTCConnection</a>.</dd>
 
-      <dt>readonly  attribute RTCConnectionState    state</dt>
-      <dd>The current <a>RTCConnectionState</a> connectivity state of the RTCConnection object.</dd>
+    <dl class="idl" title="[Constructor(optional RTCIceTransport transport)] interface RTCDtlsTransport">
+      <dt>readonly attribute RTCIceTransport transport</dt>
+      <dd>The associated <a>RTCIceTransport</a> instance.</dd>
 
-      <dt>attribute RTCConnectionRole     role</dt>
-      <dd>The current <a>RTCConnectionRole</a> of the RTCConnection object.</dd>
+      <dt>readonly attribute RTCDtlsTransportState state</dt>
+      <dd>The current state of the Dtls transport.</dd>
 
-      <dt>readonly  attribute RTCConnectionInfo     local</dt>
-      <dd>Contains readonly information about the local connection, including the ICE negotiation attributes and the DTLS fingerprints.</dd>
+      <dt>RTCDtlsParameters getLocalParameters()</dt>
+      <dd>Obtain the Dtls parameters of the local <a>RTCDtlsTransport</a>.</dd>
 
-      <dt>attribute RTCConnectionInfo     remote</dt>
-      <dd>Contains information about the remote connection, including the ICE negotiation attributes and the readonly remote DTLS fingerprints as negotiated during the DTLS negotiation phase that are valid once the <a>RTCConnection</a> enters the <a>RTCConnectionState</a> <a>connected</a> state.</dd>
-      
-      <dt>void                        addRemoteCandidate(RTCCandidateDescription candidate)</dt>
-      <dd>
-        <p>Adds a remote ICE candidate to the <a>RTCConnection</a>.</p>
-        
-        <table border="1">
-          <tr>
-            <td><em>Parameter</em></td>
-            <td><em>Type</em></td>
-            <td><em>Nullable</em></td>
-            <td><em>Optional</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td>candidate</td>
-            <td><a>RTCIceCandidateInfo</a></td>
-            <td>no</td>
-            <td>no</td>
-            <td></td>
-          </tr>
-        </table>
-      </dd>
-      
-      <dt>void                        connect()</dt>
-      <dd>
-        <p>Starts the ICE connectivity tests and establishment procedure with the peer. If remote ICE candidates are provided once this method has been called, they will be also considered for the ICE connection connectivity testing procedure.</p>
-        
-        <p>If <a href="#widl-RTCConnection-gather-void">gather</a> has not been called at this point then it is implicitly called to start the candidate discovery process.</p>
+      <dt>RTCDtlsParameters? getRemoteParameters()</dt>
+      <dd>Obtain the current Dtls parameters of the remote <a>RTCDtlsTransport</a>.</dd>
 
-        <p>Connection data for the remote side (the <a>iceUsernameFrag</a> and <a>icePassword</a> attributes within the <a>remote</a> <a>RTCConnectionInfo</a> attribute) must be set before calling this method.</p>
-      </dd>
-      
-      <dt>void                        gather()</dt>
-      <dd>
-        <p>This method will usually be called automatically upon <a href="#widl-RTCConnection-onnetworkchange">onnetworkchange</a> but can be called manually when a higher layer detects a network topology change (e.g. in mobile network). By calling this method the ICE candidate gathering procedure re-starts again as it did when the <a>RTCConnection</a> was instantiated and <a href="#widl-RTCConnection-onendofcandidates">onendofcandidates</a> will be called again when no more candidates are able to be discovered.</p>
+      <dt>void start(RTCDtlsParameters remoteParameters)</dt>
+      <dd>Start Dtls transport negotiation with the parameters of the remote Dtls transport.</dd>
 
-        <p>If <a href="#widl-RTCConnection-gather-void">gather</a> is called before <a href="#widl-RTCConnection-connect-void">connect</a>, the ICE candidate gathering process will start immediately but no connectivity checks will be performed until <a href="#widl-RTCConnection-connect-void">connect</a> is called.</p>
-      </dd>
+      <dt>void stop()</dt>
+      <dd>Stops and closes the Dtls transport object.</dd>
 
-      <dt>(RTCSTream? or RTCTrack?)   send((MediaStream or MediaStreamTrack or RTCTrack or RTCStream) streamOrTrack)</dt>
-      <dd>
-        <p>Starts sending a <a>MediaStream</a> or <a>MediaStreamTrack</a> over an <a>RTCConnection</a>.</p>
-
-        <p>If an <a>MediaStream</a> is passed in an <a>RTCStream</a> is returned. If an <a>MediaStreamTrack</a> is passed in an <a>RTCTrack</a> is returned.</p>
-
-        <p>To send or update the attributes for an existing <a>RTCStream</a> or an <a>RTCTrack</a> call the method with the updated object values. Upon success the same object is returned.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Parameter</em></td>
-            <td><em>Type</em></td>
-            <td><em>Nullable</em></td>
-            <td><em>Optional</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td>streamOrTrack</td>
-            <td><a>MediaStream</a> or <a>MediaStreamTrack</a> or <a>RTCStream</a> or <a>RTCTrack</a></td>
-            <td>no</td>
-            <td>no</td>
-            <td></td>
-          </tr>
-        </table>
-      </dd>
-
-      <dt>(RTCStream? or RTCTrack?)   receive((RTCStream or RTCTrack) streamOrTrack)</dt>
-      <dd>
-        <p>Tell the <a>RTCConnection</a> to expect to start receiving a <a>RTCStream</a> or <a>RTCTrack</a> from the remote peer.</p>
-        
-        <p>By creating an <a>RTCStream</a> or an <a>RTCTrack</a> with the correct values pre-filled this method will start the receive process for the stream or track from the <a>RTCConnection</a>. Upon success the source for the respective <a>RTCStream</a> and <a>RTCTrack</a> are filled with the <a>MediaStream</a> or <a>MediaStreamTrack</a> objects.</p>
-        
-        <table border="1">
-          <tr>
-            <td><em>Parameter</em></td>
-            <td><em>Type</em></td>
-            <td><em>Nullable</em></td>
-            <td><em>Optional</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td>streamOrTrack</td>
-            <td><a>RTCStream</a> or <a>RTCTrack</a></td>
-            <td>no</td>
-            <td>no</td>
-            <td></td>
-          </tr>
-        </table>
-      </dd>
-
-      <dt>sequence&lt;RTCStream&gt;         sendStreams()</dt>
-      <dd>
-        <p>Returns a sequence of <a>RTCStream</a> instances being sent over the <a>RTCConnection</a>.</p>
-      </dd>
-      
-      <dt>sequence&lt;RTCTrack&gt;          sendTracks()</dt>
-      <dd>
-        Returns a sequence of <a>RTCTrack</a> instances being sent over the <a>RTCConnection</a>.
-      </dd>
-      
-      <dt>sequence&lt;RTCStream&gt;         receiveStreams()</dt>
-      <dd>Returns a sequence of <a>RTCStream</a> instances being received over the <a>RTCConnection</a>.</dd>
-      <dt>sequence&lt;RTCTrack&gt;          receiveTracks()</dt>
-      <dd>
-        <p>Returns a sequence of <a>RTCTrack</a> instances being received over the <a>RTCConnection</a>.</p>
-      </dd>
-      <dt>void                        close()</dt>
-      <dd>Closes the connection. Once closed the object is shutdown an no longer re-useable.</dd>
-      
-      <dt>attribute EventHandler              oncandidate</dt>
-      <dd>
-        <p>This event handler, of event handler event type <a>candidate</a>, must be fired to allow a developer's JavaScript to receive a discovered ICE candidate (<a>RTCIceCandidateInfo</a>).</p>
-        
-        <p>To preserve privacy, this event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>). The default action is to add the candidate to the list of connectivity tests.  Canceling the candidate event will prevent connectivity tests on the candidate.</p>
-        
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a>RTCIceCandidateInfo</a> candidate</td>
-            <td>A local ICE candidate.</td>
-          </tr>
-        </table>
-      </dd>
-
-      <dt>attribute EventHandler              onendofcandidates</dt>
-      <dd>
-        <p>This event handler, of event handler event type <a>endofcandidates</a>, must be fired to allow a developer's JavaScript to be notified when all candidate discoveries have completed after the <a href="#widl-RTConnection-connect-void">connect</a> method is called and after the <a href="#widl-RTCConnection-gather-void">gather</a> method executes and completes.</p>
-
-        <p>Event arguments: none</p>
-      </dd>
-
-      <dt>attribute EventHandler              onactivecandidate</dt>
-      <dd>
-        <p>This event handler, of event handler event type <a>activecandidate</a>, must be fired to allow a developer's JavaScript to be notified which active ICE candidate local/remote pairing the connection is using. This event could change over time as more optimal routes are discovered.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a>RTCIceCandidateInfo</a> localCandidate</td>
-            <td>The connected local ICE candidate.</td>
-          </tr>
-          <tr>
-            <td><a>RTCIceCandidateInfo</a> remoteCandidate</td>
-            <td>The connected remote ICE candidate.</td>
-          </tr>
-        </table>
-      </dd>
-      <dt>attribute EventHandler              onstatechanged</dt>
-      <dd>
-        <p>This event handler, of event handler event type <a>statechanged</a>, must be fired to allow a developer's JavaScript to be notified when the <a>RTCConnection</a> object state has changed.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a>RTCConnectionState</a> state</td>
-            <td>The state at the time this event fired.</td>
-          </tr>
-        </table>
-      </dd>
-
-      <dt>attribute EventHandler              onnetworkchange</dt>
-      <dd>
-        <p>This event handler, of event handler event type <a>networkchange</a>, must be fired to allow a developer's JavaScript to be notified when a change has been detected in the network topology.</p>
-
-        <p>The default action is to automatically call the <a>RTCConnection</a> <a href="#widl-RTCConnection-gather-void">gather</a> method. This event's default action can be canceled (see <a href="http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel">http://www.w3.org/TR/DOM-Level-3-Events/#events-event-type-canCancel</a>).</p>
-
-        <p>Event arguments: none</p>
-      </dd>
-      <dt>attribute EventHandler              onunknowntrack</dt>
-      <dd>
-        <p>This event handler, of event handler event type <a>unknowntrack</a>, must be fired to allow a developer's JavaScript to be notified when a track for which there is not <a>RTCTrack</a> has been connected from the remote peer.</p>
-
-        <p>It is possible for a peer to receive a track for which its <a>RTCTrack</a> information has not yet been received (via wire signaling) and added via the receive method or for which there won't be <a>RTCTrack</a> known in advance at all. If an unknown track (for which there is no <a>RTCTrack</a>) is connected this event fires by providing the <a>RTCTrack</a> and a collection of the RTP extension headers present in the RTP packets.</p>
-
-        <p>The offerer can then indicate, via custom wire signaling, those desired RTP extension header and values to the remote peer, and the remote peer starts sending tracks with the requested RTP extension headers, so the offerer can identify them when the <a href="#widl-RTCConnection-onunknowntrack">onunknowntrack</a> event fires.</p>
-
-        <table border="1">
-          <tr>
-            <td><em>Event Argument</em></td>
-            <td><em>Description</em></td>
-          </tr>
-          <tr>
-            <td><a>RTCTrack</a> track</td>
-            <td>The newly discovered track object.</td>
-          </tr>
-          <tr>
-            <td>Object rtpExtHeaders</td>
-            <td>A collection of RTP extension header and value pairs.</td>
-          </tr>
-        </table>
-      </dd>
+      <dt>attribute EventHandler? onstatechange</dt>
+      <dd>Set this handler to receive events when the state of the Dtls transport changes.</dd>
 
     </dl>
+  </section>
 
-    <section id="rtcconnectionstate*">
-      <h4>The RTCConnectionState Enum</h4>
+  <section id="rtcdtlstransport-example*">
+    <h3>Example</h3>
 
-      <dl class="idl" title="enum RTCConnectionState">
-        <dt>new</dt>
-        <dd><a>RTCConnection</a> object connect has not been called and no candidate discovery or candidate search is being performed.</dd>
-        <dt>searching</dt>
-        <dd>RTCConnection object connect was called and candidates are being tested for connectivity.</dd>
-        <dt>halted</dt>
-        <dd>RTCConnection object connect was called and connection is not established or was halted and all available candidates tested are not available.</dd>
-        <dt>connected</dt>
-        <dd>RTCConnection object connect was called and connection is established.</dd>
-        <dt>closed</dt>
-        <dd>RTCConnection object close was called and the object is shutdown.</dd>
-      </dl>
-    </section>
+    <pre class="example"><code class="javascript">
+    </code></pre>
+  </section>
 
-    <section id="rtcconnectionrole*">
-      <h4>The RTCConnectionRole Enum</h4>
-      
-      <p>Prior to the <a>RTCConnection</a> <a href="#widl-RTCConnection-connect-void">connect</a> method being called, the <dfn>RTCConnectionRole</dfn> is the suggested role for the object.  The object can automatically switch roles upon entering the <a>RTCConnectionState</a> <a>connected</a> state.</p>
-      
-      <p>The default value for the role is <a>controlling</a> and the attribute becomes readonly once the <a>RTCConnection</a> <a href="#widl-RTCConnection-connect-void">connect</a> method is called.</p>
-      
-      <dl class="idl" title="enum RTCConnectionRole">
-        <dt>controlling</dt>
-        <dd>RTCConnection object is currently in the controlling role (ICE is controlling and DTLS is in the client role).</dd>
-        <dt>controlled</dt>
-        <dd>RTCConnection object is currently in the controlled role (ICE is being controlled by remote party and DTLS is in the server role).</dd>
-      </dl>
-    </section>
+  <section id="rtcdtlstransportstate*">
+    <h3>enum RTCDtlsTransportState</h3>
 
-    <section id="rtcconnectionoptions*">
-      <h4>The RTCConnectionOptions Object</h4>
+    <dl class="idl" title="enum RTCDtlsTransportState">
+      <dt>new</dt>
+      <dd>new state</dd>
 
-      <dl class="idl" title="dictionary RTCConnectionOptions">
-        <dt>sequence&lt;RTCIceServer&gt;?     iceServers</dt>
-        <dd>A sequence of <a>RTCIceServer</a> objects.</dd>
+      <dt>connecting</dt>
+      <dd>connecting state</dd>
 
-        <dt>RTCSocket?                  socket</dt>
-        <dd>
-          <p>A local <a>RTCSocket</a> to be reused (which can be retrieved from another <a>RTCConnection</a> instance via the <em>socket</em> attribute).</p>
+      <dt>connected</dt>
+      <dd>connected state</dd>
 
-          <p>Reusing the same local socket can be used to implement media forking.</p>
-        </dd>
-      </dl>
-    </section>
+      <dt>closed</dt>
+      <dd>closed state</dd>
+    </dl>
+  </section>
 
-    <section id="rtciceserver*">
-      <h4>The RTCIceServer Object</h4>
-      <p>The <dfn>RTCIceServer</dfn> is used to provide STUN or TURN server configuration.</p>
-      
-      <p>In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.</p>
+</section>
 
-      <p>An example array of <a>RTCIceServer</a> objects is:</p>
 
-      <pre><code>[ { url:"stun:stun.example.net" } , { url:"turn:user@turn.example.org", credential:"myPassword"} ]</code></pre>
 
-      <dl class="idl" title="dictionary RTCIceServer">
-        <dt>sequence&lt;DOMString&gt;         url</dt>
-        <dd>A STUN or TURN URI as defined in [[STUN-URI]] and [[TURN-URI]].</dd>
-        <dt>DOMString?                  credential</dt>
-        <dd>If the url element is a <a>TURN-URI</a>, then this is the credential to use with that TURN server.</dd>
-      </dl>
 
-    </section>
 
-    <section id="rtcconnectioninfo*">
-      <h4>The RTCConnectionInfo Object</h4>
 
-      <p>The <dfn>RTCConnectionInfo</dfn> object contains information for the local and remote connection connection. An <a>RTCConnection</a> has both a local <a>RTCConnectionInfo</a> (whose attributes are readonly) and a remote <a>RTCConnectionInfo</a> (whose attributes must be set by the JavaScript's developer before attempting the connection procedure (this is, before calling <em>connect</em> on the <a>RTCConnection</a>).</p>
 
-<dl class="idl" title="dictionary RTCConnectionInfo">
-  <dt>attribute RTCIceConnectionInfo   ice</dt>
-  <dt>readonly    attribute <a>RTCDtlsConnectionInfo</a>  dtls</dt>
-</dl>
-    </section>
 
-    <section id="rtciceconnectioninfo*">
-      <h4>The RTCIceConnectionInfo Object</h4>
-      
-      <dl class="idl" title="dictionary RTCIceConnectionInfo">
-        <dt>DOMString                   usernameFrag</dt>
-        <dd>Within the <a>local</a> <a>RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</dd>
-        <dt>DOMString                   password</dt>
-        <dd>Within the <a>local</a> <a>RTCConnectionInfo</a> this attribute is readonly, and must be set for the <a>remote</a> side.</dd>
-      </dl>
-    </section>
 
-    <section id="rtcdtlsconnectioninfo*">
-      <h4>The RTCDtlsConnectionInfo Object</h4>
 
-      <dl class="idl" title="dictionary RTCDtlsConnectionInfo">
-        <dt>attribute CertificateFingerprint   fingerprint</dt>
-        <dd>
-          The DTLS fingerprint of the connection for the local or the remote side. The local side is readonly and can be retrieved at any time. The remote side is also readonly and can only be retrieved once the <a>RTCConnection</a> enters the <a>RTCConnectionState</a> <a>connected</a> state (and are null otherwise).
-        </dd>
-      </dl>
 
-      <section id="certificatefingerprint*">
-        <h5>The CertificateFingerprint Object</h5>
 
-        <dl class="idl" title="dictionary CertificateFingerprint">
-          <dt>getter ArrayBuffer (DOMString hashFunction)</dt>
-          <dd>A dictionary containing fingerprints for the certificate. Keys are the <a href="http://www.iana.org/assignments/hash-function-text-names/hash-function-text-names.xml">textual name for the hash function</a>; the corresponding value for each is an ArrayBuffer containing the value of the fingerprint. Browsers must implement SHA-1 (sha-1) and SHA-2 256 (sha-256).</dd>
-        </dl>
-      </section>
-    </section>
 
-    <section id="rtcicecandidateinfo*">
-      <h4>The RTCIceCandidateInfo Object</h4>
 
-      <p>
-        The <dfn>RTCIceCandidateInfo</dfn> includes all information relevant to an ICE candidate.
-      </p>
 
-      <pre class="example"><code class="javascript">{
+
+
+
+
+
+<section id="rtcicetransport*">
+  <h2>The RTCIceTransport Object</h2>
+
+  <section id="rtcicetransport-overview*">
+    <h3>Overview</h3>
+
+    <p>An <a>RTCIceTransport</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
+  </section>
+
+  <section id="rtcicetransport-operation*">
+    <h3>Operation</h3>
+
+    <p>A <a>RTCIceTransport</a> instance is constructed from an <a>MediaStreamTrack</a> object and associated to an <a>RTCConnection</a>.</p>
+  </section>
+
+  <section id="rtcicetransport-interface-definition*">
+    <h3>Interface Definition</h3>
+
+    <dl class="idl" title="[Constructor(optional RTCIceRole role, RTCIceOptions options)] interface RTCIceTransport">
+      <dt>readonly attribute RTCIceRole role</dt>
+      <dd>The current role of the Ice transport.</dd>
+
+      <dt>readonly attribute RTCIceTransportState state</dt>
+      <dd>The current state of the Ice transport.</dd>
+
+      <dt>readonly attribute sequence<RTCIceCandidate> localCandidates</dt>
+      <dd>Sequence of the candidates associated with local <a>RTCIceTransport</a>.</dd>
+
+      <dt>readonly attribute sequence<RTCIceCandidate> remoteCandidates</dt>
+      <dd>Sequence of the candidates associated with remote <a>RTCIceTransport</a>.</dd>
+
+      <dt>void gather()</dt>
+      <dd>Start gathering <a>RTCIceCandidate</a> objects.</dd>
+
+      <dt>void start(optional RTCIceParameters remoteParameters)</dt>
+      <dd>Starts candidates connectivity checks and attempts to connect to the remote <a>RTCIceTransport</a>.</dd>
+
+      <dt>void stop()</dt>
+      <dd>Stops and closes the current object.</dd>
+
+      <dt>RTCIceParameters getLocalParameters()</dt>
+      <dd>Obtain the Ice parameters of the local <a>RTCIceTransport</a>.</dd>
+
+      <dt>RTCIceParameters? getRemoteParameters()</dt>
+      <dd>Obtain the current Ice parameters of the remote <a>RTCIceTransport</a>.</dd>
+
+      <dt>void setRemoteParameters(RTCIceParameters remoteParameters)</dt>
+      <dd>Set the remote parameters associated with the remote <a>RTCIceTransport</a>.</dd>
+
+      <dt>void addRemoteCandidate(RTCIceCandidate remoteCandidate)</dt>
+      <dd>Add remote candidate associated with remote <a>RTCIceTransport</a>.</dd>
+
+      <dt>attribute EventHandler? onlocalcandidate</dt>
+      <dd>Set this handler to receive events when a new local candidate is available.</dd>
+
+      <dt>attribute EventHandler? onstatechange</dt>
+      <dd>Set this handler to receive events when the state of the <a>RTCIceTransport</a> has changed.</dd>
+
+    </dl>
+  </section>
+
+  <section id="rtcicetransport-example*">
+    <h3>Example</h3>
+
+    <pre class="example"><code class="javascript">
+
+// Assume we already have a way to signal. This is an example
+// of  how to offer ICE and DTLS parameters and ICE candidates and
+// get back ICE and DTLS parameters and ICE candidates, and start
+// both ICE and DTLS.
+
+function initiate(signaller) {
+ var iceOptions = ...;
+ var ice = new RTCIceTransport(RTCIceRole.controlling, iceOptions);
+ var dtls = new RTCDtlsTransport(ice);
+ // ... get tracks and RTP objects from other example
+
+ signaller.sendInitiate({
+   "ice": ice.
+​getL
+ocalParameters(),
+   "dtls": dtls.
+​getL
+ocalParameters(),
+   // ... include RTP info from other example
+ }, function(remote) {
+   ice.setRemoteParameters(remote.ice);
+   dtls.start(remote.dtls);
+   // ... start RTP senders and receivers from other example
+ });
+
+ ice.oncandidate = function(candidate) {
+   signaller.sendLocalCandidate(candidate);
+ }
+
+ signaller.onRemoteCandidate = function(candidate) {
+   ice.addRemoteCandidate(candidate);
+ }
+
+ ice.start();
+}
+
+// Assume we already have a way to signal and remote info signalled
+// to us. This is an example of how answer with ICE and DTLS
+// parameters and ICE candidates and start both ICE and DTLS.
+
+function accept(signaller, remote) {
+ var iceOptions = ...;
+ var ice = new RTCIceTransport(iceOptions);
+ var dtls = new RTCDtlsTransport(ice);
+ // ... get tracks and RTP objects from other example
+ ice.oncandidate = function(candidate) {
+   signaller.sendLocalCandidate(candidate);
+ }
+
+ signaller.onRemoteCandidate = function(candidate) {
+   ice.addRemoteCandidate(candidate);
+ }
+
+ signaller.sendAccept({
+   "ice": ice.
+​getL
+ocalParameters(),
+   "dtls": ice.
+​getL
+ocalParameters()
+   // ... include RTP info from other example
+ });
+
+ ice.start(remote.ice);
+ dtls.start(remote.dtls);
+
+ // ... start RTP senders and receivers from other example
+}
+
+    </code></pre>
+  </section>
+
+  <section id="rtcicerole*">
+    <h3>enum RTCIceRole</h3>
+
+    <dl class="idl" title="enum RTCIceRole">
+      <dt>controlling</dt>
+      <dd>controlling state</dd>
+
+      <dt>controlled</dt>
+      <dd>controlled state</dd>
+    </dl>
+  </section>
+
+  <section id="rtcicetransportstate*">
+    <h3>enum RTCIceTransportState</h3>
+
+    <dl class="idl" title="enum RTCIceTransportState">
+      <dt>new</dt>
+      <dd>new state</dd>
+
+      <dt>checking</dt>
+      <dd>checking state</dd>
+
+      <dt>connected</dt>
+      <dd>connected state</dd>
+
+      <dt>completed</dt>
+      <dd>completed state</dd>
+
+      <dt>disconnected</dt>
+      <dd>disconnected state</dd>
+
+      <dt>closed</dt>
+      <dd>closed state</dd>
+    </dl>
+  </section>
+
+  <section id="rtcicecandidate*">
+    <h3>The RTCIceCandidate Object</h3>
+
+    <p>
+      The <dfn>RTCIceCandidate</dfn> includes all information relevant to an ICE candidate.
+    </p>
+
+    <pre class="example"><code class="javascript">{
   foundation: "abcd1234",
   priority: 1694498815,
   connectionAddress: "192.0.2.33",
   connectionPort: 10000,
   type: "host"
 };
-      </code></pre>
+    </code></pre>
 
-      <dl class="idl" title="dictionary RTCIceCandidateInfo">
-        <dt>DOMString foundation</dt>
-        <dd>
-          A unique identifier that allows ICE to correlate candidates that appear on
-        multiple <a>RTCConnection</a>s.
-        </dd>
-        <dt>unsigned long priority</dt>
-        <dd>The assigned priority of the candidate.  This is automatically populated by the browser.</dd>
-        <dt>DOMString ip</dt>
-        <dd>The IP address of the candidate.</dd>
-        <dt>unsigned short port</dt>
-        <dd>The UDP port for the candidate.</dd>
-        <dt>RTCIceCandidateType type</dt>
-        <dd>The type of candidate.</dd>
-        <dt>RTCIceCandidateInfo hostCandidate</dt>
-        <dd>
-          For candidates that are derived from others, such as relay or reflexive candidates, this
-          refers to the host candidate that these are derived from.  This value is not present on
-          host candidates.
-        </dd>
-      </dl>
-
-      <section>
-        <h5>The RTCIceCandidateType</h5>
-        <p>
-          The <dfn>RTCIceCandidateType</dfn> includes the type of candidate.
-        </p>
-        <dl class="idl" title="enum RTCIceCandidateType">
-          <dt>host</dt>
-          <dd>A host candidate.</dd>
-          <dt>srflx</dt>
-          <dd>A server reflexive candidate.</dd>
-          <dt>prflx</dt>
-          <dd>A peer reflexive candidate.</dd>
-          <dt>relay</dt>
-          <dd>A relay candidate.</dd>
-        </dl>
-      </section>
-    </section>
-
-  </section>
-</section>
-
-<section id="rtcsocket*">
-  <h2>The RTCSocket Object</h2>
-    <p>
-      The <dfn>RTCSocket</dfn> object describes a local physical socket. A local socket can be reused within different <a>RTCConnection</a> instances (useful for media forking situations).
-    </p>
-    <p>
-      A <a>RTCSocket</a> instance is retrieved from a <a>RTCConnection</a> via the <em>socket</em> attribute.
-    </p>
-    <dl class="idl" title="interface RTCSocket">
+    <dl class="idl" title="dictionary RTCIceCandidate">
+      <dt>DOMString foundation</dt>
+      <dd>
+        A unique identifier that allows ICE to correlate candidates that appear on multiple <a>RTCConnection</a>s.
+      </dd>
+      <dt>unsigned long priority</dt>
+      <dd>The assigned priority of the candidate.  This is automatically populated by the browser.</dd>
+      <dt>DOMString ip</dt>
+      <dd>The IP address of the candidate.</dd>
+      <dt>unsigned short port</dt>
+      <dd>The UDP port for the candidate.</dd>
+      <dt>RTCIceCandidateType type</dt>
+      <dd>The type of candidate.</dd>
+      <dt>DOMString? relatedAddress</dt>
+      <dd>
+        For candidates that are derived from others, such as relay or reflexive candidates, this
+        refers to the host candidate that these are derived from.  This value is not present on
+        host candidates.
+      </dd>
+      <dt>unsigned short relatedPort</dt>
+      <dd>
+        For candidates that are derived from others, such as relay or reflexive candidates, this
+        refers to the host candidate that these are derived from.  This value is not present on
+        host candidates.
+      </dd>
     </dl>
+
+    <section>
+      <h4>The RTCIceCandidateType</h4>
+      <p>
+        The <dfn>RTCIceCandidateType</dfn> includes the type of candidate.
+      </p>
+      <dl class="idl" title="enum RTCIceCandidateType">
+        <dt>host</dt>
+        <dd>A host candidate.</dd>
+        <dt>srflx</dt>
+        <dd>A server reflexive candidate.</dd>
+        <dt>prflx</dt>
+        <dd>A peer reflexive candidate.</dd>
+        <dt>relay</dt>
+        <dd>A relay candidate.</dd>
+      </dl>
+    </section>
   </section>
+
 
 </section>
 
 
 
-<section id="rtcstream*">
-  <h2>The RTCStream Object</h2>
 
-  <section id="rtcstream-overview*">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="rtcrtpsender*">
+  <h2>The RTCRtpSender Object</h2>
+
+  <section id="rtcrtpsender-overview*">
     <h3>Overview</h3>
 
-    <p>An <a>RTCStream</a> instance is associated to a sending or receiving <a>MediaStream</a> and provides RTC related methods to it.</p>
+    <p>An <a>RTCRtpSender</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
   </section>
 
-  <section id="rtcstream-operation*">
+  <section id="rtcrtpsender-operation*">
     <h3>Operation</h3>
 
-    <p>A <a>RTCStream</a> instance is retrieved from a <a>RTCConnection</a> via the <em>sendStreams</em> or <em>receiveStreams</em> methods.</p>
+    <p>A <a>RTCRtpSender</a> instance is constructed from an <a>MediaStreamTrack</a> object and associated to an <a>RTCConnection</a>.</p>
   </section>
 
-  <section id="rtcstream-interface-definition*">
+  <section id="rtcrtpsender-interface-definition*">
     <h3>Interface Definition</h3>
 
-<dl class="idl" title="[Constructor, Constructor(MediaStream)] interface RTCStream">
-  <dt>attribute <a>MediaStream</a>            source</dt>
-  <dd>The associated <a>MediaStreamTrack</a> instance.</dd>
-  <dt>attribute DOMString              msid</dt>
-  <dd>The associated media stream id.</dd>
-
-  <dt>sequence&lt;RTCTrack&gt;                tracks()</dt>
-  <dd>A sequence of contained <a>RTCTrack</a> instances</dd>
-
-  <dt>void                              start()</dt>
-  <dd>Starts sending the track on the wire (if the <a>RTCConnection</a> is connected, or wait until it becomes connected).</dd>
-
-  <dt>void                              stop()</dt>
-        <dd>Stops sending the track on the wire.</dd>
-
-  <dt>void                              remove()</dt>
-        <dd>Remove this sending stream from the <a>RTCConnection</a> (automatically stops sending it on the wire). This method does not alter the original <a>MediaStream</a>, but just tells the <a>RTCConnection</a> to ignore the stream.</dd>
-
-</dl>
-
-  </section>
-</section>
-
-
-<section id="rtctrack*">
-  <h2>The RTCTrack Object</h2>
-
-  <section id="rtctrack-overview*">
-    <h3>Overview</h3>
-
-    <p>An <a>RTCTrack</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
-  </section>
-
-  <section id="rtctrack-operation*">
-    <h3>Operation</h3>
-
-    <p>A <a>RTCTrack</a> instance is retrieved from a <a>RTCConnection</a> via the <em>track</em> or <em>tracks</em> methods or constructed from an <a>MediaStreamTrack</a> object.</p>
-  </section>
-
-  <section id="rtctrack-interface-definition*">
-    <h3>Interface Definition</h3>
-
-    <dl class="idl" title="[Constructor, Constructor(MediaStreamTrack)] interface RTCTrack">
-      <dt>attribute <a>MediaStreamTrack</a>                    source</dt>
+    <dl class="idl" title="[Constructor(MediaStreamTrack track, RTCConnection transport)] interface RTCRtpSender">
+      <dt>attribute <a>MediaStreamTrack</a>                    track</dt>
       <dd>
         <p>The associated <a>MediaStreamTrack</a> instance.</p>
-        
-        <p>This attribute does not jsonify so that the entire object can be jsonified for easier signaling.</p>
       </dd>
       
-      <dt>attribute DOMString                           id</dt>
-      <dd>The id of the associated <a>MediaStreamTrack</a> instance.</dd>
-      
-      <dt>attribute DOMString                           kind</dt>
-      <dd>Can be "audio" or "video".</dd>
-      <dt>attribute unsigned long                       ssrc</dt>
-      <dt>attribute sequence&lt;RTCCodec&gt;                  codecs</dt>
-      <dd>When setting the codec list for a sending track, the browser must choose the first supported codec in the list.</dd>
+      <dt>attribute <a>RTCConnection</a>                    transport</dt>
+      <dd>
+        <p>The associated <a>RTCConnection</a> instance.</p>
+      </dd>
 
-      <dt>attribute sequence&lt;RTCMediaAttributes&gt;        mediaAttributes</dt>
-      <dt>attribute Object                              rtpExtHeaders</dt>
-      <dd>An Object which RTP extension header name and value pairs (useful for the <a href="#widl-RTCConnection-onunknowntrack">onunknowntrack</a> event usage in <a>RTCConnection</a>.</dd>
+      <dt>static <a>RTCRtpCapabilities</a> getCapabilities()</dt>
+      <dd><p>Obtain the capabilities of the <a>RTCRtpSender</a>.</p></dd>
 
-      <dt>void                                start()</dt>
-      <dd>Starts sending the track on the wire (if the <a>RTCConnection</a> is connected, or wait until it becomes connected).</dd>
+      <dt>static <a>RTCRtpParameters</a> createParameters(<a>MediaStreamTrack</a> parameters, optional <a>RTCRtpCapabilities</a> capabilities)</dt>
+      <dd><p>Create parameters based on the <a>MediaStreamTrack</a> and the capabilities specified in <a>RTCRtpCapabilities</a>.</p></dd>
 
-      <dt>void                                stop()</dt>
-      <dd>Stops sending the track on the wire.</dd>
+      <dt>static <a>RTCRtpParameters</a> filterParameters(<a>RTCRtpParameters</a> parameters, optional <a>RTCRtpCapabilities</a> capabilities)</dt>
+      <dd><p>Filter parameters based on the <a>RTCRtpCapabilities</a>.</p></dd>
 
-      <dt>void                                remove()</dt>
-        <dd>Remove this sending track from the <a>RTCConnection</a> (automatically stops sending it on the wire). This method does not alter the original <a>MediaStream</a>, but just tells the <a>RTCConnection</a> to ignore the track.</dd>
+      <dt>void send(<a>RTCRtpParameters</a> parameters)</dt>
+      <dd><p>Media is controlled by the given "parameters". The sender starts sending when the send() is called and stopped when the stop() is called.</p></dd>
+
+      <dt>void stop()</dt>
+      <dd><p>Stops sending the track on the wire. Stop is final like <a>MediaStreamTrack</a></p></dd>
+
     </dl>
   </section>
 
-    <section id="rtctrack-example*">
-      <h4>Example</h4>
+  <section id="rtcrtpsender-example*">
+    <h3>Example</h3>
 
-      <pre class="example"><code class="javascript">{
-  kind: "audio",
-  ssrc: "1234",
-  codecs: [
-      {
-          payload-id: 96,
-          name: "opus",
-          clockRate: 48000,
-          numChannels: 2
-      }
-  ]
-};
-      </code></pre>
-    </section>
+    <pre class="example"><code class="javascript">
+    </code></pre>
+  </section>
 
-    <section id="rtccodec*">
-      <h4>The RTCCodec Object</h4>
-
-      <dl class="idl" title="dictionary RTCCodec">
-        <dt>unsigned byte       payload-id</dt>
-        <dt>DOMString           name</dt>
-        <dt>unsigned int?       clockRate</dt>
-        <dt>unsigned int?       numChannels</dt>
-        <dt>RTCCodecParam[]     params</dt>
-      </dl>
-
-      <dl class="idl" title="dictionary RTCCodecParam">
-        <dt>DOMString           name</dt>
-        <dt>DOMString?          value</dt>
-      </dl>
-
-    </section>
-
-    <section id="rtcmediaattributes*">
-      <h4>The RTCMediaAttributes Object</h4>
-
-      <dl class="idl" title="dictionary RTCMediaAttributes">
-        <dt>int?        videoMaxWidth</dt>
-        <dt>int?        videoMaxHeight</dt>
-      </dl>
-      <p><em>TODO:</em> Complete.</p>
-    </section>
 </section>
+
+
+<section id="rtcrtpreceiver*">
+  <h2>The RTCRtpReceiver Object</h2>
+
+  <section id="rtcrtpreceiver-overview*">
+    <h3>Overview</h3>
+
+    <p>An <a>RTCRtpReceiver</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
+  </section>
+
+  <section id="rtcrtpreceiver-operation*">
+    <h3>Operation</h3>
+
+    <p>A <a>RTCRtpReceiver</a> instance is constructed from an <a>MediaStreamTrack</a> object and associated to an <a>RTCConnection</a>.</p>
+  </section>
+
+  <section id="rtcrtpreceiver-interface-definition*">
+    <h3>Interface Definition</h3>
+
+    <dl class="idl" title="[Constructor(MediaStreamTrack track, RTCConnection transport)] interface RTCRtpReceiver">
+      <dt>attribute <a>MediaStreamTrack</a>? track</dt>
+      <dd>
+        <p>The associated <a>MediaStreamTrack</a> instance.</p>
+      </dd>
+      
+      <dt>attribute <a>RTCConnection</a> transport</dt>
+      <dd>
+        <p>The associated <a>RTCConnection</a> instance.</p>
+      </dd>
+
+      <dt>static <a>RTCRtpCapabilities</a> getCapabilities()</dt>
+      <dd><p>Obtain the capabilities of the <a>RTCRtpReceiver</a>.</p></dd>
+
+      <dt>static <a>RTCRtpParameters</a> createParameters (DOMString kind, optional RTCRtpCapabilities capabilities)</dt>
+      <dd>
+        Create parameters based on the kind and the capabilities specified in <a>RTCRtpCapabilities</a>.
+        <dl class='parameters'>
+            <dt>DOMString kind</dt>
+            <dd>
+              Specifies kind, either "audio" or "video".
+            </dd>
+            <dt>optional RTCRtpCapabilities capabilities</dt>
+            <dd></dd>
+          </dl>
+      </dd>
+
+      <dt>static <a>RTCRtpParameters</a> filterParameters(<a>RTCRtpParameters</a> parameters, optional <a>RTCRtpCapabilities</a> capabilities)</dt>
+      <dd><p>Filter parameters based on the <a>RTCRtpCapabilities</a>.</p></dd>
+
+      <dt>void receive(<a>RTCRtpParameters</a> parameters)</dt>
+      <dd><p>Media is controlled by the given "parameters". The receiver starts receiving when the receive() is called and stopped when the stop() is called.</p></dd>
+
+      <dt>void stop()</dt>
+      <dd><p>Stops receiving the track on the wire. Stop is final like <a>MediaStreamTrack</a></p></dd>
+
+    </dl>
+  </section>
+
+  <section id="rtcrtpreceiver-example*">
+    <h3>Example</h3>
+
+    <pre class="example"><code class="javascript">
+// Assume we already have a way to signal, a transport 
+// (RTCConnection), and audio and video tracks. This is an example 
+// of  how to offer them  and get back an answer with audio and 
+// video tracks, and begin sending and receiving them.
+function initiate(signaller, transport, audioTrack, videoTrack) {
+  var audioSender = new RTCRtpSender(audioTrack, transport);
+  var videoSender = new RTCRtpSender(videoTrack, transport);
+  var audioReceiver = new RTCRtpReceiver(transport);
+  var videoReceiver = new RTCRtpReceiver(transport);
+
+  var sendAudioParams = RTCRtpSender.createParameters(audioTrack);
+  var sendVideoParams = RTCRtpSender.createParameters(videoTrack);
+  signaller.offerTracks({
+    // The initiator offers parameters it wants to send with, 
+    // and the capabilities it has for receiving. 
+    "rtpCaps": RTCRtpReceiver.getCapabilities(),
+    "audio": sendAudioParams,
+    "video": sendVideoParams
+  }, function(answer) {
+    // The responder answers with parameters it wants to send with
+    // and the capabilities it has for receiving. 
+    audioSendParams = RTCRtpSender.filterParameters(
+       sendAudioParams, answer.rtpCaps);
+    videoSendParams = RTCRtpSender.filterParameters(
+       sendVideoParams, answer.rtpCaps
+    var audioRecvParams = RTCRtpSender.filterParameters(
+       answer.audio);
+    var videoRecvParams = RTCRtpSender.filterParameters(
+       answer.video);
+      
+    audioSender.send(audioSendParams);
+    videoSender.send(videoSendParams)
+    audioReceiver.receive(audioRecvParams);
+    videoReceiver.receive(videoRecvParams);
+
+    // Now we can render/play 
+    // audioReceiver.track and videoReceiver.track.
+  });
+}
+
+// Assume we already have a way to signal, a transport 
+// (RTCConnection), and audio and video tracks. This is an example 
+// of how to answer an offer with audio and video tracks, and begin 
+// sending and receiving them.
+function accept(
+  signaller, remote, transport, audioTrack, videoTrack) {
+  var audioSender = new RTCRtpSender(audioTrack, transport);
+  var videoSender = new RTCRtpSender(videoTrack, transport);
+  var audioReceiver = new RTCRtpReceiver(transport);
+  var videoReceiver = new RTCRtpReceiver(transport);
+
+  var audioSendParams = RTCRtpSender.createParameters(
+    audioTrack, remote.rtpCaps);
+  var videoSendParams = RTCRtpSender.createParameters(
+    videoTrack, remote.rtpCaps);
+  var audioRecvParams = RTCRtpSender.filterParameters(
+     remote.audio);
+  var videoRecvParams = RTCRtpSender.filterParameters(
+     remote.video);
+  
+  audioSender.send(audioSendParams);
+  videoSender.send(videoSendParams)
+  audioReceiver.receive(audioRecvParams);
+  videoReceiver.receive(videoRecvParams);
+ 
+  signaller.answerTracks({
+    "rtpCaps": RTCRtpReceiver.getCapabilities(),
+    "audio": audioSender.parameters(),
+    "video": videoSender.parameters()
+  });
+
+  // Now we can render/play 
+  // audioReceiver.track and videoReceiver.track.
+}
+    </code></pre>
+  </section>
+
+</section>
+
+
+<section id="rtcrtpdictionaries*">
+  <h2>Dictionaries related to Rtp</h2>
+
+  <section id="rtcrtpparameters*">
+    <h3>dictionary RTCRtpParameters</h3>
+    <dl title='dictionary RTCRtpParameters' class='idl'>
+      <dt>sequence&lt;RTCRtpCodec> codecs</dt>
+      <dd></dd>
+      <dt>sequence&lt;RTCRtpEncodingParameters> encodings</dt>
+      <dd>Can specify multiple layers or "encodings" to be used for things like simulcast, RTC, FEC, etc.</dd>
+    </dl>
+  </section>
+
+  <section id="rtcrtpencodingparameters*">
+    <h3>dictionary RTCRtpEncodingParameters</h3>
+    <dl title='dictionary RTCRtpEncodingParameters' class='idl'>
+      <dt>unsigned int ssrc</dt>
+      <dd></dd>
+      <dt>int TODO</dt>
+      <dd>Temporary placeholder for things to control various layers, simulcast, rtc, etc.</dd>
+    </dl>
+  </section>
+
+  <section id="rtcrtpcodec*">
+    <h3>dictionary RTCRtpCodec</h3>
+
+    <dl class="idl" title="dictionary RTCRtpCodec">
+      <dt>unsigned byte payload-id</dt>
+      <dt>DOMString name</dt>
+      <dt>unsigned int? clockRate</dt>
+      <dt>unsigned int? numChannels</dt>
+      <dt>RTCRtpCodecParameter[] params</dt>
+    </dl>
+  </section>
+
+  <section id="rtcrtpcodecparameter*">
+    <h3>dictionary RTCRtpCodecParameter</h3>
+    <dl class="idl" title="dictionary RTCRtpCodecParameter">
+      <dt>DOMString           name</dt>
+      <dt>DOMString?          value</dt>
+    </dl>
+
+  </section>
+
+</section>
+
 
 <section id="rtcdtmftrack*">
   <h2>The RTCDTMFTrack Object</h2>
@@ -638,7 +680,7 @@ var respecConfig = {
   <section id="rtcdtmftrack-overview*">
     <h3>Overview</h3>
 
-    <p>An <dfn>RTCDTMFTrack</dfn> class instance allows sending DTMF tones to/from the remote peer.</p>
+    <p>This section needs reworking. An <dfn>RTCDTMFTrack</dfn> class instance allows sending DTMF tones to/from the remote peer.</p>
   </section>
 
   <section id="rtcdtmftrack-interface-definition*">
@@ -750,7 +792,7 @@ var respecConfig = {
     <h3>Overview</h3>
 
     <p>
-      An <dfn>RTCDataChannel</dfn> class instance allows sending data messages to/from the remote peer.
+      This section needs reworking. An <dfn>RTCDataChannel</dfn> class instance allows sending data messages to/from the remote peer.
     </p>
   </section>
 
@@ -821,56 +863,7 @@ var respecConfig = {
 
     <p>This example code provides a basic audio&amp;video session between two browsers.</p>
 
-<pre class="example"><code>var signalingChannel = new SignalingChannel();
-var conn;
-
-
-// call start() to initiate
-function start() {
-    conn = new RTCConnection({ iceServers: [{ url: "stun:stun.example.org" }] });
-
-    // send my ICE information to the other peer
-    signalingChannel.send(JSON.stringify({ "iceInfo": { "usernameFrag": conn.local.ice.usernameFrag, "password": conn.local.ice.password } }));
-
-    // apply any local ICE candidate and send it to the remote
-    conn.oncandidate = function (evt) {
-        signalingChannel.send(JSON.stringify({ "candidate": evt.candidate }));
-    }
-
-    // get a local stream, show it in a self-view and add it to be sent
-    navigator.getUserMedia({ "audio": true, "video": true }, function (stream) {
-        selfView.src = URL.createObjectURL(stream);
-        conn.send(stream);
-        // send stream description to the peer
-        conn.sendStreams().forEach(function(stream) {
-            signalingChannel.send(JSON.stringify({ "stream": stream }));
-        });
-    }, logError);
-}
-
-signalingChannel.onmessage = function (evt) {
-    if (!conn)
-        start();
-
-    var message = JSON.parse(evt.data);
-    if (message.iceInfo) {
-        conn.remote.ice.usernameFrag = message.iceInfo.usernameFrag;
-        conn.remote.ice.password = message.iceInfo.password;
-        conn.connect();
-    }
-    if (message.candidate) {
-        conn.addRemoteCandidate(message.candidate);
-    }
-    if (message.stream) {
-        // once remote stream information arrives, show it in the remote video element
-        remoteView.src = URL.createObjectURL(conn.receive(message.stream).source);
-    }
-};
-
-
-function logError(error) {
-    log(error.name + ": " + error.message);
-}
+<pre class="example"><code>
 </code></pre>
 
   </section>
