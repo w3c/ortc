@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
   <head>
@@ -11,7 +10,7 @@
 var respecConfig = {
     "title": "Object RTC (ORTC) API for WebRTC",
     "specStatus": "CG-DRAFT",
-    "shortName":  "orca-api",
+    "shortName":  "ortc-api",
     "editors": [
         {   "name":       "Robin Raymond",
             "url":        "http://about.me/robinraymond",
@@ -43,8 +42,8 @@ var respecConfig = {
     "previousMaturity": "",
     "previousPublishDate":  "",
     "wg":           "Object-RTC API Community Group",
-    "wgURI":        "http://www.w3.org/community/orca/",
-    "wgPublicList": "public-orca",
+    "wgURI":        "http://www.w3.org/community/ortc/",
+    "wgPublicList": "public-ortc",
     "wgPatentURI":  "",
     "localBiblio":  {
     "RFC4585": {
@@ -57,7 +56,17 @@ var respecConfig = {
         ,   "C. Burmeister"
         ,   "J. Rey"
         ]
-    ,   status:   "RFC 4585, July 2006"
+    ,   status:   "July 2006. RFC"
+    ,   publisher:  "IETF"
+    },
+    "RFC4733": {
+        title:    "RTP Payload for DTMF Digits, Telephony Tones, and Telephony Signals"
+    ,   href:     "http://tools.ietf.org/html/rfc4733"
+    ,   authors:  [
+            "H. Schulzrinne"
+        ,   "T. Taylor"
+        ]
+    ,   status:   "December 2006. RFC"
     ,   publisher:  "IETF"
     },
     "RFC5285": {
@@ -67,7 +76,17 @@ var respecConfig = {
             "D. Singer"
         ,   "H. Desineni"
         ]
-    ,   status:   "RFC 5285, July 2008"
+    ,   status:   "July 2008. RFC"
+    ,   publisher:  "IETF"
+    },
+    "RFC5583": {
+        title:    "Signaling Media Decoding Dependency in the SDP"
+    ,   href:     "http://tools.ietf.org/html/rfc5583"
+    ,   authors:  [
+            "T. Schierl"
+        ,   "S. Wenger"
+        ]
+    ,   status:   "July 2009. RFC"
     ,   publisher:  "IETF"
     },
     "RFC5761": {
@@ -77,7 +96,53 @@ var respecConfig = {
             "C. Perkins"
         ,   "M. Westerlund"
         ]
-    ,   status:   "RFC 5761, April 2010"
+    ,   status:   "April 2010. RFC"
+    ,   publisher:  "IETF"
+    },
+    "RFC6190": {
+        title:    "RTP Payload Format for Scalable Video Coding"
+    ,   href:     "http://tools.ietf.org/html/rfc6190"
+    ,   authors:  [
+            "S. Wenger"
+        ,   "Y.-K. Wang"
+        ,   "T. Schierl"
+        ,   "A. Eleftheriadis"
+        ]
+    ,   status:   "May 2011. RFC"
+    ,   publisher:  "IETF"
+    },
+    "RFC6465": {
+        title:    "A RTP Header Extension for Mixer-to-Client Audio Level Indication"
+    ,   href:     "http://tools.ietf.org/html/rfc6465"
+    ,   authors:  [
+            "E. Ivov"
+        ,   "E. Marocco"
+        ,   "J. Lennox"
+        ]
+    ,   status:   "December 2011. RFC"
+    ,   publisher:  "IETF"
+    },
+    "RFC6544": {
+        title:    "TCP Candidates with Interactive Connectivity Establishment (ICE)"
+    ,   href:     "http://tools.ietf.org/html/rfc6544"
+    ,   authors:  [
+            "J. Rosenberg"
+        ,   "A. Keranen"
+        ,   "B. B. Lowekamp"
+        ,   "A. B. Roach"
+        ]
+    ,   status:   "March 2012. RFC"
+    ,   publisher:  "IETF"
+    },
+    "RFC6716": {
+        title:    "Definition of the Opus Audio Codec"
+    ,   href:     "http://tools.ietf.org/html/rfc6716"
+    ,   authors:  [
+            "JM. Valin",
+            "K. Vos",
+            "T. Terriberry"
+        ]
+    ,   status:   "September 2012. RFC"
     ,   publisher:  "IETF"
     },
     "RFC6904": {
@@ -86,7 +151,7 @@ var respecConfig = {
     ,   authors:  [
             "J. Lennox"
         ]
-    ,   status:   "RFC 6904, April 2013"
+    ,   status:   "April 2013. RFC"
     ,   publisher:  "IETF"
     },
     "STUN-URI": {
@@ -111,6 +176,17 @@ var respecConfig = {
             "P. Jones"
         ]
     ,   status:   "12 March 2012. Internet Draft (work in progress)"
+    ,   publisher:  "IETF"
+    },
+    "APPID": {
+        title:    "The Session Description Protocol (SDP) Application Token Attribute"
+    ,   href:     "http://tools.ietf.org/html/draft-even-mmusic-application-token" 
+    ,   authors:  [
+            "R. Even",
+            "J. Lennox",
+            "Q. Wu"
+        ]
+    ,   status:   "03 January 2014. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     }
 }
@@ -144,13 +220,15 @@ Instead, ORTC focuses on "sender", "receiver" and "transport" objects, which hav
 as well as "parameters" which define what they are configured to do. 
 "Tracks" and "data channels" are sent over the transports, between senders and receivers.</p>
 <p>This specification defines several objects: RTCDtlsTransport (Section 2), RTCIceTransport (Section 3), 
-RTCIceListener (Section 4), RTCRtpSender (Section 5), RTCRtpReceiver (Section 6), 
-RTCDTMFTrack (Section 8), RTCDataChannel
-(Section 9), and RTCSctpTransport (Section 10); RTP dictionaries are described in Section 7.</p>
+RTCIceListener (Section 4), RTCRtpSender (Section 5), RTCRtpReceiver (Section 6), RTCRtpListener (Section 7),  
+RTCDtmfSender (Section 9), RTCDataChannel
+(Section 10), and RTCSctpTransport (Section 11); RTP dictionaries are described in Section 8.</p>
 <p>  
 In a Javascript application utilizing the ORTC API,  
 the relationship between the application and the objects, as well 
-as between the objects themselves is shown below:</p>
+as between the objects themselves is shown below. 
+Horizontal or slanted arrows denote the flow of media or data, whereas vertical arrows denote interactions via methods and events. 
+</p>
 
 <img alt="The non-normative ORTC Big Picture Diagram" src="images/ortc-big-picture.png" style="width:80%" />
 
@@ -177,6 +255,10 @@ as between the objects themselves is shown below:</p>
     <p>The terms <dfn>MediaStream</dfn>, <dfn>MediaStreamTrack</dfn>,
     <dfn>Constraints</dfn>, and <dfn>Consumer</dfn> are defined in
     [[!GETUSERMEDIA]].</p>
+
+    <p>The terms single-session transmission (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>)
+    are defined in [[!RFC6190]].</p>
+
   </section>
 </section>
 <section id="rtcdtlstransport*">
@@ -196,34 +278,78 @@ The <dfn>RTCDtlsTransport</dfn> includes information relating to Datagram Transp
     <h3>Operation</h3>
 
     <p>A <a>RTCDtlsTransport</a> instance is optionally constructed from an <a>RTCIceTransport</a> 
-       object or an <a>RTCIceTransport</a> is automatically constructed.</p>
+       object or an <a>RTCDtlsTransport</a> is automatically constructed.</p>
   </section>
 
   <section id="rtcdtlstransport-interface-definition*">
     <h3>Interface Definition</h3>
 
     <dl class="idl" title="[Constructor(optional RTCIceTransport transport)] interface RTCDtlsTransport">
-      <dt>readonly attribute RTCIceTransport transport</dt>
-      <dd>The associated <a>RTCIceTransport</a> instance.</dd>
+      <dt>attribute RTCIceTransport transport</dt>
+      <dd><p>The associated <a>RTCIceTransport</a> instance.</p></dd>
 
       <dt>readonly attribute RTCDtlsTransportState state</dt>
-      <dd>The current state of the DTLS transport.</dd>
+      <dd><p>The current state of the DTLS transport.</p></dd>
 
       <dt>RTCDtlsParameters getLocalParameters()</dt>
-      <dd>Obtain the DTLS parameters of the local <a>RTCDtlsTransport</a>.</dd>
+      <dd><p>Obtain the DTLS parameters of the local <a>RTCDtlsTransport</a>.</p></dd>
 
       <dt>RTCDtlsParameters? getRemoteParameters()</dt>
-      <dd>Obtain the current DTLS parameters of the remote <a>RTCDtlsTransport</a>.</dd>
+      <dd><p>Obtain the current DTLS parameters of the remote <a>RTCDtlsTransport</a>.</p></dd>
 
       <dt>void start(RTCDtlsParameters remoteParameters)</dt>
-      <dd>Start DTLS transport negotiation with the parameters of the remote DTLS transport.</dd>
+      <dd><p>Start DTLS transport negotiation with the parameters of the remote DTLS transport.</p></dd>
 
       <dt>void stop()</dt>
-      <dd>Stops and closes the DTLS transport object.</dd>
+      <dd><p>Stops and closes the DTLS transport object.</p></dd>
 
       <dt>attribute EventHandler? onstatechange</dt>
-      <dd>Set this handler to receive events when the state of the DTLS transport changes.</dd>
+      <dd><p>Set this handler to receive events when the state of the DTLS transport changes.</p></dd>
 
+    </dl>
+  </section>
+
+  <section id="ondtlstransportstatechangeevent-interface-definition*">
+      <h3>Interface Definition</h3>
+
+      <dl class="idl" title="interface onstatechange : Event">
+        <dt>readonly attribute RTCDtlsTransportState  state</dt>
+        <dd>
+          <p>The <a>state</a> attribute contains the new <a>RTCDtlsTransportState</a> that caused the event.</p>
+        </dd>
+      </dl>
+  </section>
+
+  <section id="rtcdtlsparameters*">
+   <h3>The RTCDtlsParameters Object</h3>
+
+   <p>
+     The <dfn>RTCDtlsParameters</dfn> object includes information relating to DTLS configuration.
+   </p>
+
+    <dl class="idl" title="dictionary RTCDtlsParameters">
+      <dt>RTCDtlsRole role</dt>
+      <dd><p>The DTLS role.</p></dd>
+      <dt>sequence&lt;DOMString> fingerprint</dt>
+      <dd><p>Sequence of certificate algorithms/fingerprints in the form of the "fingerprint-attribute" defined in [[!RFC4572]].</p></dd>
+    </dl>
+
+  </section>
+
+  <section id="rtcdtlsrole*">
+    <h3>enum RTCDtlsRole</h3>
+
+    <dl class="idl" title="enum RTCDtlsRole">
+      <dt>auto</dt>
+      <dd><p>The DTLS role is be determined based on the resolved ICE role: the "Controlled" role acts as the DTLS client, 
+      the "Controlling" role acts as the DTLS server.
+      </p></dd>
+
+      <dt>client</dt>
+      <dd><p>The DTLS client role.</p></dd>
+
+      <dt>server</dt>
+      <dd><p>The DTLS server role.</p></dd>
     </dl>
   </section>
 
@@ -236,19 +362,21 @@ The <dfn>RTCDtlsTransport</dfn> includes information relating to Datagram Transp
 
   <section id="rtcdtlstransportstate*">
     <h3>enum RTCDtlsTransportState</h3>
-
+    <p><dfn>RTCDtlsTransportState</dfn> provides information about the state of the DTLS transport. 
+       DTLS/SRTP sessions are not reflected in the <a>RTCDtlsTransportState</a>.
+    </p>
     <dl class="idl" title="enum RTCDtlsTransportState">
       <dt>new</dt>
-      <dd>new state</dd>
+      <dd><p>new state</p></dd>
 
       <dt>connecting</dt>
-      <dd>connecting state</dd>
+      <dd><p>connecting state</p></dd>
 
       <dt>connected</dt>
-      <dd>connected state</dd>
+      <dd><p>connected state</p></dd>
 
       <dt>closed</dt>
-      <dd>closed state</dd>
+      <dd><p>closed state</p></dd>
     </dl>
   </section>
 
@@ -264,7 +392,7 @@ The <dfn>RTCDtlsTransport</dfn> includes information relating to Datagram Transp
   <section id="rtcicetransport-overview*">
     <h3>Overview</h3>
 
-    <p>An <a>RTCIceTransport</a> instance is associated to a transport object (such as RTCDtlsTransport), 
+    <p>An <a>RTCIceTransport</a> instance is associated to a transport object (such as <a>RTCDtlsTransport</a>), 
        and provides RTC related methods to it.</p>
   </section>
 
@@ -282,43 +410,103 @@ The <dfn>RTCDtlsTransport</dfn> includes information relating to Datagram Transp
     <dl class="idl" title="[Constructor(RTCIceRole role, optional RTCIceListener iceListener), 
      Constructor(RTCIceRole role, RTCIceOptions options)] interface RTCIceTransport">
       <dt>readonly attribute RTCIceRole role</dt>
-      <dd>The current role of the ICE transport.</dd>
+      <dd><p><dfn>RTCIceRole</dfn> contains the current role of the ICE transport.</p></dd>
       <dt>readonly attribute RTCIceTransportState state</dt>
-      <dd>The current state of the ICE transport.</dd>
+      <dd><p>The current state of the ICE transport.</p></dd>
+ 
+      <dt>sequence&lt;RTCIceCandidate>  getLocalCandidates()</dt>
+      <dd><p>Retrieve the sequence of candidates associated with the local <a>RTCIceTransport</a>.</p></dd>
 
-      <dt>readonly attribute sequence&lt;RTCIceCandidate>  localCandidates</dt>
-      <dd>Sequence of the candidates associated with local <a>RTCIceTransport</a>.</dd>
+      <dt>sequence&lt;RTCIceCandidate> getRemoteCandidates()</dt>
+      <dd><p>Retrieve the sequence of candidates associated with the remote <a>RTCIceTransport</a>.</p></dd>
 
-      <dt>readonly attribute sequence&lt;RTCIceCandidate> remoteCandidates</dt>
-      <dd>Sequence of the candidates associated with remote <a>RTCIceTransport</a>.</dd>
+      <dt>void gather(RTCIceGatherPolicy gatherPolicy)</dt>
+      <dd><p>Start gathering <a>RTCIceCandidate</a> objects, based on the gather policy (set on the local system, not negotiated).</p></dd>
 
-      <dt>void gather()</dt>
-      <dd>Start gathering <a>RTCIceCandidate</a> objects.</dd>
-
-      <dt>void start(optional RTCIceParameters remoteParameters)</dt>
-      <dd>Starts candidates connectivity checks and attempts to connect to the remote <a>RTCIceTransport</a>.</dd>
+      <dt>void start(RTCIceParameters remoteParameters, optional RTCIceRole role)</dt>
+      <dd><p>Starts candidate connectivity checks and attempts to connect to the remote <a>RTCIceTransport</a>.</p></dd>
 
       <dt>void stop()</dt>
-      <dd>Stops and closes the current object.</dd>
+      <dd><p>Stops and closes the current object.</p></dd>
 
       <dt>RTCIceParameters getLocalParameters()</dt>
-      <dd>Obtain the ICE parameters of the local <a>RTCIceTransport</a>.</dd>
+      <dd><p>Obtain the ICE parameters of the local <a>RTCIceTransport</a>.</p></dd>
 
       <dt>RTCIceParameters? getRemoteParameters()</dt>
-      <dd>Obtain the current ICE parameters of the remote <a>RTCIceTransport</a>.</dd>
-
-      <dt>void setRemoteParameters(RTCIceParameters remoteParameters)</dt>
-      <dd>Set the remote parameters associated with the remote <a>RTCIceTransport</a>.</dd>
+      <dd><p>Obtain the current ICE parameters of the remote <a>RTCIceTransport</a>.</p></dd>
 
       <dt>void addRemoteCandidate(RTCIceCandidate remoteCandidate)</dt>
-      <dd>Add remote candidate associated with remote <a>RTCIceTransport</a>.</dd>
+      <dd><p>Add remote candidate associated with remote <a>RTCIceTransport</a>.</p></dd>
 
       <dt>attribute EventHandler? onlocalcandidate</dt>
-      <dd>Set this handler to receive events when a new local candidate is available.</dd>
+      <dd><p>Set this handler to receive events when a new local candidate is available.</p></dd>
 
       <dt>attribute EventHandler? onstatechange</dt>
-      <dd>Set this handler to receive events when the state of the <a>RTCIceTransport</a> has changed.</dd>
+      <dd><p>Set this handler to receive events when the state of the <a>RTCIceTransport</a> has changed.</p></dd>
 
+      <dt>attribute EventHandler? ongatherfailure</dt>
+      <dd><p>Set this handler to receive an event when ICE candidate gathering fails.</p></dd>
+
+      <dt>attribute EventHandler? ongatherneeded</dt>
+      <dd><p>Set this handler to receive an event when ICE candidate gathering is needed.</p></dd>
+
+    </dl>
+  </section>
+
+  <section id="onlocalcandidateevent-interface-definition*">
+      <h3>Interface Definition</h3>
+
+      <dl class="idl" title="interface onlocalcandidate : Event">
+        <dt>readonly attribute RTCIceCandidate? candidate</dt>
+        <dd>
+          <p>The <a>candidate</a> attribute is the <a>RTCIceCandidate</a> object with the 
+             new local ICE candidate that caused the event.  If candidate is null,  
+             there are no additional candidates for now.</p>
+        </dd>
+      </dl>
+  </section>
+
+  <section id="ongatherneededevent-interface-definition*">
+      <h3>Interface Definition</h3>
+
+      <dl class="idl" title="interface ongatherneeded : Event">
+      </dl>
+  </section>
+
+  <section id="onicetransportstatechangeevent-interface-definition*">
+      <h3>Interface Definition</h3>
+
+      <dl class="idl" title="interface onstatechange : Event">
+        <dt>readonly attribute RTCIceTransportState state</dt>
+        <dd>
+          <p>The <a>state</a> attribute contains the new <a>RTCIceTransportState</a> causing the event.</p>
+        </dd>
+      </dl>
+  </section>
+
+  <section id="ongatherfailureevent-interface-definition*">
+      <h3>Interface Definition</h3>
+
+      <dl class="idl" title="interface ongatherfailure : Event">
+        <dt>readonly attribute DOMError e</dt>
+        <dd>
+          <p>The <a>DOMError</a> object whose <a>name</a> attribute has the value TODO.</p>
+        </dd>
+      </dl>
+  </section>
+
+  <section id="rtciceparameters*">
+   <h3>The RTCIceParameters Object</h3>
+
+   <p>
+     The <dfn>RTCIceParameters</dfn> object includes the ICE username and password.
+   </p>
+
+    <dl class="idl" title="dictionary RTCIceParameters">
+      <dt>DOMString usernameFragment</dt>
+      <dd><p>ICE username.</p></dd>
+      <dt>DOMString password</dt>
+      <dd><p>ICE password.</p></dd>
     </dl>
   </section>
 
@@ -371,7 +559,7 @@ getLocalParameters(),
 //
 function accept(signaller, remote) {
  var iceOptions = ...;
- var ice = new RTCIceTransport(iceOptions);
+ var ice = new RTCIceTransport(RTCIceRole.controlled,iceOptions);
  var dtls = new RTCDtlsTransport(ice);
  // ... get tracks and RTP objects from other example
  ice.oncandidate = function(candidate) {
@@ -404,10 +592,24 @@ getLocalParameters()
 
     <dl class="idl" title="enum RTCIceRole">
       <dt>controlling</dt>
-      <dd>controlling state</dd>
+      <dd><p>controlling state</p></dd>
 
       <dt>controlled</dt>
-      <dd>controlled state</dd>
+      <dd><p>controlled state</p></dd>
+    </dl>
+  </section>
+
+  <section id="rtcicegatherpolicy*">
+    <h3>enum RTCIceGatherPolicy</h3>
+
+    <dl class="idl" title="enum RTCIceGatherPolicy">
+      <dt>all</dt>
+      <dd><p>Gather all ICE candidate types.</p></dd>
+      <dt>nohost</dt>
+      <dd><p>Gather all ICE candidate types except for host candidates.</p></dd>
+      <dt>relayonly</dt>
+      <dd><p>Only gather media relay candidates such as candidates passing through a TURN server.  
+      This can be used to reduce leakage of IP addresses in certain use cases.</p></dd>
     </dl>
   </section>
 
@@ -416,27 +618,27 @@ getLocalParameters()
 
     <dl class="idl" title="enum RTCIceTransportState">
       <dt>new</dt>
-      <dd>new state</dd>
+      <dd><p>new state</p></dd>
 
       <dt>checking</dt>
-      <dd>checking state</dd>
+      <dd><p>checking state</p></dd>
 
       <dt>connected</dt>
-      <dd>connected state</dd>
+      <dd><p>connected state</p></dd>
 
       <dt>completed</dt>
-      <dd>completed state</dd>
+      <dd><p>completed state</p></dd>
 
       <dt>disconnected</dt>
-      <dd>disconnected state</dd>
+      <dd><p>disconnected state</p></dd>
 
       <dt>closed</dt>
-      <dd>closed state</dd>
+      <dd><p>closed state</p></dd>
     </dl>
 
 <p>The non-normative ICE state transitions are:</p>
 
-<img alt="The non-normative ICE State Transition Diagram" src="images/icestates.svg" style="width:50%" />
+<img alt="The non-normative ICE State Transition Diagram" src="images/icestates.png" style="width:50%" />
 </section>
 
   <section id="rtciceoptions*">
@@ -448,7 +650,7 @@ getLocalParameters()
 
     <dl class="idl" title="dictionary RTCIceOptions">
       <dt>sequence&lt;RTCIceServer>? iceServers</dt>
-      <dd>An array containing STUN and TURN servers available to be used by ICE.</dd>
+      <dd><p>An array containing STUN and TURN servers available to be used by ICE.</p></dd>
     </dl>
 
   </section>
@@ -457,7 +659,9 @@ getLocalParameters()
    <h3>The RTCIceServer Object</h3>
 
    <p>
-    The <dfn>RTCIceServer</dfn> is used to provide STUN or TURN server configuration. In network topologies with multiple layers of NATs, it is desirable to have a STUN server between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
+    The <dfn>RTCIceServer</dfn> is used to provide STUN or TURN server configuration. 
+    In network topologies with multiple layers of NATs, it is desirable to have a STUN server 
+    between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
    <p>
 
    </p>
@@ -470,11 +674,12 @@ getLocalParameters()
 
     <dl class="idl" title="dictionary RTCIceServer">
       <dt>(DOMString or sequence&lt;DOMString>) urls</dt>
-      <dd>STUN or TURN URI(s) as defined in [[!STUN-URI]] and [[!TURN-URI]]</dd>
+      <dd><p>STUN or TURN URI(s) as defined in [[!STUN-URI]] and [[!TURN-URI]]</p></dd>
       <dt>DOMString? username</dt>
-      <dd>If this RTCIceServer object represents a TURN server, then this attribute specifies the username to use with that TURN server.</dd>
+      <dd><p>If this RTCIceServer object represents a TURN server, then this attribute specifies 
+          the username to use with that TURN server.</p></dd>
       <dt>DOMString? credential</dt>
-      <dd>If the uri element is a TURN-URI, then this is the credential to use with that TURN server.</dd>
+      <dd><p>If the uri element is a TURN URI, then this is the credential to use with that TURN server.</p></dd>
     </dl>
 
   </section>
@@ -490,8 +695,9 @@ getLocalParameters()
     <pre class="example"><code class="javascript">{
   foundation: "abcd1234",
   priority: 1694498815,
-  connectionAddress: "192.0.2.33",
-  connectionPort: 10000,
+  ip: "192.0.2.33",
+  protocol: "udp",
+  port: 10000,
   type: "host"
 };
     </code></pre>
@@ -499,44 +705,59 @@ getLocalParameters()
     <dl class="idl" title="dictionary RTCIceCandidate">
       <dt>DOMString foundation</dt>
       <dd>
-        A unique identifier that allows ICE to correlate candidates that appear on multiple <a>RTCIceTransport</a>s.
+        <p>A unique identifier that allows ICE to correlate candidates that appear on multiple <a>RTCIceTransport</a>s.</p>
       </dd>
       <dt>unsigned long priority</dt>
-      <dd>The assigned priority of the candidate.  This is automatically populated by the browser.</dd>
+      <dd><p>The assigned priority of the candidate.  This is automatically populated by the browser.</p></dd>
       <dt>DOMString ip</dt>
-      <dd>The IP address of the candidate.</dd>
+      <dd><p>The IP address of the candidate.</p></dd>
+      <dt>RTCIceProtocol protocol</dt>
+      <dd><p>The protocol of the candidate (UDP/TCP).</p></dd>
       <dt>unsigned short port</dt>
-      <dd>The UDP port for the candidate.</dd>
+      <dd><p>The port for the candidate.</p></dd>
       <dt>RTCIceCandidateType type</dt>
-      <dd>The type of candidate.</dd>
-      <dt>DOMString? relatedAddress</dt>
+      <dd><p>The type of candidate.</p></dd>
+      <dt>DOMString? relatedAddress=""</dt>
       <dd>
-        For candidates that are derived from others, such as relay or reflexive candidates, this
-        refers to the host candidate that these are derived from.  This value is not present on
-        host candidates.
+        <p>For candidates that are derived from others, such as relay or reflexive candidates, the <dfn>relatedAddress</dfn>
+        refers to the host candidate that these are derived from.  For host candidates, the <a>relatedAddress</a>
+        is set to the empty string.</p>
       </dd>
-      <dt>unsigned short? relatedPort</dt>
+      <dt>unsigned short? relatedPort=null</dt>
       <dd>
-        For candidates that are derived from others, such as relay or reflexive candidates, this
-        refers to the host candidate that these are derived from.  This value is not present on
-        host candidates.
+        <p>For candidates that are derived from others, such as relay or reflexive candidates, the <dfn>relatedPort</dfn>
+        refers to the host candidate that these are derived from.  For host candidates, the <a>relatedPort</a>
+        is null.</p> 
       </dd>
     </dl>
 
     <section>
+      <h4>The RTCIceProtocol</h4>
+      <p>
+        The <dfn>RTCIceProtocol</dfn> includes the protocol of the ICE candidate.
+      </p>
+      <dl class="idl" title="enum RTCIceProtocol">
+        <dt>udp</dt>
+        <dd><p>A UDP candidate, as described in [[!RFC5245]].</p></dd> 
+        <dt>tcp</dt>
+        <dd><p>A TCP candidate, as described in [[!RFC6544]].</p></dd>
+      </dl>
+    </section>
+
+    <section>
       <h4>The RTCIceCandidateType</h4>
       <p>
-        The <dfn>RTCIceCandidateType</dfn> includes the type of ICE candidate.
+        The <dfn>RTCIceCandidateType</dfn> includes the type of the ICE candidate.
       </p>
       <dl class="idl" title="enum RTCIceCandidateType">
         <dt>host</dt>
-        <dd>A host candidate.</dd>
+        <dd><p>A host candidate.</p></dd>
         <dt>srflx</dt>
-        <dd>A server reflexive candidate.</dd>
+        <dd><p>A server reflexive candidate.</p></dd>
         <dt>prflx</dt>
-        <dd>A peer reflexive candidate.</dd>
+        <dd><p>A peer reflexive candidate.</p></dd>
         <dt>relay</dt>
-        <dd>A relay candidate.</dd>
+        <dd><p>A relay candidate.</p></dd>
       </dl>
     </section>
   </section>
@@ -546,7 +767,7 @@ getLocalParameters()
   <h2>The RTCIceListener Object</h2>
 
     <p>
-      The <dfn>RTCIceListener</dfn> enables an endpoint to construct multiple RTCIceTransport 
+      The <dfn>RTCIceListener</dfn> enables an endpoint to construct multiple <a>RTCIceTransport</a> 
       objects from a set of local ICE parameters, 
       enabling usage scenarios such as parallel forking.
     </p>
@@ -572,18 +793,10 @@ getLocalParameters()
       <dd>
         <p>The <a>RTCIceOptions</a> instance.</p>
       </dd>
-      <dt><a>RTCIceParameters</a>                  getLocalParameters()</dt>
-      <dd></dd>
-      <dt>readonly attribute sequence&lt;RTCIceCandidate>  localCandidates</dt>
-      <dd></dd>
       <dt>void start()</dt>
-      <dd></dd>
+      <dd><p>Starts candidate connectivity checks.</p></dd>
       <dt>void stop()</dt>
-      <dd></dd>
-      <dt>attribute EventHandler?   onlocalcandidate</dt>
-      <dd></dd>
-      <dt>attribute EventHandler?   ongatherfailure</dt>
-      <dd></dd>
+      <dd><p></p></dd>
     </dl>
   </section>
 
@@ -652,7 +865,8 @@ iceListener.start();
       <dd><p>Filter parameters based on the <a>RTCRtpCapabilities</a>.</p></dd>
 
       <dt>void send(<a>RTCRtpParameters</a> parameters)</dt>
-      <dd><p>Media is controlled by the given "parameters".  The sender starts sending when the send() is called and stopped when the stop() is called.</p></dd>
+      <dd><p>Media is controlled by the given "parameters".  The sender starts sending when send() 
+is called and stops sending when stop() is called.</p></dd>
 
       <dt>void stop()</dt>
       <dd><p>Stops sending the track on the wire.  Stop is final like <a>MediaStreamTrack</a></p></dd>
@@ -679,20 +893,20 @@ iceListener.start();
   <section id="rtcrtpreceiver-overview*">
     <h3>Overview</h3>
 
-    <p>An <a>RTCRtpReceiver</a> instance is associated to a sending <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
+    <p>An <a>RTCRtpReceiver</a> instance is associated to a receiving <a>MediaStreamTrack</a> and provides RTC related methods to it.</p>
   </section>
 
   <section id="rtcrtpreceiver-operation*">
     <h3>Operation</h3>
 
-    <p>A <a>RTCRtpReceiver</a> instance is constructed from an <a>MediaStreamTrack</a> object and associated to an <a>RTCDtlsTransport</a>.</p>
+    <p>A <a>RTCRtpReceiver</a> instance is constructed from an <a>RTCDtlsTransport</a> object.</p>
   </section>
 
   <section id="rtcrtpreceiver-interface-definition*">
     <h3>Interface Definition</h3>
 
-    <dl class="idl" title="[Constructor(MediaStreamTrack track, RTCDtlsTransport transport)] interface RTCRtpReceiver">
-      <dt>attribute <a>MediaStreamTrack</a>? track</dt>
+    <dl class="idl" title="[Constructor(RTCDtlsTransport transport)] interface RTCRtpReceiver">
+      <dt>readonly attribute <a>MediaStreamTrack</a>? track</dt>
       <dd>
         <p>The associated <a>MediaStreamTrack</a> instance.</p>
       </dd>
@@ -723,6 +937,9 @@ iceListener.start();
 
       <dt>void receive(<a>RTCRtpParameters</a> parameters)</dt>
       <dd><p>Media is controlled by the given "parameters". The receiver starts receiving when the receive() is called and stopped when the stop() is called.</p></dd>
+
+      <dt>sequence&lt;RTCRtpContributingSource> getContributingSources()</dt>
+      <dd><p>Retrieve the sequence of contributing sources.</p></dd>
 
       <dt>void stop()</dt>
       <dd><p>Stops receiving the track on the wire. Stop is final like <a>MediaStreamTrack</a></p></dd>
@@ -755,13 +972,13 @@ function initiate(signaller, transport, audioTrack, videoTrack) {
   }, function(answer) {
     // The responder answers with parameters it wants to send with
     // and the capabilities it has for receiving. 
-    audioSendParams = RTCRtpSender.filterParameters(
+    var audioSendParams = RTCRtpSender.filterParameters(
        sendAudioParams, answer.rtpCaps);
-    videoSendParams = RTCRtpSender.filterParameters(
-       sendVideoParams, answer.rtpCaps
-    var audioRecvParams = RTCRtpSender.filterParameters(
+    var videoSendParams = RTCRtpSender.filterParameters(
+       sendVideoParams, answer.rtpCaps);
+    var audioRecvParams = RTCRtpReceiver.filterParameters(
        answer.audio);
-    var videoRecvParams = RTCRtpSender.filterParameters(
+    var videoRecvParams = RTCRtpReceiver.filterParameters(
        answer.video);
       
     audioSender.send(audioSendParams);
@@ -791,9 +1008,9 @@ function accept(
     audioTrack, remote.rtpCaps);
   var videoSendParams = RTCRtpSender.createParameters(
     videoTrack, remote.rtpCaps);
-  var audioRecvParams = RTCRtpSender.filterParameters(
+  var audioRecvParams = RTCRtpReceiver.filterParameters(
      remote.audio);
-  var videoRecvParams = RTCRtpSender.filterParameters(
+  var videoRecvParams = RTCRtpReceiver.filterParameters(
      remote.video);
   
   audioSender.send(audioSendParams);
@@ -803,8 +1020,8 @@ function accept(
  
   signaller.answerTracks({
     "rtpCaps": RTCRtpReceiver.getCapabilities(),
-    "audio": audioSender.parameters(),
-    "video": videoSender.parameters()
+    "audio": audioSendParams,
+    "video": videoSendParams
   });
 
   // Now we can render/play 
@@ -815,46 +1032,123 @@ function accept(
 
 </section>
 
+<section id="rtcrtplistener*">
+  <h2>The RTCRtpListener Object</h2>
+
+    <p>
+      The <dfn>RTCRtpListener</dfn> listens to RTP packets received from the DTLS transport, and
+      fires an event if it detects an RTP stream that is not configured to be processed by an
+      existing <a>RTCRtpReceiver</a> object.  The amount of buffering to be provided for unhandled
+      RTP streams is recommended to be strictly limited to protect against denial of service attacks.
+    </p>
+
+  <section id="rtcrtplistener-overview*">
+    <h3>Overview</h3>
+
+    <p>An <a>RTCRtpListener</a> instance is associated to an <a>RTCDtlsTransport</a>.</p>
+  </section>
+
+  <section id="rtcrtplistener-operation*">
+    <h3>Operation</h3>
+
+    <p>An <a>RTCRtpListener</a> instance is constructed from an <a>RTCDtlsTransport</a> object.</p>
+   <p>To determine whether an RTP stream is configured to be processed by an existing <a>RTCRtpReceiver</a> object, 
+   the <a>RTCRtpListener</a> attempts to match the values of an incoming RTP packet's
+   Payload Type and SSRC fields as well as the value of its receiverId RTP extension (if present) against the 
+   RTCRtpReceiver.RTCRtpParameters.RTCRtpCodecParameters.payLoadType, 
+   RTCRtpReceiver.RTCRtpParameters.RTCRtpEncodingParameters.ssrc,
+   and RTCRtpReceiver.RTCRtpParameters.receiverId attributes of configured RTCRtpReceiver objects. 
+   </p>
+
+   <p>TODO: provide details of matching behavior, along with examples.</p>
+  </section>
+
+  <section id="rtcrtplistener-interface-definition*">
+    <h3>Interface Definition</h3>
+
+    <dl class="idl" title="[Constructor(RTCDtlsTransport transport)] interface RTCRtpListener">
+      <dt>readonly attribute <a>RTCDtlsTransport</a>                    transport</dt>
+      <dd>
+        <p>The <a>RTCDtlsTransport</a> instance.</p>
+      </dd>
+      <dt>attribute EventHandler?   onunhandledrtp</dt>
+      <dd><p>The event handler which handles the <a>RTCRtpUnhandledRtpEvent</a>.</p></dd>
+    </dl>
+  </section>
+
+  <section id="rtcrtpunhandledrtpevent-interface-definition*">
+      <h3>Interface Definition</h3>
+
+      <dl class="idl" title="interface RTCRtpUnhandledRtpEvent : Event">
+        <dt>readonly attribute unsigned int  ssrc</dt>
+        <dd>
+          <p>The SSRC in the RTP packet triggering the event.</p>
+        </dd>
+        <dt>readonly attribute unsigned byte payloadType</dt>
+        <dd>
+          <p>The Payload Type value in the RTP packet triggering the event.</p>
+        </dd>
+        <dt>readonly attribute DOMString? receiverId</dt>
+        <dd>
+          <p>The value of the AppId header extension in the RTP packet triggering the event, if present.</p>
+        </dd>
+      </dl>
+
+  </section>
+
+  <section id="rtcrtplistener-example*">
+    <h3>Example</h3>
+    <pre class="example"><code class="javascript">
+
+    </code></pre>
+
+  </section>
+</section>
+
+
 <section id="rtcrtpdictionaries*">
   <h2>Dictionaries related to Rtp</h2>
+
+  <section id="rtcrtpcontributingsource*">
+    <h3>dictionary RTCRtpContributingSource</h3>
+    <dl title='dictionary RTCRtpContributingSource' class='idl'>
+      <dt>DOMHiResTimeStamp timestamp</dt>
+      <dd><p>Timestamp indicating when an RTP packet containing the contributing source was last received.
+       The time is relative to the UNIX epoch (Jan 1, 1970, UTC).</p></dd>
+      <dt>unsigned int csrc</dt>
+      <dd><p>The contributing source.</p></dd>
+      <dt>int audioLevel</dt>
+      <dd><p>The audio level of the contributing source. 
+      Value is between 0 and -127 representing the contributing source dBov value,
+      as described in [[!RFC6465]]</p></dd>
+    </dl>
+  </section>
 
   <section id="rtcrtpcapabilities*">
     <h3>dictionary RTCRtpCapabilities</h3>
     <dl title='dictionary RTCRtpCapabilities' class='idl'>
       <dt>sequence&lt;RTCRtpCodec> audioCodecs</dt>
-      <dd>Supported audio codecs.</dd>
+      <dd><p>Supported audio codecs.</p></dd>
       <dt>sequence&lt;RTCRtpCodec> videoCodecs</dt>
-      <dd>Supported video codecs.</dd>
+      <dd><p>Supported video codecs.</p></dd>
       <dt>sequence&lt;DOMString> headerExtensions</dt>
-      <dd>URIs of supported RTP header extensions.</dd>
+      <dd><p>URIs of supported RTP header extensions.</p></dd>
       <dt>sequence&lt;RTCRtpFeatures> features</dt>
-      <dd>Supported features.</dd>
+      <dd><p>Supported RTP features.</p></dd>
     </dl>
   </section>
 
   <section id="rtcrtpcodec*">
     <h3>dictionary RTCRtpCodec</h3>
     <dl class="idl" title="dictionary RTCRtpCodec">
-      <dt>DOMString name</dt>
-        <dd>MIME media type</dd>
-      <dt>unsigned byte? payload-id</dt>
-        <dd>Payload Type</dd>
-      <dt>unsigned int? clockRate</dt>
-        <dd>Codec clockrate</dd>
-      <dt>unsigned int? numChannels</dt>
-        <dd></dd>
-      <dt>sequence&lt;RTCRtpCodecParameter> formatParameters</dt>
-        <dd>Codec-specific format parameters.</dd>
-    </dl>
-  </section>
-
-  <section id="rtcrtpcodecparameter*">
-    <h3>dictionary RTCRtpCodecParameter</h3>
-    <dl class="idl" title="dictionary RTCRtpCodecParameter">
-      <dt>DOMString           name</dt>
-         <dd>Name of the codec-specific parameter.</dd>
-      <dt>DOMString?          value</dt>
-         <dd>Value of the codec-specific parameter.</dd>
+      <dt>DOMString name=""</dt>
+        <dd><p>The MIME media type, if set, empty string otherwise.</p></dd>
+      <dt>unsigned int? clockRate=null</dt>
+        <dd><p>Codec clockrate, null if unset.</p></dd>
+      <dt>unsigned int? numChannels=1</dt>
+        <dd><p>The number of channels supported (e.g. stereo); one by default.</p></dd>
+      <dt>sequence&lt;KeyValueParam> formatParameters</dt>
+        <dd><p>Codec-specific format parameters available for signaling.</p></dd>
     </dl>
   </section>
 
@@ -862,43 +1156,284 @@ function accept(
     <h3>enum RTCRtpFeatures</h3>
     <dl class="idl" title="enum RTCRtpFeatures">
       <dt>nack</dt>
-      <dd>From [[!RFC4585]]</dd>
+      <dd><p>From [[!RFC4585]]</p></dd>
     </dl>
   </section>
 
   <section id="rtcrtpparameters*">
     <h3>dictionary RTCRtpParameters</h3>
     <dl title='dictionary RTCRtpParameters' class='idl'>
-      <dt>sequence&lt;RTCRtpCodec> codecs</dt>
-      <dd></dd>
-      <dt>sequence&lt;RTCRtpEncodingParameters> encodings</dt>
-      <dd>Can specify multiple layers or "encodings" to be used for things like simulcast, RTC, FEC, etc.</dd>
+      <dt>DOMString? receiverId=""</dt>
+      <dd><p>The receiverId assigned to the RTP stream, if any, empty string otherwise.  
+In an <a>RTCRtpReceiver</a> object, this corresponds to
+recv-appId defined in [[!APPID]].  In an <a>RTCRtpSender</a> object, it corresponds to the appId.
+This is a stable identifier that can be defined and assign to any RTP stream rather than relying on an SSRC.
+An SSRC is randomly generated and can change arbitrarily due to conflicts with other SSRCs, whereas
+the receiverId has a value 
+whose meaning can be defined in advance between RTP
+sender and receiver, assisting in RTP demultiplexing. 
+</p></dd>
+      <dt>sequence&lt;RTCRtpCodecParameters> codecs</dt>
+      <dd><p>The codecs to send or receive (could include RTX and CN as well).</p></dd>
       <dt>sequence&lt;RTCRtpHeaderExtensionParameters> headerExtensions</dt>
-      <dd>Can specify RTP header extensions.</dd>
+      <dd><p>The RTP header extensions to send or receive.</p></dd>
+      <dt>sequence&lt;RTCRtpEncodingParameters> encodings</dt>
+      <dd><p>The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.</p></dd>
+    </dl>
+  </section>
+
+  <section id="rtcrtpcodecparameters*">
+    <h3>dictionary RTCRtpCodecParameters</h3>
+    <dl title='dictionary RTCRtpCodecParameters' class='idl'>
+      <dt>unsigned byte        payloadType=null</dt>
+      <dd><p>The value that goes in the RTP Payload Type Field [[!RFC3550]], null if unset.</p></dd>
+      <dt>RTCRtpCodec   codec</dt>
+      <dd><p>The codec to be used for sending or receiving.</p></dd>
+      <dt>sequence&lt;KeyValueParam>  formatParameters</dt>
+      <dd><p>Codec parameters that control what is sent, but are not signaled.  For example, with Opus [[!RFC6716]], stereo=1.</p></dd>
+      <dt>sequence&lt;RTCRtcpFeedbackParam>  rtcpFeedbackParameters</dt>
+      <dd><p>RTCP feedback parameters, separated out because they are so different.</p></dd>
+    </dl>
+  </section>
+
+  <section id="keyvalueparam*">
+    <h3>dictionary KeyValueParam</h3>
+    <dl class="idl" title="dictionary KeyValueParam">
+      <dt>DOMString           name</dt>
+         <dd><p>Name of the codec-specific parameter.</p></dd>
+      <dt>DOMString?          value=""</dt>
+         <dd><p>Value of the codec-specific parameter, if any, empty string otherwise.</p></dd>
+    </dl>
+  </section>
+
+  <section id="rtcrtcpfeedbackparam*">
+    <h3>dictionary RTCRtcpFeedbackParam</h3>
+    <dl title='dictionary RTCRtcpFeedbackParam' class='idl'>
+      <dt>DOMString type</dt>
+      <dd><p>The type of feedback message ("nack", "ccm", "tmmbr", "goog-remb", etc.).</p></dd>
+      <dt>DOMString parameters</dt>
+      <dd><p>The feedback message ("rpsi", "fir", etc.).</p></dd>
     </dl>
   </section>
 
   <section id="rtcrtpencodingparameters*">
     <h3>dictionary RTCRtpEncodingParameters</h3>
-    <dl title='dictionary RTCRtpEncodingParameters' class='idl'>
-      <dt>unsigned int ssrc</dt>
-      <dd></dd>
-      <dt>int TODO</dt>
-      <dd>Temporary placeholder for things to control various layers, simulcast, rtc, etc.</dd>
+    <dl class="idl" title="dictionary RTCRtpEncodingParameters">
+      <dt>unsigned int? ssrc=null</dt>
+      <dd><p>The SSRC for this layering/encoding, null if unset.</p></dd>
+      <dt>DOMString?  codecName=""</dt>
+      <dd><p>For per-encoding codec specifications, give the codec name here.  If the empty string, the browser will choose.</p></dd>
+      <dt>RTCRtpFecParameters? fec</dt>
+      <dd><p>Specifies the FEC mechanism if used.</p></dd>
+      <dt>RTCRtpRtxParameters? rtx</dt>
+      <dd><p>Specifies the RTX mechanism if used.</p></dd>
+      <dt>double priority=1.0</dt>
+      <dd><p>The higher the value, the more the bits will be given to each as available bandwidth goes up.  Default is 1.0.</p></dd>
+      <dt>double scale=null</dt>
+      <dd><p>Do this scale of the input resolution, or die trying.  1.0 = full resolution.  Default is unconstrained (null).</p></dd>
+      <dt>double maxBitrate=null</dt>
+      <dd><p>Ramp up resolution/quality/framerate until this bitrate, null if unset.  Summed when using dependent layers.</p></dd>
+      <dt>double maxQuality=null</dt>
+      <dd><p>Ramp up resolution/quality/framerate until this quality, null if unset.</p></dd>
+      <dt>double minQuality=null</dt>
+      <dd><p>Never send less than this quality, null if unset.</p></dd>
+      <dt>double bias=null</dt>
+      <dd><p>What to give more bits to, if available, null if unset.  0.0 = strongly favor resolution or 1.0 = strongly favor 
+             framerate. 0.5 = neither.</p></dd>
+      <dt>boolean active=true</dt>
+      <dd><p>Whether the sender or receiver is active.  If false, don't send any media right now.  
+      Disable is different than omitting the encoding;  it can keep resources
+      available to re-enable more quickly than re-adding.  Plus, it still sends RTCP.  Default is active.</p></dd>
+      <dt>DOMString? encodingId</dt>
+      <dd><p>
+An identifier for the encoding object.  This identifier should be unique within the scope of the
+localized sequence of <a>RTCRtpEncodingParameters</a> for any given <a>RTCRtpParameters</a> object.
+If encodings contained within sequences of other <a>RTCRtpParameters</a> objects are dependent
+upon this encoding identifier, the identifier should be globally unique (unless two or more
+encodings are intentionally referencing the same dependency <a>RTCRtpEncodingParameters</a> such
+as described in [[!RFC5583]] Section 6.5a).
+      </p>
+      </dd>
+      <dt>sequence&lt;DOMString> dependencyEncodingIds</dt>
+      <dd><p>Just the IDs (resolve to <a>encodingIds</a> within the same sequence first, then search globally for matches).</p></dd>
+    </dl>
+</section>
+
+
+<section id="rtcrtpencodingparameters-example*">
+    <h3>Examples</h3>
+<pre class="example"><code>
+// Normal 1:1 video with resolution feedback from the receiver
+var encodings = [
+  ssrc: 1,
+  scale: .5
+}];
+
+// Crank up the quality to "11"
+var encodings = [
+  ssrc: 1,
+  maxQuality: 11.0  // TODO: Figure out the scale.
+}];
+
+// Send a thumbnail along with regular size
+var encodings1 = [
+  ssrc: 1,
+  priority: 1.0
+}]
+// Control the resolution and framerate
+// with a different track and RtpSender.
+var encodings2 = [{
+  ssrc: 2,
+  // Prioritize the thumbnail over the main video.
+  priority: 10.0
+}];
+
+// Sign Language
+// (need high framerate, but don't get too bad of quality)
+var encodings = [{
+  minQuality: 0.2,
+  bias: 1.0
+}];
+
+// SVC which handles camera rotation
+var encodings =[{
+  layerId: "0",
+  scale: 0.25,
+  priority: 3.0
+}, {
+  layerId: "1",
+  layerDependencies: ["0"]
+  scale: 0.5,
+  priority: 2.0
+}, {
+  layerId: "2",
+  layerDependencies: ["0", "1"]
+  scale: 1.0,
+  priority: 1.0
+}]
+
+// SVC w/thumbnail:
+var encodings1 =[{
+  layerId: "0",
+  scale: 0.25,
+  priority: 3.0
+}, {
+  layerId: "1",
+  layerDependencies: ["0"],
+  scale: 0.5,
+  priority: 2.0
+}, {
+  layerId: "2",
+  layerDependencies: ["0", "1"],
+  scale: 1.0,
+  priority: 1.0
+}];
+// Control the resolution and framerate with a different track and
+RtpSender.
+var encodings2 =[{
+  layerId: "3",
+  priority: 10.0
+}]
+
+// SVC w/thumbnail temporarily disabled:
+var encodings1 =[{
+  layerId: "0",
+  scale: 0.25,
+  priority: 3.0
+}, {
+  layerId: "1",
+  layerDependencies: ["0"],
+  scale: 0.5,
+  priority: 2.0
+}, {
+  layerId: "2",
+  layerDependencies: ["0", "1"],
+  scale: 1.0,
+  priority: 1.0
+}];
+// Control the resolution and framerate
+// with a different track and RtpSender.
+var encodings2 =[{
+  layerId: "3",
+  priority: 10.0,
+  active: false
+}]
+
+// Must send a very fixed resolution
+// Adjust the resolution using the input track.
+var encodings = [{
+  scale: 1.0
+}];
+
+// Screencast
+var encodings = [{
+  bias: 0.0
+}];
+
+
+// Remote Desktop
+// (High framerate, must not dowscale)
+var encodings = [{
+  bias: 1.0,
+  scale: 1.0
+}];
+
+
+// Baby Monitor or Security Camera
+// Adjust the framerate using the input track.
+var encodings = [{ssrc: 1}];
+
+// Audio more important than video
+var audioEncodings = [{
+  priority: 10.0
+}];
+var videoEncodings = [{
+  priority: 0.1
+}];
+
+Video more important than audio
+var audioEncodings = [{
+  priority: 0.1
+}];
+var videoEncodings = [{
+  priority: 10.0
+}];
+
+// Camera Rotation
+// Since there is only control of scale, there is no issue with camera //
+rotation or cropping.  Everything should work fine with no jank.
+var encodings = [{ssrc: 1}];
+</code></pre>
+  </section>
+
+  <section id="rtcrtpfecparameters*">
+    <h3>dictionary RTCRtpFecParameters</h3>
+    <dl title='dictionary RTCRtpFecParameters' class='idl'>
+      <dt>unsigned int ssrc=null</dt>
+      <dd><p>The SSRC to use for FEC, null if unset.</p></dd>
+      <dt>DOMString mechanism=""</dt>
+      <dd><p>The Forward Error Correction (FEC) mechanism to use, if any, empty string otherwise.</p></dd>
+    </dl>
+  </section>
+
+  <section id="rtcrtprtxparameters*">
+    <h3>dictionary RTCRtpRtxParameters</h3>
+    <dl title='dictionary RTCRtpRtxParameters' class='idl'>
+      <dt>unsigned int ssrc=null</dt>
+      <dd><p>The SSRC to use for RTX, null if unset.</p></dd>
     </dl>
   </section>
 
   <section id="rtcrtpheaderextensionparameters*">
     <h3>dictionary RTCRtpHeaderExtensionParameters</h3>
     <dl class="idl" title="dictionary RTCRtpHeaderExtensionParameters">
-      <dt>DOMString           uri</dt>
-         <dd>The URI of the RTP header extension, as defined in [[!RFC5285]].</dd>
-      <dt>unsigned short      id</dt>
-         <dd>The value that goes in the packet.</dd>
-      <dt>boolean           encrypt</dt>
-          <dd>If true, encrypt the value in the header, as per [[!RFC6904]].</dd>
+      <dt>DOMString           uri=""</dt>
+         <dd><p>The URI of the RTP header extension, if any, as defined in [[!RFC5285]], empty string otherwise.</p></dd>
+      <dt>unsigned short      id=null</dt>
+         <dd><p>The value that goes in the packet, null if unset.</p></dd>
+      <dt>boolean           encrypt=false</dt>
+          <dd><p>If true, the value in the header is encrypted as per [[!RFC6904]].  Default is unencrypted.</p></dd>
     </dl>
-
   </section>
 </section>
 
@@ -907,8 +1442,7 @@ function accept(
 
   <section id="rtcdtmfsender-overview*">
     <h3>Overview</h3>
-
-    <p>An <dfn>RTCDtmfSender</dfn> instance allows sending DTMF tones to/from the remote peer.</p>
+    <p>An <dfn>RTCDtmfSender</dfn> instance allows sending DTMF tones to/from the remote peer, as per [[!RFC4733]].</p>
   </section>
 
   <section id="rtcdtmfsender-operation*">
@@ -922,7 +1456,7 @@ function accept(
 
     <dl class="idl" title="[Constructor(RTCRtpSender)] interface RTCDtmfSender">
       <dt>readonly attribute boolean <a>canInsertDTMF</a></dt>
-      <dd
+      <dd>
         <p>Whether the <a>RTCDtmfSender</a> is capable of sending DTMF.</p>
       </dd>
 
@@ -1001,7 +1535,7 @@ function accept(
       </dl>
       <dl class="idl" title=
       "dictionary RTCDTMFToneChangeEventInit : EventInit">
-        <dt>DOMString tone</dt>
+        <dt>DOMString tone=""</dt>
         <dd>
           <p>The <a>tone</a> parameter is treated as a series of characters. 
           The characters 0 through 9, A through D, #, and * generate the associated DTMF tones. 
@@ -1020,20 +1554,26 @@ function accept(
     <h3>Overview</h3>
 
     <p>
-      This section needs reworking. An <dfn>RTCDataChannel</dfn> class instance allows sending data messages to/from the remote peer.
+      An <dfn>RTCDataChannel</dfn> class instance allows sending data messages to/from the remote peer.
     </p>
+  </section>
+
+  <section id="rtcdatachannel-operation*">
+    <h3>Operation</h3>
+
+    <p>An <a>RTCDataChannel</a> object is constructed from an <a>RTCSctpTransport</a> object.</p>
   </section>
 
   <section id="rtcdatachannel-interface-definition*">
     <h3>Interface Definition</h3>
 
-    <dl class="idl" title="[Constructor(RTCDtlsTransport transport, DOMString id, optional DOMString dataChannelType)] interface RTCDataChannel : EventTarget">
-      <dt>readonly attribute RTCDtlsTransport           transport</dt>
-      <dd>The readonly value referring to the related transport object.</dd>
+    <dl class="idl" title="[Constructor(RTCSctpTransport transport, DOMString id, optional DOMString dataChannelType)] interface RTCDataChannel : EventTarget">
+      <dt>readonly attribute RTCSctpTransport           transport</dt>
+      <dd><p>The readonly value referring to the related SCTP transport object.</p></dd>
       <dt>readonly attribute DOMString     id</dt>
-      <dd>An identifier for the data channel.</dd>
+      <dd><p>An identifier for the data channel.</p></dd>
       <dt>readonly attribute DOMString     type</dt>
-      <dd>The type of data channel being used.</dd>
+      <dd><p>The type of data channel being used.</p></dd>
 
       <dt>void send(Object data)</dt>
       <dd>
@@ -1103,18 +1643,18 @@ function accept(
 
     <dl class="idl" title="[Constructor(RTCDtlsTransport)] interface RTCSctpTransport">
       <dt>attribute <a>RTCDtlsTransport</a>                    transport</dt>
-      <dd>The RTCDtlsTransport instance the RTCSctpTransport object is sending over.</dd>
+      <dd><p>The <a>RTCDtlsTransport</a> instance the <a>RTCSctpTransport</a> object is sending over.</p></dd>
       <dt>static <a>RTCSctpCapabilities</a> getCapabilities()</dt>
-      <dd>Retrieves the RTCSctpCapabilities of the RTCSctpTransport instance.</dd>
+      <dd><p>Retrieves the <a>RTCSctpCapabilities</a> of the <a>RTCSctpTransport</a> instance.</p></dd>
 
       <dt>void start(<a>RTCSctpCapabilities</a> remoteCaps)</dt>
       <dd></dd>
 
       <dt>void stop()</dt>
-      <dd>Stops the RTCSctpTransport instance.</dd>
+      <dd><p>Stops the <a>RTCSctpTransport</a> instance.</p></dd>
 
       <dt><a>DataChannel</a> createDataChannel(<a>RTCDataChannelParameters</a> parameters)</dt>
-      <dd>Creates a data channel running over SCTP transport.</dd>
+      <dd><p>Creates a data channel running over SCTP transport.</p></dd>
 
     <dt>attribute EventHandler       ondatachannel</dt><dd></dd>
 
@@ -1123,25 +1663,35 @@ function accept(
 <section id="rtcdatachannelparameters*">
     <h3>dictionary RTCDataChannelParameters</h3>
     <dl class="idl" title="dictionary RTCDataChannelParameters">
-      <dt>boolean                 outOfOrderAllowed</dt>
-         <dd></dd>
-      <dt>unsigned short          maxRetransmitTime</dt>
-         <dd></dd>
-      <dt>unsigned short          maxRetransmitNum</dt>
-         <dd></dd>
-      <dt>DOMString               protocol</dt>
-          <dd></dd>
-      <dt>boolean                 preset</dt>
-          <dd></dd>
-      <dt>unsigned short          stream</dt>
-          <dd></dd>
+      <dt>boolean                 outOfOrderAllowed=false</dt>
+         <dd><p>Whether out of order delivery is allowed.  Default is false.</p></dd>
+      <dt>unsigned short          maxRetransmitTime=null</dt>
+         <dd><p>The length of the time window (in milliseconds) during which 
+         retransmissions may occur in unreliable mode, or null if unset. 
+         The attribute must return the value to which it was set when the 
+         <a>RTCDataChannel</a> was created.</p></dd>
+      <dt>unsigned short          maxRetransmitNum=null</dt>
+         <dd><p>The maximum number of retransmissions that are attempted in 
+         unreliable mode, or null if unset. 
+         The attribute must return the value to which it was set when the 
+         <a>RTCDataChannel</a> was created.</p></dd>
+      <dt>DOMString               protocol=""</dt>
+          <dd><p>The name of the sub-protocol used with this <a>RTCDataChannel</a> if any, 
+          or the empty string otherwise. 
+          The attribute must return the value to which it was set when the 
+          <a>RTCDataChannel</a> was created.</p></dd>
+      <dt>boolean                 preset=false</dt>
+          <dd><p>Default is false.</p></dd>
+      <dt>unsigned short          stream=null</dt>
+          <dd><p>Null if unset.</p></dd>
     </dl>
 </section>
 
   <section id="rtcsctpcapabilities*">
     <h3>dictionary RTCSctpCapabilities</h3>
     <dl class="idl" title="dictionary RTCSctpCapabilities">
-      <dt>unsigned int                 maxMessageSize</dt><dd></dd>
+      <dt>unsigned int                 maxMessageSize=null</dt>
+      <dd><p>Maximum message size or null if unset.</p></dd>
     </dl>
 </section>
 </section>
@@ -1190,10 +1740,264 @@ function accept(signaller, remote) {
 
 </section>
 </section>
+
+    <section>
+      <h3>Interface Extensions</h3>
+
+      <p>The Statistics API extends the RTCRtpSender, RTCRtpReceiver, RTCDtlsTransport, RTCIceTransport and RTCSctpTransport interfaces.</p>
+
+      <dl class="idl" title="partial interface RTCRtpSender">
+        <dt>void getStats(RTCStatsCallback
+        successCallback, RTCErrorCallback failureCallback)</dt>
+
+        <dd>
+          <p>Gathers stats for the given <a>RTCRtpSender</a> object
+          and reports the result asynchronously.</p>
+
+          <p>When the
+          <dfn>getStats()</dfn> method is
+          invoked, the user agent MUST queue a task to run the following
+          steps:</p>
+
+          <ol>
+            <li>
+              <p>If the <code><a>RTCRtpSender</a></code> object's 
+              <a>RTCRtpEncodingParameters.active</a> state is <code>false</code>, throw an
+              <code>InvalidStateError</code> exception.</p>
+            </li>
+
+
+            <li>
+              <p>Return, but continue the following steps in the
+              background.</p>
+            </li>
+
+            <li>
+              <p>Start gathering the stats.</p>
+            </li>
+
+
+            <li>
+              <p>When the relevant stats have been gathered, queue a task to
+              invoke the success callback (the method's second argument) with a
+              new <code><a>RTCStatsReport</a></code> object, representing the
+              gathered stats, as its argument.</p>
+            </li>
+          </ol>
+        </dd>
+      </dl>
+
+    <section>
+      <h4>RTCStatsCallback</h4>
+
+      <dl title='callback RTCStatsCallback = void' class='idl'>
+        <dt>RTCStatsReport report</dt>
+        <dd>
+          <p>A <code><a>RTCStatsReport</a></code> representing the gathered
+          stats.</p>
+        </dd>
+      </dl>
+    </section>
+
+    <section>
+      <h4>RTCStatsReport Object</h4>
+
+      <p>The <code><a>getStats()</a></code>
+      method delivers a successful result in the form of a
+      <code><a>RTCStatsReport</a></code> object. A
+      <code><a>RTCStatsReport</a></code> object represents a map between
+      strings, identifying the inspected objects (<a href=
+      "#dom-rtcstats-id">RTCStats.id</a>), and their corresponding
+      <code><a>RTCStats</a></code> objects.</p>
+
+      <p>An <code><a>RTCStatsReport</a></code> may be composed of several
+      <code><a>RTCStats</a></code> objects, each reporting stats for one
+      underlying object.
+      One achieves the total for the object by summing over all stats of a 
+      certain type; for instance, if an <a>RTCRtpSender</a> object is sending
+      RTP streams involving multiple SSRCs over the network, the
+      <code><a>RTCStatsReport</a></code> may contain one <code>RTCStats</code>
+      object per SSRC (which can be distinguished by the value of the "ssrc"
+      stats attribute).</p>
+
+      <dl class="idl" title="interface RTCStatsReport">
+        <dt>getter RTCStats (DOMString id)</dt>
+        <dd>
+          <p>Getter to retrieve the <code><a>RTCStats</a></code> objects that
+          this stats report is composed of.</p>
+
+          <p>The set of supported property names [[!WEBIDL]] is defined as the
+          ids of all the <code><a>RTCStats</a></code> objects that has been
+          generated for this stats report. The order of the property names is
+          left to the user agent.</p>
+        </dd>
+      </dl>
+    </section>
+
+    <section>
+      <h4>RTCStats Dictionary</h4>
+      <p>An <code><a>RTCStats</a></code> dictionary represents the stats
+      gathered by inspecting a specific object.
+      The <code><a>RTCStats</a></code>
+      dictionary is a base type that specifies as set of default attributes,
+      such as <a href="#dom-rtcstats-timestamp">timestamp</a> and <a href=
+      "#dom-rtcstats-type">type</a>. Specific stats are added by extending the
+      <code><a>RTCStats</a></code> dictionary.</p>
+
+      <p>Note that while stats names are standardized, any given implementation
+      may be using experimental values or values not yet known to the Web
+      application. Thus, applications MUST be prepared to deal with unknown
+      stats.</p>
+
+      <div class="note">
+        OPEN ISSUE: Need to define an IANA registry for this and populate with
+        pointers to existing things such as the RTCP statistics.
+      </div>
+
+      <p>Statistics need to be synchronized with each other in order to yield
+      reasonable values in computation; for instance, if "bytesSent" and
+      "packetsSent" are both reported, they both need to be reported over the
+      same interval, so that "average packet size" can be computed as "bytes /
+      packets" - if the intervals are different, this will yield errors. Thus
+      implementations MUST return synchronized values for all stats in a
+      <code><a>RTCStats</a></code> object.</p>
+
+      <dl class="idl" title="dictionary RTCStats">
+        <dt>DOMHiResTimeStamp timestamp</dt>
+
+        <dd>
+          <p>The <dfn id="dom-rtcstats-timestamp"><code>timestamp</code></dfn>,
+          of type <code>DOMHiResTimeStamp</code> [[!HIGHRES-TIME]], associated
+          with this object. The time is relative to the UNIX epoch (Jan 1,
+          1970, UTC).</p>
+        </dd>
+
+        <dt>RTCStatsType type</dt>
+        <dd>
+          <p>The type of this object.</p>
+          <p>The <dfn id="dom-rtcstats-type"><code>type</code></dfn> attribute
+          MUST be initialized to the name of the most specific type this
+          <code><a>RTCStats</a></code> dictionary represents.</p>
+        </dd>
+        <dt>DOMString id</dt>
+        <dd>
+          <p>A unique <dfn id="dom-rtcstats-id"><code>id</code></dfn> that is
+          associated with the object that was inspected to produce this
+          <code><a>RTCStats</a></code> object. Two <code><a>RTCStats</a></code>
+          objects, extracted from two different
+          <code><a>RTCStatsReport</a></code> objects, MUST have the same id if
+          they were produced by inspecting the same underlying object. User
+          agents are free to pick any format for the id as long as it meets the
+          requirements above.</p>
+
+          <div class="note">
+            Consider naming id something that indicates that the id refers to
+            the underlying object that was inspected to produce the stats,
+            instead of being an id for the JavaScript object. Suggestions:
+            statsObjectId, reporterId, srcId.
+          </div>
+        </dd>
+      </dl>
+
+      <dl class='idl' title='enum RTCStatsType'>
+        <dt>inbound-rtp</dt>
+        <dd>Inbound RTP.  Relevant to <a>RTCRtpReceiver</a> objects.</dd>
+        <dt>outbound-rtp</dt>
+        <dd>Outbund RTP.  Relevant to <a>RTCRtpSender</a> objects.</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h4>Derived Stats Dictionaries</h4>
+      <dl class="idl" title="dictionary RTCRTPStreamStats : RTCStats">
+        <dt>DOMString ssrc</dt>
+        <dd>
+          <p>...</p>
+        </dd>
+
+        <dt>DOMString remoteId</dt>
+        <dd>
+          <p>The <code>remoteId</code> can be used to look up the corresponding
+          <code><a>RTCStats</a></code> object that represents stats reported by
+          the other peer.</p>
+        </dd>
+      </dl>
+
+      <dl class="idl" title=
+      "dictionary RTCInboundRTPStreamStats : RTCRTPStreamStats">
+        <dt>unsigned long packetsReceived</dt>
+        <dd>
+          <p>Relevant to <a>RTCRtpReceiver</a> objects.</p>
+        </dd>
+        <dt>unsigned long bytesReceived</dt>
+        <dd>
+          <p>Relevant to <a>RTCRtpReceiver</a> objects.</p>
+        </dd>
+      </dl>
+
+      <dl class="idl" title=
+      "dictionary RTCOutboundRTPStreamStats : RTCRTPStreamStats">
+        <dt>unsigned long packetsSent</dt>
+        <dd>
+          <p>Relevant to <a>RTCRtpSender</a> objects.</p>
+        </dd>
+
+        <dt>unsigned long bytesSent</dt>
+        <dd>
+          <p>Relevant to <a>RTCRtpSender</a> objects.</p>
+        </dd>
+      </dl>
+    </section>
+
+    <section>
+    <h3>Other interfaces</h3>
+
+    <section>
+    <h4>RTCRtpReceiver</h4>
+        <dl class="idl" title="partial interface RTCRtpReceiver">
+        <dt>void getStats(RTCStatsCallback
+        successCallback, RTCErrorCallback failureCallback)</dt>
+        </dl>
+    </section>
+    <section>
+    <h4>RTCDtlsTransport</h4>
+        <dl class="idl" title="partial interface RTCDtlsTransport">
+        <dt>void getStats(RTCStatsCallback
+        successCallback, RTCErrorCallback failureCallback)</dt>
+        </dl>
+    </section>
+    <section>
+    <h4>RTCIceTransport</h4>
+        <dl class="idl" title="partial interface RTCIceTransport">
+        <dt>void getStats(RTCStatsCallback
+        successCallback, RTCErrorCallback failureCallback)</dt>
+        </dl>
+    </section>
+    <section>
+    <h4>RTCSctpTransport</h4>
+        <dl class="idl" title="partial interface RTCSctpTransport">
+        <dt>void getStats(RTCStatsCallback
+        successCallback, RTCErrorCallback failureCallback)</dt>
+        </dl>
+    </section>
+</section>
+
+    <section>
+      <h4>Example</h4>
+
+    <p>Consider the case where the user is experiencing bad sound and the application wants to determine if the cause of it is packet loss. The following example code might be used:</p>
+
+<pre class="example"><code>
+</code></pre>
+
+    </section>
+  </section>
+ </section>
+
 <section id="rtcp-protocol*">
   <h2>RTCP Protocol</h2>
 
-  <p>This specification determines that RTCP packets must be multiplexed with the RTP packets as defined by [[!RFC5761]].</p>
+  <p>This specification requires that RTCP packets must be multiplexed with the RTP packets as defined by [[!RFC5761]].</p>
 </section>
 
 <section id="examples*">
@@ -1215,6 +2019,40 @@ function accept(signaller, remote) {
 
     <p>This section will be removed before publication.</p>
     <!-- Why do the first two headings automatically convert to <h2>? -->
+
+  <section id="since-13-February-2014*">
+    <h3>Changes since 13 February 2014</h3>
+
+     <ol>
+      <li> Support for contributing source information added, as described in
+           <a href="https://github.com/openpeer/ortc/issues/27">Issue 27</a></li>
+      <li> Support for control of quality, resolution, framerate and layering added, as described in
+           <a href="https://github.com/openpeer/ortc/issues/31">Issue 31</a></li>
+      <li> RTCRtpListener object added and figure in Section 1 updated, as described in
+           <a href="https://github.com/openpeer/ortc/issues/32">Issue 32</a></li>
+      <li> More complete support for RTP and Codec Parameters added, as described in
+           <a href="https://github.com/openpeer/ortc/issues/33">Issue 33</a></li>
+      <li> Data Channel transport problem fixed, as described in
+           <a href="https://github.com/openpeer/ortc/issues/34">Issue 34</a></li>
+      <li> Various NITs fixed, as described in
+           <a href="https://github.com/openpeer/ortc/issues/37">Issue 37</a></li>
+      <li> Section 2.2 and 2.3 issues fixed, as described in
+           <a href="https://github.com/openpeer/ortc/issues/38">Issue 38</a></li>
+      <li> Default values of some dictionary attributes added, to partially address the issue described in
+           <a href="https://github.com/openpeer/ortc/issues/39">Issue 39</a></li>
+      <li> Support for ICE TCP added, as described in
+           <a href="https://github.com/openpeer/ortc/issues/41">Issue 41</a></li>
+      <li> Fixed issue with sequences as attributes, as described in
+           <a href="https://github.com/openpeer/ortc/issues/43">Issue 43</a></li>
+      <li> Fix for issues with onlocalcandidate, as described in
+           <a href="https://github.com/openpeer/ortc/issues/44">Issue 44</a></li>
+      <li> Initial stab at a Stats API, as requested in 
+           <a href="https://github.com/openpeer/ortc/issues/46">Issue 46</a></li>
+      <li> Added support for ICE gather policy, as described in
+           <a href="https://github.com/openpeer/ortc/issues/47">Issue 47</a></li>
+     </ol>
+
+</section>
 
   <section id="since-07-November-2013*">
     <h3>Changes since 07 November 2013</h3>
