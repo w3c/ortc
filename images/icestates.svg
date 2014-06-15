@@ -1,112 +1,512 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1"
-	 id="Layer_1" inkscape:version="0.48.4 r9939" sodipodi:docname="icestates.svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="612px" height="300px"
-	 viewBox="0 0 612 300" enable-background="new 0 0 612 300" xml:space="preserve">
-<sodipodi:namedview  inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-maximized="0" inkscape:window-width="1595" inkscape:current-layer="Layer_1" inkscape:window-height="1057" inkscape:window-x="53" inkscape:window-y="7" id="namedview3563" bordercolor="#666666" pagecolor="#ffffff" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" showgrid="false" inkscape:zoom="2.0147059" inkscape:cx="332.05924" inkscape:cy="150">
-	</sodipodi:namedview>
-<path id="path3387" fill="#CFE2F3" d="M10.713,11.457h81.583v52.895H10.713V11.457z"/>
-<path id="path3389" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M10.713,11.457h81.583v52.895H10.713V11.457z"/>
-<path id="path3393" fill="#CFE2F3" d="M341.021,183.561h86.154v52.744h-86.154V183.561L341.021,183.561z"/>
-<path id="path3395" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M341.021,183.561h86.154v52.744h-86.154V183.561L341.021,183.561z"/>
-<path id="path3399" fill="#CFE2F3" d="M340.82,45.256h81.484V93.37H340.82V45.256z"/>
-<path id="path3401" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M340.82,45.256h81.484V93.37H340.82V45.256z"/>
-<path id="path3405" fill="#CFE2F3" d="M507.861,45.256h91.146V93.37h-91.145L507.861,45.256L507.861,45.256z"/>
-<path id="path3407" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M507.861,45.256h91.146V93.37h-91.145L507.861,45.256L507.861,45.256z"/>
-<path id="path3411" fill="#CFE2F3" d="M178.258,45.256h81.583V93.37h-81.583V45.256z"/>
-<path id="path3413" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M178.258,45.256h81.583V93.37h-81.583V45.256z"/>
-<path id="path3423" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M259.841,69.313h73.811"/>
-<path id="path3425" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M333.648,71.287l5.426-1.975l-5.426-1.974V71.287z
-	"/>
-<path id="path3429" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M422.309,69.313h78.387"/>
-<path id="path3431" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M500.691,71.287l5.424-1.975l-5.424-1.974V71.287z
-	"/>
-<path id="path3433" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M553.436,93.37L432.449,205.066"/>
-<path id="path3435" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M431.109,203.616l-2.646,5.13l5.326-2.229
-	L431.109,203.616z"/>
-<path id="path3437" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M380.926,176.445l2.125,5.367l1.822-5.479
-	L380.926,176.445z"/>
-<path id="path3439" fill="#CFE2F3" d="M510.301,207.514h86.271v57.581h-86.271V207.514L510.301,207.514z"/>
-<path id="path3441" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="
-	M510.301,207.514h86.271v57.581h-86.271V207.514L510.301,207.514z"/>
-<line id="line3451" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="382.899" y1="93.738" x2="382.899" y2="179.074"/>
-<g id="g3455">
-	<g id="g3457">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   id="Layer_1"
+   x="0px"
+   y="0px"
+   width="612px"
+   height="300px"
+   viewBox="0 0 612 300"
+   enable-background="new 0 0 612 300"
+   xml:space="preserve"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="icestates.svg"><metadata
+   id="metadata3567"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+   id="defs3565" /><sodipodi:namedview
+   pagecolor="#ffffff"
+   bordercolor="#666666"
+   borderopacity="1"
+   objecttolerance="10"
+   gridtolerance="10"
+   guidetolerance="10"
+   inkscape:pageopacity="0"
+   inkscape:pageshadow="2"
+   inkscape:window-width="1595"
+   inkscape:window-height="1057"
+   id="namedview3563"
+   showgrid="false"
+   inkscape:zoom="2.0147059"
+   inkscape:cx="332.05924"
+   inkscape:cy="150"
+   inkscape:window-x="53"
+   inkscape:window-y="7"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="Layer_1" />
+<path
+   fill="#CFE2F3"
+   d="M10.713,11.457h81.583v52.895H10.713V11.457z"
+   id="path3387" />
+<path
+   stroke-miterlimit="10"
+   d="M10.713,11.457h81.583  v52.895H10.713V11.457z"
+   id="path3389"
+   stroke-linejoin="round"
+   stroke-width="2"
+   stroke="#000000"
+   fill="none" />
+
+<path
+   fill="#CFE2F3"
+   d="M341.021,183.561h86.156v52.744h-86.156V183.561L341.021,183.561z"
+   id="path3393" />
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M341.021,183.561h86.156  v52.744h-86.156V183.561L341.021,183.561z"
+   id="path3395" />
+
+<path
+   fill="#CFE2F3"
+   d="M340.82,45.256h81.486V93.37H340.82V45.256z"
+   id="path3399" />
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M340.82,45.256h81.486  V93.37H340.82V45.256z"
+   id="path3401" />
+
+<path
+   fill="#CFE2F3"
+   d="M507.861,45.256h91.146V93.37h-91.145L507.861,45.256L507.861,45.256z"
+   id="path3405" />
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M507.861,45.256h91.146  V93.37h-91.145L507.861,45.256L507.861,45.256z"
+   id="path3407" />
+
+<path
+   fill="#CFE2F3"
+   d="M178.258,45.256h81.583V93.37h-81.583V45.256z"
+   id="path3411" />
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M178.258,45.256h81.583  V93.37h-81.583V45.256z"
+   id="path3413" />
+
+
+
+
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M259.841,69.313h73.809"
+   id="path3423" />
+<path
+   stroke="#000000"
+   stroke-width="2"
+   stroke-miterlimit="10"
+   d="M333.648,71.287l5.426-1.975l-5.426-1.974V71.287z"
+   id="path3425" />
+
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M422.309,69.313h78.385"
+   id="path3429" />
+<path
+   stroke="#000000"
+   stroke-width="2"
+   stroke-miterlimit="10"
+   d="M500.691,71.287l5.424-1.975l-5.424-1.974V71.287z"
+   id="path3431" />
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M553.436,93.37  L432.449,205.066"
+   id="path3433" />
+<path
+   stroke="#000000"
+   stroke-width="2"
+   stroke-miterlimit="10"
+   d="M431.109,203.616l-2.646,5.13l5.326-2.229L431.109,203.616z"
+   id="path3435" />
+<path
+   stroke="#000000"
+   stroke-width="2"
+   stroke-miterlimit="10"
+   d="M380.926,176.445l2.125,5.367l1.822-5.479L380.926,176.445z"
+   id="path3437" />
+<path
+   fill="#CFE2F3"
+   d="M510.301,207.514h86.271v57.581h-86.271V207.514L510.301,207.514z"
+   id="path3439" />
+<path
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   d="M510.301,207.514h86.271  v57.581h-86.271V207.514L510.301,207.514z"
+   id="path3441" />
+
+
+
+
+<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   x1="382.899"
+   y1="93.738"
+   x2="382.899"
+   y2="179.074"
+   id="line3451" />
+
+<g
+   id="g3455">
+	<g
+   id="g3457">
 		
-			<line id="line3459" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" x1="355.166" y1="182.268" x2="355.166" y2="100.546"/>
-		<g id="g3461">
-			<polygon id="polygon3463" points="360.124,102.005 355.139,93.37 350.152,102.005 			"/>
+			<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   x1="355.166"
+   y1="182.268"
+   x2="355.166"
+   y2="100.546"
+   id="line3459" />
+		<g
+   id="g3461">
+			<polygon
+   points="360.124,102.005 355.139,93.37 350.152,102.005    "
+   id="polygon3463" />
 		</g>
 	</g>
 </g>
-<g id="g3485">
-	<g id="g3487">
+
+
+<g
+   id="g3485">
+	<g
+   id="g3487">
 		
-			<line id="line3489" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" x1="428.463" y1="225.312" x2="564.817" y2="98.724"/>
-		<g id="g3491">
-			<polygon id="polygon3493" points="567.121,103.35 570.058,93.821 560.337,96.042 			"/>
+			<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   x1="428.463"
+   y1="225.312"
+   x2="564.817"
+   y2="98.724"
+   id="line3489" />
+		<g
+   id="g3491">
+			<polygon
+   points="567.121,103.35 570.058,93.821 560.337,96.042    "
+   id="polygon3493" />
 		</g>
 	</g>
 </g>
-<line id="line3505" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="384.1" y1="238.135" x2="384.183" y2="265.095"/>
-<line id="line3507" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="384.183" y1="265.095" x2="197.581" y2="265.095"/>
-<g id="g3519">
-	<g id="g3521">
-		
-			<line id="line3523" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" x1="92.296" y1="59.366" x2="171.082" y2="59.366"/>
-		<g id="g3525">
-			<polygon id="polygon3527" points="169.623,64.324 178.258,59.339 169.623,54.352 			"/>
+
+<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   x1="384.1"
+   y1="238.135"
+   x2="384.183"
+   y2="265.095"
+   id="line3505" />
+<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   x1="384.183"
+   y1="265.095"
+   x2="43.5"
+   y2="265.095"
+   id="line3507" />
+<g
+   id="g3509">
+	<g
+   id="g3511">
+		<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   x1="43.5"
+   y1="265.095"
+   x2="43.5"
+   y2="71.909"
+   id="line3513" />
+		<g
+   id="g3515">
+			<polygon
+   points="48.458,73.368 43.473,64.733 38.486,73.368    "
+   id="polygon3517" />
 		</g>
 	</g>
 </g>
-<line id="line3539" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="381.492" y1="43.979" x2="381.492" y2="33.327"/>
-<line id="line3551" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="553.525" y1="43.979" x2="553.601" y2="17.5"/>
-<text transform="matrix(1 0 0 1 41.0522 40.9072)" font-family="'CourierNewPSMT'" font-size="11">new</text>
-<text transform="matrix(1 0 0 1 344.5762 214.0342)" font-family="'CourierNewPSMT'" font-size="11">disconnected</text>
-<text transform="matrix(1 0 0 1 192.5674 72.3105)" font-family="'CourierNewPSMT'" font-size="11">checking</text>
-<text transform="matrix(1 0 0 1 351.7725 73.4141)" font-family="'CourierNewPSMT'" font-size="11">connected</text>
-<text transform="matrix(1 0 0 1 523.6426 72.377)" font-family="'CourierNewPSMT'" font-size="11">completed</text>
-<text transform="matrix(1 0 0 1 532.9902 229.3008)" font-family="'CourierNewPSMT'" font-size="11">closed</text>
-<text transform="matrix(1 0 0 1 516.7881 240.0605)" font-family="'CourierNewPSMT'" font-size="8">(reachable from</text>
-<text transform="matrix(1 0 0 1 528.79 250.0605)" font-family="'CourierNewPSMT'" font-size="8">any state)</text>
-<g id="flowRoot3605">
-</g>
-<g id="g3519-5" transform="matrix(1.4394905,0,0,1,85.186865,145.34023)">
-	<g id="g3521-5">
-		
-			<line id="line3523-1" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" x1="92.296" y1="64.352" x2="171.082" y2="64.352"/>
-		<g id="g3525-7">
-			<polygon id="polygon3527-1" points="178.258,64.325 169.623,59.338 169.623,69.31 			"/>
+<g
+   id="g3519">
+	<g
+   id="g3521">
+		<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   x1="92.296"
+   y1="64.352"
+   x2="171.082"
+   y2="64.352"
+   id="line3523" />
+		<g
+   id="g3525">
+			<polygon
+   points="169.623,69.31 178.258,64.325 169.623,59.338    "
+   id="polygon3527" />
 		</g>
 	</g>
 </g>
-<line id="line3551-1" fill="none" stroke="#000000" stroke-width="2.0576" stroke-linejoin="round" stroke-miterlimit="10" x1="217.889" y1="210.467" x2="217.907" y2="94.702"/>
-<line id="line3507_1_" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="381.562" y1="33.327" x2="229.167" y2="33.327"/>
-<line id="line3507_2_" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="551.904" y1="17.5" x2="211.222" y2="17.5"/>
-<line id="line3451_1_" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="229.167" y1="33.327" x2="229.167" y2="38.653"/>
-<line id="line3451_2_" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="211.222" y1="17.5" x2="211.222" y2="38.653"/>
-<path id="path3437_1_" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M227.193,37.766l2.125,5.367l1.822-5.479
-	L227.193,37.766z"/>
-<path id="path3437_2_" stroke="#000000" stroke-width="2" stroke-miterlimit="10" d="M209.248,37.766l2.125,5.367l1.822-5.479
-	L209.248,37.766z"/>
-<g id="g3455_1_">
-	<g id="g3457_1_">
-		
-			<line id="line3459_1_" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" x1="197.581" y1="182.635" x2="197.581" y2="100.914"/>
-		<g id="g3461_1_">
-			<polygon id="polygon3463_1_" points="202.539,102.373 197.554,93.738 192.567,102.373 			"/>
+<g
+   id="g3529">
+	<g
+   id="g3531">
+		<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   x1="178.258"
+   y1="50.5"
+   x2="99.472"
+   y2="50.5"
+   id="line3533" />
+		<g
+   id="g3535">
+			<polygon
+   points="100.931,45.542 92.296,50.527 100.931,55.514    "
+   id="polygon3537" />
 		</g>
 	</g>
 </g>
-<line id="line3539_1_" fill="none" stroke="#000000" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" x1="197.581" y1="265.098" x2="197.581" y2="179.069"/>
-</svg>
+<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   x1="381.492"
+   y1="43.979"
+   x2="381.492"
+   y2="33.327"
+   id="line3539" />
+<g
+   id="g3541">
+	<g
+   id="g3543">
+		<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   x1="381.492"
+   y1="33.327"
+   x2="99.472"
+   y2="33.327"
+   id="line3545" />
+		<g
+   id="g3547">
+			<polygon
+   points="100.931,28.369 92.296,33.354 100.931,38.341    "
+   id="polygon3549" />
+		</g>
+	</g>
+</g>
+<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   stroke-miterlimit="10"
+   x1="553.525"
+   y1="43.979"
+   x2="553.601"
+   y2="17.5"
+   id="line3551" />
+<g
+   id="g3553">
+	<g
+   id="g3555">
+		<line
+   fill="none"
+   stroke="#000000"
+   stroke-width="2"
+   stroke-linejoin="round"
+   x1="553.601"
+   y1="17.5"
+   x2="99.472"
+   y2="17.5"
+   id="line3557" />
+		<g
+   id="g3559">
+			<polygon
+   points="100.931,12.542 92.296,17.527 100.931,22.514    "
+   id="polygon3561" />
+		</g>
+	</g>
+</g>
+<text
+   xml:space="preserve"
+   style="font-size:13px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Monospace"
+   x="41.052353"
+   y="40.90694"
+   id="text3569"
+   sodipodi:linespacing="125%"><tspan
+     sodipodi:role="line"
+     id="tspan3571"
+     x="41.052353"
+     y="40.90694"
+     style="font-size:11px">new</tspan></text>
+
+<text
+   xml:space="preserve"
+   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Monospace"
+   x="344.57581"
+   y="214.03383"
+   id="text3573"
+   sodipodi:linespacing="125%"><tspan
+     sodipodi:role="line"
+     id="tspan3575"
+     x="344.57581"
+     y="214.03383"
+     style="font-size:11px">disconnected</tspan></text>
+
+
+<text
+   xml:space="preserve"
+   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Monospace"
+   x="192.56732"
+   y="72.310074"
+   id="text3581"
+   sodipodi:linespacing="125%"><tspan
+     sodipodi:role="line"
+     id="tspan3583"
+     x="192.56732"
+     y="72.310074"
+     style="font-size:11px">checking</tspan></text>
+
+<text
+   sodipodi:linespacing="125%"
+   id="text3585"
+   y="73.413834"
+   x="351.77222"
+   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Monospace"
+   xml:space="preserve"><tspan
+     style="font-size:11px"
+     y="73.413834"
+     x="351.77222"
+     sodipodi:role="line"
+     id="tspan3589">connected</tspan></text>
+
+<text
+   xml:space="preserve"
+   style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Monospace"
+   x="523.64325"
+   y="72.377213"
+   id="text3593"
+   sodipodi:linespacing="125%"><tspan
+     id="tspan3595"
+     sodipodi:role="line"
+     x="523.64325"
+     y="72.377213"
+     style="font-size:11px">completed</tspan></text>
+
+<text
+   xml:space="preserve"
+   style="font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Monospace;-inkscape-font-specification:Monospace"
+   x="552.79395"
+   y="229.30084"
+   id="text3597"
+   sodipodi:linespacing="125%"><tspan
+     sodipodi:role="line"
+     id="tspan3599"
+     x="552.79395"
+     y="229.30084"
+     style="text-align:center;text-anchor:middle">closed</tspan><tspan
+     sodipodi:role="line"
+     x="552.79395"
+     y="240.06059"
+     id="tspan3601"
+     style="font-size:8px;text-align:center;text-anchor:middle">(reachable from</tspan><tspan
+     sodipodi:role="line"
+     x="552.79395"
+     y="250.06059"
+     id="tspan3603"
+     style="font-size:8px;text-align:center;text-anchor:middle">any state)</tspan></text>
+
+<flowRoot
+   xml:space="preserve"
+   id="flowRoot3605"
+   style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Monospace;font-style:normal;font-weight:normal;font-size:11px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:Monospace;font-stretch:normal;font-variant:normal"><flowRegion
+     id="flowRegion3607"><rect
+       id="rect3609"
+       width="68.496353"
+       height="26.30657"
+       x="266.04379"
+       y="327.29926" /></flowRegion><flowPara
+     id="flowPara3611" /></flowRoot><g
+   transform="matrix(1.4394905,0,0,1,85.186865,145.34023)"
+   id="g3519-5"><g
+     id="g3521-5"><line
+       style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:round"
+       x1="92.295998"
+       y1="64.351997"
+       x2="171.082"
+       y2="64.351997"
+       id="line3523-1" /><g
+       id="g3525-7"><polygon
+         points="178.258,64.325 169.623,59.338 169.623,69.31 "
+         id="polygon3527-1" /></g></g></g><line
+   style="fill:none;stroke:#000000;stroke-width:2.05759239;stroke-linejoin:round;stroke-miterlimit:10"
+   stroke-miterlimit="10"
+   x1="217.8886"
+   y1="210.46619"
+   x2="217.907"
+   y2="94.701706"
+   id="line3551-1" /></svg>
