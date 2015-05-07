@@ -58,12 +58,12 @@ var respecConfig = {
     },
     "MUX-FIXES": {
         title:    "Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)"
-    ,   href:     "https://tools.ietf.org/html/draft-petithuguenin-avtcore-rfc5764-mux-fixes"
+    ,   href:     "https://tools.ietf.org/html/draft-ietf-avtcore-rfc5764-mux-fixes"
     ,   authors:  [
             "M. Petit-Huguenin"
         ,   "G. Salgueiro"
         ]
-    ,   status:   "24 October 2014. Internet Draft (work in progress)"
+    ,   status:   "24 March 2015. Internet draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "OPUS-RTP": {
@@ -74,7 +74,7 @@ var respecConfig = {
         ,   "K. Vos"
         ,   "JM. Valin"
         ]
-    ,   status:   "13 January 2015. Internet Draft (work in progress)"
+    ,   status:   "06 February 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "RFC3264": {
@@ -343,7 +343,7 @@ var respecConfig = {
             "H. Alvestrand",
             "C. Jennings"
         ]
-    ,   status:   "16 January 2015. Internet Draft (work in progress)"
+    ,   status:   "26 March 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "CONSENT": {
@@ -380,13 +380,26 @@ var respecConfig = {
     ,   status:   "04 January 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
+    "GROUPING": {
+        title:    "RTP Grouping Taxonomy"
+    ,   href:     "https://tools.ietf.org/html/draft-ietf-avtext-rtp-grouping-taxonomy"
+    ,   authors:  [
+            "J. Lennox",
+            "K. Gross",
+            "S. Nandakumar",
+            "G. Salgueiro",
+            "B. Burman"
+        ]
+    ,   status:   "05 March 2015. Internet Draft (work in progress)"
+    ,   publisher:  "IETF"
+    },
     "RTCWEB-SECURITY": {
         title:    "Security Considerations for WebRTC"
     ,   href:     "https://tools.ietf.org/html/draft-ietf-rtcweb-security"
     ,   authors:  [
             "E. Rescorla"
         ]
-    ,   status:   "4 July 2014. Internet Draft (work in progress)"
+    ,   status:   "26 February 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "RTCWEB-SECURITY-ARCH": {
@@ -395,7 +408,7 @@ var respecConfig = {
     ,   authors:  [
             "E. Rescorla"
         ]
-    ,   status:   "4 July 2014. Internet Draft (work in progress)"
+    ,   status:   "07 March 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "RTCWEB-AUDIO": {
@@ -414,7 +427,7 @@ var respecConfig = {
     ,   authors:  [
             "A.B. Roach"
         ]
-    ,   status:   "25 November 2014. Internet Draft (work in progress)"
+    ,   status:   "17 March 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "RTP-MULTI-STREAM": {
@@ -425,7 +438,7 @@ var respecConfig = {
         ,   "C. Perkins"
         ,   "J. Lennox"
         ]
-    ,   status:   "08 October 2014. Internet Draft (work in progress)"
+    ,   status:   "09 March 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "RTP-USAGE": {
@@ -436,7 +449,7 @@ var respecConfig = {
         ,   "M. Westerlund"
         ,   "J. Ott"
         ]
-    ,   status:   "26 November 2014. Internet Draft (work in progress)"
+    ,   status:   "30 March 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "VP8-RTP": {
@@ -449,7 +462,7 @@ var respecConfig = {
             "J. Uberti", 
             "F. Galligan"
         ]
-    ,   status:   "15 October 2014. Internet Draft (work in progress)"
+    ,   status:   "23 March 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
     "WEBRTC-STATS": {
@@ -544,10 +557,12 @@ whereas vertical arrows denote interactions via methods and events.
     [[!GETUSERMEDIA]].</p>
 
     <p>For Scalable Video Coding (SVC), the terms single-session transmission (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>)
-    are defined in [[RFC6190]].  This specification only supports <a>SST</a> but not <a>MST</a>.  The term <dfn>SST-SS</dfn> refers to
-    an SVC implementation that transmits all layers within a single RTP session, using a single SSRC. 
-    The term <dfn>SST-MS</dfn> refers
-    to an SVC implementation that transmits all layers within a single RTP session, using a distinct SSRC for each layer.</p>
+    are defined in [[RFC6190]].  This specification only supports <a>SST</a> but not <a>MST</a>.  The term <dfn>SRST</dfn>,
+    defined in [[GROUPING]] Section 3.7, refers to
+    an SVC implementation that transmits all layers within a single transport, using a single RTP stream/SSRC;
+    the term <dfn>MRST</dfn> refers
+    to an SVC implementation that transmits all layers within a single transport, using multiple RTP streams with  
+    a distinct SSRC for each layer.</p>
   </section>
   </section>
 <section id="rtcdtlstransport*">
@@ -568,6 +583,8 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
     <h3>Operation</h3>
 
     <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed with an <code><a>RTCIceTransport</a></code> object.
+    If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code> instance from an <code><a>RTCIceTransport</a></code>  in the "closed" state,
+    an <code>InvalidStateError</code> exception is thrown. 
     Since the DTLS negotiation occurs between transport endpoints determined via Interactive Connectivity Establishment (ICE), 
     implementations of this specification
     <em class="rfc2119" title="MUST">MUST</em>  support multiplexing of STUN, TURN, DTLS and RTP and/or RTCP. 
@@ -584,7 +601,8 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
 
     <dl class="idl" title="[Constructor(RTCIceTransport transport)] interface RTCDtlsTransport : RTCStatsProvider">
       <dt>readonly attribute RTCIceTransport transport</dt>
-      <dd><p>The associated <code><a>RTCIceTransport</a></code> instance.</p></dd>
+      <dd><p>The associated <code><a>RTCIceTransport</a></code> instance.
+      </p></dd>
 
       <dt>readonly attribute RTCDtlsTransportState state</dt>
       <dd><p>The current state of the DTLS transport.</p></dd>
@@ -601,18 +619,19 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       <dd><p>Obtain the certificates used by the remote peer.</p></dd>
 
       <dt>void start(RTCDtlsParameters remoteParameters)</dt>
-      <dd><p>Start DTLS transport negotiation with the parameters of the remote DTLS transport,
+      <dd><p>Start DTLS transport negotiation with the parameters of the remote DTLS transport, including verification
+      of the remote fingerprint, 
       then once the DTLS transport session is established, negotiate a <dfn>DTLS-SRTP</dfn> [[!RFC5764]] session to
       establish keys so as protect media using SRTP [[!RFC3711]].  
-      Since symmetric RTP [[!RFC4961]] is utilized,
-      the <a>DTLS-SRTP</a> session is bidirectional.
-      While a newly constructed <code><a>RTCDtlsTransport</a></code>
-      <em class="rfc2119" title="MUST">MUST</em> listen for incoming DTLS packets before <code>start()</code> is called,
-      to complete the negotiation it is necessary to verify the remote fingerprint, which is dependent on <var>remoteParameters</var>,
-      passed to <code>start()</code>.</p>
+      Since symmetric RTP [[!RFC4961]] is utilized, the <a>DTLS-SRTP</a> session is bi-directional. 
+      A newly constructed <code><a>RTCDtlsTransport</a></code>
+      <em class="rfc2119" title="MUST">MUST</em> listen and respond to incoming DTLS packets before <code>start()</code> is called.
+      However, to complete the negotiation it is necessary to verify the remote fingerprint, 
+      which is dependent on <var>remoteParameters</var>, passed to <code>start()</code>.</p>
       <p>If <var>remoteParameters</var> is invalid, throw
-      an <code>InvalidParameters</code> exception.  If <code>start()</code> is called after a previous <code>start()</code>
-      call, throw an <code>InvalidStateError</code> exception.  
+      an <code>InvalidParameters</code> exception.  If <code>start()</code> is called 
+      after a previous <code>start()</code> call, or if <var>state</var> is "closed", 
+      throw an <code>InvalidStateError</code> exception. 
       Only a single DTLS transport can be multiplexed over an ICE transport.  
       Therefore if a <code><a>RTCDtlsTransport</a></code> object <var>dtlsTransportB</var> is constructed with an <code><a>RTCIceTransport</a></code>
       object <var>iceTransport</var> previously used to construct another <code><a>RTCDtlsTransport</a></code> object
@@ -622,8 +641,8 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       </dd>
 
       <dt>void stop()</dt>
-      <dd><p>Stops and closes the DTLS transport object. Since <code>stop()</code> is final,
-      if <code>start()</code> is called afterwards, throw an <code>InvalidStateError</code> exception.
+      <dd><p>Stops and closes the DTLS transport object. 
+      Calling <code>stop()</code> when <var>state</var> is "closed" has no effect.
       </p>
       </dd>
 
@@ -639,7 +658,7 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       <dt>attribute EventHandler? onerror</dt>
       <dd><p>This event handler, of event handler type <code>error</code>,
       <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCDtlsTransport</a></code> interface.
-      This event <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS alert.
+      This event <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS alert, or if <code>transport.stop()</code> is called.
       </p>
       </dd>
     </dl>
@@ -713,14 +732,21 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       <dd><p>The <code><a>RTCDtlsTransport</a></code> object has been created and has not started negotiating yet.</p></dd>
 
       <dt>connecting</dt>
-      <dd><p>DTLS is in the process of negotiating a secure connection.</p></dd>
+      <dd><p>DTLS is in the process of negotiating a secure connection.  Once a secure connection is negotiated and
+      <a>DTLS-SRTP</a> has derived keys (but prior to verification of the remote fingerprint, enabled by calling
+      <code>start()</code>), incoming media can flow through.
+      </p></dd>
 
       <dt>connected</dt>
-      <dd><p>DTLS has completed negotiation of a secure connection (including <a>DTLS-SRTP</a>).
+      <dd><p>DTLS has completed negotiation of a secure connection (including <a>DTLS-SRTP</a> and remote fingerprint verification).
+      Outgoing media can now flow through.
       </p></dd>
 
       <dt>closed</dt>
-      <dd><p>The DTLS connection has been closed intentionally or as the result of an error.</p></dd>
+      <dd><p>The DTLS connection has been closed intentionally via a call to <code>stop()</code> 
+      or as the result of an error (such as a failure to 
+      validate the remote fingerprint).  Calling <code>transport.stop()</code> will also result in a transition to the "closed" state.  
+      </p></dd>
     </dl>
   </section>
 
@@ -782,17 +808,18 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
   <section id="rtcicetransport-operation*">
     <h3>Operation</h3>
 
-    <p>An <code><a>RTCIceTransport</a></code> instance is constructed without any arguments.
+    <p>An <code><a>RTCIceTransport</a></code> instance is constructed (optionally) from an <code><a>RTCIceGatherer</a></code>. 
+    If <code>gatherer.state</code> is "closed" or <code>gatherer.component</code> is "RTCP", then throw an <code>InvalidStateError</code> exception. 
     </p>
   </section>
 
   <section id="rtcicetransport-interface-definition*">
     <h3>Interface Definition</h3>
 
-    <dl class="idl" title="[Constructor()] interface RTCIceTransport : RTCStatsProvider"> 
+    <dl class="idl" title="[Constructor(optional RTCIceGatherer gatherer)] interface RTCIceTransport : RTCStatsProvider"> 
       <dt>readonly attribute RTCIceGatherer? iceGatherer</dt>
       <dd><p>
-      The <var>iceGatherer</var> is set to the value of <var>gatherer</var> passed in the latest call to <code>start()</code>. 
+      The <var>iceGatherer</var> attribute is set to the value of <var>gatherer</var> if passed in the constructor or in the latest call to <code>start()</code>. 
       </p></dd>
       <dt>readonly attribute RTCIceRole role</dt>
       <dd><p>The current role of the ICE transport.</p></dd>
@@ -806,42 +833,62 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       added using <code>setRemoteCandidates</code> or <code>addRemoteCandidate</code>.</p></dd>
 
       <dt>RTCIceCandidatePair? getNominatedCandidatePair()</dt>
-      <dd><p>Retrieves the nominated candidate pair.  If there is no nominated pair yet, NULL is returned.</p></dd>
+      <dd><p>Retrieves the nominated candidate pair on which media is flowing.  If there is no nominated pair yet, or consent is lost on the nominated pair, NULL is returned.</p></dd>
 
       <dt>void start(RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role)</dt>
       <dd><p>The first time <code>start()</code> is called, candidate connectivity checks are started and the 
-      ICE transport attempts to connect to the remote <code><a>RTCIceTransport</a></code>.  
+      ICE transport attempts to connect to the remote <code><a>RTCIceTransport</a></code>.
       If <code>start()</code> is called with invalid parameters, throw an <code>InvalidParameters</code> exception.
+      For example, if <code>gatherer.component</code>
+      has a value different from <code>iceTransport.component</code>, throw an <code>InvalidParameters</code> exception.
+      If <var>state</var> or <code>gatherer.state</code> is "closed", 
+      throw an <code>InvalidStateError</code> exception. 
       When <code>start()</code> is called again, <code><a>RTCIceTransportState</a></code> transitions to the "connected" state,
       all remote candidates are flushed, and <code>addRemoteCandidates</code> or
       <code>setRemoteCandidates</code> must be called to add the remote candidates back or replace them.</p><p>
       If a newly constructed <code><a>RTCIceGatherer</a></code> object is passed as an argument when <code>start()</code>
       is called again, an ICE restart as defined in [[!RFC5245]] Section 9.2.1.1 occurs.
-      Since <code>start()</code> does not change the ufrag/password of <var>gatherer</var>, if <code>start()</code> is called again with the same value of <var>gatherer</var>,
+      Since <code>start()</code> does not change the ufrag/password of <var>gatherer</var>, 
+      if <code>start()</code> is called again with the same value of <var>gatherer</var>,
       the existing (unpruned) local candidates are reused and the ICE ufrag/password remains unchanged.
       However, other aspects of the behavior are not currently defined.  
-      </p></dd>
+      </p>
+<p>As noted in [[!RFC5245]] Section 7.1.2.3, an incoming connectivity check utilizes the local/remote ufrag
+and the local password, whereas an outgoing connectivity check utilizes the local/remote ufrag and the
+remote password.  Since <code>start()</code> provides role information,
+an <code><a>RTCIceTransport</a></code> object
+can respond to incoming connectivity checks and initiate connectivity checks.</p>
+</dd>
 
       <dt>void stop()</dt>
       <dd><p>Stops and closes the current object.  Also removes the object from the 
-      <code><a>RTCIceTransportController</a></code>.</p></dd>
+      <code><a>RTCIceTransportController</a></code>.
+      Calling <code>stop()</code> when <var>state</var> is "closed" has no effect.
+      </p></dd>
 
       <dt>RTCIceParameters? getRemoteParameters()</dt>
       <dd><p>Obtain the current ICE parameters of the remote <code><a>RTCIceTransport</a></code>.</p></dd>
 
       <dt>RTCIceTransport createAssociatedTransport ()</dt>
       <dd><p>Create an associated <code><a>RTCIceTransport</a></code> for RTCP.
-      If called more than once for the same   
-      component, throw an <code>InvalidStateError</code>  exception.  If called when 
+      If called more than once for the same component, or if <var>state</var> is "closed", 
+      throw an <code>InvalidStateError</code>  exception.  If called when 
       <var>component</var> is "RTCP",
       throw an <code>InvalidStateError</code> exception. 
       </p></dd>
 
       <dt>void addRemoteCandidate(RTCIceGatherCandidate remoteCandidate)</dt>
-      <dd><p>Add a remote candidate associated with the remote <code><a>RTCIceTransport</a></code>.</p></dd>
+      <dd><p>Add a remote candidate associated with the remote <code><a>RTCIceTransport</a></code>.
+      If <var>state</var> is "closed", throw an <code>InvalidStateError</code> exception.
+      When the remote  <code><a>RTCIceGatherer</a></code>  emits its final candidate, <code>addRemoteCandidate()</code> should be called 
+      with an <code>RTCIceCandidateComplete</code> dictionary as an argument, so that the local <code><a>RTCIceTransport</a></code>  can 
+      know there are no more remote candidates expected, and can enter the "completed"  state.
+      </p></dd>
 
       <dt>void setRemoteCandidates(sequence&lt;RTCIceCandidate> remoteCandidates)</dt>
-      <dd><p>Set the sequence of candidates associated with the remote <code><a>RTCIceTransport</a></code>.</p></dd>
+      <dd><p>Set the sequence of candidates associated with the remote <code><a>RTCIceTransport</a></code>.
+      If <var>state</var> is "closed", throw an <code>InvalidStateError</code> exception.
+      </p></dd>
 
       <dt>attribute EventHandler? onicestatechange</dt>
       <dd><p>This event handler, of event handler type <code>icestatechange</code>, 
@@ -907,22 +954,32 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
     <p><dfn>RTCIceTransportState</dfn> represents the current state of the ICE transport.</p>
     <dl class="idl" title="enum RTCIceTransportState">
       <dt>new</dt>
-      <dd><p>The ICE Transport is gathering addresses and/or waiting for remote candidates to be supplied.</p></dd>
+      <dd><p>The <code><a>RTCIceTransport</a></code> object is waiting for remote candidates to be supplied.
+      In this state the object can respond to incoming connectivity checks.
+      </p></dd>
 
       <dt>checking</dt>
-      <dd><p>The ICE Transport has received at least one remote candidate, and is checking candidate pairs but has not yet found a connection. 
-      In addition to checking, it may also still be gathering.</p></dd>
+      <dd><p>
+      The <code><a>RTCIceTransport</a></code> has received at least one remote candidate, and a local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was not added as the last candidate. 
+      In this state the <code><a>RTCIceTransport</a></code> is checking candidate pairs but has not yet found a successful candidate pair, or liveness checks have failed (such as those in [[!CONSENT]]) on 
+      a previously successful candidate pair.
+      </p></dd>
 
       <dt>connected</dt>
-      <dd><p>The ICE Transport has found a usable connection, but is still checking other candidate pairs to see if there is a better connection. It may also still be gathering.</p></dd>
+      <dd><p>The <code><a>RTCIceTransport</a></code> has received a response to an outgoing connectivity check, or has received incoming DTLS/media after
+      a successful response to an incoming connectivity check, 
+      but is still checking other candidate pairs to see if there is a better connection. 
+      In this state outgoing media is permitted.</p></dd>
 
       <dt>completed</dt>
       <dd><p>
-      The ICE Transport has finished gathering and checking and found a connection.
+     A local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was added as the last candidate to the <code><a>RTCIceTransport</a></code> and all appropriate candidate
+     pairs have been tested and at least one functioning candidate pair has been found. 
       </p></dd>
       <dt>disconnected</dt>
-      <dd><p>Liveness checks have failed (such as those in [[!CONSENT]]).  This may trigger intermittently (and resolve 
-      itself without action).
+      <dd><p>
+     A local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was added as the last candidate to the <code><a>RTCIceTransport</a></code> and all appropriate candidate 
+     pairs have been tested and failed.
       </p></dd>
 
       <dt>closed</dt>
@@ -1115,6 +1172,8 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       <h4>The RTCIceTcpCandidateType</h4>
       <p>
         The <dfn>RTCIceTcpCandidateType</dfn> includes the type of the ICE TCP candidate, as described in [[!RFC6544]].
+        Browsers MUST gather active TCP candidates and only active TCP candidates. 
+        Servers and other endpoints MAY gather active, passive or so candidates.
       </p>
       <dl class="idl" title="enum RTCIceTcpCandidateType">
         <dt>active</dt>
@@ -1196,7 +1255,7 @@ function initiate(mySignaller) {
    mySignaller.mySendLocalCandidate(event.candidate);
  }
  // Create ICE and DTLS transports
- var ice = new RTCIceTransport();
+ var ice = new RTCIceTransport(iceGatherer);
  var dtls = new RTCDtlsTransport(ice);
  // Prepare to handle remote ICE candidates
  mySignaller.onRemoteCandidate = function(candidate){
@@ -1233,7 +1292,7 @@ function accept(mySignaller, remote) {
    mySignaller.mySendLocalCandidate(event.candidate);
  }
  // Create ICE and DTLS transports
- var ice = new RTCIceTransport();
+ var ice = new RTCIceTransport(iceGatherer);
  var dtls = new RTCDtlsTransport(ice);
  // Prepare to handle remote candidates
  mySignaller.onRemoteCandidate = function(candidate) {
@@ -1295,10 +1354,11 @@ function accept(mySignaller, remote) {
       or at the end if <var>index</var> is not specified.
       If <var>index</var> is greater than the current number of <code><a>RTCIceTransport</a></code>s 
       with a <var>component</var> of "RTP", 
-      throw an <code>InvalidParameters</code> exception. 
+      throw an <code>InvalidParameters</code> exception.
+      If <code>transport.state</code> is "closed", throw an <code>InvalidStateError</code> exception. 
       If <var>transport</var> has already been added to another
-      <code><a>RTCIceTransportController</a></code> object, or if
-      the <var>component</var> is "RTCP", throw an <code>InvalidStateError</code> exception.
+      <code><a>RTCIceTransportController</a></code> object, 
+      or if <code>transport.component</code> is "RTCP", throw an <code>InvalidStateError</code> exception.
       </p></dd>
     </dl>
   </section>
@@ -1320,9 +1380,9 @@ gatherOptions.iceservers = ... ;
 
 // Create the RTP and RTCP ICE gatherers for audio and video
 var audioRtpIceGatherer = new RTCIceGatherer(gatherOptions);
-var audioRtcpIceGatherer = new RTCIceGatherer(gatherOptions);
+var audioRtcpIceGatherer = audioRtpIceGatherer.createAssociatedGatherer();
 var videoRtpIceGatherer = new RTCIceGatherer(gatherOptions);
-var videoRtcpIceGatherer = new RTCIceGatherer(gatherOptions);
+var videoRtcpIceGatherer = videoRtpIceGatherer.createAssociatedGatherer();
 
 // Set up the ICE gatherer error handlers
 audioRtpIceGatherer.onerror = errorHandler;
@@ -1331,9 +1391,9 @@ videoRtpIceGatherer.onerror = errorHandler;
 videoRtcpIceGatherer.onerror = errorHandler;
 
 // Create the RTP and RTCP ICE transports for audio and video
-var audioRtpIceTransport = new RTCIceTransport();
+var audioRtpIceTransport = new RTCIceTransport(audioRtpIceGatherer);
 var audioRtcpIceTransport = audioRtpIceTransport.createAssociatedTransport();
-var videoRtpIceTransport = new RTCIceTransport();
+var videoRtpIceTransport = new RTCIceTransport(videoRtpIceGatherer);
 var videoRtcpIceTransport = audioRtpIceTransport.createAssociatedTransport();
 
 // Enable local ICE candidates to be signaled to the remote peer.
@@ -1465,8 +1525,6 @@ mySignaller.myOfferTracks({
          var controller = new RTCIceTransportController();
          controller.addTransport(audioRtpIceTransport);
          controller.addTransport(videoRtpIceTransport);
-         controller.addTransport(audioRtcpIceTransport);
-         controller.addTransport(videoRtcpIceTransport);
          // Start the ICE transports
          audioRtpIceTransport.start(audioRtpIceGatherer,answer.audioRtpIce,RTCIceRole.controlling); 
          audioRtcpIceTransport.start(audioRtcpIceGatherer,answer.audioRtcpIce,RTCIceRole.controlling); 
@@ -1526,20 +1584,22 @@ function mySendLocalCandidate(transport, candidate, kind){
   <section id="rtcicegatherer-overview*">
     <h3>Overview</h3>
 
-    <p>An <code><a>RTCIceGatherer</a></code> instance is associated to an <code><a>RTCIceTransport</a></code>.
-As noted in [[!RFC5245]] Section 7.1.2.3, an incoming connectivity check utilizes the remote ufrag
-and the local password, whereas an outgoing connectivity check utilizes the local ufrag and the
-remote password.  Therefore an <code><a>RTCIceGatherer</a></code> possesses the information necessary to
-validate incoming connectivity checks and <em class="rfc2119" title="MUST">MUST</em> respond to them
-before an <code><a>RTCIceTransport</a></code> is constructed or <code>iceTransport.start()</code> is called. 
-</p><p>
-Since initiating connectivity checks requires the remote password, an <code><a>RTCIceTransport</a></code> 
-can only initiate checks after <code>iceTransport.start()</code> is called.  To enable an 
-<code><a>RTCIceTransport</a></code> to initiate connectivity checks to peers that had previously
-sent connectivity checks, the <code><a>RTCIceGatherer</a></code>
-<em class="rfc2119" title="MUST">MUST</em> store information from incoming connectivity checks (such as 
-the remote ufrag) and provide this to associated <code><a>RTCIceTransport</a></code> objects so that they can initiate their own connectivity checks. 
-    </p>
+    <p>An <code><a>RTCIceGatherer</a></code> instance is associated to an <code><a>RTCIceTransport</a></code>.</p><p>
+As noted in [[!RFC5245]] Section 7.1.2.2, an incoming connectivity check contains an <code>ICE-CONTROLLING</code>
+or <code>ICE-CONTROLLED</code> attribute, depending on the role of the ICE agent initiating the check. 
+Since an <code><a>RTCIceGatherer</a></code> object does not have a role, it cannot determine whether
+to respond to an incoming connectivity check with a 487 (Role Conflict) error; however, it can validate
+that incoming connectivity check utilizes the local ufrag/password, and if not, can respond with an 
+401 (Unauthorized) error, as described in [[!RFC5389]] Section 10.1.2.</p> 
+<p>For incoming connectivity checks that pass validation, the <code><a>RTCIceGatherer</a></code>
+<em class="rfc2119" title="MUST">MUST</em>
+buffer the incoming connectivity checks so as to be able to provide them to associated 
+<code><a>RTCIceTransport</a></code> objects so that they can  
+respond and initiate their own connectivity checks once <code>iceTransport.start()</code> is called.
+</p>
+<p>The <code><a>RTCIceGatherer</a></code> does not prune local candidates until at least one <code><a>RTCIceTransport</a></code> object has become
+associated and all associated <code><a>RTCIceTransport</a></code> objects are in the "completed" or "disconnected" state.  
+</p> 
   </section>
 
   <section id="rtcicegatherer-operation*">
@@ -1553,8 +1613,14 @@ the remote ufrag) and provide this to associated <code><a>RTCIceTransport</a></c
     <h3>Interface Definition</h3>
 
     <dl class="idl" title="[Constructor(RTCIceGatherOptions options)] interface RTCIceGatherer : RTCStatsProvider">
+      <dt>readonly attribute RTCIceComponent component</dt>
+      <dd><p>The component-id of the <code><a>RTCIceGatherer</a></code>.</p></dd>
       <dt>readonly attribute RTCIceGathererState state</dt>
       <dd><p>The current state of the ICE gatherer.</p></dd>
+      <dt>void close()</dt>
+      <dd><p>Prunes all local candidates.  Associated <code><a>RTCIceTransport</a></code> objects transition to the "disconnected" state.
+      Calling <code>close()</code> when <var>state</var> is "closed" has no effect. 
+      </p></dd> 
       <dt>RTCIceParameters getLocalParameters()</dt>
       <dd><p>Obtain the ICE parameters of the <code><a>RTCIceGatherer</a></code>.</p></dd>
       <dt>sequence&lt;RTCIceCandidate>  getLocalCandidates()</dt>
@@ -1565,6 +1631,13 @@ the remote ufrag) and provide this to associated <code><a>RTCIceTransport</a></c
       event hasn't been processed yet.  Pruning of candidate pairs within an associated <code><a>RTCIceTransport</a></code>
       does not affect the candidates returned by <code>getLocalCandidates()></code>.    
       </p></dd>
+
+      <dt>RTCIceGatherer createAssociatedGatherer()</dt>
+      <dd><p>Create an associated <code><a>RTCIceGatherer</a></code> for RTCP.
+      If <var>state</var> is "closed", throw an <code>InvalidStateError</code> exception.
+      If called more than once for the same component or if <var>component</var> is "RTCP", throw an <code>InvalidStateError</code> exception.
+      </p></dd>
+
       <dt>attribute EventHandler? ongathererstatechange</dt>
       <dd><p>This event handler, of event handler type <code>gathererstatechange</code>,
       uses the <code><a>RTCIceGathererStateChangedEvent</a></code> interface.
@@ -1587,8 +1660,9 @@ the remote ufrag) and provide this to associated <code><a>RTCIceTransport</a></c
       It <em class="rfc2119" title="MUST">MUST</em>  be supported by all objects implementing the
       <code><a>RTCIceGatherer</a></code> interface.
       It receives events when a new local ICE candidate is available.  Since ICE candidate gathering begins once
-      an <code>RTCIceGatherer</code> object is created, 
+      an <code><a>RTCIceGatherer</a></code> object is created, 
       <code>candidate</code> events are queued until an <code>onlocalcandidate</code> event handler is assigned.
+      When the final candidate is gathered, a <code>candidate</code> event occurs with an <code>RTCIceCandidateComplete</code> emitted.
     </p></dd>
     </dl>
   </section>
@@ -1598,7 +1672,10 @@ the remote ufrag) and provide this to associated <code><a>RTCIceTransport</a></c
     <p><dfn>RTCIceGathererState</dfn> represents the current state of the ICE gatherer.</p>
     <dl class="idl" title="enum RTCIceGathererState">
       <dt>new</dt>
-      <dd><p>The object was just created, and no gathering has occurred yet.</p></dd>
+      <dd><p>The object was just created, and no gathering has occurred yet.
+     Since <code><a>RTCIceGatherer</a></code> objects gather upon construction, this state will only exist
+     momentarily.
+     </p></dd>
       <dt>gathering</dt>
       <dd><p>The <code><a>RTCIceGatherer</a></code> is in the process of gathering candidates (which includes adding new candidates and 
       removing invalidated candidates).</p></dd>
@@ -1607,7 +1684,9 @@ the remote ufrag) and provide this to associated <code><a>RTCIceTransport</a></c
       or adding, changing or removing a TURN server will cause the state to go back to gathering before re-entering
       "complete" once all candidate changes are finalized. 
       </p></dd>
-      </p></dd>
+      <dt>closed</dt>
+      <dd><p>The <code><a>RTCIceGatherer</a></code> has been closed intentionally or as the result of an error.
+</p></dd>
     </dl>
   </section>
 
@@ -1730,7 +1809,7 @@ gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
 gatherOptions.iceservers = ... ; 
 // Create ICE gatherer objects
 var iceRtpGatherer = new RTCIceGatherer(gatherOptions);
-var iceRtcpGatherer = new RTCIceGatherer(gatherOptions); 
+var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer(); 
 // Prepare to signal local candidates
 iceRtpGatherer.onlocalcandidate = function (event) {mySendLocalCandidate(RTCIceComponent.RTP, event.candidate)}; 
 iceRtcpGatherer.onlocalcandidate = function (event) {mySendLocalCandidate(RTCIceComponent.RTCP, event.candidate)}; 
@@ -1743,12 +1822,11 @@ mySendInitiate(
   function(response) {
   // We may get N responses
   // Create the ICE RTP and RTCP transports
-  var iceRtpTransport = new RTCIceTransport();
+  var iceRtpTransport = new RTCIceTransport(iceRtpGatherer);
   var iceRtcpTransport = iceRtpTransport.createAssociatedTransport();
-  // Create the ICE Transport Controller object and add the RTP and RTCP Ice Transports to it
+  // Create the ICE Transport Controller object and add the RTP Ice Transport to it
   var controller = new RTCIceTransportController();
   controller.addTransport(iceRtpTransport);
-  controller.addTransport(iceRtcpTransport);
   // Start the RTP and RTCP ICE transports so that outgoing ICE connectivity checks can begin
   iceRtpTransport.start(iceRtpGatherer, response.icertp, RTCIceRole.controlling);
   iceRtcpTransport.start(iceRtcpGatherer, response.icertcp, RTCIceRole.controlling); 
@@ -1816,12 +1894,47 @@ function mySendLocalCandidate(component, candidate){
       </dd>
 
       <dt>void setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
-      <dd><p>Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.</p></dd>
-
-      <dt>void setTrack(MediaStreamTrack track)</dt>
-      <dd><p>Set the <var>track</var>.  If <var>track.kind</var> is changed, or if the new <var>track</var> has different peerIdentity constraints, 
-      throw an <code>InvalidParameters</code> Exception.
+      <dd><p>Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
+      If <code>setTransport()</code> is called with a single argument or if <code>rtcpTransport.stop()</code> had 
+      previously been called, and the last call to <code>send(parameters)</code>
+      had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
+      exception.
+      If <code>setTransport()</code> is called after <code>transport.stop()</code> or <code>rtcpTransport.stop()</code> was called,
+      throw an <code>InvalidStateError</code> exception. 
       </p></dd>
+
+      <dt>Promise setTrack(MediaStreamTrack track)</dt>
+      <dd><p>Attempts to replace the track being sent with another track provided.</p>
+      <p>When the <code>setTrack()</code> method is invoked, the user agent MUST run the following steps:</p>
+
+         <ol>
+              <li>
+                <p>Let <var>p</var> be a new promise.</p>
+              </li>
+
+              <li>
+                <p>Let <var>withTrack</var> be the argument to this method.</p>
+              </li>
+
+              <li>
+                <p>Run the following steps asynchronously:</p>
+              </li>
+              <ol>
+                <li>
+                  <p>If <code>withTrack.kind</code> differs from <code>RTCRtpSender.track.kind</code>
+                  or if <var>withTrack</var> has different <code>peerIdentity</code> constraints, then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code>
+                  and abort these steps.</p>
+                </li>
+                <li>
+                  Set the <code>RTCRtpSender.track</code> attribute to <var>withTrack</var>,
+                  and have the sender seamlessly
+                  switch to transmitting <var>withTrack</var> in place of what
+                  it is sending.  On the remote receiving
+                  end, the track maintains its existing grouping and id until
+                  the connection ends.
+                </li>
+         </ol>
+      </dd>
       <dt>static RTCRtpCapabilities getCapabilities(optional DOMString kind)</dt>
       <dd><p>Obtain the sender capabilities, based on <var>kind</var>.  If <var>kind</var> is
       omitted or is set to "", then all capabilities are returned.
@@ -1831,8 +1944,11 @@ function mySendLocalCandidate(component, candidate){
       </p></dd>
       <dt>void send(RTCRtpParameters parameters)</dt>
       <dd><p>Media to be sent is controlled by parameters.
-      If <code>send()</code> is called with invalid <code>RTCRtpParameters</code>,
+      If <code>send()</code> is called with invalid <var>parameters</var>,
       throw an <code>InvalidParameters</code> exception.
+      If <var>rtcpTransport</var> is not set 
+      and <code>send(parameters)</code> is called with <var>parameters.rtcp.mux</var>
+      set to <code>false</code>, throw an <code>InvalidParameters</code> exception.
       The <code>send()</code> method does not update
       <var>parameters</var> based on what is currently being sent, so that the value of <var>parameters</var> remains that
       last passed to the <code>send()</code> method.
@@ -1850,7 +1966,7 @@ function mySendLocalCandidate(component, candidate){
       <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCRtpSender</a></code> interface.
       This event <em class="rfc2119" title="MUST">MUST</em> be fired if an issue is found 
       with the <code><a>RTCRtpParameters</a></code> object passed to
-      <code>send()</code>, that is not immediately detected. 
+      <code>send()</code>, that is not immediately detected.
       </p></dd>
       <dt>attribute EventHandler? onssrcconflict</dt>
       <dd><p>This event handler, of event handler type <code>RTCSsrcConflictEvent</code>,
@@ -1951,8 +2067,12 @@ function mySendLocalCandidate(component, candidate){
       </dd>
 
       <dt>void setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
-      <dd><p>Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.</p></dd>
-
+      <dd><p>Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
+      If <code>setTransport()</code> is called with a single argument 
+      and the last call to <code>receive(parameters)</code>
+      had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
+      exception.
+      </p></dd>
       <dt>static RTCRtpCapabilities getCapabilities(optional DOMString kind)</dt>
       <dd><p>Obtain the receiver capabilities, based on <var>kind</var>.  If <var>kind</var> is omitted or set to "", then
       all capabilities are returned. 
@@ -1969,8 +2089,11 @@ function mySendLocalCandidate(component, candidate){
       </p></dd>
       <dt>void receive(RTCRtpParameters parameters)</dt>
       <dd><p>Media to be received is controlled by <var>parameters</var>.  
-      If <code>receive()</code> is called with invalid <code><a>RTCRtpParameters</a></code>,
+      If <code>receive(parameters)</code> is called with invalid <var>parameters</var>,
       throw an <code>InvalidParameters</code> exception.
+      If <var>rtcpTransport</var> is not set 
+      and <code>receive(parameters)</code> is called with <var>parameters.rtcp.mux</var>
+      set to <code>false</code>, throw an <code>InvalidParameters</code> exception.
       The <code>receive()</code> method does not update
       <var>parameters</var> based on what is currently being received, so that the value of <var>parameters</var> remains that
       last passed to the <code>receive()</code> method.
@@ -2468,7 +2591,7 @@ M
 
   <section id="h264-capabilities*">
     <h3>H.264</h3>
-    <p>The following capabilities are defined for H.264, as noted in [[RFC6184]] Section 8.1, and [[!RTCWEB-VIDEO]] Section 5.2.</p>   
+    <p>The following capabilities are defined for H.264, as noted in [[RFC6184]] Section 8.1, and [[!RTCWEB-VIDEO]] Section 6.2.</p>   
 
       <table class="simple">
         <thead>
@@ -2488,7 +2611,7 @@ M
               <code>unsigned long</code>
             </td>
 
-            <td>This parameter, defined in [[RFC6184]] Section 8.1, is mandatory to support, as noted in [[!RTCWEB-VIDEO]] Section 5.2.</td>
+            <td>This parameter, defined in [[RFC6184]] Section 8.1, is mandatory to support, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
             </tr>
           <tr id="def-packetization-mode*">
             <td><dfn>packetization-mode</dfn></td>
@@ -2496,7 +2619,7 @@ M
             <td><code>sequence&lt;unsigned short&gt;</code></td>
             <td>
 A sequence of unsigned shorts, each ranging from 0 to 2, indicating supported <var>packetization-mode</var> values.
-As noted in [[!RTCWEB-VIDEO]] Section 5.2, support for <var>packetization-mode</var> 1 is mandatory.
+As noted in [[!RTCWEB-VIDEO]] Section 6.2, support for <var>packetization-mode</var> 1 is mandatory.
             </td>
             </tr>
           <tr id="def-other-h264-params*">
@@ -2505,7 +2628,7 @@ As noted in [[!RTCWEB-VIDEO]] Section 5.2, support for <var>packetization-mode</
             <td>
               <code>unsigned long long</code>
             </td>
-            <td>As noted in [[!RTCWEB-VIDEO]] Section 5.2, these optional parameters
+            <td>As noted in [[!RTCWEB-VIDEO]] Section 6.2, these optional parameters
       allow the implementation to specify that they can support
       certain features of H.264 at higher rates and values than those
       signalled with <var>profile-level-id</var>.</td>
@@ -3824,15 +3947,16 @@ function processStats(currentReport) {
     if (myPreviousReport === null) return;
     // currentReport + myPreviousReport are an RTCStatsReport interface
     // compare the elements from the current report with the baseline
-    for (var now in currentReport) {
+    for (var i in currentReport) {
+        var now = currentReport[i]; 
         if (now.type != "outbound-rtp")
             continue;
         // get the corresponding stats from the previous report
         base = myPreviousReport[now.id];
         // base + now will be of RTCRtpStreamStats dictionary type
         if (base) {
-            remoteNow = currentReport[now.remoteId];
-            remoteBase = myPreviousReport[base.remoteId];
+            remoteNow = currentReport[now.associateStatsId];
+            remoteBase = myPreviousReport[base.associateStatsId];
             var packetsSent = now.packetsSent - base.packetsSent;
             var packetsReceived = remoteNow.packetsReceived - remoteBase.packetsReceived;
             // if fractionLost is > 0.3, we have probably found the culprit
@@ -4243,7 +4367,7 @@ gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
 gatherOptions.iceservers = ... ;
 var iceGatherer = new RTCIceGatherer(gatherOptions);
 iceGatherer.onlocalcandidate = mySendLocalCandidate; 
-var ice = new RTCIceTransport();
+var ice = new RTCIceTransport(iceGatherer);
 // Create the RTCDtlsTransport object. 
 var dtls = new RTCDtlsTransport(ice);
 var identity = new RTCIdentity(dtls); 
@@ -4345,6 +4469,12 @@ function signalAssertion(assertion){
           </td>
           <td>The <code><a>RTCIceGatherer</a></code> object has
           experienced an ICE gathering failure (such as an authentication failure with TURN credentials).</td>
+        </tr>
+        <tr>
+          <td><code>icegatherstatechange</code></td>
+          <td><code><a>RTCIceGathererStateChangedEvent</a></code>
+          </td>
+          <td>The <var>RTCIceGathererState</var> changed.</td>
         </tr>
         <tr>
           <td><code>icecandidate</code></td>
@@ -4635,6 +4765,42 @@ return myCapsToSendParams(remoteSendCaps, recvCaps);
     <p>This section will be removed before publication.</p>
     <!-- Why do the first two headings automatically convert to <h2>? -->
 
+  <section id="since-25-March-2015*">
+    <h3>Changes since 25 March 2015</h3>
+
+    <ol>
+      <li> <code>sender.setTrack()</code> updated to return a Promise, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/148">Issue 148</a></li>
+      <li> Clarified handling of incoming connectivity checks prior to calling <code>iceTransport.start()</code>, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/170">Issue 170</a></li>
+      <li> Clarified handling of incoming DTLS packets, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/173">Issue 173</a></li>
+      <li> Added <code>RTCIceGatherer</code> as an optional argument to the <code>RTCIceTransport</code> constructor, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/174">Issue 174</a></li>
+      <li> Clarified handling of contradictory RTP/RTCP multiplexing settings, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/185">Issue 185</a></li>
+      <li> Clarified error handling relating to <code><a>RTCIceTransport</a></code>, <code><a>RTCDtlsTransport</a></code>
+           and <code><a>RTCIceGatherer</a></code> objects in the "closed" state, as noted in: 
+           <a href="https://github.com/openpeer/ortc/issues/186">Issue 186</a></li>
+      <li> Added <var>component</var> method and <code>createAssociatedGatherer()</code> method to 
+           the <code><a>RTCIceGatherer</a></code> object, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/188">Issue 188</a></li>
+      <li> Added <code>close()</code> method to the <code><a>RTCIceGatherer</a></code> object as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/189">Issue 189</a></li>
+      <li> Clarified behavior of TCP candidate types, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/190">Issue 190</a></li>
+      <li> Clarified behavior of <code>iceGatherer.onlocalcandidate</code>, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/191">Issue 191</a></li>
+      <li> Updated terminology in Section 1.1 as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/193">Issue 193</a></li>
+      <li> Updated <code><a>RTCDtlsTransportState</a></code> definitions, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/194">Issue 194</a></li>
+      <li> Updated <code><a>RTCIceTransportState</a></code> definitions, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/197">Issue 197</a></li>
+   </ol>
+   </section>
+
+
   <section id="since-22-January-2015*">
     <h3>Changes since 22 January 2015</h3>
 
@@ -4647,8 +4813,6 @@ return myCapsToSendParams(remoteSendCaps, recvCaps);
            <a href="https://github.com/openpeer/ortc/issues/160">Issue 160</a></li>
       <li> Revised the text relating to <code>RTCDtlsTransport.start()</code>, as noted in:
            <a href="https://github.com/openpeer/ortc/issues/168">Issue 168</a></li>
-      <li> Clarified handling of incoming connectivity checks by the <code><a>RTCIceGatherer</a></code>, as noted in:
-           <a href="https://github.com/openpeer/ortc/issues/170">Issue 170</a></li>
       <li> Added Section 9.3.2.1, defining DTMF capabilities and settings, as noted in:
            <a href="https://github.com/openpeer/ortc/issues/177">Issue 177</a></li>
       <li> Clarified pre-requisites for <code>insertDTMF()</code>, based on:
@@ -4701,7 +4865,7 @@ return myCapsToSendParams(remoteSendCaps, recvCaps);
            <a href="https://github.com/openpeer/ortc/issues/148">Issue 148</a></li>
       <li> Address 'automatic' use of scalable video coding (in <code>RTCRtpReceiver.receive()</code>) as noted in:
            <a href="https://github.com/openpeer/ortc/issues/149">Issue 149</a></li>
-      <li> Renamed RTCIceListener to <code><a>RTCIceGatherer</code></a> as noted in: 
+      <li> Renamed RTCIceListener to <code><a>RTCIceGatherer</a></code> as noted in: 
            <a href="https://github.com/openpeer/ortc/issues/150">Issue 150</a></li>
       <li> Added text on multiplexing of STUN, TURN, DTLS and RTP/RTCP, as noted in:
            <a href="https://github.com/openpeer/ortc/issues/151">Issue 151</a></li>
