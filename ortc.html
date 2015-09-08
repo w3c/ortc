@@ -461,6 +461,18 @@ var respecConfig = {
     ,   status:   "12 June 2015. Internet Draft (work in progress)"
     ,   publisher:  "IETF"
     },
+    "TRAM-TURN-THIRD-PARTY-AUTHZ": {
+        title:    "Session Traversal Utlities for NAT (STUN) Extension for Third Party Authorization"
+    ,   href:     "https://tools.ietf.org/html/draft-ietf-tram-turn-third-party-authz"
+    ,   authors:  [
+            "T. Reddy",
+            "P. Patil",
+            "R. Ravindranath",
+            "J. Uberti"
+        ]
+    ,   status:   "25 February 2015. Internet Draft (work in progress)"
+    ,   publisher:  "IETF"
+    },
     "VP8-RTP": {
         title:    "RTP Payload Format for VP8 Video"
     ,   href:     "https://tools.ietf.org/html/draft-ietf-payload-vp8"
@@ -556,15 +568,17 @@ manages freezing/unfreezing (defined in [[!RFC5245]]) and bandwidth estimation.
 The <code><a>RTCRtpListener</a></code> (<a href="#rtcrtplistener*">Section 8</a>) detects whether an RTP stream is received that
 cannot be delivered to any existing <code><a>RTCRtpReceiver</a></code>, providing an <code>onunhandledrtp</code> event handler that the application can use
 to correct the situation.</p>
-<p>Remaining sections of the specification fill in details relating to RTP capabilities and parameters, 
-operational statistics, media authentication via Identity Providers (IdP) and compatibility with the
-WebRTC 1.0 API.  
+<p>Remaining sections of the specification fill in details relating to RTP capabilities and parameters,
+operational statistics, media authentication via Certificates and Identity Providers (IdP) and compatibility with the
+WebRTC 1.0 API.
 RTP dictionaries are described in <a href="#rtcrtpdictionaries*">Section 9</a>,
 the Statistics API is described in <a href="#statistics-api">Section 13</a>,
 the Identity API is described in <a href="#identity-api">Section 14</a>,
-an event summary is provided in <a href="#event-summary">Section 15</a>,
-and WebRTC 1.0 compatibility issues are discussed in <a href="#webrtc-compat*">Section 16</a>.
+the Certificate API is described in <a href="#certificate-api">Section 15</a>,
+an event summary is provided in <a href="#event-summary">Section 16</a>,
+and WebRTC 1.0 compatibility issues are discussed in <a href="#webrtc-compat*">Section 17</a>.
 </p>
+<p>Complete examples are provided in <a href="#examples*">Section 18</a></p>
 
   <section>
     <h3>Terminology</h3>
@@ -666,9 +680,12 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
       </p></dd>
 
       <dt>RTCIceGatherer createAssociatedGatherer()</dt>
-      <dd><p>Create an associated <code><a>RTCIceGatherer</a></code> for RTCP.
+      <dd><p>Create an associated <code><a>RTCIceGatherer</a></code> for RTCP, with the same
+      <code><a>RTCIceParameters</a></code> and <code><a>RTCIceGatherOptions</a></code>.
       If <var>state</var> is "closed", throw an <code>InvalidStateError</code> exception.
-      If called more than once for the same component or if <var>component</var> is "RTCP", throw an <code>InvalidStateError</code> exception.
+      If an <code><a>RTCIceGatherer</a></code> calls the method more than once,
+      or if <var>component</var> is "RTCP", throw
+      an <code>InvalidStateError</code> exception.
       </p></dd>
 
       <dt>attribute EventHandler? ongathererstatechange</dt>
@@ -861,9 +878,9 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
         <p>The <code>icegathererstatechange</code> event of the <code><a>RTCIceGatherer</a></code> object uses
         the <code><a>RTCIceGathererStateChangedEvent</a></code> interface.</p>
 
-        <p><dfn title="Fire an ICE gatherer state changed event">Firing an
+        <p>Firing an
         <code><a>RTCIceGathererStateChangedEvent</a></code> event named
-        <var>e</var></dfn> with an <code><a>RTCIceGathererState</a></code>
+        <var>e</var> with an <code><a>RTCIceGathererState</a></code>
         <var>state</var> means that an event with the name <var>e</var>,
         which does not bubble (except where otherwise stated) and is not
         cancelable (except where otherwise stated), and which uses the
@@ -902,9 +919,9 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
 
         <p>The <code>icecandidate</code> event of the <code><a>RTCIceGatherer</a></code> object uses
         the <code><a>RTCIceGathererEvent</a></code> interface.</p>
-        <p><dfn title="Fire an ice candidate event">Firing an
+        <p>Firing an
         <code><a>RTCIceGathererEvent</a></code> event named
-        <var>e</var></dfn> with an <code><a>RTCIceGatherCandidate</a></code>
+        <var>e</var> with an <code><a>RTCIceCandidate</a></code>
         <var>candidate</var> means that an event with the name <var>e</var>,
         which does not bubble (except where otherwise stated) and is not
         cancelable (except where otherwise stated), and which uses the
@@ -964,6 +981,50 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
     </dl>
   </section>
 
+  <section id="rtcicecredentialtype*">
+    <h3>enum RTCIceCredentialType</h3>
+
+    <p><dfn>RTCIceCredentialType</dfn> represents the type of credential used by a TURN server.</p>
+    <dl class="idl" title="enum RTCIceCredentialType">
+      <dt>password</dt>
+      <dd><p>The credential is a long-term authentication password, as described in [[!RFC5389]], Section 10.2.</p></dd>
+      <dt>token</dt>
+      <dd><p>The credential is an access token, as described in [[TRAM-TURN-THIRD-PARTY-AUTHZ]], Section 6.2.</p></dd>
+    </section>
+
+  <section id="rtciceserver*">
+   <h3>The RTCIceServer Object</h3>
+
+   <p>
+    The <dfn>RTCIceServer</dfn> is used to provide STUN or TURN server configuration.
+    In network topologies with multiple layers of NATs, it is desirable to have a STUN server
+    between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
+   <p>
+
+   </p>
+     An example of an array of <code<<a>RTCIceServer</a></code> objects:
+   </p>
+
+    <pre class="example"><code class="javascript">
+      [ { urls: "stun:stun1.example.net" } ,
+        { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]
+    </code></pre>
+
+    <dl class="idl" title="dictionary RTCIceServer">
+      <dt>(DOMString or sequence&lt;DOMString>) urls</dt>
+      <dd><p>STUN or TURN URI(s) as defined in [[!RFC7064]] and [[!RFC7065]] or other URI types.</p></dd>
+      <dt>DOMString username</dt>
+      <dd><p>If this <code><a>RTCIceServer</a></code> object represents a TURN server, then this attribute specifies
+      the username to use with that TURN server.</p></dd>
+      <dt>DOMString credential</dt>
+      <dd><p>If this <code><a>RTCIceServer</a></code> represents a TURN server, then this attribute specifies the credential to use with that TURN server.</p></dd>
+      <dt>RTCIceCredentialType credentialType = "password"</dt>
+      <dd><p>If this <code><a>RTCIceServer</a></code> object represents a TURN Server, then this
+      attribute specifies how <var>credential</var> should be used when that TURN server requests authorization.</p></dd>
+    </dl>
+
+  </section>
+
   <section id="rtcicegatherer-initial-example*">
     <h3>Example</h3>
     <pre class="example"><code class="javascript">
@@ -973,7 +1034,8 @@ import "helper.js";
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];
+gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+  { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];
 // Create ICE gatherer objects
 var iceGatherer = new RTCIceGatherer(gatherOptions);
 // Handle state changes
@@ -1076,6 +1138,28 @@ function myIceTransportStateChange(name, state){
      trace('IceTransport: ' + name + ' Invalid state');
   }
 }
+
+function myDtlsTransportStateChange(name, state){
+  switch(state){
+  case RTCDtlsTransportState.new:
+     trace('DtlsTransport: ' + name + ' Has been created');
+     break;
+  case RTCDtlsTransportState.connecting:
+     trace('DtlsTransport: ' + name + ' Is connecting');
+     break;
+  case RTCDtlsTransportState.connected:
+     trace('DtlsTransport: ' + name + ' Is connected');
+     break;
+  case RTCDtlsTransportState.failed:
+     trace('DtlsTransport: ' + name + ' Has failed');
+     break;
+  case RTCDtlsTransportState.closed:
+     trace('DtlsTransport: ' + name + ' Is closed');
+     break;
+  default:
+     trace('DtlsTransport: ' + name + ' Invalid state');
+  }
+}
  </code></pre>
   </section>
 
@@ -1123,8 +1207,9 @@ function myIceTransportStateChange(name, state){
       <code><a>RTCIceTransport</a></code>.  Only returns the candidates previously
       added using <code>setRemoteCandidates()</code> or <code>addRemoteCandidate()</code>.</p></dd>
 
-      <dt>RTCIceCandidatePair? getNominatedCandidatePair()</dt>
-      <dd><p>Retrieves the nominated candidate pair on which media is flowing.  If there is no nominated pair yet, or consent is lost on the nominated pair, NULL is returned.</p></dd>
+      <dt>RTCIceCandidatePair? getSelectedCandidatePair()</dt>
+      <dd><p>Retrieves the selected candidate pair on which media is flowing.  If there is no selected pair yet,
+      or consent is lost on the selected pair, NULL is returned.</p></dd>
 
       <dt>void start(RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role)</dt>
       <dd><p>The first time <code>start()</code> is called, candidate connectivity checks are started and the 
@@ -1194,7 +1279,7 @@ can respond to incoming connectivity checks based on its configured role, as wel
       uses the <code>RTCIceCandidatePairChangedEvent</code> interface.
       It <em class="rfc2119" title="MUST">MUST</em> be supported by
       all objects implementing the <code><a>RTCIceTransport</a></code> interface.
-      It is called any time the nominated <code><a>RTCIceCandidatePair</a></code> changes.
+      It is called any time the selected <code><a>RTCIceCandidatePair</a></code> changes.
       <p></dd>
     </dl>
   </section>
@@ -1285,14 +1370,14 @@ can respond to incoming connectivity checks based on its configured role, as wel
         <p>The <code>icestatechange</code> event of the <code><a>RTCIceTransport</a></code> object uses
         the <code><a>RTCIceTransportStateChangedEvent</a></code> interface.</p>
 
-        <p><dfn title="Fire an ICE transport state changed event">Firing an
+        <p>Firing an
         <code><a>RTCIceTransportStateChangedEvent</a></code> event named
-        <var>e</var></dfn> with an <code><a>RTCIceTransportState</a></code>
+        <var>e</var> with an <code><a>RTCIceTransportState</a></code>
         <var>state</var> means that an event with the name <var>e</var>,
         which does not bubble (except where otherwise stated) and is not
         cancelable (except where otherwise stated), and which uses the
         <code>RTCIceTransportStateChangedEvent</code> interface with the
-        <var>state</var> attribute set to the new <code><a>RTCIceTransportState</a></code>, 
+        <var>state</var> attribute set to the new <code><a>RTCIceTransportState</a></code>,
         <em class="rfc2119" title="MUST">MUST</em> be
         created and dispatched at the given target.</p>
 
@@ -1327,14 +1412,14 @@ can respond to incoming connectivity checks based on its configured role, as wel
         <p>The <code>icecandidatepairchange</code> event of the <code><a>RTCIceTransport</a></code> object uses
         the <code><a>RTCIceCandidatePairChangedEvent</a></code> interface.</p>
 
-        <p><dfn title="Fire an ICE candidate pair changed event">Firing an
+        <p>Firing an
         <code><a>RTCIceCandidatePairChangedEvent</a></code> event named
-        <var>e</var></dfn> with an <code><a>RTCIceCandidatePair</a></code>
+        <var>e</var> with an <code><a>RTCIceCandidatePair</a></code>
         <var>pair</var> means that an event with the name <var>e</var>,
         which does not bubble (except where otherwise stated) and is not
         cancelable (except where otherwise stated), and which uses the
         <code><a>RTCIceCandidatePairChangedEvent</a></code> interface with the
-        <var>pair</var> attribute set to the nominated <code>RTCIceCandidatePair</code>,
+        <var>pair</var> attribute set to the selected <code>RTCIceCandidatePair</code>,
         <em class="rfc2119" title="MUST">MUST</em> be
         created and dispatched at the given target.</p>
 
@@ -1344,7 +1429,7 @@ can respond to incoming connectivity checks based on its configured role, as wel
           <dt>readonly attribute RTCIceCandidatePair pair</dt>
 
           <dd>
-            <p>The <var>pair</var> attribute is the nominated
+            <p>The <var>pair</var> attribute is the selected
             <code><a>RTCIceCandidatePair</a></code>
             that caused the event.
           </p>
@@ -1355,42 +1440,13 @@ can respond to incoming connectivity checks based on its configured role, as wel
         "dictionary RTCIceCandidatePairChangedEventInit : EventInit">
           <dt>RTCIceCandidatePair pair</dt>
           <dd>
-            <p>The <var>pair</var> attribute is the nominated
+            <p>The <var>pair</var> attribute is the selected
             <code><a>RTCIceCandidatePair</a></code>
             that caused the event.
           </p>
           </dd>
         </dl>
       </section>
-
-  <section id="rtciceserver*">
-   <h3>The RTCIceServer Object</h3>
-
-   <p>
-    The <dfn>RTCIceServer</dfn> is used to provide STUN or TURN server configuration. 
-    In network topologies with multiple layers of NATs, it is desirable to have a STUN server 
-    between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
-   <p>
-
-   </p>
-     An example of an array of <code<<a>RTCIceServer</a></code> objects:
-   </p>
-
-    <pre class="example"><code class="javascript">
-      [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]
-    </code></pre>
-
-    <dl class="idl" title="dictionary RTCIceServer">
-      <dt>(DOMString or sequence&lt;DOMString>) urls</dt>
-      <dd><p>STUN or TURN URI(s) as defined in [[!RFC7064]] and [[!RFC7065]]</p></dd>
-      <dt>DOMString username</dt>
-      <dd><p>If this <code<<a>RTCIceServer</a></code> object represents a TURN server, then this attribute specifies 
-          the username to use with that TURN server.</p></dd>
-      <dt>DOMString credential</dt>
-      <dd><p>If the uri element is a TURN URI, then this is the credential to use with that TURN server.</p></dd>
-    </dl>
-
-  </section>
 
   <section id="rtcicecandidatepair*">
    <h3>dictionary RTCIceCandidatePair</h3>
@@ -1417,7 +1473,8 @@ import "helper.js";
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions(); 
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay; 
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];  
+gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+  { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];  
 // Create ICE gatherer objects
 var iceRtpGatherer = new RTCIceGatherer(gatherOptions);
 var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer(); 
@@ -1654,10 +1711,15 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       </p></dd>
 
       <dt>closed</dt>
-      <dd><p>The DTLS connection has been closed intentionally via a call to <code>stop()</code> 
-      or as the result of an error (such as a failure to 
-      validate the remote fingerprint).  Calling <code>transport.stop()</code> will also result in a transition to the "closed" state.  
+      <dd><p>The DTLS connection has been closed intentionally via a call to <code>stop()</code>.
+      Calling <code>transport.stop()</code> will also result in a transition to the "closed" state.
       </p></dd>
+
+      <dt>failed</dt>
+      <dd><p>The DTLS connection has been closed as the result of an error (such as a DTLS alert or a failure to validate the remote
+      fingerprint).
+      </p></dd>
+
     </dl>
   </section>
 
@@ -1667,9 +1729,9 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
         <p>The <dfn>dtlsstatechange</dfn> event of the <code><a>RTCDtlsTransport</a></code> object uses
         the <code><a>RTCDtlsTransportStateChangedEvent</a></code> interface.</p>
 
-        <p><dfn title="Fire a DTLS transport state changed event">Firing an
+        <p>Firing an
         <code><a>RTCDtlsTransportStateChangedEvent</a></code> event named
-        <var>e</var></dfn> with an <code><a>RTCDtlsTransportState</a></code>
+        <var>e</var> with an <code><a>RTCDtlsTransportState</a></code>
         <var>state</var> means that an event with the name <var>e</var>,
         which does not bubble (except where otherwise stated) and is not
         cancelable (except where otherwise stated), and which uses the
@@ -1703,17 +1765,18 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
     <h3>Examples</h3>
 
     <pre class="example"><code class="javascript">
-// This is an example of  how to offer ICE and DTLS parameters and 
+// This is an example of  how to offer ICE and DTLS parameters and
 // ICE candidates and get back ICE and DTLS parameters and ICE candidates,
-// and start both ICE and DTLS, assuming that RTP and RTCP are multiplexed. 
-// Assume that we have a way to signal (mySignaller). 
+// and start both ICE and DTLS, when RTP and RTCP are multiplexed.
+// Assume that we have a way to signal (mySignaller).
 // Include some helper functions
 import "helper.js";
 function initiate(mySignaller) {
   // Prepare the ICE gatherer
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all; 
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]; 
+  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+    { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]; 
   var iceGatherer = new RTCIceGatherer(gatherOptions); 
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -1766,7 +1829,8 @@ import "helper.js";
 function accept(mySignaller, remote) {
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
+  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+    { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -2224,7 +2288,8 @@ import "helper.js";
 // Create the ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];  
+gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+  { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];  
 
 // Create the RTP and RTCP ICE gatherers for audio and video
 var audioRtpIceGatherer = new RTCIceGatherer(gatherOptions);
@@ -2326,7 +2391,6 @@ mySignaller.myOfferTracks({
   "videoRtcpIce": videoRtcpIceGatherer.getLocalParameters(),
   // Offer the DTLS parameters
   "audioRtpDtls": audioRtpDtlsTransport.getLocalParameters(),
-  // Assume implementation does not yet support dtlsTransport.getLocalParameters as a Promise
   "audioRtcpDtls": audioRtcpDtlsTransport.getLocalParameters(),
   "videoRtpDtls": videoRtpDtlsTransport.getLocalParameters(),
   "videoRtcpDtls": videoRtcpDtlsTransport.getLocalParameters(),
@@ -2530,9 +2594,9 @@ and route the packet to <var>packet_receiver</var>.  Question:  Do we remove all
    <p>The <code><a>unhandledrtp</a></code> event of the <code><a>RTCRtpListener</a></code> object uses
    the <code><a>RTCRtpUnhandledEvent</a></code> interface.</p>
 
-        <p><dfn title="Fire an unhandledrtp event">Firing an
+        <p>Firing an
         <code><a>RTCRtpUnhandledEvent</a></code> event named
-        <var>e</var></dfn> means that an event with the name <var>e</var>,
+        <var>e</var> means that an event with the name <var>e</var>,
         which does not bubble (except where otherwise stated) and is not
         cancelable (except where otherwise stated), and which uses the
         <code><a>RTCRtpUnhandledEvent</a></code> interface
@@ -3321,7 +3385,7 @@ second temporal layer P-frames.
   <h2>The RTCDtmfSender Object</h2>
 
       <div class="note">
-        This section of the ORTC API specification depends on the WebRTC 1.0 DtmfSender API, and needs to be synchronized once it is updated.
+      This section of the ORTC API specification depends on a WebRTC 1.0 DtmfSender API Pull Request which has not yet been integrated.
       </div>
 
   <section id="rtcdtmfsender-overview*">
@@ -3476,7 +3540,7 @@ second temporal layer P-frames.
       <p>The tonechange event uses the
       <a>RTCDTMFToneChangeEvent</a> interface.</p>
 
-      <p> Firing an tonechange event named
+      <p>Firing a tonechange event named
       <var>e</var> with a DOMString <var>tone</var> means
       that an event with the name <var>e</var>, which does not bubble (except
       where otherwise stated) and is not cancelable (except where otherwise
@@ -3813,15 +3877,24 @@ an <code><a>RTCDataChannelParameters</a></code> object.</p>
   <section id="sctptransport-operation*">
     <h3>Operation</h3>
 
-    <p>An <a>RTCSctpTransport</a> is constructed from an <a>RTCDtlsTransport</a> object.</p>
+    <p>An <a>RTCSctpTransport</a> is constructed from an <a>RTCDtlsTransport</a> object, 
+    and optionally a port number (with a default of 5000, 
+    or the next unused port).  If a port already in use is provided in the constructor, throw an <code>InvalidParameters</code> exception.
+    Creation of an <a>RTCSctpTransport</a> causes an SCTP INIT request to be issued over the <a>RTCDtlsTransport</a> 
+    from the local <a>RTCSctpTransport</a> to the remote <a>RTCSctpTransport</a> where the remote <a>RTCSctpTransport</a> 
+    responds with an SCTP INIT-ACK.   Since both local and remote parties must mutually create an <a>RTCSctpTransport</a>, 
+    SCTP SO (Simultaneous Open) is used to establish a connection over SCTP.
+  </p>
   </section>
 
   <section id="sctptransport-interface-definition*">
     <h3>Interface Definition</h3>
 
-    <dl class="idl" title="[Constructor(RTCDtlsTransport transport)] interface RTCSctpTransport : RTCDataTransport">
+    <dl class="idl" title="[Constructor(RTCDtlsTransport transport, unsigned short? port)] interface RTCSctpTransport : RTCDataTransport">
       <dt>readonly attribute <a>RTCDtlsTransport</a>                    transport</dt>
       <dd><p>The <a>RTCDtlsTransport</a> instance the <a>RTCSctpTransport</a> object is sending over.</p></dd>
+      <dt>readonly attribute unsigned short port</dt>
+      <dd><p>The SCTP port number used by the data channel.</p></dd>
       <dt>static <a>RTCSctpCapabilities</a> getCapabilities()</dt>
       <dd><p>Retrieves the <a>RTCSctpCapabilities</a> of the <a>RTCSctpTransport</a> instance.</p></dd>
 
@@ -3857,9 +3930,8 @@ an <code><a>RTCDataChannelParameters</a></code> object.</p>
       <p>The <code><a href="#event-datachannel">datachannel</a></code> event
       uses the <code><a>RTCDataChannelEvent</a></code> interface.</p>
 
-      <p><dfn id="fire-a-datachannel-event" title=
-      "fire a datachannel event">Firing a datachannel event named
-      <var>e</var></dfn> with a <code><a>RTCDataChannel</a></code>
+      <p>Firing a datachannel event named
+      <var>e</var> with a <code><a>RTCDataChannel</a></code>
       <var>channel</var> means that an event with the name <var>e</var>, which
       does not bubble (except where otherwise stated) and is not cancelable
       (except where otherwise stated), and which uses the
@@ -3895,7 +3967,8 @@ function initiate(signaller) {
   // Prepare the ICE gatherer
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all; 
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]; 
+  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+    { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]; 
   var iceGatherer = new RTCIceGatherer(gatherOptions); 
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -3925,7 +3998,8 @@ function initiate(signaller) {
 function accept(signaller, remote) {
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
+  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+    { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -4237,8 +4311,8 @@ function processStats(currentReport) {
   <h2>Identity</h2>
 
       <div class="note">
-This section of the ORTC API specification depends on the WebRTC 1.0 Identity API, 
-and needs to be synchronized once it is updated.
+This section of the ORTC API specification depends on the WebRTC 1.0 Identity API,
+which is still a work in progress.
       </div>
 
   <section id="rtcidentity-overview*">
@@ -4629,7 +4703,8 @@ request identity assertions, and consume the results.
 import "helper.js";
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
+gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , 
+  { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
 var iceGatherer = new RTCIceGatherer(gatherOptions);
 iceGatherer.onlocalcandidate = function (event) {mySendLocalCandidate(event.candidate);};
 var ice = new RTCIceTransport(iceGatherer);
@@ -4713,7 +4788,7 @@ function signalAssertion(assertion){
           <td><code>icecandidatepairchange</code></td>
           <td><code><a>RTCIceCandidatePairChangedEvent</a></code>
           </td>
-          <td>The nominated <var>RTCIceCandidatePair</var> changed.</td>
+          <td>The selected <var>RTCIceCandidatePair</var> changed.</td>
         </tr>
       </tbody>
     </table>
@@ -4971,7 +5046,7 @@ The effect of setting <var>voiceActivityDetection</var> to <var>true</var> is to
 [[!RFC3389]] within the Offer.</p>
 <p> 
 Within ORTC API, equivalent behavior can be obtained by configuring the Comfort Noise (CN) codec for use within <code>RTCRtpParameters</code>,
-or configuring a codec with built-in support for Comfort Noise (such as Opus) to enable comfort noise. 
+and/or configuring a codec with built-in support for Discontinuous Operation (DTX), such as Opus.
 As noted in [[!RTCWEB-AUDIO]] Section 3, support for CN is required. 
 </p>
 </section>
@@ -5029,6 +5104,19 @@ return myCapsToSendParams(remoteSendCaps, recvCaps);
 
     <p>This section will be removed before publication.</p>
     <!-- Why do the first two headings automatically convert to <h2>? -->
+
+  <section id="since-22-June-2015*">
+    <h3>Changes since 22 June 2015</h3>
+
+    <ol>
+      <li> Added the "failed" state to <code><a>RTCDtlsTransportState</a></code>, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/219">Issue 219</a></li>
+      <li> Added support for WebRTC 1.0 <code><a>RTCIceCredentialType</a></code>, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/222">Issue 222</a></li>
+      <li> Clarified behavior of <code>createAssociatedGatherer()</code>, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/223">Issue 223</a></li>
+   </ol>
+  </section>
 
   <section id="since-07-May-2015*">
     <h3>Changes since 7 May 2015</h3>
