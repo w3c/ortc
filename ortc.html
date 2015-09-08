@@ -722,7 +722,8 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
       The <dfn>RTCIceCandidate</dfn> object includes information relating to an ICE candidate.
     </p>
 
-    <pre class="example"><code class="javascript">{
+    <pre xml:space="preserve" class='example highlight'>
+{
   foundation: "abcd1234",
   priority: 1694498815,
   ip: "192.0.2.33",
@@ -730,7 +731,7 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
   port: 10000,
   type: "host"
 };
-    </code></pre>
+    </pre>
 
      <dl class="idl" title="typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate">
      </dl>
@@ -966,117 +967,121 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
 
   <section id="rtcicegatherer-initial-example*">
     <h3>Example</h3>
-    <pre class="example"><code class="javascript">
+    <pre xml:space="preserve" class='example highlight'>
 // Example to demonstrate use of RTCIceCandidateComplete
 // Include some helper functions
 import "helper.js";
+
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];
+gatherOptions.iceservers = [
+  { urls: "stun:stun1.example.net" },
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+];
+
 // Create ICE gatherer objects
 var iceGatherer = new RTCIceGatherer(gatherOptions);
+
 // Handle state changes
-iceGatherer.ongathererstatechange = function (event) {
-  myIceGathererStateChange('iceGatherer', event.state);
-}; 
+iceGatherer.ongathererstatechange = function(event) {
+  myIceGathererStateChange("iceGatherer", event.state);
+};
+
 // Prepare to signal local candidates
-iceGatherer.onlocalcandidate = function (event) {
+iceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate);
-}; 
+};
+
 // Set up response function
-mySignaller.onResponse = function(responseSignaller,response) {
+mySignaller.onResponse = function(responseSignaller, response) {
   // We may get N responses
-  // ... deal with the N responses as shown in Example 5 of Section 3.11.   
-    }
-  };
+  // ... deal with the N responses as shown in Example 5 of Section 3.11.
 };
 
 mySignaller.send({
-   "ice": iceGatherer.getLocalParameters()
+  "ice": iceGatherer.getLocalParameters()
 });
-</code></pre>
-</code></pre>
-    <pre class="example"><code class="javascript">
+</pre>
+    <pre xml:space="preserve" class='example highlight'>
 // Helper functions used in all the examples (helper.js)
 function trace(text) {
   // This function is used for logging.
-  if (text[text.length - 1] === '\n') {
-    text = text.substring(0, text.length - 1);
-  }
+  text = text.trimRight();
   if (window.performance) {
     var now = (window.performance.now() / 1000).toFixed(3);
-    console.log(now + ': ' + text);
+    console.log(now + ": " + text);
   } else {
     console.log(text);
   }
 }
 
-function errorHandler (error) {
-  trace('Error encountered: ' + error.name);
+function errorHandler(error) {
+  trace("Error encountered: " + error.name);
 }
 
-function mySendLocalCandidate(candidate, component, kind, parameters){
+function mySendLocalCandidate(candidate, component, kind, parameters) {
   // Set default values
   kind = kind || "all";
   component = component || RTCIceComponent.RTP;
-  parameters = parameters || null; 
-  // Signal the local candidate 
+  parameters = parameters || null;
+
+  // Signal the local candidate
   mySignaller.mySendLocalCandidate({
-  "candidate": candidate,
-  "component": component,
-  "kind": kind,
-  "parameters": parameters
+    "candidate": candidate,
+    "component": component,
+    "kind": kind,
+    "parameters": parameters
   });
 }
 
-function myIceGathererStateChange(name, state){
-  switch(state){
-  case RTCIceGathererState.new:
-     trace('IceGatherer: ' + name + ' Has been created');
-     break;
-  case RTCIceGathererState.gathering:
-     trace('IceGatherer: ' + name + ' Is gathering candidates');
-     break;
-  case RTCIceGathererState.complete:
-     trace('IceGatherer: ' + name + ' Has finished gathering (for now)');
-     break;
-  case RTCIceGathererState.closed:
-     trace('IceGatherer: ' + name + ' Is closed');
-     break;
-  default:
-     trace('IceGatherer: ' + name + ' Invalid state');
+function myIceGathererStateChange(name, state) {
+  switch (state) {
+    case RTCIceGathererState.new:
+      trace("IceGatherer: " + name + " Has been created");
+      break;
+    case RTCIceGathererState.gathering:
+      trace("IceGatherer: " + name + " Is gathering candidates");
+      break;
+    case RTCIceGathererState.complete:
+      trace("IceGatherer: " + name + " Has finished gathering (for now)");
+      break;
+    case RTCIceGathererState.closed:
+      trace("IceGatherer: " + name + " Is closed");
+      break;
+    default:
+      trace("IceGatherer: " + name + " Invalid state");
   }
 }
 
-function myIceTransportStateChange(name, state){
-  switch(state){
-  case RTCIceTransportState.new:
-     trace('IceTransport: ' + name + ' Has been created');
-     break;
-  case RTCIceTransportState.checking:
-     trace('IceTransport: ' + name + ' Is checking');
-     break;
-  case RTCIceTransportState.connected:
-     trace('IceTransport: ' + name + ' Is connected');
-     break;
-  case RTCIceTransportState.disconnected:
-     trace('IceTransport: ' + name + ' Is disconnected');
-     break;
-  case RTCIceTransportState.completed:
-     trace('IceTransport: ' + name + ' Has finished checking (for now)');
-     break;
-  case RTCIceTransportState.failed:
-     trace('IceTransport: ' + name + ' Has failed');
-     break;
-  case RTCIceTransportState.closed:
-     trace('IceTransport: ' + name + ' Is closed');
-     break;
-  default:
-     trace('IceTransport: ' + name + ' Invalid state');
+function myIceTransportStateChange(name, state) {
+  switch (state) {
+    case RTCIceTransportState.new:
+      trace("IceTransport: " + name + " Has been created");
+      break;
+    case RTCIceTransportState.checking:
+      trace("IceTransport: " + name + " Is checking");
+      break;
+    case RTCIceTransportState.connected:
+      trace("IceTransport: " + name + " Is connected");
+      break;
+    case RTCIceTransportState.disconnected:
+      trace("IceTransport: " + name + " Is disconnected");
+      break;
+    case RTCIceTransportState.completed:
+      trace("IceTransport: " + name + " Has finished checking (for now)");
+      break;
+    case RTCIceTransportState.failed:
+      trace("IceTransport: " + name + " Has failed");
+      break;
+    case RTCIceTransportState.closed:
+      trace("IceTransport: " + name + " Is closed");
+      break;
+    default:
+      trace("IceTransport: " + name + " Invalid state");
   }
 }
- </code></pre>
+</pre>
   </section>
 
 </section>
@@ -1376,9 +1381,12 @@ can respond to incoming connectivity checks based on its configured role, as wel
      An example of an array of <code<<a>RTCIceServer</a></code> objects:
    </p>
 
-    <pre class="example"><code class="javascript">
-      [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]
-    </code></pre>
+   <pre xml:space="preserve" class='example highlight'>
+      [
+        { urls: "stun:stun1.example.net" },
+        { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+      ]
+    </pre>
 
     <dl class="idl" title="dictionary RTCIceServer">
       <dt>(DOMString or sequence&lt;DOMString>) urls</dt>
@@ -1409,59 +1417,71 @@ can respond to incoming connectivity checks based on its configured role, as wel
   </section>
   <section id="rtcicegatherer-example*">
     <h3>Example</h3>
-    <pre class="example"><code class="javascript">
+    <pre xml:space="preserve" class='example highlight'>
 // Example to demonstrate forking when RTP and RTCP are not multiplexed,
-// so that both RTP and RTCP IceGatherer and IceTransport objects are needed. 
+// so that both RTP and RTCP IceGatherer and IceTransport objects are needed.
 // Include some helper functions
 import "helper.js";
+
 // Create ICE gather options
-var gatherOptions = new RTCIceGatherOptions(); 
-gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay; 
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];  
+var gatherOptions = new RTCIceGatherOptions();
+gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
+gatherOptions.iceservers = [
+  { urls: "stun:stun1.example.net" },
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+];
+
 // Create ICE gatherer objects
 var iceRtpGatherer = new RTCIceGatherer(gatherOptions);
-var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer(); 
+var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer();
+
 // Prepare to signal local candidates
-iceRtpGatherer.onlocalcandidate = function (event) {
+iceRtpGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate, RTCIceComponent.RTP);
-}; 
-iceRtcpGatherer.onlocalcandidate = function (event) {
+};
+
+iceRtcpGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP);
-}; 
+};
+
 // Initialize the ICE transport arrays
-var iceRtpTransport = []; 
-var iceRtcpTransport = []; 
-var i = 0 ;
+var iceRtpTransport = [];
+var iceRtcpTransport = [];
+var i = 0;
+
 // Set up response function
-mySignaller.onResponse = function(responseSignaller,response) {
+mySignaller.onResponse = function(responseSignaller, response) {
   // We may get N responses
-  //
+
   // Create the ICE RTP and RTCP transports
   i = iceRtpTransport.push(new RTCIceTransport(iceRtpGatherer)) - 1;
   iceRtcpTransport.push(iceRtpTransport.createAssociatedTransport());
+
   // Start the RTP and RTCP ICE transports so that outgoing ICE connectivity checks can begin
   iceRtpTransport[i].start(iceRtpGatherer, response.icertp, RTCIceRole.controlling);
-  iceRtcpTransport[i].start(iceRtcpGatherer, response.icertcp, RTCIceRole.controlling); 
+  iceRtcpTransport[i].start(iceRtcpGatherer, response.icertcp, RTCIceRole.controlling);
+
   // Prepare to add ICE candidates signalled by the remote peer
   responseSignaller.onRemoteCandidate = function(remote) {
-    // Locate the ICE transport that the signaled candidate relates to by matching the userNameFragment. 
+    // Locate the ICE transport that the signaled candidate relates to by matching the userNameFragment.
     var j = 0;
-    for (j=0; j < iceTransport.length; j++){
-      if (getRemoteParameters(iceTransport(j)).userNameFragment === remote.parameters.userNameFragment){
-        if (remote.component === RTCIceComponent.RTP){
+    for (j = 0; j < iceTransport.length; j++) {
+      if (getRemoteParameters(iceTransport(j)).userNameFragment === remote.parameters.userNameFragment) {
+        if (remote.component === RTCIceComponent.RTP) {
           iceRtpTransport[j].addRemoteCandidate(remote.candidate);
         } else {
           iceRtcpTransport[j].addRemoteCandidate(remote.candidate);
         }
       }
-    } 
+    }
   };
-}; 
+};
+
 mySignaller.send({
-   "icertp": iceRtpGatherer.getLocalParameters(),
-   "icertcp": iceRtcpGatherer.getLocalParameters()
+  "icertp": iceRtpGatherer.getLocalParameters(),
+  "icertcp": iceRtcpGatherer.getLocalParameters()
 });
-</code></pre>
+</pre>
   </section>
 </section>
 
@@ -1702,82 +1722,102 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
   <section id="rtcicetransport-example1*">
     <h3>Examples</h3>
 
-    <pre class="example"><code class="javascript">
-// This is an example of  how to offer ICE and DTLS parameters and 
+    <pre xml:space="preserve" class='example highlight'>
+// This is an example of  how to offer ICE and DTLS parameters and
 // ICE candidates and get back ICE and DTLS parameters and ICE candidates,
-// and start both ICE and DTLS, assuming that RTP and RTCP are multiplexed. 
-// Assume that we have a way to signal (mySignaller). 
+// and start both ICE and DTLS, assuming that RTP and RTCP are multiplexed.
+// Assume that we have a way to signal (mySignaller).
 // Include some helper functions
 import "helper.js";
+
 function initiate(mySignaller) {
   // Prepare the ICE gatherer
   var gatherOptions = new RTCIceGatherOptions();
-  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all; 
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]; 
-  var iceGatherer = new RTCIceGatherer(gatherOptions); 
+  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
+  gatherOptions.iceservers = [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  ];
+  var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
-  }; 
+  };
+
   // Initialize the ICE and DTLS transport arrays
   var iceTransport = [];
-  var dtlsTransport = []; 
+  var dtlsTransport = [];
   var i = 0;
-  // Create a DTLS transport so we can signal the parameters 
-  var ice = new RTCIceTransport(iceGatherer);  
+
+  // Create a DTLS transport so we can signal the parameters
+  var ice = new RTCIceTransport(iceGatherer);
   var dtls = new RTCDtlsTransport(ice);
+
   // Prepare to handle remote ICE candidates
-  mySignaller.onRemoteCandidate = function(remote){
-  // Figure out which IceTranport a remote candidate relates to by matching the userNameFragment/password
-    var j = 0; 
-    for (j=0; j < iceTransport.length; j++){
-      if (getRemoteParameters(iceTransport(j)).userNameFragment === remote.parameters.userNameFragment){
+  mySignaller.onRemoteCandidate = function(remote) {
+    // Figure out which IceTranport a remote candidate relates to by matching the userNameFragment/password
+    var j = 0;
+    for (j = 0; j < iceTransport.length; j++) {
+      if (getRemoteParameters(iceTransport(j)).userNameFragment === remote.parameters.userNameFragment) {
         iceTransport[j].addRemoteCandidate(remote.candidate);
       }
     }
-  }; 
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7. 
+  };
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
 
   mySignaller.mySendInitiate({
-    "ice": iceGatherer.getLocalParameters(), 
-    "dtls": dtls.getLocalParameters(), 
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.4 Example 7. 
+    "ice": iceGatherer.getLocalParameters(),
+    "dtls": dtls.getLocalParameters(),
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.4 Example 7.
   }, function(remote) {
     // Create the ICE and DTLS transports
-    i = iceTransport.push(new RTCIceTransport(iceGatherer)); 
-    // Issue 211: See: https://github.com/openpeer/ortc/issues/211 
-    // The statement below constructs a RTCDtlsTransport object with a new certificate and fingerprint which does not match what was offered (and accepted by the remote peer).
-    dtlsTransport.push(new RTCDtlsTransport(iceTransport[i]));  
+    i = iceTransport.push(new RTCIceTransport(iceGatherer));
+
+    // Issue 211: See: https://github.com/openpeer/ortc/issues/211
+    // The statement below constructs a RTCDtlsTransport object with a new certificate
+    // and fingerprint which does not match what was offered (and accepted by the remote peer).
+    dtlsTransport.push(new RTCDtlsTransport(iceTransport[i]));
+
     // Start the ICE transport
     iceTransport[i].start(iceGatherer, remote.ice, RTCIceRole.controlling);
-    // Since the RTCDtlsTransport fingerprint will not match what was offered, remote fingerprint verification will fail. 
+
+    // Since the RTCDtlsTransport fingerprint will not match what was offered,
+    // remote fingerprint verification will fail.
     dtlsTransport[i].start(remote.dtls);
+
     // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
   });
 }
-    </code></pre>
+    </pre>
 
-    <pre class="example"><code class="javascript">
+    <pre xml:space="preserve" class='example highlight'>
 // This is an example of how to answer with ICE and DTLS
 // and DTLS parameters and ICE candidates and start both ICE and DTLS,
 // assuming that RTP and RTCP are multiplexed.
 // Include some helper functions
 import "helper.js";
-// Assume that remote info is signalled to us. 
+
+// Assume that remote info is signalled to us.
 function accept(mySignaller, remote) {
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
+  gatherOptions.iceservers = [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  ];
+
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
-  }; 
+  };
+
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
   var dtls = new RTCDtlsTransport(ice);
+
   // Prepare to handle remote candidates
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
-  }; 
+  };
   // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
 
   mySignaller.mySendAccept({
@@ -1785,14 +1825,18 @@ function accept(mySignaller, remote) {
     "dtls": dtls.getLocalParameters()
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.4 Example 7.
   });
+
   // Start the ICE transport with an implicit gather policy of "all"
   ice.start(iceGatherer, remote.ice, RTCIceRole.controlled);
+
   // Start the DTLS transport and send data into the bit bucket if the Answer is not the first one received,
-  // since the remote DTLS transport will not have the same certificate/fingerprint as was signaled in the Offer.  Booyah!
+  // since the remote DTLS transport will not have the same certificate/fingerprint as was signaled in the Offer.
+  // Booyah!
   dtls.start(remote.dtls);
+
   // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
 }
-</code></pre>
+</pre>
 </section>
 </section>
 
@@ -2072,39 +2116,40 @@ function accept(mySignaller, remote) {
   <section id="rtcrtpreceiver-example*">
     <h3>Examples</h3>
 
-    <pre class="example"><code class="javascript">
+    <pre xml:space="preserve" class='example highlight'>
 // Assume we already have a way to signal, a transport
 // (RTCDtlsTransport), and audio and video tracks. This is an example
 // of  how to offer them  and get back an answer with audio and
 // video tracks, and begin sending and receiving them.
-// The example assumes that RTP and RTCP are multiplexed. 
+// The example assumes that RTP and RTCP are multiplexed.
 function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
   var audioSender = new RTCRtpSender(audioTrack, transport);
   var videoSender = new RTCRtpSender(videoTrack, transport);
   var audioReceiver = new RTCRtpReceiver(transport);
   var videoReceiver = new RTCRtpReceiver(transport);
 
-// Retrieve the audio and video receiver capabilities
-  var recvAudioCaps = RTCRtpReceiver.getCapabilities('audio');
-  var recvVideoCaps = RTCRtpReceiver.getCapabilities('video');   
-// Retrieve the audio and video sender capabilities
-  var sendAudioCaps = RTCRtpSender.getCapabilities('audio'); 
-  var sendVideoCaps = RTCRtpSender.getCapabilities('video'); 
+  // Retrieve the audio and video receiver capabilities
+  var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
+  var recvVideoCaps = RTCRtpReceiver.getCapabilities("video");
+
+  // Retrieve the audio and video sender capabilities
+  var sendAudioCaps = RTCRtpSender.getCapabilities("audio");
+  var sendVideoCaps = RTCRtpSender.getCapabilities("video");
 
   mySignaller.myOfferTracks({
-    // The initiator offers its receiver and sender capabilities. 
-    "recvAudioCaps": recvAudioCaps, 
+    // The initiator offers its receiver and sender capabilities.
+    "recvAudioCaps": recvAudioCaps,
     "recvVideoCaps": recvVideoCaps,
     "sendAudioCaps": sendAudioCaps,
-    "sendVideoCaps": sendVideoCaps 
+    "sendVideoCaps": sendVideoCaps
   }, function(answer) {
     // The responder answers with its receiver capabilities
 
     // Derive the send and receive parameters
-    var audioSendParams = myCapsToSendParams(sendAudioCaps, answer.recvAudioCaps); 
-    var videoSendParams = myCapsToSendParams(sendVideoCaps, answer.recvVideoCaps); 
+    var audioSendParams = myCapsToSendParams(sendAudioCaps, answer.recvAudioCaps);
+    var videoSendParams = myCapsToSendParams(sendVideoCaps, answer.recvVideoCaps);
     var audioRecvParams = myCapsToRecvParams(recvAudioCaps, answer.sendAudioCaps);
-    var videoRecvParams = myCapsToRecvParams(recvVideoCaps, answer.sendVideoCaps); 
+    var videoRecvParams = myCapsToRecvParams(recvVideoCaps, answer.sendVideoCaps);
     audioSender.send(audioSendParams);
     videoSender.send(videoSendParams);
     audioReceiver.receive(audioRecvParams);
@@ -2114,23 +2159,23 @@ function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
     // audioReceiver.track and videoReceiver.track.
   });
 }
-    </code></pre>
-    <pre class="example"><code class="javascript">
+    </pre>
+    <pre xml:space="preserve" class='example highlight'>
 // Assume we already have a way to signal, a transport (RTCDtlsTransport)
 // and audio and video tracks. This is an example of how to answer an
-// offer with audio and video tracks, and begin sending and receiving them. 
-// The example assumes that RTP and RTCP are multiplexed. 
+// offer with audio and video tracks, and begin sending and receiving them.
+// The example assumes that RTP and RTCP are multiplexed.
 function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
   var audioSender = new RTCRtpSender(audioTrack, transport);
   var videoSender = new RTCRtpSender(videoTrack, transport);
   var audioReceiver = new RTCRtpReceiver(transport);
   var videoReceiver = new RTCRtpReceiver(transport);
 
-// Retrieve the send and receive capabilities
-  var recvAudioCaps = RTCRtpReceiver.getCapabilities('audio');
-  var recvVideoCaps = RTCRtpReceiver.getCapabilities('video');
-  var sendAudioCaps = RTCRtpSender.getCapabilities('audio'); 
-  var sendVideoCaps = RTCRtpSender.getCapabilities('video'); 
+  // Retrieve the send and receive capabilities
+  var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
+  var recvVideoCaps = RTCRtpReceiver.getCapabilities("video");
+  var sendAudioCaps = RTCRtpSender.getCapabilities("audio");
+  var sendVideoCaps = RTCRtpSender.getCapabilities("video");
 
   mySignaller.myAnswerTracks({
     "recvAudioCaps": recvAudioCaps,
@@ -2139,20 +2184,20 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
     "sendVideoCaps": sendVideoCaps
   });
 
-    // Derive the send and receive parameters using Javascript functions defined in Section 17.2.
-    var audioSendParams = myCapsToSendParams(sendAudioCaps, remote.recvAudioCaps);
-    var videoSendParams = myCapsToSendParams(sendVideoCaps, remote.recvVideoCaps);
-    var audioRecvParams = myCapsToRecvParams(recvAudioCaps, remote.sendAudioCaps);
-    var videoRecvParams = myCapsToRecvParams(recvVideoCaps, remote.sendVideoCaps);
-    audioSender.send(audioSendParams);
-    videoSender.send(videoSendParams);
-    audioReceiver.receive(audioRecvParams);
-    videoReceiver.receive(videoRecvParams);
+  // Derive the send and receive parameters using Javascript functions defined in Section 17.2.
+  var audioSendParams = myCapsToSendParams(sendAudioCaps, remote.recvAudioCaps);
+  var videoSendParams = myCapsToSendParams(sendVideoCaps, remote.recvVideoCaps);
+  var audioRecvParams = myCapsToRecvParams(recvAudioCaps, remote.sendAudioCaps);
+  var videoRecvParams = myCapsToRecvParams(recvVideoCaps, remote.sendVideoCaps);
+  audioSender.send(audioSendParams);
+  videoSender.send(videoSendParams);
+  audioReceiver.receive(audioRecvParams);
+  videoReceiver.receive(videoRecvParams);
 
   // Now we can render/play
   // audioReceiver.track and videoReceiver.track.
 }
-   </code></pre>
+  </pre>
   </section>
 
 </section>
@@ -2212,11 +2257,11 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
   <section id="rtcicetransportcontroller-example1*">
     <h3>Examples</h3>
 
-    <pre class="example"><code class="javascript">
-// This is an example of how to utilize distinct ICE transports for Audio and Video 
+    <pre xml:space="preserve" class='example highlight'>
+// This is an example of how to utilize distinct ICE transports for Audio and Video
 // as well as for RTP and RTCP.  If both sides can multiplex audio/video
-// and RTP/RTCP then the multiplexing will occur. 
-// 
+// and RTP/RTCP then the multiplexing will occur.
+//
 // Assume we have an audioTrack and a videoTrack to send.
 //
 // Include some helper functions
@@ -2224,7 +2269,10 @@ import "helper.js";
 // Create the ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ];  
+gatherOptions.iceservers = [
+  { urls: "stun:stun1.example.net" },
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+];
 
 // Create the RTP and RTCP ICE gatherers for audio and video
 var audioRtpIceGatherer = new RTCIceGatherer(gatherOptions);
@@ -2245,52 +2293,52 @@ var videoRtpIceTransport = new RTCIceTransport(videoRtpIceGatherer);
 var videoRtcpIceTransport = audioRtpIceTransport.createAssociatedTransport();
 
 // Enable local ICE candidates to be signaled to the remote peer.
-audioRtpIceGatherer.onlocalcandidate = function (event)  {
+audioRtpIceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "audio");
 };
-audioRtcpIceGatherer.onlocalcandidate = function (event) {
+audioRtcpIceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "audio");
 };
-videoRtpIceGatherer.onlocalcandidate = function (event)  {
+videoRtpIceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "video");
 };
-videoRtcpIceGatherer.onlocalcandidate = function (event) {
+videoRtcpIceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "video");
 };
 
 // Set up the ICE state change event handlers
-audioRtpIceTransport.onicestatechange =  function(event){
-  myIceTransportStateChange('audioRtpIceTransport', event.state);
+audioRtpIceTransport.onicestatechange = function(event) {
+  myIceTransportStateChange("audioRtpIceTransport", event.state);
 };
-audioRtcpIceTransport.onicestatechange = function(event){
-  myIceTransportStateChange('audioRtcpIceTransport', event.state);
-}; 
-videoRtpIceTransport.onicestatechange =  function(event){
-  myIceTransportStateChange('videoRtpIceTransport', event.state);
-}; 
-videoRtcpIceTransport.onicestatechange = function(event){
-  myIceTransportStateChange('videoRtcpIceTransport', event.state);
-}; 
+audioRtcpIceTransport.onicestatechange = function(event) {
+  myIceTransportStateChange("audioRtcpIceTransport", event.state);
+};
+videoRtpIceTransport.onicestatechange = function(event) {
+  myIceTransportStateChange("videoRtpIceTransport", event.state);
+};
+videoRtcpIceTransport.onicestatechange = function(event) {
+  myIceTransportStateChange("videoRtcpIceTransport", event.state);
+};
 
 // Prepare to add ICE candidates signaled by the remote peer on any of the ICE transports
 mySignaller.onRemoteCandidate = function(remote) {
   switch (remote.kind) {
-     case "audio":
-       if (remote.component === RTCIceComponent.RTP){
-          audioRtpIceTransport.addRemoteCandidate(remote.candidate);
-       } else {
-          audioRtcpIceTransport.addRemoteCandidate(remote.candidate);
-       } 
-       break;
-     case "video":
-       if (remote.component === RTCIceComponent.RTP){
-          videoRtpIceTransport.addRemoteCandidate(remote.candidate);
-       } else {
-          videoRtcpIceTransport.addRemoteCandidate(remote.candidate);
-       }
-       break;
-     default:
-       trace('Invalid media type received: ' + remote.kind);
+    case "audio":
+      if (remote.component === RTCIceComponent.RTP) {
+        audioRtpIceTransport.addRemoteCandidate(remote.candidate);
+      } else {
+        audioRtcpIceTransport.addRemoteCandidate(remote.candidate);
+      }
+      break;
+    case "video":
+      if (remote.component === RTCIceComponent.RTP) {
+        videoRtpIceTransport.addRemoteCandidate(remote.candidate);
+      } else {
+        videoRtcpIceTransport.addRemoteCandidate(remote.candidate);
+      }
+      break;
+    default:
+      trace("Invalid media type received: " + remote.kind);
   }
 };
 
@@ -2298,7 +2346,7 @@ mySignaller.onRemoteCandidate = function(remote) {
 var audioRtpDtlsTransport = new RTCDtlsTransport(audioRtpIceTransport);
 var audioRtcpDtlsTransport = new RTCDtlsTransport(audioRtcpIceTransport);
 var videoRtpDtlsTransport = new RTCDtlsTransport(videoRtpIceTransport);
-var videoRtcpDtlsTransport = new RTCDtlsTransport(videoRtcpIceTransport); 
+var videoRtcpDtlsTransport = new RTCDtlsTransport(videoRtcpIceTransport);
 
 // Create the sender and receiver objects
 var audioSender = new RtpSender(audioTrack, audioRtpDtlsTransport, audioRtcpDtlsTransport);
@@ -2307,10 +2355,10 @@ var audioReceiver = new RtpReceiver(audioRtpDtlsTransport, audioRtcpDtlsTranspor
 var videoReceiver = new RtpReceiver(videoRtpDtlsTransport, videoRtcpDtlsTransport);
 
 // Retrieve the receiver and sender capabilities
-var recvAudioCaps = RTCRtpReceiver.getCapabilities('audio'); 
-var recvVideoCaps = RTCRtpReceiver.getCapabilities('video'); 
-var sendAudioCaps = RTCRtpSender.getCapabilities('audio');
-var sendVideoCaps = RTCRtpSender.getCapabilities('video'); 
+var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
+var recvVideoCaps = RTCRtpReceiver.getCapabilities("video");
+var sendAudioCaps = RTCRtpSender.getCapabilities("audio");
+var sendVideoCaps = RTCRtpSender.getCapabilities("video");
 
 // Exchange ICE/DTLS parameters and Send/Receive capabilities
 
@@ -2331,91 +2379,91 @@ mySignaller.myOfferTracks({
   "videoRtpDtls": videoRtpDtlsTransport.getLocalParameters(),
   "videoRtcpDtls": videoRtcpDtlsTransport.getLocalParameters(),
   // Offer the receiver and sender audio and video capabilities.
-  "recvAudioCaps": recvAudioCaps, 
+  "recvAudioCaps": recvAudioCaps,
   "recvVideoCaps": recvVideoCaps,
   "sendAudioCaps": sendAudioCaps,
-  "sendVideoCaps": sendVideoCaps 
+  "sendVideoCaps": sendVideoCaps
 }, function(answer) {
-   // The responder answers with its preferences, parameters and capabilities
-   // Since we didn't create transport arrays, we are assuming that there is no forking (only one response)
-   //
-   // Derive the send and receive parameters, assuming that RTP/RTCP mux will be enabled.
-   var audioSendParams = myCapsToSendParams(sendAudioCaps, answer.recvAudioCaps); 
-   var videoSendParams = myCapsToSendParams(sendVideoCaps, answer.recvVideoCaps); 
-   var audioRecvParams = myCapsToRecvParams(recvAudioCaps, answer.sendAudioCaps);
-   var videoRecvParams = myCapsToRecvParams(recvVideoCaps, answer.sendVideoCaps); 
-   //
-   // If the responder wishes to enable bundle, we will enable it
-   if (answer.bundle) {
-     // Since bundle implies RTP/RTCP multiplexing, we only need a single 
-     // ICE transport and DTLS transport.  No need for the ICE transport controller. 
-     audioRtpIceTransport.start(audioRtpIceGatherer,answer.audioRtpIce, RTCIceRole.controlling);   
-     audioRtpDtlsTransport.start(remote.audioRtpDtls); 
-     // 
-     // Replace the transport on the Sender and Receiver objects
-     //
-     audioSender.setTransport(audioRtpDtlsTransport); 
-     videoSender.setTransport(audioRtpDtlsTransport); 
-     audioReceiver.setTransport(audioRtpDtlsTransport); 
-     videoReceiver.setTransport(audioRtpDtlsTransport); 
-     // If BUNDLE was requested, then also assume RTP/RTCP mux 
-     answer.rtcpMux = true;  
-   } else {
-     var controller = new RTCIceTransportController(); 
-     if (answer.rtcpMux){
-       // The peer doesn't want BUNDLE, but it does want to multiplex RTP/RTCP
-       // Now we need audio and video ICE transports
-       // as well as an ICE Transport Controller object
-       controller.addTransport(audioRtpIceTransport);
-       controller.addTransport(videoRtpIceTransport);
-       // Start the audio and video ICE transports
-       audioRtpIceTransport.start(audioRtpIceGatherer,answer.audioRtpIce, RTCIceRole.controlling);
-       videoRtpIceTransport.start(videoRtpIceGatherer,answer.videoRtpIce, RTCIceRole.controlling);
-       // Start the audio and video DTLS transports
-       audioRtpDtlsTransport.onerror = errorHandler; 
-       audioRtpDtlsTransport.start(answer.audioRtpDtls);
-       videoRtpDtlsTransport.onerror = errorHandler;
-       videoRtpDtlsTransport.start(answer.videoRtpDtls);
-       // Replace the transport on the Sender and Receiver objects
-       //
-       audioSender.setTransport(audioRtpDtlsTransport);
-       videoSender.setTransport(videoRtpDtlsTransport);
-       audioReceiver.setTransport(audioRtpDtlsTransport);
-       videoReceiver.setTransport(videoRtpDtlsTransport);
-     } else {
-       // We arrive here if the responder does not want BUNDLE
-       // or RTP/RTCP multiplexing
-       // 
-       // Now we need all the audio and video RTP and RTCP ICE transports
-       // as well as an ICE Transport Controller object
-       controller.addTransport(audioRtpIceTransport);
-       controller.addTransport(videoRtpIceTransport);
-       // Start the ICE transports
-       audioRtpIceTransport.start(audioRtpIceGatherer,answer.audioRtpIce,RTCIceRole.controlling); 
-       audioRtcpIceTransport.start(audioRtcpIceGatherer,answer.audioRtcpIce,RTCIceRole.controlling); 
-       videoRtpIceTransport.start(videoRtpIceGatherer,answer.videoRtpIce,RTCIceRole.controlling); 
-       videoRtcpIceTransport.start(videoRtcpIceGatherer,answer.videoRtcpIce,RTCIceRole.controlling);
-       // Start the DTLS transports that are needed 
-       audioRtpDtlsTransport.start(answer.audioRtpDtls);
-       audioRtcpDtlsTransport.start(answer.audioRtcpDtls);
-       videoRtpDtlsTransport.start(answer.videoRtpDtls);
-       videoRtcpDtlsTransport.start(answer.videoRtcpDtls);
-       // Disable RTP/RTCP multiplexing 
-       audioSendParams.rtcp.mux = false; 
-       videoSendParams.rtcp.mux = false;
-       audioRecvParams.rtcp.mux = false;
-       videoRecvParams.rtcp.mux = false;
-     }
-   }
-   // Set the audio and video send and receive parameters.  
-   audioSender.send(audioSendParams);
-   videoSender.send(videoSendParams);
-   audioReceiver.receive(audioRecvParams);
-   videoReceiver.receive(videoRecvParams);
+  // The responder answers with its preferences, parameters and capabilities
+  // Since we didn"t create transport arrays, we are assuming that there is no forking (only one response)
+  //
+  // Derive the send and receive parameters, assuming that RTP/RTCP mux will be enabled.
+  var audioSendParams = myCapsToSendParams(sendAudioCaps, answer.recvAudioCaps);
+  var videoSendParams = myCapsToSendParams(sendVideoCaps, answer.recvVideoCaps);
+  var audioRecvParams = myCapsToRecvParams(recvAudioCaps, answer.sendAudioCaps);
+  var videoRecvParams = myCapsToRecvParams(recvVideoCaps, answer.sendVideoCaps);
+  //
+  // If the responder wishes to enable bundle, we will enable it
+  if (answer.bundle) {
+    // Since bundle implies RTP/RTCP multiplexing, we only need a single
+    // ICE transport and DTLS transport.  No need for the ICE transport controller.
+    audioRtpIceTransport.start(audioRtpIceGatherer, answer.audioRtpIce, RTCIceRole.controlling);
+    audioRtpDtlsTransport.start(remote.audioRtpDtls);
+    //
+    // Replace the transport on the Sender and Receiver objects
+    //
+    audioSender.setTransport(audioRtpDtlsTransport);
+    videoSender.setTransport(audioRtpDtlsTransport);
+    audioReceiver.setTransport(audioRtpDtlsTransport);
+    videoReceiver.setTransport(audioRtpDtlsTransport);
+    // If BUNDLE was requested, then also assume RTP/RTCP mux
+    answer.rtcpMux = true;
+  } else {
+    var controller = new RTCIceTransportController();
+    if (answer.rtcpMux) {
+      // The peer doesn"t want BUNDLE, but it does want to multiplex RTP/RTCP
+      // Now we need audio and video ICE transports
+      // as well as an ICE Transport Controller object
+      controller.addTransport(audioRtpIceTransport);
+      controller.addTransport(videoRtpIceTransport);
+      // Start the audio and video ICE transports
+      audioRtpIceTransport.start(audioRtpIceGatherer, answer.audioRtpIce, RTCIceRole.controlling);
+      videoRtpIceTransport.start(videoRtpIceGatherer, answer.videoRtpIce, RTCIceRole.controlling);
+      // Start the audio and video DTLS transports
+      audioRtpDtlsTransport.onerror = errorHandler;
+      audioRtpDtlsTransport.start(answer.audioRtpDtls);
+      videoRtpDtlsTransport.onerror = errorHandler;
+      videoRtpDtlsTransport.start(answer.videoRtpDtls);
+      // Replace the transport on the Sender and Receiver objects
+      //
+      audioSender.setTransport(audioRtpDtlsTransport);
+      videoSender.setTransport(videoRtpDtlsTransport);
+      audioReceiver.setTransport(audioRtpDtlsTransport);
+      videoReceiver.setTransport(videoRtpDtlsTransport);
+    } else {
+      // We arrive here if the responder does not want BUNDLE
+      // or RTP/RTCP multiplexing
+      //
+      // Now we need all the audio and video RTP and RTCP ICE transports
+      // as well as an ICE Transport Controller object
+      controller.addTransport(audioRtpIceTransport);
+      controller.addTransport(videoRtpIceTransport);
+      // Start the ICE transports
+      audioRtpIceTransport.start(audioRtpIceGatherer, answer.audioRtpIce, RTCIceRole.controlling);
+      audioRtcpIceTransport.start(audioRtcpIceGatherer, answer.audioRtcpIce, RTCIceRole.controlling);
+      videoRtpIceTransport.start(videoRtpIceGatherer, answer.videoRtpIce, RTCIceRole.controlling);
+      videoRtcpIceTransport.start(videoRtcpIceGatherer, answer.videoRtcpIce, RTCIceRole.controlling);
+      // Start the DTLS transports that are needed
+      audioRtpDtlsTransport.start(answer.audioRtpDtls);
+      audioRtcpDtlsTransport.start(answer.audioRtcpDtls);
+      videoRtpDtlsTransport.start(answer.videoRtpDtls);
+      videoRtcpDtlsTransport.start(answer.videoRtcpDtls);
+      // Disable RTP/RTCP multiplexing
+      audioSendParams.rtcp.mux = false;
+      videoSendParams.rtcp.mux = false;
+      audioRecvParams.rtcp.mux = false;
+      videoRecvParams.rtcp.mux = false;
+    }
+  }
+  // Set the audio and video send and receive parameters.
+  audioSender.send(audioSendParams);
+  videoSender.send(videoSendParams);
+  audioReceiver.receive(audioRecvParams);
+  videoReceiver.receive(videoRecvParams);
 });
 
 // Now we can render/play audioReceiver.track and videoReceiver.track
- </code></pre>
+</pre>
   </section>
 </section>
 
@@ -2989,57 +3037,58 @@ Note that including <var>muxId</var> in <code><a>RTCRtpParameters</a></code> rat
     <h3>Examples</h3>
 <section id="rtcrtpencodingparameters-basicexample*">
     <h4>Basic Example</h3>
-<pre class="example"><code>
+    <pre xml:space="preserve" class='example highlight'>
 // Send a thumbnail along with regular size, prioritizing the thumbnail (ssrc: 2)
-var encodings = [{ ssrc: 1,  priority: 1.0 }]; 
-var encodings = [{ ssrc: 2, priority: 10.0 }];  
+var encodings = [{ ssrc: 1, priority: 1.0 }];
+var encodings = [{ ssrc: 2, priority: 10.0 }];
 
 // Sign Language (need high framerate, but don't get too bad quality)
-var encodings = [{ minQuality: 0.2,  framerateBias: 1.0 }]; 
+var encodings = [{ minQuality: 0.2, framerateBias: 1.0 }];
 
 // Screencast (High quality, framerate can be low)
-var encodings = [{ framerateBias: 0.0 }]; 
+var encodings = [{ framerateBias: 0.0 }];
 
-//Remote Desktop (High framerate, must not downscale) 
+// Remote Desktop (High framerate, must not downscale)
 var encodings = [{ framerateBias: 1.0 }];
 
 // Audio more important than video
-var audioEncodings = [{ priority: 10.0 }]; 
-var videoEncodings = [{ priority: 0.1 }]; 
+var audioEncodings = [{ priority: 10.0 }];
+var videoEncodings = [{ priority: 0.1 }];
 
-//Video more important than audio
-var audioEncodings = [{ priority: 0.1 }]; 
+// Video more important than audio
+var audioEncodings = [{ priority: 0.1 }];
 var videoEncodings = [{ priority: 10.0 }];
 
-//Crank up the quality
-var encodings = [{ maxBitrate: 10000000 }]; 
+// Crank up the quality
+var encodings = [{ maxBitrate: 10000000 }];
 
-//Keep the bandwidth low
-var encodings = [{ maxBitrate: 100000 }]; 
-</code></pre>
+// Keep the bandwidth low
+var encodings = [{ maxBitrate: 100000 }];
+</pre>
 </section>
 <section id="rtcrtpencodingtemporal-example*">
   <h4>Temporal Scalability</h4>
-<pre class="example"><code>
+
+  <pre xml:space="preserve" class='example highlight'>
 // Example of 3-layer temporal scalability encoding
-var encodings =[{
-// Base framerate is one quarter of the input framerate
+var encodings = [{
+  // Base framerate is one quarter of the input framerate
   encodingId: "0",
   framerateScale: 4.0
 }, {
-// Temporal enhancement (half the input framerate when combined with the base layer)
+  // Temporal enhancement (half the input framerate when combined with the base layer)
   encodingId: "1",
   dependencyEncodingIds: ["0"],
   framerateScale: 2.0
 }, {
-// Another temporal enhancement layer (full input framerate when all layers combined)
+  // Another temporal enhancement layer (full input framerate when all layers combined)
   encodingId: "2",
   dependencyEncodingIds: ["0", "1"],
   framerateScale: 1.0
-}]
+}];
 
 // Example of 3-layer temporal scalability with all but the base layer disabled
-var encodings =[{
+var encodings = [{
   encodingId: "0",
   framerateScale: 4.0
 }, {
@@ -3053,7 +3102,7 @@ var encodings =[{
   framerateScale: 1.0,
   active: false
 }];
-</code></pre>
+</pre>
 
 <p>Below is a representation of a 3-layer temporal scalability encoding.  In the diagram, I0 is the base layer I-frame,
 and P0 represents base-layer P-frames.  P1 represents the first temporal enhancement layer, and P2 represents the
@@ -3064,24 +3113,25 @@ second temporal enhancement layer.</p>
 
 <section id="rtcrtpencodingspatialsim-example*">
   <h4>Spatial Simulcast</h4>
-<pre class="example"><code>
+
+  <pre xml:space="preserve" class='example highlight'>
 // Example of 3-layer spatial simulcast
-var encodings =[{
-// Simulcast layer at one quarter scale
+var encodings = [{
+  // Simulcast layer at one quarter scale
   encodingId: "0",
   resolutionScale: 4.0
 }, {
-// Simulcast layer at one half scale
+  // Simulcast layer at one half scale
   encodingId: "1",
   resolutionScale: 2.0
 }, {
-// Simulcast layer at full scale
+  // Simulcast layer at full scale
   encodingId: "2",
   resolutionScale: 1.0
-}]
+}];
 
 // Example of 3-layer spatial simulcast with all but the lowest resolution layer disabled
-var encodings =[{
+var encodings = [{
   encodingId: "0",
   resolutionScale: 4.0
 }, {
@@ -3095,30 +3145,30 @@ var encodings =[{
 }];
 
 // Example of 2-layer spatial simulcast combined with 2-layer temporal scalability
-var encodings =[{
-// Low resolution base layer (half the input framerate, half the input resolution)
+var encodings = [{
+  // Low resolution base layer (half the input framerate, half the input resolution)
   encodingId: "0",
   resolutionScale: 2.0,
   framerateScale: 2.0
 }, {
-// Enhanced resolution Base layer (half the input framerate, full input resolution)
+  // Enhanced resolution Base layer (half the input framerate, full input resolution)
   encodingId: "E0",
   resolutionScale: 1.0,
   framerateScale: 2.0
 }, {
-// Temporal enhancement to the low resolution base layer (full input framerate, half resolution)
+  // Temporal enhancement to the low resolution base layer (full input framerate, half resolution)
   encodingId: "1",
   dependencyEncodingIds: ["0"],
   resolutionScale: 2.0,
   framerateScale: 1.0
 }, {
-// Temporal enhancement to the enhanced resolution base layer (full input framerate and resolution)
+  // Temporal enhancement to the enhanced resolution base layer (full input framerate and resolution)
   encodingId: "E1",
   dependencyEncodingIds: ["E0"],
   resolutionScale: 1.0,
   framerateScale: 1.0
-}]
-</code></pre>
+}];
+</pre>
 <p>Below is a representation of 2-layer temporal scalability combined with 2-layer spatial simulcast. 
 Solid arrows represent temporal prediction.
 In the diagram, I0 is the base-layer I-frame, and P0 represents base-layer P-frames. 
@@ -3130,26 +3180,26 @@ enhanced resolution simulcast base-layer.
 </section>
 <section id="rtcrtpencodingspatialscal-example*">
   <h4>Spatial Scalability</h4>
-<pre class="example"><code>
+  <pre xml:space="preserve" class='example highlight'>
 // Example of 3-layer spatial scalability encoding
-var encodings =[{
-// Base layer with one quarter input resolution
+var encodings = [{
+  // Base layer with one quarter input resolution
   encodingId: "0",
   resolutionScale: 4.0
 }, {
-// Spatial enhancement layer providing half input resolution when combined with the base layer
+  // Spatial enhancement layer providing half input resolution when combined with the base layer
   encodingId: "1",
   dependencyEncodingIds: ["0"],
   resolutionScale: 2.0
 }, {
-// Additional spatial enhancement layer providing full input resolution when combined with all layers 
+  // Additional spatial enhancement layer providing full input resolution when combined with all layers
   encodingId: "2",
   dependencyEncodingIds: ["0", "1"],
   resolutionScale: 1.0
 }]
 
 // Example of 3-layer spatial scalability with all but the base layer disabled
-var encodings =[{
+var encodings = [{
   encodingId: "0",
   resolutionScale: 4.0
 }, {
@@ -3165,31 +3215,31 @@ var encodings =[{
 }];
 
 // Example of 2-layer spatial scalability combined with 2-layer temporal scalability
-var encodings =[{
-// Base layer (half input framerate, half resolution)
+var encodings = [{
+  // Base layer (half input framerate, half resolution)
   encodingId: "0",
   resolutionScale: 2.0,
   framerateScale: 2.0
 }, {
-// Temporal enhancement to the base layer (full input framerate, half resolution)
+  // Temporal enhancement to the base layer (full input framerate, half resolution)
   encodingId: "1",
   dependencyEncodingIds: ["0"],
   resolutionScale: 2.0,
   framerateScale: 1.0
 }, {
-// Spatial enhancement to the base layer (half input framerate, full resolution)
+  // Spatial enhancement to the base layer (half input framerate, full resolution)
   encodingId: "E0",
   dependencyEncodingIds: ["0"],
   resolutionScale: 1.0,
   framerateScale: 2.0
 }, {
-// Temporal enhancement to the spatial enhancement layer (full input framerate, full resolution)
+  // Temporal enhancement to the spatial enhancement layer (full input framerate, full resolution)
   encodingId: "E1",
   dependencyEncodingIds: ["E0", "1"],
   resolutionScale: 1.0,
   framerateScale: 1.0
-}]
-</code></pre>
+}];
+</pre>
 <p>Below is a representation of 2-layer temporal scalability combined with 2-layer spatial scalability. 
 Solid arrows represent temporal prediction and dashed arrows represent inter-layer prediction.
 In the diagram, I0 is the base-layer I-frame, and EI0 is an intra spatial enhancement.  
@@ -3519,11 +3569,11 @@ second temporal layer P-frames.
       <pre xml:space="preserve" class='example highlight'>
 var sender = new RTCDtmfSender(sendObject);
 if (sender.canInsertDTMF) {
-    var duration = 500;
-    sender.insertDTMF("1234", duration);
+  var duration = 500;
+  sender.insertDTMF("1234", duration);
 } else {
-    trace("DTMF function not available");
-}      
+  trace("DTMF function not available");
+}
 </pre>
 
       <p>Send the DTMF signal "1234", and light up the active key using
@@ -3532,28 +3582,26 @@ if (sender.canInsertDTMF) {
 
       <pre xml:space="preserve" class='example highlight'>
 var sender = new RTCDtmfSender(sendObject);
-sender.ontonechange = function (e) {
-    if (!e.tone)
-        return;
-    // light up the key when playout starts
-    lightKey(e.tone);
-    // turn off the light after tone duration
-    setTimeout(lightKey, sender.duration, "");
+sender.ontonechange = function(e) {
+  if (!e.tone) return;
+
+  // light up the key when playout starts
+  lightKey(e.tone);
+
+  // turn off the light after tone duration
+  setTimeout(lightKey, sender.duration, "");
 };
 sender.insertDTMF("1234");
-      
 </pre>
 
       <p>Send a 1-second "1" tone followed by a 2-second "2" tone:</p>
 
       <pre xml:space="preserve" class='example highlight'>
 var sender = new RTCDtmfSender(sendObject);
-sender.ontonechange = function (e) {
-    if (e.tone == "1")
-        sender.insertDTMF("2", 2000);
+sender.ontonechange = function(e) {
+  if (e.tone === "1") sender.insertDTMF("2", 2000);
 };
 sender.insertDTMF("1", 1000);
-      
 </pre>
 
       <p>It is always safe to append to the tone buffer. This example appends
@@ -3562,28 +3610,29 @@ sender.insertDTMF("1", 1000);
       <pre xml:space="preserve" class='example highlight'>
 var sender = new RTCDtmfSender(sendObject);
 sender.insertDTMF("123");
+
 // append more tones to the tone buffer before playout has begun
 sender.insertDTMF(sender.toneBuffer + "456");
 
-sender.ontonechange = function (e) {
-    if (e.tone == "1")
-        // append more tones when playout has begun
-        sender.insertDTMF(sender.toneBuffer + "789");
+sender.ontonechange = function(e) {
+  if (e.tone === "1") {
+    // append more tones when playout has begun
+    sender.insertDTMF(sender.toneBuffer + "789");
+  }
 };
-      
 </pre>
 
       <p>Send the DTMF signal "123" and abort after sending "2".</p>
 
       <pre xml:space="preserve" class='example highlight'>
 var sender = new RTCDtmfSender(sendObject);
-sender.ontonechange = function (e) {
-    if (e.tone == "2")
-        // empty the buffer to not play any tone after "2"
-        sender.insertDTMF("");
+sender.ontonechange = function(e) {
+  if (e.tone === "2") {
+    // empty the buffer to not play any tone after "2"
+    sender.insertDTMF("");
+  }
 };
 sender.insertDTMF("123");
-      
 </pre>
     </section>
 </section>
@@ -3890,53 +3939,67 @@ an <code><a>RTCDataChannelParameters</a></code> object.</p>
   <section id=rtcsctpexample*">
     <h2>Example</h2>
 
-<pre class="example"><code>
+    <pre xml:space="preserve" class='example highlight'>
 function initiate(signaller) {
   // Prepare the ICE gatherer
   var gatherOptions = new RTCIceGatherOptions();
-  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all; 
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ]; 
-  var iceGatherer = new RTCIceGatherer(gatherOptions); 
+  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
+  gatherOptions.iceservers = [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  ];
+
+  var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
-  }; 
+  };
+
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
   var dtls = new RTCDtlsTransport(ice);
+
   // Prepare to handle remote ICE candidates
-  mySignaller.onRemoteCandidate = function(remote){
+  mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
-  }; 
+  };
   var sctp = new RTCSctpTransport(dtls);
+
   // Construct RTCDataChannelParameters object
-  var parameters = new RTCDataChannelParameters();  
+  var parameters = new RTCDataChannelParameters();
 
   signaller.sendInitiate({
     // ... include ICE/DTLS info from other example.
-  "sctpCapabilities": RTCSctpTransport.getCapabilities()
+    "sctpCapabilities": RTCSctpTransport.getCapabilities()
   }, function(remote) {
     sctp.start(remote.sctpCapabilities);
   });
 
-  var channel = new RTCDataChannel (sctp, parameters); 
+  var channel = new RTCDataChannel(sctp, parameters);
   channel.send("foo");
 }
 
 function accept(signaller, remote) {
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
+  gatherOptions.iceservers = [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  ];
+
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
-  }; 
+  };
+
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
   var dtls = new RTCDtlsTransport(ice);
+
   // Prepare to handle remote candidates
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
-  }; 
+  };
+
   signaller.sendAccept({
     // ... include ICE/DTLS info from other example.
     "sctpCapabilities": RTCSctpTransport.getCapabilities()
@@ -3951,13 +4014,13 @@ function accept(signaller, remote) {
 
   sctp.ondatachannel = function(channel) {
     channel.onmessage = function(message) {
-    if (message == "foo") {
-      channel.send("bar");
-     }
+      if (message === "foo") {
+        channel.send("bar");
+      }
     };
   };
 }
-</code></pre>
+</pre>
 
 </section>
 </section>
@@ -4195,37 +4258,39 @@ and [[!RFC3611]] Section 2 (Extended Reports).
     determine if the cause of it is packet loss.  The following example code might be used:</p>
 
       <pre class="example highlight" xml:space="preserve">
-var mySender = new RTCRtpSender(myTrack); 
+var mySender = new RTCRtpSender(myTrack);
 var myPreviousReport = null;
 
 // ... wait a bit
-setTimeout(function () {
-        mySender.getStats().then(function (report) {
-        processStats(report);
-        myPreviousReport = report;
-    });
+setTimeout(function() {
+  mySender.getStats().then(function(report) {
+    processStats(report);
+    myPreviousReport = report;
+  });
 }, aBit);
 
 function processStats(currentReport) {
-    if (myPreviousReport === null) return;
-    // currentReport + myPreviousReport are an RTCStatsReport interface
-    // compare the elements from the current report with the baseline
-    for (var i in currentReport) {
-        var now = currentReport[i]; 
-        if (now.type != "outbound-rtp")
-            continue;
-        // get the corresponding stats from the previous report
-        base = myPreviousReport[now.id];
-        // base + now will be of RTCRtpStreamStats dictionary type
-        if (base) {
-            remoteNow = currentReport[now.associateStatsId];
-            remoteBase = myPreviousReport[base.associateStatsId];
-            var packetsSent = now.packetsSent - base.packetsSent;
-            var packetsReceived = remoteNow.packetsReceived - remoteBase.packetsReceived;
-            // if fractionLost is > 0.3, we have probably found the culprit
-            var fractionLost = (packetsSent - packetsReceived) / packetsSent;
-        }
+  if (myPreviousReport === null) return;
+
+  // currentReport + myPreviousReport are an RTCStatsReport interface
+  // compare the elements from the current report with the baseline
+  for (var i in currentReport) {
+    var now = currentReport[i];
+    if (now.type !== "outbound-rtp") continue;
+
+    // get the corresponding stats from the previous report
+    base = myPreviousReport[now.id];
+
+    // base + now will be of RTCRtpStreamStats dictionary type
+    if (base) {
+      remoteNow = currentReport[now.associateStatsId];
+      remoteBase = myPreviousReport[base.associateStatsId];
+      var packetsSent = now.packetsSent - base.packetsSent;
+      var packetsReceived = remoteNow.packetsReceived - remoteBase.packetsReceived;
+      // if fractionLost is > 0.3, we have probably found the culprit
+      var fractionLost = (packetsSent - packetsReceived) / packetsSent;
     }
+  }
 }
       </pre>
 
@@ -4624,38 +4689,46 @@ request identity assertions, and consume the results.
 
         <pre xml:space="preserve" class="example highlight">
 // Set ICE gather options and construct the RTCIceGatherer object, assuming that
-// we are using RTP/RTCP mux and A/V mux so that only one RTCIceTransport is needed. 
+// we are using RTP/RTCP mux and A/V mux so that only one RTCIceTransport is needed.
 // Include some helper functions
 import "helper.js";
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceservers = [ { urls: "stun:stun1.example.net" } , { urls:"turn:turn.example.org", username: "user", credential:"myPassword"} ] ;
-var iceGatherer = new RTCIceGatherer(gatherOptions);
-iceGatherer.onlocalcandidate = function (event) {mySendLocalCandidate(event.candidate);};
-var ice = new RTCIceTransport(iceGatherer);
-// Create the RTCDtlsTransport object. 
-var dtls = new RTCDtlsTransport(ice);
-var identity = new RTCIdentity(dtls); 
-identity.getIdentityAssertion("example.com", "default", "alice@example.com").then(signalAssertion(assertion) 
- ,function (e) {
-    trace('Could not obtain an Identity Assertion. idp: ' + e.idp + ' Protocol: ' + e.protocol + ' loginUrl: ' + e.loginUrl); 
-}); 
+gatherOptions.iceservers = [
+  { urls: "stun:stun1.example.net" },
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+];
 
-function signalAssertion(assertion){
-  mySignalInitiate(
-    { "myAssertion": assertion,
-      "ice": iceGatherer.getLocalParameters(),
-      "dtls": dtls.getLocalParameters()
-    }, function (response) {
-          ice.start(iceGatherer, response.ice, RTCIceRole.controlling); 
-          // Need to call dtls.start() before setIdentityAssertion so the peer assertion can be validated. 
-          dtls.start(response.dtls); 
-          identity.setIdentityAssertion(response.myAssertion).then(function (peerAssertion) {
-               trace('Peer identity assertion validated. idp: ' + peerAssertion.idp + ' name: ' + peerAssertion.name); 
-              }, function (e) {
-               trace('Could not validate peer assertion. idp: ' + e.idp + ' Protocol: ' + e.protocol);
-          });
+var iceGatherer = new RTCIceGatherer(gatherOptions);
+iceGatherer.onlocalcandidate = function(event) {
+  mySendLocalCandidate(event.candidate);
+};
+var ice = new RTCIceTransport(iceGatherer);
+
+// Create the RTCDtlsTransport object.
+var dtls = new RTCDtlsTransport(ice);
+var identity = new RTCIdentity(dtls);
+identity
+  .getIdentityAssertion("example.com", "default", "alice@example.com")
+  .then(signalAssertion(assertion), function(e) {
+    trace("Could not obtain an Identity Assertion. idp: " + e.idp + " Protocol: " + e.protocol + " loginUrl: " + e.loginUrl);
+  });
+
+function signalAssertion(assertion) {
+  mySignalInitiate({
+    "myAssertion": assertion,
+    "ice": iceGatherer.getLocalParameters(),
+    "dtls": dtls.getLocalParameters()
+  }, function(response) {
+    ice.start(iceGatherer, response.ice, RTCIceRole.controlling);
+    // Need to call dtls.start() before setIdentityAssertion so the peer assertion can be validated.
+    dtls.start(response.dtls);
+    identity.setIdentityAssertion(response.myAssertion).then(function(peerAssertion) {
+      trace("Peer identity assertion validated. idp: " + peerAssertion.idp + " name: " + peerAssertion.name);
+    }, function(e) {
+      trace("Could not validate peer assertion. idp: " + e.idp + " Protocol: " + e.protocol);
     });
+  });
 }
       </pre>
       </div>
@@ -4990,25 +5063,25 @@ As noted in [[!RTCWEB-AUDIO]] Section 3, support for CN is required.
   <section id="js-library-example*">
     <h3>myCapsToSendParams Example</h3>
 
-<pre class="example"<code>
-RTCRtpParameters function myCapsToSendParams (RTCRtpCapabilities sendCaps, RTCRtpCapabilities remoteRecvCaps) {
-// Function returning the sender RTCRtpParameters, based on the local sender and remote receiver capabilities.
-// The goal is to enable a single stream audio and video call with minimum fuss. 
-//
-// Steps to be followed: 
-// 1. Determine the RTP features that the receiver and sender have in common. 
-// 2. Determine the codecs that the sender and receiver have in common.
-// 3. Within each common codec, determine the common formats, header extensions and rtcpFeedback mechanisms.
-// 4. Determine the payloadType to be used, based on the receiver preferredPayloadType. 
-// 5. Set RTCRtcpParameters such as mux to their default values.  
-// 6. Return RTCRtpParameters enablig the jointly supported features and codecs.
+    <pre xml:space="preserve" class='example highlight'>
+RTCRtpParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps, RTCRtpCapabilities remoteRecvCaps) {
+  // Function returning the sender RTCRtpParameters, based on the local sender and remote receiver capabilities.
+  // The goal is to enable a single stream audio and video call with minimum fuss.
+  //
+  // Steps to be followed:
+  // 1. Determine the RTP features that the receiver and sender have in common.
+  // 2. Determine the codecs that the sender and receiver have in common.
+  // 3. Within each common codec, determine the common formats, header extensions and rtcpFeedback mechanisms.
+  // 4. Determine the payloadType to be used, based on the receiver preferredPayloadType.
+  // 5. Set RTCRtcpParameters such as mux to their default values.
+  // 6. Return RTCRtpParameters enablig the jointly supported features and codecs.
 }
 
-RTCRtpParameters function myCapsToRecvParams (RTCRtpCapabilities recvCaps, RTCRtpCapabilities remoteSendCaps) {
-// Function returning the receiver RTCRtpParameters, based on the local receiver and remote sender capabilities.
-return myCapsToSendParams(remoteSendCaps, recvCaps);
+RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtpCapabilities remoteSendCaps) {
+  // Function returning the receiver RTCRtpParameters, based on the local receiver and remote sender capabilities.
+  return myCapsToSendParams(remoteSendCaps, recvCaps);
 }
-</code></pre>
+</pre>
 
   </section>
 </section>
