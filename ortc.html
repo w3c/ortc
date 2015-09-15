@@ -2349,7 +2349,7 @@ videoRtcpIceGatherer.onerror = errorHandler;
 var audioRtpIceTransport = new RTCIceTransport(audioRtpIceGatherer);
 var audioRtcpIceTransport = audioRtpIceTransport.createAssociatedTransport();
 var videoRtpIceTransport = new RTCIceTransport(videoRtpIceGatherer);
-var videoRtcpIceTransport = audioRtpIceTransport.createAssociatedTransport();
+var videoRtcpIceTransport = videoRtpIceTransport.createAssociatedTransport();
 
 // Enable local ICE candidates to be signaled to the remote peer.
 audioRtpIceGatherer.onlocalcandidate = function(event) {
@@ -2461,9 +2461,9 @@ mySignaller.myOfferTracks({
     // Replace the transport on the Sender and Receiver objects
     //
     audioSender.setTransport(audioRtpDtlsTransport);
-    videoSender.setTransport(audioRtpDtlsTransport);
+    videoSender.setTransport(videoRtpDtlsTransport);
     audioReceiver.setTransport(audioRtpDtlsTransport);
-    videoReceiver.setTransport(audioRtpDtlsTransport);
+    videoReceiver.setTransport(videoRtpDtlsTransport);
     // If BUNDLE was requested, then also assume RTP/RTCP mux
     answer.rtcpMux = true;
   } else {
