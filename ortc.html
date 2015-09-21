@@ -547,18 +547,18 @@ whereas vertical arrows denote interactions via methods and events.
 <p>In the figure above, the <code><a>RTCRtpSender</a></code> (<a href="#rtcrtpsender*">Section 5</a>) encodes the
 track provided as input, which is transported over a <code><a>RTCDtlsTransport</a></code>
 (<a href="#rtcdtlstransport*">Section 4</a>).
-An <code><a>RTCDataChannel</a></code> (<a href="#rtcdatachannel*">Section 11</a>) utilizes an 
-<code><a>RTCSctpTransport</a></code> (<a href="#sctp-transport*">Section 12</a>) which can also be multiplexed 
+An <code><a>RTCDataChannel</a></code> (<a href="#rtcdatachannel*">Section 11</a>) utilizes an
+<code><a>RTCSctpTransport</a></code> (<a href="#sctp-transport*">Section 12</a>) which can also be multiplexed
 over the <code><a>RTCDtlsTransport</a></code>.
 Sending of Dual Tone Multi Frequency (DTMF) tones is supported via the
 <code><a>RTCDtmfSender</a></code> (<a href="#rtcdtmfsender*">Section 10</a>).</p>
 <p>The <code><a>RTCDtlsTransport</a></code> utilizes an <code><a>RTCIceTransport</a></code>
 (<a href="#rtcicetransport*">Section 3</a>) to select a communication path to reach the
-receiving peer's <code><a>RTCIceTransport</a></code>, which is in turn associated with 
+receiving peer's <code><a>RTCIceTransport</a></code>, which is in turn associated with
 an <code><a>RTCDtlsTransport</a></code> which de-multiplexes
 media to the <code><a>RTCRtpReceiver</a></code> (<a href="#rtcrtpreceiver*">Section 6</a>) and
 data to the <code><a>RTCSctpTransport</a></code> and <code><a>RTCDataChannel</a></code>.
-The <code><a>RTCRtpReceiver</a></code> then decodes media, producing a track which is rendered 
+The <code><a>RTCRtpReceiver</a></code> then decodes media, producing a track which is rendered
 by an audio or video tag.</p>
 <p>Several other objects also play a role.
 The <code><a>RTCIceGatherer</a></code> (<a href="#rtcicegatherer*">Section 2</a>) gathers local ICE candidates for use by one or
@@ -576,9 +576,8 @@ the Statistics API is described in <a href="#statistics-api">Section 13</a>,
 the Identity API is described in <a href="#identity-api">Section 14</a>,
 the Certificate API is described in <a href="#certificate-api">Section 15</a>,
 an event summary is provided in <a href="#event-summary">Section 16</a>,
-and WebRTC 1.0 compatibility issues are discussed in <a href="#webrtc-compat*">Section 17</a>.
-</p>
-<p>Complete examples are provided in <a href="#examples*">Section 18</a></p>
+WebRTC 1.0 compatibility issues are discussed in <a href="#webrtc-compat*">Section 17</a>,
+and complete examples are provided in <a href="#examples*">Section 18</a>.</p>
 
   <section>
     <h3>Terminology</h3>
@@ -963,7 +962,7 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
         "dictionary RTCIceGatherOptions">
           <dt>RTCIceGatherPolicy gatherPolicy</dt>
           <dd><p>The ICE gather policy.</p></dd>
-          <dt>sequence&lt;RTCIceServer> iceservers</dt>
+          <dt>sequence&lt;RTCIceServer> iceServers</dt>
           <dd><p>The ICE servers to be configured.</p></dd>
         </dl>
   </section>
@@ -977,7 +976,8 @@ buffer the incoming connectivity checks so as to be able to provide them to asso
       <dt>nohost</dt>
       <dd><p>The ICE gatherer gathers all ICE candidate types except for host candidates.</p></dd>
       <dt>relay</dt>
-      <dd><p>The ICE gatherer <em class="rfc2119" title="MUST">MUST</em> only gather media relay candidates such as candidates passing through a TURN server.
+      <dd><p>The ICE gatherer <em class="rfc2119" title="MUST">MUST</em> only gather media relay 
+      candidates such as candidates passing through a TURN server.
       This can be used to reduce leakage of IP addresses in certain use cases.</p></dd>
     </dl>
   </section>
@@ -1038,12 +1038,12 @@ import "helper.js";
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
-gatherOptions.iceservers = [
+gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
   { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
 ];
 
-// Create ICE gatherer objects
+// Create IceGatherer object
 var iceGatherer = new RTCIceGatherer(gatherOptions);
 
 // Handle state changes
@@ -1480,7 +1480,7 @@ import "helper.js";
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
-gatherOptions.iceservers = [
+gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
   { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
 ];
@@ -1491,51 +1491,57 @@ var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer();
 
 // Prepare to signal local candidates
 iceRtpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTP);
+  mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "audio", iceRtpGatherer.getLocalParameters());
 };
 
 iceRtcpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP);
+  mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "audio", iceRtpGatherer.getLocalParameters());
 };
 
 // Initialize the ICE transport arrays
-var iceRtpTransport = [];
-var iceRtcpTransport = [];
-var i = 0;
+var iceRtpTransports = [];
+var iceRtcpTransports = [];
 
 // Set up response function
 mySignaller.onResponse = function(responseSignaller, response) {
   // We may get N responses
 
   // Create the ICE RTP and RTCP transports
-  i = iceRtpTransport.push(new RTCIceTransport(iceRtpGatherer)) - 1;
-  iceRtcpTransport.push(iceRtpTransport.createAssociatedTransport());
+  var iceRtpTransport = new RTCIceTransport(iceRtpGatherer);
+  var iceRtcpTransport = iceRtpTransport.createAssociatedTransport();
 
   // Start the RTP and RTCP ICE transports so that outgoing ICE connectivity checks can begin
-  iceRtpTransport[i].start(iceRtpGatherer, response.icertp, RTCIceRole.controlling);
-  iceRtcpTransport[i].start(iceRtcpGatherer, response.icertcp, RTCIceRole.controlling);
+  // The RTP and RTCP ICE parameters are the same, so only the RTP parameters are used
+  iceRtpTransport.start(iceRtpGatherer, response.icertp, RTCIceRole.controlling);
+  iceRtcpTransport.start(iceRtcpGatherer, response.icertp, RTCIceRole.controlling);
+
+  iceRtpTransports.push(iceRtpTransport);
+  iceRtcpTransports.push(iceRtcpTransport);
 
   // Prepare to add ICE candidates signalled by the remote peer
   responseSignaller.onRemoteCandidate = function(remote) {
     // Locate the ICE transport that the signaled candidate relates to by matching the userNameFragment.
-    var j = 0;
-    for (j = 0; j < iceTransport.length; j++) {
-      if (getRemoteParameters(iceTransport(j)).userNameFragment === remote.parameters.userNameFragment) {
-        if (remote.component === RTCIceComponent.RTP) {
-          iceRtpTransport[j].addRemoteCandidate(remote.candidate);
-        } else {
-          iceRtcpTransport[j].addRemoteCandidate(remote.candidate);
-        }
+    var transports;
+    if (remote.component === RTCIceComponent.RTP) {
+      transports = iceRtpTransports;
+    } else {
+      transports = iceRtcpTransports;
+    }
+
+    for (var j = 0; j < iceTransport.length; j++) {
+      var transport = transports[j];
+      if (transport.getRemoteParameters().userNameFragment === remote.parameters.userNameFragment)
+        transport.addRemoteCandidate(remote.candidate); 
       }
     }
   };
 };
 
 mySignaller.send({
-  "icertp": iceRtpGatherer.getLocalParameters(),
-  "icertcp": iceRtcpGatherer.getLocalParameters()
+  // The RTP and RTCP parameters are identical, so no need to send both
+  "icertp": iceRtpGatherer.getLocalParameters()
 });
-</pre>
+    </pre>
   </section>
 </section>
 
@@ -1556,38 +1562,30 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
   <section id="rtcdtlstransport-operation*">
     <h3>Operation</h3>
 
-    <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed with an <code><a>RTCIceTransport</a></code> object.
-    An RTP <code><a>RTCDtlsTransport</a></code>  <em class="rfc2119" title="MUST">MUST</em> share its certificate and 
-    fingerprint(s) with the associated RTCP <code><a>RTCDtlsTransport</a></code>. 
-    Therefore when an <code><a>RTCDtlsTransport</a></code> is constructed from an <code><a>RTCIceTransport</a></code>, 
-    the implementation <em class="rfc2119" title="MUST">MUST</em> check whether an associated <code><a>RTCDtlsTransport</a></code> 
-    has already been constructed 
-    and if so, <em class="rfc2119" title="MUST">MUST</em> reuse the certificate and fingerprint(s) of the associated
-    <code><a>RTCDtlsTransport</a></code>.</p> 
+    <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed using <code><a>RTCIceTransport</a></code> and <code>RTCCertificate</code> objects.
     <p>A newly constructed <code><a>RTCDtlsTransport</a></code>
     <em class="rfc2119" title="MUST">MUST</em> listen and respond to incoming DTLS packets before <code>start()</code> is called.
     However, to complete the negotiation it is necessary to verify the remote fingerprint,
     which is dependent on <var>remoteParameters</var>, passed to <code>start()</code>.
-    After the DTLS handshake exchange completes (but before the remote fingerprint is verified) 
+    After the DTLS handshake exchange completes (but before the remote fingerprint is verified)
     incoming media packets may be received.  A modest buffer <em class="rfc2119" title="MUST">MUST</em> be provided to avoid loss of
-    media prior to remote fingerprint validation (which can begin after <code>start()</code> is called). 
+    media prior to remote fingerprint validation (which can begin after <code>start()</code> is called).
    </p>
     <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code> instance from an <code><a>RTCIceTransport</a></code>  in the "closed" state,
-    an <code>InvalidStateError</code> exception is thrown. 
+    an <code>InvalidStateError</code> exception is thrown.
     Since the Datagram Transport Layer Security (DTLS) negotiation occurs between transport endpoints determined via ICE, implementations of this specification
-    <em class="rfc2119" title="MUST">MUST</em>  support multiplexing of STUN, TURN, DTLS and RTP and/or RTCP. 
-    This multiplexing, originally described in [[!RFC5764]] Section 5.1.2, is being revised in [[MUX-FIXES]]. 
+    <em class="rfc2119" title="MUST">MUST</em>  support multiplexing of STUN, TURN, DTLS and RTP and/or RTCP.
+    This multiplexing, originally described in [[!RFC5764]] Section 5.1.2, is being revised in [[MUX-FIXES]].
     </p>
   </section>
 
   <section id="rtcdtlstransport-interface-definition*">
     <h3>Interface Definition</h3>
 
-     <dl class="idl" title=
-  "typedef (octet[]) ArrayBuffer">
-        </dl>
+      <dl class="idl" title="typedef (octet[]) ArrayBuffer">
+      </dl>
 
-    <dl class="idl" title="[Constructor(RTCIceTransport transport)] interface RTCDtlsTransport : RTCStatsProvider">
+      <dl class="idl" title="[Constructor(RTCIceTransport transport, RTCCertificate certificate)] interface RTCDtlsTransport : RTCStatsProvider">
       <dt>readonly attribute RTCIceTransport transport</dt>
       <dd><p>The associated <code><a>RTCIceTransport</a></code> instance.
       </p></dd>
@@ -1793,7 +1791,7 @@ function initiate(mySignaller) {
   // Prepare the ICE gatherer
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [
+  gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
     { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
   ];
@@ -1803,47 +1801,47 @@ function initiate(mySignaller) {
   };
 
   // Initialize the ICE and DTLS transport arrays
-  var iceTransport = [];
-  var dtlsTransport = [];
-  var i = 0;
+  var iceTransports = [];
+  var dtlsTransports = [];
 
-  // Create a DTLS transport so we can signal the parameters
-  var ice = new RTCIceTransport(iceGatherer);
-  var dtls = new RTCDtlsTransport(ice);
-
+  // Create the DTLS certificate and parameters
+  var dtlsParameters = new RTCDtlsParameters(); 
+  var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" }; 
+  RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){ 
+    var cert = certificate;
+    // Obtain the fingerprint of the created certificate
+    dtlsParameters.fingerprints[0] = cert.fingerprint; 
+  }, function(){
+    trace('Certificate could not be created'); 
+  }); 
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
     // Figure out which IceTranport a remote candidate relates to by matching the userNameFragment/password
     var j = 0;
     for (j = 0; j < iceTransport.length; j++) {
-      if (getRemoteParameters(iceTransport(j)).userNameFragment === remote.parameters.userNameFragment) {
-        iceTransport[j].addRemoteCandidate(remote.candidate);
+      var transport = iceTransports[j]; 
+      if (transport.getRemoteParameters().userNameFragment === remote.parameters.userNameFragment)
+        transport.addRemoteCandidate(remote.candidate);
       }
-    }
-  };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
+    }  };
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
   mySignaller.mySendInitiate({
     "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtls.getLocalParameters(),
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.4 Example 7.
+    "dtls": dtlsParameters, 
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   }, function(remote) {
     // Create the ICE and DTLS transports
-    i = iceTransport.push(new RTCIceTransport(iceGatherer));
+    var iceTransport = new RTCIceTransport(iceGatherer); 
+    iceTransport.start(iceGatherer, remote.ice, RTCIceRole.controlling);  
+    iceTransports.push(iceTransport); 
+    // Construct a RTCDtlsTransport object with the same certificate and fingerprint as in the Offer
+    // so that the remote peer can verify it. 
+    var dtlsTransport = new RTCDtlsTransport(iceTransport, cert); 
+    dtlsTransport.start(remote.dtls); 
+    dtlsTransports.push(dtlsTransport);
 
-    // Issue 211: See: https://github.com/openpeer/ortc/issues/211
-    // The statement below constructs a RTCDtlsTransport object with a new certificate
-    // and fingerprint which does not match what was offered (and accepted by the remote peer).
-    dtlsTransport.push(new RTCDtlsTransport(iceTransport[i]));
-
-    // Start the ICE transport
-    iceTransport[i].start(iceGatherer, remote.ice, RTCIceRole.controlling);
-
-    // Since the RTCDtlsTransport fingerprint will not match what was offered,
-    // remote fingerprint verification will fail.
-    dtlsTransport[i].start(remote.dtls);
-
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
   });
 }
     </pre>
@@ -1859,7 +1857,7 @@ import "helper.js";
 function accept(mySignaller, remote) {
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [
+  gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
     { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
   ];
@@ -1869,33 +1867,39 @@ function accept(mySignaller, remote) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
 
+  // Create the DTLS certificate
+  var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
+  RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
+    var cert = certificate;
+  }, function(){
+    trace('Certificate could not be created');
+  });
+
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
-  var dtls = new RTCDtlsTransport(ice);
+  var dtls = new RTCDtlsTransport(ice, cert);
 
   // Prepare to handle remote candidates
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
   mySignaller.mySendAccept({
     "ice": iceGatherer.getLocalParameters(),
     "dtls": dtls.getLocalParameters()
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.4 Example 7.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   });
 
   // Start the ICE transport with an implicit gather policy of "all"
   ice.start(iceGatherer, remote.ice, RTCIceRole.controlled);
 
-  // Start the DTLS transport and send data into the bit bucket if the Answer is not the first one received,
-  // since the remote DTLS transport will not have the same certificate/fingerprint as was signaled in the Offer.
-  // Booyah!
+  // Start the DTLS transport
   dtls.start(remote.dtls);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.4 Example 7.
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 }
-</pre>
+    </pre>
 </section>
 </section>
 
@@ -2159,6 +2163,12 @@ function accept(mySignaller, remote) {
       throw an <code>InvalidParameters</code> exception.  For this purpose a <var>kind</var> of "" is not considered mixed. 
      </p></dd>
 
+     <dt>sequence&lt;RTCRtpContributingSource> getContributingSources()</dt>
+     <dd><p>Returns an <code><a>RTCRtpContributingSource</a></code> object for each unique CSRC or SSRC received by this 
+     <code><a>RTCRtpReceiver</a></code>.  The browser MUST keep information from RTP packets
+     received in the last 60 seconds. 
+     </p></dd> 
+
       <dt>void stop()</dt>
       <dd><p>Stops receiving the track on the wire. Stop is final like <a>MediaStreamTrack</a>.
       </p></dd>
@@ -2170,6 +2180,45 @@ function accept(mySignaller, remote) {
       <code>receive()</code>, that is not immediately detected.
     </p></dd>
     </dl>
+  </section>
+  
+  <section id="rtcrtpcontributingsource*">
+  <h3>dictionary RTCRtpContributingSource</h3>
+
+  <p>The <dfn>RTCRtpContributingSource</dfn> object contains information
+  about a contributing source. 
+  Each time an RTP packet is received, the <code><a>RTCRtpContributingSource</a></code> objects are updated.
+  If the RTP packet contains CSRCs, then the <code><a>RTCRtpContributingSource</a></code> objects corresponding to those
+  CSRCs are updated, and the level values for those CSRCs are updated based on the mixer-client header extension [[!RFC6565]] if present.
+  If the RTP packet contains no CSRCs, then the <code><a>RTCRtpContributingSource</a></code> object corresponding to the
+  SSRC is updated, and the level value for the SSRC is updated based on the client-mixer header extension [[!RFC6464]] if present. 
+  </p>
+ <dl class="idl" title="interface RTCRtpContributingSource">
+ <dt>readonly attribute DOMHighResTimeStamp timestamp</dt>
+ <dd><p>The <code>timestamp</code> of type <code>DOMHighResTimeStamp</code>
+ [[HIGHRES-TIME]], indicating the time of reception of the most recent RTP packet 
+ containing the source.  The time is relative
+ to the UNIX epoch (Jan 1, 1970, UTC).  The timestamp 
+ corresponds to the local clock.
+ </p></dd>
+
+</p></dd>
+   <dt>readonly attribute unsigned long source</dt>
+   <dd><p>The CSRC or SSRC value of the contributing source.</p></dd>
+   <dt>readonly attribute byte? audioLevel</dt>
+   <dd><p>The audio level contained in the last RTP packet
+   received from this source.  If the source was set from
+   an SSRC, this will be the level value in
+   [[!RFC6464]].  If the source was set from a CSRC,
+   this will be the level value in
+   [[!RFC6465]].  Both [[!RFC6464]] and [[!RFC6465]] 
+   define the level as a integral value from 0 to
+   -127 representing the audio level in decibels relative to
+   the loudest signal that they system could possibly
+   encode.</p> 
+   </dd>
+ </dl>
+
   </section>
 
   <section id="rtcrtpreceiver-example*">
@@ -2328,7 +2377,7 @@ import "helper.js";
 // Create the ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceservers = [
+gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
   { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
 ];
@@ -2349,7 +2398,7 @@ videoRtcpIceGatherer.onerror = errorHandler;
 var audioRtpIceTransport = new RTCIceTransport(audioRtpIceGatherer);
 var audioRtcpIceTransport = audioRtpIceTransport.createAssociatedTransport();
 var videoRtpIceTransport = new RTCIceTransport(videoRtpIceGatherer);
-var videoRtcpIceTransport = audioRtpIceTransport.createAssociatedTransport();
+var videoRtcpIceTransport = videoRtpIceTransport.createAssociatedTransport();
 
 // Enable local ICE candidates to be signaled to the remote peer.
 audioRtpIceGatherer.onlocalcandidate = function(event) {
@@ -2461,9 +2510,9 @@ mySignaller.myOfferTracks({
     // Replace the transport on the Sender and Receiver objects
     //
     audioSender.setTransport(audioRtpDtlsTransport);
-    videoSender.setTransport(audioRtpDtlsTransport);
+    videoSender.setTransport(videoRtpDtlsTransport);
     audioReceiver.setTransport(audioRtpDtlsTransport);
-    videoReceiver.setTransport(audioRtpDtlsTransport);
+    videoReceiver.setTransport(videoRtpDtlsTransport);
     // If BUNDLE was requested, then also assume RTP/RTCP mux
     answer.rtcpMux = true;
   } else {
@@ -3710,7 +3759,8 @@ sender.insertDTMF("123");
     <h3>Operation</h3>
 
     <p>An <code><a>RTCDataChannel</a></code> object is constructed from an <code><a>RTCDataTransport</a></code> object and
-an <code><a>RTCDataChannelParameters</a></code> object.</p>
+an <code><a>RTCDataChannelParameters</a></code> object.
+    </p>
   </section>
 
   <section id="rtcdatachannel-interface-definition*">
@@ -3722,15 +3772,15 @@ an <code><a>RTCDataChannelParameters</a></code> object.</p>
     The first way is to construct an <code><a>RTCDataChannel</a></code> at one of the peers with the 
     <code><a>RTCDataChannelParameters</a></code>.<a>negotiated</a> attribute unset or set to its default value false.    
     This will announce the new channel in-band and trigger an <a>ondatachannel</a> event with the 
-     corresponding <code><a>RTCDataChannel</a></code> object at the other peer. 
-     The second way is to let the application negotiate the <code><a>RTCDataChannel</a></code>. 
-      To do this, create an <code><a>RTCDataChannel</a></code> object with the <code><a>RTCDataChannelParameters</a></code>.<a>negotiated</a>
-     dictionary member set to true, and signal out-of-band (e.g. via a web server) to the other 
-     side that it should create a corresponding <code><a>RTCDataChannel</a></code> with the 
-     <code><a>RTCDataChannelParameters</a></code>.<a>negotiated</a> dictionary member set to true and the same id. 
-     This will connect the two separately created <code><a>RTCDataChannel</a></code> objects. 
-     The second way makes it possible to create channels with asymmetric properties and to 
-     create channels in a declarative way by specifying matching ids.
+    corresponding <code><a>RTCDataChannel</a></code> object at the other peer. 
+    The second way is to let the application negotiate the <code><a>RTCDataChannel</a></code>. 
+    To do this, create an <code><a>RTCDataChannel</a></code> object with the <code><a>RTCDataChannelParameters</a></code>.<a>negotiated</a>
+    dictionary member set to true, and signal out-of-band (e.g. via a web server) to the other 
+    side that it should create a corresponding <code><a>RTCDataChannel</a></code> with the 
+    <code><a>RTCDataChannelParameters</a></code>.<a>negotiated</a> dictionary member set to true and the same <var>id</var>. 
+    This will connect the two separately created <code><a>RTCDataChannel</a></code> objects. 
+    The second way makes it possible to create channels with asymmetric properties and to 
+    create channels in a declarative way by specifying matching <var>id</var>s.
 
      Each <code><a>RTCDataChannel</a></code> has an associated <dfn>underlying data transport</dfn> that is used 
      to transport actual data to the other peer. 
@@ -3862,13 +3912,13 @@ an <code><a>RTCDataChannelParameters</a></code> object.</p>
          The attribute <em class="rfc2119" title="MUST">MUST</em> return the value to which it was set when the
          <a>RTCDataChannel</a> was constructed.
       </p></dd>
-      <dt>unsigned short          maxPacketLifetime</dt>
+      <dt>unsigned long          maxPacketLifetime</dt>
          <dd><p>The <dfn id="dom-datachannel-maxpacketlifetime"><code>maxPacketLifetime</code></dfn> 
          attribute represents the length of the time window (in milliseconds) during which
          retransmissions may occur in unreliable mode, or null if unset.
          The attribute <em class="rfc2119" title="MUST">MUST</em> return the value to which it was set when the
          <a>RTCDataChannel</a> was constructed.</p></dd>
-      <dt>unsigned short          maxRetransmits</dt>
+      <dt>unsigned long          maxRetransmits</dt>
          <dd><p>The <dfn id="dom-datachannel-maxretransmits"><code>maxRetransmits</code></dfn> 
          attribute returns the maximum number of 
          retransmissions that are attempted in unreliable mode, or null if unset. 
@@ -3890,9 +3940,9 @@ an <code><a>RTCDataChannelParameters</a></code> object.</p>
           was set when the <a>RTCDataChannel</a> was constructed.
           If set to true, the application developer <em class="rfc2119" title="MUST">MUST</em> signal to the remote peer to 
           construct an <a>RTCDataChannel</a> object with the same id for the data channel 
-          to be open. 
+          to be open.  As noted in [[!DATA-PROT]], DATA_CHANNEL_OPEN is not sent to the remote peer nor is DATA_CHANNEL_ACK expected in return.   
           If set to false, the remote party will receive an ondatachannel event with 
-          a system constructed <a>RTCDataChannel</a> object.  
+          a system constructed <a>RTCDataChannel</a> object. 
       </p></dd>
       <dt>unsigned short        id</dt>
       <dd><p>The id attribute returns the id for this <a>RTCDataChannel</a>, or null if unset.  
@@ -3997,7 +4047,7 @@ an <code><a>RTCDataChannelParameters</a></code> object.</p>
       <dl class="idl" title="dictionary RTCDataChannelEventInit : EventInit">
         <dt>RTCDataChannel channel</dt>
         <dd>
-          <p>TODO</p>
+          <p>The <code><a>RTCDataChannel</a></code> object associated with the event.</p>
         </dd>
       </dl>
     </section>
@@ -4010,7 +4060,7 @@ function initiate(signaller) {
   // Prepare the ICE gatherer
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [
+  gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
     { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
   ];
@@ -4020,9 +4070,17 @@ function initiate(signaller) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
 
+  // Create the DTLS certificate
+  var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
+  RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
+    var cert = certificate;
+  }, function(){
+    trace('Certificate could not be created');
+  });
+
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
-  var dtls = new RTCDtlsTransport(ice);
+  var dtls = new RTCDtlsTransport(ice, cert);
 
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
@@ -4039,15 +4097,17 @@ function initiate(signaller) {
   }, function(remote) {
     sctp.start(remote.sctpCapabilities);
   });
-
+  
+  // Create the data channel object
   var channel = new RTCDataChannel(sctp, parameters);
+  // Note: data cannot be sent until sctp.start is called
   channel.send("foo");
 }
 
 function accept(signaller, remote) {
   var gatherOptions = new RTCIceGatherOptions();
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceservers = [
+  gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
     { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
   ];
@@ -4056,10 +4116,17 @@ function accept(signaller, remote) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
+  // Create the DTLS certificate
+  var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
+  RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
+    var cert = certificate;
+  }, function(){
+    trace('Certificate could not be created');
+  });
 
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
-  var dtls = new RTCDtlsTransport(ice);
+  var dtls = new RTCDtlsTransport(ice, cert);
 
   // Prepare to handle remote candidates
   mySignaller.onRemoteCandidate = function(remote) {
@@ -4067,16 +4134,17 @@ function accept(signaller, remote) {
   };
 
   signaller.sendAccept({
-    // ... include ICE/DTLS info from other example.
+    // ... include ICE/DTLS info from other examples.
     "sctpCapabilities": RTCSctpTransport.getCapabilities()
   });
 
+  // Create the SctpTransport object and start it
   var sctp = new RTCSctpTransport(dtls);
   sctp.start(remote.sctpCapabilties);
 
-  // Assume in-band signalling.  We could also easily add
-  // RTCDataChannelParameters into the out-of-band signalling
-  // And construct the data channel with with negotiated: true.
+  // Assume in-band signalling.  We could also have sent
+  // RTCDataChannelParameters in signalling and constructed
+  // the data channel with negotiated: true.
 
   sctp.ondatachannel = function(channel) {
     channel.onmessage = function(message) {
@@ -4198,11 +4266,11 @@ function accept(signaller, remote) {
       <code><a>RTCStats</a></code> object.</p>
 
       <dl class="idl" title="dictionary RTCStats">
-        <dt>DOMHiResTimeStamp timestamp</dt>
-        <dd><p>The <dfn><code>timestamp</code></dfn>, of type <code>DOMHiResTimeStamp</code>
+        <dt>DOMHighResTimeStamp timestamp</dt>
+        <dd><p>The <dfn><code>timestamp</code></dfn>, of type <code>DOMHighResTimeStamp</code>
           [[HIGHRES-TIME]], associated with this object. The time is relative
-          to the UNIX epoch (Jan 1, 1970, UTC). The timestamp for local
-          measurements corresponds to the to the local clock and for remote
+          to the UNIX epoch (Jan 1, 1970, UTC).  The timestamp for local
+          measurements corresponds to the local clock and for remote
           measurements corresponds to the timestamp indicated in the incoming
           RTCP Sender Report (SR), Receiver Report (RR) or Extended Report (XR).
           </p></dd>
@@ -4342,7 +4410,7 @@ function processStats(currentReport) {
   // compare the elements from the current report with the baseline
   for (var i in currentReport) {
     var now = currentReport[i];
-    if (now.type !== "outbound-rtp") continue;
+    if (now.type !== "outboundrtp") continue;
 
     // get the corresponding stats from the previous report
     base = myPreviousReport[now.id];
@@ -4760,7 +4828,7 @@ request identity assertions, and consume the results.
 import "helper.js";
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceservers = [
+gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
   { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
 ];
@@ -4770,9 +4838,16 @@ iceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate);
 };
 var ice = new RTCIceTransport(iceGatherer);
+// Create the DTLS certificate
+var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
+RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
+  var cert = certificate;
+}, function(){
+  trace('Certificate could not be created');
+});
 
 // Create the RTCDtlsTransport object.
-var dtls = new RTCDtlsTransport(ice);
+var dtls = new RTCDtlsTransport(ice, cert);
 var identity = new RTCIdentity(dtls);
 identity
   .getIdentityAssertion("example.com", "default", "alice@example.com")
@@ -4800,6 +4875,106 @@ function signalAssertion(assertion) {
       </div>
     </section>
 
+</section>
+
+<section id="certificate-api">
+  <h2>Certificate Management</h2>
+
+      <div class="note">
+This section of the ORTC API specification is based on the WebRTC 1.0 Certificate Management API,
+which was recently introduced and is still a work-in-progress.
+      </div>
+
+  <section id="rtccertificate-overview*">
+    <h3>Overview</h3>
+
+    <p>The <dfn>RTCCertificate</dfn> interface enables the certificates used by an <code><a>RTCDtlsTransport</a></code>
+    to be provided in the constructor.
+    This makes it possible to support forking, where the offerer will create multiple <code><a>RTCDtlsTransport</a></code> objects
+    using the same local certificate and fingerprint.</p>
+  </section>
+
+    <section>
+      <h3>RTCCertificate Interface</h3>
+      <p>The Certificate API is described below.</p>
+
+      <dl class="idl" title="interface RTCCertificate">
+      <dt>readonly    attribute Date expires</dt>
+      <dd><p>
+            The <var>expires</var> attribute indicates the date and time
+            after which the certificate will be considered invalid by the
+            browser.  After this time, attempts to construct
+            an <code><a>RTCDtlsTransport</a></code> using this certificate fail.</p>
+            <p>Note that this value might not be reflected in
+            a <code>notAfter</code> parameter in the certificate itself.
+      </p></dd>
+      <dt>readonly attribute RTCDtlsFingerprint fingerprint</dt>
+      <dd><p>The fingerprint of the certificate.</p></dd>
+      <dt>static Promise&lt;RTCCertificate> generateCertificate (AlgorithmIdentifier keygenAlgorithm)</dt>
+      <dd><p>
+          The <code>generateCertificate</code> method causes the <a class="internalDFN" href="#dfn-user-agent">user
+          agent</a> to create and store an X.509 certificate [[!X509V3]] and
+          corresponding private key.  A handle to information is provided in the
+          form of the <code><a>RTCCertificate</a></code> interface.  The
+          returned <code><a>RTCCertificate</a></code> can be used to control the
+          certificate that is offered in the DTLS sessions established
+          by <code><a>RTCDtlsTransport</a></code>.</p>
+
+          <p>The <var>keygenAlgorithm</var> argument is used to control how the
+          private key associated with the certificate is generated.
+          The <var>keygenAlgorithm</var> argument uses the WebCrypto [[!WebCryptoAPI]]
+          <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-AlgorithmIdentifier">AlgorithmIdentifier</a>
+          type.  The <var>keygenAlgorithm</var> value <em title="MUST" class="rfc2119">MUST</em> be a valid argument
+          to <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#SubtleCrypto-method-generateKey"><code>Crypto.subtle.generateKey</code></a>;
+          that is, the value <em title="MUST" class="rfc2119">MUST</em> produce a non-error result when normalized
+          according to the
+          WebCrypto <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-normalization">algorithm
+          normalization process</a> [[!WebCryptoAPI]] with an operation name
+          of <code>generateKey</code> and a
+          [[<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-supportedAlgorithms">supportedAlgorithms</a>]]
+          value specific to production of certificates
+          for <code><a>RTCDtlsTransport</a></code>.</p>
+
+          <p>Signatures produced by the generated key are used to authenticate
+          the DTLS connection. The identified algorithm (as identified by
+          the <code>name</code> of the
+          normalized <code>AlgorithmIdentifier</code>) <em title="MUST" class="rfc2119">MUST</em> be an asymmetric
+          algorithm that can be used to produce a signature.</p>
+
+          <p>The certificate produced by this process also contains a signature.
+          The validity of this signature is only relevant for compatibility
+          reasons.  Only the public key and the resulting certificate
+          fingerprint are used by <code><a>RTCDtlsTransport</a></code>, but it is more
+          likely that a certificate will be accepted if the certificate is well
+          formed.  The browser selects the algorithm used to sign the
+          certificate; a browser <em title="SHOULD" class="rfc2119">SHOULD</em> select SHA-256 [[!FIPS-180-3]] if a hash
+          algorithm is needed.</p>
+
+          <p>The resulting certificate <em title="MUST NOT" class="rfc2119">MUST NOT</em> include information that can be
+          linked to a user or <a class="internalDFN" href="#dfn-user-agent">user agent</a>.  Randomized values for
+          distinguished name and serial number <em title="SHOULD" class="rfc2119">SHOULD</em> be used.</p>
+
+          <p>A <a class="internalDFN" href="#dfn-user-agent">user agent</a> <em title="MUST" class="rfc2119">MUST</em> reject a call
+          to <code>generateCertificate()</code> with a <code>DOMError</code> of
+          type "InvalidAccessError" if the <var>keygenAlgorithm</var> parameter
+          identifies an algorithm that the <a class="internalDFN" href="#dfn-user-agent">user agent</a> cannot or will not
+          use to generate a certificate for <code><a>RTCDtlsTransport</a></code>.</p>
+
+          <p>The following values <em title="MUST" class="rfc2119">MUST</em> be supported by a <a class="internalDFN" href="#dfn-user-agent">user agent</a>:
+            <code>{ name:
+            "<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#rsassa-pkcs1">RSASSA-PKCS1-v1_5</a>",
+            modulusLength: 2048, publicExponent: 65537 }</code>, and <code>{
+            name:
+            "<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#ecdsa">ECDSA</a>",
+            namedCurve:
+            "<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-NamedCurve">P-256</a>"
+            }</code>.</p>
+
+          It is expected that a <a class="internalDFN" href="#dfn-user-agent">user agent</a> will have a
+          small or even fixed set of values that it will accept.</p>
+      </p></dd>
+      </dl>
+   </section>
 </section>
 
   <section class="informative">
@@ -5032,7 +5207,7 @@ function signalAssertion(assertion) {
           <td><code><a>Event</a></code>
           </td>
 
-          <td>TODO.</td>
+          <td>An error has been detected within the <code><a>RTCDataChannel</a></code> object.  This is not used for programmatic exceptions.</td>
         </tr>
 
         <tr>
@@ -5173,12 +5348,35 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
     <h3>Changes since 22 June 2015</h3>
 
     <ol>
+      <li> Added support for the WebRTC 1.0 certificate management API, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/195">Issue 195</a></li>
+      <li> Added certificate argument to the <code><a>RTCDtlsTransport</a></code> constructor, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/218">Issue 218</a></li>
       <li> Added the "failed" state to <code><a>RTCDtlsTransportState</a></code>, as noted in:
            <a href="https://github.com/openpeer/ortc/issues/219">Issue 219</a></li>
+      <li> Changed <code>getNominatedCandidatePair</code> to <code>getSelectedCandidatePair</code>, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/220">Issue 220</a></li>
       <li> Added support for WebRTC 1.0 <code><a>RTCIceCredentialType</a></code>, as noted in:
            <a href="https://github.com/openpeer/ortc/issues/222">Issue 222</a></li>
       <li> Clarified behavior of <code>createAssociatedGatherer()</code>, as noted in:
            <a href="https://github.com/openpeer/ortc/issues/223">Issue 223</a></li>
+      <li> Changed spelling from "iceservers" to "iceServers" for consistency with WebRTC 1.0, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/225">Issue 225</a></li>
+      <li> Added support for SCTP port numbers, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/227">Issue 227</a></li>
+      <li> Changed "outbound-rtp" to "outboundrtp" within the Statistics API, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/229">Issue 229</a></li>
+      <li> Changed <var>maxPacketLifetime</var> and <var>maxRetransmits</var> from unsigned short to unsigned long, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/231">Issue 231</a></li>
+      <li> Clarified DataChannel negotiation, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/233">Issue 233</a></li>
+      <li> Added <code>getContributingSources()</code> method, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/236">Issue 236</a></li>
+      <li> Fixes to Examples 5 and 6, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/237">Issue 237</a> and
+           <a href="https://github.com/openpeer/ortc/issues/239">Issue 239</a></li>
+      <li> Fixed cut and paste errors in Example 11, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/241">Issue 241</a></li>
    </ol>
   </section>
 
