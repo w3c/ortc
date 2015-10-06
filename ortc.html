@@ -258,7 +258,7 @@
                 <p>
                     The <dfn>RTCIceCandidate</dfn> object includes information relating to an ICE candidate.
                 </p>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 {
   foundation: "abcd1234",
   priority: 1694498815,
@@ -574,7 +574,7 @@
                 <p>
                     An example of an array of <code><a>RTCIceServer</a></code> objects:
                 </p>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
       [
         { urls: "stun:stun1.example.net" },
         { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
@@ -607,7 +607,7 @@
             </section>
             <section id="rtcicegatherer-initial-example*">
                 <h3>Example</h3>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // Example to demonstrate use of RTCIceCandidateComplete
 // Include some helper functions
 import "helper.js";
@@ -643,7 +643,7 @@ mySignaller.send({
   "ice": iceGatherer.getLocalParameters()
 });
 </pre>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // Helper functions used in all the examples (helper.js)
 function trace(text) {
   // This function is used for logging.
@@ -1088,7 +1088,7 @@ function myDtlsTransportStateChange(name, state){
             </section>
             <section id="rtcicegatherer-example*">
                 <h3>Example</h3>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // Example to demonstrate forking when RTP and RTCP are not multiplexed,
 // so that both RTP and RTCP IceGatherer and IceTransport objects are needed.
 // Include some helper functions
@@ -1421,7 +1421,7 @@ mySignaller.send({
             </section>
             <section id="rtcicetransport-example1*">
                 <h3>Examples</h3>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // This is an example of how to offer ICE and DTLS parameters and
 // ICE candidates and get back ICE and DTLS parameters and ICE candidates,
 // and start both ICE and DTLS, when RTP and RTCP are multiplexed.
@@ -1487,7 +1487,7 @@ function initiate(mySignaller) {
   });
 }
                 </pre>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // This is an example of how to answer with ICE and DTLS
 // and DTLS parameters and ICE candidates and start both ICE and DTLS,
 // assuming that RTP and RTCP are multiplexed.
@@ -1876,7 +1876,7 @@ function accept(mySignaller, remote) {
             </section>
             <section id="rtcrtpreceiver-example*">
                 <h3>Examples</h3>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // Assume we already have a way to signal, a transport
 // (RTCDtlsTransport), and audio and video tracks. This is an example
 // of how to offer them and get back an answer with audio and
@@ -1920,7 +1920,7 @@ function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
   });
 }
                 </pre>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // Assume we already have a way to signal, a transport (RTCDtlsTransport)
 // and audio and video tracks. This is an example of how to answer an
 // offer with audio and video tracks, and begin sending and receiving them.
@@ -2008,7 +2008,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
             </section>
             <section id="rtcicetransportcontroller-example1*">
                 <h3>Examples</h3>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 // This is an example of how to utilize distinct ICE transports for Audio and Video
 // as well as for RTP and RTCP. If both sides can multiplex audio/video
 // and RTP/RTCP then the multiplexing will occur.
@@ -2898,7 +2898,7 @@ mySignaller.myOfferTracks({
                 <h3>Examples</h3>
                 <section id="rtcrtpencodingparameters-basicexample*">
                     <h4>Basic Example</h4>
-                    <pre xml:space="preserve" class="example highlight">
+                    <pre class="example highlight">
 // Send a thumbnail along with regular size, prioritizing the thumbnail (ssrc: 2)
 var encodings = [{ ssrc: 1, priority: 1.0 }];
 var encodings = [{ ssrc: 2, priority: 10.0 }];
@@ -2929,7 +2929,7 @@ var encodings = [{ maxBitrate: 100000 }];
                 </section>
                 <section id="rtcrtpencodingtemporal-example*">
                     <h4>Temporal Scalability</h4>
-                    <pre xml:space="preserve" class="example highlight">
+                    <pre class="example highlight">
 // Example of 3-layer temporal scalability encoding
 var encodings = [{
   // Base framerate is one quarter of the input framerate
@@ -2972,7 +2972,7 @@ var encodings = [{
                 </section>
                 <section id="rtcrtpencodingspatialsim-example*">
                     <h4>Spatial Simulcast</h4>
-                    <pre xml:space="preserve" class="example highlight">
+                    <pre class="example highlight">
 // Example of 3-layer spatial simulcast
 var encodings = [{
   // Simulcast layer at one quarter scale
@@ -3039,7 +3039,7 @@ var encodings = [{
                 </section>
                 <section id="rtcrtpencodingspatialscal-example*">
                     <h4>Spatial Scalability</h4>
-                    <pre xml:space="preserve" class="example highlight">
+                    <pre class="example highlight">
 // Example of 3-layer spatial scalability encoding
 var encodings = [{
   // Base layer with one quarter input resolution
@@ -3444,7 +3444,7 @@ var encodings = [{
                 <h3>DTMF Example</h3>
                 <p>Examples assume that <var>sendObject</var> is an <code><a>RTCRtpSender</a></code> object.</p>
                 <p>Sending the DTMF signal "1234" with 500 ms duration per tone:</p>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 var sender = new RTCDtmfSender(sendObject);
 if (sender.canInsertDTMF) {
   var duration = 500;
@@ -3458,7 +3458,7 @@ if (sender.canInsertDTMF) {
                     <code>lightKey(key)</code> while the tone is playing (assuming that
                     <code>lightKey("")</code> will darken all the keys):
                 </p>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 var sender = new RTCDtmfSender(sendObject);
 sender.ontonechange = function(e) {
   if (!e.tone) return;
@@ -3472,7 +3472,7 @@ sender.ontonechange = function(e) {
 sender.insertDTMF("1234");
                 </pre>
                 <p>Send a 1-second "1" tone followed by a 2-second "2" tone:</p>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 var sender = new RTCDtmfSender(sendObject);
 sender.ontonechange = function(e) {
   if (e.tone === "1") sender.insertDTMF("2", 2000);
@@ -3482,7 +3482,7 @@ sender.insertDTMF("1", 1000);
                 <p>It is always safe to append to the tone buffer. This example appends
                     before any tone playout has started as well as during playout.
                 </p>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 var sender = new RTCDtmfSender(sendObject);
 sender.insertDTMF("123");
 
@@ -3497,7 +3497,7 @@ sender.ontonechange = function(e) {
 };
                 </pre>
                 <p>Send the DTMF signal "123" and abort after sending "2".</p>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 var sender = new RTCDtmfSender(sendObject);
 sender.ontonechange = function(e) {
   if (e.tone === "2") {
@@ -3972,7 +3972,7 @@ sender.insertDTMF("123");
             </section>
             <section id="rtcsctpexample*">
                 <h2>Example</h2>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 function initiate(signaller) {
   // Prepare the ICE gatherer
   var gatherOptions = new RTCIceGatherOptions();
@@ -4332,7 +4332,7 @@ function accept(signaller, remote) {
                     Consider the case where the user is experiencing bad sound and the application wants to
                     determine if the cause of it is packet loss. The following example code might be used:
                 </p>
-                <pre class="example highlight" xml:space="preserve">
+                <pre class="example highlight">
 var mySender = new RTCRtpSender(myTrack);
 var myPreviousReport = null;
 
@@ -4785,7 +4785,7 @@ function processStats(currentReport) {
                         This example shows how to configure the identity provider and
                         protocol, and consume identity assertions.
                     </p>
-                    <pre xml:space="preserve" class="example highlight">
+                    <pre class="example highlight">
 // Set ICE gather options and construct the RTCIceGatherer object, assuming that
 // we are using RTP/RTCP mux and A/V mux so that only one RTCIceTransport is needed.
 // Include some helper functions
@@ -5191,7 +5191,7 @@ function signalAssertion(assertion) {
             </section>
             <section id="js-library-example*">
                 <h3>myCapsToSendParams Example</h3>
-                <pre xml:space="preserve" class="example highlight">
+                <pre class="example highlight">
 RTCRtpParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps, RTCRtpCapabilities remoteRecvCaps) {
   // Function returning the sender RTCRtpParameters, based on the local sender and remote receiver capabilities.
   // The goal is to enable a single stream audio and video call with minimum fuss.
