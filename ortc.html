@@ -1214,7 +1214,7 @@ function myDtlsTransportStateChange(name, state){
       added using <code>setRemoteCandidates()</code> or <code>addRemoteCandidate()</code>.</p></dd>
 
       <dt>RTCIceCandidatePair? getSelectedCandidatePair()</dt>
-      <dd><p>Retrieves the selected candidate pair on which media is flowing.  If there is no selected pair yet,
+      <dd><p>Retrieves the selected candidate pair on which packets are sent.  If there is no selected pair yet,
       or consent is lost on the selected pair, NULL is returned.</p></dd>
 
       <dt>void start(RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role)</dt>
@@ -1586,6 +1586,10 @@ The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram
       </dl>
 
       <dl class="idl" title="[Constructor(RTCIceTransport transport, RTCCertificate certificate)] interface RTCDtlsTransport : RTCStatsProvider">
+
+      <dt>readonly attribute RTCCertificate certificate</dt>
+      <dd><p>The certificate that was provided in the constructor.</p></dd>
+
       <dt>readonly attribute RTCIceTransport transport</dt>
       <dd><p>The associated <code><a>RTCIceTransport</a></code> instance.
       </p></dd>
@@ -2166,7 +2170,7 @@ function accept(mySignaller, remote) {
      <dt>sequence&lt;RTCRtpContributingSource> getContributingSources()</dt>
      <dd><p>Returns an <code><a>RTCRtpContributingSource</a></code> object for each unique CSRC or SSRC received by this 
      <code><a>RTCRtpReceiver</a></code>.  The browser MUST keep information from RTP packets
-     received in the last 60 seconds. 
+     received in the last 10 seconds. 
      </p></dd> 
 
       <dt>void stop()</dt>
@@ -2195,14 +2199,12 @@ function accept(mySignaller, remote) {
   </p>
  <dl class="idl" title="interface RTCRtpContributingSource">
  <dt>readonly attribute DOMHighResTimeStamp timestamp</dt>
- <dd><p>The <code>timestamp</code> of type <code>DOMHighResTimeStamp</code>
- [[HIGHRES-TIME]], indicating the time of reception of the most recent RTP packet 
- containing the source.  The time is relative
- to the UNIX epoch (Jan 1, 1970, UTC).  The timestamp 
- corresponds to the local clock.
+ <dd><p>The <var>timestamp</var> of type <code>DOMHighResTimeStamp</code>
+ [[!HIGHRES-TIME]], indicating the time of reception of the most recent RTP packet 
+ containing the source.  The 
+ <var>timestamp</var> is defined in [[!HIGHRES-TIME]] and corresponds to
+ a local clock.
  </p></dd>
-
-</p></dd>
    <dt>readonly attribute unsigned long source</dt>
    <dd><p>The CSRC or SSRC value of the contributing source.</p></dd>
    <dt>readonly attribute byte? audioLevel</dt>
@@ -2457,10 +2459,10 @@ var videoRtpDtlsTransport = new RTCDtlsTransport(videoRtpIceTransport);
 var videoRtcpDtlsTransport = new RTCDtlsTransport(videoRtcpIceTransport);
 
 // Create the sender and receiver objects
-var audioSender = new RtpSender(audioTrack, audioRtpDtlsTransport, audioRtcpDtlsTransport);
-var videoSender = new RtpSender(videoTrack, videoRtpDtlsTransport, videoRtcpDtlsTransport);
-var audioReceiver = new RtpReceiver(audioRtpDtlsTransport, audioRtcpDtlsTransport);
-var videoReceiver = new RtpReceiver(videoRtpDtlsTransport, videoRtcpDtlsTransport);
+var audioSender = new RTCRtpSender(audioTrack, audioRtpDtlsTransport, audioRtcpDtlsTransport);
+var videoSender = new RTCRtpSender(videoTrack, videoRtpDtlsTransport, videoRtcpDtlsTransport);
+var audioReceiver = new RTCRtpReceiver(audioRtpDtlsTransport, audioRtcpDtlsTransport);
+var videoReceiver = new RTCRtpReceiver(videoRtpDtlsTransport, videoRtcpDtlsTransport);
 
 // Retrieve the receiver and sender capabilities
 var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
@@ -3081,13 +3083,13 @@ Note that including <var>muxId</var> in <code><a>RTCRtpParameters</a></code> rat
       <dd><p>Specifies the FEC mechanism if set.</p></dd>
       <dt>RTCRtpRtxParameters rtx</dt>
       <dd><p>Specifies the RTX [[!RFC4588]] parameters if set.</p></dd>
-      <dt>double priority=1.0</dt>
-      <dd><p>The higher the value, the more the bits will be given to each as available bandwidth goes up.  Default is 1.0.
+      <dt>RTCPriorityType priority</dt>
+      <dd><p>
+      Indicates the priority of this encoding.  It is specified in [[RTCWEB-TRANSPORT]], Section 4.
       For scalable video coding, this parameter is only relevant for the base layer.
       This parameter is ignored in an <code><a>RTCRtpReceiver</a></code> object.
-      If unset, the default is assumed.
       </p></dd>
-      <dt>unsigned long long maxBitrate</dt>
+      <dt>unsigned long maxBitrate</dt>
       <dd><p>Ramp up resolution/quality/framerate until this bitrate, if set.  Summed when using dependent layers.
       This parameter is ignored in scalable video coding, or in an <code><a>RTCRtpReceiver</a></code> object.
       If unset, there is no maximum bitrate.  
@@ -3139,6 +3141,28 @@ Note that including <var>muxId</var> in <code><a>RTCRtpParameters</a></code> rat
        would be carried out.</p></dd>
     </dl>
 </section>
+
+  <section id="rtcprioritytype*">
+    <h3>enum RTCPriorityType</h3>
+<p><dfn>RTCPriorityType</dfn> can be used to indicate the relative priority of various flows.
+This allows applications to indicate to the browser whether a particular media flow is high, medium, low or of very
+low importance to the application. 
+WebRTC uses the priority and Quality of Service (QoS) framework described in [[RTCWEB-TRANSPORT]] and [[TSVWG-RTCWEB-QOS]] to 
+provide priority and DSCP marketing for packets that will help provide QoS in some networking environments. 
+Applications that use this API should be aware that often better overall user 
+experience is obtained by lowering the priority of things that are not as important rather 
+than raising the the priority of the things that are.</p>
+    <dl class="idl" title="enum RTCPriorityType">
+      <dt>very-low</dt>
+      <dd><p>See [[RTCWEB-TRANSPORT]], Section 4.</p></dd>
+      <dt>low</dt>
+      <dd><p>See [[RTCWEB-TRANSPORT]], Section 4.</p></dd>
+      <dt>medium</dt>
+      <dd><p>See [[RTCWEB-TRANSPORT]], Section 4.</p></dd>
+      <dt>high</dt>
+      <dd><p>See [[RTCWEB-TRANSPORT]], Section 4.</p></dd>
+    </dl>
+  </section>
 
 <section id="rtcrtpencodingparameters-example*">
     <h3>Examples</h3>
@@ -3758,8 +3782,9 @@ sender.insertDTMF("123");
   <section id="rtcdatachannel-operation*">
     <h3>Operation</h3>
 
-    <p>An <code><a>RTCDataChannel</a></code> object is constructed from an <code><a>RTCDataTransport</a></code> object and
-an <code><a>RTCDataChannelParameters</a></code> object.
+    <p>An <code><a>RTCDataChannel</a></code> object is constructed from a <code><a>RTCDataTransport</a></code> object and
+an <code><a>RTCDataChannelParameters</a></code> object.   If <var>parameters</var> is invalid, throw an
+<code>InvalidParameters</code> exception.  
     </p>
   </section>
 
@@ -3798,7 +3823,7 @@ an <code><a>RTCDataChannelParameters</a></code> object.
       It <em class="rfc2119" title="MUST">MUST</em> return the value to which the user agent last set it (as defined by the processing model algorithms).
       </p></dd>
       <dt>readonly attribute unsigned long bufferedAmount</dt>
-      <dd><p>The <dfn id="dom-datachannel-buffereamount"><code>bufferedAmount</code></dfn> attribute 
+      <dd><p>The <dfn id="dom-datachannel-bufferedamount"><code>bufferedAmount</code></dfn> attribute 
       <em class="rfc2119" title="MUST">MUST</em> return the number of bytes of application data 
       (UTF-8 text and binary data) that have been queued using send() but that, as of the last time 
       the event loop started executing a task, had not yet been transmitted to the network. 
@@ -3833,7 +3858,13 @@ an <code><a>RTCDataChannelParameters</a></code> object.
       <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the RTCDataChannel interface.</p></dd>
       <dt>attribute EventHandler          onerror</dt>
       <dd><p>This event handler, of event handler type <code>error</code>, 
-      <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the RTCDataChannel interface.</p></dd>
+      <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the RTCDataChannel interface.
+      One reason an <code>error</code> event can be fired is if the value of <var>parameters</var> passed in the constructor is 
+      subsequently determined to be invalid.   This can happen if
+      <code>parameters.negotiated</code> is set to false and then a call to <code>RTCDtlsTransport.start()</code> causes the  
+      DTLS role to be set to a value inconsistent with the value of <code>parameters.id</code>, as noted in 
+      [[!DATA-PROT]] Section 4.
+      </p></dd>
       <dt>attribute EventHandler          onclose</dt>
       <dd><p>This event handler, of event handler type <code>close</code>, 
       <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the RTCDataChannel interface.</p></dd>
@@ -3863,6 +3894,85 @@ an <code><a>RTCDataChannelParameters</a></code> object.
       <dt>void send (ArrayBufferView data)</dt>
       <dd><p>Run the steps described by the <code>send()</code> algorithm with argument type <code>ArrayBufferView</code> object.</p></dd>
     </dl>
+
+      <p>The <dfn><code>send()</code></dfn> method is
+      overloaded to handle different data argument types. When any version of
+      the method is called, the user agent MUST run the following steps:</p>
+
+      <ol>
+        <li>
+          <p>Let <var>channel</var> be the <code><a>RTCDataChannel</a></code>
+          object on which data is to be sent.</p>
+        </li>
+
+        <li>
+          <p>If <var>channel.readyState</var> attribute
+          is <code>connecting</code>, throw an <code>InvalidStateError</code>
+          exception and abort these steps.</p>
+        </li>
+
+        <li>
+          <p>Execute the sub step that corresponds to the type of the methods
+          argument:</p>
+
+          <ul>
+            <li>
+              <p><code>string</code> object:</p>
+
+              <p>Let <var>data</var> be the result of converting the
+              argument object to a sequence of Unicode characters and
+              increase the  <code><a href=
+              "#dom-datachannel-bufferedamount">bufferedAmount</a></code> 
+              attribute by the number of bytes needed to express
+              <var>data</var> as UTF-8.</p>
+            </li>
+
+            <li>
+              <p><code>Blob</code> object:</p>
+
+              <p>Let <var>data</var> be the raw data represented by the
+              <code>Blob</code> object and increase the <code><a href=
+              "#dom-datachannel-bufferedamount">bufferedAmount</a></code>
+              attribute by the size of data, in bytes.</p>
+            </li>
+
+            <li>
+              <p><code>ArrayBuffer</code> object:</p>
+
+              <p>Let <var>data</var> be the data stored in the buffer described
+              by the <code>ArrayBuffer</code> object and increase the <code>
+              <a href="#dom-datachannel-bufferedamount">bufferedAmount</a>
+              </code> attribute by the length of the <code>ArrayBuffer</code>
+              in bytes.</p>
+            </li>
+
+            <li>
+              <p><code>ArrayBufferView</code> object:</p>
+
+              <p>Let <var>data</var> be the data stored in the section of the
+              buffer described by the <code>ArrayBuffer</code> object that the
+              <code>ArrayBufferView</code> object references and increase the
+              <code><a href="#dom-datachannel-bufferedamount">bufferedAmount</a>
+              </code> attribute by the length of the
+              <code>ArrayBufferView</code> in bytes.</p>
+            </li>
+          </ul>
+         <li>
+          <p>If <var>channel</var>'s underlying data transport is not
+          established yet, or if the closing procedure has
+          started, then abort these steps.</p>
+        </li>
+
+        <li>
+          <p>Attempt to send <var>data</var> on <var>channel</var>'s 
+          underlying data transport; if the data cannot be sent, e.g.
+          because it would need to be buffered but the buffer is full, the user
+          agent MUST abruptly close
+          <var>channel</var>'s underlying data transport with an error.
+          </p>
+        </li>
+      </ol>
+
   </section>
 
   <section id="rtcdatatransport-interface-definition*">
@@ -4096,12 +4206,10 @@ function initiate(signaller) {
     "sctpCapabilities": RTCSctpTransport.getCapabilities()
   }, function(remote) {
     sctp.start(remote.sctpCapabilities);
-  });
-  
   // Create the data channel object
   var channel = new RTCDataChannel(sctp, parameters);
-  // Note: data cannot be sent until sctp.start is called
   channel.send("foo");
+  });
 }
 
 function accept(signaller, remote) {
@@ -4268,7 +4376,7 @@ function accept(signaller, remote) {
       <dl class="idl" title="dictionary RTCStats">
         <dt>DOMHighResTimeStamp timestamp</dt>
         <dd><p>The <dfn><code>timestamp</code></dfn>, of type <code>DOMHighResTimeStamp</code>
-          [[HIGHRES-TIME]], associated with this object. The time is relative
+          [[!HIGHRES-TIME]], associated with this object. The time is relative
           to the UNIX epoch (Jan 1, 1970, UTC).  The timestamp for local
           measurements corresponds to the local clock and for remote
           measurements corresponds to the timestamp indicated in the incoming
@@ -5334,7 +5442,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
   Substantial text in this specification was provided by many people including Peter Thatcher, Martin Thomson,
   Iñaki Baz Castillo, Jose Luis Millan, Christoph Dorn, Roman Shpount, Emil Ivov, Shijun Sun and Jason Ausborn.
   Special thanks to Peter Thatcher for his design contributions relating to many of the objects in the current
-  specification, and to Philipp Hancke for his detailed review. 
+  specification, and to Philipp Hancke and Jxck for their detailed review. 
   </p>
   </section>
 
@@ -5375,8 +5483,15 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
       <li> Fixes to Examples 5 and 6, as noted in:
            <a href="https://github.com/openpeer/ortc/issues/237">Issue 237</a> and
            <a href="https://github.com/openpeer/ortc/issues/239">Issue 239</a></li>
-      <li> Fixed cut and paste errors in Example 11, as noted in:
-           <a href="https://github.com/openpeer/ortc/issues/241">Issue 241</a></li>
+      <li> Clarified behavior of <code>RTCDataChannel.send()</code>, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/240">Issue 240</a></li>
+      <li> Fixed typos in Example 11, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/241">Issue 241</a> and 
+           <a href="https://github.com/openpeer/ortc/issues/248">Issue 248</a></li>
+      <li> Added text relating to <code><a>RTCDataChannel</a></code> exceptions and errors, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/242">Issue 242</a></li>
+      <li> Reconciliation of <code><a>RTCRtpEncodingParameters</a></code> dictionary with WebRTC 1.0, as noted in:
+           <a href="https://github.com/openpeer/ortc/issues/249">Issue 249</a></li>
    </ol>
   </section>
 
