@@ -267,7 +267,7 @@
   port: 10000,
   type: "host"
 };
-    </pre>
+                </pre>
                 <dl class="idl" title="typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate">
                 </dl>
                 <dl class="idl" title="dictionary RTCIceCandidate">
@@ -575,11 +575,11 @@
                     An example of an array of <code><a>RTCIceServer</a></code> objects:
                 </p>
                 <pre class="example highlight">
-      [
-        { urls: "stun:stun1.example.net" },
-        { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
-      ]
-    </pre>
+[
+  { urls: "stun:stun1.example.net" },
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+]
+                </pre>
                 <dl class="idl" title="dictionary RTCIceServer">
                     <dt>(DOMString or sequence&lt;DOMString&gt;) urls</dt>
                     <dd>
@@ -642,7 +642,7 @@ mySignaller.onResponse = function(responseSignaller, response) {
 mySignaller.send({
   "ice": iceGatherer.getLocalParameters()
 });
-</pre>
+                </pre>
                 <pre class="example highlight">
 // Helper functions used in all the examples (helper.js)
 function trace(text) {
@@ -743,7 +743,7 @@ function myDtlsTransportStateChange(name, state){
      trace('DtlsTransport: ' + name + ' Invalid state');
   }
 }
-</pre>
+                </pre>
             </section>
         </section>
         <section id="rtcicetransport*">
@@ -1145,7 +1145,7 @@ mySignaller.onResponse = function(responseSignaller, response) {
       transports = iceRtcpTransports;
     }
 
-    for (var j = 0; j < iceTransport.length; j++) {
+    for (var j = 0; j &lt; iceTransport.length; j++) {
       var transport = transports[j];
       if (transport.getRemoteParameters().userNameFragment === remote.parameters.userNameFragment)
         transport.addRemoteCandidate(remote.candidate);
@@ -1460,7 +1460,7 @@ function initiate(mySignaller) {
   mySignaller.onRemoteCandidate = function(remote) {
     // Figure out which IceTranport a remote candidate relates to by matching the userNameFragment/password
     var j = 0;
-    for (j = 0; j < iceTransport.length; j++) {
+    for (j = 0; j &lt; iceTransport.length; j++) {
       var transport = iceTransports[j];
       if (transport.getRemoteParameters().userNameFragment === remote.parameters.userNameFragment)
         transport.addRemoteCandidate(remote.candidate);
@@ -3026,7 +3026,7 @@ var encodings = [{
   resolutionScale: 1.0,
   framerateScale: 1.0
 }];
-</pre>
+                    </pre>
                     <p>
                         Below is a representation of 2-layer temporal scalability combined with 2-layer spatial simulcast.
                         Solid arrows represent temporal prediction.
@@ -3098,7 +3098,7 @@ var encodings = [{
   resolutionScale: 1.0,
   framerateScale: 1.0
 }];
-</pre>
+                    </pre>
                     <p>
                         Below is a representation of 2-layer temporal scalability combined with 2-layer spatial scalability.
                         Solid arrows represent temporal prediction and dashed arrows represent inter-layer prediction.
