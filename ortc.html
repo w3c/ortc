@@ -175,7 +175,7 @@
                     <dd>
                         <p>Obtain the ICE parameters of the <code><a>RTCIceGatherer</a></code>.</p>
                     </dd>
-                    <dt>sequence&lt;RTCIceCandidate>  getLocalCandidates()</dt>
+                    <dt>sequence&lt;RTCIceCandidate&gt;  getLocalCandidates()</dt>
                     <dd>
                         <p>Retrieve the sequence of valid local candidates associated with the
                             <code><a>RTCIceGatherer</a></code>.
@@ -498,7 +498,7 @@
                     <dd>
                         <p>The ICE gather policy.</p>
                     </dd>
-                    <dt>sequence&lt;RTCIceServer> iceServers</dt>
+                    <dt>sequence&lt;RTCIceServer&gt; iceServers</dt>
                     <dd>
                         <p>The ICE servers to be configured.</p>
                     </dd>
@@ -555,7 +555,7 @@
       ]
     </pre>
                 <dl class="idl" title="dictionary RTCIceServer">
-                    <dt>(DOMString or sequence&lt;DOMString>) urls</dt>
+                    <dt>(DOMString or sequence&lt;DOMString&gt;) urls</dt>
                     <dd>
                         <p>STUN or TURN URI(s) as defined in [[!RFC7064]] and [[!RFC7065]] or other URI types.</p>
                     </dd>
@@ -756,7 +756,7 @@ function myDtlsTransportStateChange(name, state){
                     <dd>
                         <p>The current state of the ICE transport.</p>
                     </dd>
-                    <dt>sequence&lt;RTCIceCandidate> getRemoteCandidates()</dt>
+                    <dt>sequence&lt;RTCIceCandidate&gt; getRemoteCandidates()</dt>
                     <dd>
                         <p>Retrieve the sequence of candidates associated with the remote
                             <code><a>RTCIceTransport</a></code>.  Only returns the candidates previously
@@ -826,7 +826,7 @@ function myDtlsTransportStateChange(name, state){
                             know there are no more remote candidates expected, and can enter the "completed"  state.
                         </p>
                     </dd>
-                    <dt>void setRemoteCandidates(sequence&lt;RTCIceCandidate> remoteCandidates)</dt>
+                    <dt>void setRemoteCandidates(sequence&lt;RTCIceCandidate&gt; remoteCandidates)</dt>
                     <dd>
                         <p>Set the sequence of candidates associated with the remote <code><a>RTCIceTransport</a></code>.
                             If <var>state</var> is "closed", throw an <code>InvalidStateError</code> exception.
@@ -1167,7 +1167,7 @@ mySignaller.send({
                         <p>Obtain the current DTLS parameters of the remote <code><a>RTCDtlsTransport</a></code>.
                         </p>
                     </dd>
-                    <dt>sequence&lt;ArrayBuffer> getRemoteCertificates()</dt>
+                    <dt>sequence&lt;ArrayBuffer&gt; getRemoteCertificates()</dt>
                     <dd>
                         <p>Obtain the certificates used by the remote peer.</p>
                     </dd>
@@ -1225,7 +1225,7 @@ mySignaller.send({
                     <dd>
                         <p>The DTLS role, with a default of auto.</p>
                     </dd>
-                    <dt>sequence&lt;RTCDtlsFingerprint> fingerprints</dt>
+                    <dt>sequence&lt;RTCDtlsFingerprint&gt; fingerprints</dt>
                     <dd>
                         <p>Sequence of fingerprints.</p>
                     </dd>
@@ -1725,7 +1725,7 @@ function accept(mySignaller, remote) {
                             throw an <code>InvalidParameters</code> exception.  For this purpose a <var>kind</var> of "" is not considered mixed.
                         </p>
                     </dd>
-                    <dt>sequence&lt;RTCRtpContributingSource> getContributingSources()</dt>
+                    <dt>sequence&lt;RTCRtpContributingSource&gt; getContributingSources()</dt>
                     <dd>
                         <p>Returns an <code><a>RTCRtpContributingSource</a></code> object for each unique CSRC or SSRC received by this
                             <code><a>RTCRtpReceiver</a></code>.  The browser MUST keep information from RTP packets
@@ -1911,7 +1911,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
                             or if <code>transport.component</code> is "RTCP", throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
-                    <dt>sequence&lt;RTCIceTransport> getTransports()</dt>
+                    <dt>sequence&lt;RTCIceTransport&gt; getTransports()</dt>
                     <dd>
                         <p>Returns the <code><a>RTCIceTransport</a></code> objects with a <var>component</var>
                             of "RTP".
@@ -2303,16 +2303,16 @@ mySignaller.myOfferTracks({
                     although these features can be set via <code><a>RTCRtpParameters</a></code>.
                 </p>
                 <dl title='dictionary RTCRtpCapabilities' class='idl'>
-                    <dt>sequence&lt;RTCRtpCodecCapability> codecs</dt>
+                    <dt>sequence&lt;RTCRtpCodecCapability&gt; codecs</dt>
                     <dd>
                         <p>Supported codecs.</p>
                     </dd>
-                    <dt>sequence&lt;RTCRtpHeaderExtension> headerExtensions</dt>
+                    <dt>sequence&lt;RTCRtpHeaderExtension&gt; headerExtensions</dt>
                     <dd>
                         <p>Supported RTP header extensions.</p>
                     </dd>
                     </p></dd>
-                    <dt>sequence&lt;DOMString> fecMechanisms</dt>
+                    <dt>sequence&lt;DOMString&gt; fecMechanisms</dt>
                     <dd>
                         <p>Supported Forward Error Correction (FEC) mechanisms.  [[FEC]] summarizes requirements relating to FEC mechanisms.
                         </p>
@@ -2382,7 +2382,7 @@ mySignaller.myOfferTracks({
                             For video, this will be unset.
                         </p>
                     </dd>
-                    <dt>sequence&lt;RTCRtcpFeedback> rtcpFeedback</dt>
+                    <dt>sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback</dt>
                     <dd>
                         <p>Transport layer and codec-specific feedback messages for this codec.</p>
                     </dd>
@@ -2537,15 +2537,15 @@ mySignaller.myOfferTracks({
                             <code><a>RTCRtpSender</a></code> objects are needed.
                         </p>
                     </dd>
-                    <dt>sequence&lt;RTCRtpCodecParameters> codecs</dt>
+                    <dt>sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
                     <dd>
                         <p>The codecs to send or receive (could include RED [[RFC2198]], RTX [[!RFC4588]] and CN [[RFC3389]]).</p>
                     </dd>
-                    <dt>sequence&lt;RTCRtpHeaderExtensionParameters> headerExtensions</dt>
+                    <dt>sequence&lt;RTCRtpHeaderExtensionParameters&gt; headerExtensions</dt>
                     <dd>
                         <p>Configured header extensions.</p>
                     </dd>
-                    <dt>sequence&lt;RTCRtpEncodingParameters> encodings</dt>
+                    <dt>sequence&lt;RTCRtpEncodingParameters&gt; encodings</dt>
                     <dd>
                         <p>The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.</p>
                     </dd>
@@ -2626,7 +2626,7 @@ mySignaller.myOfferTracks({
                             For video, this can be left unset.
                         </p>
                     </dd>
-                    <dt>sequence&lt;RTCRtcpFeedback> rtcpFeedback</dt>
+                    <dt>sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback</dt>
                     <dd>
                         <p>Transport layer and codec-specific feedback messages for this codec.</p>
                     </dd>
@@ -2744,7 +2744,7 @@ mySignaller.myOfferTracks({
                             send fewer layers than what is specified in <code><a>RTCRtpEncodingParameters</a></code>, but MUST NOT send more.
                         </p>
                     </dd>
-                    <dt>sequence&lt;DOMString> dependencyEncodingIds</dt>
+                    <dt>sequence&lt;DOMString&gt; dependencyEncodingIds</dt>
                     <dd>
                         <p>The <code><a>encodingId</a></code>s on which this layer depends.
                             Within this specification <code><a>encodingId</a></code>s are permitted only within the
@@ -3909,7 +3909,7 @@ function accept(signaller, remote) {
                 For detailed information on the Statistics API, consult [[!WEBRTC-STATS]].
             </p>
             <dl class="idl" title="interface RTCStatsProvider">
-                <dt>Promise&lt;RTCStatsReport> getStats()</dt>
+                <dt>Promise&lt;RTCStatsReport&gt; getStats()</dt>
                 <dd>
                     <p>Gathers stats for the given object
                         and reports the result asynchronously.
@@ -4457,7 +4457,7 @@ function processStats(currentReport) {
                     <dd>
                         <p>The <code>RTCDtlsTransport</code> to be authenticated.</p>
                     </dd>
-                    <dt>Promise&lt;DOMString> getIdentityAssertion (DOMString provider, optional DOMString protocol = "default", optional DOMString username)</dt>
+                    <dt>Promise&lt;DOMString&gt; getIdentityAssertion (DOMString provider, optional DOMString protocol = "default", optional DOMString username)</dt>
                     <dd>
                         <p>Sets the identity provider to be used for a given
                             <code><a>RTCIdentity</a></code> object, and initiates the process of obtaining an identity assertion.
@@ -4499,7 +4499,7 @@ function processStats(currentReport) {
                             </li>
                         </ol>
                     </dd>
-                    <dt>Promise&lt;RTCIdentityAssertion> setIdentityAssertion (DOMString assertion)</dt>
+                    <dt>Promise&lt;RTCIdentityAssertion&gt; setIdentityAssertion (DOMString assertion)</dt>
                     <dd>
                         <p>Validates the identity assertion.  If the Promise is fulfilled,
                             an <code>RTCIdentityAssertion</code> is returned.
@@ -4649,7 +4649,7 @@ function signalAssertion(assertion) {
                     <dd>
                         <p>The fingerprint of the certificate.</p>
                     </dd>
-                    <dt>static Promise&lt;RTCCertificate> generateCertificate (AlgorithmIdentifier keygenAlgorithm)</dt>
+                    <dt>static Promise&lt;RTCCertificate&gt; generateCertificate (AlgorithmIdentifier keygenAlgorithm)</dt>
                     <dd>
                         <p>
                             The <code>generateCertificate</code> method causes the <a class="internalDFN" href="#dfn-user-agent">user
