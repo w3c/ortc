@@ -1287,7 +1287,7 @@ mySignaller.send({
                     </dd>
                 </dl>
             </section>
-            <section id=rtcdtlsfingerprint*">
+            <section id="rtcdtlsfingerprint*">
                 <h3>The RTCDtlsFingerprint Object</h3>
                 <p>
                     The <dfn>RTCDtlsFingerprint</dfn> object includes the hash function algorithm and certificate fingerprint as described in [[!RFC4572]].
@@ -1596,30 +1596,31 @@ function accept(mySignaller, remote) {
                         <p>Attempts to replace the track being sent with another track provided.</p>
                         <p>When the <code>setTrack()</code> method is invoked, the user agent MUST run the following steps:</p>
                         <ol>
-                        <li>
-                            <p>Let <var>p</var> be a new promise.</p>
-                        </li>
-                        <li>
-                            <p>Let <var>withTrack</var> be the argument to this method.</p>
-                        </li>
-                        <li>
-                            <p>Run the following steps asynchronously:</p>
-                        </li>
-                        <ol>
                             <li>
-                                <p>
-                                    If <code>withTrack.kind</code> differs from <code>RTCRtpSender.track.kind</code>
-                                    or if <var>withTrack</var> has different <code>peerIdentity</code> constraints, then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code>
-                                    and abort these steps.
-                                </p>
+                                <p>Let <var>p</var> be a new promise.</p>
                             </li>
                             <li>
-                                Set the <code>RTCRtpSender.track</code> attribute to <var>withTrack</var>,
-                                and have the sender seamlessly
-                                switch to transmitting <var>withTrack</var> in place of what
-                                it is sending. On the remote receiving
-                                end, the track maintains its existing grouping and id until
-                                the connection ends.
+                                <p>Let <var>withTrack</var> be the argument to this method.</p>
+                            </li>
+                            <li>
+                                <p>Run the following steps asynchronously:</p>
+                                <ol>
+                                    <li>
+                                        <p>
+                                            If <code>withTrack.kind</code> differs from <code>RTCRtpSender.track.kind</code>
+                                            or if <var>withTrack</var> has different <code>peerIdentity</code> constraints, then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code>
+                                            and abort these steps.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        Set the <code>RTCRtpSender.track</code> attribute to <var>withTrack</var>,
+                                        and have the sender seamlessly
+                                        switch to transmitting <var>withTrack</var> in place of what
+                                        it is sending. On the remote receiving
+                                        end, the track maintains its existing grouping and id until
+                                        the connection ends.
+                                    </li>
+                                </ol>
                             </li>
                         </ol>
                     </dd>
@@ -2288,7 +2289,7 @@ mySignaller.myOfferTracks({
                 </p>
                 <p>
                     When an RTP packet arrives,
-                    if <var>ssrc_table</var>[<var>packet.ssrc</var>]</code> is set: set <var>packet_receiver</var> to <var>ssrc_table</var>[<var>packet.ssrc</var>]</code> and check
+                    if <var>ssrc_table</var>[<var>packet.ssrc</var>] is set: set <var>packet_receiver</var> to <var>ssrc_table</var>[<var>packet.ssrc</var>] and check
                     whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[j].payloadtype</code> for <var>packet_receiver</var>,
                     where <var>j</var> varies from 0 to the number of codecs.
                     If so, route the packet to <var>packet_receiver</var>. If <var>packet.pt</var> does not match,
@@ -2296,7 +2297,7 @@ mySignaller.myOfferTracks({
                 </p>
                 <p>
                     Else if <var>packet.muxId</var> is set: If <var>muxId_table</var>[<var>packet.muxId</var>] is unset, fire the <code><a>unhandledrtp</a></code> event, else set
-                    <var>packet_receiver</var> to <var>muxId_table</var>[<var>packet.muxId</var>]</code> and check
+                    <var>packet_receiver</var> to <var>muxId_table</var>[<var>packet.muxId</var>] and check
                     whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[j].payloadtype</code> for <var>packet_receiver</var>,
                     where <var>j</var> varies from 0 to the number of codecs.
                     If so, set <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>packet_receiver</var> and route the packet to <var>packet_receiver</var>.
@@ -2407,7 +2408,6 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>Supported RTP header extensions.</p>
                     </dd>
-                    </p></dd>
                     <dt>sequence&lt;DOMString&gt; fecMechanisms</dt>
                     <dd>
                         <p>Supported Forward Error Correction (FEC) mechanisms. [[FEC]] summarizes requirements relating to FEC mechanisms.</p>
@@ -2645,7 +2645,7 @@ mySignaller.myOfferTracks({
                     </dd>
                 </dl>
             </section>
-            <section id=rtcrtcpparameters*">
+            <section id="rtcrtcpparameters*">
                 <h3>dictionary RTCRtcpParameters</h3>
                 <p><dfn>RTCRtcpParameters</dfn> provides information on RTCP settings.</p>
                 <dl title="dictionary RTCRtcpParameters" class="idl">
@@ -3970,7 +3970,7 @@ sender.insertDTMF("123");
                     </dd>
                 </dl>
             </section>
-            <section id=rtcsctpexample*">
+            <section id="rtcsctpexample*">
                 <h2>Example</h2>
                 <pre xml:space="preserve" class="example highlight">
 function initiate(signaller) {
@@ -4370,7 +4370,6 @@ function processStats(currentReport) {
                 </pre>
             </section>
         </section>
-        </section>
         <section id="identity-api">
             <h2>Identity</h2>
             <div class="note">
@@ -4551,7 +4550,7 @@ function processStats(currentReport) {
                     <p>
                         The "LOGINNEEDED" response includes a URL for a page where the
                         authorization process can be completed. This URL is exposed to the
-                        application through the <code><a href="##">loginUrl</a></code> attribute
+                        application through the <code><a href="#">loginUrl</a></code> attribute
                         of the <code>RTCIdentityError</code> object.
                         This URL might be to a page where a user is able to enter their (IdP)
                         username and password, or otherwise provide any information the IdP
@@ -4943,8 +4942,9 @@ function signalAssertion(assertion) {
                             "<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-NamedCurve">P-256</a>"
                             }</code>.
                         </p>
-                        It is expected that a <a class="internalDFN" href="#dfn-user-agent">user agent</a> will have a
-                        small or even fixed set of values that it will accept.</p>
+                        <p>
+                          It is expected that a <a class="internalDFN" href="#dfn-user-agent">user agent</a> will have a
+                          small or even fixed set of values that it will accept.
                         </p>
                     </dd>
                 </dl>
