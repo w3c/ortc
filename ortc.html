@@ -2503,8 +2503,8 @@ mySignaller.myOfferTracks({
                     </dd>
                 </dl>
                 <section id="codec-capabilities*">
-                    <h3>Codec capability parameters</h3>
-                    <p>The capability parameters for commonly implemented codecs are provided below.</p>
+                    <h3>Codec capabilities</h3>
+                    <p>The capabilities for commonly implemented codecs are provided below.</p>
                     <section id="opus-codec-capabilities*">
                         <h3>Opus</h3>
                         <p>The following capabilities are defined for Opus, as noted in [[!OPUS-RTP]] Section 6.1:</p>
@@ -2643,6 +2643,31 @@ mySignaller.myOfferTracks({
                         <p>Parameters to configure RTCP.<p>
                     </dd>
                 </dl>
+                <section id="codec-parameters*">
+                    <h3>Codec settings</h3>
+                    <p>The settings for commonly implemented codecs are provided below.</p>
+                    <section id="red-codec-settings*">
+                        <h3>RED</h3>
+                        <p>The following settings are defined for RED, as noted in [[!RFC2198]] Section 5:</p>
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Property Name</th>
+                                    <th>Values</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="def-payloadtypes*">
+                                    <td><dfn>payloadTypes</dfn></td>
+                                    <td>
+                                        <code>sequence&lt;payloadtype></code>
+                                    </td>
+                                    <td>A sequence of payload types to be encapsulated in RED.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
             </section>
             <section id="rtcrtcpparameters*">
                 <h3>dictionary RTCRtcpParameters</h3>
@@ -5240,6 +5265,19 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
             <h2>Change Log</h2>
             <p>This section will be removed before publication.</p>
             <!-- Why do the first two headings automatically convert to <h2>? -->
+            <section id="since-05-October-2015*">
+                <h3>Changes since 05 October 2015</h3>
+                <ol>
+                    <li>
+                        Added support for RTX parameters, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/259">Issue 259</a>
+                    </li>
+                    <li>
+                        Added support for RED parameters, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/260">Issue 260</a>
+                    </li>
+                 </ol>
+            </section>
             <section id="since-22-June-2015*">
                 <h3>Changes since 22 June 2015</h3>
                 <ol>
