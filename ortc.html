@@ -2847,15 +2847,18 @@ mySignaller.myOfferTracks({
                             This parameter is ignored in an <code><a>RTCRtpReceiver</a></code> object.
                         </p>
                     </dd>
-                    <dt>double framerateBias=0.5</dt>
+                    <dt>RTCDegradationPreference degradationPreference = "balanced"</dt>
                     <dd>
                         <p>
-                            What to give more bits to, if available. 0.0 = strongly favor resolution or 1.0 = strongly favor
-                            framerate. 0.5 = neither (default). For scalable video coding, this parameter is only relevant for the base layer.
-                            This parameter is ignored in an <code><a>RTCRtpReceiver</a></code> object.
-                            If unset, the default is assumed.
-                        </p>
-                    </dd>
+                            When bandwidth is constrained and the <code><a>RTCRtpSender</a></code> needs to choose between degrading
+                            resolution or degrading framerate, <code>degradationPreference</code> indicates which is preferred. 
+                            <code>degradationPreference</code> is ignored in an <code><a>RTCRtpReceiver</a></code> object. 
+                            For scalable video coding, this parameter is only relevant for the base layer; in other layers it is
+                            ignored.  For simulcast, providing different values of <code>degradationPreference</code> in each
+                            layer is discouraged, since this may conflict with the requested values of <code>resolutionScale</code> and
+                            <code>framerateScale</code>. 
+                        </p>    
+                    </dd>     
                     <dt>double resolutionScale</dt>
                     <dd>
                         <p>
@@ -2909,6 +2912,28 @@ mySignaller.myOfferTracks({
                     </dd>
                 </dl>
             </section>
+            <section id="rtcdegradationpreference*">
+                <h3>enum RTCDegradationPreference</h3>
+                <p>
+                     <dfn>RTCDegradationPreference</dfn> can be used to indicate the desired choice between degrading resolution
+                     and degrading framerate when bandwidth is constrained.  
+                </p>
+
+                <dl class="idl" title="enum RTCDegradationPreference">
+                    <dt>maintain-framerate</dt>
+                    <dd>
+                         <p>Degrade resolution in order to maintain framerate.</p>
+                    </dd>
+                    <dt>maintain-resolution</dt>
+                    <dd>
+                         <p>Degrade framerate in order to maintain resolution.</p>
+                    </dd>
+                    <dt>balanced</dt>
+                    <dd>
+                         <p>Degrade a balance of framerate and resolution.</p>
+                    </dd>
+                </dl>
+            </section>
             <section id="rtcprioritytype*">
                 <h3>enum RTCPriorityType</h3>
                 <p>
@@ -2950,13 +2975,13 @@ var encodings = [{ ssrc: 1, priority: 1.0 }];
 var encodings = [{ ssrc: 2, priority: 10.0 }];
 
 // Sign Language (need high framerate, but don't get too bad quality)
-var encodings = [{ minQuality: 0.2, framerateBias: 1.0 }];
+var encodings = [{ minQuality: 0.2, degradationPreference: "maintain-framerate" }];
 
 // Screencast (High quality, framerate can be low)
-var encodings = [{ framerateBias: 0.0 }];
+var encodings = [{ degradationPreference: "maintain-resolution" }];
 
 // Remote Desktop (High framerate, must not downscale)
-var encodings = [{ framerateBias: 1.0 }];
+var encodings = [{ degradationPreference: "maintain-framerate" }];
 
 // Audio more important than video
 var audioEncodings = [{ priority: 10.0 }];
