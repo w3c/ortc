@@ -74,6 +74,20 @@ var respecConfig = {
       "status": "14 April 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "RID": {
+      "title": "RTP Payload Format Constraints",
+      "href": "https://tools.ietf.org/html/draft-pthatcher-mmusic-rid",
+      "authors": [
+        "P. Thatcher",
+        "M. Zanaty",
+        "S. Nandakumar",
+        "B. Burman",
+        "A. Roach",
+        "B. Campen"
+      ],
+      "status": "19 October 2015. Internet Draft (work in progress)",
+      "publisher": "IETF"
+    },
     "RFC3264": {
       "title": "An Offer/Answer Model with the Session Description Protocol",
       "href": "https://tools.ietf.org/html/rfc3264",
