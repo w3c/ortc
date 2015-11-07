@@ -2238,7 +2238,11 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtplistener-operation*">
                 <h3>Operation</h3>
-                <p>An <a>RTCRtpListener</a> instance is constructed from an <a>RTCDtlsTransport</a> object.</p>
+                <p>
+                    An <a>RTCRtpListener</a> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object, and an optional 
+                    sequence of <code><a>RTCRtpHeaderExtension</a></code> objects, which are provided to allow the MID and RID header 
+                    extensions to be parsed and provided in the <code><a>unhandledrtp</a></code> Event. 
+                </p>
             </section>
             <section id="rtpmatchingrules*">
                 <h3>RTP matching rules</h3>
@@ -2312,7 +2316,7 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtplistener-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCDtlsTransport transport)] interface RTCRtpListener">
+                <dl class="idl" title="[Constructor(RTCDtlsTransport transport, optional sequence&ltRTCRtpHeaderExtension> headerExtensions)] interface RTCRtpListener">
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
                         <p>The RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
@@ -2353,6 +2357,13 @@ mySignaller.myOfferTracks({
                             triggering the <code><a>unhandledrtp</a></code> event.
                         </p>
                     </dd>
+                    <dt>readonly attribute DOMString rid</dt>
+                    <dd>
+                        <p>
+                            The value of the <a>RID</a> RTP header extension [[!RID]] in the RTP stream
+                            triggering the <code><a>unhandledrtp</a></code> event.
+                        </p>
+                    </dd>
                     <dt>readonly attribute payloadtype payloadType</dt>
                     <dd>
                         <p>The Payload Type value in the RTP stream triggering the <code><a>unhandledrtp</a></code> event.</p>
@@ -2367,6 +2378,13 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             If present, the value of the <a>MID</a> RTP header extension [[!BUNDLE]] in the RTP stream
+                            triggering the <code><a>unhandledrtp</a></code> event.
+                        </p>
+                    </dd>
+                    <dt>DOMString rid</dt>
+                    <dd>
+                        <p>
+                            If present, the value of the <a>RID</a> RTP header extension [[!RID]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
                         </p>
                     </dd>
@@ -2897,6 +2915,7 @@ mySignaller.myOfferTracks({
                             it is not necessary to specify the expected scalable video coding configuration on the receiver via use of <var>encodingId</var>
                             (or <var>dependencyEncodingIds</var>). Where specified for a receiver, the expected layering is ignored. A sender MAY
                             send fewer layers than what is specified in <code><a>RTCRtpEncodingParameters</a></code>, but MUST NOT send more.
+                            An <code><a>RTCRtpSender</a></code> places the value of <var>encodingId</var> into the RID header extension [[!RID]].  
                         </p>
                     </dd>
                     <dt>sequence&lt;DOMString&gt; dependencyEncodingIds</dt>
@@ -5318,6 +5337,14 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added RED codec parameters, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/260">Issue 260</a>
+                    </li>
+                    <li>
+                        Substituted <code>degradationPreference</code> for <code>framerateBias</code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/262">Issue 262</a>
+                    </li>
+                    <li>
+                        Added RID support to the <code><a>unhandledrtp</a></code> event, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/265">Issue 265</a>
                     </li>
                  </ol>
             </section>
