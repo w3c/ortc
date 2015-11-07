@@ -2240,7 +2240,7 @@ mySignaller.myOfferTracks({
                 <h3>Operation</h3>
                 <p>
                     An <a>RTCRtpListener</a> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object, and an optional 
-                    sequence of <code><a>RTCRtpHeaderExtension</a></code> objects, which are provided to allow the MID and RID header 
+                    sequence of <code><a>RTCRtpHeaderExtensionParameters</a></code> objects, which are provided to allow the <a>MID</a> and <a>RID</a> header 
                     extensions to be parsed and provided in the <code><a>unhandledrtp</a></code> Event. 
                 </p>
             </section>
@@ -2249,12 +2249,12 @@ mySignaller.myOfferTracks({
                 <p>
                     When the <code><a>RTCRtpListener</a></code> object receives an RTP packet over an <code><a>RTCDtlsTransport</a></code>,
                     the <code><a>RTCRtpListener</a></code> attempts to determine which <code><a>RTCRtpReceiver</a></code> object to deliver the
-                    packet to, based on the values of the SSRC and payload type fields in the RTP header, as well as the value of the MID
+                    packet to, based on the values of the SSRC and payload type fields in the RTP header, as well as the value of the <a>MID</a>
                     RTP header extension, if present.
                 </p>
                 <p>
                     The <code><a>RTCRtpListener</a></code> maintains three tables in order to facilitate matching: the <var>ssrc_table</var> which maps SSRC
-                    values to <code><a>RTCRtpReceiver</a></code> objects; the <var>muxId_table</var> which maps values of the MID header extension
+                    values to <code><a>RTCRtpReceiver</a></code> objects; the <var>muxId_table</var> which maps values of the <a>MID</a> header extension
                     to <code><a>RTCRtpReceiver</a></code>objects and the <var>pt_table</var> which maps payload type values to
                     <code><a>RTCRtpReceiver</a></code> objects.
                 </p>
@@ -2316,7 +2316,7 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtplistener-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCDtlsTransport transport, optional sequence&ltRTCRtpHeaderExtension> headerExtensions)] interface RTCRtpListener">
+                <dl class="idl" title="[Constructor(RTCDtlsTransport transport, optional sequence&ltRTCRtpHeaderExtensionParameters> headerExtensions)] interface RTCRtpListener">
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
                         <p>The RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
@@ -2915,7 +2915,7 @@ mySignaller.myOfferTracks({
                             it is not necessary to specify the expected scalable video coding configuration on the receiver via use of <var>encodingId</var>
                             (or <var>dependencyEncodingIds</var>). Where specified for a receiver, the expected layering is ignored. A sender MAY
                             send fewer layers than what is specified in <code><a>RTCRtpEncodingParameters</a></code>, but MUST NOT send more.
-                            An <code><a>RTCRtpSender</a></code> places the value of <var>encodingId</var> into the RID header extension [[!RID]].  
+                            An <code><a>RTCRtpSender</a></code> places the value of <var>encodingId</var> into the <a>RID</a> header extension [[!RID]].  
                         </p>
                     </dd>
                     <dt>sequence&lt;DOMString&gt; dependencyEncodingIds</dt>
@@ -3281,7 +3281,7 @@ var encodings = [{
             </section>
             <section id="headerextensions*">
                 <h3>RTP header extensions</h3>
-                <p>Registered RTP header extensions are listed in [[!IANA-RTP-10]]. Header extensions mentioned in [[!RTP-USAGE]] include:
+                <p>Registered RTP header extensions are listed in [[!IANA-RTP-10]]. Header extensions mentioned in [[!RTP-USAGE]] and [[!RID]] include:
                 <table class="simple">
                     <thead>
                         <tr>
@@ -3325,6 +3325,15 @@ var encodings = [{
                             </td>
                             <td>
                                 This extension defines a track identifier which can be used to identify the track corresponding to an RTP stream.
+                            </td>
+                        </tr>
+                        <tr id="def-rid*">
+                            <td><dfn>RID</dfn></td>
+                            <td>
+                                [[!RID]]
+                            </td>
+                            <td>
+                                This extension defines an identifier used to carry the <var>encodingId</var>.
                             </td>
                         </tr>
                     </tbody>
@@ -5343,7 +5352,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/262">Issue 262</a>
                     </li>
                     <li>
-                        Added RID support to the <code><a>unhandledrtp</a></code> event, as noted in:
+                        Added <a>RID</a> support to the <code><a>unhandledrtp</a></code> event, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/265">Issue 265</a>
                     </li>
                  </ol>
