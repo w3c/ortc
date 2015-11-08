@@ -1,33 +1,33 @@
 var respecConfig = {
-  "specStatus": "CG-DRAFT",
-  "shortName": "ortc-api",
-  "editors": [
+  specStatus: "CG-DRAFT",
+  shortName: "ortc-api",
+  editors: [
     {
-      "name": "Robin Raymond",
-      "url": "http://about.me/robinraymond",
-      "company": "Hookflash",
-      "companyURL": "http://www.hookflash.com/"
+      name: "Robin Raymond",
+      url: "http://about.me/robinraymond",
+      company: "Hookflash",
+      companyURL: "http://www.hookflash.com/"
     }
   ],
-  "authors": [
+  authors: [
     {
-      "name": "Bernard Aboba",
-      "url": "https://plus.google.com/+BernardAboba/about",
-      "company": "Microsoft Corporation",
-      "companyURL": "http://www.microsoft.com/"
+      name: "Bernard Aboba",
+      url: "https://plus.google.com/+BernardAboba/about",
+      company: "Microsoft Corporation",
+      companyURL: "http://www.microsoft.com/"
     },
     {
-      "name": "Justin Uberti",
-      "url": "https://plus.google.com/+JustinUberti/posts",
-      "company": "Google",
-      "companyURL": "https://www.google.com/"
+      name: "Justin Uberti",
+      url: "https://plus.google.com/+JustinUberti/posts",
+      company: "Google",
+      companyURL: "https://www.google.com/"
     }
   ],
-  "wg": "Object-RTC API Community Group",
-  "wgURI": "http://www.w3.org/community/ortc/",
-  "wgPublicList": "public-ortc",
-  "wgPatentURI": "",
-  "localBiblio": {
+  wg: "Object-RTC API Community Group",
+  wgURI: "http://www.w3.org/community/ortc/",
+  wgPublicList: "public-ortc",
+  wgPatentURI: "",
+  localBiblio: {
     "IANA-RTP-2": {
       "title": "RTP Payload Format media types",
       "href": "http://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-2",
@@ -60,18 +60,7 @@ var respecConfig = {
         "M. Petit-Huguenin",
         "G. Salgueiro"
       ],
-      "status": "24 March 2015. Internet draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "OPUS-RTP": {
-      "title": "RTP Payload Format for Opus Speech and Audio Codec",
-      "href": "https://tools.ietf.org/html/draft-ietf-payload-rtp-opus",
-      "authors": [
-        "J. Spittka",
-        "K. Vos",
-        "JM. Valin"
-      ],
-      "status": "14 April 2015. Internet Draft (work in progress)",
+      "status": "19 October. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -346,6 +335,29 @@ var respecConfig = {
       "status": "November 2013. RFC",
       "publisher": "IETF"
     },
+    "RFC7587": {
+      "title": "RTP Payload Format for Opus Speech and Audio Codec",
+      "href": "https://tools.ietf.org/html/rfc7587",
+      "authors": [
+        "J. Spittka",
+        "K. Vos",
+        "JM. Valin"
+      ],
+      "status": "June 2015. RFC", 
+      "publisher": "IETF"
+    },
+    "RFC7635": {
+      "title": "Session Traversal Utlities for NAT (STUN) Extension for Third Party Authorization",
+      "href": "https://tools.ietf.org/html/rfc7635",
+      "authors": [
+        "T. Reddy",
+        "P. Patil",
+        "R. Ravindranath",
+        "J. Uberti"
+      ],
+      "status": "August 2015. RFC",
+      "publisher": "IETF"
+    },
     "BUNDLE": {
       "title": "Negotiating Media Multiplexing Using the Session Description Protocol (SDP)",
       "href": "https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation",
@@ -354,7 +366,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "16 June 2015. Internet Draft (work in progress)",
+      "status": "20 July 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "CONSENT": {
@@ -366,7 +378,7 @@ var respecConfig = {
         "T. Reddy",
         "M. Thomson"
       ],
-      "status": "8 June 2015. Internet Draft (work in progress)",
+      "status": "13 August 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -397,7 +409,7 @@ var respecConfig = {
       "authors": [
         "J. Uberti"
       ],
-      "status": "05 March 2015. Internet Draft (work in progress)",
+      "status": "18 October 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "GROUPING": {
@@ -410,7 +422,7 @@ var respecConfig = {
         "G. Salgueiro",
         "B. Burman"
       ],
-      "status": "05 March 2015. Internet Draft (work in progress)",
+      "status": "20 July 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTCWEB-SECURITY": {
@@ -438,7 +450,7 @@ var respecConfig = {
         "JM. Valin",
         "C. Bran"
       ],
-      "status": "30 April 2015. Internet Draft (work in progress)",
+      "status": "05 November 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTCWEB-VIDEO": {
@@ -458,7 +470,7 @@ var respecConfig = {
         "C. Perkins",
         "J. Lennox"
       ],
-      "status": "09 March 2015. Internet Draft (work in progress)",
+      "status": "11 September 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTP-USAGE": {
@@ -472,18 +484,6 @@ var respecConfig = {
       "status": "12 June 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
-    "TRAM-TURN-THIRD-PARTY-AUTHZ": {
-      "title": "Session Traversal Utlities for NAT (STUN) Extension for Third Party Authorization",
-      "href": "https://tools.ietf.org/html/draft-ietf-tram-turn-third-party-authz",
-      "authors": [
-        "T. Reddy",
-        "P. Patil",
-        "R. Ravindranath",
-        "J. Uberti"
-      ],
-      "status": "25 February 2015. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
     "VP8-RTP": {
       "title": "RTP Payload Format for VP8 Video",
       "href": "https://tools.ietf.org/html/draft-ietf-payload-vp8",
@@ -494,17 +494,17 @@ var respecConfig = {
         "J. Uberti",
         "F. Galligan"
       ],
-      "status": "05 June 2015. Internet Draft (work in progress)",
+      "status": "09 September. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "WEBRTC-STATS": {
       "title": "Identifiers for WebRTC's Statistics API",
-      "href": "http://www.w3.org/TR/webrtc-stats/",
+      "href": "http://w3c.github.io/webrtc-stats/",
       "authors": [
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "06 February 2015 (work in progress)",
+      "status": "23 October 2015 (work in progress)",
       "publisher": "W3C"
     }
   }

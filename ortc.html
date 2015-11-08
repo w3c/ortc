@@ -559,7 +559,7 @@
                     </dd>
                     <dt>token</dt>
                     <dd>
-                        <p>The credential is an access token, as described in [[TRAM-TURN-THIRD-PARTY-AUTHZ]], Section 6.2.</p>
+                        <p>The credential is an access token, as described in [[RFC7635]], Section 6.2.</p>
                     </dd>
                 </dl>
             </section>
@@ -2525,7 +2525,7 @@ mySignaller.myOfferTracks({
                     <p>The capability parameters for commonly implemented codecs are provided below.</p>
                     <section id="opus-codec-capabilities*">
                         <h3>Opus</h3>
-                        <p>The following capability parameters are defined for Opus, as noted in [[!OPUS-RTP]] Section 6.1:</p>
+                        <p>The following capability parameters are defined for Opus, as noted in [[!RFC7587]] Section 6.1:</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -5022,7 +5022,7 @@ function signalAssertion(assertion) {
                             fingerprint are used by <code><a>RTCDtlsTransport</a></code>, but it is more
                             likely that a certificate will be accepted if the certificate is well
                             formed. The browser selects the algorithm used to sign the
-                            certificate; a browser <em title="SHOULD" class="rfc2119">SHOULD</em> select SHA-256 [[!FIPS-180-3]] if a hash
+                            certificate; a browser <em title="SHOULD" class="rfc2119">SHOULD</em> select SHA-256 [[!FIPS-180-4]] if a hash
                             algorithm is needed.
                         </p>
                         <p>
