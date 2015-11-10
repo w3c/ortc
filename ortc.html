@@ -2521,8 +2521,80 @@ mySignaller.myOfferTracks({
                     </dd>
                 </dl>
                 <section id="codec-capabilities*">
+                    <h3>Codec capability options</h3>
+                    <p>The capability options of commonly implemented codecs are provided below.</p>
+                    <p>
+                       If a defined codec option is unset when returned from
+                       <code>RTCRtpReceiver/Sender.getCapabilities()</code>, then the engine does not allow adjusting the option. 
+                       If set when returned from <code>RTCRtpReceiver/Sender.getCapabilities()</code> then the default value for the 
+                       engine is given.
+                    </p>
+                    <section id="opus-codec-options*">
+                        <h3>Opus</h3>
+                        <p>The following capability options are defined for Opus:</p>
+                               <table class="simple">
+                               <thead>
+                                   <tr>
+                                       <th>Property Name</th>
+                                       <th>Values</th>
+                                       <th>Receiver/Sender</th>
+                                       <th>Notes</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                <tr id="def-complexity*">
+                                    <td><dfn>complexity</dfn></td>
+                                    <td>
+                                        <code>boolean</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>Indicates whether the sender supports configuring the encoder's computational comiplexity (if true) or not (if false).</td>
+                                </tr>
+                                <tr id="def-signal*">
+                                    <td><dfn>signal</dfn></td>
+                                    <td>
+                                        <code>boolean</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>Indicates whether the sender supports configuring the type of signal being encoded (if true) or not (if false).</td>
+                                </tr>
+                                <tr id="def-application*">
+                                    <td><dfn>application</dfn></td>
+                                    <td>
+                                        <code>boolean</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>Indicates whether the sender supports configuring the encoder's intended application (if true) or not (if false).</td>
+                                </tr>
+                                <tr id="def-packetlossperc*">
+                                    <td><dfn>packetLossPerc</dfn></td>
+                                    <td>
+                                        <code>boolean</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>Indicates whether the sender supports configuring the encoder's expected packet loss percentage (if true) or not (if false).</td>
+                                </tr>
+                                <tr id="def-predictiondisabled*">
+                                    <td><dfn>predictionDisabled</dfn></td>
+                                    <td>
+                                        <code>boolean</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>Indicates whether the sender supports configuring whether prediction is disabled (if true) or not (if false).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </section>
+                </section>
+                <section id="codec-capabilities*">
                     <h3>Codec capability parameters</h3>
                     <p>The capability parameters for commonly implemented codecs are provided below.</p>
+                    <p>
+                       If a defined codec capability parameter is unset when returned from 
+                       <code>RTCRtpReceiver/Sender.getCapabilities()</code>, then the engine does not allow adjusting the parameter. 
+                       If set when returned from <code>RTCRtpReceiver/Sender.getCapabilities()</code> then the default value for the 
+                       engine is given.
+                    </p>
                     <section id="opus-codec-capabilities*">
                         <h3>Opus</h3>
                         <p>The following optional capability parameters are defined for Opus, as noted in [[!RFC7587]] Section 6.1:</p>
@@ -2610,60 +2682,6 @@ mySignaller.myOfferTracks({
                                 </tr>
                             </tbody>
                         </table>
-
-                   <p>The following capability options are defined for Opus:</p>
-                               <table class="simple">
-                               <thead>
-                                   <tr>
-                                       <th>Property Name</th>
-                                       <th>Values</th>
-                                       <th>Receiver/Sender</th>
-                                       <th>Notes</th>
-                                   </tr>
-                               </thead>
-                               <tbody>
-                                <tr id="def-complexity*">
-                                    <td><dfn>complexity</dfn></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Indicates whether the sender supports configuring the encoder's computational comiplexity (if true) or not (if false).</td>
-                                </tr>
-                                <tr id="def-signal*">
-                                    <td><dfn>signal</dfn></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Indicates whether the sender supports configuring the type of signal being encoded (if true) or not (if false).</td>
-                                </tr>
-                                <tr id="def-application*">
-                                    <td><dfn>application</dfn></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Indicates whether the sender supports configuring the encoder's intended application (if true) or not (if false).</td>
-                                </tr>
-                                <tr id="def-packetlossperc*">
-                                    <td><dfn>packetLossPerc</dfn></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Indicates whether the sender supports configuring the encoder's expected packet loss percentage (if true) or not (if false).</td>
-                                </tr>
-                                <tr id="def-predictiondisabled*">
-                                    <td><dfn>predictionDisabled</dfn></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Indicates whether the sender supports configuring whether prediction is disabled (if true) or not (if false).</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </section>
                     <section id="vp-codec-dictionary*">
                         <h3>VP8</h3>
@@ -2679,7 +2697,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="def-max-fr*">
-                                    <td><dfn>max-fr</dfn></td>
+                                    <td><dfn>maxFr</dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -2687,7 +2705,7 @@ mySignaller.myOfferTracks({
                                     <td>This parameter indicates the maximum frame rate in frames per second that the decoder is capable of decoding.</td>
                                 </tr>
                                 <tr id="def-max-fs*">
-                                    <td><dfn>max-fs</dfn></td>
+                                    <td><dfn>maxFs</dfn></td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
@@ -2711,7 +2729,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="def-profile-level-id*">
-                                    <td><dfn>profile-level-id</dfn></td>
+                                    <td><dfn>profileLevelId</dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -2719,16 +2737,16 @@ mySignaller.myOfferTracks({
                                     <td>This parameter, which describes the maximum capability of the decoder, MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
                                 </tr>
                                 <tr id="def-packetization-mode*">
-                                    <td><dfn>packetization-mode</dfn></td>
+                                    <td><dfn>packetizationMode</dfn></td>
                                     <td><code>sequence&lt;unsigned short&gt;</code></td>
                                     <td>Receiver/Sender</td>
                                     <td>
-                                        A sequence of unsigned shorts, each ranging from 0 to 2, indicating supported <var>packetization-mode</var> values.
-                                        As noted in [[!RTCWEB-VIDEO]] Section 6.2, support for <var>packetization-mode</var> 1 is mandatory.
+                                        A sequence of unsigned shorts, each ranging from 0 to 2, indicating supported <var>packetizationMode</var> values.
+                                        As noted in [[!RTCWEB-VIDEO]] Section 6.2, support for packetization-mode 1 is mandatory.
                                     </td>
                                 </tr>
                                 <tr id="def-other-h264-params*">
-                                    <td>max-mbps, max-smbps, max-fs, max-cpb, max-dpb, max-br</td>
+                                    <td>maxMbps, maxSmbps, maxFs, maxCpb, maxDpb, maxBr</td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
@@ -2737,7 +2755,7 @@ mySignaller.myOfferTracks({
                                         As noted in [[!RTCWEB-VIDEO]] Section 6.2, these optional parameters
                                         allow the implementation to specify that the decoder can support
                                         certain features of H.264 at higher rates and values than those
-                                        signalled with <var>profile-level-id</var>.
+                                        signalled with profile-level-id.
                                     </td>
                                 </tr>
                             </tbody>
@@ -3014,7 +3032,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="sec-max-fr*">
-                                    <td><a>max-fr</a></td>
+                                    <td><a>maxFr</a></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3022,7 +3040,7 @@ mySignaller.myOfferTracks({
                                     <td>This parameter indicates the maximum frame rate in frames per second that the decoder is capable of decoding.</td>
                                 </tr>
                                 <tr id="sec-max-fs*">
-                                    <td><a>max-fs</a></td>
+                                    <td><a>maxFs</a></td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
@@ -3046,7 +3064,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="sec-profile-level-id*">
-                                    <td><a>profile-level-id</a></td>
+                                    <td><a>profileLevelId</a></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3054,16 +3072,16 @@ mySignaller.myOfferTracks({
                                     <td>This parameter, which describes the maximum capability of the decoder, MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
                                 </tr>
                                 <tr id="sec-packetization-mode*">
-                                    <td><a>packetization-mode</a></td>
+                                    <td><a>packetizationMode</a></td>
                                     <td><code>unsigned short</code></td>
                                     <td>Sender</td>
                                     <td>
-                                        An unsigned short ranging from 0 to 2, indicating the <var>packetization-mode</var> to be used by the sender.  This setting MUST be
+                                        An unsigned short ranging from 0 to 2, indicating the <var>packetizationMode</var> value to be used by the sender.  This setting MUST be
                                         supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2. 
                                     </td>
                                 </tr>
                                 <tr id="sec-other-h264-params*">
-                                    <td>max-mbps, max-smbps, max-fs, max-cpb, max-dpb, max-br</td>
+                                    <td>maxMbps, maxSmbps, maxFs, maxCpb, maxDpb, maxBr</td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
@@ -3071,7 +3089,7 @@ mySignaller.myOfferTracks({
                                     <td>
                                         These optional parameters allow the implementation to specify that the decoder
                                         can support certain features of H.264 at higher rates and values than those
-                                        signalled with <var>profile-level-id</var>.
+                                        signalled with profile-level-id.
                                     </td>
                                 </tr>
                             </tbody>
@@ -5688,6 +5706,18 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Updated references, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/268">Issue 268</a>
+                    </li>
+                    <li>
+                        Changed codec parameter and option names to camelCase, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/273">Issue 273</a>
+                    </li>
+                    <li>
+                        Added section of codec options, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/274">Issue 274</a>
+                    </li>
+                    <li>
+                        Clarified  meaning of unset codec capabilities and options, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/275">Issue 275</a>
                     </li>
                  </ol>
             </section>
