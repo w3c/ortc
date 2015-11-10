@@ -2464,7 +2464,7 @@ mySignaller.myOfferTracks({
                     </dd>
                     <dt>unsigned long clockRate</dt>
                     <dd>
-                        <p>Codec clock rate expressed in Hertz, null if unset.</p>
+                        <p>Codec clock rate expressed in Hertz.  If unset, the codec is applicable to any clock rate.</p>
                     </dd>
                     <dt>payloadtype preferredPayloadType</dt>
                     <dd>
@@ -2673,6 +2673,7 @@ mySignaller.myOfferTracks({
                                 <tr>
                                     <th>Property Name</th>
                                     <th>Values</th>
+                                    <th>Receiver/Sender</th>
                                     <th>Notes</th>
                                 </tr>
                             </thead>
@@ -2682,6 +2683,7 @@ mySignaller.myOfferTracks({
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
+                                    <td>Receiver</td>
                                     <td>This parameter indicates the maximum frame rate in frames per second that the decoder is capable of decoding.</td>
                                 </tr>
                                 <tr id="def-max-fs*">
@@ -2689,6 +2691,7 @@ mySignaller.myOfferTracks({
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
+                                    <td>Receiver</td>
                                     <td>This parameter indicates the maximum frame size in macroblocks that the decoder is capable of decoding.</td>
                                 </tr>
                             </tbody>
@@ -2696,12 +2699,13 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="h264-capabilities*">
                         <h3>H.264</h3>
-                        <p>The following parameters are defined for H.264, as noted in [[RFC6184]] Section 8.1, and [[!RTCWEB-VIDEO]] Section 6.2.</p>
+                        <p>The following capabilities are defined for H.264, as noted in [[RFC6184]] Section 8.1, and [[!RTCWEB-VIDEO]] Section 6.2.</p>
                         <table class="simple">
                             <thead>
                                 <tr>
                                     <th>Property Name</th>
                                     <th>Values</th>
+                                    <th>Receiver/Sender</th>
                                     <th>Notes</th>
                                 </tr>
                             </thead>
@@ -2711,11 +2715,13 @@ mySignaller.myOfferTracks({
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
-                                    <td>This parameter, defined in [[RFC6184]] Section 8.1, is mandatory to support, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
+                                    <td>Receiver</td>
+                                    <td>This parameter, which describes the maximum capability of the decoder, MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
                                 </tr>
                                 <tr id="def-packetization-mode*">
                                     <td><dfn>packetization-mode</dfn></td>
                                     <td><code>sequence&lt;unsigned short&gt;</code></td>
+                                    <td>Receiver/Sender</td>
                                     <td>
                                         A sequence of unsigned shorts, each ranging from 0 to 2, indicating supported <var>packetization-mode</var> values.
                                         As noted in [[!RTCWEB-VIDEO]] Section 6.2, support for <var>packetization-mode</var> 1 is mandatory.
@@ -2726,9 +2732,10 @@ mySignaller.myOfferTracks({
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
+                                    <td>Receiver</td>
                                     <td>
                                         As noted in [[!RTCWEB-VIDEO]] Section 6.2, these optional parameters
-                                        allow the implementation to specify that they can support
+                                        allow the implementation to specify that the decoder can support
                                         certain features of H.264 at higher rates and values than those
                                         signalled with <var>profile-level-id</var>.
                                     </td>
@@ -2774,6 +2781,7 @@ mySignaller.myOfferTracks({
                         <p>Parameters to configure RTCP.<p>
                     </dd>
                 </dl>
+            </section>
             <section id="rtcrtcpparameters*">
                 <h3>dictionary RTCRtcpParameters</h3>
                 <p><dfn>RTCRtcpParameters</dfn> provides information on RTCP settings.</p>
@@ -2863,15 +2871,7 @@ mySignaller.myOfferTracks({
                 </dl>
                 <section id="codec-parameters*">
                     <h3>Codec parameters</h3>
-                    <p>
-                        The capabilities for commonly implemented codecs described in Section 9.4.2, are also
-                        used as codec parameters, with
-                        <code>RTCRtpCodecCapability.parameters</code> of the receiver used as
-                        <code>RTCRtpCodecParameters.parameters</code> of the sender, and
-                        <code>RTCRtpCodecCapability.parameters</code> of the sender used as
-                        <code>RTCRtpCodecParameters.parameters</code> of the receiver, with the Property Name
-                        and Values unchanged.
-                    </p>
+                    <p>The parameters of common codecs are described below.</p>
                     <section id="opus-codec-settings*">
                         <h3>Opus</h3>
                         <p>The following settings are defined for Opus:</p>
@@ -2996,6 +2996,83 @@ mySignaller.myOfferTracks({
                                     </td>
                                     <td>Sender</td>
                                     <td>Configures whether prediction is disabled, making frames almost complete independent (if true) or not (if false).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="vp8-settings*">
+                        <h3>VP8</h3>
+                        <p>The following settings are defined for VP8:</p>
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Property Name</th>
+                                    <th>Values</th>
+                                    <th>Receiver/Sender</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="sec-max-fr*">
+                                    <td><a>max-fr</a></td>
+                                    <td>
+                                        <code>unsigned long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>This parameter indicates the maximum frame rate in frames per second that the decoder is capable of decoding.</td>
+                                </tr>
+                                <tr id="sec-max-fs*">
+                                    <td><a>max-fs</a></td>
+                                    <td>
+                                        <code>unsigned long long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>This parameter indicates the maximum frame size in macroblocks that the decoder is capable of decoding.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="h264-settings*">
+                        <h3>H.264</h3>
+                        <p>The following settings are defined for H.264:</p>
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Property Name</th>
+                                    <th>Values</th>
+                                    <th>Receiver/Sender</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="sec-profile-level-id*">
+                                    <td><a>profile-level-id</a></td>
+                                    <td>
+                                        <code>unsigned long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>This parameter, which describes the maximum capability of the decoder, MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
+                                </tr>
+                                <tr id="sec-packetization-mode*">
+                                    <td><a>packetization-mode</a></td>
+                                    <td><code>unsigned short</code></td>
+                                    <td>Sender</td>
+                                    <td>
+                                        An unsigned short ranging from 0 to 2, indicating the <var>packetization-mode</var> to be used by the sender.  This setting MUST be
+                                        supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2. 
+                                    </td>
+                                </tr>
+                                <tr id="sec-other-h264-params*">
+                                    <td>max-mbps, max-smbps, max-fs, max-cpb, max-dpb, max-br</td>
+                                    <td>
+                                        <code>unsigned long long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>
+                                        These optional parameters allow the implementation to specify that the decoder
+                                        can support certain features of H.264 at higher rates and values than those
+                                        signalled with <var>profile-level-id</var>.
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -5583,6 +5660,14 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added <var>payloadType</var> attribute to <code><a>RTCRtpRtxParameters</a></code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/254">Issue 254</a>
+                    </li>
+                    <li>
+                        Clarified meaning of unset <code>RTCRtpCodecCapability.clockRate</code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/255">Issue 255</a>
+                    </li>
+                    <li>
+                        Updated VP8 and H.264 capabilities and added VP and H.264 settings, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/258">Issue 258</a>
                     </li>
                     <li>
                         Added RTX codec parameters, as noted in:
