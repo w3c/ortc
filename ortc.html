@@ -2804,6 +2804,36 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>Parameters to configure RTCP.<p>
                     </dd>
+                    <dt>RTCDegradationPreference degradationPreference = "balanced"</dt>
+                    <dd>
+                        <p>
+                            When bandwidth is constrained and the <code><a>RTCRtpSender</a></code> needs to choose between degrading
+                            resolution or degrading framerate, <code>degradationPreference</code> indicates which is preferred.
+                            <code>degradationPreference</code> is ignored in an <code><a>RTCRtpReceiver</a></code> object.
+                        </p>
+                    </dd>
+                </dl>
+            </section>
+            <section id="rtcdegradationpreference*">
+                <h3>enum RTCDegradationPreference</h3>
+                <p>
+                     <dfn>RTCDegradationPreference</dfn> can be used to indicate the desired choice between degrading resolution
+                     and degrading framerate when bandwidth is constrained.
+                </p>
+
+                <dl class="idl" title="enum RTCDegradationPreference">
+                    <dt>maintain-framerate</dt>
+                    <dd>
+                         <p>Degrade resolution in order to maintain framerate.</p>
+                    </dd>
+                    <dt>maintain-resolution</dt>
+                    <dd>
+                         <p>Degrade framerate in order to maintain resolution.</p>
+                    </dd>
+                    <dt>balanced</dt>
+                    <dd>
+                         <p>Degrade a balance of framerate and resolution.</p>
+                    </dd>
                 </dl>
             </section>
             <section id="rtcrtcpparameters*">
@@ -3207,18 +3237,6 @@ mySignaller.myOfferTracks({
                             This parameter is ignored in an <code><a>RTCRtpReceiver</a></code> object.
                         </p>
                     </dd>
-                    <dt>RTCDegradationPreference degradationPreference = "balanced"</dt>
-                    <dd>
-                        <p>
-                            When bandwidth is constrained and the <code><a>RTCRtpSender</a></code> needs to choose between degrading
-                            resolution or degrading framerate, <code>degradationPreference</code> indicates which is preferred. 
-                            <code>degradationPreference</code> is ignored in an <code><a>RTCRtpReceiver</a></code> object. 
-                            For scalable video coding, this parameter is only relevant for the base layer; in other layers it is
-                            ignored.  For simulcast, providing different values of <code>degradationPreference</code> in each
-                            layer is discouraged, since this may conflict with the requested values of <code>resolutionScale</code> and
-                            <code>framerateScale</code>. 
-                        </p>    
-                    </dd>     
                     <dt>double resolutionScale</dt>
                     <dd>
                         <p>
@@ -3270,28 +3288,6 @@ mySignaller.myOfferTracks({
                             <code><a>RTCRtpEncodingParameters</a></code> sequence did not produce a match, then a global search
                             would be carried out.
                         </p>
-                    </dd>
-                </dl>
-            </section>
-            <section id="rtcdegradationpreference*">
-                <h3>enum RTCDegradationPreference</h3>
-                <p>
-                     <dfn>RTCDegradationPreference</dfn> can be used to indicate the desired choice between degrading resolution
-                     and degrading framerate when bandwidth is constrained.  
-                </p>
-
-                <dl class="idl" title="enum RTCDegradationPreference">
-                    <dt>maintain-framerate</dt>
-                    <dd>
-                         <p>Degrade resolution in order to maintain framerate.</p>
-                    </dd>
-                    <dt>maintain-resolution</dt>
-                    <dd>
-                         <p>Degrade framerate in order to maintain resolution.</p>
-                    </dd>
-                    <dt>balanced</dt>
-                    <dd>
-                         <p>Degrade a balance of framerate and resolution.</p>
                     </dd>
                 </dl>
             </section>
@@ -5702,7 +5698,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/260">Issue 260</a>
                     </li>
                     <li>
-                        Substituted <code>degradationPreference</code> for <code>framerateBias</code>, as noted in:
+                        Substituted <code>degradationPreference</code> for <code>framerateBias</code> and moved it to <code><a>RTCRtpParameters</a></code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/262">Issue 262</a>
                     </li>
                     <li>
