@@ -1560,7 +1560,7 @@ function accept(mySignaller, remote) {
                     A <code><a>RTCRtpSender</a></code> instance is constructed from an <a>MediaStreamTrack</a> object and
                     associated to an <code><a>RTCDtlsTransport</a></code>.
                     If an attempt is made to construct an <code><a>RTCRtpSender</a></code> object with <var>transport.state</var> or <var>rtcpTransport.state</var> "closed",
-                    throw an <code>InvalidStateError</code> exception.
+                    or if <var>track.readyState</var> is "ended", throw an <code>InvalidStateError</code> exception.
                 </p>
             </section>
             <section id="rtcrtpsender-interface-definition*">
@@ -1608,6 +1608,12 @@ function accept(mySignaller, remote) {
                                         <p>
                                             If <code>withTrack.kind</code> differs from <code>RTCRtpSender.track.kind</code>
                                             or if <var>withTrack</var> has different <code>peerIdentity</code> constraints, then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code>
+                                            and abort these steps.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            If <code>withTrack.readyState</code> is "ended" then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code> 
                                             and abort these steps.
                                         </p>
                                     </li>
@@ -5716,8 +5722,13 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/274">Issue 274</a>
                     </li>
                     <li>
-                        Clarified  meaning of unset codec capabilities and options, as noted in:
-                        <a href="https://github.com/openpeer/ortc/issues/275">Issue 275</a>
+                        Clarified meaning of codec capabilities and options, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/275">Issue 275</a> and
+                        <a href="https://github.com/openpeer/ortc/issues/277">Issue 277</a>
+                    </li>
+                    <li>
+                        Clarified behavior in <code><a>RTCRtpSender</a></code> constructor and <code>setTrack()</code> when <code>track.readyState</code> is "ended", as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/278">Issue 278</a>
                     </li>
                  </ol>
             </section>
