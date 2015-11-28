@@ -4093,7 +4093,7 @@ sender.insertDTMF("123");
                             </tr>
                         </table>
                     </dd>
-                    <dt>void send (DOMString data)</dt>
+                    <dt>void send (USVString data)</dt>
                     <dd>
                         <p>Run the steps described by the <code>send()</code> algorithm with argument type <code>string</code> object.</p>
                     </dd>
@@ -4138,9 +4138,8 @@ sender.insertDTMF("123");
                             <li>
                                 <p><code>string</code> object:</p>
                                 <p>
-                                    Let <var>data</var> be the result of converting the
-                                    argument object to a sequence of Unicode characters and
-                                    increase the <code><a href="#dom-datachannel-bufferedamount">bufferedAmount</a></code>
+                                    Let <var>data</var> be the object and increase the
+                                    <code><a href="#dom-datachannel-bufferedamount">bufferedAmount</a></code>
                                     attribute by the number of bytes needed to express
                                     <var>data</var> as UTF-8.
                                 </p>
