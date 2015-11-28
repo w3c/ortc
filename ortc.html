@@ -3224,9 +3224,12 @@ mySignaller.myOfferTracks({
                     <dt>unsigned long maxBitrate</dt>
                     <dd>
                         <p>
-                            Ramp up resolution/quality/framerate until this bitrate, if set. Summed when using dependent layers.
-                            This parameter is ignored in scalable video coding, or in an <code><a>RTCRtpReceiver</a></code> object.
-                            If unset, there is no maximum bitrate.
+                            Ramp up resolution/quality/framerate until this bitrate, if set.  maxBitrate is the 
+                            Transport Independent Application Specific (TIAS) maximum bandwidth defined in [[RFC3890]]
+                            Section 6.2.2, which is the maximum bandwidth needed without counting IP or other transport 
+                            layers like TCP or UDP. Summed when using dependent layers. This parameter is ignored
+                            in scalable video coding, or in an <code><a>RTCRtpReceiver</a></code> object.
+                            If unset, there is no maximum bitrate.  
                         </p>
                     </dd>
                     <dt>double minQuality=0</dt>
