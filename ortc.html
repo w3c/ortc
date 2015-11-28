@@ -3718,6 +3718,8 @@ var encodings = [{
                             character ',' indicates a delay of 2 seconds before processing the
                             next character in the tones parameter. All other characters <em title="MUST" class="rfc2119">MUST</em> be
                             considered <dfn id="dtmf-unrecognized">unrecognized</dfn>.
+                            As noted in [[RTCWEB-AUDIO]] Section 3, support for the characters 0 through 9, #, and *
+                            are required.
                         </p>
                         <p>
                             The duration parameter indicates the duration in ms to use for
@@ -5670,6 +5672,19 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
             <h2>Change Log</h2>
             <p>This section will be removed before publication.</p>
             <!-- Why do the first two headings automatically convert to <h2>? -->
+            <section id="since-20-November-2015*">
+                <h3>Changes since 20 November 2015</h3>
+                <ol>
+                    <li>
+                        Clarified meaning of audioLevel, as noted in:
+                        <a href="https://github.com/w3c/webrtc-pc/issues/377">Issue 377</a>
+                    </li>
+                    <li>
+                        Clarified requirements for DTMF A-D tone support, as noted in:
+                        <a href="https://github.com/w3c/webrtc-pc/issues/391">Issue 391</a>
+                    </li>
+                </ol>
+            </section>
             <section id="since-05-October-2015*">
                 <h3>Changes since 05 October 2015</h3>
                 <ol>
