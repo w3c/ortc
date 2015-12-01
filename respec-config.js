@@ -87,6 +87,15 @@ var respecConfig = {
       "status": "July 2002. RFC",
       "publisher": "IETF"
     },
+    "RFC3890": {
+      "title": "A Transport Independent Bandwidth Modifier for the Session Description Protocol (SDP)",
+      "href": "https://tools.ietf.org/html/rfc3890",
+      "authors": [
+        "M. Westerlund"
+      ],
+      "status": "September 2004. RFC",
+      "publisher": "IETF"
+    },
     "RFC4585": {
       "title": "Extended RTP Profile for RTCP-Based Feedback (RTP/AVPF)",
       "href": "https://tools.ietf.org/html/rfc4585",
