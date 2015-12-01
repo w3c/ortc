@@ -3106,7 +3106,8 @@ mySignaller.myOfferTracks({
                                         <code>unsigned long</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>This parameter, which describes the maximum capability of the decoder, MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
+                                    <td>This parameter indicates the configuration of the stream to be sent, as noted in [[RFC6184]] Section 8.2.2.
+                                    It MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
                                 </tr>
                                 <tr id="sec-packetization-mode*">
                                     <td><a>packetizationMode</a></td>
@@ -3115,18 +3116,6 @@ mySignaller.myOfferTracks({
                                     <td>
                                         An unsigned short ranging from 0 to 2, indicating the <var>packetizationMode</var> value to be used by the sender.  This setting MUST be
                                         supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2. 
-                                    </td>
-                                </tr>
-                                <tr id="sec-other-h264-params*">
-                                    <td>maxMbps, maxSmbps, maxFs, maxCpb, maxDpb, maxBr</td>
-                                    <td>
-                                        <code>unsigned long long</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>
-                                        These optional parameters allow the implementation to specify that the decoder
-                                        can support certain features of H.264 at higher rates and values than those
-                                        signalled with profile-level-id.
                                     </td>
                                 </tr>
                             </tbody>
