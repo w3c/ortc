@@ -1872,9 +1872,10 @@ function accept(mySignaller, remote) {
                             this will be the level value in
                             [[!RFC6465]]. Both [[!RFC6464]] and [[!RFC6465]]
                             define the level as a integral value from 0 to
-                            -127 representing the audio level in decibels relative to
+                            127 representing the audio level in negative decibels relative to
                             the loudest signal that they system could possibly
-                            encode.
+                            encode. Thus, 0 represents the loudest signal the system could
+                            possibly encode, and 127 represents silence.
                         </p>
                     </dd>
                 </dl>
