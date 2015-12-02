@@ -2246,9 +2246,7 @@ mySignaller.myOfferTracks({
             <section id="rtcrtplistener-operation*">
                 <h3>Operation</h3>
                 <p>
-                    An <a>RTCRtpListener</a> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object, and an optional 
-                    sequence of <code><a>RTCRtpHeaderExtensionParameters</a></code> objects, which are provided to allow the <a>MID</a> and <a>RID</a> header 
-                    extensions to be parsed and provided in the <code><a>unhandledrtp</a></code> Event. 
+                    An <a>RTCRtpListener</a> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object. 
                 </p>
             </section>
             <section id="rtpmatchingrules*">
@@ -2323,7 +2321,7 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtplistener-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCDtlsTransport transport, optional sequence&ltRTCRtpHeaderExtensionParameters> headerExtensions)] interface RTCRtpListener">
+                <dl class="idl" title="[Constructor(RTCDtlsTransport transport)] interface RTCRtpListener">
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
                         <p>The RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
