@@ -2434,7 +2434,9 @@ mySignaller.myOfferTracks({
                     </dd>
                     <dt>sequence&lt;DOMString&gt; fecMechanisms</dt>
                     <dd>
-                        <p>Supported Forward Error Correction (FEC) mechanisms. [[FEC]] summarizes requirements relating to FEC mechanisms.</p>
+                        <p>Supported Forward Error Correction (FEC) mechanisms.  Values include
+                        "red", "red+ulpfec" and "flexfec".  
+                        [[FEC]] summarizes requirements relating to FEC mechanisms.</p>
                     </dd>
                 </dl>
             </section>
@@ -2604,7 +2606,7 @@ mySignaller.myOfferTracks({
                     </p>
                     <section id="opus-codec-capabilities*">
                         <h3>Opus</h3>
-                        <p>The following optional capability parameters are defined for Opus, as noted in [[!RFC7587]] Section 6.1:</p>
+                        <p>The following optional capability parameters are defined for "opus", as noted in [[!RFC7587]] Section 6.1:</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -2692,7 +2694,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="vp-codec-dictionary*">
                         <h3>VP8</h3>
-                        <p>The following receiver capability parameters are defined for VP8, as noted in [[VP8-RTP]] Section 6.1:</p>
+                        <p>The following receiver capability parameters are defined for "vp8", as noted in [[VP8-RTP]] Section 6.1:</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -2724,7 +2726,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="h264-capabilities*">
                         <h3>H.264</h3>
-                        <p>The following capabilities are defined for H.264, as noted in [[RFC6184]] Section 8.1, and [[!RTCWEB-VIDEO]] Section 6.2.</p>
+                        <p>The following capability parameters are defined for "h264", as noted in [[RFC6184]] Section 8.1, and [[!RTCWEB-VIDEO]] Section 6.2.</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -2929,7 +2931,7 @@ mySignaller.myOfferTracks({
                     <p>The parameters of common codecs are described below.</p>
                     <section id="opus-codec-settings*">
                         <h3>Opus</h3>
-                        <p>The following settings are defined for Opus:</p>
+                        <p>The following settings are defined for "opus":</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -3057,7 +3059,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="vp8-settings*">
                         <h3>VP8</h3>
-                        <p>The following settings are defined for VP8:</p>
+                        <p>The following settings are defined for "vp8":</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -3089,7 +3091,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="h264-settings*">
                         <h3>H.264</h3>
-                        <p>The following settings are defined for H.264:</p>
+                        <p>The following settings are defined for "h264":</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -3123,7 +3125,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="rtx-codec-settings*">
                         <h3>RTX</h3>
-                        <p>The following settings are defined for RTX, as noted in [[!RFC4588]] Section 8.6:</p>
+                        <p>The following settings are defined for "rtx", as noted in [[!RFC4588]] Section 8.6:</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -3149,7 +3151,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="red-codec-settings*">
                         <h3>RED</h3>
-                        <p>The following settings are defined for RED, as noted in [[!RFC2198]] Section 5:</p>
+                        <p>The following settings are defined for "red", as noted in [[!RFC2198]] Section 5:</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -3165,6 +3167,56 @@ mySignaller.myOfferTracks({
                                         <code>sequence&lt;payloadtype></code>
                                     </td>
                                     <td>A sequence of payload types to be encapsulated in RED.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="ulpfec-codec-settings*">
+                        <h3>Ulpfec</h3>
+                        <p>As noted in [[RFC5109]], "ulpfec" has no settings (or capability parameters).</p> 
+                    </section>
+                    <section id="flexfec-codec-settings*">
+                        <h3>Flexfec</h3>
+                        <p>The following settings are defined for "flexfec", as noted in [[FLEXFEC]] Section 5.1.1:</p>
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Property Name</th>
+                                    <th>Values</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="def-repairwindow*">
+                                    <td><dfn>repairWindow</dfn></td>
+                                    <td>
+                                        <code>unsigned long long</code>
+                                    </td>
+                                    <td>The time that spans the source packets and the corresponding repair packets, in microseconds.</td>
+                                </tr>
+                                <tr id="def-l*">
+                                    <td><dfn>l</dfn></td>
+                                    <td>
+                                        <code>unsigned long</code>
+                                    </td>
+                                    <td>The number of columns of the source block that are protected by this FEC block.</td>
+                                </tr>
+                                <tr id="def-d*">
+                                    <td><dfn>d</dfn></td>
+                                    <td>
+                                        <code>unsigned long</code>
+                                    </td>
+                                    <td>The number of rows of the source block that are protected by this FEC block.</td>
+                                </tr>
+                                <tr id="def-top*">
+                                    <td><dfn>toP</dfn></td>
+                                    <td>
+                                        <code>unsigned short</code>
+                                    </td>
+                                    <td>The type of protection applied by the sender:  0 for 1-D interleaved FEC protection, 
+                                        1 for 1-D non-interleaved FEC protection, and 2 for 2-D parity FEC protection.  
+                                        The value of 3 is reserved for future use.
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
