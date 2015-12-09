@@ -2629,14 +2629,6 @@ mySignaller.myOfferTracks({
                                     <td>Sender</td>
                                     <td>A hint about the maximum input sampling rate that the sender is likely to produce.</td> 
                                 </tr>
-                                <tr id="def-ptime*">
-                                    <td><dfn>ptime</dfn></td>
-                                    <td>
-                                        <code>unsigned long</code>
-                                    </td>
-                                    <td>Receiver</td>
-                                    <td>The preferred duration of media represented by a packet that a decoder wants to receive in milliseconds.</td>
-                                </tr>
                                 <tr id="def-maxaveragebitrate*">
                                     <td><dfn>maxAverageBitrate</dfn></td>
                                     <td>
@@ -2644,22 +2636,6 @@ mySignaller.myOfferTracks({
                                     </td>
                                     <td>Receiver</td>
                                     <td>Specifies the maximum average receive bitrate of a session in bits per second (bits/s).</td> 
-                                </tr>
-                                <tr id="def-stereo*">
-                                    <td><dfn>stereo</dfn></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Receiver</td>
-                                    <td>Specifies whether the decoder prefers receiving stereo (if true) or mono signals (if false).</td>
-                                </tr>
-                                <tr id="def-spropstereo*">
-                                    <td><dfn>spropStereo</dfn></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Specifies whether the sender is likely to produce stereo audio (if true) or mono signals (if false).</td>
                                 </tr>
                                 <tr id="def-cbr*">
                                     <td><dfn>cbr</dfn></td>
@@ -2944,7 +2920,7 @@ mySignaller.myOfferTracks({
                                         <code>unsigned long</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>A hint about the maximum output sampling rate that the receiver is capable of rendering in Hz.</td>
+                                    <td>The maximum output sampling rate of the encoder in Hz.</td>
                                 </tr>
                                 <tr id="sec-sprop-maxcapturerate*">
                                     <td><a>spropMaxCaptureRate</a></td>
@@ -2952,39 +2928,7 @@ mySignaller.myOfferTracks({
                                         <code>unsigned long</code>
                                     </td>
                                     <td>Receiver</td>
-                                    <td>A hint about the maximum input sampling rate that the sender is likely to produce.</td>
-                                </tr>
-                                <tr id="sec-ptime*">
-                                    <td><a>ptime</a></td>
-                                    <td>
-                                        <code>unsigned long</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>The preferred duration of media represented by a packet that a decoder wants to receive in milliseconds.</td>
-                                </tr>
-                                <tr id="sec-maxaveragebitrate*">
-                                    <td><a>maxAverageBitrate</a></td>
-                                    <td>
-                                        <code>unsigned long</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Specifies the maximum average receive bitrate of a session in bits per second (bits/s).</td>
-                                </tr>
-                                <tr id="sec-stereo*">
-                                    <td><a>stereo</a></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Sender</td>
-                                    <td>Specifies whether the decoder prefers receiving stereo (if true) or mono signals (if false).</td>
-                                </tr>
-                                <tr id="sec-spropstereo*">
-                                    <td><a>spropStereo</a></td>
-                                    <td>
-                                        <code>boolean</code>
-                                    </td>
-                                    <td>Receiver</td>
-                                    <td>Specifies whether the sender is likely to produce stereo audio (if true) or mono signals (if false).</td>
+                                    <td>The maximum input sampling rate produced by the sender.</td>
                                 </tr>
                                 <tr id="sec-cbr*">
                                     <td><a>cbr</a></td>
@@ -2992,7 +2936,7 @@ mySignaller.myOfferTracks({
                                         <code>boolean</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>Specifies if the decoder prefers the use of constant bitrate (if true) or variable bitrate (if false).</td>
+                                    <td>Specifies if the encoder is configured to generate constant bitrate (if true) or variable bitrate (if false).</td>
                                 </tr>
                                 <tr id="sec-useinbandfec*">
                                     <td><a>useInbandFec</a></td>
@@ -3000,7 +2944,7 @@ mySignaller.myOfferTracks({
                                         <code>boolean</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>Specifies if the decoder has the capability to take advantage of Opus in-band fec (if true) or not (if false).</td>
+                                    <td>Specifies if the encoder is configured to generate Opus in-band fec (if true) or not (if false).</td>
                                 </tr>
                                 <tr id="sec-usedtx*">
                                     <td><a>useDtx</a></td>
@@ -3008,7 +2952,7 @@ mySignaller.myOfferTracks({
                                         <code>boolean</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>Specifies if the decoder prefers the use of DTX (if true) or not (if false).</td>
+                                    <td>Specifies if the encoder is configured to use DTX (if true) or not (if false).</td>
                                 </tr>
                                 <tr id="sec-complexity*">
                                     <td><a>complexity</a></td>
