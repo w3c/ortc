@@ -421,6 +421,18 @@ var respecConfig = {
       "status": "18 October 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "FLEXFEC": {
+      "title": "RTP Payload Format for Flexible Forward Error Correction (FEC)",
+      "href": "https://tools.ietf.org/html/draft-ietf-payload-flexible-fec-scheme",
+      "authors": [
+        "V. Singh",
+        "A. Begen",
+        "M. Zanaty",
+        "G. Mandyam" 
+      ],
+      "status": "19 October 2015. Internet Draft (work in progress)",
+      "publisher": "IETF"
+    },
     "GROUPING": {
       "title": "RTP Grouping Taxonomy",
       "href": "https://tools.ietf.org/html/draft-ietf-avtext-rtp-grouping-taxonomy",
