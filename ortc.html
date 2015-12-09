@@ -2491,11 +2491,16 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>The maximum packetization time supported by the <code><a>RTCRtpReceiver</a></code>.</p>
                     </dd>
+                    <dt>unsigned long ptime</dt>
+                    <dd>
+                        <p>The preferred duration of media represented by a packet in milliseconds for the <code><a>RTCRtpSender</a></code> or 
+                        <code><a>RTCRtpReceiver</a></code>.</p>
+                    </dd>
                     <dt>unsigned long numChannels</dt>
                     <dd>
                         <p>
-                            The number of channels supported (e.g. stereo).
-                            For video, this will be unset.
+                            The number of channels supported (e.g. two for stereo).
+                            For video, this attribute is unset.
                         </p>
                     </dd>
                     <dt>sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback</dt>
@@ -2744,6 +2749,114 @@ mySignaller.myOfferTracks({
                             </tbody>
                         </table>
                     </section>
+                    <section id="rtx-codec-capability*">
+                        <h3>RTX</h3>
+                        <p>The following capability is defined for "rtx", as noted in [[!RFC4588]] Section 8.6:</p>
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Property Name</th>
+                                    <th>Values</th>
+                                    <th>Receiver/Sender</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="def-rtxtime*">
+                                    <td><dfn>rtxTime</dfn></td>
+                                    <td>
+                                        <code>unsigned long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>
+                            As defined in [[!RFC4588]], the default time in milliseconds (measured from the
+                            time a packet was first sent) that the sender keeps an RTP packet
+                            in its buffers available for retransmission.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="red-codec-capability*">
+                        <h3>RED</h3>
+                        <p>The following capability is defined for "red", as noted in [[!RFC2198]] Section 5:</p>
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Property Name</th>
+                                    <th>Values</th>
+                                    <th>Receiver/Sender</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="def-payloadtypes*">
+                                    <td><dfn>payloadTypes</dfn></td>
+                                    <td>
+                                        <code>sequence&lt;payloadtype></code>
+                                    </td>
+                                    <td>Sender/Receiver</td>
+                                    <td>A sequence of payload types to be encapsulated in RED.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="ulpfec-codec-capability*">
+                        <h3>Ulpfec</h3>
+                        <p>As noted in [[RFC5109]], "ulpfec" has no codec-specific capability parameters.</p>
+                    </section>
+                    <section id="flexfec-codec-capability*">
+                        <h3>Flexfec</h3>
+                        <p>The following capabilities are defined for "flexfec", as noted in [[FLEXFEC]] Section 5.1.1:</p>
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Property Name</th>
+                                    <th>Values</th>
+                                    <th>Receiver/Sender</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="def-repairwindow*">
+                                    <td><dfn>repairWindow</dfn></td>
+                                    <td>
+                                        <code>unsigned long long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>The default time that spans the source packets and the corresponding repair packets, in microseconds.</td>
+                                </tr>
+                                <tr id="def-l*">
+                                    <td><dfn>l</dfn></td>
+                                    <td>
+                                        <code>unsigned long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>The default number of columns of the source block that are protected by this FEC block.</td>
+                                </tr>
+                                <tr id="def-d*">
+                                    <td><dfn>d</dfn></td>
+                                    <td>
+                                        <code>unsigned long</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>The default number of rows of the source block that are protected by this FEC block.</td>
+                                </tr>
+                                <tr id="def-top*">
+                                    <td><dfn>toP</dfn></td>
+                                    <td>
+                                        <code>unsigned short</code>
+                                    </td>
+                                    <td>Sender</td>
+                                    <td>The default type of protection for the sender:  
+                                        0 for 1-D interleaved FEC protection, 1 for 1-D non-interleaved FEC protection,
+                                        and 2 for 2-D parity FEC protection. The value of 3 is reserved for future use.
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
                 </section>
             </section>
             <section id="rtcrtpparameters*">
@@ -2881,13 +2994,18 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The maximum packetization time set on the <code><a>RTCRtpSender</a></code>.
-                            Not specified if unset.
+                            Not specified if unset.  If <var>ptime</var> is also set, <var>maxptime</var> is ignored.
                         </p>
+                    </dd>
+                    <dt>unsigned long ptime</dt>
+                    <dd>
+                        <p>The duration of media represented by a packet in milliseconds for the <code><a>RTCRtpSender</a></code>.
+                        If unset, the <code><a>RTCRtpSender</a></code> may select any value up to <var>maxptime</var>.
                     </dd>
                     <dt>unsigned long numChannels</dt>
                     <dd>
                         <p>
-                            The number of channels supported (e.g. stereo). If unset for audio, use the codec default.
+                            The number of channels supported (e.g. two for stereo). If unset for audio, use the codec default.
                             For video, this can be left unset.
                         </p>
                     </dd>
@@ -3067,21 +3185,23 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="rtx-codec-settings*">
                         <h3>RTX</h3>
-                        <p>The following settings are defined for "rtx", as noted in [[!RFC4588]] Section 8.6:</p>
+                        <p>The following setting is defined for "rtx", as noted in [[!RFC4588]] Section 8.6:</p>
                         <table class="simple">
                             <thead>
                                 <tr>
                                     <th>Property Name</th>
                                     <th>Values</th>
+                                    <th>Receiver/Sender</th>
                                     <th>Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="def-rtxtime*">
-                                    <td><dfn>rtxTime</dfn></td>
+                                <tr id="sec-rtxtime*">
+                                    <td>rtxTime</td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
+                                    <td>Receiver</td>   
                                     <td>
                             As defined in [[!RFC4588]], the time in milliseconds (measured from the
                             time a packet was first sent) that the sender keeps an RTP packet
@@ -3093,21 +3213,23 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="red-codec-settings*">
                         <h3>RED</h3>
-                        <p>The following settings are defined for "red", as noted in [[!RFC2198]] Section 5:</p>
+                        <p>The following setting is defined for "red", as noted in [[!RFC2198]] Section 5:</p>
                         <table class="simple">
                             <thead>
                                 <tr>
                                     <th>Property Name</th>
                                     <th>Values</th>
+                                    <th>Receiver/Sender</th>
                                     <th>Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="def-payloadtypes*">
-                                    <td><dfn>payloadTypes</dfn></td>
+                                <tr id="sec-payloadtypes*">
+                                    <td>payloadTypes</td>
                                     <td>
                                         <code>sequence&lt;payloadtype></code>
                                     </td>
+                                    <td>Sender/Receiver</td>
                                     <td>A sequence of payload types to be encapsulated in RED.</td>
                                 </tr>
                             </tbody>
@@ -3115,7 +3237,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="ulpfec-codec-settings*">
                         <h3>Ulpfec</h3>
-                        <p>As noted in [[RFC5109]], "ulpfec" has no settings (or capability parameters).</p> 
+                        <p>As noted in [[RFC5109]], "ulpfec" has no codec-specific settings.</p> 
                     </section>
                     <section id="flexfec-codec-settings*">
                         <h3>Flexfec</h3>
@@ -3125,36 +3247,41 @@ mySignaller.myOfferTracks({
                                 <tr>
                                     <th>Property Name</th>
                                     <th>Values</th>
+                                    <th>Receiver/Sender</th>
                                     <th>Notes</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr id="def-repairwindow*">
-                                    <td><dfn>repairWindow</dfn></td>
+                                <tr id="sec-repairwindow*">
+                                    <td>repairWindow</td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
+                                    <td>Receiver</td>
                                     <td>The time that spans the source packets and the corresponding repair packets, in microseconds.</td>
                                 </tr>
-                                <tr id="def-l*">
-                                    <td><dfn>l</dfn></td>
+                                <tr id="sec-l*">
+                                    <td>l</td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
+                                    <td>Receiver</td>
                                     <td>The number of columns of the source block that are protected by this FEC block.</td>
                                 </tr>
-                                <tr id="def-d*">
-                                    <td><dfn>d</dfn></td>
+                                <tr id="sec-d*">
+                                    <td>d</td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
+                                    <td>Receiver</td>
                                     <td>The number of rows of the source block that are protected by this FEC block.</td>
                                 </tr>
-                                <tr id="def-top*">
-                                    <td><dfn>toP</dfn></td>
+                                <tr id="sec-top*">
+                                    <td>toP</td>
                                     <td>
                                         <code>unsigned short</code>
                                     </td>
+                                    <td>Receiver</td>
                                     <td>The type of protection applied by the sender:  0 for 1-D interleaved FEC protection, 
                                         1 for 1-D non-interleaved FEC protection, and 2 for 2-D parity FEC protection.  
                                         The value of 3 is reserved for future use.
@@ -3167,6 +3294,9 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtpencodingparameters*">
                 <h3>dictionary RTCRtpEncodingParameters</h3>
+
+                <p><code><a>RTCRtpEncodingParameters</a></code> provides information relating to the encoding.  Note that all encoding parameters
+                (such as <var>maxBitrate</var>, <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to codec-specific constraints.</p> 
                 <dl class="idl" title="dictionary RTCRtpEncodingParameters">
                     <dt>unsigned long ssrc</dt>
                     <dd>
@@ -3231,8 +3361,7 @@ mySignaller.myOfferTracks({
                             2.0 = one half of the full resolution.
                             For scalable video coding, <var>resolutionScale</var> refers to
                             the inverse aggregate fraction of the input resolution achieved by this
-                            layer when combined with all
-                            dependent layers.
+                            layer when combined with all dependent layers.  
                         </p>
                     </dd>
                     <dt>double framerateScale</dt>
@@ -3242,6 +3371,13 @@ mySignaller.myOfferTracks({
                             2.0 = one half of the full framerate.
                             For scalable video coding, <var>framerateScale</var> refers to the inverse of the aggregate fraction of input framerate
                             achieved by this layer when combined with all dependent layers.
+                        </p>
+                    </dd>
+                    <dt>unsigned long maxFramerate</dt>
+                    <dd>
+                        <p>
+                            The maximum framerate to use for this encoding.  This setting is not used for scalable video coding.
+                            If <var>framerateScale</var> is set, then <var>maxFramerate</var> is ignored.   
                         </p>
                     </dd>
                     <dt>boolean active=true</dt>
@@ -5662,6 +5798,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                 <h3>Changes since 20 November 2015</h3>
                 <ol>
                     <li>
+                        Added support for ptime, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/160">Issue 160</a>
+                    </li>
+                    <li>
                         Added support for Forward Error Correction, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/253">Issue 253</a>
                     </li>
@@ -5684,6 +5824,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Change RTCRtpContributingSource from an interface to a dictionary, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/289">Issue 289</a>
+                    </li>
+                    <li>
+                        Added support for maximum framerate, as noted in:
+                        <a href="https://github.com/w3c/webrtc-pc/issues/412">Issue 412</a>
                     </li>
                 </ol>
             </section>
