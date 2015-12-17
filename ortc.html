@@ -1219,7 +1219,8 @@ mySignaller.send({
                     </dd>
                     <dt>sequence&lt;ArrayBuffer&gt; getRemoteCertificates()</dt>
                     <dd>
-                        <p>Obtain the certificates used by the remote peer.</p>
+                        <p>Returns the certificate chain in use by the remote side, with each certificate
+                        encoded in binary Distinguished Encoding Rules (DER) [[!X690]].</p>
                     </dd>
                     <dt>void start(RTCDtlsParameters remoteParameters)</dt>
                     <dd>
@@ -5826,8 +5827,12 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/289">Issue 289</a>
                     </li>
                     <li>
-                        Added support for maximum framerate, as noted in:
+                        Added support for maxFramerate encoding parameter, as noted in:
                         <a href="https://github.com/w3c/webrtc-pc/issues/412">Issue 412</a>
+                    </li>
+                    <li>
+                        Clarified behavior of <code>getRemoteCertificates()</code>, as noted in:
+                        <a href="https://github.com/w3c/webrtc-pc/issues/378">Issue 378</a>
                     </li>
                 </ol>
             </section>
