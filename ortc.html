@@ -1350,16 +1350,16 @@ mySignaller.send({
                     <dt>connecting</dt>
                     <dd>
                         <p>
-                            DTLS is in the process of negotiating a secure connection. Once a secure connection is negotiated and
-                            <a>DTLS-SRTP</a> has derived keys (but prior to verification of the remote fingerprint, enabled by calling
-                            <code>start()</code>), incoming media can flow through.
+                            DTLS is in the process of negotiating a secure connection and verifying the remote fingerprint.  Once a 
+                            secure connection is negotiated (but prior to verification of the remote fingerprint, enabled by calling
+                            <code>start()</code>), incoming data can flow through (and media, once <a>DTLS/SRTP</a> key derivation is completed).
                         </p>
                     </dd>
                     <dt>connected</dt>
                     <dd>
                         <p>
-                            DTLS has completed negotiation of a secure connection (including <a>DTLS-SRTP</a> and remote fingerprint verification).
-                            Outgoing media can now flow through.
+                            DTLS has completed negotiation of a secure connection and verified the remote fingerprint.  Outgoing data 
+                            and media can now flow through.
                         </p>
                     </dd>
                     <dt>closed</dt>
@@ -5828,6 +5828,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added support for maximum framerate, as noted in:
                         <a href="https://github.com/w3c/webrtc-pc/issues/412">Issue 412</a>
+                    </li>
+                    <li>
+                        Clarified RTCDtlsTransportState definition, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/294">Issue 294</a>
                     </li>
                 </ol>
             </section>
