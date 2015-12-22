@@ -239,7 +239,9 @@
             <section id="rtciceparameters*">
                 <h3>The RTCIceParameters Object</h3>
                 <p>
-                    The local <dfn>RTCIceParameters</dfn> object includes the ICE username fragment and password.
+                    The local <dfn>RTCIceParameters</dfn> object includes the ICE username fragment and password.  The
+                    <code><a>RTCIceParameters<</a></code> object corresponding to a remote peer may also include 
+                    an <var>iceLite</var> attribute (set to "true" if the remote peer only supports ICE-lite).
                 </p>
                 <dl class="idl" title="dictionary RTCIceParameters">
                     <dt>DOMString usernameFragment</dt>
