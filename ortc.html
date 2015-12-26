@@ -1450,8 +1450,9 @@ function initiate(mySignaller) {
   // Create the DTLS certificate and parameters
   var dtlsParameters = new RTCDtlsParameters();
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
+  var cert; 
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    var cert = certificate;
+    cert = certificate;
     // Obtain the fingerprint of the created certificate
     dtlsParameters.fingerprints[0] = cert.fingerprint;
   }, function(){
@@ -1511,8 +1512,9 @@ function accept(mySignaller, remote) {
 
   // Create the DTLS certificate
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
+  var cert; 
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    var cert = certificate;
+    cert = certificate;
   }, function(){
     trace('Certificate could not be created');
   });
@@ -5838,6 +5840,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified RTCDtlsTransportState definition, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/294">Issue 294</a>
+                    </li>
+                    <li>
+                        Fixed problems in Examples 6 and 7, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/310">Issue 310</a>
                     </li>
                 </ol>
             </section>
