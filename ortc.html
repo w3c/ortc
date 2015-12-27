@@ -3740,6 +3740,11 @@ var encodings = [{
                     <dd>
                         <p>If true, the value in the header is encrypted as per [[!RFC6904]]. Default is unencrypted.</p>
                     </dd>
+                    <dt>Dictionary parameters</dt>
+                    <dd>
+                        <p>Configuration parameters for the header extension.  An example is the "vad" attribute
+                        in the client-to-mixer header extension, described in [[!RFC6464]] Section 4.</p>
+                    </dd>
                 </dl>
             </section>
             <section id="headerextensions*">
@@ -3750,6 +3755,7 @@ var encodings = [{
                         <tr>
                             <th>Header Extension</th>
                             <th>Reference</th>
+                            <th>Attributes</th>
                             <th>Notes</th>
                         </tr>
                     </thead>
@@ -3759,6 +3765,7 @@ var encodings = [{
                             <td>
                                 [[RFC6051]]
                             </td>
+                            <td>None</td>
                             <td>
                                 This extension enables carriage of an NTP-format timestamp, as defined in [[!RFC6051]] Section 3.3.
                             </td>
@@ -3768,8 +3775,10 @@ var encodings = [{
                             <td>
                                 [[!RFC6464]]
                             </td>
+                            <td>DOMString vad</td>
                             <td>
                                 This extension indicates the audio level of the audio sample carried in an RTP packet.
+                                The <var>vad</var> attribute indicates whether the V bit is in use ("on") or not ("off").
                             </td>
                         </tr>
                         <tr id="def-mixer-to-client*">
@@ -3777,6 +3786,7 @@ var encodings = [{
                             <td>
                                 [[RFC6465]]
                             </td>
+                            <td>None</td>
                             <td>
                                 This extension indicates the audio level of individual conference participants.
                             </td>
@@ -3786,6 +3796,7 @@ var encodings = [{
                             <td>
                                 [[!BUNDLE]]
                             </td>
+                            <td>None</td>
                             <td>
                                 This extension defines a track identifier which can be used to identify the track corresponding to an RTP stream.
                             </td>
@@ -3795,6 +3806,7 @@ var encodings = [{
                             <td>
                                 [[!RID]]
                             </td>
+                            <td>None</td>
                             <td>
                                 This extension defines an identifier used to carry the <var>encodingId</var>.
                             </td>
@@ -5806,6 +5818,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added support for Forward Error Correction, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/253">Issue 253</a>
+                    </li>
+                    <li>
+                        Added support header extension attributes, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/263">Issue 263</a>
                     </li>
                     <li>
                         Added definition of maxBitrate, as noted in:
