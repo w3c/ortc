@@ -65,7 +65,7 @@ var respecConfig = {
     },
     "RID": {
       "title": "RTP Payload Format Constraints",
-      "href": "https://tools.ietf.org/html/draft-pthatcher-mmusic-rid",
+      "href": "https://tools.ietf.org/html/draft-ietf-mmusic-rid",
       "authors": [
         "P. Thatcher",
         "M. Zanaty",
@@ -74,7 +74,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "19 October 2015. Internet Draft (work in progress)",
+      "status": "11 November 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RFC3264": {
