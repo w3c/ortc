@@ -239,7 +239,9 @@
             <section id="rtciceparameters*">
                 <h3>The RTCIceParameters Object</h3>
                 <p>
-                    The <dfn>RTCIceParameters</dfn> object includes the ICE username fragment and password.
+                    The local <dfn>RTCIceParameters</dfn> object includes the ICE username fragment and password.  The
+                    <code><a>RTCIceParameters<</a></code> object corresponding to a remote peer may also include 
+                    an <var>iceLite</var> attribute (set to "true" if the remote peer only supports ICE-lite).
                 </p>
                 <dl class="idl" title="dictionary RTCIceParameters">
                     <dt>DOMString usernameFragment</dt>
@@ -249,6 +251,14 @@
                     <dt>DOMString password</dt>
                     <dd>
                         <p>ICE password.</p>
+                    </dd>
+                    <dt>boolean iceLite</dt>
+                    <dd>
+                        <p>
+                            If only ICE-lite is supported by the remote peer (true) or not (false or unset).
+                            Since [[!RTCWEB-TRANSPORT]] Section 3.4 requires browser support for full ICE not ICE-lite,
+                            <code>getLocalParameters().iceLite</code> MUST NOT be set.
+                        </p>
                     </dd>
                 </dl>
             </section>
@@ -816,13 +826,12 @@ function myDtlsTransportStateChange(name, state){
                             The first time <code>start()</code> is called, candidate connectivity checks are started and the
                             ICE transport attempts to connect to the remote <code><a>RTCIceTransport</a></code>.
                             If <code>start()</code> is called with invalid parameters, throw an <code>InvalidParameters</code> exception.
-                            For example, if <var>gatherer.component</var>
-                            has a value different from <var>iceTransport.component</var>, throw an <code>InvalidParameters</code> exception.
-                            If <var>state</var> or <var>gatherer.state</var> is "closed",
-                            throw an <code>InvalidStateError</code> exception.
-                            When <code>start()</code> is called again, <code><a>RTCIceTransportState</a></code> transitions to the "connected" state,
-                            all remote candidates are flushed, and <code>addRemoteCandidate()</code> or
-                            <code>setRemoteCandidates()</code> must be called to add the remote candidates back or replace them.
+                            For example, if <var>gatherer.component</var> has a value different from <var>iceTransport.component</var>, 
+                            throw an <code>InvalidParameters</code> exception.  If <var>state</var> or <var>gatherer.state</var> is "closed",
+                            throw an <code>InvalidStateError</code> exception.  When <code>start()</code> is called again,
+                            <code><a>RTCIceTransportState</a></code> transitions to the "connected" state, all remote candidates
+                            are flushed, and <code>addRemoteCandidate()</code> or <code>setRemoteCandidates()</code> must be called
+                            to add the remote candidates back or replace them.
                         </p>
                         <p>
                             If a newly constructed <code><a>RTCIceGatherer</a></code> object is passed as an argument when <code>start()</code>
@@ -5844,6 +5853,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified behavior of <code>getRemoteCertificates()</code>, as noted in:
                         <a href="https://github.com/w3c/webrtc-pc/issues/378">Issue 378</a>
+                    </li>
+                    <li>
+                        Added support for remote peer ICE-lite implementation, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/293">Issue 293</a>
                     </li>
                     <li>
                         Clarified RTCDtlsTransportState definition, as noted in:
