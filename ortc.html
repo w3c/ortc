@@ -547,6 +547,16 @@
                             This can be used to reduce leakage of IP addresses in certain use cases.
                         </p>
                     </dd>
+                    <dt>public</dt>
+                    <dd>
+                        <p>
+                            The ICE gatherer <em class="rfc2119" title="MUST">MUST</em> filter out
+                            candidates with private IP addresses [[RFC1918]].  This prevents exposure of 
+                            internal network details, at the cost of requiring relay usage even for intranet calls, 
+                            if the Network Address Translator (NAT) does not allow hairpinning as described in 
+                            [[RFC4787]], section 6.
+                        </p>
+                    </dd>
                 </dl>
             </section>
             <section id="rtcicecredentialtype*">
@@ -5838,6 +5848,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified RTCDtlsTransportState definition, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/294">Issue 294</a>
+                    </li>
+                    <li>
+                        Added "public" to RTCIceGatherPolicy, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/305">Issue 305</a>
                     </li>
                 </ol>
             </section>
