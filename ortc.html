@@ -162,7 +162,10 @@
                 <dl class="idl" title="[Constructor(RTCIceGatherOptions options)] interface RTCIceGatherer : RTCStatsProvider">
                     <dt>readonly attribute RTCIceComponent component</dt>
                     <dd>
-                        <p>The component-id of the <code><a>RTCIceGatherer</a></code>.</p>
+                        <p>The component-id of the <code><a>RTCIceGatherer</a></code> object.  In <code><a>RTCIceGatherer</a></code>
+                        objects returned by <code>createAssociatedGatherer()</code> the value of <var>component</var> is "RTCP".  In all
+                        other <code><a>RTCIceGatherer</a></code> objects, the value of <var>component</var> is "RTP".
+                        </p>
                     </dd>
                     <dt>readonly attribute RTCIceGathererState state</dt>
                     <dd>
@@ -799,7 +802,10 @@ function myDtlsTransportStateChange(name, state){
                     </dd>
                     <dt>readonly attribute RTCIceComponent component</dt>
                     <dd>
-                        <p>The component-id of the <code><a>RTCIceTransport</a></code>.</p>
+                        <p>The component-id of the <code><a>RTCIceTransport</a></code> object.  In <code><a>RTCIceTransport</a></code>
+                        objects returned by <code>createAssociatedTransport()</code>, the value of <var>component</var> is
+                        "RTCP".  In all other <code><a>RTCIceTransport</code></a> objects, the value of <var>component</var> is "RTP".
+                        </p>
                     </dd>
                     <dt>readonly attribute RTCIceTransportState state</dt>
                     <dd>
@@ -5890,6 +5896,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Fixed problems in Examples 6, 7, 22 and 24, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/310">Issue 310</a>
+                    </li>
+                    <li>
+                        Clarified value of the <var>component</var> attribute, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/314">Issue 314</a>
                     </li>
                 </ol>
             </section>
