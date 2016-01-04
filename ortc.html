@@ -5470,13 +5470,13 @@ function signalAssertion(assertion) {
                 <h3>RTCCertificate Interface</h3>
                 <p>The Certificate API is described below.</p>
                 <dl class="idl" title="interface RTCCertificate">
-                    <dt>readonly attribute Date expires</dt>
+                    <dt>readonly attribute DOMTimeStamp expires</dt>
                     <dd>
                         <p>
-                            The <var>expires</var> attribute indicates the date and time
-                            after which the certificate will be considered invalid by the
-                            browser. After this time, attempts to construct
-                            an <code><a>RTCDtlsTransport</a></code> using this certificate fail.
+                            The <var>expires</var> attribute indicates the date and time in milliseconds relative to
+                            1970-01-01T00:00:00Z after which the certificate will be considered invalid by the browser.
+                            After this time, attempts to construct an <code><a>RTCDtlsTransport</a></code> object using
+                            this certificate will fail.
                         </p>
                         <p>
                             Note that this value might not be reflected in
@@ -5511,8 +5511,9 @@ function signalAssertion(assertion) {
                             normalization process</a> [[!WebCryptoAPI]] with an operation name
                             of <code>generateKey</code> and a
                             [[<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-supportedAlgorithms">supportedAlgorithms</a>]]
-                            value specific to production of certificates
-                            for <code><a>RTCDtlsTransport</a></code>.
+                            value specific to production of certificates for <code><a>RTCDtlsTransport</a></code>.
+                            If the algorithm normalization process produces an error, the call to <code>generateCertificate()</code>
+                            <em title="MUST" class="rfc2119">MUST</em> be rejected with that error.
                         </p>
                         <p>
                             Signatures produced by the generated key are used to authenticate
@@ -5537,9 +5538,18 @@ function signalAssertion(assertion) {
                             distinguished name and serial number <em title="SHOULD" class="rfc2119">SHOULD</em> be used.
                         </p>
                         <p>
+                            An optional <code>expires</code> attribute <em title="MAY" class="rfc2119">MAY</em> be added to the
+                            <var>keygenAlgorithm</var> parameter. If this contains a <code><a>DOMTimeStamp</a></code> value,
+                            it indicates the maximum time that the <code><a>RTCCertificate</a></code> is valid for relative to
+                            the current time.  A <a>user agent</a> sets the <code><a href="#widl-RTCCertificate-expires">expires</a></code>
+                            attribute of the returned <code><a>RTCCertificate</a></code> to the current time plus the value of the <code>expires</code>
+                            attribute. However, a <a>user agent</a> MAY choose to limit the period over which an <code><a>RTCCertificate</a></code>
+                            is valid.
+                        </p>
+                        <p>
                             A <a class="internalDFN" href="#dfn-user-agent">user agent</a> <em title="MUST" class="rfc2119">MUST</em> reject a call
                             to <code>generateCertificate()</code> with a <code>DOMError</code> of
-                            type "InvalidAccessError" if the <var>keygenAlgorithm</var> parameter
+                            type "NotSupportedError" if the <var>keygenAlgorithm</var> parameter
                             identifies an algorithm that the <a class="internalDFN" href="#dfn-user-agent">user agent</a> cannot or will not
                             use to generate a certificate for <code><a>RTCDtlsTransport</a></code>.
                         </p>
@@ -5547,7 +5557,7 @@ function signalAssertion(assertion) {
                             The following values <em title="MUST" class="rfc2119">MUST</em> be supported by a <a class="internalDFN" href="#dfn-user-agent">user agent</a>:
                             <code>{ name:
                             "<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#rsassa-pkcs1">RSASSA-PKCS1-v1_5</a>",
-                            modulusLength: 2048, publicExponent: 65537 }</code>, and <code>{
+                            modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: "SHA-256" }</code>, and <code>{
                             name:
                             "<a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#ecdsa">ECDSA</a>",
                             namedCurve:
@@ -5888,6 +5898,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified RTCDtlsTransportState definition, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/294">Issue 294</a>
+                    </li>
+                    <li>
+                        Sync of certificate management API with WebRTC 1.0 changes, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/303">Issue 303</a>
                     </li>
                     <li>
                         Added "public" to RTCIceGatherPolicy, as noted in:
