@@ -1467,10 +1467,11 @@ function initiate(mySignaller) {
   var dtlsTransports = [];
 
   // Create the DTLS certificate and parameters
+  var cert;
   var dtlsParameters = new RTCDtlsParameters();
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    var cert = certificate;
+    cert = certificate;
     // Obtain the fingerprint of the created certificate
     dtlsParameters.fingerprints[0] = cert.fingerprint;
   }, function(){
@@ -1529,9 +1530,10 @@ function accept(mySignaller, remote) {
   };
 
   // Create the DTLS certificate
+  var cert;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    var cert = certificate;
+    cert = certificate;
   }, function(){
     trace('Certificate could not be created');
   });
@@ -5881,6 +5883,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added "public" to RTCIceGatherPolicy, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/305">Issue 305</a>
+                    </li>
+                    <li>
+                        Fixed problems in Examples 6 and 7, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/310">Issue 310</a>
                     </li>
                 </ol>
             </section>
