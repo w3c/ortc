@@ -240,7 +240,7 @@
                 <h3>The RTCIceParameters Object</h3>
                 <p>
                     The local <dfn>RTCIceParameters</dfn> object includes the ICE username fragment and password.  The
-                    <code><a>RTCIceParameters<</a></code> object corresponding to a remote peer may also include 
+                    <code><a>RTCIceParameters</a></code> object corresponding to a remote peer may also include 
                     an <var>iceLite</var> attribute (set to "true" if the remote peer only supports ICE-lite).
                 </p>
                 <dl class="idl" title="dictionary RTCIceParameters">
@@ -1372,7 +1372,7 @@ mySignaller.send({
                         <p>
                             DTLS is in the process of negotiating a secure connection and verifying the remote fingerprint.  Once a 
                             secure connection is negotiated (but prior to verification of the remote fingerprint, enabled by calling
-                            <code>start()</code>), incoming data can flow through (and media, once <a>DTLS/SRTP</a> key derivation is 
+                            <code>start()</code>), incoming data can flow through (and media, once <a>DTLS-SRTP</a> key derivation is 
                             completed).
                         </p>
                     </dd>
@@ -4591,9 +4591,10 @@ function initiate(signaller) {
   };
 
   // Create the DTLS certificate
+  var cert;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    var cert = certificate;
+    cert = certificate;
   }, function(){
     trace('Certificate could not be created');
   });
@@ -4635,9 +4636,10 @@ function accept(signaller, remote) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
   // Create the DTLS certificate
+  var cert;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    var cert = certificate;
+    cert = certificate;
   }, function(){
     trace('Certificate could not be created');
   });
@@ -5406,9 +5408,10 @@ iceGatherer.onlocalcandidate = function(event) {
 };
 var ice = new RTCIceTransport(iceGatherer);
 // Create the DTLS certificate
+var cert;
 var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
 RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-  var cert = certificate;
+  cert = certificate;
 }, function(){
   trace('Certificate could not be created');
 });
@@ -5885,7 +5888,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/305">Issue 305</a>
                     </li>
                     <li>
-                        Fixed problems in Examples 6 and 7, as noted in:
+                        Fixed problems in Examples 6, 7, 22 and 24, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/310">Issue 310</a>
                     </li>
                 </ol>
