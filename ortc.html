@@ -639,7 +639,7 @@ var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
 ];
 
 // Create IceGatherer object
@@ -1123,7 +1123,7 @@ var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
 ];
 
 // Create ICE gatherer objects
@@ -1461,7 +1461,7 @@ function initiate(mySignaller) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
   ];
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
@@ -1527,7 +1527,7 @@ function accept(mySignaller, remote) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
   ];
 
   var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -2057,7 +2057,7 @@ var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
 ];
 
 // Create the RTP and RTCP ICE gatherers for audio and video
@@ -4588,7 +4588,7 @@ function initiate(signaller) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
   ];
 
   var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -4634,7 +4634,7 @@ function accept(signaller, remote) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
   ];
 
   var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -5405,7 +5405,7 @@ var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
 ];
 
 var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -5916,7 +5916,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/314">Issue 314</a>
                     </li>
                     <li>
-                        Added <var>credentialType</var> attribute to Example 2, as noted in:
+                        Added <var>credentialType</var> attribute to Examples, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/323">Issue 323</a>
                     </li>
                 </ol>
