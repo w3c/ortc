@@ -1357,7 +1357,7 @@ mySignaller.send({
                     <dt>server</dt>
                     <dd>
                         <p>
-                            The DTLS server role. If <code><a>RTCDtlsRole</a></code> has a value of "auto" and the <code><a>RTCDtlsTransport</a></code> receives a DTLS client_helo packet,
+                            The DTLS server role. If <code><a>RTCDtlsRole</a></code> has a value of "auto" and the <code><a>RTCDtlsTransport</a></code> receives a DTLS client_hello packet,
                             <code><a>RTCDtlsRole</a></code> will transition to "server", even before <code>start()</code> is called. A transition from "auto"
                             to "server" will also occur if <code>start(<var>remoteParameters</var>)</code> is called with <var>remoteParameters.RTCDtlsRole</var>
                             having a value of "client".
