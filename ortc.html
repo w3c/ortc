@@ -243,7 +243,7 @@
                 <h3>The RTCIceParameters Object</h3>
                 <p>
                     The local <dfn>RTCIceParameters</dfn> object includes the ICE username fragment and password.  The
-                    <code><a>RTCIceParameters</a></code> object corresponding to a remote peer may also include 
+                    <code><a>RTCIceParameters</a></code> object corresponding to a remote peer may also include
                     an <var>iceLite</var> attribute (set to "true" if the remote peer only supports ICE-lite).
                 </p>
                 <dl class="idl" title="dictionary RTCIceParameters">
@@ -564,9 +564,9 @@
                     <dd>
                         <p>
                             The ICE gatherer <em class="rfc2119" title="MUST">MUST</em> filter out
-                            candidates with private IP addresses [[RFC1918]].  This prevents exposure of 
-                            internal network details, at the cost of requiring relay usage even for intranet calls, 
-                            if the Network Address Translator (NAT) does not allow hairpinning as described in 
+                            candidates with private IP addresses [[RFC1918]].  This prevents exposure of
+                            internal network details, at the cost of requiring relay usage even for intranet calls,
+                            if the Network Address Translator (NAT) does not allow hairpinning as described in
                             [[RFC4787]], section 6.
                         </p>
                     </dd>
@@ -832,7 +832,7 @@ function myDtlsTransportStateChange(name, state){
                             The first time <code>start()</code> is called, candidate connectivity checks are started and the
                             ICE transport attempts to connect to the remote <code><a>RTCIceTransport</a></code>.
                             If <code>start()</code> is called with invalid parameters, throw an <code>InvalidParameters</code> exception.
-                            For example, if <var>gatherer.component</var> has a value different from <var>iceTransport.component</var>, 
+                            For example, if <var>gatherer.component</var> has a value different from <var>iceTransport.component</var>,
                             throw an <code>InvalidParameters</code> exception.  If <var>state</var> or <var>gatherer.state</var> is "closed",
                             throw an <code>InvalidStateError</code> exception.  When <code>start()</code> is called again,
                             <code><a>RTCIceTransportState</a></code> transitions to the "connected" state, all remote candidates
@@ -1357,7 +1357,7 @@ mySignaller.send({
                     <dt>server</dt>
                     <dd>
                         <p>
-                            The DTLS server role. If <code><a>RTCDtlsRole</a></code> has a value of "auto" and the <code><a>RTCDtlsTransport</a></code> receives a DTLS client_helo packet,
+                            The DTLS server role. If <code><a>RTCDtlsRole</a></code> has a value of "auto" and the <code><a>RTCDtlsTransport</a></code> receives a DTLS client_hello packet,
                             <code><a>RTCDtlsRole</a></code> will transition to "server", even before <code>start()</code> is called. A transition from "auto"
                             to "server" will also occur if <code>start(<var>remoteParameters</var>)</code> is called with <var>remoteParameters.RTCDtlsRole</var>
                             having a value of "client".
@@ -1376,16 +1376,16 @@ mySignaller.send({
                     <dt>connecting</dt>
                     <dd>
                         <p>
-                            DTLS is in the process of negotiating a secure connection and verifying the remote fingerprint.  Once a 
+                            DTLS is in the process of negotiating a secure connection and verifying the remote fingerprint.  Once a
                             secure connection is negotiated (but prior to verification of the remote fingerprint, enabled by calling
-                            <code>start()</code>), incoming data can flow through (and media, once <a>DTLS-SRTP</a> key derivation is 
+                            <code>start()</code>), incoming data can flow through (and media, once <a>DTLS-SRTP</a> key derivation is
                             completed).
                         </p>
                     </dd>
                     <dt>connected</dt>
                     <dd>
                         <p>
-                            DTLS has completed negotiation of a secure connection and verified the remote fingerprint.  Outgoing data 
+                            DTLS has completed negotiation of a secure connection and verified the remote fingerprint.  Outgoing data
                             and media can now flow through.
                         </p>
                     </dd>
@@ -1642,7 +1642,7 @@ function accept(mySignaller, remote) {
                                     </li>
                                     <li>
                                         <p>
-                                            If <code>withTrack.readyState</code> is "ended" then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code> 
+                                            If <code>withTrack.readyState</code> is "ended" then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code>
                                             and abort these steps.
                                         </p>
                                     </li>
@@ -2275,7 +2275,7 @@ mySignaller.myOfferTracks({
             <section id="rtcrtplistener-operation*">
                 <h3>Operation</h3>
                 <p>
-                    An <a>RTCRtpListener</a> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object. 
+                    An <a>RTCRtpListener</a> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object.
                 </p>
             </section>
             <section id="rtpmatchingrules*">
@@ -2462,7 +2462,7 @@ mySignaller.myOfferTracks({
                     <dt>sequence&lt;DOMString&gt; fecMechanisms</dt>
                     <dd>
                         <p>Supported Forward Error Correction (FEC) mechanisms.  Values include
-                        "red", "red+ulpfec" and "flexfec".  
+                        "red", "red+ulpfec" and "flexfec".
                         [[FEC]] summarizes requirements relating to FEC mechanisms.</p>
                     </dd>
                 </dl>
@@ -2522,7 +2522,7 @@ mySignaller.myOfferTracks({
                     </dd>
                     <dt>unsigned long ptime</dt>
                     <dd>
-                        <p>The preferred duration of media represented by a packet in milliseconds for the <code><a>RTCRtpSender</a></code> or 
+                        <p>The preferred duration of media represented by a packet in milliseconds for the <code><a>RTCRtpSender</a></code> or
                         <code><a>RTCRtpReceiver</a></code>.</p>
                     </dd>
                     <dt>unsigned long numChannels</dt>
@@ -2566,8 +2566,8 @@ mySignaller.myOfferTracks({
                     <p>The capability options of commonly implemented codecs are provided below.</p>
                     <p>
                        If a defined codec option is unset when returned from
-                       <code>RTCRtpReceiver/Sender.getCapabilities()</code>, then the engine does not allow adjusting the option. 
-                       If set when returned from <code>RTCRtpReceiver/Sender.getCapabilities()</code> then the default value for the 
+                       <code>RTCRtpReceiver/Sender.getCapabilities()</code>, then the engine does not allow adjusting the option.
+                       If set when returned from <code>RTCRtpReceiver/Sender.getCapabilities()</code> then the default value for the
                        engine is given.
                     </p>
                     <section id="opus-codec-options*">
@@ -2631,9 +2631,9 @@ mySignaller.myOfferTracks({
                     <h3>Codec capability parameters</h3>
                     <p>The capability parameters for commonly implemented codecs are provided below.</p>
                     <p>
-                       If a defined codec capability parameter is unset when returned from 
-                       <code>RTCRtpReceiver/Sender.getCapabilities()</code>, then the engine does not allow adjusting the parameter. 
-                       If set when returned from <code>RTCRtpReceiver/Sender.getCapabilities()</code> then the default value for the 
+                       If a defined codec capability parameter is unset when returned from
+                       <code>RTCRtpReceiver/Sender.getCapabilities()</code>, then the engine does not allow adjusting the parameter.
+                       If set when returned from <code>RTCRtpReceiver/Sender.getCapabilities()</code> then the default value for the
                        engine is given.
                     </p>
                     <section id="opus-codec-capabilities*">
@@ -2663,7 +2663,7 @@ mySignaller.myOfferTracks({
                                         <code>unsigned long</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>A hint about the maximum input sampling rate that the sender is likely to produce.</td> 
+                                    <td>A hint about the maximum input sampling rate that the sender is likely to produce.</td>
                                 </tr>
                                 <tr id="def-maxaveragebitrate*">
                                     <td><dfn>maxAverageBitrate</dfn></td>
@@ -2671,7 +2671,7 @@ mySignaller.myOfferTracks({
                                         <code>unsigned long</code>
                                     </td>
                                     <td>Receiver</td>
-                                    <td>Specifies the maximum average receive bitrate of a session in bits per second (bits/s).</td> 
+                                    <td>Specifies the maximum average receive bitrate of a session in bits per second (bits/s).</td>
                                 </tr>
                                 <tr id="def-cbr*">
                                     <td><dfn>cbr</dfn></td>
@@ -2877,10 +2877,10 @@ mySignaller.myOfferTracks({
                                         <code>unsigned short</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>The default type of protection for the sender:  
+                                    <td>The default type of protection for the sender:
                                         0 for 1-D interleaved FEC protection, 1 for 1-D non-interleaved FEC protection,
                                         and 2 for 2-D parity FEC protection. The value of 3 is reserved for future use.
-                                        
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -3206,7 +3206,7 @@ mySignaller.myOfferTracks({
                                     <td>Sender</td>
                                     <td>
                                         An unsigned short ranging from 0 to 2, indicating the <var>packetizationMode</var> value to be used by the sender.  This setting MUST be
-                                        supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2. 
+                                        supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.
                                     </td>
                                 </tr>
                             </tbody>
@@ -3230,7 +3230,7 @@ mySignaller.myOfferTracks({
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
-                                    <td>Receiver</td>   
+                                    <td>Receiver</td>
                                     <td>
                             As defined in [[!RFC4588]], the time in milliseconds (measured from the
                             time a packet was first sent) that the sender keeps an RTP packet
@@ -3266,7 +3266,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="ulpfec-codec-settings*">
                         <h3>Ulpfec</h3>
-                        <p>As noted in [[RFC5109]], "ulpfec" has no codec-specific settings.</p> 
+                        <p>As noted in [[RFC5109]], "ulpfec" has no codec-specific settings.</p>
                     </section>
                     <section id="flexfec-codec-settings*">
                         <h3>Flexfec</h3>
@@ -3311,8 +3311,8 @@ mySignaller.myOfferTracks({
                                         <code>unsigned short</code>
                                     </td>
                                     <td>Receiver</td>
-                                    <td>The type of protection applied by the sender:  0 for 1-D interleaved FEC protection, 
-                                        1 for 1-D non-interleaved FEC protection, and 2 for 2-D parity FEC protection.  
+                                    <td>The type of protection applied by the sender:  0 for 1-D interleaved FEC protection,
+                                        1 for 1-D non-interleaved FEC protection, and 2 for 2-D parity FEC protection.
                                         The value of 3 is reserved for future use.
                                     </td>
                                 </tr>
@@ -3325,7 +3325,7 @@ mySignaller.myOfferTracks({
                 <h3>dictionary RTCRtpEncodingParameters</h3>
 
                 <p><code><a>RTCRtpEncodingParameters</a></code> provides information relating to the encoding.  Note that all encoding parameters
-                (such as <var>maxBitrate</var>, <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to codec-specific constraints.</p> 
+                (such as <var>maxBitrate</var>, <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to codec-specific constraints.</p>
                 <dl class="idl" title="dictionary RTCRtpEncodingParameters">
                     <dt>unsigned long ssrc</dt>
                     <dd>
@@ -3367,12 +3367,12 @@ mySignaller.myOfferTracks({
                     <dt>unsigned long maxBitrate</dt>
                     <dd>
                         <p>
-                            Ramp up resolution/quality/framerate until this bitrate, if set.  maxBitrate is the 
+                            Ramp up resolution/quality/framerate until this bitrate, if set.  maxBitrate is the
                             Transport Independent Application Specific (TIAS) maximum bandwidth defined in [[RFC3890]]
-                            Section 6.2.2, which is the maximum bandwidth needed without counting IP or other transport 
+                            Section 6.2.2, which is the maximum bandwidth needed without counting IP or other transport
                             layers like TCP or UDP. Summed when using dependent layers. This parameter is ignored
                             in scalable video coding, or in an <code><a>RTCRtpReceiver</a></code> object.
-                            If unset, there is no maximum bitrate.  
+                            If unset, there is no maximum bitrate.
                         </p>
                     </dd>
                     <dt>double minQuality=0</dt>
@@ -3390,7 +3390,7 @@ mySignaller.myOfferTracks({
                             2.0 = one half of the full resolution.
                             For scalable video coding, <var>resolutionScale</var> refers to
                             the inverse aggregate fraction of the input resolution achieved by this
-                            layer when combined with all dependent layers.  
+                            layer when combined with all dependent layers.
                         </p>
                     </dd>
                     <dt>double framerateScale</dt>
@@ -3406,7 +3406,7 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The maximum framerate to use for this encoding.  This setting is not used for scalable video coding.
-                            If <var>framerateScale</var> is set, then <var>maxFramerate</var> is ignored.   
+                            If <var>framerateScale</var> is set, then <var>maxFramerate</var> is ignored.
                         </p>
                     </dd>
                     <dt>boolean active=true</dt>
@@ -3427,7 +3427,7 @@ mySignaller.myOfferTracks({
                             it is not necessary to specify the expected scalable video coding configuration on the receiver via use of <var>encodingId</var>
                             (or <var>dependencyEncodingIds</var>). Where specified for a receiver, the expected layering is ignored. A sender MAY
                             send fewer layers than what is specified in <code><a>RTCRtpEncodingParameters</a></code>, but MUST NOT send more.
-                            An <code><a>RTCRtpSender</a></code> places the value of <var>encodingId</var> into the <a>RID</a> header extension [[!RID]].  
+                            An <code><a>RTCRtpSender</a></code> places the value of <var>encodingId</var> into the <a>RID</a> header extension [[!RID]].
                         </p>
                     </dd>
                     <dt>sequence&lt;DOMString&gt; dependencyEncodingIds</dt>
