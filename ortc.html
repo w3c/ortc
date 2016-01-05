@@ -599,7 +599,7 @@
                 <pre class="example highlight">
 [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
 ]
                 </pre>
                 <dl class="idl" title="dictionary RTCIceServer">
@@ -5914,6 +5914,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified value of the <var>component</var> attribute, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/314">Issue 314</a>
+                    </li>
+                    <li>
+                        Added <var>credentialType</var> attribute to Example 2, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/323">Issue 323</a>
                     </li>
                 </ol>
             </section>
