@@ -536,7 +536,10 @@
                     </dd>
                     <dt>sequence&lt;RTCIceServer&gt; iceServers</dt>
                     <dd>
-                        <p>The ICE servers to be configured.</p>
+                        <p>Additional ICE servers to be configured. Since implementations MAY provide default ICE servers,
+                        and applications can desire to restrict communications to the local LAN, <var>iceServers</var> need not
+                        be set.
+                        </p>
                     </dd>
                 </dl>
             </section>
@@ -5898,6 +5901,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified RTCDtlsTransportState definition, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/294">Issue 294</a>
+                    </li>
+                    <li>
+                        Added explanation for unset <var>iceServers</var>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/302">Issue 302</a>
                     </li>
                     <li>
                         Sync of certificate management API with WebRTC 1.0 changes, as noted in:
