@@ -1891,7 +1891,7 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>The CSRC or SSRC value of the contributing source.</p>
                     </dd>
-                    <dt>byte? audioLevel</dt>
+                    <dt>byte audioLevel</dt>
                     <dd>
                         <p>
                             The audio level contained in the last RTP packet
@@ -1905,6 +1905,14 @@ function accept(mySignaller, remote) {
                             the loudest signal that they system could possibly
                             encode. Thus, 0 represents the loudest signal the system could
                             possibly encode, and 127 represents silence.
+                        </p>
+                    </dd>
+                    <dt>boolean v</dt>
+                    <dd>
+                        <p>
+                            Whether the last RTP packet received from this source contains voice activity (true) or not (false). Since
+                            the "V" bit is supported in [[!RFC6464]] but not [[!RFC6465]], the <var>v</var> attribute will only be set
+                            for RTP packets received from peers enabling the client-mixer header extension as well as voice activity detection. 
                         </p>
                     </dd>
                 </dl>
@@ -5860,7 +5868,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/253">Issue 253</a>
                     </li>
                     <li>
-                        Added support header extension attributes, as noted in:
+                        Added support for voice activity detection in <code><a>RTCRtpContributingSource</a></code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/263">Issue 263</a>
                     </li>
                     <li>
@@ -5880,7 +5888,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/w3c/webrtc-pc/issues/391">Issue 391</a>
                     </li>
                     <li>
-                        Change RTCRtpContributingSource from an interface to a dictionary, as noted in:
+                        Changed RTCRtpContributingSource from an interface to a dictionary, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/289">Issue 289</a>
                     </li>
                     <li>
