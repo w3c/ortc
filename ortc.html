@@ -1395,15 +1395,15 @@ mySignaller.send({
                     <dt>closed</dt>
                     <dd>
                         <p>
-                            The DTLS connection has been closed intentionally via a call to <code>stop()</code>.
-                            Calling <code>transport.stop()</code> will also result in a transition to the "closed" state.
+                            The DTLS connection has been closed intentionally via a call to <code>stop()</code> or receipt of a
+                            close_notify alert. Calling <code>transport.stop()</code> will also result in a transition to the "close
                         </p>
                     </dd>
                     <dt>failed</dt>
                     <dd>
                         <p>
-                            The DTLS connection has been closed as the result of an error (such as a DTLS alert or a failure to validate the remote
-                            fingerprint).
+                            The DTLS connection has been closed as the result of an error (such as receipt of an error alert or
+                            a failure to validate the remote fingerprint).
                         </p>
                     </dd>
                 </dl>
@@ -5933,6 +5933,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added <var>credentialType</var> attribute to Examples, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/323">Issue 323</a>
+                    </li>
+                    <li>
+                        Clarified alert handling in <code><a>RTCDtlsTransportState</a></code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/327">Issue 327</a>
                     </li>
                 </ol>
             </section>
