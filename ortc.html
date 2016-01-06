@@ -2400,7 +2400,7 @@ mySignaller.myOfferTracks({
                         <p>
                             The value of the <a>MID</a> RTP header extension [[!BUNDLE]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
-                            If <code>receiver.receive()</code> has not been called, the <a>MID</a> header
+                            If <code>receive()</code> has not been called, the <a>MID</a> header
                             extension cannot be decoded, so that <var>muxId</var> will be unset.
                         </p>
                     </dd>
@@ -2409,7 +2409,7 @@ mySignaller.myOfferTracks({
                         <p>
                             The value of the <a>RID</a> RTP header extension [[!RID]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
-                            If <code>receiver.receive()</code> has not been called, the <a>RID</a> header
+                            If <code>receive()</code> has not been called, the <a>RID</a> header
                             extension cannot be decoded, so that <var>rid</var> will be unset.
                         </p>
                     </dd>
