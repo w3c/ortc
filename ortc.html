@@ -635,7 +635,7 @@
                 <pre class="example highlight">
 // Example to demonstrate use of RTCIceCandidateComplete
 // Include some helper functions
-import "helper.js";
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
@@ -670,7 +670,7 @@ mySignaller.send({
                 </pre>
                 <pre class="example highlight">
 // Helper functions used in all the examples (helper.js)
-function trace(text) {
+export function trace(text) {
   // This function is used for logging.
   text = text.trimRight();
   if (window.performance) {
@@ -681,11 +681,11 @@ function trace(text) {
   }
 }
 
-function errorHandler(error) {
+export function errorHandler(error) {
   trace("Error encountered: " + error.name);
 }
 
-function mySendLocalCandidate(candidate, component, kind, parameters) {
+export function mySendLocalCandidate(candidate, component, kind, parameters) {
   // Set default values
   kind = kind || "all";
   component = component || RTCIceComponent.RTP;
@@ -700,7 +700,7 @@ function mySendLocalCandidate(candidate, component, kind, parameters) {
   });
 }
 
-function myIceGathererStateChange(name, state) {
+export function myIceGathererStateChange(name, state) {
   switch (state) {
     case RTCIceGathererState.new:
       trace("IceGatherer: " + name + " Has been created");
@@ -719,7 +719,7 @@ function myIceGathererStateChange(name, state) {
   }
 }
 
-function myIceTransportStateChange(name, state) {
+export function myIceTransportStateChange(name, state) {
   switch (state) {
     case RTCIceTransportState.new:
       trace("IceTransport: " + name + " Has been created");
@@ -747,7 +747,7 @@ function myIceTransportStateChange(name, state) {
   }
 }
 
-function myDtlsTransportStateChange(name, state){
+export function myDtlsTransportStateChange(name, state){
   switch(state){
   case RTCDtlsTransportState.new:
      trace('DtlsTransport: ' + name + ' Has been created');
@@ -1119,7 +1119,7 @@ function myDtlsTransportStateChange(name, state){
 // Example to demonstrate forking when RTP and RTCP are not multiplexed,
 // so that both RTP and RTCP IceGatherer and IceTransport objects are needed.
 // Include some helper functions
-import "helper.js";
+import "helper.js";import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
@@ -1456,7 +1456,7 @@ mySignaller.send({
 // and start both ICE and DTLS, when RTP and RTCP are multiplexed.
 // Assume that we have a way to signal (mySignaller).
 // Include some helper functions
-import "helper.js";
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 function initiate(mySignaller) {
   // Prepare the ICE gatherer
@@ -1522,7 +1522,7 @@ function initiate(mySignaller) {
 // and DTLS parameters and ICE candidates and start both ICE and DTLS,
 // assuming that RTP and RTCP are multiplexed.
 // Include some helper functions
-import "helper.js";
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Assume that remote info is signalled to us.
 function accept(mySignaller, remote) {
@@ -2063,7 +2063,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
 // Assume we have an audioTrack and a videoTrack to send.
 //
 // Include some helper functions
-import "helper.js";
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 // Create the ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
@@ -5416,7 +5416,7 @@ function processStats(currentReport) {
 // Set ICE gather options and construct the RTCIceGatherer object, assuming that
 // we are using RTP/RTCP mux and A/V mux so that only one RTCIceTransport is needed.
 // Include some helper functions
-import "helper.js";
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
 gatherOptions.iceServers = [
@@ -5878,6 +5878,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Specified behavior of <code>send(parameters)</code> when <code>parameters.encodings</code> is unset, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/187">Issue 187</a>
+                    </li>
+                    <li>
+                        Fixed invalid import in examples, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/250">Issue 250</a>
                     </li>
                     <li>
                         Added support for Forward Error Correction, as noted in:
