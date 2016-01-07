@@ -1119,7 +1119,7 @@ export function myDtlsTransportStateChange(name, state){
 // Example to demonstrate forking when RTP and RTCP are not multiplexed,
 // so that both RTP and RTCP IceGatherer and IceTransport objects are needed.
 // Include some helper functions
-import "helper.js";import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
