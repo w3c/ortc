@@ -2286,8 +2286,8 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtplistener-operation*">
                 <h3>Operation</h3>
-                <p>
-                    An <a>RTCRtpListener</a> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object.
+                <p()
+                    An <code><a>RTCRtpListener</a></code> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object.
                 </p>
             </section>
             <section id="rtpmatchingrules*">
@@ -2401,6 +2401,8 @@ mySignaller.myOfferTracks({
                         <p>
                             The value of the <a>MID</a> RTP header extension [[!BUNDLE]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
+                            If <code>receive()</code> has not been called, the <a>MID</a> header
+                            extension cannot be decoded, so that <var>muxId</var> will be unset.
                         </p>
                     </dd>
                     <dt>readonly attribute DOMString rid</dt>
@@ -2408,6 +2410,8 @@ mySignaller.myOfferTracks({
                         <p>
                             The value of the <a>RID</a> RTP header extension [[!RID]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
+                            If <code>receive()</code> has not been called, the <a>RID</a> header
+                            extension cannot be decoded, so that <var>rid</var> will be unset.
                         </p>
                     </dd>
                     <dt>readonly attribute payloadtype payloadType</dt>
@@ -5863,6 +5867,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
             <section id="since-20-November-2015*">
                 <h3>Changes since 20 November 2015</h3>
                 <ol>
+                    <li>
+                        Added clarification where <code>unhandledrtp</code> event occurs prior to calling <code>receive()</code>, as noted in::
+                        <a href="https://github.com/openpeer/ortc/issues/243">Issue 243</a>
+                    </li>
                     <li>
                         Added support for ptime, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/160">Issue 160</a>
