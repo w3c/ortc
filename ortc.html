@@ -1674,18 +1674,19 @@ function accept(mySignaller, remote) {
                     <dt>void send(RTCRtpParameters parameters)</dt>
                     <dd>
                         <p>
-                            Media to be sent is controlled by parameters.
-                            If <code>send()</code> is called with invalid <var>parameters</var>,
-                            throw an <code>InvalidParameters</code> exception.
-                            If <var>rtcpTransport</var> is not set
-                            and <code>send(parameters)</code> is called with <var>parameters.rtcp.mux</var>
-                            set to <code>false</code>, throw an <code>InvalidParameters</code> exception.
-                            The <code>send()</code> method does not update
-                            <var>parameters</var> based on what is currently being sent, so that the value of <var>parameters</var> remains that
-                            last passed to the <code>send()</code> method.
-                            The <code>RTCRtpSender</code> object starts sending when <code>send()</code>
-                            is called for the first time, and changes the sending <code>parameters</code> when <code>send()</code> is called again.
-                            The <code>RTCRtpSender</code> object stops sending when <code>stop()</code> is called.
+                            Media to be sent is controlled by parameters. If <code>send()</code> is called with invalid <var>parameters</var>,
+                            throw an <code>InvalidParameters</code> exception. If <var>rtcpTransport</var> is not set and
+                            <code>send(<var>parameters</var>)</code> is called with <var>parameters.rtcp.mux</var> set to "false",
+                            throw an <code>InvalidParameters</code> exception. If <var>parameters.encodings</var> is unset,
+                            the browser behaves as though a single <code>encodings[0]</code> entry was provided, with
+                            <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var> set to "true",
+                            <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var> where <var>j</var> is the index
+                            of the first codec that is not "cn", "dtmf", "red", "rtx", or a forward error correction codec, and all the other
+                            <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, minQuality, resolutionScale,etc.) unset.
+                            Calling <code>send(<var>parameters</var>)</code> does not update <var>parameters</var> based on what is currently being sent.
+                            The <code><a>RTCRtpSender</a></code> object starts sending when <code>send()</code>
+                            is called for the first time, and changes the sending <var>parameters</var> when <code>send()</code> is called again.
+                            The <code><a>RTCRtpSender</a></code> object stops sending when <code>stop()</code> is called.
                         </p>
                     </dd>
                     <dt>void stop()</dt>
@@ -5865,6 +5866,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added support for ptime, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/160">Issue 160</a>
+                    </li>
+                    <li>
+                        Specified behavior of <code>send(parameters)</code> when <code>parameters.encodings</code> is unset, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/187">Issue 187</a>
                     </li>
                     <li>
                         Added support for Forward Error Correction, as noted in:
