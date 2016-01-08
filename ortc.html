@@ -1014,6 +1014,35 @@ export function myDtlsTransportStateChange(name, state){
                         </p>
                     </dd>
                 </dl>
+                <p>Some example transitions might be:</p>
+                    <ul>
+                        <li>new RTCIceTransport(): <code>new</code></li>
+
+                        <li>(<code>new</code>, remote candidates received):
+                        <code>checking</code></li>
+
+                        <li>(<code>checking</code>, found usable connection):
+                        <code>connected</code></li>
+
+                        <li>(<code>checking</code>, checks fail but gathering still in progress):
+                        <code>disconnected</code></li>
+
+                        <li>(<code>checking</code>, gave up): <code>failed</code></li>
+
+                        <li>(<code>disconnected</code>, new local candidates):
+                        <code>checking</code></li>
+
+                        <li>(<code>connected</code>, finished all checks):
+                        <code>completed</code></li>
+
+                        <li>(<code>completed</code>, lost connectivity):
+                        <code>disconnected</code></li>
+
+                        <li>(any state, ICE restart occurs): <code>new</code></li>
+
+                        <li>close(): <code>closed</code></li>
+                    </ul>
+                </p>
                 <p>The non-normative ICE state transitions are:</p>
                 <img alt="The non-normative ICE State Transition Diagram" src="images/icestates-cont.png" style="width:75%" />
             </section>
