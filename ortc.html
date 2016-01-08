@@ -1245,17 +1245,15 @@ mySignaller.send({
                     </dd>
                     <dt>RTCDtlsParameters? getRemoteParameters()</dt>
                     <dd>
-                        <p>Obtain the current DTLS parameters of the remote <code><a>RTCDtlsTransport</a></code>.
-                        If the remote peer offered multiple certificates, then multiple fingerprints
-                        will be returned, one for each certificate.</p>
+                        <p>Obtain the remote DTLS parameters passed in the <code>start()</code> method. 
+                        Prior to calling <code>start()</code>, null is returned.</p>
                     </dd>
                     <dt>sequence&lt;ArrayBuffer&gt; getRemoteCertificates()</dt>
                     <dd>
                         <p>Returns the certificate chain in use by the remote side, with each certificate encoded
-                        in binary Distinguished Encoding Rules (DER) [[!X690]]. If the remote side offers multiple
-                        certificates, then <code>getRemoteCertificates()</code> will return an empty list prior to
-                        selection of the remote certificate, which will be completed by the time
-                        <code><a>RTCDtlsTransportState</a></code> transitions to "connected".</p>
+                        in binary Distinguished Encoding Rules (DER) [[!X690]]. <code>getRemoteCertificates()</code>
+                        returns an empty list prior to selection of the remote certificate, which is completed
+                        once <code><a>RTCDtlsTransportState</a></code> transitions to "connected".</p>
                     </dd>
                     <dt>void start(RTCDtlsParameters remoteParameters)</dt>
                     <dd>
