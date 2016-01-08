@@ -1253,10 +1253,10 @@ mySignaller.send({
                 <h3>Interface Definition</h3>
                 <dl class="idl" title="typedef (octet[]) ArrayBuffer">
                 </dl>
-                <dl class="idl" title="[Constructor(RTCIceTransport transport, RTCCertificate certificate)] interface RTCDtlsTransport : RTCStatsProvider">
-                    <dt>readonly attribute RTCCertificate certificate</dt>
+                <dl class="idl" title="[Constructor(RTCIceTransport transport, sequence&lt;RTCCertificate> certificates)] interface RTCDtlsTransport : RTCStatsProvider">
+                    <dt>readonly attribute sequence&lt;RTCCertificate> certificates</dt>
                     <dd>
-                        <p>The certificate that was provided in the constructor.</p>
+                        <p>The certificates provided in the constructor.</p>
                     </dd>
                     <dt>readonly attribute RTCIceTransport transport</dt>
                     <dd>
@@ -1268,16 +1268,21 @@ mySignaller.send({
                     </dd>
                     <dt>RTCDtlsParameters getLocalParameters()</dt>
                     <dd>
-                        <p>Obtain the DTLS parameters of the local <code><a>RTCDtlsTransport</a></code>.</p>
+                        <p>Obtain the DTLS parameters of the local <code><a>RTCDtlsTransport</a></code>.
+                        If multiple certificates were provided in the constructor, then multiple
+                        fingerprints will be returned, one for each certificate.</p>
                     </dd>
                     <dt>RTCDtlsParameters? getRemoteParameters()</dt>
                     <dd>
-                        <p>Obtain the current DTLS parameters of the remote <code><a>RTCDtlsTransport</a></code>.</p>
+                        <p>Obtain the remote DTLS parameters passed in the <code>start()</code> method. 
+                        Prior to calling <code>start()</code>, null is returned.</p>
                     </dd>
                     <dt>sequence&lt;ArrayBuffer&gt; getRemoteCertificates()</dt>
                     <dd>
-                        <p>Returns the certificate chain in use by the remote side, with each certificate
-                        encoded in binary Distinguished Encoding Rules (DER) [[!X690]].</p>
+                        <p>Returns the certificate chain in use by the remote side, with each certificate encoded
+                        in binary Distinguished Encoding Rules (DER) [[!X690]]. <code>getRemoteCertificates()</code>
+                        returns an empty list prior to selection of the remote certificate, which is completed
+                        once <code><a>RTCDtlsTransportState</a></code> transitions to "connected".</p>
                     </dd>
                     <dt>void start(RTCDtlsParameters remoteParameters)</dt>
                     <dd>
