@@ -1234,9 +1234,13 @@ mySignaller.send({
                 <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed using <code><a>RTCIceTransport</a></code> and <code>RTCCertificate</code> objects.</p>
                 <p>
                     A newly constructed <code><a>RTCDtlsTransport</a></code>
-                    <em class="rfc2119" title="MUST">MUST</em> listen and respond to incoming DTLS packets before <code>start()</code> is called.
-                    However, to complete the negotiation it is necessary to verify the remote fingerprint,
-                    which is dependent on <var>remoteParameters</var>, passed to <code>start()</code>.
+                    <em class="rfc2119" title="MUST">MUST</em> listen and respond to incoming DTLS packets before <code>start()</code>
+                    is called. However, to complete the negotiation it is necessary to verify the remote fingerprint,
+                    which is dependent on <var>remoteParameters</var>, passed to <code>start()</code>. To verify the remote fingerprint,
+                    compute the fingerprint <var>value</var> for the selected remote certificate using the signature digest algorithm, and
+                    compare it against <code>remoteParameters.fingerprints</code>. If the selected remote certificate <code>RTCDtlsFingerprint.value</code>
+                    matches <code>remoteParameters.fingerprints[j].value</code> and <code>RTCDtlsFingerprint.algorithm</code> matches
+                    <code>remoteParameters.fingerprints[j].algorithm</code> for any value of <var>j</var>, the remote fingerprint is verified.
                     After the DTLS handshake exchange completes (but before the remote fingerprint is verified)
                     incoming media packets may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be provided to avoid loss of
                     media prior to remote fingerprint validation (which can begin after <code>start()</code> is called).
@@ -1288,9 +1292,8 @@ mySignaller.send({
                     <dd>
                         <p>
                             Start DTLS transport negotiation with the parameters of the remote DTLS transport, including verification
-                            of the remote fingerprint,
-                            then once the DTLS transport session is established, negotiate a <dfn>DTLS-SRTP</dfn> [[!RFC5764]] session to
-                            establish keys so as protect media using SRTP [[!RFC3711]].
+                            of the remote fingerprint, then once the DTLS transport session is established, negotiate a <dfn>DTLS-SRTP</dfn>
+                            [[!RFC5764]] session to establish keys so as protect media using SRTP [[!RFC3711]].
                             Since symmetric RTP [[!RFC4961]] is utilized, the <a>DTLS-SRTP</a> session is bi-directional.
                         </p>
                         <p>
@@ -1299,8 +1302,9 @@ mySignaller.send({
                             after a previous <code>start()</code> call, or if <var>state</var> is "closed",
                             throw an <code>InvalidStateError</code> exception.
                             Only a single DTLS transport can be multiplexed over an ICE transport.
-                            Therefore if a <code><a>RTCDtlsTransport</a></code> object <var>dtlsTransportB</var> is constructed with an <code><a>RTCIceTransport</a></code>
-                            object <var>iceTransport</var> previously used to construct another <code><a>RTCDtlsTransport</a></code> object
+                            Therefore if a <code><a>RTCDtlsTransport</a></code> object <var>dtlsTransportB</var> 
+                            is constructed with an <code><a>RTCIceTransport</a></code> object
+                            <var>iceTransport</var> previously used to construct another <code><a>RTCDtlsTransport</a></code> object
                             <var>dtlsTransportA</var>, then if <code>dtlsTransportB.start()</code> is called prior to having called <code>dtlsTransportA.stop()</code>,
                             then throw an <code>InvalidStateError</code> exception.
                         </p>
@@ -1308,7 +1312,7 @@ mySignaller.send({
                     <dt>void stop()</dt>
                     <dd>
                         <p>
-                            Stops and closes the DTLS transport object.
+                            Stops and closes the <code><a>RTCDtlsTransport</a></code> object.
                             Calling <code>stop()</code> when <var>state</var> is "closed" has no effect.
                         </p>
                     </dd>
@@ -1327,8 +1331,8 @@ mySignaller.send({
                         <p>
                             This event handler, of event handler type <code>error</code>,
                             <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCDtlsTransport</a></code> interface.
-                            This event <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS alert; an implementation
-                            <em class="rfc2119" title="MUST">SHOULD</em> include DTLS alert information in <var>error.message</var>.
+                            This event <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS error alert; an implementation
+                            <em class="rfc2119" title="MUST">SHOULD</em> include DTLS error alert information in <var>error.message</var>.
                         </p>
                     </dd>
                 </dl>
@@ -1345,7 +1349,7 @@ mySignaller.send({
                     </dd>
                     <dt>sequence&lt;RTCDtlsFingerprint&gt; fingerprints</dt>
                     <dd>
-                        <p>Sequence of fingerprints.</p>
+                        <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
                     </dd>
                 </dl>
             </section>
@@ -1357,7 +1361,8 @@ mySignaller.send({
                 <dl class="idl" title="dictionary RTCDtlsFingerprint">
                     <dt>DOMString algorithm</dt>
                     <dd>
-                        <p>One of the the hash function algorithms defined in the 'Hash function Textual Names' registry, initially specified in [[!RFC4572]] Section 8.</p>
+                        <p>One of the the hash function algorithms defined in the 'Hash function Textual Names' registry, initially specified in [[!RFC4572]] Section 8.
+                        As noted in [[JSEP]] Section 5.2.1, the digest algorithm used for the fingerprint matches that used in the certificate signature.</p>
                     </dd>
                     <dt>DOMString value</dt>
                     <dd>
@@ -5535,7 +5540,9 @@ function signalAssertion(assertion) {
                     </dd>
                     <dt>readonly attribute RTCDtlsFingerprint fingerprint</dt>
                     <dd>
-                        <p>The fingerprint of the certificate.</p>
+                        <p>The fingerprint of the certificate.  As noted in [[JSEP]] Section 5.2.1, 
+                        the digest algorithm used for the fingerprint matches that used in the certificate
+                        signature.</p>
                     </dd>
                     <dt>static Promise&lt;RTCCertificate&gt; generateCertificate (AlgorithmIdentifier keygenAlgorithm)</dt>
                     <dd>
@@ -5545,7 +5552,7 @@ function signalAssertion(assertion) {
                             corresponding private key. A handle to information is provided in the
                             form of the <code><a>RTCCertificate</a></code> interface. The
                             returned <code><a>RTCCertificate</a></code> can be used to control the
-                            certificate that is offered in the DTLS sessions established
+                            certificate that is offered in the DTLS session established
                             by <code><a>RTCDtlsTransport</a></code>.
                         </p>
                         <p>
@@ -5554,7 +5561,7 @@ function signalAssertion(assertion) {
                             The <var>keygenAlgorithm</var> argument uses the WebCrypto [[!WebCryptoAPI]]
                             <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-AlgorithmIdentifier">AlgorithmIdentifier</a>
                             type. The <var>keygenAlgorithm</var> value <em title="MUST" class="rfc2119">MUST</em> be a valid argument
-                            to <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#SubtleCrypto-method-generateKey"><code>Crypto.subtle.generateKey</code></a>;
+                            to <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#SubtleCrypto-method-generateKey"><code>window.crypto.subtle.generateKey</code></a>;
                             that is, the value <em title="MUST" class="rfc2119">MUST</em> produce a non-error result when normalized
                             according to the
                             WebCrypto <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#algorithm-normalization">algorithm
@@ -5980,6 +5987,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified value of the <var>component</var> attribute, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/314">Issue 314</a>
+                    </li>
+                    <li>
+                        Clarified behavior with multiple local or remote certificates, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/317">Issue 317</a>
                     </li>
                     <li>
                         Added <var>credentialType</var> attribute to Examples, as noted in:

@@ -446,6 +446,17 @@ var respecConfig = {
       "status": "20 July 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "JSEP": {
+      "title": "Javascript Session Establishment Protocol",
+      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-jsep",
+      "authors": [
+        "J. Uberti",
+        "C. Jennings",
+        "E. Rescorla"
+      ],
+      "status": "18 October 2015. Internet Draft (work in progress)",
+      "publisher": "IETF"
+    },
     "RTCWEB-SECURITY": {
       "title": "Security Considerations for WebRTC",
       "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-security",
