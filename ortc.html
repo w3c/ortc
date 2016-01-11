@@ -1257,8 +1257,8 @@ mySignaller.send({
                 <h3>Interface Definition</h3>
                 <dl class="idl" title="typedef (octet[]) ArrayBuffer">
                 </dl>
-                <dl class="idl" title="[Constructor(RTCIceTransport transport, sequence&lt;RTCCertificate> certificates)] interface RTCDtlsTransport : RTCStatsProvider">
-                    <dt>readonly attribute sequence&lt;RTCCertificate> certificates</dt>
+                <dl class="idl" title="[Constructor(RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)] interface RTCDtlsTransport : RTCStatsProvider">
+                    <dt>readonly attribute sequence&lt;RTCCertificate&gt; certificates</dt>
                     <dd>
                         <p>The certificates provided in the constructor.</p>
                     </dd>
@@ -2885,7 +2885,7 @@ mySignaller.myOfferTracks({
                                 <tr id="def-payloadtypes*">
                                     <td><dfn>payloadTypes</dfn></td>
                                     <td>
-                                        <code>sequence&lt;payloadtype></code>
+                                        <code>sequence&lt;payloadtype&gt;</code>
                                     </td>
                                     <td>Sender/Receiver</td>
                                     <td>A sequence of payload types to be encapsulated in RED.</td>
@@ -3319,7 +3319,7 @@ mySignaller.myOfferTracks({
                                 <tr id="sec-payloadtypes*">
                                     <td>payloadTypes</td>
                                     <td>
-                                        <code>sequence&lt;payloadtype></code>
+                                        <code>sequence&lt;payloadtype&gt</code>
                                     </td>
                                     <td>Sender/Receiver</td>
                                     <td>A sequence of payload types to be encapsulated in RED.</td>
