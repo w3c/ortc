@@ -1510,13 +1510,13 @@ function initiate(mySignaller) {
   var dtlsTransports = [];
 
   // Create the DTLS certificate and parameters
-  var cert;
+  var certs;
   var dtlsParameters = new RTCDtlsParameters();
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    cert = certificate;
+    certs[0] = certificate;
     // Obtain the fingerprint of the created certificate
-    dtlsParameters.fingerprints[0] = cert.fingerprint;
+    dtlsParameters.fingerprints[0] = certificate.fingerprint;
   }, function(){
     trace('Certificate could not be created');
   });
@@ -1543,7 +1543,7 @@ function initiate(mySignaller) {
     iceTransports.push(iceTransport);
     // Construct a RTCDtlsTransport object with the same certificate and fingerprint as in the Offer
     // so that the remote peer can verify it.
-    var dtlsTransport = new RTCDtlsTransport(iceTransport, cert);
+    var dtlsTransport = new RTCDtlsTransport(iceTransport, certs);
     dtlsTransport.start(remote.dtls);
     dtlsTransports.push(dtlsTransport);
 
@@ -1573,17 +1573,17 @@ function accept(mySignaller, remote) {
   };
 
   // Create the DTLS certificate
-  var cert;
+  var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    cert = certificate;
+    certs[0] = certificate;
   }, function(){
     trace('Certificate could not be created');
   });
 
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
-  var dtls = new RTCDtlsTransport(ice, cert);
+  var dtls = new RTCDtlsTransport(ice, certs);
 
   // Prepare to handle remote candidates
   mySignaller.onRemoteCandidate = function(remote) {
@@ -2173,12 +2173,20 @@ mySignaller.onRemoteCandidate = function(remote) {
       trace("Invalid media type received: " + remote.kind);
   }
 };
+// Create the DTLS certificate
+var certs;
+var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
+RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
+  certs[0] = certificate;
+}, function(){
+  trace('Certificate could not be created');
+});
 
-// Create the DTLS transports
-var audioRtpDtlsTransport = new RTCDtlsTransport(audioRtpIceTransport);
-var audioRtcpDtlsTransport = new RTCDtlsTransport(audioRtcpIceTransport);
-var videoRtpDtlsTransport = new RTCDtlsTransport(videoRtpIceTransport);
-var videoRtcpDtlsTransport = new RTCDtlsTransport(videoRtcpIceTransport);
+// Create the DTLS transports (using the same certificate)
+var audioRtpDtlsTransport = new RTCDtlsTransport(audioRtpIceTransport, certs);
+var audioRtcpDtlsTransport = new RTCDtlsTransport(audioRtcpIceTransport, certs);
+var videoRtpDtlsTransport = new RTCDtlsTransport(videoRtpIceTransport, certs);
+var videoRtcpDtlsTransport = new RTCDtlsTransport(videoRtcpIceTransport, certs);
 
 // Create the sender and receiver objects
 var audioSender = new RTCRtpSender(audioTrack, audioRtpDtlsTransport, audioRtcpDtlsTransport);
@@ -4647,17 +4655,17 @@ function initiate(signaller) {
   };
 
   // Create the DTLS certificate
-  var cert;
+  var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    cert = certificate;
+    certs[0] = certificate;
   }, function(){
     trace('Certificate could not be created');
   });
 
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
-  var dtls = new RTCDtlsTransport(ice, cert);
+  var dtls = new RTCDtlsTransport(ice, certs);
 
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
@@ -4692,17 +4700,17 @@ function accept(signaller, remote) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
   // Create the DTLS certificate
-  var cert;
+  var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-    cert = certificate;
+    certs[0] = certificate;
   }, function(){
     trace('Certificate could not be created');
   });
 
   // Create ICE and DTLS transports
   var ice = new RTCIceTransport(iceGatherer);
-  var dtls = new RTCDtlsTransport(ice, cert);
+  var dtls = new RTCDtlsTransport(ice, certs);
 
   // Prepare to handle remote candidates
   mySignaller.onRemoteCandidate = function(remote) {
@@ -5464,16 +5472,16 @@ iceGatherer.onlocalcandidate = function(event) {
 };
 var ice = new RTCIceTransport(iceGatherer);
 // Create the DTLS certificate
-var cert;
+var certs;
 var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
 RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
-  cert = certificate;
+  certs[0] = certificate;
 }, function(){
   trace('Certificate could not be created');
 });
 
 // Create the RTCDtlsTransport object.
-var dtls = new RTCDtlsTransport(ice, cert);
+var dtls = new RTCDtlsTransport(ice, certs);
 var identity = new RTCIdentity(dtls);
 identity
   .getIdentityAssertion("example.com", "default", "alice@example.com")
@@ -5993,6 +6001,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         Added example <code><a>RTCIceTransportState</a></code> transitions, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/332">Issue 332</a>
                     </li>
+                    <li>
+                        Fixed certificate example errors, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/340">Issue 340</a>
+                    </li> 
                 </ol>
             </section>
             <section id="since-05-October-2015*">
