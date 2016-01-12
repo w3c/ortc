@@ -1278,7 +1278,7 @@ mySignaller.send({
                     </dd>
                     <dt>RTCDtlsParameters? getRemoteParameters()</dt>
                     <dd>
-                        <p>Obtain the remote DTLS parameters passed in the <code>start()</code> method. 
+                        <p>Obtain the remote DTLS parameters passed in the <code>start()</code> method.
                         Prior to calling <code>start()</code>, null is returned.</p>
                     </dd>
                     <dt>sequence&lt;ArrayBuffer&gt; getRemoteCertificates()</dt>
@@ -1302,7 +1302,7 @@ mySignaller.send({
                             after a previous <code>start()</code> call, or if <var>state</var> is "closed",
                             throw an <code>InvalidStateError</code> exception.
                             Only a single DTLS transport can be multiplexed over an ICE transport.
-                            Therefore if a <code><a>RTCDtlsTransport</a></code> object <var>dtlsTransportB</var> 
+                            Therefore if a <code><a>RTCDtlsTransport</a></code> object <var>dtlsTransportB</var>
                             is constructed with an <code><a>RTCIceTransport</a></code> object
                             <var>iceTransport</var> previously used to construct another <code><a>RTCDtlsTransport</a></code> object
                             <var>dtlsTransportA</var>, then if <code>dtlsTransportB.start()</code> is called prior to having called <code>dtlsTransportA.stop()</code>,
@@ -1915,7 +1915,7 @@ function accept(mySignaller, remote) {
                     about a contributing source.
                     Each time an RTP packet is received, the <code><a>RTCRtpContributingSource</a></code> objects are updated.
                     If the RTP packet contains CSRCs, then the <code><a>RTCRtpContributingSource</a></code> objects corresponding to those
-                    CSRCs are updated, and the level values for those CSRCs are updated based on the mixer-client header extension [[!RFC6565]] if present.
+                    CSRCs are updated, and the level values for those CSRCs are updated based on the mixer-client header extension [[!RFC6464]] if present.
                     If the RTP packet contains no CSRCs, then the <code><a>RTCRtpContributingSource</a></code> object corresponding to the
                     SSRC is updated, and the level value for the SSRC is updated based on the client-mixer header extension [[!RFC6464]] if present.
                 </p>
@@ -1955,7 +1955,7 @@ function accept(mySignaller, remote) {
                         <p>
                             Whether the last RTP packet received from this source contains voice activity (true) or not (false). Since
                             the "V" bit is supported in [[!RFC6464]] but not [[!RFC6465]], the <var>v</var> attribute will only be set
-                            for RTP packets received from peers enabling the client-mixer header extension as well as voice activity detection. 
+                            for RTP packets received from peers enabling the client-mixer header extension as well as voice activity detection.
                         </p>
                     </dd>
                 </dl>
@@ -5548,7 +5548,7 @@ function signalAssertion(assertion) {
                     </dd>
                     <dt>readonly attribute RTCDtlsFingerprint fingerprint</dt>
                     <dd>
-                        <p>The fingerprint of the certificate.  As noted in [[JSEP]] Section 5.2.1, 
+                        <p>The fingerprint of the certificate.  As noted in [[JSEP]] Section 5.2.1,
                         the digest algorithm used for the fingerprint matches that used in the certificate
                         signature.</p>
                     </dd>
@@ -6015,7 +6015,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Fixed certificate example errors, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/340">Issue 340</a>
-                    </li> 
+                    </li>
                 </ol>
             </section>
             <section id="since-05-October-2015*">
