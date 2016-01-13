@@ -159,7 +159,9 @@
             </section>
             <section id="rtcicegatherer-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCIceGatherOptions options)] interface RTCIceGatherer : RTCStatsProvider">
+                <dl class="idl" title="interface RTCIceGatherer : RTCStatsProvider">
+                    <dt>Constructor(RTCIceGatherOptions options)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCIceComponent component</dt>
                     <dd>
                         <p>The component-id of the <code><a>RTCIceGatherer</a></code> object.  In <code><a>RTCIceGatherer</a></code>
@@ -466,7 +468,9 @@
                     created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCIceGathererStateChangedEventInit"
-                    title="[Constructor(DOMString type, RTCIceGathererStateChangedEventInit eventInitDict)] interface RTCIceGathererStateChangedEvent : Event">
+                    title="interface RTCIceGathererStateChangedEvent : Event">
+                    <dt>Constructor(DOMString type, RTCIceGathererStateChangedEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCIceGathererState state</dt>
                     <dd>
                         <p>
@@ -507,7 +511,9 @@
                     created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCIceGathererEventInit"
-                    title="[Constructor(DOMString type, RTCIceGathererEventInit eventInitDict)] interface RTCIceGathererEvent : Event">
+                    title="interface RTCIceGathererEvent : Event">
+                    <dt>Constructor(DOMString type, RTCIceGathererEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCIceGatherCandidate candidate</dt>
                     <dd>
                         <p>
@@ -792,7 +798,9 @@ export function myDtlsTransportStateChange(name, state){
             </section>
             <section id="rtcicetransport-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(optional RTCIceGatherer gatherer)] interface RTCIceTransport : RTCStatsProvider">
+                <dl class="idl" title="interface RTCIceTransport : RTCStatsProvider">
+                    <dt>Constructor(optional RTCIceGatherer gatherer)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCIceGatherer? iceGatherer</dt>
                     <dd>
                         <p>
@@ -1065,7 +1073,9 @@ export function myDtlsTransportStateChange(name, state){
                     created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCIceTransportStateChangedEventInit"
-                    title="[Constructor(DOMString type, RTCIceTransportStateChangedEventInit eventInitDict)] interface RTCIceTransportStateChangedEvent : Event">
+                    title="interface RTCIceTransportStateChangedEvent : Event">
+                    <dt>Constructor(DOMString type, RTCIceTransportStateChangedEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCIceTransportState state</dt>
                     <dd>
                         <p>
@@ -1105,7 +1115,9 @@ export function myDtlsTransportStateChange(name, state){
                     created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCIceCandidatePairChangedEventInit"
-                    title= "[Constructor(DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict)] interface RTCIceCandidatePairChangedEvent : Event">
+                    title= "interface RTCIceCandidatePairChangedEvent : Event">
+                    <dt>Constructor(DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCIceCandidatePair pair</dt>
                     <dd>
                         <p>
@@ -1257,7 +1269,9 @@ mySignaller.send({
                 <h3>Interface Definition</h3>
                 <dl class="idl" title="typedef (octet[]) ArrayBuffer">
                 </dl>
-                <dl class="idl" title="[Constructor(RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)] interface RTCDtlsTransport : RTCStatsProvider">
+                <dl class="idl" title="interface RTCDtlsTransport : RTCStatsProvider ">
+                    <dt>Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)</dt>
+                    <dd></dd>
                     <dt>readonly attribute sequence&lt;RTCCertificate&gt; certificates</dt>
                     <dd>
                         <p>The certificates provided in the constructor.</p>
@@ -1466,7 +1480,9 @@ mySignaller.send({
                     created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCDtlsTransportStateChangedEventInit"
-                    title="[Constructor(DOMString type, RTCDtlsTransportStateChangedEventInit eventInitDict)] interface RTCDtlsTransportStateChangedEvent : Event">
+                    title="interface RTCDtlsTransportStateChangedEvent : Event">
+                    <dt>Constructor(DOMString type, RTCDtlsTransportStateChangedEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCDtlsTransportState state</dt>
                     <dd>
                         <p>
@@ -1636,7 +1652,9 @@ function accept(mySignaller, remote) {
             </section>
             <section id="rtcrtpsender-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(MediaStreamTrack track, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)] interface RTCRtpSender : RTCStatsProvider">
+                <dl class="idl" title="interface RTCRtpSender : RTCStatsProvider">
+                    <dt>Constructor(MediaStreamTrack track, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dd></dd>
                     <dt>readonly attribute MediaStreamTrack track</dt>
                     <dd>
                         <p>The associated <code><a>MediaStreamTrack</a></code> instance.</p>
@@ -1775,7 +1793,9 @@ function accept(mySignaller, remote) {
                     created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCSsrcConflictEventInit"
-                    title="[Constructor(DOMString type, RTCSsrcConflictEventInit eventInitDict)] interface RTCSsrcConflictEvent : Event">
+                    title="interface RTCSsrcConflictEvent : Event">
+                    <dt>Constructor(DOMString type, RTCSsrcConflictEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute unsigned long ssrc</dt>
                     <dd>
                         <p>
@@ -1821,7 +1841,9 @@ function accept(mySignaller, remote) {
             </section>
             <section id="rtcrtpreceiver-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)] interface RTCRtpReceiver : RTCStatsProvider">
+                <dl class="idl" title="interface RTCRtpReceiver : RTCStatsProvider">
+                    <dt>Constructor(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dd></dd>
                     <dt>readonly attribute MediaStreamTrack? track</dt>
                     <dd>
                         <p>The associated <code><a>MediaStreamTrack</a></code> instance.</p>
@@ -2409,7 +2431,9 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtplistener-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCDtlsTransport transport)] interface RTCRtpListener">
+                <dl class="idl" title="interface RTCRtpListener">
+                    <dt>Constructor(RTCDtlsTransport transport)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
                         <p>The RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
@@ -2442,7 +2466,9 @@ mySignaller.myOfferTracks({
                     created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCRtpUnhandledEventInit"
-                    title="[Constructor(DOMString type, RTCRtpUnhandledEventInit eventInitDict)] interface RTCRtpUnhandledEvent : Event">
+                    title="interface RTCRtpUnhandledEvent : Event">
+                    <dt>Constructor(DOMString type, RTCRtpUnhandledEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute DOMString muxId</dt>
                     <dd>
                         <p>
@@ -3920,7 +3946,9 @@ var encodings = [{
             </section>
             <section id="rtcdtmfsender-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCRtpSender sender)] interface RTCDtmfSender">
+                <dl class="idl" title="interface RTCDtmfSender">
+                    <dt>Constructor(RTCRtpSender sender)</dt>
+                    <dd></dd>
                     <dt>readonly attribute boolean <a>canInsertDTMF</a></dt>
                     <dd>
                         <p>Whether the <a>RTCDtmfSender</a> is capable of sending DTMF.</p>
@@ -4088,7 +4116,9 @@ var encodings = [{
                     <var>tone</var>, MUST be created and dispatched at the given target.
                 </p>
                 <dl class="idl" data-merge="RTCDTMFToneChangeEventInit"
-                    title="[Constructor(DOMString type, RTCDTMFToneChangeEventInit eventInitDict)] interface RTCDTMFToneChangeEvent : Event">
+                    title="interface RTCDTMFToneChangeEvent : Event">
+                    <dt>Constructor(DOMString type, RTCDTMFToneChangeEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute DOMString tone</dt>
                     <dd>
                         <p>
@@ -4222,7 +4252,9 @@ sender.insertDTMF("123");
                     settings and reliability mode, are configured by the peer as the channel is created.
                     The properties of a channel cannot change after the channel has been created.
                 </p>
-                <dl class="idl" title="[Constructor(RTCDataTransport transport, RTCDataChannelParameters parameters)] interface RTCDataChannel : EventTarget">
+                <dl class="idl" title="interface RTCDataChannel : EventTarget">
+                    <dt>Constructor(RTCDataTransport transport, RTCDataChannelParameters parameters)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCDataTransport transport</dt>
                     <dd>
                         <p>The readonly attribute referring to the related transport object.</p>
@@ -4566,7 +4598,9 @@ sender.insertDTMF("123");
             </section>
             <section id="sctptransport-interface-definition*">
                 <h3>Interface Definition</h3>
-                <dl class="idl" title="[Constructor(RTCDtlsTransport transport, unsigned short? port)] interface RTCSctpTransport : RTCDataTransport">
+                <dl class="idl" title="interface RTCSctpTransport : RTCDataTransport">
+                    <dt>Constructor(RTCDtlsTransport transport, unsigned short? port)</dt>
+                    <dd></dd>
                     <dt>readonly attribute <a>RTCDtlsTransport</a> transport</dt>
                     <dd>
                         <p>The <a>RTCDtlsTransport</a> instance the <a>RTCSctpTransport</a> object is sending over.</p>
@@ -4625,7 +4659,9 @@ sender.insertDTMF("123");
                     target.
                 </p>
                 <dl class="idl" data-merge="RTCDataChannelEventInit"
-                    title="[Constructor(DOMString type, RTCDataChannelEventInit eventInitDict)] interface RTCDataChannelEvent : Event">
+                    title="interface RTCDataChannelEvent : Event">
+                    <dt>Constructor(DOMString type, RTCDataChannelEventInit eventInitDict)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCDataChannel channel</dt>
                     <dd>
                         <p>
@@ -5340,7 +5376,9 @@ function processStats(currentReport) {
             <section>
                 <h3>RTCIdentity Interface</h3>
                 <p>The Identity API is described below.</p>
-                <dl class="idl" title="[Constructor(RTCDtlsTransport transport)] interface RTCIdentity">
+                <dl class="idl" title="interface RTCIdentity">
+                    <dt>Constructor(RTCDtlsTransport transport)</dt>
+                    <dd></dd>
                     <dt>readonly attribute RTCIdentityAssertion? peerIdentity</dt>
                     <dd>
                         <p>
@@ -6015,6 +6053,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Fixed certificate example errors, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/340">Issue 340</a>
+                    </li>
+                    <li>
+                        Fixed Constructor markup in respec, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/345">Issue 345</a>
                     </li>
                 </ol>
             </section>
