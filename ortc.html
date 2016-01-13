@@ -1975,9 +1975,11 @@ function accept(mySignaller, remote) {
                     <dt>boolean v</dt>
                     <dd>
                         <p>
-                            Whether the last RTP packet received from this source contains voice activity (true) or not (false). Since
+                            Whether the last RTP packet received from this source contains voice activity ("true") or not ("false"). Since
                             the "V" bit is supported in [[!RFC6464]] but not [[!RFC6465]], the <var>v</var> attribute will only be set
-                            for RTP packets received from peers enabling the client-mixer header extension as well as voice activity detection.
+                            when receivers enable the client-mixer header extension (setting the <var>vad</var> attribute to "true"),
+                            and when RTP packets are received from senders enabling the client-mixer header extension
+                            (setting the <var>vad</var> attribute to "true").
                         </p>
                     </dd>
                 </dl>
@@ -3894,7 +3896,9 @@ var encodings = [{
                             <td>boolean vad</td>
                             <td>
                                 This extension indicates the audio level of the audio sample carried in an RTP packet.
-                                The <var>vad</var> attribute indicates whether the V bit is in use (true) or not (false).
+                                For an <code><a>RTCRtpSender</a></code>, the <var>vad</var> attribute indicates whether the V bit is in use (true) or not (false).
+                                For an <code><a>RTCRtpReceiver</a></code>, the <var>vad</var> attribute indicates whether the V bit is provided to the 
+                                application (true) in <code>RTCRtpContributingSource.v</code> or is unset (false). 
                             </td>
                         </tr>
                         <tr id="def-mixer-to-client*">
