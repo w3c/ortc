@@ -2406,28 +2406,28 @@ mySignaller.myOfferTracks({
                     then <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
                 </p>
                 <p>
-                    When an RTP packet arrives,
-                    if <var>ssrc_table</var>[<var>packet.ssrc</var>] is set: set <var>packet_receiver</var> to <var>ssrc_table</var>[<var>packet.ssrc</var>] and check
-                    whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[j].payloadtype</code> for <var>packet_receiver</var>,
+                    When an RTP packet arrives, the implementation determines the <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as follows:
+                    If <var>ssrc_table</var>[<var>packet.ssrc</var>] is set: set <var>rtp_receiver</var> to <var>ssrc_table</var>[<var>packet.ssrc</var>] and check
+                    whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[j].payloadtype</code> for <var>rtp_receiver</var>,
                     where <var>j</var> varies from 0 to the number of codecs.
-                    If so, route the packet to <var>packet_receiver</var>. If <var>packet.pt</var> does not match,
+                    If so, route the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does not match,
                     fire the <code><a>unhandledrtp</a></code> event.
                 </p>
                 <p>
                     Else if <var>packet.muxId</var> is set: If <var>muxId_table</var>[<var>packet.muxId</var>] is unset, fire the <code><a>unhandledrtp</a></code> event, else set
-                    <var>packet_receiver</var> to <var>muxId_table</var>[<var>packet.muxId</var>] and check
-                    whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[j].payloadtype</code> for <var>packet_receiver</var>,
+                    <var>rtp_receiver</var> to <var>muxId_table</var>[<var>packet.muxId</var>] and check
+                    whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[j].payloadtype</code> for the <code><a>RTCRtpReceiver</a></code> object <var>rtp_receiver</var>,
                     where <var>j</var> varies from 0 to the number of codecs.
-                    If so, set <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>packet_receiver</var> and route the packet to <var>packet_receiver</var>.
+                    If so, set <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>rtp_receiver</var> and route the packet to <var>rtp_receiver</var>.
                     If <var>packet.pt</var> does not match, fire the <code><a>unhandledrtp</a></code> event.
                 </p>
                 <p>
-                    Else if <var>pt_table</var>[<var>packet.pt</var>] is set: set <var>packet_receiver</var> to <var>pt_table</var>[<var>packet.pt</var>],
-                    set <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>packet_receiver</var>, set <var>pt_table</var>[<var>packet.pt</var>] to null
-                    and route the packet to <var>packet_receiver</var>. Question: Do we remove all <var>pt_table</var>[<var>packet.pt</var>] entries set to <var>packet_receiver</var>?
+                    Else if <var>pt_table</var>[<var>packet.pt</var>] is set: set <var>rtp_receiver</var> to <var>pt_table</var>[<var>packet.pt</var>],
+                    set <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>rtp_receiver</var>, set <var>pt_table</var>[<var>packet.pt</var>] to null
+                    and route the packet to <var>rtp_receiver</var>. Question: Do we remove all <var>pt_table</var>[<var>packet.pt</var>] entries set to <var>rtp_receiver</var>?
                 </p>
                 <p>Else if no matches are found in the <var>ssrc_table</var>, <var>muxId_table</var> or <var>pt_table</var>, fire the <code><a>unhandledrtp</a></code> event.</p>
-                <p>TODO: Revise this paragraph based on the outcome of the discussion on FEC/RTX/RED. </p>
+                <p>TODO: Revise this Section to include FEC/RTX/RED. </p>
             </section>
             <section id="rtcrtplistener-interface-definition*">
                 <h3>Interface Definition</h3>
@@ -6053,6 +6053,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Fixed certificate example errors, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/340">Issue 340</a>
+                    </li>
+                    <li>
+                        Clarified RTP matching rules, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/344">Issue 344</a>
                     </li>
                     <li>
                         Fixed Constructor markup in respec, as noted in:
