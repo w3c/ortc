@@ -573,7 +573,7 @@
                     <dd>
                         <p>
                             The ICE gatherer <em class="rfc2119" title="MUST">MUST</em> filter out
-                            candidates with private IP addresses [[RFC1918]].  This prevents exposure of
+                            candidates with private IP addresses [[!RFC1918]].  This prevents exposure of
                             internal network details, at the cost of requiring relay usage even for intranet calls,
                             if the Network Address Translator (NAT) does not allow hairpinning as described in
                             [[RFC4787]], section 6.
@@ -1376,7 +1376,7 @@ mySignaller.send({
                     <dt>DOMString algorithm</dt>
                     <dd>
                         <p>One of the the hash function algorithms defined in the 'Hash function Textual Names' registry, initially specified in [[!RFC4572]] Section 8.
-                        As noted in [[JSEP]] Section 5.2.1, the digest algorithm used for the fingerprint matches that used in the certificate signature.</p>
+                        As noted in [[!JSEP]] Section 5.2.1, the digest algorithm used for the fingerprint matches that used in the certificate signature.</p>
                     </dd>
                     <dt>DOMString value</dt>
                     <dd>
@@ -3540,7 +3540,7 @@ mySignaller.myOfferTracks({
                     <dfn>RTCPriorityType</dfn> can be used to indicate the relative priority of various flows.
                     This allows applications to indicate to the browser whether a particular media flow is high, medium, low or of very
                     low importance to the application.
-                    WebRTC uses the priority and Quality of Service (QoS) framework described in [[RTCWEB-TRANSPORT]] and [[TSVWG-RTCWEB-QOS]] to
+                    WebRTC uses the priority and Quality of Service (QoS) framework described in [[RTCWEB-TRANSPORT]] and [[!TSVWG-RTCWEB-QOS]] to
                     provide priority and DSCP marketing for packets that will help provide QoS in some networking environments.
                     Applications that use this API should be aware that often better overall user
                     experience is obtained by lowering the priority of things that are not as important rather
@@ -3898,7 +3898,7 @@ var encodings = [{
                                 This extension indicates the audio level of the audio sample carried in an RTP packet.
                                 For an <code><a>RTCRtpSender</a></code>, the <var>vad</var> attribute indicates whether the V bit is in use (true) or not (false).
                                 For an <code><a>RTCRtpReceiver</a></code>, the <var>vad</var> attribute indicates whether the V bit is provided to the 
-                                application (true) in <code>RTCRtpContributingSource.v</code> or is unset (false). 
+                                application (true) in <code>RTCRtpContributingSource.voiceActivityFlag</code> or is unset (false). 
                             </td>
                         </tr>
                         <tr id="def-mixer-to-client*">
@@ -5590,7 +5590,7 @@ function signalAssertion(assertion) {
                     </dd>
                     <dt>readonly attribute RTCDtlsFingerprint fingerprint</dt>
                     <dd>
-                        <p>The fingerprint of the certificate.  As noted in [[JSEP]] Section 5.2.1,
+                        <p>The fingerprint of the certificate.  As noted in [[!JSEP]] Section 5.2.1,
                         the digest algorithm used for the fingerprint matches that used in the certificate
                         signature.</p>
                     </dd>
@@ -6063,8 +6063,9 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/344">Issue 344</a>
                     </li>
                     <li>
-                        Fixed Constructor markup in respec, as noted in:
+                        Fixed markup issues in respec, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/345">Issue 345</a>
+                        <a href="https://github.com/openpeer/ortc/issues/353">Issue 353</a>
                     </li>
                 </ol>
             </section>
