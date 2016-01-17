@@ -3898,7 +3898,7 @@ var encodings = [{
                                 This extension indicates the audio level of the audio sample carried in an RTP packet.
                                 For an <code><a>RTCRtpSender</a></code>, the <var>vad</var> attribute indicates whether the V bit is in use (true) or not (false).
                                 For an <code><a>RTCRtpReceiver</a></code>, the <var>vad</var> attribute indicates whether the V bit is provided to the 
-                                application (true) in <code>RTCRtpContributingSource.v</code> or is unset (false). 
+                                application (true) in <code>RTCRtpContributingSource.voiceActivityFlag</code> or is unset (false). 
                             </td>
                         </tr>
                         <tr id="def-mixer-to-client*">
@@ -6063,8 +6063,9 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                         <a href="https://github.com/openpeer/ortc/issues/344">Issue 344</a>
                     </li>
                     <li>
-                        Fixed Constructor markup in respec, as noted in:
+                        Fixed markup issues in respec, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/345">Issue 345</a>
+                        <a href="https://github.com/openpeer/ortc/issues/353">Issue 353</a>
                     </li>
                 </ol>
             </section>
