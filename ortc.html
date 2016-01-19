@@ -1661,7 +1661,13 @@ function accept(mySignaller, remote) {
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
-                        <p>The associated RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
+                        <p>
+                            The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is sent and received.
+                            When BUNDLE is used, many <code><a>RTCRtpSender</a></code> objects will share one 
+                            <var>rtcpTransport</var> and will all send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
+                            When RTCP mux is used, <var>rtcpTransport</var> will be null, and both RTP and RTCP traffic will flow 
+                            over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
+                        </p>
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport rtcpTransport</dt>
                     <dd>
@@ -1854,7 +1860,13 @@ function accept(mySignaller, remote) {
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport rtcpTransport</dt>
                     <dd>
-                        <p>The associated RTCP <code><a>RTCDtlsTransport</a></code> instance.</p>
+                        <p>
+                            The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is sent and received.
+                            When BUNDLE is used, many <code><a>RTCRtpReceiver</a></code> objects will share one 
+                            <var>rtcpTransport</var> and will all send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
+                            When RTCP mux is used, <var>rtcpTransport</var> will be null, and both RTP and RTCP traffic will flow 
+                            over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
+                        </p>
                     </dd>
                     <dt>void setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd>
@@ -6061,6 +6073,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified RTP matching rules, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/344">Issue 344</a>
+                    </li>
+                   <li>
+                        Clarified value of <var>rtcpTransport</var> for BUNDLE use, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/349">Issue 349</a>
                     </li>
                     <li>
                         Fixed markup issues in respec, as noted in:
