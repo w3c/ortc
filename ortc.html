@@ -3515,10 +3515,15 @@ mySignaller.myOfferTracks({
                     <dt>boolean active=true</dt>
                     <dd>
                         <p>
-                            Whether the sender or receiver is active. If false, don't send any media right now.
-                            Disable is different than omitting the encoding; it can keep resources
-                            available to re-enable more quickly than re-adding. As noted in [[RFC3264]] Section 5.1, RTCP is still sent, regardless of the value of the active attribute.
-                            If unset, the default is assumed.
+                            For an <code><a>RTCRtpSender</a></code>, indictes whether this encoding is actively being sent.
+                            Setting it to false causes this encoding to no longer be sent.
+                            Setting it to true causes this encoding to be sent. If unset, the default (true) is assumed.
+                            For an <code><a>RTCRtpReceiver</a></code>, indicates that this encoding is being decoded.
+                            Setting it to false causes this encoding to no longer be decoded.
+                            Setting it to true causes this encoding to be decoded. If unset, the default (true) is assumed.
+                            Setting <var>active</var> to "false" is different than omitting the encoding, since
+                            it can keep resources available to re-activate more quickly than re-adding the encoding.
+                            As noted in [[RFC3264]] Section 5.1, RTCP is still sent, regardless of the value of the active attribute.
                         </p>
                     </dd>
                     <dt>DOMString encodingId</dt>
