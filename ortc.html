@@ -3489,11 +3489,13 @@ mySignaller.myOfferTracks({
                     <dt>double resolutionScale</dt>
                     <dd>
                         <p>
-                            Inverse of the input resolution fraction to be encoded, or die trying. Example: 1.0 = full resolution,
-                            2.0 = one half of the full resolution.
-                            For scalable video coding, <var>resolutionScale</var> refers to
-                            the inverse aggregate fraction of the input resolution achieved by this
-                            layer when combined with all dependent layers.
+                            If the sender's <var>kind</var> is "video", the video's resolution will be 
+                            scaled down in each dimension by the given value before sending.
+                            For example, if the value is 2.0, the video will be scaled down by a factor of
+                            2 in each dimension, resulting in sending a video of one quarter size.
+                            If the value is 1.0 (the default), the video will not be affected. 
+                            The value must be greater than 0. For scalable video coding, <var>resolutionScale</var> 
+                            refers to the aggregate scale down of this layer when combined with all dependent layers.
                         </p>
                     </dd>
                     <dt>double framerateScale</dt>
