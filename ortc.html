@@ -3012,26 +3012,35 @@ mySignaller.myOfferTracks({
                     </dd>
                     <dt>sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
                     <dd>
-                        <p>The codecs to send or receive (could include RED [[RFC2198]], RTX [[!RFC4588]] and CN [[RFC3389]]).</p>
+                        <p>
+                            The codecs to send or receive (could include RED [[RFC2198]], RTX [[!RFC4588]] and CN [[RFC3389]]).
+                            <var>codecs</var> MUST be set for an <code><a>RTCRtpParameters</a></code> object to be a valid
+                            argument passed to <code>send()</code> or <code>receive()</code>.
+                        </p>
                     </dd>
                     <dt>sequence&lt;RTCRtpHeaderExtensionParameters&gt; headerExtensions</dt>
                     <dd>
-                        <p>Configured header extensions.</p>
+                        <p>Configured header extensions.  If unset, no header extensions are configured.</p>
                     </dd>
                     <dt>sequence&lt;RTCRtpEncodingParameters&gt; encodings</dt>
                     <dd>
-                        <p>The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.</p>
+                        <p>
+                            The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.
+                            When unset, <code>send()</code> behaves as described in Section 5.3.3, and <code>receive()</code> as
+                            described in Section 6.3.3.
+                        </p>
                     </dd>
                     <dt>RTCRtcpParameters rtcp</dt>
                     <dd>
-                        <p>Parameters to configure RTCP.<p>
+                        <p>Parameters to configure RTCP. If unset, the default values described in Section 9.6.1 are assumed.<p>
                     </dd>
                     <dt>RTCDegradationPreference degradationPreference = "balanced"</dt>
                     <dd>
                         <p>
                             When bandwidth is constrained and the <code><a>RTCRtpSender</a></code> needs to choose between degrading
                             resolution or degrading framerate, <code>degradationPreference</code> indicates which is preferred.
-                            <code>degradationPreference</code> is ignored in an <code><a>RTCRtpReceiver</a></code> object.
+                            <code>degradationPreference</code> is ignored in an <code><a>RTCRtpReceiver</a></code> object. If
+                            unset, "balanced" is assumed.
                         </p>
                     </dd>
                 </dl>
