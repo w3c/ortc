@@ -5944,7 +5944,7 @@ function signalAssertion(assertion) {
         <section class="informative" id="webrtc-compat*">
             <h2>WebRTC 1.0 Compatibility</h2>
             <p>
-                It is a goal of the ORTC API to provide the functionality of the WebRTC 1.0 API [[WEBRTC10]], as well as to enable the
+                It is a goal of the ORTC API to provide the functionality of the WebRTC 1.0 API [[!WEBRTC10]], as well as to enable the
                 WebRTC 1.0 API to be implemented on top of the ORTC API, utilizing a Javascript "shim" library. This section
                 discusses WebRTC 1.0 compatibility issues that have been encountered by ORTC API implementers.
             </p>
@@ -5963,7 +5963,7 @@ function signalAssertion(assertion) {
             <section id="voice-activity*">
                 <h3>Voice Activity Detection</h3>
                 <p>
-                    [[WEBRTC10]] Section 4.2.4 defines the <code>RTCOfferOptions</code> dictionary, which includes the <var>voiceActivityDetection</var> attribute,
+                    [[!WEBRTC10]] Section 4.2.4 defines the <code>RTCOfferOptions</code> dictionary, which includes the <var>voiceActivityDetection</var> attribute,
                     which determines whether Voice Activity Detection (VAD) is enabled within the Offer produced by <code>createOffer()</code>.
                     The effect of setting <var>voiceActivityDetection</var> to <var>true</var> is to include the Comfort Noice (CN) codec defined in
                     [[!RFC3389]] within the Offer.
