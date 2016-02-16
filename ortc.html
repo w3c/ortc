@@ -3549,6 +3549,7 @@ mySignaller.myOfferTracks({
                         <p>
                             An identifier for the encoding object. This identifier should be unique within the scope of the
                             localized sequence of <code><a>RTCRtpEncodingParameters</a></code> for any given <code><a>RTCRtpParameters</a></code> object.
+                            Values must be composed only of case-sensitive alphanumeric characters (a-z, A-Z, 0-9) up to a maximum of 16 characters.
                             For a codec (such as VP8) where a compliant decoder is required to be able to decode anything that an encoder can send,
                             it is not necessary to specify the expected scalable video coding configuration on the receiver via use of <var>encodingId</var>
                             (or <var>dependencyEncodingIds</var>). Where specified for a receiver, the expected layering is ignored. A sender MAY
