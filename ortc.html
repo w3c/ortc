@@ -1243,18 +1243,25 @@ mySignaller.send({
             </section>
             <section id="rtcdtlstransport-operation*">
                 <h3>Operation</h3>
-                <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed using <code><a>RTCIceTransport</a></code> and <code>RTCCertificate</code> objects.</p>
                 <p>
-                    A newly constructed <code><a>RTCDtlsTransport</a></code>
-                    <em class="rfc2119" title="MUST">MUST</em> listen and respond to incoming DTLS packets before <code>start()</code>
-                    is called. However, to complete the negotiation it is necessary to verify the remote fingerprint,
-                    which is dependent on <var>remoteParameters</var>, passed to <code>start()</code>. To verify the remote fingerprint,
-                    compute the fingerprint <var>value</var> for the selected remote certificate using the signature digest algorithm, and
-                    compare it against <code>remoteParameters.fingerprints</code>. If the selected remote certificate <code>RTCDtlsFingerprint.value</code>
-                    matches <code>remoteParameters.fingerprints[j].value</code> and <code>RTCDtlsFingerprint.algorithm</code> matches
-                    <code>remoteParameters.fingerprints[j].algorithm</code> for any value of <var>j</var>, the remote fingerprint is verified.
-                    After the DTLS handshake exchange completes (but before the remote fingerprint is verified)
-                    incoming media packets may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be provided to avoid loss of
+                    A <code><a>RTCDtlsTransport</a></code> instance is constructed using an <code><a>RTCIceTransport</a></code>
+                    and a sequence of <code>RTCCertificate</code> objects. If <var>certificates</var> is non-empty,
+                    check that the <var>expires</var> attribute of each <code>RTCCertificate</code> object is in the future.
+                    If a certificate has expired, throw an InvalidParameter exception; otherwise, store the certificates.
+                </p>
+                <p>
+                    A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119" title="MUST">MUST</em>
+                    listen and respond to incoming DTLS packets before <code>start()</code> is called.
+                    However, to complete the negotiation it is necessary to verify the remote fingerprint,
+                    which is dependent on <var>remoteParameters</var>, passed to <code>start()</code>.
+                    To verify the remote fingerprint, compute the fingerprint <var>value</var> for the selected
+                    remote certificate using the signature digest algorithm, and compare it against
+                    <code>remoteParameters.fingerprints</code>. If the selected remote certificate 
+                    <code>RTCDtlsFingerprint.value</code> matches <code>remoteParameters.fingerprints[j].value</code>
+                    and <code>RTCDtlsFingerprint.algorithm</code> matches <code>remoteParameters.fingerprints[j].algorithm</code>
+                    for any value of <var>j</var>, the remote fingerprint is verified. After the DTLS handshake exchange
+                    completes (but before the remote fingerprint is verified) incoming media packets may be received.
+                    A modest buffer <em class="rfc2119" title="MUST">MUST</em> be provided to avoid loss of
                     media prior to remote fingerprint validation (which can begin after <code>start()</code> is called).
                 </p>
                 <p>
@@ -6150,6 +6157,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified behavior of <var>resolutionScale</var>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/362">Issue 362</a>
+                    </li>
+                    <li>
+                        Clarified certificate checking behavior, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/372">Issue 372</a>
                     </li>
                 </ol>
             </section>
