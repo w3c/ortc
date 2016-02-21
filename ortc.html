@@ -2860,8 +2860,12 @@ mySignaller.myOfferTracks({
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
-                                    <td>Receiver</td>
-                                    <td>This parameter, which describes the maximum capability of the decoder, MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.</td>
+                                    <td>Receiver/Sender</td>
+                                    <td>
+                                        This parameter describes the maximum capability of the decoder
+                                        (for an <code><a>RTCRtpReceiver</a></code>) or the encoder
+                                        (for an <code><a>RTCRtpSender</a></code>).
+                                    </td>
                                 </tr>
                                 <tr id="def-packetization-mode*">
                                     <td><dfn>packetizationMode</dfn></td>
@@ -5979,6 +5983,18 @@ function signalAssertion(assertion) {
                     Within ORTC API, equivalent behavior can be obtained by configuring the Comfort Noise (CN) codec for use within <code>RTCRtpParameters</code>,
                     and/or configuring a codec with built-in support for Discontinuous Operation (DTX), such as Opus.
                     As noted in [[!RTCWEB-AUDIO]] Section 3, support for CN is required.
+                </p>
+            </section>
+            <section id="bundle*">
+                <h3>H.264/AVC</h3>
+                <p>
+                    [[RFC6184]] Section 8.1 defines the <code>level-asymmetry-allowed</code> SDP parameter
+                    which is supported by some WebRTC 1.0 H.264/AVC implementations. Within  ORTC API, both
+                    the <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> support the
+                    <code>profileLevelId</code> capability, and the <code>profileLevelId</code> setting
+                    setting is provided for the <code><a>RTCRtpSender</a></code>. Since sender and receiver
+                    capabilities are independent, a WebRTC 1.0 API shim library running on ORTC API should
+                    include an <code>level-asymmetry-allowed</code> value of <code>1</code> in the Offer.
                 </p>
             </section>
         </section>
