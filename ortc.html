@@ -5985,16 +5985,17 @@ function signalAssertion(assertion) {
                     As noted in [[!RTCWEB-AUDIO]] Section 3, support for CN is required.
                 </p>
             </section>
-            <section id="bundle*">
+            <section id="h264*">
                 <h3>H.264/AVC</h3>
                 <p>
                     [[RFC6184]] Section 8.1 defines the <code>level-asymmetry-allowed</code> SDP parameter
-                    which is supported by some WebRTC 1.0 H.264/AVC implementations. Within  ORTC API, both
-                    the <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> support the
-                    <code>profileLevelId</code> capability, and the <code>profileLevelId</code> setting
-                    setting is provided for the <code><a>RTCRtpSender</a></code>. Since sender and receiver
-                    capabilities are independent, a WebRTC 1.0 API shim library running on ORTC API should
-                    include an <code>level-asymmetry-allowed</code> value of <code>1</code> in the Offer.
+                    supported by some WebRTC 1.0 API implementations. Within  ORTC API, the <code>profileLevelId</code>
+                    capability is supported for both the <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code>,
+                    and the <code>profileLevelId</code> setting is provided for the <code><a>RTCRtpSender</a></code>.
+                    Since in ORTC API, sender and receiver <code>profileLevelId</code> capabilities are independent
+                    and there is no <code>profileLevelId</code> setting for an <code><a>RTCRtpReceiver</a></code>,
+                    ORTC API assumes that implementations support level asymmetry.  Therefore a WebRTC 1.0 API shim library
+                    for ORTC API should provide a <code>level-asymmetry-allowed</code> value of <code>1</code>.
                 </p>
             </section>
         </section>
