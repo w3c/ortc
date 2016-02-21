@@ -502,7 +502,7 @@
                     Firing an
                     <code><a>RTCIceGathererEvent</a></code> event named
                     <var>e</var> with an <code><a>RTCIceCandidate</a></code>
-                    <var>candidate</var> means that an event with the name <var>e</var>,
+                    <var>candidate</var> and URL <var>url</var> means that an event with the name <var>e</var>,
                     which does not bubble (except where otherwise stated) and is not
                     cancelable (except where otherwise stated), and which uses the
                     <code><a>RTCIceGathererEvent</a></code> interface with the
@@ -524,12 +524,16 @@
                             there are no additional candidates.
                         </p>
                     </dd>
+                    <dt>readonly attribute DOMString url</dt>
+                    <dd>The URL of the server from which the candidate was obtained.</dd>
                 </dl>
                 <dl class="idl" title="dictionary RTCIceGathererEventInit : EventInit">
                     <dt>RTCIceGatherCandidate candidate</dt>
                     <dd>
                         <p>The ICE candidate that caused the event.</p>
                     </dd>
+                    <dt>DOMString url</dt>
+                    <dd>The URL of the server from which the candidate was obtained.</dd>
                 </dl>
             </section>
             <section id="rtcicegatheroptions*">
