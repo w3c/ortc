@@ -4022,8 +4022,8 @@ var encodings = [{
                             character ',' indicates a delay of 2 seconds before processing the
                             next character in the tones parameter. All other characters <em title="MUST" class="rfc2119">MUST</em> be
                             considered <dfn id="dtmf-unrecognized">unrecognized</dfn>.
-                            As noted in [[RTCWEB-AUDIO]] Section 3, support for the characters 0 through 9, #, and *
-                            are required.
+                            As noted in [[RTCWEB-AUDIO]] Section 3, support for the characters
+                            0 through 9, A through D, #, and * are required.
                         </p>
                         <p>
                             The duration parameter indicates the duration in ms to use for
@@ -6200,6 +6200,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Added clarification on level asymmetry, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/382">Issue 382</a>
+                    </li>
+                    <li>
+                        Clarified DTMF tone requirements, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/384">Issue 384</a>
                     </li>
                 </ol>
             </section>
