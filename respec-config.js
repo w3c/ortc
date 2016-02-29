@@ -488,7 +488,7 @@ var respecConfig = {
         "JM. Valin",
         "C. Bran"
       ],
-      "status": "05 November 2015. Internet Draft (work in progress)",
+      "status": "09 February 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTCWEB-VIDEO": {
@@ -508,7 +508,7 @@ var respecConfig = {
         "C. Perkins",
         "J. Lennox"
       ],
-      "status": "11 September 2015. Internet Draft (work in progress)",
+      "status": "18 December 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTP-USAGE": {
@@ -532,7 +532,7 @@ var respecConfig = {
         "J. Uberti",
         "F. Galligan"
       ],
-      "status": "09 September. Internet Draft (work in progress)",
+      "status": "09 September 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "WEBRTC-STATS": {
