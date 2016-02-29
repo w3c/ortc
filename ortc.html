@@ -2405,27 +2405,33 @@ mySignaller.myOfferTracks({
                     prior to adding new entries.
                 </p>
                 <p>
-                    SSRC table: <var>ssrc_table</var>[<code>parameters.encodings[i].ssrc</code>] is set to
-                    <var>receiver</var> for each entry where
-                    <code>parameters.encodings[i].ssrc</code> is set, for values of
-                    <var>i</var> from 0 to the number of encodings.
+                    SSRC table: Set <var>ssrc_table</var>[<code>parameters.encodings[i].ssrc</code>] to
+                    <var>receiver</var> for each entry where <code>parameters.encodings[i].ssrc</code> is set,
+                    for values of <var>i</var> from 0 to the number of encodings.
+                    Set <var>ssrc_table</var>[<code>parameters.encodings[i].rtx.ssrc</code>] to
+                    <var>receiver</var> for each entry where <code>parameters.encodings[i].rtx.ssrc</code> is set,
+                    for values of <var>i</var> from 0 to the number of encodings.
+                    Set <var>ssrc_table</var>[<code>parameters.encodings[i].fec.ssrc</code>] to
+                    <var>receiver</var> for each entry where <code>parameters.encodings[i].fec.ssrc</code> is set,
+                    for values of <var>i</var> from 0 to the number of encodings.
                     If <var>ssrc_table</var>[<var>ssrc</var>] is already set to a value other than <var>receiver</var>,
-                    then <code>receiver.receive()</code> will
-                    throw an <code>InvalidParameters</code> exception.
+                    then <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
                 </p>
                 <p>
                     muxId table: If <code>parameters.muxId</code> is set, <var>muxId_table</var>[<var>parameters.muxId</var>] is set
                     to <var>receiver</var>.
                     If <var>muxId_table</var>[<var>muxId</var>] is already set to a value other than <var>receiver</var>, then
-                    <code>receiver.receive()</code> will
-                    throw an <code>InvalidParameters</code> exception.
+                    <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
                 </p>
                 <p>
                     payload type table: If <var>parameters.muxId</var> is unset and <code>parameters.encodings[i].ssrc</code>
-                    is unset for all values of <var>i</var> from 0 to the
-                    number of encodings, then add entries to <var>pt_table</var> by setting
+                    is unset for all values of <var>i</var> from 0 to the number of encodings,
+                    then add entries to <var>pt_table</var> by setting
                     <var>pt_table</var>[<code>parameters.codecs[j].payloadType</code>] to <var>receiver</var>,
                     for values of <var>j</var> from 0 to the number of codecs.
+                    If <code>parameters.encodings[i].rtx.payloadType</code> is set, set
+                    <var>pt_table</var>[<code>parameters.encodings[i].rtx.payloadType</code>] to <var>receiver</var>,
+                    for values of <var>i</var> from 0 to the number of encodings.
                     If <var>pt_table</var>[<var>pt</var>] is already set to a value other than <var>receiver</var>, or
                     <code>parameters.codecs[j].payloadType</code> is unset for any value of <var>j</var> from 0 to the number of codecs,
                     then <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
@@ -6180,6 +6186,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
                     <li>
                         Clarified behavior of <var>resolutionScale</var>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/362">Issue 362</a>
+                    </li>
+                    <li>
+                        Updated RTP matching rules in Section 8.3 to support FEC/RTX/RED, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/368">Issue 368</a>
                     </li>
                     <li>
                         Clarified certificate checking behavior, as noted in:
