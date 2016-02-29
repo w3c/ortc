@@ -60,7 +60,7 @@ var respecConfig = {
         "M. Petit-Huguenin",
         "G. Salgueiro"
       ],
-      "status": "19 October. Internet draft (work in progress)",
+      "status": "26 January 2016. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -74,7 +74,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "11 November 2015. Internet Draft (work in progress)",
+      "status": "08 February 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RFC3264": {
@@ -367,6 +367,19 @@ var respecConfig = {
       "status": "August 2015. RFC",
       "publisher": "IETF"
     },
+    "RFC7675"": {
+      "title": "Session Traversal Utilities for NAT (STUN) Usage for Consent Freshness",
+      "href": "https://tools.ietf.org/html/rfc7675",
+      "authors": [
+        "M. Perumal",
+        "D. Wing",
+        "R. Ravindranath",
+        "T. Reddy",
+        "M. Thomson"
+      ],
+      "status": "October 2015. RFC",
+      "publisher": "IETF"
+    },
     "BUNDLE": {
       "title": "Negotiating Media Multiplexing Using the Session Description Protocol (SDP)",
       "href": "https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation",
@@ -375,19 +388,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "20 July 2015. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "CONSENT": {
-      "title": "STUN Usage for Consent Freshness",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-stun-consent-freshness",
-      "authors": [
-        "M. Perumal",
-        "D. Wing",
-        "T. Reddy",
-        "M. Thomson"
-      ],
-      "status": "13 August 2015. Internet Draft (work in progress)",
+      "status": "24 February 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
