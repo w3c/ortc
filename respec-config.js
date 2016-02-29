@@ -53,6 +53,11 @@ var respecConfig = {
       "href": "http://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-19",
       "publisher": "IANA"
     },
+    "IANA-STUN-6": {
+      "title": "STUN Error Codes",
+      "href": "http://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
+      "publisher": "IANA"
+    },
     "MUX-FIXES": {
       "title": "Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)",
       "href": "https://tools.ietf.org/html/draft-ietf-avtcore-rfc5764-mux-fixes",
