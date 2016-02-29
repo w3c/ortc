@@ -838,7 +838,7 @@ export function myDtlsTransportStateChange(name, state){
                     <dd>
                         <p>
                             Retrieves the selected candidate pair on which packets are sent. If there is no selected pair yet,
-                            or consent [[!RFC7675]] is lost on the selected pair, NULL is returned.
+                            or consent is lost on the selected pair, NULL is returned.
                         </p>
                     </dd>
                     <dt>void start(RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role)</dt>
@@ -982,7 +982,7 @@ export function myDtlsTransportStateChange(name, state){
                             The <code><a>RTCIceTransport</a></code> has received at least one remote candidate,
                             and a local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was not added as the last candidate.
                             In this state the <code><a>RTCIceTransport</a></code> is checking candidate pairs but has not yet found a
-                            successful candidate pair, or consent checks [[!RFC7675]] have failed on
+                            successful candidate pair, or liveness checks have failed (such as those in [[!CONSENT]]) on
                             a previously successful candidate pair.
                         </p>
                     </dd>
@@ -1008,7 +1008,7 @@ export function myDtlsTransportStateChange(name, state){
                         <p>
                             The <code><a>RTCIceTransport</a></code> has received at least one local and remote candidate,
                             and a local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was not added as the last
-                            candidate, but all appropriate candidate pairs thus far have been tested and failed (or consent checks [[!RFC7675]]
+                            candidate, but all appropriate candidate pairs thus far have been tested and failed (or consent checks [[!CONSENT]],
                             once successful, have now failed). Other candidate pairs may become available for testing as new candidates
                             are trickled, and therefore the "failed" state has not been reached.
                         </p>
