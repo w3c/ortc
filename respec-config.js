@@ -372,7 +372,7 @@ var respecConfig = {
       "status": "August 2015. RFC",
       "publisher": "IETF"
     },
-    "RFC7675"": {
+    "RFC7675": {
       "title": "Session Traversal Utilities for NAT (STUN) Usage for Consent Freshness",
       "href": "https://tools.ietf.org/html/rfc7675",
       "authors": [
