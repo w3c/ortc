@@ -53,6 +53,11 @@ var respecConfig = {
       "href": "http://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-19",
       "publisher": "IANA"
     },
+    "IANA-STUN-6": {
+      "title": "STUN Error Codes",
+      "href": "http://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
+      "publisher": "IANA"
+    },
     "MUX-FIXES": {
       "title": "Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)",
       "href": "https://tools.ietf.org/html/draft-ietf-avtcore-rfc5764-mux-fixes",
@@ -60,7 +65,7 @@ var respecConfig = {
         "M. Petit-Huguenin",
         "G. Salgueiro"
       ],
-      "status": "19 October. Internet draft (work in progress)",
+      "status": "26 January 2016. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -74,7 +79,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "11 November 2015. Internet Draft (work in progress)",
+      "status": "08 February 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RFC3264": {
@@ -367,6 +372,19 @@ var respecConfig = {
       "status": "August 2015. RFC",
       "publisher": "IETF"
     },
+    "RFC7675": {
+      "title": "Session Traversal Utilities for NAT (STUN) Usage for Consent Freshness",
+      "href": "https://tools.ietf.org/html/rfc7675",
+      "authors": [
+        "M. Perumal",
+        "D. Wing",
+        "R. Ravindranath",
+        "T. Reddy",
+        "M. Thomson"
+      ],
+      "status": "October 2015. RFC",
+      "publisher": "IETF"
+    },
     "BUNDLE": {
       "title": "Negotiating Media Multiplexing Using the Session Description Protocol (SDP)",
       "href": "https://tools.ietf.org/html/draft-ietf-mmusic-sdp-bundle-negotiation",
@@ -375,19 +393,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "20 July 2015. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "CONSENT": {
-      "title": "STUN Usage for Consent Freshness",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-stun-consent-freshness",
-      "authors": [
-        "M. Perumal",
-        "D. Wing",
-        "T. Reddy",
-        "M. Thomson"
-      ],
-      "status": "13 August 2015. Internet Draft (work in progress)",
+      "status": "24 February 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -482,7 +488,7 @@ var respecConfig = {
         "JM. Valin",
         "C. Bran"
       ],
-      "status": "05 November 2015. Internet Draft (work in progress)",
+      "status": "09 February 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTCWEB-VIDEO": {
@@ -502,7 +508,7 @@ var respecConfig = {
         "C. Perkins",
         "J. Lennox"
       ],
-      "status": "11 September 2015. Internet Draft (work in progress)",
+      "status": "18 December 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTP-USAGE": {
@@ -526,7 +532,7 @@ var respecConfig = {
         "J. Uberti",
         "F. Galligan"
       ],
-      "status": "09 September. Internet Draft (work in progress)",
+      "status": "09 September 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "WEBRTC-STATS": {
