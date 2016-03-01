@@ -156,6 +156,10 @@
                 <p>
                   An <code><a>RTCIceGatherer</a></code> instance is constructed from an <code><a>RTCIceGatherOptions</a></code> object.
                 </p>
+                <p>
+                    An <code><a>RTCIceGatherer</a></code> object in the "closed" state can be garbage-collected
+                    when it is no longer referenced.
+                </p>
             </section>
             <section id="rtcicegatherer-interface-definition*">
                 <h3>Interface Definition</h3>
@@ -799,6 +803,10 @@ export function myDtlsTransportStateChange(name, state){
                     An <code><a>RTCIceTransport</a></code> instance is constructed (optionally) from an <code><a>RTCIceGatherer</a></code>.
                     If <var>gatherer.state</var> is "closed" or <var>gatherer.component</var> is "RTCP", then throw an <code>InvalidStateError</code> exception.
                 </p>
+                <p>
+                    An <code><a>RTCIceTransport</a></code> object in the "closed" state can be garbage-collected
+                    when it is no longer referenced.
+                </p>
             </section>
             <section id="rtcicetransport-interface-definition*">
                 <h3>Interface Definition</h3>
@@ -1275,6 +1283,10 @@ mySignaller.send({
                     <em class="rfc2119" title="MUST">MUST</em> support multiplexing of STUN, TURN, DTLS and RTP and/or RTCP.
                     This multiplexing, originally described in [[!RFC5764]] Section 5.1.2, is being revised in [[MUX-FIXES]].
                 </p>
+                <p>
+                    An <code><a>RTCDtlsTransport</a></code> object in the "closed" or "failed" states can be garbage-collected
+                    when it is no longer referenced.
+                </p>
             </section>
             <section id="rtcdtlstransport-interface-definition*">
                 <h3>Interface Definition</h3>
@@ -1460,7 +1472,8 @@ mySignaller.send({
                     <dd>
                         <p>
                             The DTLS connection has been closed intentionally via a call to <code>stop()</code> or receipt of a
-                            close_notify alert. Calling <code>transport.stop()</code> will also result in a transition to the "close
+                            close_notify alert. Calling <code>transport.stop()</code> will also result in a transition to the 
+                            "closed" state.
                         </p>
                     </dd>
                     <dt>failed</dt>
@@ -1660,6 +1673,10 @@ function accept(mySignaller, remote) {
                     If an attempt is made to construct an <code><a>RTCRtpSender</a></code> object with <var>transport.state</var> or <var>rtcpTransport.state</var> "closed",
                     or if <var>track.readyState</var> is "ended", throw an <code>InvalidStateError</code> exception.
                 </p>
+                <p>
+                    An <code><a>RTCRtpSender</a></code> object can be garbage-collected once <code>stop()</code> 
+                    is called and it is no longer referenced.
+                </p>
             </section>
             <section id="rtcrtpsender-interface-definition*">
                 <h3>Interface Definition</h3>
@@ -1854,6 +1871,10 @@ function accept(mySignaller, remote) {
                     A <code><a>RTCRtpReceiver</a></code> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object.
                     If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code> object with <var>transport.state</var> or <var>rtcpTransport.state</var> "closed",
                     throw an <code>InvalidStateError</code> exception.
+                </p>
+                <p>
+                    An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once <code>stop()</code> 
+                    is called and it is no longer referenced.
                 </p>
             </section>
             <section id="rtcrtpreceiver-interface-definition*">
@@ -4293,6 +4314,10 @@ sender.insertDTMF("123");
                     an <code><a>RTCDataChannelParameters</a></code> object. If <var>parameters</var> is invalid, throw an
                     <code>InvalidParameters</code> exception.
                 </p>
+                <p>
+                    An <code><a>RTCDataChannel</a></code> object can be garbage-collected once <var>readyState</var> 
+                    is "closed" and it is no longer referenced.
+                </p>
             </section>
             <section id="rtcdatachannel-interface-definition*">
                 <h3>Interface Definition</h3>
@@ -4679,13 +4704,17 @@ sender.insertDTMF("123");
             <section id="sctptransport-operation*">
                 <h3>Operation</h3>
                 <p>
-                    An <a>RTCSctpTransport</a> is constructed from an <a>RTCDtlsTransport</a> object,
+                    An <code><a>RTCSctpTransport</a></code> is constructed from an <code><a>RTCDtlsTransport</a></code> object,
                     and optionally a port number (with a default of 5000,
                     or the next unused port). If a port already in use is provided in the constructor, throw an <code>InvalidParameters</code> exception.
-                    Creation of an <a>RTCSctpTransport</a> causes an SCTP INIT request to be issued over the <a>RTCDtlsTransport</a>
-                    from the local <a>RTCSctpTransport</a> to the remote <a>RTCSctpTransport</a> where the remote <a>RTCSctpTransport</a>
-                    responds with an SCTP INIT-ACK. Since both local and remote parties must mutually create an <a>RTCSctpTransport</a>,
+                    Creation of an <code><a>RTCSctpTransport</a></code> causes an SCTP INIT request to be issued over the <code><a>RTCDtlsTransport</a></code>
+                    from the local <code><a>RTCSctpTransport</a></code> to the remote <code><a>RTCSctpTransport</a></code> where the remote <code><a>RTCSctpTransport</a></code>
+                    responds with an SCTP INIT-ACK. Since both local and remote parties must mutually create an <code><a>RTCSctpTransport</a></code>,
                     SCTP SO (Simultaneous Open) is used to establish a connection over SCTP.
+                </p>
+                <p>
+                    An <code><a>RTCSctpTransport</a></code> object can be garbage-collected once <code>stop()</code> is called
+                    and it is no longer referenced.
                 </p>
             </section>
             <section id="sctptransport-interface-definition*">
