@@ -2597,13 +2597,20 @@ mySignaller.myOfferTracks({
                 <dl title="dictionary RTCRtcpFeedback" class="idl">
                     <dt>DOMString type</dt>
                     <dd>
-                        <p>Valid values for <var>type</var> are the "RTCP Feedback" Attribute Values enumerated in [[!IANA-SDP-14]] ("ack", "ccm", "nack", etc.).</p>
+                        <p>
+                            Valid values for <var>type</var> are the "RTCP Feedback" Attribute Values enumerated in
+                            [[!IANA-SDP-14]] ("ack", "ccm", "nack", etc.).
+                        </p>
                     </dd>
                     <dt>DOMString parameter</dt>
                     <dd>
                         <p>
-                            For a <var>type</var> of "ack" or "nack", valid values for <var>parameters</var> are the "ack" and "nack" Attribute Values enumerated in [[!IANA-SDP-15]] ("sli", "rpsi", etc.).
-                            For a <var>type</var> of "ccm", valid values for <var>parameters</var> are the "Codec Control Messages" enumerated in [[!IANA-SDP-19]] ("fir", "tmmbr" (includes "tmmbn"), etc.).
+                            For a <var>type</var> of "ack" or "nack", valid values for <var>parameter</var> are the
+                            "ack" and "nack" Attribute Values enumerated in [[!IANA-SDP-15]] ("sli", "rpsi", etc.).
+                            For the Generic NACK feedback message defined in [[!RFC4585]] Section 6.2.1,
+                            the <var>type</var> attribute is set to "nack" and the <var>parameter</var> attribute is unset.
+                            For a <var>type</var> of "ccm", valid values for <var>parameter</var> are the
+                            "Codec Control Messages" enumerated in [[!IANA-SDP-19]] ("fir", "tmmbr" (includes "tmmbn"), etc.).
                         </p>
                     </dd>
                 </dl>
