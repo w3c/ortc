@@ -1868,7 +1868,7 @@ function accept(mySignaller, remote) {
             <section id="rtcrtpreceiver-operation*">
                 <h3>Operation</h3>
                 <p>
-                    A <code><a>RTCRtpReceiver</a></code> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object and a value of <var>kind</var>.
+                    A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of <var>kind</var> and an <code><a>RTCDtlsTransport</a></code> object.
                     If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code> object with <var>transport.state</var> or <var>rtcpTransport.state</var> "closed",
                     throw an <code>InvalidStateError</code> exception.  Upon construction,  <var>track</var> is set, and the value of <var>track.kind</var> is determined
                     based on the value of <var>kind</var> passed in the constructor.
@@ -1881,7 +1881,7 @@ function accept(mySignaller, remote) {
             <section id="rtcrtpreceiver-interface-definition*">
                 <h3>Interface Definition</h3>
                 <dl class="idl" title="interface RTCRtpReceiver : RTCStatsProvider">
-                    <dt>Constructor(RTCDtlsTransport transport, DOMString kind, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dt>Constructor(DOMString kind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd></dd>
                     <dt>readonly attribute MediaStreamTrack? track</dt>
                     <dd>
@@ -2042,8 +2042,8 @@ function accept(mySignaller, remote) {
 function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
   var audioSender = new RTCRtpSender(audioTrack, transport);
   var videoSender = new RTCRtpSender(videoTrack, transport);
-  var audioReceiver = new RTCRtpReceiver(transport, "audio");
-  var videoReceiver = new RTCRtpReceiver(transport, "video");
+  var audioReceiver = new RTCRtpReceiver("audio", transport);
+  var videoReceiver = new RTCRtpReceiver("video", transport);
 
   // Retrieve the audio and video receiver capabilities
   var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
@@ -2085,8 +2085,8 @@ function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
 function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
   var audioSender = new RTCRtpSender(audioTrack, transport);
   var videoSender = new RTCRtpSender(videoTrack, transport);
-  var audioReceiver = new RTCRtpReceiver(transport, "audio");
-  var videoReceiver = new RTCRtpReceiver(transport, "video");
+  var audioReceiver = new RTCRtpReceiver("audio", transport);
+  var videoReceiver = new RTCRtpReceiver("video", transport);
 
   // Retrieve the send and receive capabilities
   var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
@@ -2267,8 +2267,8 @@ var videoRtcpDtlsTransport = new RTCDtlsTransport(videoRtcpIceTransport, certs);
 // Create the sender and receiver objects
 var audioSender = new RTCRtpSender(audioTrack, audioRtpDtlsTransport, audioRtcpDtlsTransport);
 var videoSender = new RTCRtpSender(videoTrack, videoRtpDtlsTransport, videoRtcpDtlsTransport);
-var audioReceiver = new RTCRtpReceiver(audioRtpDtlsTransport, "audio", audioRtcpDtlsTransport);
-var videoReceiver = new RTCRtpReceiver(videoRtpDtlsTransport, "video", videoRtcpDtlsTransport);
+var audioReceiver = new RTCRtpReceiver("audio", audioRtpDtlsTransport, audioRtcpDtlsTransport);
+var videoReceiver = new RTCRtpReceiver("video", videoRtpDtlsTransport, videoRtcpDtlsTransport);
 
 // Retrieve the receiver and sender capabilities
 var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
