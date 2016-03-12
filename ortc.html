@@ -1868,9 +1868,10 @@ function accept(mySignaller, remote) {
             <section id="rtcrtpreceiver-operation*">
                 <h3>Operation</h3>
                 <p>
-                    A <code><a>RTCRtpReceiver</a></code> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object.
+                    A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of <var>kind</var> and an <code><a>RTCDtlsTransport</a></code> object.
                     If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code> object with <var>transport.state</var> or <var>rtcpTransport.state</var> "closed",
-                    throw an <code>InvalidStateError</code> exception.
+                    throw an <code>InvalidStateError</code> exception.  Upon construction,  <var>track</var> is set, and the value of <var>track.kind</var> is determined
+                    based on the value of <var>kind</var> passed in the constructor.
                 </p>
                 <p>
                     An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once <code>stop()</code> 
@@ -1880,11 +1881,15 @@ function accept(mySignaller, remote) {
             <section id="rtcrtpreceiver-interface-definition*">
                 <h3>Interface Definition</h3>
                 <dl class="idl" title="interface RTCRtpReceiver : RTCStatsProvider">
-                    <dt>Constructor(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dt>Constructor(DOMString kind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd></dd>
-                    <dt>readonly attribute MediaStreamTrack? track</dt>
+                    <dt>readonly attribute MediaStreamTrack track</dt>
                     <dd>
-                        <p>The associated <code><a>MediaStreamTrack</a></code> instance.</p>
+                        <p>
+                             The associated <code><a>MediaStreamTrack</a></code> instance.
+                             Upon construction,  <var>track</var> is set. The value of <var>track.kind</var> is determined
+                             based on the value of <var>kind</var> passed in the constructor. 
+                        </p>
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
@@ -1940,15 +1945,13 @@ function accept(mySignaller, remote) {
                             set to <code>false</code>, throw an <code>InvalidParameters</code> exception.
                             The <code>receive()</code> method does not update
                             <var>parameters</var> based on what is currently being received, so that the value of <var>parameters</var> remains that
-                            last passed to the <code>receive()</code> method.
-                            The <code>RTCRtpReceiver</code> object starts receiving when <code>receive()</code>
-                            is called for the first time, and changes the receiving <code>parameters</code> when <code>receive()</code> is called again.
-                            The <code>RTCRtpReceiver</code> object stops receiving when <code>stop()</code> is called.
-                            After <code>receive()</code> returns, <var>track</var> is set. The value of <var>track.kind</var> is determined
-                            based on the <var>kind</var> of the codecs provided in <var>parameters.codecs</var>.
-                            If <var>parameters.codecs</var> are all of a single <var>kind</var> then <var>track.kind</var> is set to that <var>kind</var>.
-                            If <var>parameters.codecs</var> are of mixed <var>kind</var>,
-                            throw an <code>InvalidParameters</code> exception. For this purpose a <var>kind</var> of "" is not considered mixed.
+                            last passed to the <code>receive()</code> method.  The <code>RTCRtpReceiver</code> object starts receiving when
+                            <code>receive()</code> is called for the first time, and changes the receiving <code>parameters</code> when 
+                            <code>receive()</code> is called again. The <code>RTCRtpReceiver</code> object stops receiving when <code>stop()</code> is called.
+                            For each value of <var>i</var> from 0 to the number of codecs, check that each value of <code>parameters.codecs[i].name</code> 
+                            not equal to "red", "ulpfec", "flexfec" or "rtx" is included in <code>getCapabilities(kind).codecs[j].name</code>, where j goes from
+                            0 to the number of codecs, and <var>kind</var> takes the value passed in the <code><a>RTCRtpReceiver</a></code> constructor.
+                            If no match is found for any value of <var>i</var>, throw an <code>InvalidParameters</code> exception.
                         </p>
                     </dd>
                     <dt>sequence&lt;RTCRtpContributingSource&gt; getContributingSources()</dt>
@@ -2039,8 +2042,8 @@ function accept(mySignaller, remote) {
 function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
   var audioSender = new RTCRtpSender(audioTrack, transport);
   var videoSender = new RTCRtpSender(videoTrack, transport);
-  var audioReceiver = new RTCRtpReceiver(transport);
-  var videoReceiver = new RTCRtpReceiver(transport);
+  var audioReceiver = new RTCRtpReceiver("audio", transport);
+  var videoReceiver = new RTCRtpReceiver("video", transport);
 
   // Retrieve the audio and video receiver capabilities
   var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
@@ -2082,8 +2085,8 @@ function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
 function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
   var audioSender = new RTCRtpSender(audioTrack, transport);
   var videoSender = new RTCRtpSender(videoTrack, transport);
-  var audioReceiver = new RTCRtpReceiver(transport);
-  var videoReceiver = new RTCRtpReceiver(transport);
+  var audioReceiver = new RTCRtpReceiver("audio", transport);
+  var videoReceiver = new RTCRtpReceiver("video", transport);
 
   // Retrieve the send and receive capabilities
   var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
@@ -2264,8 +2267,8 @@ var videoRtcpDtlsTransport = new RTCDtlsTransport(videoRtcpIceTransport, certs);
 // Create the sender and receiver objects
 var audioSender = new RTCRtpSender(audioTrack, audioRtpDtlsTransport, audioRtcpDtlsTransport);
 var videoSender = new RTCRtpSender(videoTrack, videoRtpDtlsTransport, videoRtcpDtlsTransport);
-var audioReceiver = new RTCRtpReceiver(audioRtpDtlsTransport, audioRtcpDtlsTransport);
-var videoReceiver = new RTCRtpReceiver(videoRtpDtlsTransport, videoRtcpDtlsTransport);
+var audioReceiver = new RTCRtpReceiver("audio", audioRtpDtlsTransport, audioRtcpDtlsTransport);
+var videoReceiver = new RTCRtpReceiver("video", videoRtpDtlsTransport, videoRtcpDtlsTransport);
 
 // Retrieve the receiver and sender capabilities
 var recvAudioCaps = RTCRtpReceiver.getCapabilities("audio");
@@ -6095,6 +6098,15 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtp
             <h2>Change Log</h2>
             <p>This section will be removed before publication.</p>
             <!-- Why do the first two headings automatically convert to <h2>? -->
+            <section id="since-01-March-2016*">
+                <h3>Changes since 01 March 2016</h3>
+                <ol>
+                    <li>
+                        Added <var>kind</var> argument to the <code><a>RTCRtpReceiver</a></code> constructor, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/411">Issue 411</a>
+                    </li>
+                </ol>
+            </section>
             <section id="since-20-November-2015*">
                 <h3>Changes since 20 November 2015</h3>
                 <ol>
