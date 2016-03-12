@@ -522,6 +522,15 @@ var respecConfig = {
       "status": "12 June 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "TS26.114": {
+      "title": "3rd Generation Partnership Project; Technical Specification Group Services and System Aspects; IP Multimedia Subsystem (IMS); Multimedia Telephony; Media handling and interaction (Release 12)",
+      "href": "http://www.3gpp.org/DynaReport/26114.htm",
+      "authors": [
+        "3GPP TS 26.114 V12.8.0"
+      ],
+      "status": "December 2014",
+      "publisher": "3GPP"
+    },
     "VP8-RTP": {
       "title": "RTP Payload Format for VP8 Video",
       "href": "https://tools.ietf.org/html/draft-ietf-payload-vp8",
