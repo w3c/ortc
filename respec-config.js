@@ -522,6 +522,14 @@ var respecConfig = {
       "status": "12 June 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "STUN-PARAMETERS": {
+      "authors":["IETF"],
+      "href": "http://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
+      "publisher": "IANA",
+      "status": "IANA Parameter Assignment",
+      "title": "STUN Error Codes",
+      "date": "April 2011"
+    },
     "TS26.114": {
       "title": "3rd Generation Partnership Project; Technical Specification Group Services and System Aspects; IP Multimedia Subsystem (IMS); Multimedia Telephony; Media handling and interaction (Release 12)",
       "href": "http://www.3gpp.org/DynaReport/26114.htm",
