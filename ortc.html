@@ -1883,7 +1883,7 @@ function accept(mySignaller, remote) {
                 <dl class="idl" title="interface RTCRtpReceiver : RTCStatsProvider">
                     <dt>Constructor(DOMString kind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd></dd>
-                    <dt>readonly attribute MediaStreamTrack? track</dt>
+                    <dt>readonly attribute MediaStreamTrack track</dt>
                     <dd>
                         <p>
                              The associated <code><a>MediaStreamTrack</a></code> instance.
@@ -1949,7 +1949,7 @@ function accept(mySignaller, remote) {
                             <code>receive()</code> is called for the first time, and changes the receiving <code>parameters</code> when 
                             <code>receive()</code> is called again. The <code>RTCRtpReceiver</code> object stops receiving when <code>stop()</code> is called.
                             For each value of <var>i</var> from 0 to the number of codecs, check that each value of <code>parameters.codecs[i].name</code> 
-                            not equal to "red", "fec" or "rtx" is included in <code>getCapabilities(kind).codecs[j].name</code>, where j goes from
+                            not equal to "red", "ulpfec", "flexfec" or "rtx" is included in <code>getCapabilities(kind).codecs[j].name</code>, where j goes from
                             0 to the number of codecs, and <var>kind</var> takes the value passed in the <code><a>RTCRtpReceiver</a></code> constructor.
                             If no match is found for any value of <var>i</var>, throw an <code>InvalidParameters</code> exception.
                         </p>
