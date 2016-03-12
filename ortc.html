@@ -3964,6 +3964,16 @@ var encodings = [{
                         </tr>
                     </thead>
                     <tbody>
+                            <tr id="def-transmission-time-offset*">
+                            <td><dfn>Transmission Time Offset</dfn></td>
+                            <td>
+                                [[RFC5450]]
+                            </td>
+                            <td>None</td>
+                            <td>
+                                This extension indicates the transmission time offset.
+                            </td>
+                        </tr>
                         <tr id="def-rapid-sync*">
                             <td><dfn>Rapid Synchronization</dfn></td>
                             <td>
@@ -3997,14 +4007,16 @@ var encodings = [{
                                 This extension indicates the audio level of individual conference participants.
                             </td>
                         </tr>
-                        <tr id="def-transmission-time-offset*">
-                            <td><dfn>Transmission Time Offset</dfn></td>
+                        <tr id="def-cvo*">
+                            <td><dfn>CVO</dfn></td>
                             <td>
-                                [[RFC5450]]
+                                [[!TS26.114]] Section 7.4.5,
+                                [[!RTCWEB-VIDEO]] Section 4
                             </td>
                             <td>None</td>
                             <td>
-                                This extension indicates the transmission time offset.
+                                The Coordination of Video Orientation (CVO) extension indicates whether
+                                the receiver needs to change the orientation in which it renders the stream.
                             </td>
                         </tr>
                         <tr id="def-mid*">
