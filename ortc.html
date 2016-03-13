@@ -1768,11 +1768,15 @@ function accept(mySignaller, remote) {
                             Media to be sent is controlled by parameters. If <code>send()</code> is called with invalid <var>parameters</var>,
                             throw an <code>InvalidParameters</code> exception. If <var>rtcpTransport</var> is not set and
                             <code>send(<var>parameters</var>)</code> is called with <var>parameters.rtcp.mux</var> set to "false",
-                            throw an <code>InvalidParameters</code> exception. If <var>parameters.encodings</var> is unset,
+                            throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number of codecs, 
+                            check that each value of <code>parameters.codecs[i].name</code> not equal to "red", "rtx" or a forward error correction
+                            codec is included in <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes from
+                            0 to the number of codecs. If a match is not found for any value of <var>i</var>, throw an
+                            <code>InvalidParameters</code> exception. If <var>parameters.encodings</var> is unset,
                             the browser behaves as though a single <code>encodings[0]</code> entry was provided, with
                             <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var> set to "true",
                             <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var> where <var>j</var> is the index
-                            of the first codec that is not "cn", "dtmf", "red", "rtx", or a forward error correction codec, and all the other
+                            of the first codec that is not "cn", "dtmf", "red", "rtx" or a forward error correction codec, and all the other
                             <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, minQuality, resolutionScale,etc.) unset.
                             Calling <code>send(<var>parameters</var>)</code> does not update <var>parameters</var> based on what is currently being sent.
                             The <code><a>RTCRtpSender</a></code> object starts sending when <code>send()</code>
@@ -1949,7 +1953,7 @@ function accept(mySignaller, remote) {
                             <code>receive()</code> is called for the first time, and changes the receiving <code>parameters</code> when 
                             <code>receive()</code> is called again. The <code>RTCRtpReceiver</code> object stops receiving when <code>stop()</code> is called.
                             For each value of <var>i</var> from 0 to the number of codecs, check that each value of <code>parameters.codecs[i].name</code> 
-                            not equal to "red", "ulpfec", "flexfec" or "rtx" is included in <code>getCapabilities(kind).codecs[j].name</code>, where j goes from
+                            not equal to "red", "rtx" or a forward error correction codec is included in <code>getCapabilities(kind).codecs[j].name</code>, where j goes from
                             0 to the number of codecs, and <var>kind</var> takes the value passed in the <code><a>RTCRtpReceiver</a></code> constructor.
                             If no match is found for any value of <var>i</var>, throw an <code>InvalidParameters</code> exception.
                         </p>
