@@ -43,7 +43,7 @@
                 Horizontal or slanted arrows denote the flow of media or data,
                 whereas vertical arrows denote interactions via methods and events.
             </p>
-            <img alt="The non-normative ORTC Big Picture Diagram" src="images/ortc-bigy-picture.png" style="width:90%" />
+            <img alt="The non-normative ORTC Big Picture Diagram" src="images/ortc-bigy-picture.png" style="width:100%" />
             <p>
                 In the figure above, the <code><a>RTCRtpSender</a></code> (<a href="#rtcrtpsender*">Section 5</a>) encodes the
                 track provided as input, which is transported over a <code><a>RTCDtlsTransport</a></code>
@@ -538,28 +538,48 @@
                             with the STUN error code range.
                         </p>
                         <p class="issue">Error code to be defined</p>
-               </dd>
-               <dt>readonly attribute USVString errorText</dt>
-               <dd>
-                  <p>
-                      The <code>errorText</code> attribute is the STUN reason text
-                      returned by the STUN or TURN server [[STUN-PARAMETERS]].
-                  </p>
-                  <p>
-                      If the server could not be reached, <code>errorText</code> will be set
-                      to an implementation-specific value providing details about the error.
-                  </p>
-              </dd>
-              </dl>
-              <dl class="idl" title="dictionary RTCIceGathererIceErrorEventInit : EventInit">
+                    </dd>
+                    <dt>readonly attribute USVString errorText</dt>
+                    <dd>
+                        <p>
+                            The <code>errorText</code> attribute is the STUN reason text
+                            returned by the STUN or TURN server [[STUN-PARAMETERS]].
+                       </p>
+                       <p>
+                            If the server could not be reached, <code>errorText</code> will be set
+                            to an implementation-specific value providing details about the error.
+                       </p>
+                    </dd>
+                </dl>
+                <dl class="idl" title="dictionary RTCIceGathererIceErrorEventInit : EventInit">
                     <dt>DOMString hostCandidate</dt>
-                    <dd></dd>
+                    <dd>
+                        <p>
+                            The <code>hostCandidate</code> attribute is the local IP address and
+                            port used to communicate with the STUN or TURN server. 
+                        </p>
+                    </dd>
                     <dt>DOMString url</dt>
-                    <dd></dd>
+                    <dd>
+                        <p>
+                            The <code>url</code> attribute is the STUN or TURN URL identifying
+                            the server on which the failure ocurred.
+                        </p>
+                    </dd>
                     <dt>unsigned short errorCode</dt>
-                    <dd></dd>
+                    <dd>
+                        <p>
+                            The <code>errorCode</code> attribute is the numeric STUN
+                            error code returned by the STUN or TURN server [[STUN-PARAMETERS]].
+                        </p>
+                    </dd>
                     <dt>USVString errorText</dt>
-                    <dd></dd>
+                    <dd>
+                        <p>
+                            The <code>errorText</code> attribute is the STUN reason text
+                            returned by the STUN or TURN server [[STUN-PARAMETERS]].
+                       </p>
+                    </dd>
                 </dl>
             </section>
             <section>
@@ -682,7 +702,8 @@
                 <pre class="example highlight">
 [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+    credentialType: "password"}
 ]
                 </pre>
                 <dl class="idl" title="dictionary RTCIceServer">
@@ -715,14 +736,16 @@
                 <pre class="example highlight">
 // Example to demonstrate use of RTCIceCandidateComplete
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
+    credentialType: "password" }
 ];
 
 // Create IceGatherer object
@@ -1130,7 +1153,7 @@ export function myDtlsTransportStateChange(name, state){
                     </ul>
                 </p>
                 <p>The non-normative ICE state transitions are:</p>
-                <img alt="The non-normative ICE State Transition Diagram" src="images/icestates-cont.png" style="width:75%" />
+                <img alt="The non-normative ICE State Transition Diagram" src="images/icestates-cont.png" style="width:100%" />
             </section>
             <section id="rtcicetransportstatechangedevent-interface-definition*">
                 <h3>RTCIceTransportStateChangedEvent</h3>
@@ -1238,14 +1261,16 @@ export function myDtlsTransportStateChange(name, state){
 // Example to demonstrate forking when RTP and RTCP are not multiplexed,
 // so that both RTP and RTCP IceGatherer and IceTransport objects are needed.
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Create ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
+    credentialType: "password" }
 ];
 
 // Create ICE gatherer objects
@@ -1254,11 +1279,13 @@ var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer();
 
 // Prepare to signal local candidates
 iceRtpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "audio", iceRtpGatherer.getLocalParameters());
+  mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "audio",
+    iceRtpGatherer.getLocalParameters());
 };
 
 iceRtcpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "audio", iceRtpGatherer.getLocalParameters());
+  mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "audio",
+    iceRtpGatherer.getLocalParameters());
 };
 
 // Initialize the ICE transport arrays
@@ -1283,7 +1310,8 @@ mySignaller.onResponse = function(responseSignaller, response) {
 
   // Prepare to add ICE candidates signalled by the remote peer
   responseSignaller.onRemoteCandidate = function(remote) {
-    // Locate the ICE transport that the signaled candidate relates to by matching the userNameFragment.
+    // Locate the ICE transport that the signaled candidate relates to by matching
+   //  the userNameFragment.
     var transports;
     if (remote.component === RTCIceComponent.RTP) {
       transports = iceRtpTransports;
@@ -1601,7 +1629,8 @@ mySignaller.send({
 // and start both ICE and DTLS, when RTP and RTCP are multiplexed.
 // Assume that we have a way to signal (mySignaller).
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 function initiate(mySignaller) {
   // Prepare the ICE gatherer
@@ -1609,7 +1638,8 @@ function initiate(mySignaller) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
+      credentialType: "password" }
   ];
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
@@ -1633,7 +1663,8 @@ function initiate(mySignaller) {
   });
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
-    // Figure out which IceTranport a remote candidate relates to by matching the userNameFragment/password
+    // Figure out which IceTranport a remote candidate relates to by matching
+    // the userNameFragment/password
     var j = 0;
     for (j = 0; j &lt; iceTransport.length; j++) {
       var transport = iceTransports[j];
@@ -1652,8 +1683,8 @@ function initiate(mySignaller) {
     var iceTransport = new RTCIceTransport(iceGatherer);
     iceTransport.start(iceGatherer, remote.ice, RTCIceRole.controlling);
     iceTransports.push(iceTransport);
-    // Construct a RTCDtlsTransport object with the same certificate and fingerprint as in the Offer
-    // so that the remote peer can verify it.
+    // Construct a RTCDtlsTransport object with the same certificate and fingerprint
+    // as in the Offer so that the remote peer can verify it.
     var dtlsTransport = new RTCDtlsTransport(iceTransport, certs);
     dtlsTransport.start(remote.dtls);
     dtlsTransports.push(dtlsTransport);
@@ -1667,7 +1698,8 @@ function initiate(mySignaller) {
 // and DTLS parameters and ICE candidates and start both ICE and DTLS,
 // assuming that RTP and RTCP are multiplexed.
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Assume that remote info is signalled to us.
 function accept(mySignaller, remote) {
@@ -1675,7 +1707,8 @@ function accept(mySignaller, remote) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
+      credentialType: "password" }
   ];
 
   var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -2243,13 +2276,15 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
 // Assume we have an audioTrack and a videoTrack to send.
 //
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 // Create the ICE gather options
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+    credentialType: "password" }
 ];
 
 // Create the RTP and RTCP ICE gatherers for audio and video
@@ -2370,7 +2405,8 @@ mySignaller.myOfferTracks({
   "sendVideoCaps": sendVideoCaps
 }, function(answer) {
   // The responder answers with its preferences, parameters and capabilities
-  // Since we didn"t create transport arrays, we are assuming that there is no forking (only one response)
+  // Since we didn"t create transport arrays, we are assuming that there
+  // is no forking (only one response)
   //
   // Derive the send and receive parameters, assuming that RTP/RTCP mux will be enabled.
   var audioSendParams = myCapsToSendParams(sendAudioCaps, answer.recvAudioCaps);
@@ -2425,9 +2461,11 @@ mySignaller.myOfferTracks({
       controller.addTransport(videoRtpIceTransport);
       // Start the ICE transports
       audioRtpIceTransport.start(audioRtpIceGatherer, answer.audioRtpIce, RTCIceRole.controlling);
-      audioRtcpIceTransport.start(audioRtcpIceGatherer, answer.audioRtcpIce, RTCIceRole.controlling);
+      audioRtcpIceTransport.start(audioRtcpIceGatherer, answer.audioRtcpIce, 
+        RTCIceRole.controlling);
       videoRtpIceTransport.start(videoRtpIceGatherer, answer.videoRtpIce, RTCIceRole.controlling);
-      videoRtcpIceTransport.start(videoRtcpIceGatherer, answer.videoRtcpIce, RTCIceRole.controlling);
+      videoRtcpIceTransport.start(videoRtcpIceGatherer, answer.videoRtcpIce,
+        RTCIceRole.controlling);
       // Start the DTLS transports that are needed
       audioRtpDtlsTransport.start(answer.audioRtpDtls);
       audioRtcpDtlsTransport.start(answer.audioRtcpDtls);
@@ -3839,7 +3877,7 @@ var encodings = [{
   resolutionScale: 2.0,
   framerateScale: 2.0
 }, {
-  // Enhanced resolution Base layer (half the input framerate, full input resolution)
+  // High resolution Base layer (half the input framerate, full input resolution)
   encodingId: "E0",
   resolutionScale: 1.0,
   framerateScale: 2.0
@@ -3850,7 +3888,7 @@ var encodings = [{
   resolutionScale: 2.0,
   framerateScale: 1.0
 }, {
-  // Temporal enhancement to the enhanced resolution base layer (full input framerate and resolution)
+  // Temporal enhancement to the high resolution base layer (full input framerate and resolution)
   encodingId: "E1",
   dependencyEncodingIds: ["E0"],
   resolutionScale: 1.0,
@@ -3876,12 +3914,12 @@ var encodings = [{
   encodingId: "0",
   resolutionScale: 4.0
 }, {
-  // Spatial enhancement layer providing half input resolution when combined with the base layer
+  // Spatial enhancement layer yielding half resolution when combined with the base layer
   encodingId: "1",
   dependencyEncodingIds: ["0"],
   resolutionScale: 2.0
 }, {
-  // Additional spatial enhancement layer providing full input resolution when combined with all layers
+  // Additional spatial enhancement layer yielding full resolution when combined with all layers
   encodingId: "2",
   dependencyEncodingIds: ["0", "1"],
   resolutionScale: 1.0
@@ -4906,7 +4944,8 @@ function initiate(signaller) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+      credentialType: "password" }
   ];
 
   var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -4952,7 +4991,8 @@ function accept(signaller, remote) {
   gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
   gatherOptions.iceServers = [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+      credentialType: "password" }
   ];
 
   var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -5720,12 +5760,14 @@ function processStats(currentReport) {
 // Set ICE gather options and construct the RTCIceGatherer object, assuming that
 // we are using RTP/RTCP mux and A/V mux so that only one RTCIceTransport is needed.
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 var gatherOptions = new RTCIceGatherOptions();
 gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
 gatherOptions.iceServers = [
   { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", credentialType: "password" }
+  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
+    credentialType: "password" }
 ];
 
 var iceGatherer = new RTCIceGatherer(gatherOptions);
@@ -5748,7 +5790,8 @@ var identity = new RTCIdentity(dtls);
 identity
   .getIdentityAssertion("example.com", "default", "alice@example.com")
   .then(signalAssertion(assertion), function(e) {
-    trace("Could not obtain an Identity Assertion. idp: " + e.idp + " Protocol: " + e.protocol + " loginUrl: " + e.loginUrl);
+    trace("Could not obtain an Identity Assertion. idp: " + e.idp + " Protocol: " 
+      + e.protocol + " loginUrl: " + e.loginUrl);
   });
 
 function signalAssertion(assertion) {
@@ -5758,10 +5801,11 @@ function signalAssertion(assertion) {
     "dtls": dtls.getLocalParameters()
   }, function(response) {
     ice.start(iceGatherer, response.ice, RTCIceRole.controlling);
-    // Need to call dtls.start() before setIdentityAssertion so the peer assertion can be validated.
+    // Call dtls.start() before setIdentityAssertion so the peer assertion can be validated.
     dtls.start(response.dtls);
     identity.setIdentityAssertion(response.myAssertion).then(function(peerAssertion) {
-      trace("Peer identity assertion validated. idp: " + peerAssertion.idp + " name: " + peerAssertion.name);
+      trace("Peer identity assertion validated. idp: " + peerAssertion.idp + " name: " 
+        + peerAssertion.name);
     }, function(e) {
       trace("Could not validate peer assertion. idp: " + e.idp + " Protocol: " + e.protocol);
     });
@@ -5945,8 +5989,8 @@ function signalAssertion(assertion) {
                 </tr>
                 <tbody>
                     <tr>
-                        <td><code>error</code></td>
-                        <td><code><a>Event</a></code></td>
+                        <td><code>icecandidateerror</code></td>
+                        <td><code><a>RTCIceGathererIceErrorEvent</a></code></td>
                         <td>The <code><a>RTCIceGatherer</a></code> object has experienced an ICE gathering failure (such as an authentication failure with TURN credentials).</td>
                     </tr>
                     <tr>
@@ -6159,21 +6203,26 @@ function signalAssertion(assertion) {
             <section id="js-library-example*">
                 <h3>myCapsToSendParams Example</h3>
                 <pre class="example highlight">
-RTCRtpParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps, RTCRtpCapabilities remoteRecvCaps) {
-  // Function returning the sender RTCRtpParameters, based on the local sender and remote receiver capabilities.
+RTCRtpParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
+  RTCRtpCapabilities remoteRecvCaps) {
+  // Function returning the sender RTCRtpParameters, based on the local
+  // sender and remote receiver capabilities.
   // The goal is to enable a single stream audio and video call with minimum fuss.
   //
   // Steps to be followed:
   // 1. Determine the RTP features that the receiver and sender have in common.
   // 2. Determine the codecs that the sender and receiver have in common.
-  // 3. Within each common codec, determine the common formats, header extensions and rtcpFeedback mechanisms.
+  // 3. Within each common codec, determine the common formats, header extensions 
+  //    and rtcpFeedback mechanisms.
   // 4. Determine the payloadType to be used, based on the receiver preferredPayloadType.
   // 5. Set RTCRtcpParameters such as mux to their default values.
   // 6. Return RTCRtpParameters enablig the jointly supported features and codecs.
 }
 
-RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps, RTCRtpCapabilities remoteSendCaps) {
-  // Function returning the receiver RTCRtpParameters, based on the local receiver and remote sender capabilities.
+RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
+  RTCRtpCapabilities remoteSendCaps) {
+  // Function returning the receiver RTCRtpParameters, based on the local 
+  // receiver and remote sender capabilities.
   return myCapsToSendParams(remoteSendCaps, recvCaps);
 }
             </pre>
