@@ -2671,8 +2671,7 @@ mySignaller.myOfferTracks({
                             represents the preferred RTP payload type for sending.
                             When returned by <code>RTCRtpReceiver.getCapabilities()</code>, <var>RTCRtpCapabilities.codecs.preferredPayloadtype</var>
                             represents the preferred RTP payload type for receiving.
-                            To avoid payload type conflicts, each value of <var>RTCRtpCodecCapability.name</var> should have a unique value of
-                            <var>RTCRtpCodecCapability.preferredPayloadtype</var>.
+                            To avoid payload type conflicts, each value of <var>preferredPayloadType</var> MUST be unique.
                         </p>
                     </dd>
                     <dt>unsigned long maxptime</dt>
@@ -3184,7 +3183,7 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The value that goes in the RTP Payload Type Field [[!RFC3550]]. The <var>payloadType</var>
-                            MUST always be provided.
+                            MUST always be provided, and MUST be unique.
                         </p>
                     </dd>
                     <dt>unsigned long clockRate</dt>
@@ -3431,7 +3430,10 @@ mySignaller.myOfferTracks({
                                         <code>sequence&lt;payloadtype&gt</code>
                                     </td>
                                     <td>Sender/Receiver</td>
-                                    <td>A sequence of payload types to be encapsulated in RED.</td>
+                                    <td>
+                                        A sequence of payload types to be encapsulated in RED,
+                                        each of which MUST be unique.
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -3516,8 +3518,9 @@ mySignaller.myOfferTracks({
                     <dt>payloadtype codecPayloadType</dt>
                     <dd>
                         <p>
-                            For per-encoding codec specifications, give the codec Payload Type here.
-                            If unset, the browser will choose.
+                            For per-encoding codec specifications, give the codec payload type here.
+                            If unset, the browser will choose the first codec in <code>parameters.codecs[]</code>
+                            of the appropriate kind.
                         </p>
                     </dd>
                     <dt>RTCRtpFecParameters fec</dt>
@@ -3902,6 +3905,7 @@ var encodings = [{
                         <p>
                             The payload type to use for retransmission.
                             If unset, <code>RTCRtpCodecParameters.payloadType</code> for the "rtx" codec is used by default.
+                            To avoid payload type conflicts, each value of <var>payloadType</var> MUST be unique.
                         </p>
                     </dd>
                 </dl>
