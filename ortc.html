@@ -3609,6 +3609,7 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The SSRC for this layering/encoding.
+                            Multiple <code>RTCRtpEncodingParameters</code> objects can share the same <var>ssrc</var> value (useful, for example, to indicate that different RTX payload types associated to different codecs are carried over the same stream).
                             If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>RTCRtpReceiver.receive</code> method, the
                             next unhandled SSRC will match, and an <code>RTCRtpUnhandledEvent</code> will not be fired.
                             If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>RTCRtpSender.send</code>
