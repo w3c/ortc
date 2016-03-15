@@ -3536,7 +3536,9 @@ mySignaller.myOfferTracks({
                                     <td>Sender/Receiver</td>
                                     <td>
                                         A sequence of payload types to be encapsulated in RED,
-                                        each of which MUST be unique.
+                                        each of which MUST be unique.  If <var>payloadTypes</var> 
+                                        is unset, this means that any codec other than "red" or
+                                        "rtx" can be encapsulsated in RED.
                                     </td>
                                 </tr>
                             </tbody>
@@ -3730,38 +3732,6 @@ mySignaller.myOfferTracks({
                         </p>
                     </dd>
                 </dl>
-            </section>
-            <section id="rtcprioritytype*">
-                <h3>enum RTCPriorityType</h3>
-                <p>
-                    <dfn>RTCPriorityType</dfn> can be used to indicate the relative priority of various flows.
-                    This allows applications to indicate to the browser whether a particular media flow is high, medium, low or of very
-                    low importance to the application.
-                    WebRTC uses the priority and Quality of Service (QoS) framework described in [[RTCWEB-TRANSPORT]] and [[!TSVWG-RTCWEB-QOS]] to
-                    provide priority and DSCP marketing for packets that will help provide QoS in some networking environments.
-                    Applications that use this API should be aware that often better overall user
-                    experience is obtained by lowering the priority of things that are not as important rather
-                    than raising the the priority of the things that are.
-                </p>
-                <dl class="idl" title="enum RTCPriorityType">
-                    <dt>very-low</dt>
-                    <dd>
-                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
-                    </dd>
-                    <dt>low</dt>
-                    <dd>
-                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
-                    </dd>
-                    <dt>medium</dt>
-                    <dd>
-                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
-                    </dd>
-                    <dt>high</dt>
-                    <dd>
-                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
-                    </dd>
-                </dl>
-            </section>
             <section id="rtcrtpencodingparameters-example*">
                 <h3>Examples</h3>
                 <section id="rtcrtpencodingparameters-basicexample*">
@@ -3977,6 +3947,38 @@ var encodings = [{
                     </p>
                     <img alt="2-layer spatial and temporal scalability encoding" src="images/2-layer-spatial-temporal.png" style="width:75%" />
                 </section>
+              </section>
+            </section>
+            <section id="rtcprioritytype*">
+                <h3>enum RTCPriorityType</h3>
+                <p>
+                    <dfn>RTCPriorityType</dfn> can be used to indicate the relative priority of various flows.
+                    This allows applications to indicate to the browser whether a particular media flow is high, medium, low or of very
+                    low importance to the application.
+                    WebRTC uses the priority and Quality of Service (QoS) framework described in [[RTCWEB-TRANSPORT]] and [[!TSVWG-RTCWEB-QOS]] to
+                    provide priority and DSCP marketing for packets that will help provide QoS in some networking environments.
+                    Applications that use this API should be aware that often better overall user
+                    experience is obtained by lowering the priority of things that are not as important rather
+                    than raising the the priority of the things that are.
+                </p>
+                <dl class="idl" title="enum RTCPriorityType">
+                    <dt>very-low</dt>
+                    <dd>
+                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
+                    </dd>
+                    <dt>low</dt>
+                    <dd>
+                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
+                    </dd>
+                    <dt>medium</dt>
+                    <dd>
+                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
+                    </dd>
+                    <dt>high</dt>
+                    <dd>
+                        <p>See [[RTCWEB-TRANSPORT]], Section 4.</p>
+                    </dd>
+                </dl>
             </section>
             <section id="rtcrtpfecparameters*">
                 <h3>dictionary RTCRtpFecParameters</h3>
@@ -3990,7 +3992,7 @@ var encodings = [{
                     </dd>
                     <dt>DOMString mechanism</dt>
                     <dd>
-                        <p>The Forward Error Correction (FEC) mechanism to use.</p>
+                        <p>The Forward Error Correction (FEC) mechanism to use: "red", "red+ulpfec" or "flexfec".</p>
                     </dd>
                 </dl>
             </section>
@@ -4008,11 +4010,125 @@ var encodings = [{
                     <dd>
                         <p>
                             The payload type to use for retransmission.
-                            If unset, <code>RTCRtpCodecParameters.payloadType</code> for the "rtx" codec is used by default.
+                            If unset, <code>RTCRtpCodecParameters.payloadType</code> for the first "rtx" codec is used by default.
                             To avoid payload type conflicts, each value of <var>payloadType</var> MUST be unique.
                         </p>
                     </dd>
                 </dl>
+                <section id="rtcrtpfecparameters-example*">
+                    <h3>RTX/RED/FEC</h3>
+                    <p>
+                        Below is an example of how to configure an <code><a>RTCRtpReceiver</a></code> to receive
+                        video encoded in VP8 or VP9, along with retransmission and forward error correction.
+                        In the example, forward error correction is encapsulated in RED, and it is possible to
+                        retransmit RED packets.  The configuration enables VP8 or VP9 to be received either with
+                        or without RED encapsulation.  The configuration of an <code><a>RTCRtpSender</a></code>
+                        would be more prescriptive, at a given time indicating a single encoding: that VP8 or VP9
+                        video should be sent encapsulated within RED or without RED encapsulation.
+                    </p>
+                    <pre class="example highlight">
+// Example of RTX and RED + ulpfec
+//
+// SDP from createOffer()
+//   m=video 62125 UDP/TLS/RTP/SAVPF 100 101 116 117 96
+//   a=sendonly
+//   a=rtpmap:100 VP8/90000
+//   a=rtpmap:101 VP9/90000
+//   a=rtpmap:116 red/90000
+//   a=rtpmap:117 ulpfec/90000
+//   a=rtpmap:96 rtx/90000
+//   a=fmtp:96 apt=100
+//   a=rtpmap:97 rtx/90000
+//   a=fmtp:97 apt=101
+//   a=rtpmap:98 rtx/90000
+//   a=fmtp:98 apt=116
+//   a=ssrc-group:FID 2224031971 3254585230
+//   a=ssrc:2224031971 cname:oC/i06PA+Lda+t1P
+//   a=ssrc:3254585230 cname:oC/i06PA+Lda+t1P
+//
+//   Define VP8 codec parameters
+//
+var vp8 = new RTCRtpCodecParameters(); 
+vp8.name = "vp8";
+vp8.payloadType = 100;
+vp8.clockRate = 90000; 
+//
+//   Define VP8 encoding parameters (without RED)
+//
+var vp8enc = new RTCRtpEncodingParameters(); 
+vp8enc.ssrc =  2224031971;
+vp8enc.codecPayloadType = 100;
+vp8enc.rtx.ssrc = 3254585230;
+vp8enc.rtx.payloadType = 96;
+//
+//   Define VP8 encoding parameters with RED
+//
+var vp8encred = new RTCRtpEncodingParameters();
+vp8encred.ssrc =  2224031971;
+vp8encred.codecPayloadType = 100;
+vp8encred.fec.ssrc = 3254585230;
+vp8encred.fec.mechanism = "red+ulpfec";
+vp8encred.rtx.ssrc = 3254585230;
+vp8encred.rtx.payloadType = 98;
+//
+//   Define VP9 codec parameters
+//
+var vp9 = new RTCRtpCodecParameters();
+vp9.name = "vp9";
+vp9.payloadType = 101;
+vp9.clockRate = 90000;
+//
+//   Define VP9 encoding parameters (without RED)
+//
+var vp9enc = new RTCRtpEncodingParameters();     
+vp9enc.ssrc =  2224031971;
+vp9enc.codecPayloadType = 101;     
+vp9enc.rtx.ssrc = 3254585230;
+vp9enc.rtx.payloadType = 97;
+//
+//   Define VP9 encoding parameters with RED
+//
+var vp9encred = new RTCRtpEncodingParameters();
+vp9encred.ssrc =  2224031971;
+vp9encred.codecPayloadType = 101;
+vp9encred.fec.ssrc = 3254585230;
+vp9encred.fec.mechanism = "red+ulpfec";
+vp9encred.rtx.ssrc = 3254585230;
+vp9encred.rtx.payloadType = 98;
+//
+//   Define RED codec parameters
+//
+var red = new RTCRtpCodecParameters();
+red.name = "red";
+red.payloadType = 116;
+red.clockRate = 90000;
+red.parameters.payloadTypes = []; 
+//
+//   Define ulpfec codec parameters
+//
+var ulpfec = new RTCRtpCodecParameters();
+ulplfec.name = "ulpfec";
+ulpfec.payloadType = 117;
+ulpfec.clockRate = 90000;
+//
+//   Define RTX codec parameters
+//
+rtxvp8 = new RTCRtpCodecParameters(); 
+rtxvp8.name = "rtx";
+rtxvp8.payloadType = 96; 
+rtxvp8.clockrate = 90000;
+//
+rtxvp9 = new RTCRtpCodecParameters();   
+rtxvp9.name = "rtx";
+rtxvp9.payloadType = 97;
+rtxvp9.clockrate = 90000;
+//
+rtxred = new RTCRtpCodecParameters();   
+rtxred.name = "rtx";
+rtxred.payloadType = 98;
+rtxred.clockrate = 90000;
+                    </pre>
+                </section>
             </section>
             <section id="rtcrtpheaderextension*">
                 <h3>dictionary RTCRtpHeaderExtension</h3>
@@ -6248,6 +6364,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Provide additional information on ICE candidate errors, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/402">Issue 402</a>
+                    </li>
+                    <li>
+                        Provide an example of RTX/RED/FEC configuration, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/404">Issue 404</a>
                     </li>
                     <li>
                         Clarified <code>payloadType</code> uniqueness, as noted in:
