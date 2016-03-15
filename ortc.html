@@ -4862,6 +4862,10 @@ sender.insertDTMF("123");
                     <dd>
                         <p>The <a>RTCDtlsTransport</a> instance the <a>RTCSctpTransport</a> object is sending over.</p>
                     </dd>
+                    <dt>readonly attribute RTCSctpTransportState state</dt>
+                    <dd>
+                        <p>The current state of the SCTP transport.</p>
+                    </dd>
                     <dt>readonly attribute unsigned short port</dt>
                     <dd>
                         <p>The SCTP port number used by the data channel.</p>
@@ -4888,6 +4892,77 @@ sender.insertDTMF("123");
                         </p>
                     </dd>
                 </dl>
+                <section id="rtcsctptransportstate*">
+                <h3>enum RTCSctpTransportState</h3>
+                <p><dfn>RTCSctpTransportState</dfn> indicates the state of the SCTP transport.</p>
+                <dl class="idl" title="enum RTCSctpTransportState">
+                    <dt>new</dt>
+                    <dd>
+                        <p>The <code><a>RTCSctpTransport</a></code> object has been created and has not started negotiating yet.</p>
+                    </dd>
+                    <dt>connecting</dt>
+                    <dd>
+                        <p>
+                            SCTP is in the process of negotiating a connection.
+                        </p>
+                    </dd>
+                    <dt>connected</dt>
+                    <dd>
+                        <p>
+                            SCTP has completed negotiation of a connection.
+                        </p>
+                    </dd>
+                    <dt>closed</dt>
+                    <dd>
+                        <p>
+                            The SCTP connection has been closed intentionally via a call to <code>stop()</code> or receipt of a
+                            close_notify alert.
+                        </p>
+                    </dd>
+                </dl>
+            </section>
+            <section id="rtcsctptransportstatechangedevent-interface-definition*">
+                <h3>RTCSctpTransportStateChangedEvent</h3>
+                <p>
+                    The <dfn>sctpstatechange</dfn> event of the <code><a>RTCSctpTransport</a></code> object uses
+                    the <code><a>RTCSctpTransportStateChangedEvent</a></code> interface.
+                </p>
+                <p>
+                    Firing an
+                    <code><a>RTCSctpTransportStateChangedEvent</a></code> event named
+                    <var>e</var> with an <code><a>RTCSctpTransportState</a></code>
+                    <var>state</var> means that an event with the name <var>e</var>,
+                    which does not bubble (except where otherwise stated) and is not
+                    cancelable (except where otherwise stated), and which uses the
+                    <code><a>RTCSctpTransportStateChangedEvent</a></code> interface with the
+                    <var>state</var> attribute set to the new <code><a>RTCSctpTransportState</a></code>,
+                    <em class="rfc2119" title="MUST">MUST</em> be
+                    created and dispatched at the given target.
+                </p>
+                <dl class="idl" data-merge="RTCSctpTransportStateChangedEventInit"
+                    title="interface RTCSctpTransportStateChangedEvent : Event">
+                    <dt>Constructor(DOMString type, RTCSctpTransportStateChangedEventInit eventInitDict)</dt>
+                    <dd></dd>
+                    <dt>readonly attribute RTCSctpTransportState state</dt>
+                    <dd>
+                        <p>
+                            The <var>state</var> attribute is the new
+                            <code><a>RTCSctpTransportState</a></code>
+                            that caused the event.
+                        </p>
+                    </dd>
+                </dl>
+                <dl class="idl" title="dictionary RTCSctpTransportStateChangedEventInit : EventInit">
+                    <dt>RTCSctpTransportState? state</dt>
+                    <dd>
+                        <p>
+                            The <var>state</var> attribute is the new
+                            <code><a>RTCSctpTransportState</a></code>
+                            that caused the event.
+                        </p>
+                    </dd>
+                </dl>
+            </section>
                 <section id="rtcsctpcapabilities*">
                     <h3>dictionary RTCSctpCapabilities</h3>
                     <dl class="idl" title="dictionary RTCSctpCapabilities">
