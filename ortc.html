@@ -4903,20 +4903,26 @@ sender.insertDTMF("123");
                     <dt>connecting</dt>
                     <dd>
                         <p>
-                            SCTP is in the process of negotiating a connection.
+                            SCTP is in the process of negotiating an association.
                         </p>
                     </dd>
                     <dt>connected</dt>
                     <dd>
                         <p>
-                            SCTP has completed negotiation of a connection.
+                            SCTP has completed negotiation of an association.
                         </p>
                     </dd>
                     <dt>closed</dt>
                     <dd>
                         <p>
-                            The SCTP connection has been closed intentionally via a call to <code>stop()</code> or receipt of a
-                            close_notify alert.
+                            The SCTP association has been closed intentionally via a call to <code>stop()</code> or receipt of a
+                            SHUTDOWN chunk.
+                        </p>
+                    </dd>
+                    <dt>failed</dt>
+                    <dd>
+                        <p>
+                            The SCTP association has been aborted via receipt of an ABORT chunk.
                         </p>
                     </dd>
                 </dl>
