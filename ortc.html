@@ -6055,6 +6055,13 @@ function signalAssertion(assertion) {
                         the digest algorithm used for the fingerprint matches that used in the certificate
                         signature.</p>
                     </dd>
+                    <dt>AlgorithmIdentifier getAlgorithm()</dt>
+                    <dd>
+                        <p>
+                            Returns the value of <var>keygenAlgorithm</var> passed in the call
+                            to <code>generateCertificate()</code>.
+                        </p>
+                    </dd>	
                     <dt>static Promise&lt;RTCCertificate&gt; generateCertificate (AlgorithmIdentifier keygenAlgorithm)</dt>
                     <dd>
                         <p>
