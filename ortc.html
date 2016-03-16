@@ -203,7 +203,7 @@
                             <code><a>RTCIceGatherer</a></code>.
                             This retrieves all unpruned local candidates currently known (except for peer reflexive candidates),
                             even if an <code><a>onlocalcandidate</a></code>
-                            event hasn't been processed yet. Prior to calling <code>gather()</code> a null sequence
+                            event hasn't been processed yet. Prior to calling <code>gather()</code> an empty sequence
                             will be returned.
                         </p>
                     </dd>
@@ -939,6 +939,7 @@ export function myDtlsTransportStateChange(name, state){
                             Retrieve the sequence of candidates associated with the remote
                             <code><a>RTCIceTransport</a></code>. Only returns the candidates previously
                             added using <code>setRemoteCandidates()</code> or <code>addRemoteCandidate()</code>.
+                            If there are no remote candidates, an empty sequence is returned.
                         </p>
                     </dd>
                     <dt>RTCIceCandidatePair? getSelectedCandidatePair()</dt>
