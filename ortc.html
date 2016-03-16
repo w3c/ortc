@@ -203,7 +203,7 @@
                             <code><a>RTCIceGatherer</a></code>.
                             This retrieves all unpruned local candidates currently known (except for peer reflexive candidates),
                             even if an <code><a>onlocalcandidate</a></code>
-                            event hasn't been processed yet. Prior to calling <code>gather()</code> an empty sequence
+                            event hasn't been processed yet. Prior to calling <code>gather()</code> an empty list
                             will be returned.
                         </p>
                     </dd>
@@ -939,7 +939,7 @@ export function myDtlsTransportStateChange(name, state){
                             Retrieve the sequence of candidates associated with the remote
                             <code><a>RTCIceTransport</a></code>. Only returns the candidates previously
                             added using <code>setRemoteCandidates()</code> or <code>addRemoteCandidate()</code>.
-                            If there are no remote candidates, an empty sequence is returned.
+                            If there are no remote candidates, an empty list is returned.
                         </p>
                     </dd>
                     <dt>RTCIceCandidatePair? getSelectedCandidatePair()</dt>
@@ -1626,7 +1626,7 @@ mySignaller.send({
                     </dd>
                 </dl>
                 <dl class="idl" title="dictionary RTCDtlsTransportStateChangedEventInit : EventInit">
-                    <dt>RTCDtlsTransportState? state</dt>
+                    <dt>RTCDtlsTransportState state</dt>
                     <dd>
                         <p>
                             The <var>state</var> attribute is the new
@@ -1817,9 +1817,14 @@ function accept(mySignaller, remote) {
                             over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
                         </p>
                     </dd>
-                    <dt>readonly attribute RTCDtlsTransport rtcpTransport</dt>
+                    <dt>readonly attribute RTCDtlsTransport? rtcpTransport</dt>
                     <dd>
-                        <p>The associated RTCP <code><a>RTCDtlsTransport</a></code> instance.</p>
+                        <p>
+                            The associated RTCP <code><a>RTCDtlsTransport</a></code> instance if one was provided
+                            in the constructor. When RTCP mux is used, <var>rtcpTransport</var> will be null, and
+                            both RTP and RTCP traffic will flow over the <code><a>RTCDtlsTransport</a></code>
+                            <var>transport</var>.
+                        </p>
                     </dd>
                     <dt>void setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd>
@@ -2019,7 +2024,7 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>The associated RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
                     </dd>
-                    <dt>readonly attribute RTCDtlsTransport rtcpTransport</dt>
+                    <dt>readonly attribute RTCDtlsTransport? rtcpTransport</dt>
                     <dd>
                         <p>
                             The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is sent and received.
@@ -2083,7 +2088,7 @@ function accept(mySignaller, remote) {
                         <p>
                             Returns an <code><a>RTCRtpContributingSource</a></code> object for each unique CSRC or SSRC received by this
                             <code><a>RTCRtpReceiver</a></code>. The browser MUST keep information from RTP packets
-                            received in the last 10 seconds.
+                            received in the last 10 seconds. If no contributing sources are available, an empty list is returned. 
                         </p>
                     </dd>
                     <dt>void stop()</dt>
@@ -2283,7 +2288,10 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
                     </dd>
                     <dt>sequence&lt;RTCIceTransport&gt; getTransports()</dt>
                     <dd>
-                        <p>Returns the <code><a>RTCIceTransport</a></code> objects with a <var>component</var> of "RTP".</p>
+                        <p>
+                            Returns the <code><a>RTCIceTransport</a></code> objects with a <var>component</var> of "RTP".
+                            If <code>addTransport()</code> has not been called, an empty list is returned.
+                        </p>
                     </dd>
                 </dl>
             </section>
