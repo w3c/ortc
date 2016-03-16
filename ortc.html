@@ -185,6 +185,13 @@
                             Calling <code>close()</code> when <var>state</var> is "closed" has no effect.
                         </p>
                     </dd>
+                    <dt>void gather(optional RTCIceGatherOptions options)</dt>
+                    <dd>
+                        <p>
+                            Gather ICE candidates. If <var>options</var> is omitted, utilize the value
+                            of <var>options</var> passed in the constructor.
+                        </p>
+                    </dd>
                     <dt>RTCIceParameters getLocalParameters()</dt>
                     <dd>
                         <p>Obtain the ICE parameters of the <code><a>RTCIceGatherer</a></code>.</p>
@@ -196,7 +203,8 @@
                             <code><a>RTCIceGatherer</a></code>.
                             This retrieves all unpruned local candidates currently known (except for peer reflexive candidates),
                             even if an <code><a>onlocalcandidate</a></code>
-                            event hasn't been processed yet.
+                            event hasn't been processed yet. Prior to calling <code>gather()</code> a null sequence
+                            will be returned.
                         </p>
                     </dd>
                     <dt>RTCIceGatherer createAssociatedGatherer()</dt>
@@ -427,15 +435,14 @@
                     <dt>new</dt>
                     <dd>
                         <p>
-                            The object was just created, and no gathering has occurred yet.
-                            Since <code><a>RTCIceGatherer</a></code> objects gather upon construction, this state will only exist
-                            momentarily.
+                            The object has been created but <code>gather()</code> has not been called.
                         </p>
                     </dd>
                     <dt>gathering</dt>
                     <dd>
                         <p>
-                            The <code><a>RTCIceGatherer</a></code> is in the process of gathering candidates (which includes adding new candidates and
+                            <code>gather()</code> has been called, and the <code><a>RTCIceGatherer</a></code> is
+                            in the process of gathering candidates (which includes adding new candidates and
                             removing invalidated candidates).
                         </p>
                     </dd>
@@ -760,6 +767,9 @@ iceGatherer.ongathererstatechange = function(event) {
 iceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate);
 };
+
+// Start gathering
+iceGatherer.gather();
 
 // Set up response function
 mySignaller.onResponse = function(responseSignaller, response) {
@@ -1288,6 +1298,10 @@ iceRtcpGatherer.onlocalcandidate = function(event) {
     iceRtpGatherer.getLocalParameters());
 };
 
+// Start gathering
+iceRtpGatherer.gather();
+iceRtcpGatherer.gather();
+
 // Initialize the ICE transport arrays
 var iceRtpTransports = [];
 var iceRtcpTransports = [];
@@ -1645,6 +1659,9 @@ function initiate(mySignaller) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
+  
+  // Start gathering
+  iceGatherer.gather();
 
   // Initialize the ICE and DTLS transport arrays
   var iceTransports = [];
@@ -1715,6 +1732,9 @@ function accept(mySignaller, remote) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
+  
+  // Start gathering
+  iceGatherer.gather();
 
   // Create the DTLS certificate
   var certs;
@@ -2318,6 +2338,12 @@ videoRtpIceGatherer.onlocalcandidate = function(event) {
 videoRtcpIceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "video");
 };
+
+// Start gathering
+audioRtpIceGatherer.gather();
+audioRtcpIceGatherer.gather();
+videoRtpIceGatherer.gather();
+videoRtcpIceGatherer.gather();
 
 // Set up the ICE state change event handlers
 audioRtpIceTransport.onicestatechange = function(event) {
@@ -5154,6 +5180,9 @@ function initiate(signaller) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
+  
+  // Start gathering
+  iceGatherer.gather();
 
   // Create the DTLS certificate
   var certs;
@@ -5201,6 +5230,10 @@ function accept(signaller, remote) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
+  
+  // Start gathering
+  iceGatherer.gather();
+  
   // Create the DTLS certificate
   var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
@@ -5976,6 +6009,9 @@ var iceGatherer = new RTCIceGatherer(gatherOptions);
 iceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate);
 };
+// Start gathering
+iceGatherer.gather();
+// Construct the ICE transport
 var ice = new RTCIceTransport(iceGatherer);
 // Create the DTLS certificate
 var certs;
@@ -6459,6 +6495,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
             <section id="since-01-March-2016*">
                 <h3>Changes since 01 March 2016</h3>
                 <ol>
+                   <li>
+                        Add the <code>gather()</code> method, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/165">Issue 165</a>
+                    </li>
                     <li>
                         Provide additional information on ICE candidate errors, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/402">Issue 402</a>
