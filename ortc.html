@@ -4877,7 +4877,7 @@ sender.insertDTMF("123");
                     Not setting any of these properties results in a reliable channel.
                 </p>
                 <dl class="idl" title="dictionary RTCDataChannelParameters">
-                    <dt>DOMString label=""</dt>
+                    <dt>USVString label=""</dt>
                     <dd>
                         <p>
                             The <dfn>label</dfn> attribute represents a label that can be used to distinguish this <a>RTCDataChannel</a> object from other <a>RTCDataChannel</a> objects.
@@ -4917,7 +4917,7 @@ sender.insertDTMF("123");
                             value to which it was set when the <a>RTCDataChannel</a> was constructed.
                         </p>
                     </dd>
-                    <dt>DOMString protocol=""</dt>
+                    <dt>USVString protocol=""</dt>
                     <dd>
                         <p>
                             The name of the sub-protocol used with this <a>RTCDataChannel</a> if any,
@@ -6494,6 +6494,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Added <code>getAlgorithm()</code> method, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/427">Issue 427</a>
+                    </li>
+                   <li>
+                        Changed <code><a>RTCDataChannel</a></code> <var>protocol</var> and <var>label</var> to USVString, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/429">Issue 429</a>
                     </li>
                 </ol>
             </section>
