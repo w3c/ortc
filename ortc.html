@@ -3526,6 +3526,17 @@ mySignaller.myOfferTracks({
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr id="sec-apt*">
+                                    <td><dfn>apt</dfn></td>
+                                    <td>
+                                        <code>payloadType</code>
+                                    </td>
+                                    <td>Receiver/Sender</td>
+                                    <td>
+                                        As defined in [[!RFC4588]], the associated payload type
+                                        of the original stream being retransmitted.
+                                    </td>
+                                </tr>
                                 <tr id="sec-rtxtime*">
                                     <td>rtxTime</td>
                                     <td>
@@ -4033,14 +4044,6 @@ var encodings = [{
                             If unset when passed to <code>RTCRtpSender.send()</code>, the browser will choose.
                         </p>
                     </dd>
-                    <dt>payloadtype payloadType</dt>
-                    <dd>
-                        <p>
-                            The payload type to use for retransmission.
-                            If unset, <code>RTCRtpCodecParameters.payloadType</code> for the first "rtx" codec is used by default.
-                            To avoid payload type conflicts, each value of <var>payloadType</var> MUST be unique.
-                        </p>
-                    </dd>
                 </dl>
                 <section id="rtcrtpfecparameters-example*">
                     <h3>RTX/RED/FEC</h3>
@@ -4086,7 +4089,6 @@ var vp8enc = new RTCRtpEncodingParameters();
 vp8enc.ssrc =  2224031971;
 vp8enc.codecPayloadType = 100;
 vp8enc.rtx.ssrc = 3254585230;
-vp8enc.rtx.payloadType = 96;
 //
 //   Define VP8 encoding parameters with RED
 //
@@ -4096,7 +4098,6 @@ vp8encred.codecPayloadType = 100;
 vp8encred.fec.ssrc = 3254585230;
 vp8encred.fec.mechanism = "red+ulpfec";
 vp8encred.rtx.ssrc = 3254585230;
-vp8encred.rtx.payloadType = 98;
 //
 //   Define VP9 codec parameters
 //
@@ -4111,7 +4112,6 @@ var vp9enc = new RTCRtpEncodingParameters();
 vp9enc.ssrc =  2224031971;
 vp9enc.codecPayloadType = 101;     
 vp9enc.rtx.ssrc = 3254585230;
-vp9enc.rtx.payloadType = 97;
 //
 //   Define VP9 encoding parameters with RED
 //
@@ -4121,7 +4121,6 @@ vp9encred.codecPayloadType = 101;
 vp9encred.fec.ssrc = 3254585230;
 vp9encred.fec.mechanism = "red+ulpfec";
 vp9encred.rtx.ssrc = 3254585230;
-vp9encred.rtx.payloadType = 98;
 //
 //   Define RED codec parameters
 //
@@ -4144,16 +4143,19 @@ rtxvp8 = new RTCRtpCodecParameters();
 rtxvp8.name = "rtx";
 rtxvp8.payloadType = 96; 
 rtxvp8.clockrate = 90000;
+rtxvp8.parameters.apt = 100;
 //
 rtxvp9 = new RTCRtpCodecParameters();   
 rtxvp9.name = "rtx";
 rtxvp9.payloadType = 97;
 rtxvp9.clockrate = 90000;
+rtxvp9.parameters.apt = 101;
 //
 rtxred = new RTCRtpCodecParameters();   
 rtxred.name = "rtx";
 rtxred.payloadType = 98;
 rtxred.clockrate = 90000;
+rtxred.parameters.apt = 116;
                     </pre>
                 </section>
             </section>
