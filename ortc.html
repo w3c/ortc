@@ -656,28 +656,25 @@
                 <dl class="idl" title="enum RTCIceGatherPolicy">
                     <dt>all</dt>
                     <dd>
-                        <p>The ICE gatherer gathers all types of candidates when this value is specified.</p>
+                        <p>
+                            The <code><a>RTCIceGatherer</a></code> gathers all types of candidates
+                            when this value is specified. This will not include addresses that have been
+                            filtered by the browser.
+                        </p>
                     </dd>
                     <dt>nohost</dt>
                     <dd>
-                        <p>The ICE gatherer gathers all ICE candidate types except for host candidates.</p>
+                        <p>
+                            The <code><a>RTCIceGatherer</a></code> gathers all ICE candidate types
+                            except for host candidates.
+                        </p>
                     </dd>
                     <dt>relay</dt>
                     <dd>
                         <p>
-                            The ICE gatherer <em class="rfc2119" title="MUST">MUST</em> only gather media relay
-                            candidates such as candidates passing through a TURN server.
+                            The <code><a>RTCIceGatherer</a></code> <em class="rfc2119" title="MUST">MUST</em>
+                            only gathers media relay candidates such as candidates passing through a TURN server.
                             This can be used to reduce leakage of IP addresses in certain use cases.
-                        </p>
-                    </dd>
-                    <dt>public</dt>
-                    <dd>
-                        <p>
-                            The ICE gatherer <em class="rfc2119" title="MUST">MUST</em> filter out
-                            candidates with private IP addresses [[!RFC1918]].  This prevents exposure of
-                            internal network details, at the cost of requiring relay usage even for intranet calls,
-                            if the Network Address Translator (NAT) does not allow hairpinning as described in
-                            [[RFC4787]], section 6.
                         </p>
                     </dd>
                 </dl>
