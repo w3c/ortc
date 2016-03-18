@@ -2596,13 +2596,6 @@ mySignaller.myOfferTracks({
                     If <var>pt_table</var>[<var>pt</var>] is already set to a value other than <var>receiver</var>, or
                     <code>parameters.codecs[j].payloadType</code> is unset for any value of <var>j</var> from 0 to the number of codecs,
                     then <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
-                    If <code>parameters.encodings[i].rtx.payloadType</code> is set, set
-                    <var>pt_table</var>[<code>parameters.encodings[i].rtx.payloadType</code>] to <var>receiver</var>,
-                    for values of <var>i</var> from 0 to the number of encodings.
-                    If <var>pt_table</var>[<code>parameters.encodings[i].rtx.payloadType</code>] is already set,
-                    and parameters.encodings[i].rtx.payloadType is not equal to <code>parameters.codecs[k].payloadType</code>
-                    where k is the value for the "rtx" codec, then <code>receiver.receive()</code> will throw an 
-                    <code>InvalidParameters</code> exception.
                 </p>
                 <p>
                     When an RTP packet arrives, the implementation determines the <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as follows:
@@ -2626,7 +2619,6 @@ mySignaller.myOfferTracks({
                     and route the packet to <var>rtp_receiver</var>. Question: Do we remove all <var>pt_table</var>[<var>packet.pt</var>] entries set to <var>rtp_receiver</var>?
                 </p>
                 <p>Else if no matches are found in the <var>ssrc_table</var>, <var>muxId_table</var> or <var>pt_table</var>, fire the <code><a>unhandledrtp</a></code> event.</p>
-                <p>TODO: Revise this Section to include FEC/RTX/RED. </p>
             </section>
             <section id="rtcrtplistener-interface-definition*">
                 <h3>Interface Definition</h3>
