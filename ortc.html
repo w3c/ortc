@@ -4037,7 +4037,8 @@ var encodings = [{
                     <pre class="example highlight">
 // Example of RTX and RED + ulpfec
 //
-// SDP from createOffer()
+// SDP from createOffer() in WebRTC 1.0
+//
 //   m=video 62125 UDP/TLS/RTP/SAVPF 100 101 116 117 96
 //   a=sendonly
 //   a=rtpmap:100 VP8/90000
@@ -4134,6 +4135,9 @@ rtxred.name = "rtx";
 rtxred.payloadType = 98;
 rtxred.clockrate = 90000;
 rtxred.parameters.apt = 116;
+//
+// Produce the codecs[] and encodings[] sequences
+//
 codecs = [ vp9, vp8, rtxvp9, rtxvp8, red, ulpfec, rtxred ]; 
 encodings = [ vp8enc, vp8encred, vp9enc, vp9encred ];
                     </pre>
