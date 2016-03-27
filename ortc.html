@@ -4145,6 +4145,27 @@ encodings = [ vp8enc, vp8encred, vp9enc, vp9encred ];
             </section>
             <section id="rtcrtpheaderextension*">
                 <h3>dictionary RTCRtpHeaderExtension</h3>
+                <p>
+                    The <code><a>RTCRtpHeaderExtension</a></code> dictionary enables a
+                    header extension to be configured for use within an <code><a>RTCRtpSender</a></code>
+                    or <code><a>RTCRtpReceiver</a></code>. In order to provide the equivalent of the
+                    "direction" parameter defined in [[!RFC 5285]] Section 5, an application can do
+                    the following:
+                    <ol>
+                        <li>
+                            sendonly: Include the header extension only when calling <code>send(<var>parameters</var>)</code>.
+                        </li>
+                        <li>
+                            recvonly: Include the header extension only when calling <code>receive(<var>parameters</var>)</code>.
+                        </li>
+                        <li>
+                            sendrecv: Include the header extension when calling <code>send(<var>parameters</var>)</code> and <code>receive(<var>parameters</var>)</code>.
+                        </li>
+                        <li>
+                            inactive: Don't include the header extension when calling either <code>send(<var>parameters</var>)</code> or <code>receive(<var>parameters</var>)</code>.
+                        </li>
+                    </ol>
+                </p>
                 <dl class="idl" title="dictionary RTCRtpHeaderExtension">
                     <dt>DOMString kind</dt>
                     <dd>
