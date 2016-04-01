@@ -3768,9 +3768,8 @@ mySignaller.myOfferTracks({
                     <thead>
                         <tr>
                             <th>Attribute</th>
-                            <th>Values</th>
+                            <th>Type</th>
                             <th>Receiver/Sender</th>
-                            <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3780,7 +3779,6 @@ mySignaller.myOfferTracks({
                                 <code>unsigned long</code>
                             </td>
                             <td>Receiver/Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-codecPayloadType*">
                            <td><dfn>codecPayloadType</dfn></td>
@@ -3788,7 +3786,6 @@ mySignaller.myOfferTracks({
                                 <code>payloadType</code>
                             </td>
                             <td>Receiver/Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-fec*">
                            <td><dfn>fec</dfn></td>
@@ -3796,7 +3793,6 @@ mySignaller.myOfferTracks({
                                 <code><a>RTCRtpFecParameters</a></code>
                             </td>
                             <td>Receiver/Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-rtx*">
                            <td><dfn>rtx</dfn></td>
@@ -3804,7 +3800,6 @@ mySignaller.myOfferTracks({
                                 <code><a>RTCRtpRtxParameters</a></code>
                             </td>
                             <td>Receiver/Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-priority*">
                            <td><dfn>priority</dfn></td>
@@ -3812,7 +3807,6 @@ mySignaller.myOfferTracks({
                                 <code><a>RTCPriorityType</a></code>
                             </td>
                             <td>Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-maxbitrate*">
                            <td><dfn>maxBitrate</dfn></td>
@@ -3820,7 +3814,6 @@ mySignaller.myOfferTracks({
                                 <code>unsigned long</code>
                             </td>
                             <td>Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-minquality*">
                            <td><dfn>minQuality</dfn></td>
@@ -3828,7 +3821,6 @@ mySignaller.myOfferTracks({
                                 <code>double</code>
                             </td>
                             <td>Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-resolutionscale*">
                            <td><dfn>resolutionScale</dfn></td>
@@ -3836,7 +3828,6 @@ mySignaller.myOfferTracks({
                                 <code>double</code>
                             </td>
                             <td>Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-frameratescale*">
                            <td><dfn>framerateScale</dfn></td>
@@ -3844,7 +3835,6 @@ mySignaller.myOfferTracks({
                                 <code>double</code>
                             </td>
                             <td>Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-maxframerate*">
                            <td><dfn>maxFramerate</dfn></td>
@@ -3852,7 +3842,6 @@ mySignaller.myOfferTracks({
                                 <code>unsigned long</code>
                             </td>
                             <td>Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-active*">
                            <td><dfn>active</dfn></td>
@@ -3860,23 +3849,20 @@ mySignaller.myOfferTracks({
                                 <code>boolean</code>
                             </td>
                             <td>Receiver/Sender</td>
-                            <td></td>
-                        </tr>
+                        </tr>                        
                         <tr id="def-encodingid*">
                            <td><dfn>encodingId</dfn></td>
                             <td>
                                 <code>DOMString</code>
                             </td>
                             <td>Receiver/Sender</td>
-                            <td></td>
                         </tr>
                         <tr id="def-dependencyencodingids*">
                            <td><dfn>dependencyEncodingIds</dfn></td>
                             <td>
-                                <code>sequence<DOMString></code>
+                                <code>sequence&lt;DOMString&gt;</code>
                             </td>
                             <td>Receiver/Sender</td>
-                            <td></td>
                         </tr>
                     </tbody>
                 </table>
