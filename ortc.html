@@ -3253,7 +3253,8 @@ mySignaller.myOfferTracks({
                         <p>
                             The Canonical Name (CNAME) used by RTCP (e.g. in SDES messages). Guidelines for CNAME generation are provided in [[!RTP-USAGE]] Section 4.9 and [[!RFC7022]].
                             By default, ORTC implementations SHOULD set the CNAME to be the same within all <code>RTCRtcpParameter</code> objects created within the
-                            same Javascript sandbox. For backward compatibility with WebRTC 1.0, applications MAY set the CNAME; if unset, the CNAME is chosen by the browser.
+                            same Javascript sandbox. For backward compatibility with WebRTC 1.0, applications MAY set the CNAME only for an <code><a>RTCRtpReceiver</a></code>;
+                            if unset, the CNAME is chosen by the browser.
                         </p>
                     </dd>
                     <dt>boolean reducedSize=false</dt>
