@@ -1904,6 +1904,7 @@ function accept(mySignaller, remote) {
                             The <code><a>RTCRtpSender</a></code> object starts sending when <code>send()</code>
                             is called for the first time, and changes the sending <var>parameters</var> when <code>send()</code> is called again.
                             The <code><a>RTCRtpSender</a></code> object stops sending when <code>stop()</code> is called.
+                            SSRC misusage results in an <code>InvalidParameters</code> exception.
                         </p>
                     </dd>
                     <dt>void stop()</dt>
@@ -1929,8 +1930,6 @@ function accept(mySignaller, remote) {
                             This event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
                             if an SSRC conflict is detected within the RTP session.  In this situation, the
                             <code><a>RTCRtpSender</a></code> automatically sends an RTCP BYE on the conflicted SSRC.
-                            SSRC misusage results in an <code>InvalidParameters</code> exception thrown by methods
-                            such as <code>send()</code> and <code>receive()</code.
                         </p>
                     </dd>
                 </dl>
@@ -2079,6 +2078,7 @@ function accept(mySignaller, remote) {
                             not equal to "red", "rtx" or a forward error correction codec is included in <code>getCapabilities(kind).codecs[j].name</code>, where j goes from
                             0 to the number of codecs, and <var>kind</var> takes the value passed in the <code><a>RTCRtpReceiver</a></code> constructor.
                             If no match is found for any value of <var>i</var>, throw an <code>InvalidParameters</code> exception.
+                            SSRC misusage also results in an <code>InvalidParameters</code> exception.
                         </p>
                     </dd>
                     <dt>sequence&lt;RTCRtpContributingSource&gt; getContributingSources()</dt>
