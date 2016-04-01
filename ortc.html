@@ -1926,10 +1926,11 @@ function accept(mySignaller, remote) {
                     <dt>attribute EventHandler? onssrcconflict</dt>
                     <dd>
                         <p>
-                            This event handler, of event handler type <code>RTCSsrcConflictEvent</code>,
-                            <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCRtpSender</a></code> interface.
-                            This event <em class="rfc2119" title="MUST">MUST</em> be fired if an SSRC conflict is detected.
-                            On an SSRC conflict, the <code>RTCRtpSender</code> automatically sends an RTCP BYE on the conflicted SSRC.
+                            This event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
+                            if an SSRC conflict is detected with a remote peer.  In this situation, the
+                            <code>RTCRtpSender</code> automatically sends an RTCP BYE on the conflicted SSRC.
+                            Local SSRC conflicts result in exceptions thown by the <code>send()</code>,
+                            <code>receive()</code> and <code>setTrack()</code> methods.
                         </p>
                     </dd>
                 </dl>
