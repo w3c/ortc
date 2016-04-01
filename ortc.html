@@ -3633,6 +3633,7 @@ mySignaller.myOfferTracks({
 
                 <p><code><a>RTCRtpEncodingParameters</a></code> provides information relating to the encoding.  Note that all encoding parameters
                 (such as <var>maxBitrate</var>, <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to codec-specific constraints.</p>
+                
                 <dl class="idl" title="dictionary RTCRtpEncodingParameters">
                     <dt>unsigned long ssrc</dt>
                     <dd>
@@ -3760,6 +3761,125 @@ mySignaller.myOfferTracks({
                         </p>
                     </dd>
                 </dl>
+                <p>
+                    Usage of the attributes is defined in the table below:
+                </p>
+                <table class="simple">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Values</th>
+                            <th>Receiver/Sender</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="def-ssrc*">
+                           <td><dfn>ssrc</dfn></td>
+                            <td>
+                                <code>unsigned long</code>
+                            </td>
+                            <td>Receiver/Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-codecPayloadType*">
+                           <td><dfn>codecPayloadType</dfn></td>
+                            <td>
+                                <code>payloadType</code>
+                            </td>
+                            <td>Receiver/Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-fec*">
+                           <td><dfn>fec</dfn></td>
+                            <td>
+                                <code><a>RTCRtpFecParameters</a></code>
+                            </td>
+                            <td>Receiver/Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-rtx*">
+                           <td><dfn>rtx</dfn></td>
+                            <td>
+                                <code><a>RTCRtpRtxParameters</a></code>
+                            </td>
+                            <td>Receiver/Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-priority*">
+                           <td><dfn>priority</dfn></td>
+                            <td>
+                                <code><a>RTCPriorityType</a></code>
+                            </td>
+                            <td>Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-maxbitrate*">
+                           <td><dfn>maxBitrate</dfn></td>
+                            <td>
+                                <code>unsigned long</code>
+                            </td>
+                            <td>Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-minquality*">
+                           <td><dfn>minQuality</dfn></td>
+                            <td>
+                                <code>double</code>
+                            </td>
+                            <td>Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-resolutionscale*">
+                           <td><dfn>resolutionScale</dfn></td>
+                            <td>
+                                <code>double</code>
+                            </td>
+                            <td>Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-frameratescale*">
+                           <td><dfn>framerateScale</dfn></td>
+                            <td>
+                                <code>double</code>
+                            </td>
+                            <td>Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-maxframerate*">
+                           <td><dfn>maxFramerate</dfn></td>
+                            <td>
+                                <code>unsigned long</code>
+                            </td>
+                            <td>Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-active*">
+                           <td><dfn>active</dfn></td>
+                            <td>
+                                <code>boolean</code>
+                            </td>
+                            <td>Receiver/Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-encodingid*">
+                           <td><dfn>encodingId</dfn></td>
+                            <td>
+                                <code>DOMString</code>
+                            </td>
+                            <td>Receiver/Sender</td>
+                            <td></td>
+                        </tr>
+                        <tr id="def-dependencyencodingids*">
+                           <td><dfn>dependencyEncodingIds</dfn></td>
+                            <td>
+                                <code>sequence<DOMString></code>
+                            </td>
+                            <td>Receiver/Sender</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             <section id="rtcrtpencodingparameters-example*">
                 <h3>Examples</h3>
                 <section id="rtcrtpencodingparameters-basicexample*">
