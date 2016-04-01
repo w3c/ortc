@@ -3251,10 +3251,9 @@ mySignaller.myOfferTracks({
                     <dt>DOMString cname</dt>
                     <dd>
                         <p>
-                            The Canonical Name (CNAME) used by RTCP (e.g. in SDES messages). Guidelines for CNAME generation are provided in
-                            [[!RTP-USAGE]] Section 4.9 and [[!RFC7022]]. By default, ORTC implementations SHOULD set the CNAME to be the
-                            same within all <code>RTCRtcpParameter</code> objects created within the same Javascript sandbox. For backward
-                            compatibility with WebRTC 1.0, applications MAY set the CNAME only for an <code><a>RTCRtpReceiver</a></code>;
+                            The Canonical Name (CNAME) used by RTCP (e.g. in SDES messages). Guidelines for CNAME generation are provided in [[!RTP-USAGE]] Section 4.9 and [[!RFC7022]].
+                            By default, ORTC implementations SHOULD set the CNAME to be the same within all <code>RTCRtcpParameter</code> objects created within the same Javascript sandbox.
+                            For backward compatibility with WebRTC 1.0, applications MAY set the CNAME only for an <code><a>RTCRtpReceiver</a></code>;
                             if unset, the CNAME is chosen by the browser.
                         </p>
                     </dd>
@@ -6559,6 +6558,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Clarified support for the "direction" parameter, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/442">Issue 442</a>
+                    </li>
+                    <li>
+                        Clarified that CNAME is only set on an <code><a>RTCRtpSender</a></code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/450">Issue 450</a>
                     </li>
                 </ol>
             </section>
