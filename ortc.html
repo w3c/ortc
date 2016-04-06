@@ -1927,7 +1927,7 @@ function accept(mySignaller, remote) {
                     <dt>attribute EventHandler? onssrcconflict</dt>
                     <dd>
                         <p>
-                            This event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
+                            The <dfn>onssrcconflict</dfn> event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
                             if an SSRC conflict is detected within the RTP session.  In this situation, the
                             <code><a>RTCRtpSender</a></code> automatically sends an RTCP BYE on the conflicted SSRC.
                         </p>
@@ -3640,15 +3640,15 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The SSRC for this layering/encoding.
-                            Multiple <code>RTCRtpEncodingParameters</code> objects can share the same <var>ssrc</var> value (useful, for example, to indicate that different RTX payload types associated to different codecs are carried over the same stream).
-                            If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>RTCRtpReceiver.receive</code> method, the
+                            Multiple <code>RTCRtpEncodingParameters</code> objects can share the same <var>ssrc</var> value
+                            (useful, for example, to indicate that different RTX payload types associated to different codecs are carried over the same stream).
+                            If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>receive()</code> method, the
                             next unhandled SSRC will match, and an <code>RTCRtpUnhandledEvent</code> will not be fired.
-                            If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>RTCRtpSender.send</code>
+                            If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
                             method, the browser will choose, and the chosen value is not reflected in <code>RTCRtpEncodingParameters.ssrc</code>.
-                            If the browser chooses the
-                            <var>ssrc</var>, it may change it due to a collision without firing an <code>RTCSsrcConflictEvent</code>.
-                            If <var>ssrc</var> is set in a <code>RTCRtpEncodingParameters</code> object passed to the <code>RTCRtpSender.send</code> method and an
-                            SSRC conflict is detected, then an <code>RTCSsrcConflictEvent</code> is fired (see Section 6.4).
+                            If the browser chooses the <var>ssrc</var>, it may change it due to a collision without firing an <code>RTCSsrcConflictEvent</code>.
+                            If <var>ssrc</var> is set in an <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
+                            method and an SSRC conflict is detected within the RTP session, then an <code>RTCSsrcConflictEvent</code> is fired (see Section 5.4).
                         </p>
                     </dd>
                     <dt>payloadtype codecPayloadType</dt>
@@ -6392,7 +6392,7 @@ function signalAssertion(assertion) {
                     <tr>
                         <td><dfn id="event-ssrcconflict"><code>ssrcconflict</code></dfn></td>
                         <td><code><a>RTCSsrcConflictEvent</a></code></td>
-                        <td>An SSRC conflict has been detected.</td>
+                        <td>An SSRC conflict has been detected within the RTP session.</td>
                     </tr>
                 </tbody>
             </table>
@@ -6686,7 +6686,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/445">Issue 445</a>
                     </li>
                     <li>
-                        Clarified firing of <code>onssrcconflict</code> event, as noted in:
+                        Clarified firing of <code><a>onssrcconflict</a></code> event, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/448">Issue 448</a>
                     </li>
                     <li>
