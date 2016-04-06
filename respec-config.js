@@ -372,6 +372,19 @@ var respecConfig = {
       "status": "August 2015. RFC",
       "publisher": "IETF"
     },
+    "RFC7656": {
+      "title": "RTP Grouping Taxonomy",
+      "href": "https://tools.ietf.org/html/rfc7656",
+      "authors": [
+        "J. Lennox",
+        "K. Gross",
+        "S. Nandakumar",
+        "G. Salgueiro",
+        "B. Burman"
+      ],
+      "status": "November 2015. RFC",
+      "publisher": "IETF"
+    },
     "RFC7675": {
       "title": "Session Traversal Utilities for NAT (STUN) Usage for Consent Freshness",
       "href": "https://tools.ietf.org/html/rfc7675",
@@ -383,6 +396,19 @@ var respecConfig = {
         "M. Thomson"
       ],
       "status": "October 2015. RFC",
+      "publisher": "IETF"
+    },
+    "RFC7741": {
+      "title": "RTP Payload Format for VP8 Video",
+      "href": "https://tools.ietf.org/html/rfc7741",
+      "authors": [
+        "P. Westin",
+        "H. Lundin",
+        "M. Glover",
+        "J. Uberti",
+        "F. Galligan"
+      ],
+      "status": "March 2016. RFC",
       "publisher": "IETF"
     },
     "ABS-SEND-TIME": {
@@ -433,7 +459,7 @@ var respecConfig = {
       "authors": [
         "J. Uberti"
       ],
-      "status": "18 October 2015. Internet Draft (work in progress)",
+      "status": "20 March 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "FLEXFEC": {
@@ -445,20 +471,7 @@ var respecConfig = {
         "M. Zanaty",
         "G. Mandyam" 
       ],
-      "status": "19 October 2015. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "GROUPING": {
-      "title": "RTP Grouping Taxonomy",
-      "href": "https://tools.ietf.org/html/draft-ietf-avtext-rtp-grouping-taxonomy",
-      "authors": [
-        "J. Lennox",
-        "K. Gross",
-        "S. Nandakumar",
-        "G. Salgueiro",
-        "B. Burman"
-      ],
-      "status": "20 July 2015. Internet Draft (work in progress)",
+      "status": "21 March 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "JSEP": {
@@ -469,7 +482,7 @@ var respecConfig = {
         "C. Jennings",
         "E. Rescorla"
       ],
-      "status": "18 October 2015. Internet Draft (work in progress)",
+      "status": "21 March 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "REMB": {
@@ -537,7 +550,7 @@ var respecConfig = {
         "M. Westerlund",
         "J. Ott"
       ],
-      "status": "12 June 2015. Internet Draft (work in progress)",
+      "status": "17 March 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "STUN-PARAMETERS": {
@@ -567,19 +580,6 @@ var respecConfig = {
       ],
       "status": "December 2014",
       "publisher": "3GPP"
-    },
-    "VP8-RTP": {
-      "title": "RTP Payload Format for VP8 Video",
-      "href": "https://tools.ietf.org/html/draft-ietf-payload-vp8",
-      "authors": [
-        "P. Westin",
-        "H. Lundin",
-        "M. Glover",
-        "J. Uberti",
-        "F. Galligan"
-      ],
-      "status": "09 September 2015. Internet Draft (work in progress)",
-      "publisher": "IETF"
     },
     "WEBRTC-STATS": {
       "title": "Identifiers for WebRTC's Statistics API",
