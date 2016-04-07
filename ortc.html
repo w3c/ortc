@@ -1928,8 +1928,10 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             The <dfn>onssrcconflict</dfn> event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
-                            if an SSRC conflict is detected within the RTP session.  In this situation, the
-                            <code><a>RTCRtpSender</a></code> automatically sends an RTCP BYE on the conflicted SSRC.
+                            if an SSRC conflict is detected within the RTP session or an SSRC misconfiguration is detected after
+                            <code>send()</code> or <code>receive()</code> returns or when <code>setTransport()</code> is called.
+                            In this situation, the <code><a>RTCRtpSender</a></code> automatically sends an RTCP BYE on the conflicted SSRC,
+                            if RTP packets were sent using that SSRC.
                         </p>
                     </dd>
                 </dl>
