@@ -1893,7 +1893,7 @@ function accept(mySignaller, remote) {
                             throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number
                             of encodings, check whether <code>parameters.encodings[i].codecPayloadType</code> corresponds to
                             a value of <var>parameters.codecs[j].payloadType</var> where j goes from 0 to the number of codecs.  If
-                            <var>parameters.codecs[j].name</var> is equal to "red", "rtx" or a forward error correction codec,
+                            <var>parameters.codecs[j].name</var> is equal to "red", "cn", "dtmf", "rtx" or a forward error correction codec,
                             throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number of codecs,
                             check that each value of <code>parameters.codecs[i].name</code> not equal to "red", "rtx" or a forward error correction
                             codec is included in <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes from
