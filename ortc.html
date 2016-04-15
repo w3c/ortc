@@ -1890,7 +1890,11 @@ function accept(mySignaller, remote) {
                             Media to be sent is controlled by parameters. If <code>send()</code> is called with invalid <var>parameters</var>,
                             throw an <code>InvalidParameters</code> exception. If <var>rtcpTransport</var> is not set and
                             <code>send(<var>parameters</var>)</code> is called with <var>parameters.rtcp.mux</var> set to "false",
-                            throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number of codecs, 
+                            throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number
+                            of encodings, check whether <code>parameters.encodings[i].codecPayloadType</code> corresponds to
+                            a value of <var>parameters.codecs[j].payloadType</var> where j goes from 0 to the number of codecs.  If
+                            <var>parameters.codecs[j].name</var> is equal to "red", "rtx" or a forward error correction codec,
+                            throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number of codecs,
                             check that each value of <code>parameters.codecs[i].name</code> not equal to "red", "rtx" or a forward error correction
                             codec is included in <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes from
                             0 to the number of codecs. If a match is not found for any value of <var>i</var>, throw an
