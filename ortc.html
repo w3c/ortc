@@ -218,7 +218,7 @@
                             an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? ongathererstatechange</dt>
+                    <dt>attribute EventHandler? onstatechange</dt>
                     <dd>
                         <p>
                             This event handler, of event handler type <code>gathererstatechange</code>,
@@ -756,7 +756,7 @@ gatherOptions.iceServers = [
 var iceGatherer = new RTCIceGatherer(gatherOptions);
 
 // Handle state changes
-iceGatherer.ongathererstatechange = function(event) {
+iceGatherer.onstatechange = function(event) {
   myIceGathererStateChange("iceGatherer", event.state);
 };
 
@@ -1014,7 +1014,7 @@ export function myDtlsTransportStateChange(name, state){
                             If <var>state</var> is "closed", throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? onicestatechange</dt>
+                    <dt>attribute EventHandler? onstatechange</dt>
                     <dd>
                         <p>
                             This event handler, of event handler type <code>icestatechange</code>,
@@ -1459,7 +1459,7 @@ mySignaller.send({
                             Calling <code>stop()</code> when <var>state</var> is "closed" has no effect.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? ondtlsstatechange</dt>
+                    <dt>attribute EventHandler? onstatechange</dt>
                     <dd>
                         <p>
                             This event handler, of event handler type <code><a>dtlsstatechange</a></code>,
@@ -2359,16 +2359,16 @@ videoRtpIceGatherer.gather();
 videoRtcpIceGatherer.gather();
 
 // Set up the ICE state change event handlers
-audioRtpIceTransport.onicestatechange = function(event) {
+audioRtpIceTransport.onstatechange = function(event) {
   myIceTransportStateChange("audioRtpIceTransport", event.state);
 };
-audioRtcpIceTransport.onicestatechange = function(event) {
+audioRtcpIceTransport.onstatechange = function(event) {
   myIceTransportStateChange("audioRtcpIceTransport", event.state);
 };
-videoRtpIceTransport.onicestatechange = function(event) {
+videoRtpIceTransport.onstatechange = function(event) {
   myIceTransportStateChange("videoRtpIceTransport", event.state);
 };
-videoRtcpIceTransport.onicestatechange = function(event) {
+videoRtcpIceTransport.onstatechange = function(event) {
   myIceTransportStateChange("videoRtcpIceTransport", event.state);
 };
 
