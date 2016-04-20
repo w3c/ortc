@@ -553,6 +553,16 @@ var respecConfig = {
       "status": "17 March 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "RFC5245bis": {
+      "title": "Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal",
+      "href": "https://tools.ietf.org/html/draft-ietf-ice-rfc5245bis",
+      "authors": [
+        "A. Keranen",
+        "J. Rosenberg"
+      ],
+      "status": "21 December 2015. Internet Draft (work in progress)",
+      "publisher": "IETF"
+    },
     "STUN-PARAMETERS": {
       "authors":["IETF"],
       "href": "http://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
@@ -570,6 +580,18 @@ var respecConfig = {
         "E. Sprang"
       ],
       "status": "October 19, 2015. Internet Draft (work in progress)",
+      "publisher": "IETF"
+    },
+    "TRICKLE": {
+      "title": "Trickle ICE: Incremental Provisioning of Candidates for the Interactive Connectivity Establishment (ICE) Protocol",
+      "href": "https://tools.ietf.org/html/draft-ietf-ice-trickle",
+      "authors": [
+        "E. Ivov",
+        "E. Rescorla",
+        "J. Uberti",
+        "P. Saint-Andre"
+      ],
+      "status": "10 December 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TS26.114": {
