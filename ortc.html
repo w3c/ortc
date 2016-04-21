@@ -256,14 +256,13 @@
             <section id="rtciceparameters*">
                 <h3>The RTCIceParameters Object</h3>
                 <p>
-                    The local <dfn>RTCIceParameters</dfn> object includes the ICE username fragment and password.  The
-                    <code><a>RTCIceParameters</a></code> object corresponding to a remote peer may also include
-                    an <var>iceLite</var> attribute (set to "true" if the remote peer only supports ICE-lite).
+                    The <dfn>RTCIceParameters</dfn> object includes the ICE username fragment
+                    and password and other ICE-related parameters.
                 </p>
                 <dl class="idl" title="dictionary RTCIceParameters">
                     <dt>DOMString usernameFragment</dt>
                     <dd>
-                        <p>ICE username.</p>
+                        <p>ICE username fragment.</p>
                     </dd>
                     <dt>DOMString password</dt>
                     <dd>
@@ -272,9 +271,10 @@
                     <dt>boolean iceLite</dt>
                     <dd>
                         <p>
-                            If only ICE-lite is supported by the remote peer (true) or not (false or unset).
-                            Since [[!RTCWEB-TRANSPORT]] Section 3.4 requires browser support for full ICE not ICE-lite,
-                            <code>getLocalParameters().iceLite</code> MUST NOT be set.
+                            If only ICE-lite is supported (true) or not (false or unset). Since
+                            [[!RTCWEB-TRANSPORT]] Section 3.4 requires browser support for full ICE,
+                            <var>iceLite</var> will only be "true" for a remote peer such as
+                            a gateway. <code>getLocalParameters().iceLite</code> MUST NOT be set.
                         </p>
                     </dd>
                 </dl>
