@@ -519,7 +519,8 @@
                             The <code><a>RTCIceCandidate</a></code> used to communicate with the
                             STUN or TURN server. On a multihomed system, multiple interfaces may be
                             used to contact the server, and this attribute allows the application to
-                            figure out on which one the failure occurred.
+                            figure out on which one the failure occurred. If the browser is in a 
+                            privacy mode disallowing host candidates, this attribute will be null.
                         </p>
                         <p>
                             If use of multiple interfaces has been prohibited for privacy reasons,
