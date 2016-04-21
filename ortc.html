@@ -744,14 +744,14 @@ import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Create ICE gather options
-var gatherOptions = new RTCIceGatherOptions();
-gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
-gatherOptions.iceServers = [
-  { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
-    credentialType: "password" }
-];
-
+var gatherOptions = {
+  gatherPolicy: "relay",
+  iceServers: [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
+      credentialType: "password" }
+   ]
+};
 // Create IceGatherer object
 var iceGatherer = new RTCIceGatherer(gatherOptions);
 
@@ -798,7 +798,7 @@ export function errorHandler(error) {
 export function mySendLocalCandidate(candidate, component, kind, parameters) {
   // Set default values
   kind = kind || "all";
-  component = component || RTCIceComponent.RTP;
+  component = component || "RTP";
   parameters = parameters || null;
 
   // Signal the local candidate
@@ -812,16 +812,16 @@ export function mySendLocalCandidate(candidate, component, kind, parameters) {
 
 export function myIceGathererStateChange(name, state) {
   switch (state) {
-    case RTCIceGathererState.new:
+    case "new": 
       trace("IceGatherer: " + name + " Has been created");
       break;
-    case RTCIceGathererState.gathering:
+    case "gathering":
       trace("IceGatherer: " + name + " Is gathering candidates");
       break;
-    case RTCIceGathererState.complete:
+    case "complete":
       trace("IceGatherer: " + name + " Has finished gathering (for now)");
       break;
-    case RTCIceGathererState.closed:
+    case "closed":
       trace("IceGatherer: " + name + " Is closed");
       break;
     default:
@@ -831,25 +831,25 @@ export function myIceGathererStateChange(name, state) {
 
 export function myIceTransportStateChange(name, state) {
   switch (state) {
-    case RTCIceTransportState.new:
+    case "new":
       trace("IceTransport: " + name + " Has been created");
       break;
-    case RTCIceTransportState.checking:
+    case "checking":
       trace("IceTransport: " + name + " Is checking");
       break;
-    case RTCIceTransportState.connected:
+    case "connected":
       trace("IceTransport: " + name + " Is connected");
       break;
-    case RTCIceTransportState.disconnected:
+    case "disconnected":
       trace("IceTransport: " + name + " Is disconnected");
       break;
-    case RTCIceTransportState.completed:
+    case "completed":
       trace("IceTransport: " + name + " Has finished checking (for now)");
       break;
-    case RTCIceTransportState.failed:
+    case "failed":
       trace("IceTransport: " + name + " Has failed");
       break;
-    case RTCIceTransportState.closed:
+    case "closed":
       trace("IceTransport: " + name + " Is closed");
       break;
     default:
@@ -859,19 +859,19 @@ export function myIceTransportStateChange(name, state) {
 
 export function myDtlsTransportStateChange(name, state){
   switch(state){
-  case RTCDtlsTransportState.new:
+  case "new":
      trace('DtlsTransport: ' + name + ' Has been created');
      break;
-  case RTCDtlsTransportState.connecting:
+  case "connecting":
      trace('DtlsTransport: ' + name + ' Is connecting');
      break;
-  case RTCDtlsTransportState.connected:
+  case "connected":
      trace('DtlsTransport: ' + name + ' Is connected');
      break;
-  case RTCDtlsTransportState.failed:
+  case "failed":
      trace('DtlsTransport: ' + name + ' Has failed');
      break;
-  case RTCDtlsTransportState.closed:
+  case "closed":
      trace('DtlsTransport: ' + name + ' Is closed');
      break;
   default:
@@ -1275,13 +1275,14 @@ import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Create ICE gather options
-var gatherOptions = new RTCIceGatherOptions();
-gatherOptions.gatherPolicy = RTCIceGatherPolicy.relay;
-gatherOptions.iceServers = [
-  { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
-    credentialType: "password" }
-];
+var gatherOptions = {
+  gatherPolicy: "relay",
+  iceServers: [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+      credentialType: "password" }
+   ]
+};
 
 // Create ICE gatherer objects
 var iceRtpGatherer = new RTCIceGatherer(gatherOptions);
@@ -1289,12 +1290,12 @@ var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer();
 
 // Prepare to signal local candidates
 iceRtpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "audio",
+  mySendLocalCandidate(event.candidate, "RTP", "audio",
     iceRtpGatherer.getLocalParameters());
 };
 
 iceRtcpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "audio",
+  mySendLocalCandidate(event.candidate, "RTCP", "audio",
     iceRtpGatherer.getLocalParameters());
 };
 
@@ -1327,7 +1328,7 @@ mySignaller.onResponse = function(responseSignaller, response) {
     // Locate the ICE transport that the signaled candidate relates to by matching
    //  the userNameFragment.
     var transports;
-    if (remote.component === RTCIceComponent.RTP) {
+    if (remote.component === "RTP") {
       transports = iceRtpTransports;
     } else {
       transports = iceRtcpTransports;
@@ -1648,13 +1649,14 @@ import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
 
 function initiate(mySignaller) {
   // Prepare the ICE gatherer
-  var gatherOptions = new RTCIceGatherOptions();
-  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceServers = [
-    { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
-      credentialType: "password" }
-  ];
+  var gatherOptions = {
+    gatherPolicy: "all",
+    iceServers: [
+      { urls: "stun:stun1.example.net" },
+      { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+        credentialType: "password" }
+     ]
+  };
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -1669,7 +1671,7 @@ function initiate(mySignaller) {
 
   // Create the DTLS certificate and parameters
   var certs;
-  var dtlsParameters = new RTCDtlsParameters();
+  var dtlsParameters = {};
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
     certs[0] = certificate;
@@ -1720,14 +1722,15 @@ import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
 
 // Assume that remote info is signalled to us.
 function accept(mySignaller, remote) {
-  var gatherOptions = new RTCIceGatherOptions();
-  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceServers = [
-    { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
-      credentialType: "password" }
-  ];
-
+  // Prepare the ICE gatherer
+  var gatherOptions = {
+    gatherPolicy: "all",
+    iceServers: [
+      { urls: "stun:stun1.example.net" },
+      { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+        credentialType: "password" }
+     ]
+  };
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -2314,13 +2317,14 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
 import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 // Create the ICE gather options
-var gatherOptions = new RTCIceGatherOptions();
-gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceServers = [
-  { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
-    credentialType: "password" }
-];
+var gatherOptions = {
+  gatherPolicy: "all",
+  iceServers: [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+      credentialType: "password" }
+   ]
+};
 
 // Create the RTP and RTCP ICE gatherers for audio and video
 var audioRtpIceGatherer = new RTCIceGatherer(gatherOptions);
@@ -2342,16 +2346,16 @@ var videoRtcpIceTransport = videoRtpIceTransport.createAssociatedTransport();
 
 // Enable local ICE candidates to be signaled to the remote peer.
 audioRtpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "audio");
+  mySendLocalCandidate(event.candidate, "RTP", "audio");
 };
 audioRtcpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "audio");
+  mySendLocalCandidate(event.candidate, "RTCP", "audio");
 };
 videoRtpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTP, "video");
+  mySendLocalCandidate(event.candidate, "RTP", "video");
 };
 videoRtcpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, RTCIceComponent.RTCP, "video");
+  mySendLocalCandidate(event.candidate, "RTCP", "video");
 };
 
 // Start gathering
@@ -2378,14 +2382,14 @@ videoRtcpIceTransport.onstatechange = function(event) {
 mySignaller.onRemoteCandidate = function(remote) {
   switch (remote.kind) {
     case "audio":
-      if (remote.component === RTCIceComponent.RTP) {
+      if (remote.component === "RTP") {
         audioRtpIceTransport.addRemoteCandidate(remote.candidate);
       } else {
         audioRtcpIceTransport.addRemoteCandidate(remote.candidate);
       }
       break;
     case "video":
-      if (remote.component === RTCIceComponent.RTP) {
+      if (remote.component === "RTP") {
         videoRtpIceTransport.addRemoteCandidate(remote.candidate);
       } else {
         videoRtcpIceTransport.addRemoteCandidate(remote.candidate);
@@ -4185,84 +4189,95 @@ var encodings = [{
 //
 //   Define VP8 codec parameters
 //
-var vp8 = new RTCRtpCodecParameters(); 
-vp8.name = "vp8";
-vp8.payloadType = 100;
-vp8.clockRate = 90000; 
+var vp8 = {
+  name: "vp8",
+  payloadType: 100,
+  clockRate: 90000
+}; 
 //
 //   Define VP8 encoding parameters (without RED)
 //
-var vp8enc = new RTCRtpEncodingParameters(); 
-vp8enc.ssrc =  2224031971;
-vp8enc.codecPayloadType = 100;
-vp8enc.rtx.ssrc = 3254585230;
+var vp8enc = {
+  ssrc: 2224031971,
+  codecPayloadType: 100,
+  rtx.ssrc: 3254585230
+};
 //
 //   Define VP8 encoding parameters with RED
 //
-var vp8encred = new RTCRtpEncodingParameters();
-vp8encred.ssrc =  2224031971;
-vp8encred.codecPayloadType = 100;
-vp8encred.fec.ssrc = 3254585230;
-vp8encred.fec.mechanism = "red+ulpfec";
-vp8encred.rtx.ssrc = 3254585230;
+var vp8encred = {
+  ssrc:  2224031971,
+  codecPayloadType: 100,
+  fec.ssrc: 3254585230,
+  fec.mechanism: "red+ulpfec",
+  rtx.ssrc: 3254585230
+};
 //
 //   Define VP9 codec parameters
 //
-var vp9 = new RTCRtpCodecParameters();
-vp9.name = "vp9";
-vp9.payloadType = 101;
-vp9.clockRate = 90000;
+var vp9 = {
+  name: "vp9",
+  payloadType: 101,
+  clockRate: 90000
+};
 //
 //   Define VP9 encoding parameters (without RED)
 //
-var vp9enc = new RTCRtpEncodingParameters();     
-vp9enc.ssrc =  2224031971;
-vp9enc.codecPayloadType = 101;     
-vp9enc.rtx.ssrc = 3254585230;
+var vp9enc = {
+  ssrc:  2224031971,
+  codecPayloadType: 101,
+  rtx.ssrc: 3254585230
+};
 //
 //   Define VP9 encoding parameters with RED
 //
-var vp9encred = new RTCRtpEncodingParameters();
-vp9encred.ssrc =  2224031971;
-vp9encred.codecPayloadType = 101;
-vp9encred.fec.ssrc = 3254585230;
-vp9encred.fec.mechanism = "red+ulpfec";
-vp9encred.rtx.ssrc = 3254585230;
+var vp9encred = {
+  ssrc:  2224031971,
+  codecPayloadType: 101,
+  fec.ssrc: 3254585230,
+  fec.mechanism: "red+ulpfec",
+  rtx.ssrc: 3254585230
+};
 //
 //   Define RED codec parameters
 //
-var red = new RTCRtpCodecParameters();
-red.name = "red";
-red.payloadType = 116;
-red.clockRate = 90000;
-red.parameters.payloadTypes = []; 
+var red = {
+  name: "red",
+  payloadType: 116,
+  clockRate: 90000,
+  parameters.payloadTypes: []
+}; 
 //
 //   Define ulpfec codec parameters
 //
-var ulpfec = new RTCRtpCodecParameters();
-ulplfec.name = "ulpfec";
-ulpfec.payloadType = 117;
-ulpfec.clockRate = 90000;
+var ulpfec = {
+  name: "ulpfec",
+  payloadType: 117,
+  clockRate: 90000
+};
 //
 //   Define RTX codec parameters
 //
-rtxvp8 = new RTCRtpCodecParameters(); 
-rtxvp8.name = "rtx";
-rtxvp8.payloadType = 96; 
-rtxvp8.clockrate = 90000;
-rtxvp8.parameters.apt = 100;
+var rtxvp8 = {
+  name: "rtx",
+  payloadType: 96,
+  clockrate: 90000,
+  parameters.apt: 100
+};
 //
-rtxvp9 = new RTCRtpCodecParameters();   
-rtxvp9.name = "rtx";
-rtxvp9.payloadType = 97;
-rtxvp9.clockrate = 90000;
-rtxvp9.parameters.apt = 101;
+var rtxvp9 = {
+  name: "rtx",
+  payloadType: 97,
+  clockrate: 90000,
+  parameters.apt: 101
+};
 //
-rtxred = new RTCRtpCodecParameters();   
-rtxred.name = "rtx";
-rtxred.payloadType = 98;
-rtxred.clockrate = 90000;
-rtxred.parameters.apt = 116;
+var rtxred = {
+  name: "rtx",
+  payloadType: 98,
+  clockrate: 90000,
+  parameters.apt: 116
+};
 //
 // Produce the codecs[] and encodings[] sequences
 //
@@ -5303,14 +5318,14 @@ sender.insertDTMF("123");
                 <pre class="example highlight">
 function initiate(signaller) {
   // Prepare the ICE gatherer
-  var gatherOptions = new RTCIceGatherOptions();
-  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceServers = [
-    { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
-      credentialType: "password" }
-  ];
-
+  var gatherOptions = {
+    gatherPolicy: "all",
+    iceServers: [
+      { urls: "stun:stun1.example.net" },
+      { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+        credentialType: "password" }
+     ]
+  };
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -5353,14 +5368,14 @@ function initiate(signaller) {
 }
 
 function accept(signaller, remote) {
-  var gatherOptions = new RTCIceGatherOptions();
-  gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-  gatherOptions.iceServers = [
-    { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
-      credentialType: "password" }
-  ];
-
+  var gatherOptions = {
+    gatherPolicy: "all",
+    iceServers: [
+      { urls: "stun:stun1.example.net" },
+      { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+        credentialType: "password" }
+     ]
+  };
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
@@ -6132,14 +6147,14 @@ function processStats(currentReport) {
 // Include some helper functions
 import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
-var gatherOptions = new RTCIceGatherOptions();
-gatherOptions.gatherPolicy = RTCIceGatherPolicy.all;
-gatherOptions.iceServers = [
-  { urls: "stun:stun1.example.net" },
-  { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
-    credentialType: "password" }
-];
-
+var gatherOptions = {
+  gatherPolicy: "all",
+  iceServers: [
+    { urls: "stun:stun1.example.net" },
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
+      credentialType: "password" }
+   ]
+};
 var iceGatherer = new RTCIceGatherer(gatherOptions);
 iceGatherer.onlocalcandidate = function(event) {
   mySendLocalCandidate(event.candidate);
@@ -6705,6 +6720,15 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Updated references, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/457">Issue 457</a>
+                    </li>
+                    <li>
+                        Corrected dictionary initialization in the examples, noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/464">Issue 464</a>
+                        <a href="https://github.com/openpeer/ortc/issues/465">Issue 465</a>
+                    </li>
+                    <li>
+                        Corrected use of enums in the examples, noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/466">Issue 466</a>
                     </li>
                     <li>
                         Clarified use of <code>RTCRtpEncodingParameters</code>, as noted in:
