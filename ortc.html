@@ -524,7 +524,7 @@
                         </p>
                         <p>
                             If use of multiple interfaces has been prohibited for privacy reasons,
-                            <var>hostcandidate.ip</var> will be set to 0.0.0.0:0 or [::]:0, as appropriate.
+                            <var>hostCandidate.ip</var> will be set to 0.0.0.0:0 or [::]:0, as appropriate.
                         </p>
                     </dd>
                     <dt>readonly attribute DOMString url</dt>
@@ -6736,6 +6736,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Clarified use of <code>RTCRtpEncodingParameters</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/470">Issue 470</a>
+                    </li>
+                    <li>
+                        Changed <var>hostCandidate</var> type, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/474">Issue 474</a>
                     </li>
                     <li>
                         Renamed state change event handlers to onstatechange, as noted in:
