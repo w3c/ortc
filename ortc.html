@@ -4207,21 +4207,27 @@ var codecs = [
     name: "rtx",
     payloadType: 97,
     clockrate: 90000,
-    parameters.apt: 101
+    parameters: {
+      apt: 101
+    }
   },
 //   Define retransmission of VP8
   {
     name: "rtx",
     payloadType: 96,
     clockrate: 90000,
-    parameters.apt: 100
+    parameters: {
+      apt: 100
+    }
   },
 //   Define RED codec parameters
   {
     name: "red",
     payloadType: 116,
     clockRate: 90000,
-    parameters.payloadTypes: []
+    parameters: {
+      payloadTypes: []
+    }
   },
 //   Define ulpfec codec parameters
   {
@@ -4234,7 +4240,9 @@ var codecs = [
     name: "rtx",
     payloadType: 98,
     clockrate: 90000,
-    parameters.apt: 116
+    parameters: {
+      apt: 116
+    }
   }
 ]; 
 //
