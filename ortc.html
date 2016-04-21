@@ -4187,102 +4187,96 @@ var encodings = [{
 //   a=ssrc:2224031971 cname:oC/i06PA+Lda+t1P
 //   a=ssrc:3254585230 cname:oC/i06PA+Lda+t1P
 //
-//   Define VP8 codec parameters
+//   Define RTCRtpCodecParameters
 //
-var vp8 = {
-  name: "vp8",
-  payloadType: 100,
-  clockRate: 90000
-}; 
-//
-//   Define VP8 encoding parameters (without RED)
-//
-var vp8enc = {
-  ssrc: 2224031971,
-  codecPayloadType: 100,
-  rtx.ssrc: 3254585230
-};
-//
-//   Define VP8 encoding parameters with RED
-//
-var vp8encred = {
-  ssrc:  2224031971,
-  codecPayloadType: 100,
-  fec.ssrc: 3254585230,
-  fec.mechanism: "red+ulpfec",
-  rtx.ssrc: 3254585230
-};
-//
+var codecs = [
 //   Define VP9 codec parameters
-//
-var vp9 = {
-  name: "vp9",
-  payloadType: 101,
-  clockRate: 90000
-};
-//
-//   Define VP9 encoding parameters (without RED)
-//
-var vp9enc = {
-  ssrc:  2224031971,
-  codecPayloadType: 101,
-  rtx.ssrc: 3254585230
-};
-//
-//   Define VP9 encoding parameters with RED
-//
-var vp9encred = {
-  ssrc:  2224031971,
-  codecPayloadType: 101,
-  fec.ssrc: 3254585230,
-  fec.mechanism: "red+ulpfec",
-  rtx.ssrc: 3254585230
-};
-//
+  {
+    name: "vp9",
+    payloadType: 101,
+    clockRate: 90000
+  },
+//   Define VP8 codec parameters
+  {
+    name: "vp8",
+    payloadType: 100,
+    clockRate: 90000
+  },
+//   Define retransmission of VP9
+  {
+    name: "rtx",
+    payloadType: 97,
+    clockrate: 90000,
+    parameters.apt: 101
+  },
+//   Define retransmission of VP8
+  {
+    name: "rtx",
+    payloadType: 96,
+    clockrate: 90000,
+    parameters.apt: 100
+  },
 //   Define RED codec parameters
-//
-var red = {
-  name: "red",
-  payloadType: 116,
-  clockRate: 90000,
-  parameters.payloadTypes: []
-}; 
-//
+  {
+    name: "red",
+    payloadType: 116,
+    clockRate: 90000,
+    parameters.payloadTypes: []
+  },
 //   Define ulpfec codec parameters
-//
-var ulpfec = {
-  name: "ulpfec",
-  payloadType: 117,
-  clockRate: 90000
-};
-//
+  {
+    name: "ulpfec",
+    payloadType: 117,
+    clockRate: 90000
+  },
 //   Define RTX codec parameters
+  {
+    name: "rtx",
+    payloadType: 98,
+    clockrate: 90000,
+    parameters.apt: 116
+  }
+]; 
 //
-var rtxvp8 = {
-  name: "rtx",
-  payloadType: 96,
-  clockrate: 90000,
-  parameters.apt: 100
-};
+//   Define rtx parameters
+var rtxParams = {
+  ssrc: 3254585230
+}; 
+//   Define FEC parameters for "red+ulpfec"
+var redulpfec = {
+  ssrc: 3254585230,
+  mechanism: "red+ulpfec"
+}; 
+//   Define RTCRtpEncodingParameters
 //
-var rtxvp9 = {
-  name: "rtx",
-  payloadType: 97,
-  clockrate: 90000,
-  parameters.apt: 101
-};
-//
-var rtxred = {
-  name: "rtx",
-  payloadType: 98,
-  clockrate: 90000,
-  parameters.apt: 116
-};
-//
-// Produce the codecs[] and encodings[] sequences
-//
-codecs = [ vp9, vp8, rtxvp9, rtxvp8, red, ulpfec, rtxred ]; 
-encodings = [ vp8enc, vp8encred, vp9enc, vp9encred ];
+var encodings = [
+//   Define VP8 encoding parameters (without RED)
+  {
+    ssrc: 2224031971,
+    codecPayloadType: 100,
+    rtx: rtxParams
+  },
+//   Define VP8 encoding parameters with RED
+  {
+    ssrc:  2224031971,
+    codecPayloadType: 100,
+    fec: redulpfec,
+    rtx: rtxParams
+  },
+//   Define VP9 encoding parameters (without RED)
+  {
+    ssrc:  2224031971,
+    codecPayloadType: 101,
+    rtx: rtxParams
+  },
+//   Define VP9 encoding parameters with RED
+  {
+    ssrc:  2224031971,
+    codecPayloadType: 101,
+    fec: redulplfec,
+    rtx: rtxParams
+  }
+];  
                     </pre>
                 </section>
             </section>
