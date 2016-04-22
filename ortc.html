@@ -513,17 +513,18 @@
                     title="interface RTCIceGathererIceErrorEvent : Event">
                     <dt>Constructor(DOMString type, RTCIceGathererIceErrorEventInit eventInitDict)</dt>
                     <dd></dd>
-                    <dt>readonly attribute DOMString hostCandidate</dt>
+                    <dt>readonly attribute RTCIceCandidate? hostCandidate</dt>
                     <dd>
                         <p>
-                            The <code>hostCandidate</code> attribute is the local IP address and
-                            port used to communicate with the STUN or TURN server. On a multihomed
-                            system, multiple interfaces may be used to contact the server, and this
-                            attribute allows the application to figure out on which one the failure occurred.
+                            The <code><a>RTCIceCandidate</a></code> used to communicate with the
+                            STUN or TURN server. On a multihomed system, multiple interfaces may be
+                            used to contact the server, and this attribute allows the application to
+                            figure out on which one the failure occurred. If the browser is in a 
+                            privacy mode disallowing host candidates, this attribute will be null.
                         </p>
                         <p>
-                            If use of multiple interfaces has been prohibited for privacy reasons, 
-                            this attribute will be set to 0.0.0.0:0 or [::]:0, as appropriate.
+                            If use of multiple interfaces has been prohibited for privacy reasons,
+                            <var>hostCandidate</var> will be null.
                         </p>
                     </dd>
                     <dt>readonly attribute DOMString url</dt>
@@ -540,9 +541,9 @@
                             error code returned by the STUN or TURN server [[STUN-PARAMETERS]].
                         </p>
                         <p>
-                            If the server could not be reached, <code>errorCode</code> will
-                            be set to a TBD value in the 7XX range, as this does not conflict
-                            with the STUN error code range.
+                            If the server could not be reached on all interfaces, <code>errorCode</code>
+                            will be set to a TBD value in the 7XX range, as this does not conflict
+                            with the STUN error code range, and <var>hostCandidate</var> will be null.
                         </p>
                         <p class="issue">Error code to be defined</p>
                     </dd>
@@ -559,11 +560,11 @@
                     </dd>
                 </dl>
                 <dl class="idl" title="dictionary RTCIceGathererIceErrorEventInit : EventInit">
-                    <dt>DOMString hostCandidate</dt>
+                    <dt>RTCIceCandidate hostCandidate</dt>
                     <dd>
                         <p>
-                            The <code>hostCandidate</code> attribute is the local IP address and
-                            port used to communicate with the STUN or TURN server. 
+                            The <code><a>RTCIceCandidate</a></code> used to communicate with the
+                            STUN or TURN server.
                         </p>
                     </dd>
                     <dt>DOMString url</dt>
@@ -6735,6 +6736,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Clarified use of <code>RTCRtpEncodingParameters</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/470">Issue 470</a>
+                    </li>
+                    <li>
+                        Changed <var>hostCandidate</var> type, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/474">Issue 474</a>
                     </li>
                     <li>
                         Renamed state change event handlers to onstatechange, as noted in:
