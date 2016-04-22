@@ -4753,7 +4753,8 @@ sender.insertDTMF("123");
                 <p>
                     An <code><a>RTCDataChannel</a></code> object is constructed from a <code><a>RTCDataTransport</a></code> object and
                     an <code><a>RTCDataChannelParameters</a></code> object. If <var>parameters</var> is invalid, throw an
-                    <code>InvalidParameters</code> exception.
+                    <code>InvalidParameters</code> exception. If <code>transport.state</code> is "closed", throw an
+                    <code>InvalidState</code> exception.
                 </p>
                 <p>
                     An <code><a>RTCDataChannel</a></code> object can be garbage-collected once <var>readyState</var> 
