@@ -90,11 +90,14 @@
                 <h3>Terminology</h3>
                 <p>
                     The <code><a href="http://dev.w3.org/html5/spec/webappapis.html#eventhandler">EventHandler</a></code>
-                    interface represents a callback used for event handlers as defined in [[!HTML5]].
+                    interface, representing a callback used for event handlers, and the
+                    <a href="http://dev.w3.org/html5/spec/webappapis.html#errorevent"><code><dfn>ErrorEvent</dfn></code></a>
+                    interface are defined in [[!HTML5]].
                 </p>
                 <p>
-                    The concepts <dfn><a href="http://dev.w3.org/html5/spec/webappapis.html#queue-a-task">queue a task</a></dfn>
-                    and <dfn><a href= "http://dev.w3.org/html5/spec/webappapis.html#fire-a-simple-event">fires a simple event</a></dfn>
+                    The concepts <dfn><a href="http://dev.w3.org/html5/spec/webappapis.html#queue-a-task">queue a task</a></dfn>,
+                    <dfn><a href= "http://dev.w3.org/html5/spec/webappapis.html#fire-a-simple-event">fires a simple event</a></dfn>
+                    and <dfn><a href="http://dev.w3.org/html5/spec/webappapis.html#networking-task-source">networking task source</a></dfn>
                     are defined in [[!HTML5]].
                 </p>
                 <p>
@@ -104,7 +107,7 @@
                     are defined in [[!HTML5]].
                 </p>
                 <p>
-                    The terms <dfn>MediaStream</dfn> and <dfn>MediaStreamTrack</dfn> are defined in [[!GETUSERMEDIA]].
+                    The terms <dfn>MediaStream</dfn>, <dfn>MediaStreamTrack</dfn>, and <dfn>MediaStreamConstraints</dfn> are defined in [[!GETUSERMEDIA]].
                 </p>
                 <p>
                     For Scalable Video Coding (SVC), the terms single-session transmission (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>)
@@ -1479,7 +1482,8 @@ mySignaller.send({
                             This event handler, of event handler type <code>error</code>,
                             <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCDtlsTransport</a></code> interface.
                             This event <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS error alert; an implementation
-                            <em class="rfc2119" title="MUST">SHOULD</em> include DTLS error alert information in <var>error.message</var>.
+                            <em class="rfc2119" title="MUST">SHOULD</em> include DTLS error alert information in <var>error.message</var> (defined in 
+                            [[!HTML5]] Section 6.1.3.6.2).
                         </p>
                     </dd>
                 </dl>
@@ -6336,7 +6340,7 @@ function signalAssertion(assertion) {
                 <tbody>
                     <tr>
                         <td><code>error</code></td>
-                        <td><code><a>Event</a></code></td>
+                        <td><code><a>ErrorEvent</a></code></td>
                         <td>The <code><a>RTCDtlsTransport</a></code> object has received a DTLS Alert.</td>
                     </tr>
                     <tr>
@@ -6401,7 +6405,7 @@ function signalAssertion(assertion) {
                 <tbody>
                     <tr>
                         <td><code>error</code></td>
-                        <td><code><a>Event</a></code></td>
+                        <td><code><a>ErrorEvent</a></code></td>
                         <td>An error has been detected within the <code><a>RTCRtpSender</a></code> object. This is not used for programmatic exceptions.</td>
                     </tr>
                     <tr>
@@ -6421,7 +6425,7 @@ function signalAssertion(assertion) {
                 <tbody>
                     <tr>
                         <td><code>error</code></td>
-                        <td><code><a>Event</a></code></td>
+                        <td><code><a>ErrorEvent</a></code></td>
                         <td>
                             An error has been detected within the <code><a>RTCRtpReceiver</a></code> object,
                             such as an issue with <code><a>RTCRtpParameters</a></code> that could not be detected
@@ -6499,7 +6503,7 @@ function signalAssertion(assertion) {
                     </tr>
                         <tr>
                         <td><dfn id="event-datachannel-error"><code>error</code></dfn></td>
-                        <td><code><a>Event</a></code></td>
+                        <td><code><a>ErrorEvent</a></code></td>
                         <td>An error has been detected within the <code><a>RTCDataChannel</a></code> object. This is not used for programmatic exceptions.</td>
                     </tr>
                     <tr>
