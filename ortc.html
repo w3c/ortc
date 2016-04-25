@@ -1854,7 +1854,7 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
-                                    If <var>sender</var> is <code>stopped</code>, return a promise
+                                    If <code>sender.stop()</code> has been called, return a promise
                                     rejected with an <code>InvalidStateError</code>.
                                  </p>
                             </li>
