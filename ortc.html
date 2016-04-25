@@ -1883,11 +1883,14 @@ function accept(mySignaller, remote) {
                     <dt>static RTCRtpCapabilities getCapabilities(optional DOMString kind)</dt>
                     <dd>
                         <p>
-                            Obtain the sender capabilities, based on <var>kind</var>. If <var>kind</var> is
-                            omitted or is set to "", then all capabilities are returned.
-                            Capabilities such as retransmission [[!RFC4588]], redundancy [[RFC2198]], and
-                            Forward Error Correction that do not have an associated value of <var>kind</var> are always
-                            included, regardless of the value of <var>kind</var> passed to <code>getCapabilities()</code>.
+                            Obtain the sender capabilities, based on <var>kind</var>. If <var>kind</var> is omitted
+                            or set to "", then all capabilities are returned. Where a <var>kind</var> argument is provided,
+                            capabilities that can apply to multiple values of <var>kind</var> (such as retransmission [[!RFC4588]],
+                            redundancy [[RFC2198]] and Forward Error Correction) have <var>RTCRtpCapabilities.RTCRtpCodecCapability[i].kind</var
+                            set to the value of the <var>kind</var> argument. If the <var>kind</var> argument is omitted
+                            or set to "", then <var>RTCRtpCodecCapability[i].kind</var> is set to the intrinsic value of <var>kind</var>
+                            for capabilities that have such a value. Those capabilities that apply to multiple values of <var>kind</var>
+                            have <var>RTCRtpCodecCapability[i].kind</var> unset.
                         </p>
                     </dd>
                     <dt>void send(RTCRtpParameters parameters)</dt>
@@ -2058,18 +2061,14 @@ function accept(mySignaller, remote) {
                     <dt>static RTCRtpCapabilities getCapabilities(optional DOMString kind)</dt>
                     <dd>
                         <p>
-                            Obtain the receiver capabilities, based on <var>kind</var>. If <var>kind</var> is omitted or set to "", then
-                            all capabilities are returned.
-                            Capabilities such as retransmission [[!RFC4588]], redundancy [[RFC2198]], and
-                            Forward Error Correction that do not have an associated value of <var>kind</var> are always
-                            included, regardless of the value of <var>kind</var> passed to <code>getCapabilities()</code>.
-                            To avoid confusion, <code>getCapabilities(kind)</code> should return codecs with a matching intrinsic <var>kind</var> value,
-                            as well as codecs with no intrinsic <var>kind</var>
-                            (such as redundancy [[RFC2198]]).
-                            For codecs with no intrinsic <var>kind</var>, <var>RTCRtpCapabilities.RTCRtpCodecCapability[i].kind</var>
-                            returned by <code>getCapabilities(kind)</code> should be set to the value of <var>kind</var> if <var>kind</var> is
-                            equal to "audio" or "video". If the <var>kind</var> argument was omitted or set to "", then
-                            the value of <var>RTCRtpCapabilities.RTCRtpCodecCapability[i].kind</var> is set to "".
+                            Obtain the receiver capabilities, based on <var>kind</var>. If <var>kind</var> is omitted
+                            or set to "", then all capabilities are returned. Where a <var>kind</var> argument is provided,
+                            capabilities that can apply to multiple values of <var>kind</var> (such as retransmission [[!RFC4588]],
+                            redundancy [[RFC2198]] and Forward Error Correction) have <var>RTCRtpCapabilities.RTCRtpCodecCapability[i].kind</var
+                            set to the value of the <var>kind</var> argument. If the <var>kind</var> argument is omitted
+                            or set to "", then <var>RTCRtpCodecCapability[i].kind</var> is set to the intrinsic value of <var>kind</var>
+                            for capabilities that have such a value. Those capabilities that apply to multiple values of <var>kind</var>
+                            have <var>RTCRtpCodecCapability[i].kind</var> unset.
                         </p>
                     </dd>
                     <dt>void receive(RTCRtpParameters parameters)</dt>
