@@ -3700,14 +3700,6 @@ mySignaller.myOfferTracks({
                             If unset, there is no maximum bitrate.
                         </p>
                     </dd>
-                    <dt>double minQuality=0</dt>
-                    <dd>
-                        <p>
-                            Never send less than this quality. 1.0 = maximum attainable quality.
-                            For scalable video coding, this parameter is only relevant for the base layer.
-                            This parameter is ignored in an <code><a>RTCRtpReceiver</a></code> object.
-                        </p>
-                    </dd>
                     <dt>double resolutionScale</dt>
                     <dd>
                         <p>
@@ -3827,13 +3819,6 @@ mySignaller.myOfferTracks({
                            <td><dfn>maxBitrate</dfn></td>
                             <td>
                                 <code>unsigned long</code>
-                            </td>
-                            <td>Sender</td>
-                        </tr>
-                        <tr id="def-minquality*">
-                           <td><dfn>minQuality</dfn></td>
-                            <td>
-                                <code>double</code>
                             </td>
                             <td>Sender</td>
                         </tr>
