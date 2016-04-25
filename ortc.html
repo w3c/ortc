@@ -1851,34 +1851,45 @@ function accept(mySignaller, remote) {
                         <p>When the <code>setTrack()</code> method is invoked, the user agent MUST run the following steps:</p>
                         <ol>
                             <li>
-                                <p>Let <var>p</var> be a new promise.</p>
+                                <p>
+                                    Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object on which
+                                    <code>setTrack()</code> is invoked.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    If <code>sender.stop()</code> has been called, return a promise
+                                    rejected with an <code>InvalidStateError</code>.
+                                 </p>
                             </li>
                             <li>
                                 <p>Let <var>withTrack</var> be the argument to this method.</p>
                             </li>
                             <li>
-                                <p>Run the following steps asynchronously:</p>
+                                <p>
+                                    If <code><var>withTrack</var>.kind</code> differs from the
+                                    <code><var>sender</var>.<a>track</a>.kind</code>,
+                                    return a promise rejected with a <code>TypeError</code>.
+                                </p>
+                            </li>
+                            <li>
+                                <p>Let <var>p</var> be a new promise.</p>
+                            </li>
+                            <li>
+                                <p>Run the following steps in parallel:</p>
                                 <ol>
                                     <li>
                                         <p>
-                                            If <code>withTrack.kind</code> differs from <code>RTCRtpSender.track.kind</code>
-                                            or if <var>withTrack</var> has different <code>peerIdentity</code> constraints, then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code>
-                                            and abort these steps.
+                                            Set the <code>RTCRtpSender.track</code> attribute to <var>withTrack</var>,
+                                            and have the sender seamlessly switch to transmitting <var>withTrack</var>
+                                            in place of what it is sending.
                                         </p>
                                     </li>
                                     <li>
                                         <p>
-                                            If <code>withTrack.readyState</code> is "ended" then reject <var>p</var> with <code>IncompatibleMediaStreamTrackError</code>
-                                            and abort these steps.
+                                            Queue a task that sets <var>sender</var>'s <code><a>track</a></code>
+                                            attribute to <var>withTrack</var>, and resolves <var>p</var> with <code>undefined</code>.
                                         </p>
-                                    </li>
-                                    <li>
-                                        Set the <code>RTCRtpSender.track</code> attribute to <var>withTrack</var>,
-                                        and have the sender seamlessly
-                                        switch to transmitting <var>withTrack</var> in place of what
-                                        it is sending. On the remote receiving
-                                        end, the track maintains its existing grouping and id until
-                                        the connection ends.
                                     </li>
                                 </ol>
                             </li>
