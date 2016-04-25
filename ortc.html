@@ -5066,7 +5066,7 @@ sender.insertDTMF("123");
                         <p>
                             The <dfn id="dom-datachannel-maxpacketlifetime"><code>maxPacketLifetime</code></dfn>
                             attribute represents the length of the time window (in milliseconds) during which
-                            retransmissions may occur in unreliable mode, or null if unset.
+                            retransmissions may occur in unreliable mode.
                             The attribute <em class="rfc2119" title="MUST">MUST</em> return the value to which it was set when the
                             <a>RTCDataChannel</a> was constructed.
                         </p>
@@ -5076,7 +5076,7 @@ sender.insertDTMF("123");
                         <p>
                             The <dfn id="dom-datachannel-maxretransmits"><code>maxRetransmits</code></dfn>
                             attribute returns the maximum number of
-                            retransmissions that are attempted in unreliable mode, or null if unset.
+                            retransmissions that are attempted in unreliable mode.
                             The attribute <em class="rfc2119" title="MUST">MUST</em> be initialized to null by default and
                             <em class="rfc2119" title="MUST">MUST</em> return the
                             value to which it was set when the <a>RTCDataChannel</a> was constructed.
@@ -5110,7 +5110,7 @@ sender.insertDTMF("123");
                     <dt>unsigned short id</dt>
                     <dd>
                         <p>
-                            The id attribute returns the id for this <a>RTCDataChannel</a>, or null if unset.
+                            The id attribute returns the id for this <a>RTCDataChannel</a>.
                             The id was either assigned by the user agent at channel creation time or was selected by the script.
                             For SCTP, the id represents a stream identifier, as discussed in [[!DATA]] Section 6.5.
                             The attribute <em class="rfc2119" title="MUST">MUST</em> return the value to which it was set when the
