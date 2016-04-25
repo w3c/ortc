@@ -1909,7 +1909,7 @@ function accept(mySignaller, remote) {
                             <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var> set to "true",
                             <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var> where <var>j</var> is the index
                             of the first codec that is not "cn", "dtmf", "red", "rtx" or a forward error correction codec, and all the other
-                            <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, minQuality, resolutionScale,etc.) unset.
+                            <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, resolutionScale, etc.) unset.
                             Calling <code>send(<var>parameters</var>)</code> does not update <var>parameters</var> based on what is currently being sent.
                             The <code><a>RTCRtpSender</a></code> object starts sending when <code>send()</code>
                             is called for the first time, and changes the sending <var>parameters</var> when <code>send()</code> is called again.
@@ -3875,10 +3875,10 @@ mySignaller.myOfferTracks({
 var encodings = [{ ssrc: 1, priority: 1.0 }];
 var encodings = [{ ssrc: 2, priority: 10.0 }];
 
-// Sign Language (need high framerate, but don't get too bad quality)
-var encodings = [{ minQuality: 0.2, degradationPreference: "maintain-framerate" }];
+// Sign Language (prefer  framerate)
+var encodings = [{ degradationPreference: "maintain-framerate" }];
 
-// Screencast (High quality, framerate can be low)
+// Screencast (prefer resolution)
 var encodings = [{ degradationPreference: "maintain-resolution" }];
 
 // Remote Desktop (High framerate, must not downscale)
