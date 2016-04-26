@@ -2212,23 +2212,27 @@ function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
     var videoSendParams = myCapsToSendParams(sendVideoCaps, answer.recvVideoCaps);
     var audioRecvParams = myCapsToRecvParams(recvAudioCaps, answer.sendAudioCaps);
     var videoRecvParams = myCapsToRecvParams(recvVideoCaps, answer.sendVideoCaps);
-    audioSender.send(audioSendParams).then(
-      trace("Set audio sender parameters"), function() {
+    audioSender.send(audioSendParams).then(function() {
+      trace("Set audio sender parameters");
+      }, function() {
         trace("Could not set audio sender parameters");
       }
     );
-    videoSender.send(videoSendParams).then(
-      trace("Set video sender parameters"), function() {
+    videoSender.send(videoSendParams).then(function() {
+      trace("Set video sender parameters");
+      }, function() {
         trace("Could not set video sender parameters");
       }
     );
-    audioReceiver.receive(audioRecvParams).then(
-      trace("Set audio receiver parameters"), function() {
+    audioReceiver.receive(audioRecvParams).then(function() {
+      trace("Set audio receiver parameters");
+      }, function() {
         trace("Could not set audio receiver parameters");
       }
     );
-    videoReceiver.receive(videoRecvParams).then(
-      trace("Set video receiver parameters"), function() {
+    videoReceiver.receive(videoRecvParams).then(function() {
+      trace("Set video receiver parameters");
+      }, function() {
         trace("Could not set video receiver parameters");
       }
     );
@@ -2271,18 +2275,21 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
       trace("Could not set audio sender parameters");
     }
   );
-  videoSender.send(videoSendParams).then(
-    trace("Set video sender parameters"), function() {
+  videoSender.send(videoSendParams).then(function() {
+    trace("Set video sender parameters");
+    }, function() {
       trace("Could not set video sender parameters");
     }
   );
-  audioReceiver.receive(audioRecvParams).then(
-    trace("Set audio receiver parameters"), function() {
+  audioReceiver.receive(audioRecvParams).then(function() {
+    trace("Set audio receiver parameters");
+    }, function() {
       trace("Could not set audio receiver parameters");
     }
   );
-  videoReceiver.receive(videoRecvParams).then(
-    trace("Set video receiver parameters"), function() {
+  videoReceiver.receive(videoRecvParams).then(function() {
+    trace("Set video receiver parameters");
+    }, function() {
       trace("Could not set video receiver parameters");
     }
   );
@@ -2510,18 +2517,21 @@ mySignaller.myOfferTracks({
         trace("Could not set audio sender DTLS RTP transport");
       }
     );
-    videoSender.setTransport(videoRtpDtlsTransport).then(
-      trace("Set video sender DTLS RTP transport"), function() {
+    videoSender.setTransport(videoRtpDtlsTransport).then(function() {
+      trace("Set video sender DTLS RTP transport");
+      }, function() {
         trace("Could not set video sender DTLS RTP transport");
       }
     );
-    audioReceiver.setTransport(audioRtpDtlsTransport).then(
-      trace("Set audio receiver DTLS RTP transport"), function() {
+    audioReceiver.setTransport(audioRtpDtlsTransport).then(function() {
+      trace("Set audio receiver DTLS RTP transport");
+      }, function() {
         trace("Could not set audio receiver DTLS RTP transport");
       }
     );
-    videoReceiver.setTransport(videoRtpDtlsTransport).then(
-      trace("Set video receiver DTLS RTP transport"), function() {
+    videoReceiver.setTransport(videoRtpDtlsTransport).then(function() {
+      trace("Set video receiver DTLS RTP transport");
+      }, function() {
         trace("Could not set video receiver DTLS RTP transport");
       }
     );
@@ -2545,23 +2555,27 @@ mySignaller.myOfferTracks({
       videoRtpDtlsTransport.start(answer.videoRtpDtls);
       // Replace the transport on the Sender and Receiver objects
       //
-      audioSender.setTransport(audioRtpDtlsTransport).then(
-        trace("Set audio sender DTLS RTP transport"), function() {
+      audioSender.setTransport(audioRtpDtlsTransport).then(function() {
+        trace("Set audio sender DTLS RTP transport");
+        }, function() {
           trace("Could not set audio sender DTLS RTP transport");
         }
       );
-      videoSender.setTransport(videoRtpDtlsTransport).then(
-        trace("Set video sender DTLS RTP transport"), function() {
+      videoSender.setTransport(videoRtpDtlsTransport).then(function() {
+        trace("Set video sender DTLS RTP transport");
+        }, function() {
           trace("Could not set video sender DTLS RTP transport");
         }
       );
-      audioReceiver.setTransport(audioRtpDtlsTransport).then(
-        trace("Set audio receiver DTLS RTP transport"), function() {
+      audioReceiver.setTransport(audioRtpDtlsTransport).then(function() {
+        trace("Set audio receiver DTLS RTP transport");
+        }, function() {
           trace("Could not set audio receiver DTLS RTP transport");
         }
       );
-      videoReceiver.setTransport(videoRtpDtlsTransport).then(
-        trace("Set video receiver DTLS RTP transport"), function() {
+      videoReceiver.setTransport(videoRtpDtlsTransport).then(function() {
+        trace("Set video receiver DTLS RTP transport");
+        }, function() {
           trace("Could not set video receiver DTLS RTP transport");
         }
       );
@@ -2593,23 +2607,27 @@ mySignaller.myOfferTracks({
     }
   }
   // Set the audio and video send and receive parameters.
-  audioSender.send(audioSendParams).then(
-    trace("Set audio sender parameters"), function() {
+  audioSender.send(audioSendParams).then(function() {
+    trace("Set audio sender parameters");
+    }, function() {
       trace("Could not set audio sender parameters");
     }
   );
-  videoSender.send(videoSendParams).then(
-    trace("Set video sender parameters"), function() {
+  videoSender.send(videoSendParams).then(function() {
+    trace("Set video sender parameters");
+    }, function() {
       trace("Could not set video sender parameters");
     }
   );
-  audioReceiver.receive(audioRecvParams).then(
-    trace("Set audio receiver parameters"), function() {
+  audioReceiver.receive(audioRecvParams).then(function() {
+    trace("Set audio receiver parameters");
+    }, function() {
       trace("Could not set audio receiver parameters");
     }
   );
-  videoReceiver.receive(videoRecvParams).then(
-    trace("Set video receiver parameters"), function() {
+  videoReceiver.receive(videoRecvParams).then(function() {
+    trace("Set video receiver parameters");
+    }, function() {
       trace("Could not set video receiver parameters");
     }
   );
