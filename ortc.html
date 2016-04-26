@@ -2270,8 +2270,9 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
   var videoSendParams = myCapsToSendParams(sendVideoCaps, remote.recvVideoCaps);
   var audioRecvParams = myCapsToRecvParams(recvAudioCaps, remote.sendAudioCaps);
   var videoRecvParams = myCapsToRecvParams(recvVideoCaps, remote.sendVideoCaps);
-  audioSender.send(audioSendParams).then(
-    trace("Set audio sender parameters"), function() {
+  audioSender.send(audioSendParams).then(function() {
+    trace("Set audio sender parameters");
+    }, function() {
       trace("Could not set audio sender parameters");
     }
   );
