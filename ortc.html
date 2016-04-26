@@ -1814,12 +1814,6 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>The associated <code><a>MediaStreamTrack</a></code> instance.</p>
                     </dd>
-                    <dt>readonly attribute RTCRtpParameters? parameters</dt>
-                    <dd>
-                        <p>
-                            The parameters last passed as an argument to a successful <code>send(<var>parameters</var>)</code> method call.
-                        </p>
-                    </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
                         <p>
@@ -1839,9 +1833,9 @@ function accept(mySignaller, remote) {
                             <var>transport</var>.
                         </p>
                     </dd>
-                    <dt>Promise setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dt>Promise&lt;void&gt; setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd>
-                        <p>Attempts to replace the DTLS transports being used with the provided transports.</p>
+                        <p>Attempts to replace the DTLS transports in use with the provided transports.</p>
                         <p>When the <code>setTransport()</code> method is invoked, the user agent MUST run the following steps:</p>
                         <ol>
                             <li>
@@ -1885,10 +1879,10 @@ function accept(mySignaller, remote) {
                                 <ol>
                                     <li>
                                         <p>
-                                            Set the <code>RTCRtpSender.transport</code> attribute to <var>withTransport</var>,
-                                            and set the <code>RTCRtpSender.rtcpTransport</code> attribute to
+                                            Set the <code>sender.transport</code> attribute to <var>withTransport</var>,
+                                            and set the <code>sender.rtcpTransport</code> attribute to
                                             <var>withRtcpTransport</var> (if present),
-                                            and have the sender seamlessly switch to transmitting over the new transports.
+                                            and have the sender switch to transmitting over the new transports.
                                         </p>
                                     </li>
                                     <li>
@@ -1900,7 +1894,7 @@ function accept(mySignaller, remote) {
                             </li>
                         </ol>
                     </dd>
-                    <dt>Promise setTrack(MediaStreamTrack track)</dt>
+                    <dt>Promise&lt;void&gt; setTrack(MediaStreamTrack track)</dt>
                     <dd>
                         <p>Attempts to replace the track being sent with another track provided.</p>
                         <p>When the <code>setTrack()</code> method is invoked, the user agent MUST run the following steps:</p>
@@ -1922,6 +1916,12 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
+                                    If <code>track.stop()</code> has been called, return a promise
+                                    rejected with an <code>InvalidStateError</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
                                     If <code><var>withTrack</var>.kind</code> differs from the
                                     <code><var>sender</var>.<a>track</a>.kind</code>,
                                     return a promise rejected with a <code>TypeError</code>.
@@ -1935,7 +1935,7 @@ function accept(mySignaller, remote) {
                                 <ol>
                                     <li>
                                         <p>
-                                            Set the <code>RTCRtpSender.track</code> attribute to <var>withTrack</var>,
+                                            Set the <code>track</code> attribute to <var>withTrack</var>,
                                             and have the sender seamlessly switch to transmitting <var>withTrack</var>
                                             in place of what it is sending.
                                         </p>
@@ -1958,7 +1958,7 @@ function accept(mySignaller, remote) {
                             set to the value of the <var>kind</var> argument.
                         </p>
                     </dd>
-                    <dt>Promise send(RTCRtpParameters parameters)</dt>
+                    <dt>Promise&lt;void&gt; send(RTCRtpParameters parameters)</dt>
                     <dd>
                         <p>Attempts to set the parameters controlling the sending of media.</p>
                         <p>When the <code>send()</code> method is invoked, the user agent MUST run the following steps:</p>
@@ -1976,14 +1976,17 @@ function accept(mySignaller, remote) {
                                  </p>
                             </li>
                             <li>
+                                <p>Let <var>withParameters</var> be the argument to this method.</p>
+                            </li>
+                            <li>
                                 <p>
-                                    If <var>parameters/var> is invalid due to SSRC misusage or other reasons,
+                                    If <var>withParameters/var> is invalid due to SSRC misusage or other reasons,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
                                 <p>
-                                    If <var>rtcpTransport</var> is not set and <var>parameters.rtcp.mux</var>
+                                    If <var>rtcpTransport</var> is not set and <var>withParameters.rtcp.mux</var>
                                     is set to "false", return a promise
                                     rejected with <code>InvalidParameters</code>.
                                  </p>
@@ -1991,10 +1994,10 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of encodings, check
-                                    whether <code>parameters.encodings[i].codecPayloadType</code> corresponds to
-                                    a value of <var>parameters.codecs[j].payloadType</var> where j goes from 0
+                                    whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
+                                    a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
                                     to the number of codecs. If there is no correspondence, or if
-                                    <var>parameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
+                                    <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
                                     "rtx" or a forward error correction codec, return a promise
                                     rejected with <code>InvalidParameters</code>.
                                  </p>
@@ -2002,15 +2005,12 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of codecs, check that each
-                                    value of <code>parameters.codecs[i].name</code> not equal to "red", "rtx" or
+                                    value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or
                                     a forward error correction codec is included in
                                     <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes from
                                     0 to the number of codecs. If a match is not found for any value of <var>i</var>,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
-                            </li>
-                            <li>
-                                <p>Let <var>withParameters</var> be the argument to this method.</p>
                             </li>
                             <li>
                                 <p>Let <var>p</var> be a new promise.</p>
@@ -2020,10 +2020,9 @@ function accept(mySignaller, remote) {
                                 <ol>
                                     <li>
                                         <p>
-                                            Set the <code>parameters</code> attribute to <var>withParameters</var>.
                                             If <code>send()</code> is called for the first time, start sending. If
                                             <code>send()</code> was called previously, have the sender
-                                            switch to sending with the new parameters.
+                                            switch to sending using <var>withParameters</var>.
                                         </p>
                                     </li>
                                     <li>
@@ -2137,12 +2136,6 @@ function accept(mySignaller, remote) {
                              based on the value of <var>kind</var> passed in the constructor. 
                         </p>
                     </dd>
-                    <dt>readonly attribute RTCRtpParameters? parameters</dt>
-                    <dd>
-                        <p>
-                            The parameters last passed as an argument to a successful <code>receive(<var>parameters</var>)</code> method call.
-                        </p>
-                    </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
                     <dd>
                         <p>The associated RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
@@ -2157,7 +2150,7 @@ function accept(mySignaller, remote) {
                             over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
                         </p>
                     </dd>
-                    <dt>Promise setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dt>Promise&lt;void&gt; setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd>
                         <p>Attempts to replace the DTLS transports being used with the provided transports.</p>
                         <p>When the <code>setTransport()</code> method is invoked, the user agent MUST run the following steps:</p>
@@ -2206,7 +2199,7 @@ function accept(mySignaller, remote) {
                                             Set the <code>RTCRtpReceiver.transport</code> attribute to <var>withTransport</var>,
                                             and set the <code>RTCRtpReceiver.rtcpTransport</code> attribute to
                                             <var>withRtcpTransport</var> (if present),
-                                            and have the receiver seamlessly switch to receiving over the new transports.
+                                            and have the receiver switch to receiving over the new transports.
                                         </p>
                                     </li>
                                     <li>
@@ -2227,7 +2220,7 @@ function accept(mySignaller, remote) {
                             set to the value of the <var>kind</var> argument.
                         </p>
                     </dd>
-                    <dt>Promise receive(RTCRtpParameters parameters)</dt>
+                    <dt>Promise&lt;void&gt; receive(RTCRtpParameters parameters)</dt>
                     <dd>
                         <p>Attempts to set the parameters controlling the receiving of media.</p>
                         <p>When the <code>receive()</code> method is invoked, the user agent MUST run the following steps:</p>
@@ -2245,14 +2238,17 @@ function accept(mySignaller, remote) {
                                  </p>
                             </li>
                             <li>
+                                <p>Let <var>withParameters</var> be the argument to this method.</p>
+                            </li>
+                            <li>
                                 <p>
-                                    If <var>parameters/var> is invalid due to SSRC misusage or other reasons,
+                                    If <var>withParameters/var> is invalid due to SSRC misusage or other reasons,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
                                 <p>
-                                    If <var>rtcpTransport</var> is not set and <var>parameters.rtcp.mux</var>
+                                    If <var>rtcpTransport</var> is not set and <var>withParameters.rtcp.mux</var>
                                     is set to "false", return a promise
                                     rejected with <code>InvalidParameters</code>.
                                  </p>
@@ -2260,10 +2256,10 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of encodings, check
-                                    whether <code>parameters.encodings[i].codecPayloadType</code> corresponds to
-                                    a value of <var>parameters.codecs[j].payloadType</var> where j goes from 0
+                                    whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
+                                    a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
                                     to the number of codecs. If there is no correspondence, or if
-                                    <var>parameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
+                                    <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
                                     "rtx" or a forward error correction codec, return a promise
                                     rejected with <code>InvalidParameters</code>.
                                  </p>
@@ -2271,16 +2267,13 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of codecs, check that each
-                                    value of <code>parameters.codecs[i].name</code> not equal to "red", "rtx" or a
+                                    value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or a
                                     forward error correction codec is included in <code>getCapabilities(kind).codecs[j].name</code>,
                                     where j goes from 0 to the number of codecs, and <var>kind</var> takes the value
                                     passed in the <code><a>RTCRtpReceiver</a></code> constructor. If no match is found
                                     for any value of <var>i</var>, return a promise rejected
                                     with <code>InvalidParameters</code>.
                                  </p>
-                            </li>
-                            <li>
-                                <p>Let <var>withParameters</var> be the argument to this method.</p>
                             </li>
                             <li>
                                 <p>Let <var>p</var> be a new promise.</p>
@@ -2290,10 +2283,9 @@ function accept(mySignaller, remote) {
                                 <ol>
                                     <li>
                                         <p>
-                                            Set the <code>parameters</code> attribute to <var>withParameters</var>.
                                             If <code>receive()</code> is called for the first time, start receiving. If
                                             <code>receive()</code> was called previously, have the receiver
-                                            switch to receiving with the new parameters.
+                                            switch to receiving using <var>withParameters</var>.
                                         </p>
                                     </li>
                                     <li>
