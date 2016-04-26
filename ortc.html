@@ -5108,10 +5108,10 @@ sender.insertDTMF("123");
                             be initialized to <code>false</code> by default and <em class="rfc2119" title="MUST">MUST</em> return the value to which it
                             was set when the <code><a>RTCDataChannel</a></code> was constructed.
                             If set to true, the application developer <em class="rfc2119" title="MUST">MUST</em> signal to the remote peer to
-                            construct an <a>RTCDataChannel</a> object with the same id for the data channel
+                            construct an <code><a>RTCDataChannel</a></code> object with the same id for the data channel
                             to be open. As noted in [[!DATA-PROT]], DATA_CHANNEL_OPEN is not sent to the remote peer nor is DATA_CHANNEL_ACK expected in return.
                             If set to false, the remote party will receive an ondatachannel event with
-                            a system constructed <a>RTCDataChannel</a> object.
+                            a system constructed <code><a>RTCDataChannel</a></code> object.
                         </p>
                     </dd>
                     <dt>unsigned short id</dt>
@@ -5349,8 +5349,15 @@ function initiate(signaller) {
   };
   var sctp = new RTCSctpTransport(dtls);
 
-  // Construct RTCDataChannelParameters object
-  var parameters = new RTCDataChannelParameters();
+  // Construct RTCDataChannelParameters dictionary
+  var parameters = {
+    label: "", 
+    ordered: true,
+    maxPacketLifetime: ,
+    maxRetransmits: ,
+    protocol: "",
+    negotiated: false,
+  };
 
   signaller.sendInitiate({
     // ... include ICE/DTLS info from other example.
