@@ -2513,8 +2513,9 @@ mySignaller.myOfferTracks({
     //
     // Replace the transport on the Sender and Receiver objects
     //
-    audioSender.setTransport(audioRtpDtlsTransport).then(
-      trace("Set audio sender DTLS RTP transport"), function() {
+    audioSender.setTransport(audioRtpDtlsTransport).then(function() {
+      trace("Set audio sender DTLS RTP transport");
+      }, function() {
         trace("Could not set audio sender DTLS RTP transport");
       }
     );
