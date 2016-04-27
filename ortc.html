@@ -6593,34 +6593,9 @@ function signalAssertion(assertion) {
                 </tr>
                 <tbody>
                     <tr>
-                        <td><code>error</code></td>
-                        <td><code><a>ErrorEvent</a></code></td>
-                        <td>An error has been detected within the <code><a>RTCRtpSender</a></code> object. This is not used for programmatic exceptions.</td>
-                    </tr>
-                    <tr>
                         <td><dfn id="event-ssrcconflict"><code>ssrcconflict</code></dfn></td>
                         <td><code><a>RTCSsrcConflictEvent</a></code></td>
                         <td>An SSRC conflict has been detected within the RTP session.</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>The following event fires on <code><a>RTCRtpReceiver</a></code> objects:</p>
-            <table border="1" style="border-width:0; width:60%">
-                <tr>
-                    <th>Event name</th>
-                    <th>Interface</th>
-                    <th>Fired when...</th>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td><code>error</code></td>
-                        <td><code><a>ErrorEvent</a></code></td>
-                        <td>
-                            An error has been detected within the <code><a>RTCRtpReceiver</a></code> object,
-                            such as an issue with <code><a>RTCRtpParameters</a></code> that could not be detected
-                            until media arrival.
-                            This is not used for programmatic exceptions.
-                        </td>
                     </tr>
                 </tbody>
             </table>
