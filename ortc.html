@@ -2519,7 +2519,7 @@ mySignaller.myOfferTracks({
         trace("Could not set audio sender DTLS RTP transport");
       }
     );
-    videoSender.setTransport(videoRtpDtlsTransport).then(function() {
+    videoSender.setTransport(audioRtpDtlsTransport).then(function() {
       trace("Set video sender DTLS RTP transport");
       }, function() {
         trace("Could not set video sender DTLS RTP transport");
@@ -2531,7 +2531,7 @@ mySignaller.myOfferTracks({
         trace("Could not set audio receiver DTLS RTP transport");
       }
     );
-    videoReceiver.setTransport(videoRtpDtlsTransport).then(function() {
+    videoReceiver.setTransport(audioRtpDtlsTransport).then(function() {
       trace("Set video receiver DTLS RTP transport");
       }, function() {
         trace("Could not set video receiver DTLS RTP transport");
