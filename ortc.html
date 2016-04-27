@@ -1980,7 +1980,7 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
-                                    If <var>withParameters/var> is invalid due to SSRC misusage or other reasons,
+                                    If <var>withParameters</var> is invalid due to SSRC misusage or other reasons,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
@@ -2242,7 +2242,7 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
-                                    If <var>withParameters/var> is invalid due to SSRC misusage or other reasons,
+                                    If <var>withParameters</var> is invalid due to SSRC misusage or other reasons,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
@@ -6846,6 +6846,13 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Removed the <var>minQuality</var> attribute, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/351">Issue 351</a>
+                    </li>
+                    <li>
+                        Make <code>send()</code>, <code>receive()</code> and <code>setTransport()</code> asynchronous, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/399">Issue 399</a>
+                        <a href="https://github.com/openpeer/ortc/issues/463">Issue 463</a>
+                        <a href="https://github.com/openpeer/ortc/issues/468">Issue 468</a>
+                        <a href="https://github.com/openpeer/ortc/issues/469">Issue 469</a>
                     </li>
                     <li>
                         Provided additional information on ICE candidate errors, as noted in:
