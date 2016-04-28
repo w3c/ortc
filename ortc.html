@@ -6779,6 +6779,13 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/351">Issue 351</a>
                     </li>
                     <li>
+                        Made <code>send()</code> and <code>receive()</code> asynchronous, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/399">Issue 399</a>,
+                        <a href="https://github.com/openpeer/ortc/issues/463">Issue 463</a>,
+                        <a href="https://github.com/openpeer/ortc/issues/468">Issue 468</a> and
+                        <a href="https://github.com/openpeer/ortc/issues/469">Issue 469</a>
+                    </li>
+                    <li>
                         Provided additional information on ICE candidate errors, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/402">Issue 402</a>
                     </li>
@@ -6847,8 +6854,12 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/457">Issue 457</a>
                     </li>
                     <li>
+                        Described behavior of <code>send()</code> and <code>receive()</code> with unset <code><a>RTCRtpEncodingParameters</a></code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/461">Issue 461</a>
+                    </li>
+                    <li>
                         Corrected dictionary initialization in the examples, noted in:
-                        <a href="https://github.com/openpeer/ortc/issues/464">Issue 464</a>
+                        <a href="https://github.com/openpeer/ortc/issues/464">Issue 464</a> and
                         <a href="https://github.com/openpeer/ortc/issues/465">Issue 465</a>
                     </li>
                     <li>
@@ -6900,7 +6911,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/500">Issue 500</a>
                     </li>
                     <li>
-                        Remove use of "null if unset", as noted in:
+                        Removed use of "null if unset", as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/503">Issue 503</a>
                     </li>
                     <li>
@@ -6910,6 +6921,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Clarified behavior of <code>getCapabilities()</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/509">Issue 509</a>
+                    </li>
+                    <li>
+                        Addressed issues with <code><a>RTCDataChannelParameters</a></code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/519">Issue 519</a>
                     </li>
                 </ol>
             </section>
