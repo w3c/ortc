@@ -2303,11 +2303,30 @@ function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
     var videoSendParams = myCapsToSendParams(sendVideoCaps, answer.recvVideoCaps);
     var audioRecvParams = myCapsToRecvParams(recvAudioCaps, answer.sendAudioCaps);
     var videoRecvParams = myCapsToRecvParams(recvVideoCaps, answer.sendVideoCaps);
-    audioSender.send(audioSendParams);
-    videoSender.send(videoSendParams);
-    audioReceiver.receive(audioRecvParams);
-    videoReceiver.receive(videoRecvParams);
-
+    audioSender.send(audioSendParams).then(function() {
+      trace("Set audio sender parameters");
+      }, function() {
+        trace("Could not set audio sender parameters");
+      }
+    );
+    videoSender.send(videoSendParams).then(function() {
+      trace("Set video sender parameters");
+      }, function() {
+        trace("Could not set video sender parameters");
+      }
+    );
+    audioReceiver.receive(audioRecvParams).then(function() {
+      trace("Set audio receiver parameters");
+      }, function() {
+        trace("Could not set audio receiver parameters");
+      }
+    );
+    videoReceiver.receive(videoRecvParams).then(function() {
+      trace("Set video receiver parameters");
+      }, function() {
+        trace("Could not set video receiver parameters");
+      }
+    );
     // Now we can render/play
     // audioReceiver.track and videoReceiver.track.
   });
@@ -2342,11 +2361,30 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
   var videoSendParams = myCapsToSendParams(sendVideoCaps, remote.recvVideoCaps);
   var audioRecvParams = myCapsToRecvParams(recvAudioCaps, remote.sendAudioCaps);
   var videoRecvParams = myCapsToRecvParams(recvVideoCaps, remote.sendVideoCaps);
-  audioSender.send(audioSendParams);
-  videoSender.send(videoSendParams);
-  audioReceiver.receive(audioRecvParams);
-  videoReceiver.receive(videoRecvParams);
-
+  audioSender.send(audioSendParams).then(function() {
+    trace("Set audio sender parameters");
+    }, function() {
+      trace("Could not set audio sender parameters");
+    }
+  );
+  videoSender.send(videoSendParams).then(function() {
+    trace("Set video sender parameters");
+    }, function() {
+      trace("Could not set video sender parameters");
+    }
+  );
+  audioReceiver.receive(audioRecvParams).then(function() {
+    trace("Set audio receiver parameters");
+    }, function() {
+      trace("Could not set audio receiver parameters");
+    }
+  );
+  videoReceiver.receive(videoRecvParams).then(function() {
+    trace("Set video receiver parameters");
+    }, function() {
+      trace("Could not set video receiver parameters");
+    }
+  );
   // Now we can render/play
   // audioReceiver.track and videoReceiver.track.
 }
@@ -2567,9 +2605,9 @@ mySignaller.myOfferTracks({
     // Replace the transport on the Sender and Receiver objects
     //
     audioSender.setTransport(audioRtpDtlsTransport);
-    videoSender.setTransport(videoRtpDtlsTransport);
+    videoSender.setTransport(audioRtpDtlsTransport);
     audioReceiver.setTransport(audioRtpDtlsTransport);
-    videoReceiver.setTransport(videoRtpDtlsTransport);
+    videoReceiver.setTransport(audioRtpDtlsTransport);
     // If BUNDLE was requested, then also assume RTP/RTCP mux
     answer.rtcpMux = true;
   } else {
@@ -2622,12 +2660,30 @@ mySignaller.myOfferTracks({
     }
   }
   // Set the audio and video send and receive parameters.
-  audioSender.send(audioSendParams);
-  videoSender.send(videoSendParams);
-  audioReceiver.receive(audioRecvParams);
-  videoReceiver.receive(videoRecvParams);
-});
-
+  audioSender.send(audioSendParams).then(function() {
+    trace("Set audio sender parameters");
+    }, function() {
+      trace("Could not set audio sender parameters");
+    }
+  );
+  videoSender.send(videoSendParams).then(function() {
+    trace("Set video sender parameters");
+    }, function() {
+      trace("Could not set video sender parameters");
+    }
+  );
+  audioReceiver.receive(audioRecvParams).then(function() {
+    trace("Set audio receiver parameters");
+    }, function() {
+      trace("Could not set audio receiver parameters");
+    }
+  );
+  videoReceiver.receive(videoRecvParams).then(function() {
+    trace("Set video receiver parameters");
+    }, function() {
+      trace("Could not set video receiver parameters");
+    }
+  );
 // Now we can render/play audioReceiver.track and videoReceiver.track
                 </pre>
             </section>
