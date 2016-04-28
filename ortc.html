@@ -1833,66 +1833,17 @@ function accept(mySignaller, remote) {
                             <var>transport</var>.
                         </p>
                     </dd>
-                    <dt>Promise&lt;void&gt; setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dt>void setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd>
-                        <p>Attempts to replace the DTLS transports in use with the provided transports.</p>
-                        <p>When the <code>setTransport()</code> method is invoked, the user agent MUST run the following steps:</p>
-                        <ol>
-                            <li>
-                                <p>
-                                    Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object on which
-                                    <code>setTransport()</code> is invoked.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    If <code>sender.stop()</code> has been called, return a promise
-                                    rejected with an <code>InvalidStateError</code>.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    If <var>transport.state</var> or <var>rtcpTransport.state</var>
-                                    is "closed", return a promise rejected with an <code>InvalidStateError</code>.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    If <code>setTransport()</code> is called with a single argument or
-                                    if <var>rtcpTransport</var> is not set, and the last call to
-                                    <code>sender.send(parameters)</code> had <code>parameters.rtcp.mux</code>
-                                    set to <code>false</code>, return a promise
-                                    rejected with <code>InvalidParameters</code>.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    Let <var>withTransport</var> be the first argument to this method, and
-                                    <var>withRtcpTransport</var> be the second argument (if present and not null). 
-                                </p>
-                            </li>
-                            <li>
-                                <p>Let <var>p</var> be a new promise.</p>
-                            </li>
-                            <li>
-                                <p>Run the following steps:</p>
-                                <ol>
-                                    <li>
-                                        <p>
-                                            Set the <code>transport</code> attribute to <var>withTransport</var>,
-                                            and set the <code>rtcpTransport</code> attribute to
-                                            <var>withRtcpTransport</var> (if present),
-                                            and have the sender switch to transmitting over the new transports.
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            Resolve <var>p</var> with <code>undefined</code>.
-                                        </p>
-                                    </li>
-                                </ol>
-                            </li>
-                        </ol>
+                        <p>
+                            Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
+                            If <code>setTransport()</code> is called with a single argument or if <var>rtcpTransport</var> is not set,
+                            and the last call to <code>sender.send(parameters)</code>
+                            had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
+                            exception.
+                            If <code>stop()</code> has been called, or <var>transport.state</var> or <var>rtcpTransport.state</var> is "closed",
+                            throw an <code>InvalidStateError</code> exception.
+                        </p>
                     </dd>
                     <dt>Promise&lt;void&gt; setTrack(MediaStreamTrack track)</dt>
                     <dd>
@@ -2150,66 +2101,17 @@ function accept(mySignaller, remote) {
                             over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
                         </p>
                     </dd>
-                    <dt>Promise&lt;void&gt; setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
+                    <dt>void setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd>
-                        <p>Attempts to replace the DTLS transports being used with the provided transports.</p>
-                        <p>When the <code>setTransport()</code> method is invoked, the user agent MUST run the following steps:</p>
-                        <ol>
-                            <li>
-                                <p>
-                                    Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object on which
-                                    <code>setTransport()</code> is invoked.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    If <code>receiver.stop()</code> has been called, return a promise
-                                    rejected with an <code>InvalidStateError</code>.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    If <var>transport.state</var> or <var>rtcpTransport.state</var>
-                                    is "closed", return a promise rejected with an <code>InvalidStateError</code>.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    If <code>setTransport()</code> is called with a single argument or
-                                    if <var>rtcpTransport</var> is not set, and the last call to
-                                    <code>receiver.receive(parameters)</code> had <code>parameters.rtcp.mux</code>
-                                    set to <code>false</code>, return a promise
-                                    rejected with <code>InvalidParameters</code>.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    Let <var>withTransport</var> be the first argument to this method, and
-                                    <var>withRtcpTransport</var> be the second argument (if present and not null). 
-                                </p>
-                            </li>
-                            <li>
-                                <p>Let <var>p</var> be a new promise.</p>
-                            </li>
-                            <li>
-                                <p>Run the following steps:</p>
-                                <ol>
-                                    <li>
-                                        <p>
-                                            Set the <code>RTCRtpReceiver.transport</code> attribute to <var>withTransport</var>,
-                                            and set the <code>RTCRtpReceiver.rtcpTransport</code> attribute to
-                                            <var>withRtcpTransport</var> (if present),
-                                            and have the receiver switch to receiving over the new transports.
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            Resolve <var>p</var> with <code>undefined</code>.
-                                        </p>
-                                    </li>
-                                </ol>
-                            </li>
-                        </ol>
+                        <p>
+                            Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
+                            If <code>setTransport()</code> is called with a single argument or if <var>rtcpTransport</var> is not set,
+                            and the last call to <code>receiver.receive(parameters)</code>
+                            had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
+                            exception.
+                            If <code>stop()</code> has been called, or <var>transport.state</var> or <var>rtcpTransport.state</var> is "closed",
+                            throw an <code>InvalidStateError</code> exception.
+                        </p>
                     </dd>
                     <dt>static RTCRtpCapabilities getCapabilities(DOMString kind)</dt>
                     <dd>
