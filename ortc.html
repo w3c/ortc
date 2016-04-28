@@ -1841,11 +1841,11 @@ function accept(mySignaller, remote) {
                             and the last call to <code>sender.send(parameters)</code>
                             had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
                             exception.
-                            If <code>setTransport()</code> is called when <var>transport.state</var> or <var>rtcpTransport.state</var> is "closed",
+                            If <code>stop()</code> has been called, or <var>transport.state</var> or <var>rtcpTransport.state</var> is "closed",
                             throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
-                    <dt>Promise setTrack(MediaStreamTrack track)</dt>
+                    <dt>Promise&lt;void&gt; setTrack(MediaStreamTrack track)</dt>
                     <dd>
                         <p>Attempts to replace the track being sent with another track provided.</p>
                         <p>When the <code>setTrack()</code> method is invoked, the user agent MUST run the following steps:</p>
@@ -1867,6 +1867,12 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
+                                    If <code>track.stop()</code> has been called, return a promise
+                                    rejected with an <code>InvalidStateError</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
                                     If <code><var>withTrack</var>.kind</code> differs from the
                                     <code><var>sender</var>.<a>track</a>.kind</code>,
                                     return a promise rejected with a <code>TypeError</code>.
@@ -1876,19 +1882,18 @@ function accept(mySignaller, remote) {
                                 <p>Let <var>p</var> be a new promise.</p>
                             </li>
                             <li>
-                                <p>Run the following steps in parallel:</p>
+                                <p>Run the following steps:</p>
                                 <ol>
                                     <li>
                                         <p>
-                                            Set the <code>RTCRtpSender.track</code> attribute to <var>withTrack</var>,
+                                            Set the <code>track</code> attribute to <var>withTrack</var>,
                                             and have the sender seamlessly switch to transmitting <var>withTrack</var>
                                             in place of what it is sending.
                                         </p>
                                     </li>
                                     <li>
                                         <p>
-                                            Queue a task that sets <var>sender</var>'s <code><a>track</a></code>
-                                            attribute to <var>withTrack</var>, and resolves <var>p</var> with <code>undefined</code>.
+                                            Resolve <var>p</var> with <code>undefined</code>.
                                         </p>
                                     </li>
                                 </ol>
@@ -1904,48 +1909,87 @@ function accept(mySignaller, remote) {
                             set to the value of the <var>kind</var> argument.
                         </p>
                     </dd>
-                    <dt>void send(RTCRtpParameters parameters)</dt>
+                    <dt>Promise&lt;void&gt; send(RTCRtpParameters parameters)</dt>
                     <dd>
-                        <p>
-                            Media to be sent is controlled by parameters. If <code>send()</code> is called with invalid <var>parameters</var>,
-                            throw an <code>InvalidParameters</code> exception. If <var>rtcpTransport</var> is not set and
-                            <code>send(<var>parameters</var>)</code> is called with <var>parameters.rtcp.mux</var> set to "false",
-                            throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number
-                            of encodings, check whether <code>parameters.encodings[i].codecPayloadType</code> corresponds to
-                            a value of <var>parameters.codecs[j].payloadType</var> where j goes from 0 to the number of codecs.  If
-                            <var>parameters.codecs[j].name</var> is equal to "red", "cn", "dtmf", "rtx" or a forward error correction codec,
-                            throw an <code>InvalidParameters</code> exception. For each value of <var>i</var> from 0 to the number of codecs,
-                            check that each value of <code>parameters.codecs[i].name</code> not equal to "red", "rtx" or a forward error correction
-                            codec is included in <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes from
-                            0 to the number of codecs. If a match is not found for any value of <var>i</var>, throw an
-                            <code>InvalidParameters</code> exception. If <var>parameters.encodings</var> is unset,
-                            the browser behaves as though a single <code>encodings[0]</code> entry was provided, with
-                            <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var> set to "true",
-                            <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var> where <var>j</var> is the index
-                            of the first codec that is not "cn", "dtmf", "red", "rtx" or a forward error correction codec, and all the other
-                            <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, resolutionScale, etc.) unset.
-                            Calling <code>send(<var>parameters</var>)</code> does not update <var>parameters</var> based on what is currently being sent.
-                            The <code><a>RTCRtpSender</a></code> object starts sending when <code>send()</code>
-                            is called for the first time, and changes the sending <var>parameters</var> when <code>send()</code> is called again.
-                            The <code><a>RTCRtpSender</a></code> object stops sending when <code>stop()</code> is called.
-                            SSRC misusage results in an <code>InvalidParameters</code> exception.
-                        </p>
+                        <p>Attempts to set the parameters controlling the sending of media.</p>
+                        <p>When the <code>send()</code> method is invoked, the user agent MUST run the following steps:</p>
+                        <ol>
+                            <li>
+                                <p>
+                                    Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object on which
+                                    <code>send()</code> is invoked.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    If <code>sender.stop()</code> has been called, return a promise
+                                    rejected with an <code>InvalidStateError</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>Let <var>withParameters</var> be the argument to this method.</p>
+                            </li>
+                            <li>
+                                <p>
+                                    If <var>withParameters</var> is invalid due to SSRC misusage or other reasons,
+                                    return a promise rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
+                                    If <var>rtcpTransport</var> is not set and <var>withParameters.rtcp.mux</var>
+                                    is set to "false", return a promise
+                                    rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
+                                    For each value of <var>i</var> from 0 to the number of encodings, check
+                                    whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
+                                    a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
+                                    to the number of codecs. If there is no correspondence, or if
+                                    <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
+                                    "rtx" or a forward error correction codec, return a promise
+                                    rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
+                                    For each value of <var>i</var> from 0 to the number of codecs, check that each
+                                    value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or
+                                    a forward error correction codec is included in
+                                    <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes from
+                                    0 to the number of codecs. If a match is not found for any value of <var>i</var>,
+                                    return a promise rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>Let <var>p</var> be a new promise.</p>
+                            </li>
+                            <li>
+                                <p>Run the following steps:</p>
+                                <ol>
+                                    <li>
+                                        <p>
+                                            If <code>send()</code> is called for the first time, start sending. If
+                                            <code>send()</code> was called previously, have the sender
+                                            switch to sending using <var>withParameters</var>.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            Resolve <var>p</var> with <code>undefined</code>.
+                                        </p>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
                     </dd>
                     <dt>void stop()</dt>
                     <dd>
                         <p>
                             Stops sending the track on the wire, and sends an RTCP BYE.
-                            Stop is final as in <code>MediaStreamTrack.stop()</code>
-                        </p>
-                    </dd>
-                    <dt>attribute EventHandler? onerror</dt>
-                    <dd>
-                        <p>
-                            This event handler, of event handler type <code>error</code>,
-                            <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCRtpSender</a></code> interface.
-                            This event <em class="rfc2119" title="MUST">MUST</em> be fired if an issue is found
-                            with the <code><a>RTCRtpParameters</a></code> object passed to
-                            <code>send()</code>, that is not immediately detected.
+                            Stop is final as in <code>MediaStreamTrack.stop()</code>.
                         </p>
                     </dd>
                     <dt>attribute EventHandler? onssrcconflict</dt>
@@ -2039,8 +2083,8 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                              The associated <code><a>MediaStreamTrack</a></code> instance.
-                             Upon construction,  <var>track</var> is set. The value of <var>track.kind</var> is determined
-                             based on the value of <var>kind</var> passed in the constructor. 
+                             Upon construction, <var>track</var> is set. The value of <var>track.kind</var> is set
+                             to the value of <var>kind</var> passed in the constructor. 
                         </p>
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
@@ -2061,12 +2105,12 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
-                            If <code>setTransport()</code> is called with a single argument or <var>rtcpTransport</var> is not set,
-                            and the last call to <code>receive(parameters)</code>
+                            If <code>setTransport()</code> is called with a single argument or if <var>rtcpTransport</var> is not set,
+                            and the last call to <code>receiver.receive(parameters)</code>
                             had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
                             exception.
-                            If <code>setTransport()</code> is called and <var>transport.state</var> or <var>rtcpTransport.state</var> is "closed",
-                            throw an <code>InvalidParameters</code> exception.
+                            If <code>stop()</code> has been called, or <var>transport.state</var> or <var>rtcpTransport.state</var> is "closed",
+                            throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
                     <dt>static RTCRtpCapabilities getCapabilities(DOMString kind)</dt>
@@ -2078,26 +2122,82 @@ function accept(mySignaller, remote) {
                             set to the value of the <var>kind</var> argument.
                         </p>
                     </dd>
-                    <dt>void receive(RTCRtpParameters parameters)</dt>
+                    <dt>Promise&lt;void&gt; receive(RTCRtpParameters parameters)</dt>
                     <dd>
-                        <p>
-                            Media to be received is controlled by <var>parameters</var>.
-                            If <code>receive(parameters)</code> is called with invalid <var>parameters</var>,
-                            throw an <code>InvalidParameters</code> exception.
-                            If <var>rtcpTransport</var> is not set
-                            and <code>receive(parameters)</code> is called with <var>parameters.rtcp.mux</var>
-                            set to <code>false</code>, throw an <code>InvalidParameters</code> exception.
-                            The <code>receive()</code> method does not update
-                            <var>parameters</var> based on what is currently being received, so that the value of <var>parameters</var> remains that
-                            last passed to the <code>receive()</code> method.  The <code>RTCRtpReceiver</code> object starts receiving when
-                            <code>receive()</code> is called for the first time, and changes the receiving <code>parameters</code> when 
-                            <code>receive()</code> is called again. The <code>RTCRtpReceiver</code> object stops receiving when <code>stop()</code> is called.
-                            For each value of <var>i</var> from 0 to the number of codecs, check that each value of <code>parameters.codecs[i].name</code> 
-                            not equal to "red", "rtx" or a forward error correction codec is included in <code>getCapabilities(kind).codecs[j].name</code>, where j goes from
-                            0 to the number of codecs, and <var>kind</var> takes the value passed in the <code><a>RTCRtpReceiver</a></code> constructor.
-                            If no match is found for any value of <var>i</var>, throw an <code>InvalidParameters</code> exception.
-                            SSRC misusage also results in an <code>InvalidParameters</code> exception.
-                        </p>
+                        <p>Attempts to set the parameters controlling the receiving of media.</p>
+                        <p>When the <code>receive()</code> method is invoked, the user agent MUST run the following steps:</p>
+                        <ol>
+                            <li>
+                                <p>
+                                    Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object on which
+                                    <code>receive()</code> is invoked.
+                                </p>
+                            </li>
+                            <li>
+                                <p>
+                                    If <code>receiver.stop()</code> has been called, return a promise
+                                    rejected with an <code>InvalidStateError</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>Let <var>withParameters</var> be the argument to this method.</p>
+                            </li>
+                            <li>
+                                <p>
+                                    If <var>withParameters</var> is invalid due to SSRC misusage or other reasons,
+                                    return a promise rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
+                                    If <var>rtcpTransport</var> is not set and <var>withParameters.rtcp.mux</var>
+                                    is set to "false", return a promise
+                                    rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
+                                    For each value of <var>i</var> from 0 to the number of encodings, check
+                                    whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
+                                    a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
+                                    to the number of codecs. If there is no correspondence, or if
+                                    <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
+                                    "rtx" or a forward error correction codec, return a promise
+                                    rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
+                                    For each value of <var>i</var> from 0 to the number of codecs, check that each
+                                    value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or a
+                                    forward error correction codec is included in <code>getCapabilities(kind).codecs[j].name</code>,
+                                    where j goes from 0 to the number of codecs, and <var>kind</var> takes the value
+                                    passed in the <code><a>RTCRtpReceiver</a></code> constructor. If no match is found
+                                    for any value of <var>i</var>, return a promise rejected
+                                    with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>Let <var>p</var> be a new promise.</p>
+                            </li>
+                            <li>
+                                <p>Run the following steps:</p>
+                                <ol>
+                                    <li>
+                                        <p>
+                                            If <code>receive()</code> is called for the first time, start receiving. If
+                                            <code>receive()</code> was called previously, have the receiver
+                                            switch to receiving using <var>withParameters</var>.
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            Resolve <var>p</var> with <code>undefined</code>.
+                                        </p>
+                                    </li>
+                                </ol>
+                            </li>
+                        </ol>
                     </dd>
                     <dt>sequence&lt;RTCRtpContributingSource&gt; getContributingSources()</dt>
                     <dd>
@@ -2110,15 +2210,6 @@ function accept(mySignaller, remote) {
                     <dt>void stop()</dt>
                     <dd>
                         <p>Stops receiving the track on the wire. Stop is final like <a>MediaStreamTrack</a>.</p>
-                    </dd>
-                    <dt>attribute EventHandler? onerror</dt>
-                    <dd>
-                        <p>
-                            This event handler, of event handler type <code>error</code>,
-                            <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCRtpReceiver</a></code> interface.
-                            This event <em class="rfc2119" title="MUST">MUST</em> be fired if an issue is found with the <code><a>RTCRtpParameters</a></code> object passed to
-                            <code>receive()</code>, that is not immediately detected.
-                        </p>
                     </dd>
                 </dl>
             </section>
@@ -3224,8 +3315,6 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.
-                            When unset, <code>send()</code> behaves as described in Section 5.3.3, and <code>receive()</code> as
-                            described in Section 6.3.3.
                         </p>
                     </dd>
                     <dt>RTCRtcpParameters rtcp</dt>
@@ -6406,34 +6495,9 @@ function signalAssertion(assertion) {
                 </tr>
                 <tbody>
                     <tr>
-                        <td><code>error</code></td>
-                        <td><code><a>ErrorEvent</a></code></td>
-                        <td>An error has been detected within the <code><a>RTCRtpSender</a></code> object. This is not used for programmatic exceptions.</td>
-                    </tr>
-                    <tr>
                         <td><dfn id="event-ssrcconflict"><code>ssrcconflict</code></dfn></td>
                         <td><code><a>RTCSsrcConflictEvent</a></code></td>
                         <td>An SSRC conflict has been detected within the RTP session.</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>The following event fires on <code><a>RTCRtpReceiver</a></code> objects:</p>
-            <table border="1" style="border-width:0; width:60%">
-                <tr>
-                    <th>Event name</th>
-                    <th>Interface</th>
-                    <th>Fired when...</th>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td><code>error</code></td>
-                        <td><code><a>ErrorEvent</a></code></td>
-                        <td>
-                            An error has been detected within the <code><a>RTCRtpReceiver</a></code> object,
-                            such as an issue with <code><a>RTCRtpParameters</a></code> that could not be detected
-                            until media arrival.
-                            This is not used for programmatic exceptions.
-                        </td>
                     </tr>
                 </tbody>
             </table>
