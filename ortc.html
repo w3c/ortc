@@ -3371,6 +3371,13 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.
+                            When unset in a call to <code>send()</code>,
+                            the browser behaves as though a single <code>encodings[0]</code> entry was provided, with
+                            <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var> set to "true",
+                            <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var> where <var>j</var> is the index
+                            of the first codec that is not "cn", "dtmf", "red", "rtx" or a forward error correction codec, and all the other
+                            <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, resolutionScale, etc.) unset.
+                            When unset in a call to <code>receive()</code>, the behavior is described in Section 8.3.
                         </p>
                     </dd>
                     <dt>RTCRtcpParameters rtcp</dt>
