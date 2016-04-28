@@ -2513,30 +2513,10 @@ mySignaller.myOfferTracks({
     //
     // Replace the transport on the Sender and Receiver objects
     //
-    audioSender.setTransport(audioRtpDtlsTransport).then(function() {
-      trace("Set audio sender DTLS RTP transport");
-      }, function() {
-        trace("Could not set audio sender DTLS RTP transport");
-      }
-    );
-    videoSender.setTransport(audioRtpDtlsTransport).then(function() {
-      trace("Set video sender DTLS RTP transport");
-      }, function() {
-        trace("Could not set video sender DTLS RTP transport");
-      }
-    );
-    audioReceiver.setTransport(audioRtpDtlsTransport).then(function() {
-      trace("Set audio receiver DTLS RTP transport");
-      }, function() {
-        trace("Could not set audio receiver DTLS RTP transport");
-      }
-    );
-    videoReceiver.setTransport(audioRtpDtlsTransport).then(function() {
-      trace("Set video receiver DTLS RTP transport");
-      }, function() {
-        trace("Could not set video receiver DTLS RTP transport");
-      }
-    );
+    audioSender.setTransport(audioRtpDtlsTransport);
+    videoSender.setTransport(audioRtpDtlsTransport);
+    audioReceiver.setTransport(audioRtpDtlsTransport);
+    videoReceiver.setTransport(audioRtpDtlsTransport);
     // If BUNDLE was requested, then also assume RTP/RTCP mux
     answer.rtcpMux = true;
   } else {
@@ -2557,30 +2537,10 @@ mySignaller.myOfferTracks({
       videoRtpDtlsTransport.start(answer.videoRtpDtls);
       // Replace the transport on the Sender and Receiver objects
       //
-      audioSender.setTransport(audioRtpDtlsTransport).then(function() {
-        trace("Set audio sender DTLS RTP transport");
-        }, function() {
-          trace("Could not set audio sender DTLS RTP transport");
-        }
-      );
-      videoSender.setTransport(videoRtpDtlsTransport).then(function() {
-        trace("Set video sender DTLS RTP transport");
-        }, function() {
-          trace("Could not set video sender DTLS RTP transport");
-        }
-      );
-      audioReceiver.setTransport(audioRtpDtlsTransport).then(function() {
-        trace("Set audio receiver DTLS RTP transport");
-        }, function() {
-          trace("Could not set audio receiver DTLS RTP transport");
-        }
-      );
-      videoReceiver.setTransport(videoRtpDtlsTransport).then(function() {
-        trace("Set video receiver DTLS RTP transport");
-        }, function() {
-          trace("Could not set video receiver DTLS RTP transport");
-        }
-      );
+      audioSender.setTransport(audioRtpDtlsTransport);
+      videoSender.setTransport(videoRtpDtlsTransport);
+      audioReceiver.setTransport(audioRtpDtlsTransport);
+      videoReceiver.setTransport(videoRtpDtlsTransport);
     } else {
       // We arrive here if the responder does not want BUNDLE
       // or RTP/RTCP multiplexing
