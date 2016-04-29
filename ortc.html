@@ -5886,7 +5886,7 @@ function processStats(currentReport) {
             <section id="rtcidentity-overview*">
                 <h3>Overview</h3>
                 <p>
-                    An <code><a>RTCIdentity</a></code> instance enables authentication of a DTLS transport using a
+                    An <dfn>RTCIdentity</dfn> instance enables authentication of a DTLS transport using a
                     web-based identity provider (IdP).
                     The idea is that the initiator acts as the Authenticating Party
                     (AP) and obtains an identity assertion from the IdP which is then conveyed in signaling.
@@ -5907,7 +5907,7 @@ function processStats(currentReport) {
             </section>
             <section id="rtcidentity-operation*">
                 <h3>Operation</h3>
-                <p>A <a>RTCIdentity</a> instance is constructed from an <a>RTCDtlsTransport</a> object.</p>
+                <p>An <code><a>RTCIdentity</a></code> instance is constructed from an <code><a>RTCDtlsTransport</a></code> object.</p>
             </section>
             <section>
                 <h4 id="sec.identity-proxy-communications">Identity Provider Selection</h4>
@@ -5966,15 +5966,15 @@ function processStats(currentReport) {
                         web sandbox that a page is unable to insert objects into content from
                         another origin, this ensures that the IdP proxy can trust that
                         messages originating from <var>window.rtcwebIdentityPort</var> are
-                        from <code>RTCIdentity</code> and not some other page. This
+                        from <code><a>RTCIdentity</a></code> and not some other page. This
                         protection ensures that pages from other origins are unable to
                         instantiate IdP proxies and obtain identity assertions.
                     </li>
                     <li>
                         The IdP proxy completes loading and informs the
-                        <code>RTCIdentity</code> object that it is ready by sending a "READY"
+                        <code><a>RTCIdentity</a></code> object that it is ready by sending a "READY"
                         message to the message channel port [[!RTCWEB-SECURITY-ARCH]]. Once
-                        this message is received by the <code>RTCIdentity</code> object, the
+                        this message is received by the <code><a>RTCIdentity</a></code> object, the
                         IdP is considered ready to receive requests to generate or verify
                         identity assertions.
                     </li>
@@ -5995,16 +5995,15 @@ function processStats(currentReport) {
                 <p>The identity assertion request process involves the following steps:</p>
                 <ol>
                     <li>
-                        The <code>RTCIdentity</code> instantiates an IdP proxy as
+                        The <code><a>RTCIdentity</a></code> instantiates an IdP proxy as
                         described in <a href="#sec.identity-proxy-communications">Identity
                         Provider Selection section</a> and waits
                         for the IdP to signal that it is ready.
                     </li>
                     <li>
                         The IdP sends a "SIGN" message to the IdP proxy. This message
-                        includes the material the
-                        <code>RTCIdentity</code> object desires to be bound to the user's
-                        identity.
+                        includes the material the <code><a>RTCIdentity</a></code> object
+                        desires to be bound to the user's identity.
                     </li>
                     <li>
                         If the user has been authenticated by the IdP, and the IdP is
@@ -6016,9 +6015,9 @@ function processStats(currentReport) {
                     </li>
                     <li>
                         The IdP proxy sends a response containing the identity assertion to
-                        the <code>RTCIdentity</code> object over the message channel.
+                        the <code><a>RTCIdentity</a></code> object over the message channel.
                     </li>
-                    <li>The <code>RTCIdentity</code> object MAY store the identity assertion.</li>
+                    <li>The <code><a>RTCIdentity</a></code> object MAY store the identity assertion.</li>
                 </ol>
                 <p>
                     The format and contents of the messages that are exchanged are
@@ -6037,14 +6036,6 @@ function processStats(currentReport) {
                     corresponding operation to take an indefinite amount of time. This timer
                     can be cancelled when the IdP produces a response. The timer running to
                     completion can be treated as equivalent to an error from the IdP.
-                </p>
-                <p>
-                    NOTE: Where RTP and RTCP are not multiplexed, distinct <code>RTCRtpIceTransport</code>, <code>RTCRtpDtlsTransport</code>
-                    and <code>RTCIdentity</code> objects can be constructed for RTP and RTCP.
-                    However, while it is possible for <code>getIdentityAssertion()</code>
-                    to be called with different values of <var>provider</var>, <var>protocol</var> and <var>username</var> for the RTP and RTCP
-                    <code>RTCIdentity</code> objects, application developers desiring backward compatibility with WebRTC 1.0 are strongly
-                    discouraged from doing so, since this is likely to result in an error.
                 </p>
                 <section>
                     <h4 id="sec.idp-loginneeded">User Login Procedure</h4>
@@ -6093,7 +6084,7 @@ function processStats(currentReport) {
                 <p>The identity assertion validation process involves the following steps:</p>
                 <ol>
                     <li>
-                        The <code>RTCIdentity</code> instantiates an IdP proxy as
+                        The <code><a>RTCIdentity</a></code> instantiates an IdP proxy as
                         described in <a href="#sec.identity-proxy-communications"> Identity
                         Provider Selection section </a> and waits
                         for the IdP to signal that it is ready.
@@ -6111,10 +6102,10 @@ function processStats(currentReport) {
                     <li>
                         Once the assertion is verified, the IdP proxy sends a response
                         containing the verified assertion results to the
-                        <code>RTCIdentity</code> object over the message channel.
+                        <code><a>RTCIdentity</a></code> object over the message channel.
                     </li>
                     <li>
-                        The <code>RTCIdentity</code> object validates that the fingerprint
+                        The <code><a>RTCIdentity</a></code> object validates that the fingerprint
                         provided by the IdP in the validation response matches the certificate
                         fingerprint that is, or will be, used for communications. This is done by
                         waiting for the DTLS connection to be established and checking
@@ -6122,11 +6113,11 @@ function processStats(currentReport) {
                         provided by the IdP.
                     </li>
                     <li>
-                        The <code>RTCIdentity</code> validates that the domain portion
+                        The <code><a>RTCIdentity</a></code> validates that the domain portion
                         of the identity matches the domain of the IdP as described in [[!RTCWEB-SECURITY-ARCH]].
                     </li>
                     <li>
-                        The <code>RTCIdentity</code> stores the assertion in the
+                        The <code><a>RTCIdentity</a></code> stores the assertion in the
                         <code><a>peerIdentity</a></code>, and returns an <code>RTCIdentityAssertion</code> object
                         when the Promise from <code>setIdentityAssertion()</code> is fulfilled.
                         The assertion
@@ -6164,10 +6155,13 @@ function processStats(currentReport) {
                     described in detail in [[!RTCWEB-SECURITY-ARCH]].
                 </p>
                 <p>
-                    NOTE: Where RTP and RTCP are not multiplexed, it is possible that the assertions for both the RTP and RTCP will be validated,
-                    but that the identities will not be equivalent. For applications requiring backward compatibility with WebRTC 1.0,
-                    this MUST be considered an error. However, if backward compatibility with WebRTC 1.0 is not required the application MAY consider
-                    an alternative, such as ignoring the RTCP identity assertion.
+                    As defined in [![WEBRTC10]] Section 10.4, the <code>peerIdentity</code> parameter           
+                    to <code>getUserMedia()</code> enables media to be sent to a specifically identified 
+                    peer, without the contents of mediastreams being accessible to applications.
+                    If a  <code>MediaStreamTrack</code> with a <code>peerIdentity</code> constraint
+                    applied is attached to an  <code><a>RTCRtpSender</a></code>, media is not sent
+                    unless the attached <code><a>RTCDtlsTransport</a></code> has validated
+                    the same <code><a>peerIdentity</a></code> as the MediaStreamTrack 's constraint.
                 </p>
             </section>
             <section>
@@ -6720,6 +6714,25 @@ function signalAssertion(assertion) {
                     for ORTC API should provide a <code>level-asymmetry-allowed</code> value of <code>1</code>.
                 </p>
             </section>
+            <section id="nonmux-identity*">
+                <h3>Identity and non-multiplexed RTP/RTCP</h3>
+                <p>
+                    Where RTP and RTCP are not multiplexed, distinct <code><a>RTCIceTransport</a></code>,
+                    <code><a>RTCDtlsTransport</a></code> and <code><a>RTCIdentity</a></code> objects can be
+                    constructed for RTP and RTCP. While it is possible for
+                    <code>getIdentityAssertion()</code> to be called with different values of
+                    <var>provider</var>, <var>protocol</var> and <var>username</var> for the RTP and RTCP
+                    <code><a>RTCIdentity</a></code> objects, application developers desiring backward
+                    compatibility with WebRTC 1.0 are strongly discouraged from doing so, since this is
+                    likely to result in an error.
+                </p>
+                <p>
+                    Also, where RTP and RTCP are not multiplexed, it is possible that the assertions for both the RTP and RTCP will be validated,
+                    but that the identities will not be equivalent. Applications requiring backward compatibility with WebRTC 1.0
+                    are advised to consider this an error. However, if backward compatibility with WebRTC 1.0 is not required the application 
+                    can consider an alternative, such as ignoring the RTCP identity assertion.
+                </p>
+            </section>
         </section>
         <section class="informative" id="examples*">
             <h2>Examples</h2>
@@ -6872,6 +6885,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     <li>
                         Corrected use of enums in the examples, noted in:
                         <a href="https://github.com/openpeer/ortc/issues/466">Issue 466</a>
+                    </li>
+                    <li>
+                        Clarified handling of identity constraints, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/468">Issue 468</a>
                     </li>
                     <li>
                         Clarified use of <code>RTCRtpEncodingParameters</code>, as noted in:
