@@ -411,6 +411,15 @@ var respecConfig = {
       "status": "March 2016. RFC",
       "publisher": "IETF"
     },
+    "RFC7742": {
+      "title": "WebRTC Video Processing and Codec Requirements",
+      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-video",
+      "authors": [
+        "A.B. Roach"
+      ],
+      "status": "March 2016. RFC",
+      "publisher": "IETF"
+    },
     "ABS-SEND-TIME": {
       "title": "Absolute Send Time extension",
       "href": "https://webrtc.org/experiments/rtp-hdrext/abs-send-time/",
@@ -519,16 +528,7 @@ var respecConfig = {
         "JM. Valin",
         "C. Bran"
       ],
-      "status": "09 February 2016. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "RTCWEB-VIDEO": {
-      "title": "WebRTC Video Processing and Codec Requirements",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-video",
-      "authors": [
-        "A.B. Roach"
-      ],
-      "status": "12 June 2015. Internet Draft (work in progress)",
+      "status": "21 April 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTP-MULTI-STREAM": {
