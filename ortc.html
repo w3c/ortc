@@ -3187,7 +3187,7 @@ mySignaller.myOfferTracks({
                     </section>
                     <section id="h264-capabilities*">
                         <h3>H.264</h3>
-                        <p>The following capability parameters are defined for "h264", as noted in [[RFC6184]] Section 8.1, and [[!RTCWEB-VIDEO]] Section 6.2.</p>
+                        <p>The following capability parameters are defined for "h264", as noted in [[RFC6184]] Section 8.1, and [[!RFC7742]] Section 6.2.</p>
                         <table class="simple">
                             <thead>
                                 <tr>
@@ -3207,7 +3207,7 @@ mySignaller.myOfferTracks({
                                     <td>
                                         This parameter describes the maximum capability of the decoder (for an
                                         <code><a>RTCRtpReceiver</a></code>) or the encoder (for an <code><a>RTCRtpSender</a></code>).
-                                        It MUST be supported, as noted in [[!RTCWEB-VIDEO]] Section 6.2.
+                                        It MUST be supported, as noted in [[!RFC7742]] Section 6.2.
                                     </td>
                                 </tr>
                                 <tr id="def-packetization-mode*">
@@ -3216,7 +3216,7 @@ mySignaller.myOfferTracks({
                                     <td>Receiver/Sender</td>
                                     <td>
                                         A sequence of unsigned shorts, each ranging from 0 to 2, indicating supported <var>packetizationMode</var> values.
-                                        As noted in [[!RTCWEB-VIDEO]] Section 6.2, support for packetization-mode 1 is mandatory.
+                                        As noted in [[!RFC7742]] Section 6.2, support for packetization-mode 1 is mandatory.
                                     </td>
                                 </tr>
                                 <tr id="def-other-h264-params*">
@@ -3226,7 +3226,7 @@ mySignaller.myOfferTracks({
                                     </td>
                                     <td>Receiver</td>
                                     <td>
-                                        As noted in [[!RTCWEB-VIDEO]] Section 6.2, these optional parameters
+                                        As noted in [[!RFC7742]] Section 6.2, these optional parameters
                                         allow the implementation to specify that the decoder can support
                                         certain features of H.264 at higher rates and values than those
                                         signalled with profile-level-id.
