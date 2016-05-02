@@ -1084,7 +1084,7 @@ export function myDtlsTransportStateChange(name, state){
                     <dd>
                         <p>
                             The <code><a>RTCIceTransport</a></code> object is waiting for remote candidates to be supplied.
-                            In this state the object can respond to incoming connectivity checks.
+                            In this state the <code><a>RTCIceTransport</a></code> object can respond to incoming connectivity checks.
                         </p>
                     </dd>
                     <dt>checking</dt>
@@ -1094,16 +1094,18 @@ export function myDtlsTransportStateChange(name, state){
                             and a local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was not added as the last candidate.
                             In this state the <code><a>RTCIceTransport</a></code> is checking candidate pairs but has not yet found a
                             successful candidate pair, or consent checks [[!RFC7675]] have failed on
-                            a previously successful candidate pair.
+                            all previously successful candidate pairs.
                         </p>
                     </dd>
                     <dt>connected</dt>
                     <dd>
                         <p>
-                            The <code><a>RTCIceTransport</a></code> has received a response to an outgoing connectivity check, or has received incoming DTLS/media after
-                            a successful response to an incoming connectivity check,
-                            but is still checking other candidate pairs to see if there is a better connection.
-                            In this state outgoing media is permitted.
+                            The <code><a>RTCIceTransport</a></code> has received a response to an outgoing connectivity check,
+                            or has received incoming DTLS/media after a successful response to an incoming connectivity check,
+                            but is still checking other candidate pairs to see if there is a better connection.  In this
+                            state outgoing media is permitted. If consent checks [[!RFC7675]] fail on the connection
+                            in use, and there are no other successful candidate pairs available, then the state transitions
+                            to "disconnected".
                         </p>
                     </dd>
                     <dt>completed</dt>
@@ -1112,6 +1114,8 @@ export function myDtlsTransportStateChange(name, state){
                             A local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was added as the
                             last candidate to the <code><a>RTCIceTransport</a></code> and all appropriate candidate
                             pairs have been tested and at least one functioning candidate pair has been found.
+                            If consent checks [[!RFC7675]] subsequently fail on all successful candidate pairs,
+                            the state transitions to "failed".
                         </p>
                     </dd>
                     <dt>disconnected</dt>
@@ -1128,7 +1132,8 @@ export function myDtlsTransportStateChange(name, state){
                     <dd>
                         <p>
                             A local and remote <code>RTCIceCandidateComplete</code> dictionary was added as the last candidate
-                            to the <code><a>RTCIceTransport</a></code> and all appropriate candidate pairs have been tested and failed.
+                            to the <code><a>RTCIceTransport</a></code> and all appropriate candidate pairs have either
+                            failed connectivity checks or have lost consent.
                         </p>
                     </dd>
                     <dt>closed</dt>
