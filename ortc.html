@@ -1103,9 +1103,10 @@ export function myDtlsTransportStateChange(name, state){
                             The <code><a>RTCIceTransport</a></code> has received a response to an outgoing connectivity check,
                             or has received incoming DTLS/media after a successful response to an incoming connectivity check,
                             but is still checking other candidate pairs to see if there is a better connection.  In this
-                            state outgoing media is permitted. If consent checks [[!RFC7675]] fail on the connection
-                            in use, and there are no other successful candidate pairs available, then the state transitions
-                            to "disconnected".
+                            state outgoing media is permitted. If consent checks [[!RFC7675]] fail on the connection in use,
+                            and there are no other successful candidate pairs available, then the state transitions to "checking"
+                            (if there are candidate pairs remaining to be checked) or "disconnected" (if there are no candidate
+                            pairs to check, but the peer is still gathering and/or waiting for additional remote candidates).
                         </p>
                     </dd>
                     <dt>completed</dt>
@@ -1163,8 +1164,8 @@ export function myDtlsTransportStateChange(name, state){
                         <li>(<code>connected</code>, finished all checks):
                         <code>completed</code></li>
 
-                        <li>(<code>completed</code>, lost connectivity):
-                        <code>disconnected</code></li>
+                        <li>(<code>completed</code>, consent lost):
+                        <code>failed</code></li>
 
                         <li>(any state, ICE restart occurs): <code>new</code></li>
 
