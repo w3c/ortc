@@ -547,6 +547,8 @@
                             If the server could not be reached from all host candidates, <code>errorCode</code>
                             will be set to a TBD value in the 7XX range, as this does not conflict
                             with the STUN error code range, and <var>hostCandidate</var> will be null.
+                            This error is not re-fired until <code>RTCIceGathererState</code> of "gathering"
+                            is re-entered.
                         </p>
                         <p class="issue">Error code to be defined</p>
                     </dd>
