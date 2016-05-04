@@ -3353,14 +3353,14 @@ mySignaller.myOfferTracks({
                         <p>
                             The <var>muxId</var> assigned to the RTP stream, if any, empty string if unset.
                             In an <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code> object, this corresponds to
-                            <a>MID</a> RTP header extension defined in [[!BUNDLE]].
-                            This is a stable identifier that permits the track corresponding to an RTP stream to be identified, rather than relying on an SSRC.
+                            <a>MID</a> RTP header extension defined in [[!BUNDLE]]. This is a stable identifier that permits
+                            the track corresponding to an RTP stream to be identified, rather than relying on an SSRC.
                             An SSRC is randomly generated and can change arbitrarily due to conflicts with other SSRCs, whereas
-                            the <var>muxId</var> has a value
-                            whose meaning can be defined in advance between RTP
-                            sender and receiver, assisting in RTP demultiplexing.
-                            Note that including <var>muxId</var> in <code><a>RTCRtpParameters</a></code> rather than in <code><a>RTCRtpEncodingParameters</a></code> implies that if it is desired to send simulcast streams with different <var>muxId</var> values for each stream, then multiple
-                            <code><a>RTCRtpSender</a></code> objects are needed.
+                            the <var>muxId</var> has a value whose meaning can be defined in advance between RTP
+                            sender and receiver, assisting in RTP demultiplexing. Since <var>muxId</var> is included in
+                            <code><a>RTCRtpParameters</a></code> but not in <code><a>RTCRtpEncodingParameters</a></code>,
+                            if it is desired to send simulcast streams with different <var>muxId</var> values
+                            for each stream, then multiple <code><a>RTCRtpSender</a></code> objects are needed.
                         </p>
                     </dd>
                     <dt>sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
