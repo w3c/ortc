@@ -3351,16 +3351,16 @@ mySignaller.myOfferTracks({
                     <dt>DOMString muxId=""</dt>
                     <dd>
                         <p>
-                            The <var>muxId</var> assigned to the RTP stream, if any, empty string if unset.
-                            In an <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code> object, this corresponds to
-                            <a>MID</a> RTP header extension defined in [[!BUNDLE]].
-                            This is a stable identifier that permits the track corresponding to an RTP stream to be identified, rather than relying on an SSRC.
+                            The <var>muxId</var> assigned to the RTP stream, if any, empty string if unset. In an
+                            <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code> object, this corresponds to
+                            <a>MID</a> RTP header extension defined in [[!BUNDLE]]. This is a stable identifier that permits
+                            the track corresponding to an RTP stream to be identified, rather than relying on an SSRC.
                             An SSRC is randomly generated and can change arbitrarily due to conflicts with other SSRCs, whereas
-                            the <var>muxId</var> has a value
-                            whose meaning can be defined in advance between RTP
-                            sender and receiver, assisting in RTP demultiplexing.
-                            Note that including <var>muxId</var> in <code><a>RTCRtpParameters</a></code> rather than in <code><a>RTCRtpEncodingParameters</a></code> implies that if it is desired to send simulcast streams with different <var>muxId</var> values for each stream, then multiple
-                            <code><a>RTCRtpSender</a></code> objects are needed.
+                            the <var>muxId</var> has a value whose meaning can be defined in advance between RTP
+                            sender and receiver, assisting in RTP demultiplexing. Note that including <var>muxId</var> in
+                            <code><a>RTCRtpParameters</a></code> rather than in <code><a>RTCRtpEncodingParameters</a></code>
+                            implies that if it is desired to send simulcast streams with different <var>muxId</var> values
+                            for each stream, then multiple <code><a>RTCRtpSender</a></code> objects are needed.
                         </p>
                     </dd>
                     <dt>sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
@@ -3378,10 +3378,10 @@ mySignaller.myOfferTracks({
                     <dt>sequence&lt;RTCRtpEncodingParameters&gt; encodings</dt>
                     <dd>
                         <p>
-                            The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.
-                            When unset in a call to <code>send()</code>,
-                            the browser behaves as though a single <code>encodings[0]</code> entry was provided, with
-                            <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var> set to "true",
+                            The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding,
+                            RTX, FEC, etc. When unset in a call to <code>send()</code>, the browser behaves
+                            as though a single <code>encodings[0]</code> entry was provided, with <var>encodings[0].ssrc</var>
+                            set to a browser-determined value, <var>encodings[0].active</var> set to "true",
                             <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var> where <var>j</var> is the index
                             of the first codec that is not "cn", "dtmf", "red", "rtx" or a forward error correction codec, and all the other
                             <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, resolutionScale, etc.) unset.
@@ -3444,7 +3444,7 @@ mySignaller.myOfferTracks({
                             <code>send(<var>parameters</var>)</code> is called before <code>receive()</code> 
                             on the same <code><a>RTCDtlsTransport</a></code>, the browser can choose one of the
                             SSRCs allocated to the <code><a>RTCRtpSender</a></code>. Where <code>receive()</code>
-                            is called first, a random value can be chosen.
+                            is called first, a random SSRC value can be chosen.
                         </p>
                     </dd>
                     <dt>DOMString cname</dt>
