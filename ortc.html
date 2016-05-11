@@ -3267,7 +3267,10 @@ mySignaller.myOfferTracks({
                                     <td>Receiver/Sender</td>
                                     <td>
                                         As defined in [[!RFC4588]], the associated payload type
-                                        of the original stream being retransmitted.
+                                        of the original stream being retransmitted. There will be an
+                                        "rtx" entry in <code>RTCRtpCapabilities.codecs[]</code> for
+                                        each media codec that can be retransmitted, each with their own
+                                        <var>apt</var> parameter.
                                     </td>
                                 </tr>
                                 <tr id="def-rtxtime*">
