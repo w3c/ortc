@@ -3476,14 +3476,14 @@ mySignaller.myOfferTracks({
                 <h3>dictionary RTCRtpCodecParameters</h3>
                 <p><dfn>RTCRtpCodecParameters</dfn> provides information on codec settings.</p>
                 <dl title="dictionary RTCRtpCodecParameters" class="idl">
-                    <dt>DOMString name</dt>
+                    <dt>required DOMString name</dt>
                     <dd>
                         <p>
-                            The MIME media type. Valid types are
+                            The codec MIME type. Valid types are
                             listed in [[!IANA-RTP-2]]. The <var>name</var> MUST always be provided.
                         </p>
                     </dd>
-                    <dt>payloadtype payloadType</dt>
+                    <dt>required payloadtype payloadType</dt>
                     <dd>
                         <p>
                             The value that goes in the RTP Payload Type Field [[!RFC3550]]. The <var>payloadType</var>
