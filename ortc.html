@@ -1956,7 +1956,7 @@ function accept(mySignaller, remote) {
                                     whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
                                     a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
                                     to the number of codecs. If there is no correspondence, or if
-                                    <var>withParameters.codecs[j].name</var> is equal to "RED", "cn", "telephone-event",
+                                    <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "telephone-event",
                                     "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or
                                     "flexfec" [[FLEXFEC]]), return a promise rejected with
                                     <code>InvalidParameters</code>.
@@ -1965,7 +1965,7 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of codecs, check that each
-                                    value of <code>withParameters.codecs[i].name</code> not equal to "RED", "rtx" or
+                                    value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or
                                     a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                                     is included in <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes
                                     from 0 to the number of codecs. If a match is not found for any value of <var>i</var>,
@@ -2170,7 +2170,7 @@ function accept(mySignaller, remote) {
                                     whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
                                     a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
                                     to the number of codecs. If there is no correspondence, or if
-                                    <var>withParameters.codecs[j].name</var> is equal to "RED", "cn", "telephone-event",
+                                    <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "telephone-event",
                                     "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
@@ -3390,7 +3390,7 @@ mySignaller.myOfferTracks({
                             <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var>
                             set to "true", <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var>
                             where <var>j</var> is the index of the first codec that is not "cn", "telephone-event",
-                            "RED", "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
+                            "red", "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                             and all the other <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority,
                             maxBitrate, resolutionScale, etc.) unset. When unset in a call to <code>receive()</code>,
                             the behavior is described in Section 8.3.
