@@ -2790,7 +2790,7 @@ mySignaller.myOfferTracks({
                 </p>
                 <p>
                     Else if <var>pt_table</var>[<var>packet.pt</var>] is set: set <var>rtp_receiver</var> to <var>pt_table</var>[<var>packet.pt</var>],
-                    set <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>rtp_receiver</var>, set <var>pt_table</var>[<var>packet.pt</var>] to null
+                    set <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>rtp_receiver</var>,
                     and route the packet to <var>rtp_receiver</var>.
                 </p>
                 <p>Else if no matches are found in the <var>ssrc_table</var>, <var>muxId_table</var> or <var>pt_table</var>, fire the <code><a>unhandledrtp</a></code> event.</p>
