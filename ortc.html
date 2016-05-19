@@ -1957,17 +1957,18 @@ function accept(mySignaller, remote) {
                                     a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
                                     to the number of codecs. If there is no correspondence, or if
                                     <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
-                                    "rtx" or a forward error correction codec, return a promise
-                                    rejected with <code>InvalidParameters</code>.
+                                    "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or
+                                    "flexfec" [[FLEXFEC]]), return a promise rejected with
+                                    <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of codecs, check that each
                                     value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or
-                                    a forward error correction codec is included in
-                                    <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes from
-                                    0 to the number of codecs. If a match is not found for any value of <var>i</var>,
+                                    a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
+                                    is included in <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes
+                                    from 0 to the number of codecs. If a match is not found for any value of <var>i</var>,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
@@ -2170,8 +2171,8 @@ function accept(mySignaller, remote) {
                                     a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
                                     to the number of codecs. If there is no correspondence, or if
                                     <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "dtmf",
-                                    "rtx" or a forward error correction codec, return a promise
-                                    rejected with <code>InvalidParameters</code>.
+                                    "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
+                                    return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
@@ -2916,9 +2917,11 @@ mySignaller.myOfferTracks({
                     </dd>
                     <dt>sequence&lt;DOMString&gt; fecMechanisms</dt>
                     <dd>
-                        <p>Supported Forward Error Correction (FEC) mechanisms.  Values include
-                        "red", "red+ulpfec" and "flexfec".
-                        [[FEC]] summarizes requirements relating to FEC mechanisms.</p>
+                        <p>
+                            Supported Forward Error Correction (FEC) mechanisms. Values include
+                            "red" [[!RFC2198]], "red+ulpfec" [[RFC5109]] and "flexfec" [[FLEXFEC]].
+                            [[FEC]] summarizes requirements relating to FEC mechanisms.
+                        </p>
                     </dd>
                 </dl>
             </section>
@@ -3381,14 +3384,16 @@ mySignaller.myOfferTracks({
                     <dt>sequence&lt;RTCRtpEncodingParameters&gt; encodings</dt>
                     <dd>
                         <p>
-                            The "encodings" or "layers" to be used for things like simulcast, Scalable Video Coding, RTX, FEC, etc.
-                            When unset in a call to <code>send()</code>,
+                            The "encodings" or "layers" to be used for things like simulcast, Scalable
+                            Video Coding, RTX, FEC, etc. When unset in a call to <code>send()</code>,
                             the browser behaves as though a single <code>encodings[0]</code> entry was provided, with
-                            <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var> set to "true",
-                            <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var> where <var>j</var> is the index
-                            of the first codec that is not "cn", "dtmf", "red", "rtx" or a forward error correction codec, and all the other
-                            <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority, maxBitrate, resolutionScale, etc.) unset.
-                            When unset in a call to <code>receive()</code>, the behavior is described in Section 8.3.
+                            <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var>
+                            set to "true", <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var>
+                            where <var>j</var> is the index of the first codec that is not "cn", "dtmf", "red", "rtx"
+                            or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
+                            and all the other <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority,
+                            maxBitrate, resolutionScale, etc.) unset. When unset in a call to <code>receive()</code>,
+                            the behavior is described in Section 8.3.
                         </p>
                     </dd>
                     <dt>RTCRtcpParameters rtcp</dt>
