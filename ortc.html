@@ -2768,8 +2768,7 @@ mySignaller.myOfferTracks({
                     then add entries to <var>pt_table</var> by setting
                     <var>pt_table</var>[<code>parameters.codecs[j].payloadType</code>] to <var>receiver</var>,
                     for values of <var>j</var> from 0 to the number of codecs.
-                    If <var>pt_table</var>[<var>pt</var>] is already set to a value other than <var>receiver</var>, or
-                    <code>parameters.codecs[j].payloadType</code> is unset for any value of <var>j</var> from 0 to the number of codecs,
+                    If <var>pt_table</var>[<var>pt</var>] is already set to a value other than <var>receiver</var>
                     then <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
                 </p>
                 <p>
