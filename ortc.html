@@ -263,11 +263,11 @@
                     and password and other ICE-related parameters.
                 </p>
                 <dl class="idl" title="dictionary RTCIceParameters">
-                    <dt>DOMString usernameFragment</dt>
+                    <dt>required DOMString usernameFragment</dt>
                     <dd>
                         <p>ICE username fragment.</p>
                     </dd>
-                    <dt>DOMString password</dt>
+                    <dt>required DOMString password</dt>
                     <dd>
                         <p>ICE password.</p>
                     </dd>
@@ -717,7 +717,7 @@
 ]
                 </pre>
                 <dl class="idl" title="dictionary RTCIceServer">
-                    <dt>(DOMString or sequence&lt;DOMString&gt;) urls</dt>
+                    <dt>required (DOMString or sequence&lt;DOMString&gt;) urls</dt>
                     <dd>
                         <p>STUN or TURN URI(s) as defined in [[!RFC7064]] and [[!RFC7065]] or other URI types.</p>
                     </dd>
