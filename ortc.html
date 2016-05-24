@@ -267,7 +267,7 @@
                     <dd>
                         <p>ICE username fragment.</p>
                     </dd>
-                    <dt>required DOMString password</dt>
+                    <dt>DOMString password</dt>
                     <dd>
                         <p>ICE password.</p>
                     </dd>
@@ -2952,13 +2952,13 @@ mySignaller.myOfferTracks({
                 <dl class="idl" title="typedef object Dictionary"></dl>
                 <dl class="idl" title="typedef octet payloadtype"></dl>
                 <dl class="idl" title="dictionary RTCRtpCodecCapability">
-                    <dt>DOMString name</dt>
+                    <dt>required DOMString name</dt>
                     <dd>
                         <p>The MIME media type. Valid types are listed in [[!IANA-RTP-2]].</p>
                     </dd>
-                    <dt>DOMString kind</dt>
+                    <dt>required DOMString kind</dt>
                     <dd>
-                        <p>The media supported by the codec: "audio", "video" or "" for both.</p>
+                        <p>The media supported by the codec: "audio", "video", etc.</p>
                     </dd>
                     <dt>unsigned long clockRate</dt>
                     <dd>
@@ -3366,7 +3366,7 @@ mySignaller.myOfferTracks({
                             for each stream, then multiple <code><a>RTCRtpSender</a></code> objects are needed.
                         </p>
                     </dd>
-                    <dt>sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
+                    <dt>required sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
                     <dd>
                         <p>
                             The codecs to send or receive (could include RED [[RFC2198]], RTX [[!RFC4588]] and CN [[RFC3389]]).
@@ -4473,14 +4473,14 @@ var encodings = [
                     <dd>
                         <p>
                             The media supported by the header extension: "audio" for an audio codec,
-                            "video" for a video codec, and "" for both.
+                            "video" for a video codec, etc.
                         </p>
                     </dd>
-                    <dt>DOMString uri</dt>
+                    <dt>required DOMString uri</dt>
                     <dd>
                         <p>The URI of the RTP header extension, as defined in [[!RFC5285]].</p>
                     </dd>
-                    <dt>unsigned short preferredId</dt>
+                    <dt>required unsigned short preferredId</dt>
                     <dd>
                         <p>The preferred ID value that goes in the packet.</p>
                     </dd>
@@ -4496,11 +4496,11 @@ var encodings = [
             <section id="rtcrtpheaderextensionparameters*">
                 <h3>dictionary RTCRtpHeaderExtensionParameters</h3>
                 <dl class="idl" title="dictionary RTCRtpHeaderExtensionParameters">
-                    <dt>DOMString uri</dt>
+                    <dt>required DOMString uri</dt>
                     <dd>
                         <p>The URI of the RTP header extension, as defined in [[!RFC5285]].</p>
                     </dd>
-                    <dt>unsigned short id</dt>
+                    <dt>required unsigned short id</dt>
                     <dd>
                         <p>The value that goes in the packet.</p>
                     </dd>
