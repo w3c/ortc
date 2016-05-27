@@ -2218,10 +2218,9 @@ function accept(mySignaller, remote) {
                     <dt>void stop()</dt>
                     <dd>
                         <p>
-                            Stops receiving the track on the wire. <code>receiver.stop()</code> is final like
+                            Stops the <code><a>RTCRtpReceiver</a></code>. <code>receiver.stop()</code> is final like
                             <code>receiver.track.stop()</code>. However, code>receiver.track.stop()</code> does not
-                            stop the <code><a>RTCRtpReceiver</a></code> so that the decoder remains operational
-                            and Receiver Reports continue to be sent, even though <var>track</var> cannot be rendered.
+                            stop the <code><a>RTCRtpReceiver</a></code> so that Receiver Reports continue to be sent.
                         </p>
                     </dd>
                 </dl>
