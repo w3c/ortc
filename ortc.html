@@ -2766,7 +2766,7 @@ mySignaller.myOfferTracks({
                 </p>
                 <p>
                     payload type table:
-                    Add entries to <var>pt_table</var> by setting
+                    If <var>parameters.muxId</var> is unset, add entries to <var>pt_table</var> by setting
                     <var>pt_table</var>[<code>parameters.codecs[j].payloadType</code>] to <var>receiver</var>,
                     for values of <var>j</var> from 0 to the number of codecs.
                     If <var>pt_table</var>[<var>pt</var>] is already set to a value other than <var>receiver</var>
