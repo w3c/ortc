@@ -2758,15 +2758,15 @@ mySignaller.myOfferTracks({
                     error.
                 </p>
                 <p>
-                    muxId table: If <code>parameters.muxId</code> is set, <var>muxId_table</var>[<var>parameters.muxId</var>] is set
-                    to <var>receiver</var>.
-                    If <var>muxId_table</var>[<var>muxId</var>] is already set to a value other than <var>receiver</var>, then
-                    <code>receiver.receive()</code> will have its promise rejected with an <code>InvalidParameters</code> error.
+                    muxId table:
+                    If <code>parameters.muxId</code> is set, <var>muxId_table</var>[<var>parameters.muxId</var>] is
+                    set to <var>receiver</var>. If <var>muxId_table</var>[<var>muxId</var>] is already set to a
+                    value other than <var>receiver</var>, then <code>receiver.receive()</code> will have its
+                    promise rejected with an <code>InvalidParameters</code> error.
                 </p>
                 <p>
-                    payload type table: If <var>parameters.muxId</var> is unset and <code>parameters.encodings[i].ssrc</code>
-                    is unset for all values of <var>i</var> from 0 to the number of encodings,
-                    then add entries to <var>pt_table</var> by setting
+                    payload type table:
+                    Add entries to <var>pt_table</var> by setting
                     <var>pt_table</var>[<code>parameters.codecs[j].payloadType</code>] to <var>receiver</var>,
                     for values of <var>j</var> from 0 to the number of codecs.
                     If <var>pt_table</var>[<var>pt</var>] is already set to a value other than <var>receiver</var>
