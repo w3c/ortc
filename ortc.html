@@ -1952,6 +1952,13 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
+                                    For each value of <var>i</var> from 0 to the number of codecs, check that each
+                                    value of <code>withParameters.codecs[i].payloadType</code> is set. If any value
+                                    is unset, return a promise rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
                                     For each value of <var>i</var> from 0 to the number of encodings, check
                                     whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
                                     a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
@@ -2167,6 +2174,13 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
+                                    For each value of <var>i</var> from 0 to the number of codecs, check that each
+                                    value of <code>withParameters.codecs[i].payloadType</code> is set. If any value
+                                    is unset, return a promise rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
                                     For each value of <var>i</var> from 0 to the number of encodings, check
                                     whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
                                     a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
@@ -2174,13 +2188,6 @@ function accept(mySignaller, remote) {
                                     <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "telephone-event",
                                     "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                                     return a promise rejected with <code>InvalidParameters</code>.
-                                 </p>
-                            </li>
-                            <li>
-                                <p>
-                                    For each value of <var>i</var> from 0 to the number of codecs, check that each
-                                    value of <code>withParameters.codecs[i].payloadType</code> is set. If any value
-                                    is unset, return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
