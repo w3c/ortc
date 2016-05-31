@@ -2153,15 +2153,16 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
-                                    If <var>withParameters</var> is invalid due to SSRC misusage or other reasons,
+                                    If <var>withParameters</var> is invalid due to SSRC misusage,
+                                    <code>ssrc_table</code>, <code>muxId_table</code> or <code>pt_table</code>
+                                    conflicts described in Section 8.3 or other reasons,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
                                 <p>
                                     If <var>rtcpTransport</var> is not set and <var>withParameters.rtcp.mux</var>
-                                    is set to "false", return a promise
-                                    rejected with <code>InvalidParameters</code>.
+                                    is set to "false", return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
@@ -2173,6 +2174,13 @@ function accept(mySignaller, remote) {
                                     <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "telephone-event",
                                     "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                                     return a promise rejected with <code>InvalidParameters</code>.
+                                 </p>
+                            </li>
+                            <li>
+                                <p>
+                                    For each value of <var>i</var> from 0 to the number of codecs, check that each
+                                    value of <code>withParameters.codecs[i].payloadType</code> is set. If any value
+                                    is unset, return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
