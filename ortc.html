@@ -2219,8 +2219,9 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             Stops the <code><a>RTCRtpReceiver</a></code>. <code>receiver.stop()</code> is final like
-                            <code>receiver.track.stop()</code>. However, code>receiver.track.stop()</code> does not
-                            stop the <code><a>RTCRtpReceiver</a></code> so that Receiver Reports continue to be sent.
+                            <code>receiver.track.stop()</code>.  <code>receiver.track.stop()</code> does not affect
+                            track clones and also does not stop the <code><a>RTCRtpReceiver</a></code> so that
+                            Receiver Reports continue to be sent.
                         </p>
                     </dd>
                 </dl>
