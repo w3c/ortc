@@ -3483,9 +3483,12 @@ mySignaller.myOfferTracks({
                 <h3>dictionary RTCRtpCodecParameters</h3>
                 <p><dfn>RTCRtpCodecParameters</dfn> provides information on codec settings.</p>
                 <dl title="dictionary RTCRtpCodecParameters" class="idl">
-                    <dt>DOMString name</dt>
+                    <dt>required DOMString name</dt>
                     <dd>
-                        <p>The MIME media subtype. Valid subtypes are listed in [[!IANA-RTP-2]].</p>
+                        <p>
+                            The codec MIME subtype. Valid subtypes are
+                            listed in [[!IANA-RTP-2]].
+                        </p>
                     </dd>
                     <dt>DOMString mimeType</dt>
                     <dd>
