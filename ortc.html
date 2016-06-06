@@ -2978,6 +2978,13 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>The MIME media subtype. Valid subtypes are listed in [[!IANA-RTP-2]].</p>
                     </dd>
+                    <dt>DOMString mimeType</dt>
+                    <dd>
+                        <p>
+                            The codec MIME media type/subtype. Valid media types and subtypes
+                            are listed in [[IANA-RTP-2]].
+                        </p>
+                    </dd>
                     <dt>DOMString kind</dt>
                     <dd>
                         <p>The media supported by the codec: "audio", "video" or "" for both.</p>
@@ -3504,7 +3511,14 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The codec MIME subtype. Valid subtypes are
-                            listed in [[!IANA-RTP-2]]. The <var>name</var> MUST always be provided.
+                            listed in [[!IANA-RTP-2]].
+                        </p>
+                    </dd>
+                    <dt>DOMString mimeType</dt>
+                    <dd>
+                        <p>
+                            The codec MIME media type/subtype. Valid media types and subtypes
+                            are listed in [[IANA-RTP-2]].
                         </p>
                     </dd>
                     <dt>required payloadtype payloadType</dt>
