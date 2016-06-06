@@ -2955,6 +2955,13 @@ mySignaller.myOfferTracks({
                     <dt>required DOMString name</dt>
                     <dd>
                         <p>
+                            The codec MIME media subtype. Valid subtypes are listed in [[IANA-RTP-2]].
+
+                        </p>
+                    </dd>
+                    <dt>DOMString mimeType</dt>
+                    <dd>
+                        <p>
                             The codec MIME media type/subtype. Valid media types and subtypes
                             are listed in [[IANA-RTP-2]].
                         </p>
@@ -3480,6 +3487,12 @@ mySignaller.myOfferTracks({
                 <p><dfn>RTCRtpCodecParameters</dfn> provides information on codec settings.</p>
                 <dl title="dictionary RTCRtpCodecParameters" class="idl">
                     <dt>required DOMString name</dt>
+                    <dd>
+                        <p>
+                            The codec MIME media subtype. Valid subtypes are listed in [[IANA-RTP-2]].
+                        </p>
+                    </dd>
+                    <dt>DOMString mimeType</dt>
                     <dd>
                         <p>
                             The codec MIME media type/subtype. Valid media types and subtypes
