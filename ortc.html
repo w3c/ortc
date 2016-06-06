@@ -717,7 +717,7 @@
 ]
                 </pre>
                 <dl class="idl" title="dictionary RTCIceServer">
-                    <dt>(DOMString or sequence&lt;DOMString&gt;) urls</dt>
+                    <dt>required (DOMString or sequence&lt;DOMString&gt;) urls</dt>
                     <dd>
                         <p>STUN or TURN URI(s) as defined in [[!RFC7064]] and [[!RFC7065]] or other URI types.</p>
                     </dd>
@@ -2980,7 +2980,7 @@ mySignaller.myOfferTracks({
                     </dd>
                     <dt>DOMString kind</dt>
                     <dd>
-                        <p>The media supported by the codec: "audio", "video" or "" for both.</p>
+                        <p>The media supported by the codec: "audio", "video", etc.</p>
                     </dd>
                     <dt>unsigned long clockRate</dt>
                     <dd>
@@ -3388,7 +3388,7 @@ mySignaller.myOfferTracks({
                             for each stream, then multiple <code><a>RTCRtpSender</a></code> objects are needed.
                         </p>
                     </dd>
-                    <dt>sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
+                    <dt>required sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
                     <dd>
                         <p>
                             The codecs to send or receive (could include RED [[RFC2198]], RTX [[!RFC4588]] and CN [[RFC3389]]).
@@ -4497,7 +4497,7 @@ var encodings = [
                     <dd>
                         <p>
                             The media supported by the header extension: "audio" for an audio codec,
-                            "video" for a video codec, and "" for both.
+                            "video" for a video codec, etc.
                         </p>
                     </dd>
                     <dt>DOMString uri</dt>
@@ -4520,11 +4520,11 @@ var encodings = [
             <section id="rtcrtpheaderextensionparameters*">
                 <h3>dictionary RTCRtpHeaderExtensionParameters</h3>
                 <dl class="idl" title="dictionary RTCRtpHeaderExtensionParameters">
-                    <dt>DOMString uri</dt>
+                    <dt>required DOMString uri</dt>
                     <dd>
                         <p>The URI of the RTP header extension, as defined in [[!RFC5285]].</p>
                     </dd>
-                    <dt>unsigned short id</dt>
+                    <dt>required unsigned short id</dt>
                     <dd>
                         <p>The value that goes in the packet.</p>
                     </dd>
