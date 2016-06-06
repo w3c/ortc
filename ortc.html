@@ -545,7 +545,7 @@
                         </p>
                         <p>
                             If no host candidate can reach the server, <code>errorCode</code>
-                            will be set to a TBD value in the 7XX range, as this does not conflict
+                            will be set to a value of 701, as this does not conflict
                             with the STUN error code range, and <var>hostCandidate</var> will be null.
                             This error is only fired once per server URL while in the 
                             <code>RTCIceGathererState</code> of "gathering".
@@ -6831,7 +6831,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     </li>
                     <li>
                         Clarified meaning of <var>name</var>, as noted in:
-                        <a href="https://github.com/openpeer/ortc/issues/532">Issue 532</a>
+                        <a href="https://github.com/openpeer/ortc/issues/529">Issue 529</a>
                     </li>
                     <li>
                         Updated text relating to "server could not be reached", as noted in:
