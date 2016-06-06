@@ -2233,7 +2233,12 @@ function accept(mySignaller, remote) {
                     </dd>
                     <dt>void stop()</dt>
                     <dd>
-                        <p>Stops receiving the track on the wire. Stop is final like <a>MediaStreamTrack</a>.</p>
+                        <p>
+                            Stops the <code><a>RTCRtpReceiver</a></code>. <code>receiver.stop()</code> is final like
+                            <code>receiver.track.stop()</code>.  <code>receiver.track.stop()</code> does not affect
+                            track clones and also does not stop the <code><a>RTCRtpReceiver</a></code> so that
+                            Receiver Reports continue to be sent.
+                        </p>
                     </dd>
                 </dl>
             </section>
