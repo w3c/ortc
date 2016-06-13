@@ -2080,9 +2080,10 @@ function accept(mySignaller, remote) {
                 <h3>Operation</h3>
                 <p>
                     A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of <var>kind</var> and an <code><a>RTCDtlsTransport</a></code> object.
-                    If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code> object with <var>transport.state</var> or <var>rtcpTransport.state</var> "closed",
-                    throw an <code>InvalidStateError</code> exception.  Upon construction,  <var>track</var> is set, and the value of <var>track.kind</var> is determined
-                    based on the value of <var>kind</var> passed in the constructor.
+                    If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code> object with <code>transport.<var>state</var></code> or
+                    <code>rtcpTransport.<var>state</var></code> with a value of "closed", throw an <code>InvalidStateError</code> exception.
+                    Upon construction,  <var>track</var> is set, and the value of <code>track.<var>kind</var></code> is determinedbased on the
+                    value of <var>kind</var> passed in the constructor.
                 </p>
                 <p>
                     An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once <code>stop()</code> 
@@ -2098,8 +2099,9 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                              The associated <code><a>MediaStreamTrack</a></code> instance.
-                             Upon construction, <var>track</var> is set. The value of <var>track.kind</var> is set
-                             to the value of <var>kind</var> passed in the constructor. 
+                             Upon construction, <var>track</var> is set. The value of
+                             <code>track.<var>kind</var></code> is set to the value of
+                             <var>kind</var> passed in the constructor. 
                         </p>
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
@@ -2123,9 +2125,8 @@ function accept(mySignaller, remote) {
                             If <code>setTransport()</code> is called with a single argument or if <var>rtcpTransport</var> is not set,
                             and the last call to <code>receiver.receive(parameters)</code>
                             had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
-                            exception.
-                            If <code>stop()</code> has been called, or <var>transport.state</var> or <var>rtcpTransport.state</var> is "closed",
-                            throw an <code>InvalidStateError</code> exception.
+                            exception. If <code>stop()</code> has been called, or <code>transport.<var>state</var></code>
+                            or <code>rtcpTransport.<var>state</var></code> is "closed", throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
                     <dt>static RTCRtpCapabilities getCapabilities(DOMString kind)</dt>
