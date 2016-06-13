@@ -2079,10 +2079,14 @@ function accept(mySignaller, remote) {
             <section id="rtcrtpreceiver-operation*">
                 <h3>Operation</h3>
                 <p>
-                    A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of <var>kind</var> and an <code><a>RTCDtlsTransport</a></code> object.
-                    If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code> object with <code>transport.<var>state</var></code> or
-                    <code>rtcpTransport.<var>state</var></code> with a value of "closed", throw an <code>InvalidStateError</code> exception.
-                    Upon construction,  <var>track</var> is set, and the value of <code>track.<var>kind</var></code> is determinedbased on the
+                    A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of
+                    <var>kind</var> and an <code><a>RTCDtlsTransport</a></code> object.
+                    If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code>
+                    object with <code>transport.<var>state</var></code> or
+                    <code>rtcpTransport.<var>state</var></code> with a value of "closed",
+                    throw an <code>InvalidStateError</code> exception.
+                    Upon construction,  <var>track</var> is set, and the value of
+                    <code>track.<var>kind</var></code> is determined based on the
                     value of <var>kind</var> passed in the constructor.
                 </p>
                 <p>
@@ -2112,8 +2116,8 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is sent and received.
-                            When BUNDLE is used, many <code><a>RTCRtpReceiver</a></code> objects will share one 
-                            <var>rtcpTransport</var> and will all send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
+                            When BUNDLE is used, multiple <code><a>RTCRtpReceiver</a></code> objects will share one 
+                            <var>rtcpTransport</var> and will send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
                             When RTCP mux is used, <var>rtcpTransport</var> will be null, and both RTP and RTCP traffic will flow 
                             over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
                         </p>
@@ -2121,12 +2125,16 @@ function accept(mySignaller, remote) {
                     <dt>void setTransport(RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)</dt>
                     <dd>
                         <p>
-                            Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
-                            If <code>setTransport()</code> is called with a single argument or if <var>rtcpTransport</var> is not set,
+                            Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used)
+                            RTCP <code><a>RTCDtlsTransport</a></code>.
+                            If <code>setTransport()</code> is called with a single argument
+                            or if <var>rtcpTransport</var> is not set,
                             and the last call to <code>receiver.receive(parameters)</code>
-                            had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
-                            exception. If <code>stop()</code> has been called, or <code>transport.<var>state</var></code>
-                            or <code>rtcpTransport.<var>state</var></code> is "closed", throw an <code>InvalidStateError</code> exception.
+                            had <code>parameters.rtcp.mux</code> set to <code>false</code>,
+                            throw an <code>InvalidParameters</code> exception. If <code>stop()</code>
+                            has been called, or <code>transport.<var>state</var></code>
+                            or <code>rtcpTransport.<var>state</var></code> is "closed",
+                            throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
                     <dt>static RTCRtpCapabilities getCapabilities(DOMString kind)</dt>
