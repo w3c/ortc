@@ -58,6 +58,20 @@ var respecConfig = {
       "href": "http://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
       "publisher": "IANA"
     },
+    "MMUSIC-RID": {
+      "title": "RTP Payload Format Constraints",
+      "href": "https://tools.ietf.org/html/draft-ietf-mmusic-rid",
+      "authors": [
+        "P. Thatcher",
+        "M. Zanaty",
+        "S. Nandakumar",
+        "B. Burman",
+        "A. Roach",
+        "B. Campen"
+      ],
+      "status": "25 March 2016. Internet Draft (work in progress)",
+      "publisher": "IETF"
+    },
     "MUX-FIXES": {
       "title": "Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)",
       "href": "https://tools.ietf.org/html/draft-ietf-avtcore-rfc5764-mux-fixes",
@@ -69,17 +83,14 @@ var respecConfig = {
       "publisher": "IETF"
     },
     "RID": {
-      "title": "RTP Payload Format Constraints",
-      "href": "https://tools.ietf.org/html/draft-ietf-mmusic-rid",
+      "title": "RTP Stream Identifier Source Description (SDES)",
+      "href": "https://tools.ietf.org/html/draft-ietf-avtext-rid",
       "authors": [
-        "P. Thatcher",
-        "M. Zanaty",
-        "S. Nandakumar",
-        "B. Burman",
         "A. Roach",
-        "B. Campen"
+        "S. Nandakumar",
+        "P. Thatcher"
       ],
-      "status": "08 February 2016. Internet Draft (work in progress)",
+      "status": "21 June 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RFC3264": {
