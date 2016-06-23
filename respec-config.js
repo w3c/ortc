@@ -79,7 +79,7 @@ var respecConfig = {
         "M. Petit-Huguenin",
         "G. Salgueiro"
       ],
-      "status": "26 January 2016. Internet draft (work in progress)",
+      "status": "15 June 2016. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -424,11 +424,21 @@ var respecConfig = {
     },
     "RFC7742": {
       "title": "WebRTC Video Processing and Codec Requirements",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-video",
+      "href": "https://tools.ietf.org/html/rfc7742",
       "authors": [
         "A.B. Roach"
       ],
       "status": "March 2016. RFC",
+      "publisher": "IETF"
+    },
+    "RFC7874": {
+      "title": "WebRTC Audio Codec and Processing Requirements",
+      "href": "https://tools.ietf.org/html/rfc7874",
+      "authors": [
+        "JM. Valin",
+        "C. Bran"
+      ],
+      "status": "May 2016. RFC",
       "publisher": "IETF"
     },
     "ABS-SEND-TIME": {
@@ -448,7 +458,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "24 February 2016. Internet Draft (work in progress)",
+      "status": "19 June 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -529,17 +539,7 @@ var respecConfig = {
       "authors": [
         "E. Rescorla"
       ],
-      "status": "07 March 2015. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "RTCWEB-AUDIO": {
-      "title": "WebRTC Audio Codec and Processing Requirements",
-      "href": "https://tools.ietf.org/html/draft-ietf-rtcweb-audio",
-      "authors": [
-        "JM. Valin",
-        "C. Bran"
-      ],
-      "status": "21 April 2016. Internet Draft (work in progress)",
+      "status": "08 June 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTP-MULTI-STREAM": {
@@ -569,9 +569,10 @@ var respecConfig = {
       "href": "https://tools.ietf.org/html/draft-ietf-ice-rfc5245bis",
       "authors": [
         "A. Keranen",
+        "C. Holmberg",
         "J. Rosenberg"
       ],
-      "status": "21 December 2015. Internet Draft (work in progress)",
+      "status": "23 June 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "STUN-PARAMETERS": {
@@ -602,7 +603,7 @@ var respecConfig = {
         "J. Uberti",
         "P. Saint-Andre"
       ],
-      "status": "10 December 2015. Internet Draft (work in progress)",
+      "status": "06 June 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TS26.114": {
@@ -621,7 +622,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "23 October 2015 (work in progress)",
+      "status": "26 May 2016 (work in progress)",
       "publisher": "W3C"
     }
   }
