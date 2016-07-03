@@ -3941,6 +3941,17 @@ mySignaller.myOfferTracks({
                             If <var>framerateScale</var> is set, then <var>maxFramerate</var> is ignored.
                         </p>
                     </dd>
+                    <dt>RTCDtxStatus dtx</dt>
+                    <dd>
+                        <p>
+                            For an <code><a>RTCRtpSender</a></code>, indicates whether
+                            discontinuous transmission will be used. Setting it to "disabled"
+                            causes discontinuous transmission to be turned off. Setting it
+                            to "enabled" causes discontinuous transmission to be turned on
+                            if it was enabled (either via a codec-specific parameter or 
+                            via the CN codec). This attribute is ignored by a video sender.
+                        </p>
+                    </dd>
                     <dt>boolean active=true</dt>
                     <dd>
                         <p>
@@ -4055,6 +4066,13 @@ mySignaller.myOfferTracks({
                             </td>
                             <td>Sender</td>
                         </tr>
+                        <tr id="def-dtx*">
+                           <td><dfn>dtx</dfn></td>
+                            <td>
+                                <code>enum</code>
+                            </td>
+                            <td>Sender</td>
+                        </tr>   
                         <tr id="def-active*">
                            <td><dfn>active</dfn></td>
                             <td>
@@ -4309,6 +4327,22 @@ var encodings = [{
                     </figure>
                 </section>
               </section>
+            </section>
+            <section id="rtcdtxStatus*">
+                <h3>enum RTCDtxStatus</h3>
+                <p>
+                    <dfn>RTCDtxStatus</dfn> indicates whether discontinuous transmission is enabled or disabled.
+                </p>
+                <dl class="idl" title="enum RTCDtxStatus">
+                    <dt>disabled</dt>
+                    <dd>
+                        <p>Discontinuous transmission is disabled.</p>
+                    </dd>
+                    <dt>enabled</dt>
+                    <dd>
+                        <p>Discontinuous transmission is enabled.</p>
+                    </dd>
+                </dl>
             </section>
             <section id="rtcprioritytype*">
                 <h3>enum RTCPriorityType</h3>
