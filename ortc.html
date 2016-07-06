@@ -6860,8 +6860,20 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                 <h3>Changes since 04 May 2016</h3>
                 <ol>
                     <li>
+                        Clarified support for simulcast reception and MRST SVC codecs, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/175">Issue 175</a>
+                    </li>
+                    <li>
                         Clarified meaning of <code><a>RTCRtpCodecCapability</a></code>.<var>options</var>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/412">Issue 412</a>
+                    </li>
+                    <li>
+                        Provided <code>rtcp.ssrc</code> advice for implementations, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/462">Issue 462</a>
+                    </li>
+                    <li>
+                        Added <code>getParameters()</code> methods, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/494">Issue 494</a>
                     </li>
                     <li>
                         Clarified effect of <code>RTCRtpReceiver.track.stop()</code>, as noted in:
@@ -6884,17 +6896,30 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/535">Issue 535</a>
                     </li>
                     <li>
+                        Clarified "rtx" entries in <code><a>RTCRtpCodecCapabilities</a></code> and <code><a>RTCRtpCodecParameters</a></code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/539">Issue 539</a>
+                    </li>
+                    <li>
                         Updated text relating to "server could not be reached", as noted in:
                         <a href="https://github.com/w3c/webrtc-pc/issues/542">Issue 542</a>
                     </li>
                     <li>
-                        Correct codec name usage, as noted in:
+                        Corrected codec name usage, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/544">Issue 544</a> and
                         <a href="https://github.com/openpeer/ortc/issues/548">Issue 548</a>
                     </li>
                     <li>
-                        Clarified that encoding.codecPayloadType can be unset, as noted in:
+                        Clarified that <var>codecPayloadType</var> can be unset, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/545">Issue 545</a>
+                    </li>
+                    <li>
+                        Clarified RTP matching rules, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/546">Issue 546</a> and
+                        <a href="https://github.com/openpeer/ortc/issues/547">Issue 547</a>
+                    </li>
+                    <li>
+                        Clarified rules for <code>send()</code> and <code>receive()</code>, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/553">Issue 553</a>
                     </li>
                     <li>
                         Converted figures to SVG format with figure/caption markup, as noted in:
