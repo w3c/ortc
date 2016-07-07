@@ -227,27 +227,23 @@
                             an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? onstatechange</dt>
+                    <dt>attribute EventHandler onstatechange</dt>
                     <dd>
                         <p>
-                            This event handler, of event handler type <code>gathererstatechange</code>,
-                            uses the <code><a>RTCIceGathererStateChangedEvent</a></code> interface.
-                            It <em class="rfc2119" title="MUST">MUST</em> be supported by
-                            all objects implementing the <code><a>RTCIceGatherer</a></code> interface.
-                            It is called any time the <code><a>RTCIceGathererState</a></code> changes.
+                            This event handler, of event handler event type <code><a>statechange</a></code>,
+                            <em class="rfc2119" title="MUST">MUST</em> be fired
+                            any time the <code><a>RTCIceGathererState</a></code> changes.
                         <p>
                     </dd>
-                    <dt>attribute EventHandler? onerror</dt>
+                    <dt>attribute EventHandler onerror</dt>
                     <dd>
                         <p>
-                            This event handler, of event handler type <code>icecandidateerror</code>,
-                            <em class="rfc2119" title="MUST">MUST</em> be supported by all objects
-                            implementing the <code><a>RTCIceGatherer</a></code> interface.
-                            If TURN credentials are invalid, then this event <em class="rfc2119" title="MUST">MUST</em>
-                            be fired.
+                            This event handler, of event handler event type <code><a>icecandidateerror<a></code>,
+                            <em class="rfc2119" title="MUST">MUST</em> be fired if an error occurs in the gathering
+                            of ICE candidates (such as if TURN credentials are invalid).
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? onlocalcandidate</dt>
+                    <dt>attribute EventHandler onlocalcandidate</dt>
                     <dd>
                         <p>
                             This event handler, of event handler event type <code>icecandidate</code>, uses
@@ -469,53 +465,10 @@
                     </dd>
                 </dl>
             </section>
-            <section id="rtcicegathererstatechangedevent-interface-definition*">
-                <h3>RTCIceGathererStateChangedEvent</h3>
-                <p>
-                    The <code>icegathererstatechange</code> event of the <code><a>RTCIceGatherer</a></code> object uses
-                    the <code><a>RTCIceGathererStateChangedEvent</a></code> interface.
-                </p>
-                <p>
-                    Firing an
-                    <code><a>RTCIceGathererStateChangedEvent</a></code> event named
-                    <var>e</var> with an <code><a>RTCIceGathererState</a></code>
-                    <var>state</var> means that an event with the name <var>e</var>,
-                    which does not bubble (except where otherwise stated) and is not
-                    cancelable (except where otherwise stated), and which uses the
-                    <code>RTCIceGathererStateChangedEvent</code> interface with the
-                    <var>state</var> attribute set to the new <code><a>RTCIceGathererState</a></code>,
-                    <em class="rfc2119" title="MUST">MUST</em> be
-                    created and dispatched at the given target.
-                </p>
-                <dl class="idl" data-merge="RTCIceGathererStateChangedEventInit"
-                    title="interface RTCIceGathererStateChangedEvent : Event">
-                    <dt>Constructor(DOMString type, RTCIceGathererStateChangedEventInit eventInitDict)</dt>
-                    <dd></dd>
-                    <dt>readonly attribute RTCIceGathererState state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCIceGathererState</a></code>
-                            that caused the event.
-                        </p>
-                    </dd>
-                </dl>
-                <dl class="idl" title=
-                    "dictionary RTCIceGathererStateChangedEventInit : EventInit">
-                    <dt>RTCIceGathererState? state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCIceGathererState</a></code>
-                            that caused the event.
-                        </p>
-                    </dd>
-                </dl>
-            </section>
             <section>
                 <h4>RTCIceGathererIceErrorEvent</h4>
                 <p>
-                    The <code>icecandidateerror</code> event of the <code><a>RTCIceGatherer</a></code> object uses
+                    The <code><a>icecandidateerror</a></code> event of the <code><a>RTCIceGatherer</a></code> object uses
                     the <code><a>RTCIceGathererIceErrorEvent</a></code> interface.
                 </p>
                 <dl class="idl" data-merge="RTCIceGathererIceErrorEventInit"
@@ -1027,17 +980,15 @@ export function myDtlsTransportStateChange(name, state){
                             If <var>state</var> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? onstatechange</dt>
+                    <dt>attribute EventHandler onstatechange</dt>
                     <dd>
                         <p>
-                            This event handler, of event handler type <code>icestatechange</code>,
-                            uses the <code>RTCIceTransportStateChangedEvent</code> interface.
-                            It <em class="rfc2119" title="MUST">MUST</em> be supported by
-                            all objects implementing the <code><a>RTCIceTransport</a></code> interface.
-                            It is called any time the <code><a>RTCIceTransportState</a></code> changes.
+                            This event handler, of event handler event type <code><a>statechange</a></code>,
+                            <em class="rfc2119" title="MUST">MUST</em> be fired 
+                            any time the <code><a>RTCIceTransportState</a></code> changes.
                         <p>
                     </dd>
-                    <dt>attribute EventHandler? oncandidatepairchange</dt>
+                    <dt>attribute EventHandler oncandidatepairchange</dt>
                     <dd>
                         <p>
                             This event handler, of event handler type <code>icecandidatepairchange</code>,
@@ -1186,48 +1137,6 @@ export function myDtlsTransportStateChange(name, state){
                         Non-normative ICE transport state transition diagram
                      </figcaption>
                    </figure>
-            </section>
-            <section id="rtcicetransportstatechangedevent-interface-definition*">
-                <h3>RTCIceTransportStateChangedEvent</h3>
-                <p>
-                    The <code>icestatechange</code> event of the <code><a>RTCIceTransport</a></code> object uses
-                    the <code><a>RTCIceTransportStateChangedEvent</a></code> interface.
-                </p>
-                <p>
-                    Firing an
-                    <code><a>RTCIceTransportStateChangedEvent</a></code> event named
-                    <var>e</var> with an <code><a>RTCIceTransportState</a></code>
-                    <var>state</var> means that an event with the name <var>e</var>,
-                    which does not bubble (except where otherwise stated) and is not
-                    cancelable (except where otherwise stated), and which uses the
-                    <code>RTCIceTransportStateChangedEvent</code> interface with the
-                    <var>state</var> attribute set to the new <code><a>RTCIceTransportState</a></code>,
-                    <em class="rfc2119" title="MUST">MUST</em> be
-                    created and dispatched at the given target.
-                </p>
-                <dl class="idl" data-merge="RTCIceTransportStateChangedEventInit"
-                    title="interface RTCIceTransportStateChangedEvent : Event">
-                    <dt>Constructor(DOMString type, RTCIceTransportStateChangedEventInit eventInitDict)</dt>
-                    <dd></dd>
-                    <dt>readonly attribute RTCIceTransportState state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCIceTransportState</a></code>
-                            that caused the event.
-                        </p>
-                    </dd>
-                </dl>
-                <dl class="idl" title="dictionary RTCIceTransportStateChangedEventInit : EventInit">
-                    <dt>RTCIceTransportState? state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCIceTransportState</a></code>
-                            that caused the event.
-                        </p>
-                    </dd>
-                </dl>
             </section>
             <section id="rtcicecandidatepairchangedevent-interface-definition*">
                 <h3>RTCIceCandidatePairChangedEvent</h3>
@@ -1484,22 +1393,19 @@ mySignaller.send({
                             Calling <code>stop()</code> when <var>state</var> is <code>closed</code> has no effect.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? onstatechange</dt>
+                    <dt>attribute EventHandler onstatechange</dt>
                     <dd>
                         <p>
-                            This event handler, of event handler type <code><a>dtlsstatechange</a></code>,
-                            uses the <code><a>RTCDtlsTransportStateChangedEvent</a></code> interface.
-                            It <em class="rfc2119" title="MUST">MUST</em> be supported by
-                            all objects implementing the <code><a>RTCDtlsTransport</a></code> interface.
-                            It is called any time the <code>RTCDtlsTransportState</code> changes.
+                            This event handler, of event handler event type <code><a>statechange</a></code>,
+                            <em class="rfc2119" title="MUST">MUST</em> be fired
+                            any time the <code><a>RTCDtlsTransportState</a></code> changes.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? onerror</dt>
+                    <dt>attribute EventHandler onerror</dt>
                     <dd>
                         <p>
-                            This event handler, of event handler type <code>error</code>,
-                            <em class="rfc2119" title="MUST">MUST</em> be supported by all objects implementing the <code><a>RTCDtlsTransport</a></code> interface.
-                            This event <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS error alert; an implementation
+                            This event handler, of event handler event type <code>error</code>,
+                            <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS error alert; an implementation
                             <em class="rfc2119" title="MUST">SHOULD</em> include DTLS error alert information in <var>error.message</var> (defined in 
                             [[!HTML5]] Section 6.1.3.6.2).
                         </p>
@@ -1614,48 +1520,6 @@ mySignaller.send({
                         <p>
                             The DTLS connection has been closed as the result of an error (such as receipt of an error alert or
                             a failure to validate the remote fingerprint).
-                        </p>
-                    </dd>
-                </dl>
-            </section>
-            <section id="rtcdtlstransportstatechangedevent-interface-definition*">
-                <h3>RTCDtlsTransportStateChangedEvent</h3>
-                <p>
-                    The <dfn>dtlsstatechange</dfn> event of the <code><a>RTCDtlsTransport</a></code> object uses
-                    the <code><a>RTCDtlsTransportStateChangedEvent</a></code> interface.
-                </p>
-                <p>
-                    Firing an
-                    <code><a>RTCDtlsTransportStateChangedEvent</a></code> event named
-                    <var>e</var> with an <code><a>RTCDtlsTransportState</a></code>
-                    <var>state</var> means that an event with the name <var>e</var>,
-                    which does not bubble (except where otherwise stated) and is not
-                    cancelable (except where otherwise stated), and which uses the
-                    <code><a>RTCDtlsTransportStateChangedEvent</a></code> interface with the
-                    <var>state</var> attribute set to the new <code><a>RTCDtlsTransportState</a></code>,
-                    <em class="rfc2119" title="MUST">MUST</em> be
-                    created and dispatched at the given target.
-                </p>
-                <dl class="idl" data-merge="RTCDtlsTransportStateChangedEventInit"
-                    title="interface RTCDtlsTransportStateChangedEvent : Event">
-                    <dt>Constructor(DOMString type, RTCDtlsTransportStateChangedEventInit eventInitDict)</dt>
-                    <dd></dd>
-                    <dt>readonly attribute RTCDtlsTransportState state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCDtlsTransportState</a></code>
-                            that caused the event.
-                        </p>
-                    </dd>
-                </dl>
-                <dl class="idl" title="dictionary RTCDtlsTransportStateChangedEventInit : EventInit">
-                    <dt>RTCDtlsTransportState state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCDtlsTransportState</a></code>
-                            that caused the event.
                         </p>
                     </dd>
                 </dl>
@@ -2020,7 +1884,7 @@ function accept(mySignaller, remote) {
                             Stop is final as in <code>MediaStreamTrack.stop()</code>.
                         </p>
                     </dd>
-                    <dt>attribute EventHandler? onssrcconflict</dt>
+                    <dt>attribute EventHandler onssrcconflict</dt>
                     <dd>
                         <p>
                             The <dfn>onssrcconflict</dfn> event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
@@ -2845,7 +2709,7 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>The RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
                     </dd>
-                    <dt>attribute EventHandler? onunhandledrtp</dt>
+                    <dt>attribute EventHandler onunhandledrtp</dt>
                     <dd>
                         <p>
                             The event handler which handles the <code><a>RTCRtpUnhandledEvent</a></code>,
@@ -5415,6 +5279,14 @@ sender.insertDTMF("123");
                             constructed to connect with the <code><a>RTCDataChannel</a></code> constructed by the remote peer.
                         </p>
                     </dd>
+                    <dt>attribute EventHandler onstatechange</dt>
+                    <dd>
+                        <p>
+                            This event handler, of event handler event type <code><a>statechange</a></code>,
+                            <em class="rfc2119" title="MUST">MUST</em> be fired
+                            any time the <code><a>RTCSctpTransportState</a></code> changes.
+                        <p>
+                    </dd>
                 </dl>
                 <section id="rtcsctptransportstate*">
                 <h3>enum RTCSctpTransportState</h3>
@@ -5441,48 +5313,6 @@ sender.insertDTMF("123");
                         <p>
                             The SCTP association has been closed intentionally via a call to <code>stop()</code> or receipt of a
                             SHUTDOWN or ABORT chunk.
-                        </p>
-                    </dd>
-                </dl>
-            </section>
-            <section id="rtcsctptransportstatechangedevent-interface-definition*">
-                <h3>RTCSctpTransportStateChangedEvent</h3>
-                <p>
-                    The <dfn>sctpstatechange</dfn> event of the <code><a>RTCSctpTransport</a></code> object uses
-                    the <code><a>RTCSctpTransportStateChangedEvent</a></code> interface.
-                </p>
-                <p>
-                    Firing an
-                    <code><a>RTCSctpTransportStateChangedEvent</a></code> event named
-                    <var>e</var> with an <code><a>RTCSctpTransportState</a></code>
-                    <var>state</var> means that an event with the name <var>e</var>,
-                    which does not bubble (except where otherwise stated) and is not
-                    cancelable (except where otherwise stated), and which uses the
-                    <code><a>RTCSctpTransportStateChangedEvent</a></code> interface with the
-                    <var>state</var> attribute set to the new <code><a>RTCSctpTransportState</a></code>,
-                    <em class="rfc2119" title="MUST">MUST</em> be
-                    created and dispatched at the given target.
-                </p>
-                <dl class="idl" data-merge="RTCSctpTransportStateChangedEventInit"
-                    title="interface RTCSctpTransportStateChangedEvent : Event">
-                    <dt>Constructor(DOMString type, RTCSctpTransportStateChangedEventInit eventInitDict)</dt>
-                    <dd></dd>
-                    <dt>readonly attribute RTCSctpTransportState state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCSctpTransportState</a></code>
-                            that caused the event.
-                        </p>
-                    </dd>
-                </dl>
-                <dl class="idl" title="dictionary RTCSctpTransportStateChangedEventInit : EventInit">
-                    <dt>RTCSctpTransportState? state</dt>
-                    <dd>
-                        <p>
-                            The <var>state</var> attribute is the new
-                            <code><a>RTCSctpTransportState</a></code>
-                            that caused the event.
                         </p>
                     </dd>
                 </dl>
@@ -6569,9 +6399,9 @@ function signalAssertion(assertion) {
                         <td>The <code><a>RTCDtlsTransport</a></code> object has received a DTLS Alert.</td>
                     </tr>
                     <tr>
-                        <td><code>dtlsstatechange</code></td>
-                        <td><code><a>RTCDtlsTransportStateChangedEvent</a></code></td>
-                        <td>The <var>RTCDtlsTransportState</var> changed.</td>
+                        <td><dfn>statechange</dfn></td>
+                        <td><code><a>Event</a></code></td>
+                        <td>The <code><a>RTCDtlsTransportState</a></code> changed.</td>
                     </tr>
                 </tbody>
             </table>
@@ -6584,14 +6414,14 @@ function signalAssertion(assertion) {
                 </tr>
                 <tbody>
                     <tr>
-                        <td><code>icestatechange</code></td>
-                        <td><code><a>RTCIceTransportStateChangedEvent</a></code></td>
-                        <td>The <var>RTCIceTransportState</var> changed.</td>
+                        <td><code>statechange</code></td>
+                        <td><code><a>Event</a></code></td>
+                        <td>The <code><a>RTCIceTransportState</a></code> changed.</td>
                     </tr>
                     <tr>
                         <td><code>icecandidatepairchange</code></td>
                         <td><code><a>RTCIceCandidatePairChangedEvent</a></code></td>
-                        <td>The selected <var>RTCIceCandidatePair</var> changed.</td>
+                        <td>The selected <code><a>RTCIceCandidatePair</a></code> changed.</td>
                     </tr>
                 </tbody>
             </table>
@@ -6604,14 +6434,14 @@ function signalAssertion(assertion) {
                 </tr>
                 <tbody>
                     <tr>
-                        <td><code>icecandidateerror</code></td>
+                        <td><dfn>icecandidateerror</dfn></td>
                         <td><code><a>RTCIceGathererIceErrorEvent</a></code></td>
                         <td>The <code><a>RTCIceGatherer</a></code> object has experienced an ICE gathering failure (such as an authentication failure with TURN credentials).</td>
                     </tr>
                     <tr>
-                        <td><code>icegatherstatechange</code></td>
-                        <td><code><a>RTCIceGathererStateChangedEvent</a></code></td>
-                        <td>The <var>RTCIceGathererState</var> changed.</td>
+                        <td><code>statechange</code></td>
+                        <td><code><a>Event</a></code></td>
+                        <td>The <code><a>RTCIceGathererState</a></code> changed.</td>
                     </tr>
                     <tr>
                         <td><code>icecandidate</code></td>
@@ -6734,9 +6564,9 @@ function signalAssertion(assertion) {
                         </td>
                     </tr>
                     <tr>
-                        <td><code>sctpstatechange</code></td>
-                        <td><code><a>RTCSctpTransportStateChangedEvent</a></code></td>
-                        <td>The <var>RTCSctpTransportState</var> changed.</td>
+                        <td><code>statechange</code></td>
+                        <td><code><a>Event</a></code></td>
+                        <td>The <code><a>RTCSctpTransportState</a></code> changed.</td>
                     </tr>
                 </tbody>
             </table>
@@ -6859,6 +6689,10 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
             <section id="since-04-May-2016*">
                 <h3>Changes since 04 May 2016</h3>
                 <ol>
+                    <li>
+                        Simplified text relating to event handlers, as noted in:
+                        <a href="https://github.com/openpeer/ortc/issues/309">Issue 309</a>
+                    </li>
                     <li>
                         Clarified meaning of <code><a>RTCRtpCodecCapability</a></code>.<var>options</var>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/412">Issue 412</a>
