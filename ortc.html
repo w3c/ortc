@@ -1579,12 +1579,12 @@ function initiate(mySignaller) {
         transport.addRemoteCandidate(remote.candidate);
       }
     }  };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
 
   mySignaller.mySendInitiate({
     "ice": iceGatherer.getLocalParameters(),
     "dtls": dtlsParameters,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
   }, function(remote) {
     // Create the ICE and DTLS transports
     var iceTransport = new RTCIceTransport(iceGatherer);
@@ -1596,7 +1596,7 @@ function initiate(mySignaller) {
     dtlsTransport.start(remote.dtls);
     dtlsTransports.push(dtlsTransport);
 
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
   });
 }
                 </pre>
@@ -1644,12 +1644,12 @@ function accept(mySignaller, remote) {
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
 
   mySignaller.mySendAccept({
     "ice": iceGatherer.getLocalParameters(),
     "dtls": dtls.getLocalParameters()
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
   });
 
   // Start the ICE transport with an implicit gather policy of "all"
@@ -1658,7 +1658,7 @@ function accept(mySignaller, remote) {
   // Start the DTLS transport
   dtls.start(remote.dtls);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
 }
                 </pre>
             </section>
@@ -1927,7 +1927,7 @@ function accept(mySignaller, remote) {
                     </dd>
                 </dl>
                 <dl class="idl" title="dictionary RTCSsrcConflictEventInit : EventInit">
-                    <dt>unsigned long? ssrc</dt>
+                    <dt>unsigned long ssrc</dt>
                     <dd>
                         <p>
                             The <code>ssrc</code> attribute represents the conflicting SSRC
@@ -1935,10 +1935,6 @@ function accept(mySignaller, remote) {
                         </p>
                     </dd>
                 </dl>
-            </section>
-            <section id="ssrcconflict-example*">
-                <h3>Example</h3>
-                <pre class="example"><code class="javascript"></code></pre>
             </section>
         </section>
         <section id="rtcrtpreceiver*">
