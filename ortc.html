@@ -1921,9 +1921,10 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             Retrieve the sender parameters. <code>getParameters()</code> returns the
-                            <var>parameters</var> argument provided in the last successful call to
-                            <code>send(<var>parameters</var>)</code>. If <code>send(<var>parameters</var>)</code>
-                            has not been called successfully, throw an <code>InvalidStateError</code> exception.
+                            <code>RTCRtpParameters</code> </code><var>parameters</var> provided in the
+                            last successful call to <code>send(<var>parameters</var>)</code>.
+                            If <code>send(<var>parameters</var>)</code> has not been called successfully,
+                            throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
                     <dt>Promise&lt;void&gt; send(RTCRtpParameters parameters)</dt>
