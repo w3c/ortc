@@ -129,7 +129,7 @@
         <section id="rtcicegatherer*">
             <h2>The RTCIceGatherer Object</h2>
             <p>
-                The <dfn>RTCIceGatherer</dfn> gathers local host, server reflexive and relay candidates, as
+                The <dfn><code>RTCIceGatherer</code></dfn> gathers local host, server reflexive and relay candidates, as
                 well as enabling the retrieval of local Interactive Connectivity Establishment (ICE) parameters which can be exchanged in signaling.
                 By enabling an endpoint to use a set of local candidates to construct
                 multiple <code><a>RTCIceTransport</a></code> objects, the <code><a>RTCIceGatherer</a></code>
@@ -261,7 +261,7 @@
             <section id="rtciceparameters*">
                 <h3>The RTCIceParameters Object</h3>
                 <p>
-                    The <dfn>RTCIceParameters</dfn> object includes the ICE username fragment
+                    The <dfn><code>RTCIceParameters</code></dfn> object includes the ICE username fragment
                     and password and other ICE-related parameters.
                 </p>
                 <dl class="idl" title="dictionary RTCIceParameters">
@@ -287,7 +287,7 @@
             <section id="rtcicecandidate*">
                 <h3>The RTCIceCandidate Object</h3>
                 <p>
-                    The <dfn>RTCIceCandidate</dfn> object includes information relating to an ICE candidate.
+                    The <dfn><code>RTCIceCandidate</code></dfn> object includes information relating to an ICE candidate.
                 </p>
                 <pre class="example highlight">
 {
@@ -333,7 +333,7 @@
                     <dt>DOMString relatedAddress=""</dt>
                     <dd>
                         <p>
-                            For candidates that are derived from others, such as relay or reflexive candidates, the <dfn>relatedAddress</dfn>
+                            For candidates that are derived from others, such as relay or reflexive candidates, the <dfn><code>relatedAddress</code></dfn>
                             refers to the candidate that these are derived from. For host candidates, the <var>relatedAddress</var>
                             is set to the empty string.
                         </p>
@@ -341,7 +341,7 @@
                     <dt>unsigned short relatedPort</dt>
                     <dd>
                         <p>
-                            For candidates that are derived from others, such as relay or reflexive candidates, the <dfn>relatedPort</dfn>
+                            For candidates that are derived from others, such as relay or reflexive candidates, the <dfn><code>relatedPort</code></dfn>
                             refers to the host candidate that these are derived from. For host candidates, the <var>relatedPort</var>
                             is 0.
                         </p>
@@ -350,7 +350,7 @@
                 <section>
                     <h4>The RTCIceProtocol</h4>
                     <p>
-                        The <dfn>RTCIceProtocol</dfn> includes the protocol of the ICE candidate.
+                        The <dfn><code>RTCIceProtocol</code></dfn> includes the protocol of the ICE candidate.
                     </p>
                     <dl class="idl" title="enum RTCIceProtocol">
                         <dt>udp</dt>
@@ -366,7 +366,7 @@
                 <section>
                     <h4>The RTCIceTcpCandidateType</h4>
                     <p>
-                        The <dfn>RTCIceTcpCandidateType</dfn> includes the type of the ICE TCP candidate, as described in [[!RFC6544]].
+                        The <dfn><code>RTCIceTcpCandidateType</code></dfn> includes the type of the ICE TCP candidate, as described in [[!RFC6544]].
                         Browsers MUST gather active TCP candidates and only active TCP candidates.
                         Servers and other endpoints MAY gather active, passive or so candidates.
                     </p>
@@ -399,7 +399,7 @@
                 <section>
                     <h4>The RTCIceCandidateType</h4>
                     <p>
-                        The <dfn>RTCIceCandidateType</dfn> includes the type of the ICE candidate as defined in [[!RFC5245]] section 15.1.
+                        The <dfn><code>RTCIceCandidateType</code></dfn> includes the type of the ICE candidate as defined in [[!RFC5245]] section 15.1.
                     </p>
                     <dl class="idl" title="enum RTCIceCandidateType">
                         <dt>host</dt>
@@ -424,7 +424,7 @@
             <section id="rtcicecandidatecomplete*">
                 <h3>dictionary RTCIceCandidateComplete</h3>
                 <p>
-                    <dfn>RTCIceCandidateComplete</dfn> is a dictionary signifying that all <code>RTCIceCandidate</code>s are gathered.
+                    <dfn><code>RTCIceCandidateComplete</code></dfn> is a dictionary signifying that all <code>RTCIceCandidate</code>s are gathered.
                 <p>
                 <dl class="idl" title="dictionary RTCIceCandidateComplete">
                     <dt>boolean complete=true</dt>
@@ -435,7 +435,7 @@
             </section>
             <section id="rtcicegathererstate*">
                 <h3>enum RTCIceGathererState</h3>
-                <p><dfn>RTCIceGathererState</dfn> represents the current state of the ICE gatherer.</p>
+                <p><dfn><code>RTCIceGathererState</code></dfn> represents the current state of the ICE gatherer.</p>
                 <dl class="idl" title="enum RTCIceGathererState">
                     <dt>new</dt>
                     <dd>
@@ -567,7 +567,7 @@
                     which does not bubble (except where otherwise stated) and is not
                     cancelable (except where otherwise stated), and which uses the
                     <code><a>RTCIceGathererEvent</a></code> interface with the
-                    <var>candidate</var> attribute set to the new ICE candidate,
+                    <code>candidate</code> attribute set to the new ICE candidate,
                     <em class="rfc2119" title="MUST">MUST</em> be
                     created and dispatched at the given target.
                 </p>
@@ -578,10 +578,10 @@
                     <dt>readonly attribute RTCIceGatherCandidate candidate</dt>
                     <dd>
                         <p>
-                            The <var>candidate</var> attribute is the
+                            The <code>candidate</code> attribute is the
                             <code><a>RTCIceGatherCandidate</a></code> object with the new ICE
                             candidate that caused the event.
-                            If <var>candidate</var> is of type <code>RTCIceCandidateComplete</code>,
+                            If <code>candidate</code> is of type <code>RTCIceCandidateComplete</code>,
                             there are no additional candidates.
                         </p>
                     </dd>
@@ -599,7 +599,7 @@
             </section>
             <section id="rtcicegatheroptions*">
                 <h3>dictionary RTCIceGatherOptions</h3>
-                <p><dfn>RTCIceGatherOptions</dfn> provides options relating to the gathering of ICE candidates.</p>
+                <p><dfn><code>RTCIceGatherOptions</code></dfn> provides options relating to the gathering of ICE candidates.</p>
                 <dl class="idl" title="dictionary RTCIceGatherOptions">
                     <dt>RTCIceGatherPolicy gatherPolicy</dt>
                     <dd>
@@ -616,7 +616,7 @@
             </section>
             <section id="rtcicegatherpolicy*">
                 <h3>enum RTCIceGatherPolicy</h3>
-                <p><dfn>RTCIceGatherPolicy</dfn> denotes the policy relating to the gathering of ICE candidates.</p>
+                <p><dfn><code>RTCIceGatherPolicy</code></dfn> denotes the policy relating to the gathering of ICE candidates.</p>
                 <dl class="idl" title="enum RTCIceGatherPolicy">
                     <dt>all</dt>
                     <dd>
@@ -645,7 +645,7 @@
             </section>
             <section id="rtcicecredentialtype*">
                 <h3>enum RTCIceCredentialType</h3>
-                <p><dfn>RTCIceCredentialType</dfn> represents the type of credential used by a TURN server.</p>
+                <p><dfn><code>RTCIceCredentialType</code></dfn> represents the type of credential used by a TURN server.</p>
                 <dl class="idl" title="enum RTCIceCredentialType">
                     <dt>password</dt>
                     <dd>
@@ -660,7 +660,7 @@
             <section id="rtciceserver*">
                 <h3>The RTCIceServer Object</h3>
                 <p>
-                    The <dfn>RTCIceServer</dfn> is used to provide STUN or TURN server configuration.
+                    The <dfn><code>RTCIceServer</code></dfn> is used to provide STUN or TURN server configuration.
                     In network topologies with multiple layers of NATs, it is desirable to have a STUN server
                     between every layer of NATs in addition to the TURN servers to minimize the peer to peer network latency.
                 </p>
@@ -848,7 +848,7 @@ export function myDtlsTransportStateChange(name, state){
         <section id="rtcicetransport*">
             <h2>The RTCIceTransport Object</h2>
             <p>
-                The <dfn>RTCIceTransport</dfn> allows an application access to information about the Interactive
+                The <dfn><code>RTCIceTransport</code></dfn> allows an application access to information about the Interactive
                 Connectivity Establishment (ICE) transport over which packets are sent and received.
                 In particular, ICE manages peer-to-peer connections which involve state which the application may want to access.
             </p>
@@ -863,7 +863,7 @@ export function myDtlsTransportStateChange(name, state){
                 <h3>Operation</h3>
                 <p>
                     An <code><a>RTCIceTransport</a></code> instance is constructed (optionally) from an <code><a>RTCIceGatherer</a></code>.
-                    If <var>gatherer.state</var> is <code>closed</code> or <var>gatherer.component</var> is <code>RTCP</code>, then throw an <code>InvalidStateError</code> exception.
+                    If <code>gatherer.state</code> is <code>closed</code> or <code>gatherer.component</code> is <code>RTCP</code>, then throw an <code>InvalidStateError</code> exception.
                 </p>
                 <p>
                     An <code><a>RTCIceTransport</a></code> object in the <code>closed</code> state can be garbage-collected
@@ -878,7 +878,7 @@ export function myDtlsTransportStateChange(name, state){
                     <dt>readonly attribute RTCIceGatherer? iceGatherer</dt>
                     <dd>
                         <p>
-                            The <var>iceGatherer</var> attribute is set to the value of <var>gatherer</var> if passed in the constructor or in the latest call to <code>start()</code>.
+                            The <code>iceGatherer</code> attribute is set to the value of <var>gatherer</var> if passed in the constructor or in the latest call to <code>start()</code>.
                         </p>
                     </dd>
                     <dt>readonly attribute RTCIceRole role</dt>
@@ -888,8 +888,8 @@ export function myDtlsTransportStateChange(name, state){
                     <dt>readonly attribute RTCIceComponent component</dt>
                     <dd>
                         <p>The component-id of the <code><a>RTCIceTransport</a></code> object.  In <code><a>RTCIceTransport</a></code>
-                        objects returned by <code>createAssociatedTransport()</code>, the value of <var>component</var> is
-                        <code>RTCP</code>.  In all other <code><a>RTCIceTransport</code></a> objects, the value of <var>component</var> is <code>RTP</code>.
+                        objects returned by <code>createAssociatedTransport()</code>, the value of <code>component</code> is
+                        <code>RTCP</code>.  In all other <code><a>RTCIceTransport</code></a> objects, the value of <code>component</code> is <code>RTP</code>.
                         </p>
                     </dd>
                     <dt>readonly attribute RTCIceTransportState state</dt>
@@ -959,7 +959,7 @@ export function myDtlsTransportStateChange(name, state){
                             Create an associated <code><a>RTCIceTransport</a></code> for RTCP.
                             If called more than once for the same component, or if <var>state</var> is <code>closed</code>,
                             throw an <code>InvalidStateError</code> exception. If called when
-                            <var>component</var> is <code>RTCP</code>,
+                            <code>component</code> is <code>RTCP</code>,
                             throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
@@ -967,7 +967,7 @@ export function myDtlsTransportStateChange(name, state){
                     <dd>
                         <p>
                             Add a remote candidate associated with the remote <code><a>RTCIceTransport</a></code>.
-                            If <var>state</var> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
+                            If <code>state</code> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
                             When the remote <code><a>RTCIceGatherer</a></code> emits its final candidate, <code>addRemoteCandidate()</code> should be called
                             with an <code>RTCIceCandidateComplete</code> dictionary as an argument, so that the local <code><a>RTCIceTransport</a></code> can
                             know there are no more remote candidates expected, and can enter the <code>completed</code> state.
@@ -977,7 +977,7 @@ export function myDtlsTransportStateChange(name, state){
                     <dd>
                         <p>
                             Set the sequence of candidates associated with the remote <code><a>RTCIceTransport</a></code>.
-                            If <var>state</var> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
+                            If <code>state</code> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
                     <dt>attribute EventHandler onstatechange</dt>
@@ -1003,7 +1003,7 @@ export function myDtlsTransportStateChange(name, state){
             <section id="rtcicecomponent*">
                 <h3>enum RTCIceComponent</h3>
                 <p>
-                    <dfn>RTCIceComponent</dfn> contains the component-id of the <code><a>RTCIceTransport</a></code>,
+                    <dfn><code>RTCIceComponent</code></dfn> contains the component-id of the <code><a>RTCIceTransport</a></code>,
                     which will be <code>RTP</code> unless RTP and RTCP are not multiplexed and
                     the <code><a>RTCIceTransport</a></code> object was returned by <code>createAssociatedTransport()</code>.
                 </p>
@@ -1023,7 +1023,7 @@ export function myDtlsTransportStateChange(name, state){
             </section>
             <section id="rtcicerole*">
                 <h3>enum RTCIceRole</h3>
-                <p><dfn>RTCIceRole</dfn> contains the current role of the ICE transport.</p>
+                <p><dfn><code>RTCIceRole</code></dfn> contains the current role of the ICE transport.</p>
                 <dl class="idl" title="enum RTCIceRole">
                     <dt>controlling</dt>
                     <dd>
@@ -1037,7 +1037,7 @@ export function myDtlsTransportStateChange(name, state){
             </section>
             <section id="rtcicetransportstate*">
                 <h3>enum RTCIceTransportState</h3>
-                <p><dfn>RTCIceTransportState</dfn> represents the current state of the ICE transport.</p>
+                <p><dfn><code>RTCIceTransportState</code></dfn> represents the current state of the ICE transport.</p>
                 <dl class="idl" title="enum RTCIceTransportState">
                     <dt>new</dt>
                     <dd>
@@ -1151,8 +1151,8 @@ export function myDtlsTransportStateChange(name, state){
                     <var>pair</var> means that an event with the name <var>e</var>,
                     which does not bubble (except where otherwise stated) and is not
                     cancelable (except where otherwise stated), and which uses the
-                    <code><a>RTCIceCandidatePairChangedEvent</a></code> interface with the
-                    <var>pair</var> attribute set to the selected <code>RTCIceCandidatePair</code>,
+                    <code><a>RTCIceCandidatePairChangedEvent</a></code> interface with
+                    <var>pair</var> set to the selected <code>RTCIceCandidatePair</code>,
                     <em class="rfc2119" title="MUST">MUST</em> be
                     created and dispatched at the given target.
                 </p>
@@ -1163,7 +1163,7 @@ export function myDtlsTransportStateChange(name, state){
                     <dt>readonly attribute RTCIceCandidatePair pair</dt>
                     <dd>
                         <p>
-                            The <var>pair</var> attribute is the selected
+                            The <code>pair</code> attribute is the selected
                             <code><a>RTCIceCandidatePair</a></code>
                             that caused the event.
                         </p>
@@ -1173,7 +1173,7 @@ export function myDtlsTransportStateChange(name, state){
                     <dt>RTCIceCandidatePair pair</dt>
                     <dd>
                         <p>
-                            The <var>pair</var> attribute is the selected
+                            The <code>pair</code> attribute is the selected
                             <code><a>RTCIceCandidatePair</a></code>
                             that caused the event.
                         </p>
@@ -1183,7 +1183,7 @@ export function myDtlsTransportStateChange(name, state){
             <section id="rtcicecandidatepair*">
                 <h3>dictionary RTCIceCandidatePair</h3>
                 <p>
-                    The <dfn>RTCIceCandidatePair</dfn> contains the currently selected ICE candidate pair.
+                    The <dfn><code>RTCIceCandidatePair</code></dfn> contains the currently selected ICE candidate pair.
                 <p>
                 <dl class="idl" title="dictionary RTCIceCandidatePair">
                     <dt>RTCIceCandidate local</dt>
@@ -1284,7 +1284,7 @@ mySignaller.send({
         <section id="rtcdtlstransport*">
             <h2>The RTCDtlsTransport Object</h2>
             <p>
-                The <dfn>RTCDtlsTransport</dfn> object includes information relating to Datagram Transport Layer Security (DTLS) transport.
+                The <dfn><code>RTCDtlsTransport</code></dfn> object includes information relating to Datagram Transport Layer Security (DTLS) transport.
             </p>
             <section id="rtcdtlstransport-overview*">
                 <h3>Overview</h3>
@@ -1297,15 +1297,15 @@ mySignaller.send({
                 <h3>Operation</h3>
                 <p>
                     A <code><a>RTCDtlsTransport</a></code> instance is constructed using an <code><a>RTCIceTransport</a></code>
-                    and a sequence of <code>RTCCertificate</code> objects. If <var>certificates</var> is non-empty,
-                    check that the <var>expires</var> attribute of each <code>RTCCertificate</code> object is in the future.
+                    and a sequence of <code>RTCCertificate</code> objects. If <code>certificates</code> is non-empty,
+                    check that the <code>expires</code> attribute of each <code>RTCCertificate</code> object is in the future.
                     If a certificate has expired, throw an InvalidParameter exception; otherwise, store the certificates.
                 </p>
                 <p>
                     A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119" title="MUST">MUST</em>
                     listen and respond to incoming DTLS packets before <code>start()</code> is called.
                     However, to complete the negotiation it is necessary to verify the remote fingerprint,
-                    which is dependent on <var>remoteParameters</var>, passed to <code>start()</code>.
+                    which is dependent on <code>remoteParameters</code>, passed to <code>start()</code>.
                     To verify the remote fingerprint, compute the fingerprint <var>value</var> for the selected
                     remote certificate using the signature digest algorithm, and compare it against
                     <code>remoteParameters.fingerprints</code>. If the selected remote certificate 
@@ -1376,7 +1376,7 @@ mySignaller.send({
                         <p>
                             If <var>remoteParameters</var> is invalid, throw
                             an <code>InvalidParameters</code> exception. If <code>start()</code> is called
-                            after a previous <code>start()</code> call, or if <var>state</var> is <code>closed</code>,
+                            after a previous <code>start()</code> call, or if <code>state</code> is <code>closed</code>,
                             throw an <code>InvalidStateError</code> exception.
                             Only a single DTLS transport can be multiplexed over an ICE transport.
                             Therefore if a <code><a>RTCDtlsTransport</a></code> object <var>dtlsTransportB</var>
@@ -1390,7 +1390,7 @@ mySignaller.send({
                     <dd>
                         <p>
                             Stops and closes the <code><a>RTCDtlsTransport</a></code> object.
-                            Calling <code>stop()</code> when <var>state</var> is <code>closed</code> has no effect.
+                            Calling <code>stop()</code> when <code>state</code> is <code>closed</code> has no effect.
                         </p>
                     </dd>
                     <dt>attribute EventHandler onstatechange</dt>
@@ -1406,7 +1406,7 @@ mySignaller.send({
                         <p>
                             This event handler, of event handler event type <code>error</code>,
                             <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS error alert; an implementation
-                            <em class="rfc2119" title="MUST">SHOULD</em> include DTLS error alert information in <var>error.message</var> (defined in 
+                            <em class="rfc2119" title="SHOULD">SHOULD</em> include DTLS error alert information in <var>error.message</var> (defined in 
                             [[!HTML5]] Section 6.1.3.6.2).
                         </p>
                     </dd>
@@ -1415,7 +1415,7 @@ mySignaller.send({
             <section id="rtcdtlsparameters*">
                 <h3>The RTCDtlsParameters Object</h3>
                 <p>
-                    The <dfn>RTCDtlsParameters</dfn> object includes information relating to DTLS configuration.
+                    The <dfn><code>RTCDtlsParameters</code></dfn> object includes information relating to DTLS configuration.
                 </p>
                 <dl class="idl" title="dictionary RTCDtlsParameters">
                     <dt>RTCDtlsRole role="auto"</dt>
@@ -1431,7 +1431,7 @@ mySignaller.send({
             <section id="rtcdtlsfingerprint*">
                 <h3>The RTCDtlsFingerprint Object</h3>
                 <p>
-                    The <dfn>RTCDtlsFingerprint</dfn> object includes the hash function algorithm and certificate fingerprint as described in [[!RFC4572]].
+                    The <dfn><code>RTCDtlsFingerprint</code></dfn> object includes the hash function algorithm and certificate fingerprint as described in [[!RFC4572]].
                 </p>
                 <dl class="idl" title="dictionary RTCDtlsFingerprint">
                     <dt>DOMString algorithm</dt>
@@ -1447,7 +1447,7 @@ mySignaller.send({
             </section>
             <section id="rtcdtlsrole*">
                 <h3>enum RTCDtlsRole</h3>
-                <p><dfn>RTCDtlsRole</dfn> indicates the role of the DTLS transport.
+                <p><dfn><code>RTCDtlsRole</code></dfn> indicates the role of the DTLS transport.
                 </p>
                 <dl class="idl" title="enum RTCDtlsRole">
                     <dt>auto</dt>
@@ -1465,7 +1465,7 @@ mySignaller.send({
                         <p>
                             The DTLS client role.
                             A transition to <code>client</code> will occur if
-                            <code>start(<var>remoteParameters</var>)</code> is called with <var>remoteParameters.RTCDtlsRole</var>
+                            <code>start(<var>remoteParameters</var>)</code> is called with <code>remoteParameters.RTCDtlsRole</code>
                             having a value of <code>server</code>. If <code><a>RTCDtlsRole</a></code> had previously had a value of <code>server</code> (e.g. due to
                             the <code><a>RTCDtlsTransport</a></code> having previously received packets from a DTLS client), then the
                             DTLS session is reset prior to transitioning to the <code>client</code> role.
@@ -1477,7 +1477,7 @@ mySignaller.send({
                             The DTLS server role. If <code><a>RTCDtlsRole</a></code> has a value of <code>auto</code> and
                             the <code><a>RTCDtlsTransport</a></code> receives a DTLS client_hello packet,
                             <code><a>RTCDtlsRole</a></code> will transition to <code>server</code>, even before <code>start()</code> is called. A transition from <code>auto</code>
-                            to <code>server</code> will also occur if <code>start(<var>remoteParameters</var>)</code> is called with <var>remoteParameters.RTCDtlsRole</var>
+                            to <code>server</code> will also occur if <code>start(<var>remoteParameters</var>)</code> is called with <code>remoteParameters.RTCDtlsRole</code>
                             having a value of <code>client</code>.
                         </p>
                     </dd>
@@ -1485,7 +1485,7 @@ mySignaller.send({
             </section>
             <section id="rtcdtlstransportstate*">
                 <h3>enum RTCDtlsTransportState</h3>
-                <p><dfn>RTCDtlsTransportState</dfn> indicates the state of the DTLS transport.</p>
+                <p><dfn><code>RTCDtlsTransportState</code></dfn> indicates the state of the DTLS transport.</p>
                 <dl class="idl" title="enum RTCDtlsTransportState">
                     <dt>new</dt>
                     <dd>
@@ -1666,7 +1666,7 @@ function accept(mySignaller, remote) {
         <section id="rtcrtpsender*">
             <h2>The RTCRtpSender Object</h2>
             <p>
-                The <dfn>RTCRtpSender</dfn> includes information relating to the RTP sender.
+                The <dfn><code>RTCRtpSender</code></dfn> includes information relating to the RTP sender.
             </p>
             <section id="rtcrtpsender-overview*">
                 <h3>Overview</h3>
@@ -1680,9 +1680,9 @@ function accept(mySignaller, remote) {
                 <p>
                     A <code><a>RTCRtpSender</a></code> instance is constructed from an <a>MediaStreamTrack</a> object and
                     associated to an <code><a>RTCDtlsTransport</a></code>.
-                    If an attempt is made to construct an <code><a>RTCRtpSender</a></code> object with <var>transport.state</var>
-                    or <var>rtcpTransport.state</var> <code>closed</code>,
-                    or if <var>track.readyState</var> is <code>ended</code>, throw an <code>InvalidStateError</code> exception.
+                    If an attempt is made to construct an <code><a>RTCRtpSender</a></code> object with <code>transport.state</code>
+                    or <code>rtcpTransport.state</code> <code>closed</code>,
+                    or if <code>track.readyState</code> is <code>ended</code>, throw an <code>InvalidStateError</code> exception.
                 </p>
                 <p>
                     An <code><a>RTCRtpSender</a></code> object can be garbage-collected once <code>stop()</code> 
@@ -1703,8 +1703,8 @@ function accept(mySignaller, remote) {
                         <p>
                             The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is sent and received.
                             When BUNDLE is used, many <code><a>RTCRtpSender</a></code> objects will share one 
-                            <var>rtcpTransport</var> and will all send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
-                            When RTCP mux is used, <var>rtcpTransport</var> will be null, and both RTP and RTCP traffic will flow 
+                            <code>rtcpTransport</code> and will all send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
+                            When RTCP mux is used, <code>rtcpTransport</code> will be null, and both RTP and RTCP traffic will flow 
                             over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
                         </p>
                     </dd>
@@ -1712,7 +1712,7 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             The associated RTCP <code><a>RTCDtlsTransport</a></code> instance if one was provided
-                            in the constructor. When RTCP mux is used, <var>rtcpTransport</var> will be null, and
+                            in the constructor. When RTCP mux is used, <code>rtcpTransport</code> will be null, and
                             both RTP and RTCP traffic will flow over the <code><a>RTCDtlsTransport</a></code>
                             <var>transport</var>.
                         </p>
@@ -1721,11 +1721,11 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
-                            If <code>setTransport()</code> is called with a single argument or if <var>rtcpTransport</var> is not set,
+                            If <code>setTransport()</code> is called with a single argument or if <code>rtcpTransport</code> is not set,
                             and the last call to <code>sender.send(parameters)</code>
                             had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
                             exception.
-                            If <code>stop()</code> has been called, or <var>transport.state</var> or <var>rtcpTransport.state</var> is <code>closed</code>,
+                            If <code>stop()</code> has been called, or <code>transport.state</code> or <code>rtcpTransport.state</code> is <code>closed</code>,
                             throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
@@ -1787,10 +1787,10 @@ function accept(mySignaller, remote) {
                     <dt>static RTCRtpCapabilities getCapabilities(DOMString kind)</dt>
                     <dd>
                         <p>
-                            Obtain the sender capabilities, based on <var>kind</var>. Capabilities that can apply to multiple
-                            values of <var>kind</var> (such as retransmission [[!RFC4588]], redundancy [[RFC2198]] and
-                            Forward Error Correction) have <code>RTCRtpCapabilities.RTCRtpCodecCapability[i].<var>kind</var></code>
-                            set to the value of the <var>kind</var> argument.
+                            Obtain the sender capabilities, based on <code>kind</code>. Capabilities that can apply to multiple
+                            values of <code>kind</code> (such as retransmission [[!RFC4588]], redundancy [[RFC2198]] and
+                            Forward Error Correction) have <code>RTCRtpCapabilities.RTCRtpCodecCapability[i].kind</code>
+                            set to the value of the <code>kind</code> argument.
                         </p>
                     </dd>
                     <dt>Promise&lt;void&gt; send(RTCRtpParameters parameters)</dt>
@@ -1821,8 +1821,8 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
-                                    If <var>rtcpTransport</var> is not set and <var>withParameters.rtcp.mux</var>
-                                    is set to "false", return a promise
+                                    If <code>rtcpTransport</code> is not set and <code>withParameters.rtcp.mux</code>
+                                    is set to <code>false</code>, return a promise
                                     rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
@@ -1836,10 +1836,10 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of encodings, check
-                                    whether <code>withParameters.encodings[i].codecPayloadType</code> (if set) corresponds to
-                                    a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
+                                    whether <code>withParameters.encodings[<var>i</var>].codecPayloadType</code> (if set) corresponds to
+                                    a value of <code>withParameters.codecs[<var>j</var>].payloadType</code> where <var>j</var> goes from 0
                                     to the number of codecs. If there is no correspondence, or if
-                                    <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "telephone-event",
+                                    <var>withParameters</code>.<code>codecs[<var>j</var>].name</code> is equal to "red", "cn", "telephone-event",
                                     "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or
                                     "flexfec" [[FLEXFEC]]), return a promise rejected with
                                     <code>InvalidParameters</code>.
@@ -1848,9 +1848,9 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of codecs, check that each
-                                    value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or
+                                    value of <code>withParameters.codecs[<var>i</var>].name</code> not equal to "red", "rtx" or
                                     a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
-                                    is included in <code>getCapabilities(track.kind).codecs[j].name</code>, where j goes
+                                    is included in <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>, where <var>j</var> goes
                                     from 0 to the number of codecs. If a match is not found for any value of <var>i</var>,
                                     return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
@@ -1887,7 +1887,7 @@ function accept(mySignaller, remote) {
                     <dt>attribute EventHandler onssrcconflict</dt>
                     <dd>
                         <p>
-                            The <dfn>onssrcconflict</dfn> event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
+                            The <dfn><code>onssrcconflict</code></dfn> event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
                             if an SSRC conflict is detected within the RTP session or an SSRC misconfiguration is detected after
                             <code>send()</code> or <code>receive()</code> returns or when <code>setTransport()</code> is called.
                             In this situation, the <code><a>RTCRtpSender</a></code> automatically sends an RTCP BYE on the conflicted SSRC,
@@ -1904,9 +1904,9 @@ function accept(mySignaller, remote) {
                 </p>
                 <p>
                     Firing an
-                    <dfn>RTCSsrcConflictEvent</dfn> event named
+                    <dfn><code>RTCSsrcConflictEvent</code></dfn> event named
                     <var>e</var> with an
-                    <var>ssrc</var> means that an event with the name <var>e</var>,
+                    <code>ssrc</code> means that an event with the name <var>e</var>,
                     which does not bubble (except where otherwise stated) and is not
                     cancelable (except where otherwise stated), and which uses the
                     <code><a>RTCSsrcConflictEvent</a></code> interface with the
@@ -1921,7 +1921,7 @@ function accept(mySignaller, remote) {
                     <dt>readonly attribute unsigned long ssrc</dt>
                     <dd>
                         <p>
-                            The <var>ssrc</var> attribute represents the conflicting SSRC
+                            The <code>ssrc</code> attribute represents the conflicting SSRC
                             that caused the event.
                         </p>
                     </dd>
@@ -1930,7 +1930,7 @@ function accept(mySignaller, remote) {
                     <dt>unsigned long? ssrc</dt>
                     <dd>
                         <p>
-                            The <var>ssrc</var> attribute represents the conflicting SSRC
+                            The <code>ssrc</code> attribute represents the conflicting SSRC
                             that caused the event.
                         </p>
                     </dd>
@@ -1944,7 +1944,7 @@ function accept(mySignaller, remote) {
         <section id="rtcrtpreceiver*">
             <h2>The RTCRtpReceiver Object</h2>
             <p>
-                The <dfn>RTCRtpReceiver</dfn> includes information relating to the RTP receiver.
+                The <dfn><code>RTCRtpReceiver</code></dfn> includes information relating to the RTP receiver.
             </p>
             <section id="rtcrtpreceiver-overview*">
                 <h3>Overview</h3>
@@ -1957,14 +1957,14 @@ function accept(mySignaller, remote) {
                 <h3>Operation</h3>
                 <p>
                     A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of
-                    <var>kind</var> and an <code><a>RTCDtlsTransport</a></code> object.
+                    <code>kind</code> and an <code><a>RTCDtlsTransport</a></code> object.
                     If an attempt is made to construct an <code><a>RTCRtpReceiver</a></code>
-                    object with <code>transport.<var>state</var></code> or
-                    <code>rtcpTransport.<var>state</var></code> with a value of <code>closed</code>,
+                    object with <code>transport.state</code> or
+                    <code>rtcpTransport.state</code> with a value of <code>closed</code>,
                     throw an <code>InvalidStateError</code> exception.
-                    Upon construction, <var>track</var> is set, and the value of
-                    <code>track.<var>kind</var></code> is determined based on the
-                    value of <var>kind</var> passed in the constructor.
+                    Upon construction, <code>track</code> is set, and the value of
+                    <code>track.kind</code> is determined based on the
+                    value of <code>kind</code> passed in the constructor.
                 </p>
                 <p>
                     An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once <code>stop()</code> 
@@ -1980,9 +1980,9 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                              The associated <code><a>MediaStreamTrack</a></code> instance.
-                             Upon construction, <var>track</var> is set. The value of
-                             <code>track.<var>kind</var></code> is set to the value of
-                             <var>kind</var> passed in the constructor. 
+                             Upon construction, <code>track</code> is set. The value of
+                             <code>track.kind</code> is set to the value of
+                             <code>kind</code> passed in the constructor. 
                         </p>
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
@@ -1994,8 +1994,8 @@ function accept(mySignaller, remote) {
                         <p>
                             The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is sent and received.
                             When BUNDLE is used, multiple <code><a>RTCRtpReceiver</a></code> objects will share one 
-                            <var>rtcpTransport</var> and will send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
-                            When RTCP mux is used, <var>rtcpTransport</var> will be null, and both RTP and RTCP traffic will flow 
+                            <code>rtcpTransport</code> and will send and receive RTCP over the same <code><a>RTCDtlsTransport</a></code>. 
+                            When RTCP mux is used, <code>rtcpTransport</code> will be null, and both RTP and RTCP traffic will flow 
                             over the <code><a>RTCDtlsTransport</a></code> <var>transport</var>.
                         </p>
                     </dd>
@@ -2005,22 +2005,22 @@ function accept(mySignaller, remote) {
                             Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used)
                             RTCP <code><a>RTCDtlsTransport</a></code>.
                             If <code>setTransport()</code> is called with a single argument
-                            or if <var>rtcpTransport</var> is not set,
+                            or if <code>rtcpTransport</code> is not set,
                             and the last call to <code>receiver.receive(parameters)</code>
                             had <code>parameters.rtcp.mux</code> set to <code>false</code>,
                             throw an <code>InvalidParameters</code> exception. If <code>stop()</code>
-                            has been called, or <code>transport.<var>state</var></code>
-                            or <code>rtcpTransport.<var>state</var></code> is <code>closed</code>,
+                            has been called, or <code>transport.state</code>
+                            or <code>rtcpTransport.state</code> is <code>closed</code>,
                             throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
                     <dt>static RTCRtpCapabilities getCapabilities(DOMString kind)</dt>
                     <dd>
                         <p>
-                            Obtain the receiver capabilities, based on <var>kind</var>. Capabilities that can apply to multiple
-                            values of <var>kind</var> (such as retransmission [[!RFC4588]], redundancy [[RFC2198]] and
-                            Forward Error Correction) have <code>RTCRtpCapabilities.RTCRtpCodecCapability[i].<var>kind</var></code>
-                            set to the value of the <var>kind</var> argument.
+                            Obtain the receiver capabilities, based on <code>kind</code>. Capabilities that can apply to multiple
+                            values of <code>kind</code> (such as retransmission [[!RFC4588]], redundancy [[RFC2198]] and
+                            Forward Error Correction) have <code>RTCRtpCapabilities.RTCRtpCodecCapability[<var>i</var>].kind</code>
+                            set to the value of the <code>kind</code> argument.
                         </p>
                     </dd>
                     <dt>Promise&lt;void&gt; receive(RTCRtpParameters parameters)</dt>
@@ -2053,22 +2053,22 @@ function accept(mySignaller, remote) {
                             </li>
                             <li>
                                 <p>
-                                    If <var>rtcpTransport</var> is not set and <var>withParameters.rtcp.mux</var>
+                                    If <code>rtcpTransport</code> is not set and <var>withParameters.rtcp.mux</var>
                                     is set to <code>false</code>, return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of codecs, check that each
-                                    value of <code>withParameters.codecs[i].payloadType</code> is set. If any value
+                                    value of <code>withParameters.codecs[<var>i</var>].payloadType</code> is set. If any value
                                     is unset, return a promise rejected with <code>InvalidParameters</code>.
                                  </p>
                             </li>
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of encodings, check
-                                    whether <code>withParameters.encodings[i].codecPayloadType</code> corresponds to
-                                    a value of <var>withParameters.codecs[j].payloadType</var> where j goes from 0
+                                    whether <code>withParameters.encodings[<var>i</var>].codecPayloadType</code> corresponds to
+                                    a value of <var>withParameters.codecs[j].payloadType</var> where <var>j</var> goes from 0
                                     to the number of codecs. If there is no correspondence, or if
                                     <var>withParameters.codecs[j].name</var> is equal to "red", "cn", "telephone-event",
                                     "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
@@ -2078,9 +2078,9 @@ function accept(mySignaller, remote) {
                             <li>
                                 <p>
                                     For each value of <var>i</var> from 0 to the number of codecs, check that each
-                                    value of <code>withParameters.codecs[i].name</code> not equal to "red", "rtx" or a
-                                    forward error correction codec is included in <code>getCapabilities(kind).codecs[j].name</code>,
-                                    where j goes from 0 to the number of codecs, and <var>kind</var> takes the value
+                                    value of <code>withParameters.codecs[<var>i</var>].name</code> not equal to "red", "rtx" or a
+                                    forward error correction codec is included in <code>getCapabilities(kind).codecs[<var>j</var>].name</code>,
+                                    where j goes from 0 to the number of codecs, and <code>kind</code> takes the value
                                     passed in the <code><a>RTCRtpReceiver</a></code> constructor. If no match is found
                                     for any value of <var>i</var>, return a promise rejected
                                     with <code>InvalidParameters</code>.
@@ -2130,7 +2130,7 @@ function accept(mySignaller, remote) {
             <section id="rtcrtpcontributingsource*">
                 <h3>dictionary RTCRtpContributingSource</h3>
                 <p>
-                    The <dfn>RTCRtpContributingSource</dfn> object contains information
+                    The <dfn><code>RTCRtpContributingSource</code></dfn> object contains information
                     about a contributing source.
                     Each time an RTP packet is received, the <code><a>RTCRtpContributingSource</a></code> objects are updated.
                     If the RTP packet contains CSRCs, then the <code><a>RTCRtpContributingSource</a></code> objects corresponding to those
@@ -2142,10 +2142,10 @@ function accept(mySignaller, remote) {
                     <dt>DOMHighResTimeStamp timestamp</dt>
                     <dd>
                         <p>
-                            The <var>timestamp</var> of type <code>DOMHighResTimeStamp</code>
+                            The <code>timestamp</code> of type <code>DOMHighResTimeStamp</code>
                             [[!HIGHRES-TIME]], indicating the time of reception of the most recent RTP packet
                             containing the source. The
-                            <var>timestamp</var> is defined in [[!HIGHRES-TIME]] and corresponds to
+                            <code>timestamp</code> is defined in [[!HIGHRES-TIME]] and corresponds to
                             a local clock.
                         </p>
                     </dd>
@@ -2173,10 +2173,10 @@ function accept(mySignaller, remote) {
                     <dd>
                         <p>
                             Whether the last RTP packet received from this source contains voice activity (<code>true</code>) or not (<code>false</code>). Since
-                            the "V" bit is supported in [[!RFC6464]] but not [[!RFC6465]], the <var>voiceActivityFlag</var> attribute will only be set
-                            when receivers enable the client-mixer header extension (setting the <var>vad</var> attribute to <code>true</code>),
+                            the "V" bit is supported in [[!RFC6464]] but not [[!RFC6465]], the <code>voiceActivityFlag</code> attribute will only be set
+                            when receivers enable the client-mixer header extension (setting the <code>vad</code> attribute to <code>true</code>),
                             and when RTP packets are received from senders enabling the client-mixer header extension
-                            (setting the <var>vad</var> attribute to <code>true</code>).
+                            (setting the <code>vad</code> attribute to <code>true</code>).
                         </p>
                     </dd>
                 </dl>
@@ -2308,13 +2308,13 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
         <section id="rtcicetransportcontroller*">
             <h2>The RTCIceTransportController Object</h2>
             <p>
-                The <dfn>RTCIceTransportController</dfn> object assists in the managing of ICE freezing and bandwidth estimation.
+                The <dfn><code>RTCIceTransportController</code></dfn> object assists in the managing of ICE freezing and bandwidth estimation.
             </p>
             <section id="rtctransportcontroller-overview*">
                 <h3>Overview</h3>
                 <p>
                     An <code><a>RTCIceTransportController</a></code> object provides methods to add and retrieve <code><a>RTCIceTransport</a></code>
-                    objects with a <var>component</var> of <code>RTP</code> (associated <code><a>RTCIceTransport</a></code> objects with a <var>component</var>
+                    objects with a <code>component</code> of <code>RTP</code> (associated <code><a>RTCIceTransport</a></code> objects with a <code>component</code>
                     of <code>RTCP</code> are included implicitly).
                 </p>
             </section>
@@ -2328,7 +2328,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
                     <dt>void addTransport(RTCIceTransport transport, optional unsigned long index)</dt>
                     <dd>
                         <p>
-                            Adds <var>transport</var> to the <code><a>RTCIceTransportController</a></code>
+                            Adds <code>transport</code> to the <code><a>RTCIceTransportController</a></code>
                             object for the purposes of managing
                             ICE freezing and sharing bandwidth estimation.
                             Since <code>addTransport</code> manages ICE freezing, candidate pairs that are not in the
@@ -2340,7 +2340,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
                             with a <var>component</var> of <code>RTP</code>,
                             throw an <code>InvalidParameters</code> exception.
                             If <code>transport.state</code> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
-                            If <var>transport</var> has already been added to another
+                            If <code>transport</code> has already been added to another
                             <code><a>RTCIceTransportController</a></code> object,
                             or if <code>transport.component</code> is <code>RTCP</code>, throw an <code>InvalidStateError</code> exception.
                         </p>
@@ -2348,7 +2348,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
                     <dt>sequence&lt;RTCIceTransport&gt; getTransports()</dt>
                     <dd>
                         <p>
-                            Returns the <code><a>RTCIceTransport</a></code> objects with a <var>component</var> of <code>RTP</code>.
+                            Returns the <code><a>RTCIceTransport</a></code> objects with a <code>component</code> of <code>RTP</code>.
                             If <code>addTransport()</code> has not been called, an empty list is returned.
                         </p>
                     </dd>
@@ -2605,15 +2605,14 @@ mySignaller.myOfferTracks({
         <section id="rtcrtplistener*">
             <h2>The RTCRtpListener Object</h2>
             <p>
-                The <dfn>RTCRtpListener</dfn> listens to RTP packets received from the <code><a>RTCDtlsTransport</a></code>, determining whether an
+                The <dfn><code>RTCRtpListener</code></dfn> listens to RTP packets received from the <code><a>RTCDtlsTransport</a></code>, determining whether an
                 incoming RTP stream is configured to be processed by an existing <code><a>RTCRtpReceiver</a></code> object. If no match is found,
                 the <code><a>unhandledrtp</a></code> event is fired. This can be due to packets having an unknown SSRC, payload type or any other
                 error that makes it impossible to attribute an RTP packet to a specific <code><a>RTCRtpReceiver</a></code> object. The event is
-                not fired once for each arriving packet; multiple discarded packets for the same SSRC SHOULD result in a single event.
+                not fired once for each arriving packet; multiple discarded packets for the same SSRC  <em class="rfc2119" title="SHOULD">SHOULD</em> result in a single event.
             </p>
             <p>
-                Note that application handling of the <code><a>unhandledrtp</a></code> event
-                may not be sufficient to enable the unhandled RTP stream to be rendered. The amount of buffering to be provided for unhandled
+                Note that application handling of the <code><a>unhandledrtp</a></code> event may not be sufficient to enable the unhandled RTP stream to be rendered. The amount of buffering to be provided for unhandled
                 RTP streams is not mandated by this specification and is recommended to be strictly limited to protect against denial of service
                 attacks. Therefore an application attempting to create additional <code><a>RTCRtpReceiver</a></code> objects to handle
                 the incoming RTP stream may find that portions of the incoming RTP stream were lost due to insufficient buffers, and therefore
@@ -2650,14 +2649,14 @@ mySignaller.myOfferTracks({
                     prior to adding new entries.
                 </p>
                 <p>
-                    SSRC table: Set <var>ssrc_table</var>[<code>parameters.encodings[i].ssrc</code>] to
-                    <var>receiver</var> for each entry where <code>parameters.encodings[i].ssrc</code> is set,
+                    SSRC table: Set <var>ssrc_table</var>[<code>parameters.encodings[<var>i</var>].ssrc</code>] to
+                    <var>receiver</var> for each entry where <code>parameters.encodings[<var>i</var>].ssrc</code> is set,
                     for values of <var>i</var> from 0 to the number of encodings.
-                    Set <var>ssrc_table</var>[<code>parameters.encodings[i].rtx.ssrc</code>] to
-                    <var>receiver</var> for each entry where <code>parameters.encodings[i].rtx.ssrc</code> is set,
+                    Set <var>ssrc_table</var>[<code>parameters.encodings[<var>i</var>].rtx.ssrc</code>] to
+                    <var>receiver</var> for each entry where <code>parameters.encodings[<var>i</var>].rtx.ssrc</code> is set,
                     for values of <var>i</var> from 0 to the number of encodings.
-                    Set <var>ssrc_table</var>[<code>parameters.encodings[i].fec.ssrc</code>] to
-                    <var>receiver</var> for each entry where <code>parameters.encodings[i].fec.ssrc</code> is set,
+                    Set <var>ssrc_table</var>[<code>parameters.encodings[<var>i</var>].fec.ssrc</code>] to
+                    <var>receiver</var> for each entry where <code>parameters.encodings[<var>i</var>].fec.ssrc</code> is set,
                     for values of <var>i</var> from 0 to the number of encodings.
                     If <var>ssrc_table</var>[<var>ssrc</var>] is already set to a value other than <var>receiver</var>,
                     then <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
@@ -2672,7 +2671,7 @@ mySignaller.myOfferTracks({
                     payload type table: If <var>parameters.muxId</var> is unset and <code>parameters.encodings[i].ssrc</code>
                     is unset for all values of <var>i</var> from 0 to the number of encodings,
                     then add entries to <var>pt_table</var> by setting
-                    <var>pt_table</var>[<code>parameters.codecs[j].payloadType</code>] to <var>receiver</var>,
+                    <var>pt_table</var>[<code>parameters.codecs[<var>j</var>].payloadType</code>] to <var>receiver</var>,
                     for values of <var>j</var> from 0 to the number of codecs.
                     If <var>pt_table</var>[<var>pt</var>] is already set to a value other than <var>receiver</var>
                     then <code>receiver.receive()</code> will throw an <code>InvalidParameters</code> exception.
@@ -2680,7 +2679,7 @@ mySignaller.myOfferTracks({
                 <p>
                     When an RTP packet arrives, the implementation determines the <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as follows:
                     If <var>ssrc_table</var>[<var>packet.ssrc</var>] is set: set <var>rtp_receiver</var> to <var>ssrc_table</var>[<var>packet.ssrc</var>] and check
-                    whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[j].payloadtype</code> for <var>rtp_receiver</var>,
+                    whether the value of <var>packet.pt</var> is equal to one of the values of <code>parameters.codecs[<var>j</var>].payloadtype</code> for <var>rtp_receiver</var>,
                     where <var>j</var> varies from 0 to the number of codecs.
                     If so, route the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does not match,
                     fire the <code><a>unhandledrtp</a></code> event.
@@ -2746,7 +2745,7 @@ mySignaller.myOfferTracks({
                             The value of the <a>MID</a> RTP header extension [[!BUNDLE]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
                             If <code>receive()</code> has not been called, the <a>MID</a> header
-                            extension cannot be decoded, so that <var>muxId</var> will be unset.
+                            extension cannot be decoded, so that <code>muxId</code> will be unset.
                         </p>
                     </dd>
                     <dt>readonly attribute DOMString rid</dt>
@@ -2755,7 +2754,7 @@ mySignaller.myOfferTracks({
                             The value of the <a>RID</a> RTP header extension [[!RID]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
                             If <code>receive()</code> has not been called, the <a>RID</a> header
-                            extension cannot be decoded, so that <var>rid</var> will be unset.
+                            extension cannot be decoded, so that <code>rid</code> will be unset.
                         </p>
                     </dd>
                     <dt>readonly attribute payloadtype payloadType</dt>
@@ -2802,7 +2801,7 @@ mySignaller.myOfferTracks({
             <section id="rtcrtpcapabilities*">
                 <h3>dictionary RTCRtpCapabilities</h3>
                 <p>
-                    The <dfn>RTCRtpCapabilities</dfn> object expresses the capabilities of <code><a>RTCRtpSender</a></code> and
+                    The <dfn><code>RTCRtpCapabilities</code></dfn> object expresses the capabilities of <code><a>RTCRtpSender</a></code> and
                     <code><a>RTCRtpReceiver</a></code> objects.
                     Features which are mandatory to implement in [[!RTP-USAGE]], such as RTP/RTCP multiplexing [[!RFC5761]],
                     audio/video multiplexing [[!RTP-MULTI-STREAM]]
@@ -2836,18 +2835,18 @@ mySignaller.myOfferTracks({
                     <dt>DOMString type</dt>
                     <dd>
                         <p>
-                            Valid values for <var>type</var> are the "RTCP Feedback" Attribute Values enumerated in
+                            Valid values for <code>type</code> are the "RTCP Feedback" Attribute Values enumerated in
                             [[!IANA-SDP-14]] ("ack", "ccm", "nack", etc.), as well as "goog-remb" [[REMB]] and "transport-cc" [[TRANSPORT-CC]].
                         </p>
                     </dd>
                     <dt>DOMString parameter</dt>
                     <dd>
                         <p>
-                            For a <var>type</var> of "ack" or "nack", valid values for <var>parameter</var> are the
+                            For a <code>type</code> value of "ack" or "nack", valid values for <code>parameter</code> are the
                             "ack" and "nack" Attribute Values enumerated in [[!IANA-SDP-15]] ("sli", "rpsi", etc.).
                             For the Generic NACK feedback message defined in [[!RFC4585]] Section 6.2.1,
-                            the <var>type</var> attribute is set to "nack" and the <var>parameter</var> attribute is unset.
-                            For a <var>type</var> of "ccm", valid values for <var>parameter</var> are the
+                            the <code>type</code> attribute is set to "nack" and the <code>parameter</code> attribute is unset.
+                            For a <code>type</code> value of "ccm", valid values for <code>parameter</code> are the
                             "Codec Control Messages" enumerated in [[!IANA-SDP-19]] ("fir", "tmmbr" (includes "tmmbn"), etc.).
                         </p>
                     </dd>
@@ -2855,7 +2854,7 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtpcodeccapability*">
                 <h3>dictionary RTCRtpCodecCapability</h3>
-                <p><dfn>RTCRtpCodecCapability</dfn> provides information on the capabilities of a codec.</p>
+                <p><dfn><code>RTCRtpCodecCapability</code></dfn> provides information on the capabilities of a codec.</p>
                 <dl class="idl" title="typedef object Dictionary"></dl>
                 <dl class="idl" title="typedef octet payloadtype"></dl>
                 <dl class="idl" title="dictionary RTCRtpCodecCapability">
@@ -2881,14 +2880,14 @@ mySignaller.myOfferTracks({
                     <dt>payloadtype preferredPayloadType</dt>
                     <dd>
                         <p>
-                            The preferred RTP payload type for the codec denoted by <var>RTCRtpCodecCapability.name</var>.
+                            The preferred RTP payload type for the codec denoted by <code>RTCRtpCodecCapability.name</code>.
                             This attribute was added to make it possible for the sender and receiver to pick a
                             matching payload type when creating sender and receiver parameters.
-                            When returned by <code>RTCRtpSender.getCapabilities()</code>, <var>RTCRtpCapabilities.codecs.preferredPayloadtype</var>
+                            When returned by <code>RTCRtpSender.getCapabilities()</code>, <code>RTCRtpCapabilities.codecs.preferredPayloadtype</code>
                             represents the preferred RTP payload type for sending.
-                            When returned by <code>RTCRtpReceiver.getCapabilities()</code>, <var>RTCRtpCapabilities.codecs.preferredPayloadtype</var>
+                            When returned by <code>RTCRtpReceiver.getCapabilities()</code>, <code>RTCRtpCapabilities.codecs.preferredPayloadtype</code>
                             represents the preferred RTP payload type for receiving.
-                            To avoid payload type conflicts, each value of <var>preferredPayloadType</var> MUST be unique.
+                            To avoid payload type conflicts, each value of <code>preferredPayloadType</code> MUST be unique.
                         </p>
                     </dd>
                     <dt>unsigned long maxptime</dt>
@@ -2962,7 +2961,7 @@ mySignaller.myOfferTracks({
                                </thead>
                                <tbody>
                                 <tr id="def-complexity*">
-                                    <td><dfn>complexity</dfn></td>
+                                    <td><dfn><code>complexity</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -2970,25 +2969,25 @@ mySignaller.myOfferTracks({
                                     <td>Indicates the default value for the encoder's computational complexity.  The supported range is 0-10 with 10 representing the highest complexity.</td>
                                 </tr>
                                 <tr id="def-signal*">
-                                    <td><dfn>signal</dfn></td>
+                                    <td><dfn><code>signal</code></dfn></td>
                                     <td>
                                         <code>DOMString</code>
                                     </td>
                                     <td>Sender</td>
                                     <td>Indicates the default value for the type of signal being encoded.  Possible values are
-                                        <code>auto</code>, <code>music</code> and <code>voice</code>.</td>
+                                        "auto", "music" and "voice".</td>
                                 </tr>
                                 <tr id="def-application*">
-                                    <td><dfn>application</dfn></td>
+                                    <td><dfn><code>application</code></dfn></td>
                                     <td>
                                         <code>DOMString</code>
                                     </td>
                                     <td>Sender</td>
                                     <td>Indicates the default value for the encoder's intended application.  Possible values 
-                                        are <code>voip</code>, <code>audio</code> and <code>lowdelay</code>.</td>
+                                        are "voip", "audio" and "lowdelay".</td>
                                 </tr>
                                 <tr id="def-packetlossperc*">
-                                    <td><dfn>packetLossPerc</dfn></td>
+                                    <td><dfn><code>packetLossPerc</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -2996,7 +2995,7 @@ mySignaller.myOfferTracks({
                                     <td>Indicates the default value for the encoder's expected packet loss percentage.  Possible values are 0-100.</td>
                                 </tr>
                                 <tr id="def-predictiondisabled*">
-                                    <td><dfn>predictionDisabled</dfn></td>
+                                    <td><dfn><code>predictionDisabled</code></dfn></td>
                                     <td>
                                         <code>boolean</code>
                                     </td>
@@ -3031,7 +3030,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="def-maxplaybackrate*">
-                                    <td><dfn>maxPlaybackRate</dfn></td>
+                                    <td><dfn><code>maxPlaybackRate</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3039,7 +3038,7 @@ mySignaller.myOfferTracks({
                                     <td>A hint about the maximum output sampling rate that the receiver is capable of rendering in Hz.</td>
                                 </tr>
                                 <tr id="def-sprop-maxcapturerate*">
-                                    <td><dfn>spropMaxCaptureRate</dfn></td>
+                                    <td><dfn><code>spropMaxCaptureRate</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3047,7 +3046,7 @@ mySignaller.myOfferTracks({
                                     <td>A hint about the maximum input sampling rate that the sender is likely to produce.</td>
                                 </tr>
                                 <tr id="def-maxaveragebitrate*">
-                                    <td><dfn>maxAverageBitrate</dfn></td>
+                                    <td><dfn><code>maxAverageBitrate</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3055,7 +3054,7 @@ mySignaller.myOfferTracks({
                                     <td>Specifies the maximum average receive bitrate of a session in bits per second (bits/s).</td>
                                 </tr>
                                 <tr id="def-cbr*">
-                                    <td><dfn>cbr</dfn></td>
+                                    <td><dfn><code>cbr</code></dfn></td>
                                     <td>
                                         <code>boolean</code>
                                     </td>
@@ -3063,7 +3062,7 @@ mySignaller.myOfferTracks({
                                     <td>Specifies if the decoder prefers the use of constant bitrate (if <code>true</code>) or variable bitrate (if <code>false</code>).</td>
                                 </tr>
                                 <tr id="def-useinbandfec*">
-                                    <td><dfn>useInbandFec</dfn></td>
+                                    <td><dfn><code>useInbandFec</code></dfn></td>
                                     <td>
                                         <code>boolean</code>
                                     </td>
@@ -3071,7 +3070,7 @@ mySignaller.myOfferTracks({
                                     <td>Specifies if the decoder has the capability to take advantage of Opus in-band fec (if <code>true</code>) or not (if <code>false</code>).</td>
                                 </tr>
                                 <tr id="def-usedtx*">
-                                    <td><dfn>useDtx</dfn></td>
+                                    <td><dfn><code>useDtx</code></dfn></td>
                                     <td>
                                         <code>boolean</code>
                                     </td>
@@ -3095,7 +3094,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="def-max-fr*">
-                                    <td><dfn>maxFr</dfn></td>
+                                    <td><dfn><code>maxFr</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3103,7 +3102,7 @@ mySignaller.myOfferTracks({
                                     <td>This parameter indicates the maximum frame rate in frames per second that the decoder is capable of decoding.</td>
                                 </tr>
                                 <tr id="def-max-fs*">
-                                    <td><dfn>maxFs</dfn></td>
+                                    <td><dfn><code>maxFs</code></dfn></td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
@@ -3127,7 +3126,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="def-profile-level-id*">
-                                    <td><dfn>profileLevelId</dfn></td>
+                                    <td><dfn><code>profileLevelId</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3139,7 +3138,7 @@ mySignaller.myOfferTracks({
                                     </td>
                                 </tr>
                                 <tr id="def-packetization-mode*">
-                                    <td><dfn>packetizationMode</dfn></td>
+                                    <td><dfn><code>packetizationMode</code></dfn></td>
                                     <td><code>sequence&lt;unsigned short&gt;</code></td>
                                     <td>Receiver/Sender</td>
                                     <td>
@@ -3177,7 +3176,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                             <tr id="def-apt*">
-                                    <td><dfn>apt</dfn></td>
+                                    <td><dfn><code>apt</code></dfn></td>
                                     <td>
                                         <code>payloadType</code>
                                     </td>
@@ -3188,7 +3187,7 @@ mySignaller.myOfferTracks({
                                     </td>
                                 </tr>
                                 <tr id="def-rtxtime*">
-                                    <td><dfn>rtxTime</dfn></td>
+                                    <td><dfn><code>rtxTime</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3224,7 +3223,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="def-repairwindow*">
-                                    <td><dfn>repairWindow</dfn></td>
+                                    <td><dfn><code>repairWindow</code></dfn></td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
@@ -3232,7 +3231,7 @@ mySignaller.myOfferTracks({
                                     <td>The default time that spans the source packets and the corresponding repair packets, in microseconds.</td>
                                 </tr>
                                 <tr id="def-l*">
-                                    <td><dfn>l</dfn></td>
+                                    <td><dfn><code>l</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3240,7 +3239,7 @@ mySignaller.myOfferTracks({
                                     <td>The default number of columns of the source block that are protected by this FEC block.</td>
                                 </tr>
                                 <tr id="def-d*">
-                                    <td><dfn>d</dfn></td>
+                                    <td><dfn><code>d</code></dfn></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3248,7 +3247,7 @@ mySignaller.myOfferTracks({
                                     <td>The default number of rows of the source block that are protected by this FEC block.</td>
                                 </tr>
                                 <tr id="def-top*">
-                                    <td><dfn>toP</dfn></td>
+                                    <td><dfn><code>toP</code></dfn></td>
                                     <td>
                                         <code>unsigned short</code>
                                     </td>
@@ -3271,23 +3270,23 @@ mySignaller.myOfferTracks({
                     <dt>DOMString muxId=""</dt>
                     <dd>
                         <p>
-                            The <var>muxId</var> assigned to the RTP stream, if any, empty string if unset.
+                            The <code>muxId</code> assigned to the RTP stream, if any, empty string if unset.
                             In an <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code> object, this corresponds to
                             <a>MID</a> RTP header extension defined in [[!BUNDLE]]. This is a stable identifier that permits
                             the track corresponding to an RTP stream to be identified, rather than relying on an SSRC.
                             An SSRC is randomly generated and can change arbitrarily due to conflicts with other SSRCs, whereas
-                            the <var>muxId</var> has a value whose meaning can be defined in advance between RTP
-                            sender and receiver, assisting in RTP demultiplexing. Since <var>muxId</var> is included in
+                            the <code>muxId</code> has a value whose meaning can be defined in advance between RTP
+                            sender and receiver, assisting in RTP demultiplexing. Since <code>muxId</code> is included in
                             <code><a>RTCRtpParameters</a></code> but not in <code><a>RTCRtpEncodingParameters</a></code>,
-                            if it is desired to send simulcast streams with different <var>muxId</var> values
+                            if it is desired to send simulcast streams with different <code>muxId</code> values
                             for each stream, then multiple <code><a>RTCRtpSender</a></code> objects are needed.
                         </p>
                     </dd>
                     <dt>required sequence&lt;RTCRtpCodecParameters&gt; codecs</dt>
                     <dd>
                         <p>
-                            The codecs to send or receive (could include RED [[RFC2198]], RTX [[!RFC4588]] and CN [[RFC3389]]).
-                            <var>codecs</var> MUST be set for an <code><a>RTCRtpParameters</a></code> object to be a valid
+                            The codecs to send or receive (could include "red" [[RFC2198]], "rtx" [[!RFC4588]] and "cn" [[RFC3389]]).
+                            <code>codecs</code> MUST be set for an <code><a>RTCRtpParameters</a></code> object to be a valid
                             argument passed to <code>send()</code> or <code>receive()</code>.
                         </p>
                     </dd>
@@ -3301,12 +3300,12 @@ mySignaller.myOfferTracks({
                             The "encodings" or "layers" to be used for things like simulcast, Scalable
                             Video Coding, RTX, FEC, etc. When unset in a call to <code>send()</code>,
                             the browser behaves as though a single <code>encodings[0]</code> entry was provided, with
-                            <var>encodings[0].ssrc</var> set to a browser-determined value, <var>encodings[0].active</var>
-                            set to <code>true</code>, <var>encodings[0].codecPayloadType</var> set to <var>codecs[j].payloadType</var>
+                            <code>encodings[0].ssrc</code> set to a browser-determined value, <code>encodings[0].active</code>
+                            set to <code>true</code>, <code>encodings[0].codecPayloadType</code> set to <code>codecs[<var>j</var>].payloadType</code>
                             where <var>j</var> is the index of the first codec that is not "cn", "telephone-event",
                             "red", "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
-                            and all the other <var>parameters.encodings[0]</var> attributes (e.g. fec, rtx, priority,
-                            maxBitrate, resolutionScale, etc.) unset. When unset in a call to <code>receive()</code>,
+                            and all the other <code>parameters.encodings[0]</code> attributes (e.g. <code>fec</code>, <code>rtx</code>, <code>priority</code>,
+                            <code>maxBitrate</code>, <code>resolutionScale</code>, etc.) unset. When unset in a call to <code>receive()</code>,
                             the behavior is described in Section 8.3.
                         </p>
                     </dd>
@@ -3328,7 +3327,7 @@ mySignaller.myOfferTracks({
             <section id="rtcdegradationpreference*">
                 <h3>enum RTCDegradationPreference</h3>
                 <p>
-                     <dfn>RTCDegradationPreference</dfn> can be used to indicate the desired choice between degrading resolution
+                     <dfn><code>RTCDegradationPreference</code></dfn> can be used to indicate the desired choice between degrading resolution
                      and degrading framerate when bandwidth is constrained.
                 </p>
 
@@ -3349,7 +3348,7 @@ mySignaller.myOfferTracks({
             </section>
             <section id="rtcrtcpparameters*">
                 <h3>dictionary RTCRtcpParameters</h3>
-                <p><dfn>RTCRtcpParameters</dfn> provides information on RTCP settings.</p>
+                <p><dfn><code>RTCRtcpParameters</code></dfn> provides information on RTCP settings.</p>
                 <dl title="dictionary RTCRtcpParameters" class="idl">
                     <dt>unsigned long ssrc</dt>
                     <dd>
@@ -3358,15 +3357,15 @@ mySignaller.myOfferTracks({
                             and [[!RFC4585]] Section 6.1 (Feedback Messages), as well as the "SSRC" field defined in [[!RFC3611]] Section 2 (Extended Reports).
                             It can only be set for an <code><a>RTCRtpReceiver</a></code>. Other than for debugging, or situations where <code>receive()</code>
                             is called before <code>send()</code> on the same <code><a>RTCDtlsTransport</a></code> it is best to leave it unset,
-                            in which case <var>ssrc</var> is chosen by the browser, though the chosen value is not reflected in <code>RTCRtcpParameters.ssrc</code>.
-                            If the browser chooses the <var>ssrc</var> it may change it in event of a collision, as described in [[!RFC3550]].
+                            in which case <code>ssrc</code> is chosen by the browser, though the chosen value is not reflected in <code>RTCRtcpParameters.ssrc</code>.
+                            If the browser chooses the <code>ssrc</code> it may change it in event of a collision, as described in [[!RFC3550]].
                         </p>
                     </dd>
                     <dt>DOMString cname</dt>
                     <dd>
                         <p>
                             The Canonical Name (CNAME) used by RTCP (e.g. in SDES messages). Guidelines for CNAME generation are provided in [[!RTP-USAGE]] Section 4.9 and [[!RFC7022]].
-                            By default, ORTC implementations SHOULD set the CNAME to be the same within all <code>RTCRtcpParameter</code> objects created within the
+                            By default, ORTC implementations  <em class="rfc2119" title="SHOULD">SHOULD</em> set the CNAME to be the same within all <code>RTCRtcpParameter</code> objects created within the
                             same Javascript sandbox. For backward compatibility with WebRTC 1.0, applications MAY set the CNAME only for an <code><a>RTCRtpReceiver</a></code>;
                             if unset, the CNAME is chosen by the browser.
                         </p>
@@ -3385,7 +3384,7 @@ mySignaller.myOfferTracks({
                             The default is <code>true</code>. If set to <code>false</code>, the
                             <code><a>RTCIceTransport</a></code>
                             <em class="rfc2119" title="MUST">MUST</em> have an associated <code><a>RTCIceTransport</a></code> object with
-                            a <var>component</var> of <code>RTCP</code>,
+                            a <code>component</code> of <code>RTCP</code>,
                             in which case RTCP will be sent on the associated <code><a>RTCIceTransport</a></code>.
                         </p>
                     </dd>
@@ -3412,7 +3411,7 @@ mySignaller.myOfferTracks({
                     <dt>required payloadtype payloadType</dt>
                     <dd>
                         <p>
-                            The value that goes in the RTP Payload Type Field [[!RFC3550]]. The <var>payloadType</var>
+                            The value that goes in the RTP Payload Type Field [[!RFC3550]]. The <code>payloadType</code>
                             MUST always be provided, and MUST be unique.
                         </p>
                     </dd>
@@ -3426,13 +3425,13 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The maximum packetization time set on the <code><a>RTCRtpSender</a></code>.
-                            Not specified if unset.  If <var>ptime</var> is also set, <var>maxptime</var> is ignored.
+                            Not specified if unset.  If <code>ptime</code> is also set, <code>maxptime</code> is ignored.
                         </p>
                     </dd>
                     <dt>unsigned long ptime</dt>
                     <dd>
                         <p>The duration of media represented by a packet in milliseconds for the <code><a>RTCRtpSender</a></code>.
-                        If unset, the <code><a>RTCRtpSender</a></code> may select any value up to <var>maxptime</var>.
+                        If unset, the <code><a>RTCRtpSender</a></code> may select any value up to <code>maxptime</code>.
                     </dd>
                     <dt>unsigned long numChannels</dt>
                     <dd>
@@ -3520,7 +3519,7 @@ mySignaller.myOfferTracks({
                                         <code>DOMString</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>Configures the type of signal being encoded.  Possible values are <code>auto</code>, <code>music</code> and <code>voice</code>.</td>
+                                    <td>Configures the type of signal being encoded.  Possible values are "auto", "music" and "voice".</td>
                                 </tr>
                                 <tr id="sec-application*">
                                     <td><a>application</a></td>
@@ -3528,7 +3527,7 @@ mySignaller.myOfferTracks({
                                         <code>DOMString</code>
                                     </td>
                                     <td>Sender</td>
-                                    <td>Configures the encoder's intended application.  Possible values are <code>voip</code>, <code>audio</code> and <code>lowdelay</code>.</td>
+                                    <td>Configures the encoder's intended application.  Possible values are "voip", "audio" and "lowdelay".</td>
                                 </tr>
                                 <tr id="sec-packetlossperc*">
                                     <td><a>packetLossPerc</a></td>
@@ -3629,7 +3628,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="sec-apt*">
-                                    <td>apt</td>
+                                    <td><a>apt</a></td>
                                     <td>
                                         <code>payloadType</code>
                                     </td>
@@ -3640,7 +3639,7 @@ mySignaller.myOfferTracks({
                                     </td>
                                 </tr>
                                 <tr id="sec-rtxtime*">
-                                    <td>rtxTime</td>
+                                    <td><a>rtxTime</a></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3675,7 +3674,7 @@ mySignaller.myOfferTracks({
                                     <td>Sender/Receiver</td>
                                     <td>
                                         A sequence of payload types to be encapsulated in RED,
-                                        each of which MUST be unique.  If <var>payloadTypes</var> 
+                                        each of which MUST be unique.  If <code>payloadTypes</code> 
                                         is unset, this means that any codec other than "red" or
                                         "rtx" can be encapsulsated in RED.
                                     </td>
@@ -3701,7 +3700,7 @@ mySignaller.myOfferTracks({
                             </thead>
                             <tbody>
                                 <tr id="sec-repairwindow*">
-                                    <td>repairWindow</td>
+                                    <td><a>repairWindow</a></td>
                                     <td>
                                         <code>unsigned long long</code>
                                     </td>
@@ -3709,7 +3708,7 @@ mySignaller.myOfferTracks({
                                     <td>The time that spans the source packets and the corresponding repair packets, in microseconds.</td>
                                 </tr>
                                 <tr id="sec-l*">
-                                    <td>l</td>
+                                    <td><a>l</a></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3717,7 +3716,7 @@ mySignaller.myOfferTracks({
                                     <td>The number of columns of the source block that are protected by this FEC block.</td>
                                 </tr>
                                 <tr id="sec-d*">
-                                    <td>d</td>
+                                    <td><a>d</a></td>
                                     <td>
                                         <code>unsigned long</code>
                                     </td>
@@ -3725,7 +3724,7 @@ mySignaller.myOfferTracks({
                                     <td>The number of rows of the source block that are protected by this FEC block.</td>
                                 </tr>
                                 <tr id="sec-top*">
-                                    <td>toP</td>
+                                    <td><a>toP</a></td>
                                     <td>
                                         <code>unsigned short</code>
                                     </td>
@@ -3751,14 +3750,14 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The SSRC for this layering/encoding.
-                            Multiple <code>RTCRtpEncodingParameters</code> objects can share the same <var>ssrc</var> value
+                            Multiple <code>RTCRtpEncodingParameters</code> objects can share the same <code>ssrc</code> value
                             (useful, for example, to indicate that different RTX payload types associated to different codecs are carried over the same stream).
-                            If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>receive()</code> method, the
+                            If <code>ssrc</code> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>receive()</code> method, the
                             next unhandled SSRC will match, and an <code>RTCRtpUnhandledEvent</code> will not be fired.
-                            If <var>ssrc</var> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
+                            If <code>ssrc</code> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
                             method, the browser will choose, and the chosen value is not reflected in <code>RTCRtpEncodingParameters.ssrc</code>.
-                            If the browser chooses the <var>ssrc</var>, it may change it due to a collision without firing an <code>RTCSsrcConflictEvent</code>.
-                            If <var>ssrc</var> is set in an <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
+                            If the browser chooses the <code>ssrc</code>, it may change it due to a collision without firing an <code>RTCSsrcConflictEvent</code>.
+                            If <code>ssrc</code> is set in an <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
                             method and an SSRC conflict is detected within the RTP session, then an <code>RTCSsrcConflictEvent</code> is fired (see Section 5.4).
                         </p>
                     </dd>
@@ -3800,13 +3799,13 @@ mySignaller.myOfferTracks({
                     <dt>double resolutionScale</dt>
                     <dd>
                         <p>
-                            If the sender's <var>kind</var> is "video", the video's resolution will be
+                            If the sender's <code>kind</code> is "video", the video's resolution will be
                             scaled down in each dimension by the given value before sending. For example,
                             if the value is 2.0, the video will be scaled down by a factor of 2 in each
                             dimension, resulting in sending a video of one quarter size. If the value is
                             1.0 (the default), the video will not be affected.  A value less than 1.0
                             will result in a <code>RangeError</code> exception when <code>send()</code>
-                            or <code>receive()</code> is called. For scalable video coding, <var>resolutionScale</var> 
+                            or <code>receive()</code> is called. For scalable video coding, <code>resolutionScale</code> 
                             refers to the aggregate scale down of this layer when combined with all dependent layers.
                         </p>
                     </dd>
@@ -3815,7 +3814,7 @@ mySignaller.myOfferTracks({
                         <p>
                             Inverse of the input framerate fraction to be encoded. Example: 1.0 = full framerate,
                             2.0 = one half of the full framerate.
-                            For scalable video coding, <var>framerateScale</var> refers to the inverse of the aggregate fraction of input framerate
+                            For scalable video coding, <code>framerateScale</code> refers to the inverse of the aggregate fraction of input framerate
                             achieved by this layer when combined with all dependent layers.
                         </p>
                     </dd>
@@ -3823,7 +3822,7 @@ mySignaller.myOfferTracks({
                     <dd>
                         <p>
                             The maximum framerate to use for this encoding.  This setting is not used for scalable video coding.
-                            If <var>framerateScale</var> is set, then <var>maxFramerate</var> is ignored.
+                            If <code>framerateScale</code> is set, then <code>maxFramerate</code> is ignored.
                         </p>
                     </dd>
                     <dt>boolean active=true</dt>
@@ -3835,9 +3834,9 @@ mySignaller.myOfferTracks({
                             For an <code><a>RTCRtpReceiver</a></code>, indicates that this encoding is being decoded.
                             Setting it to <code>false</code> causes this encoding to no longer be decoded.
                             Setting it to <code>true</code> causes this encoding to be decoded. If unset, the default (<code>true</code>) is assumed.
-                            Setting <var>active</var> to <code>false</code> is different than omitting the encoding, since
+                            Setting <code>active</code> to <code>false</code> is different than omitting the encoding, since
                             it can keep resources available to re-activate more quickly than re-adding the encoding.
-                            As noted in [[RFC3264]] Section 5.1, RTCP is still sent, regardless of the value of the <var>active</var> attribute.
+                            As noted in [[RFC3264]] Section 5.1, RTCP is still sent, regardless of the value of the <code>active</code> attribute.
                         </p>
                     </dd>
                     <dt>DOMString encodingId</dt>
@@ -3850,7 +3849,7 @@ mySignaller.myOfferTracks({
                             it is not necessary to specify the expected scalable video coding configuration on the receiver via use of <var>encodingId</var>
                             (or <var>dependencyEncodingIds</var>). Where specified for a receiver, the expected layering is ignored. A sender MAY
                             send fewer layers than what is specified in <code><a>RTCRtpEncodingParameters</a></code>, but MUST NOT send more.
-                            An <code><a>RTCRtpSender</a></code> places the value of <var>encodingId</var> into the <a>RID</a> header extension [[!RID]].
+                            An <code><a>RTCRtpSender</a></code> places the value of <code>encodingId</code> into the <a>RID</a> header extension [[!RID]].
                         </p>
                     </dd>
                     <dt>sequence&lt;DOMString&gt; dependencyEncodingIds</dt>
@@ -3877,84 +3876,84 @@ mySignaller.myOfferTracks({
                     </thead>
                     <tbody>
                         <tr id="def-ssrc*">
-                           <td><dfn>ssrc</dfn></td>
+                           <td><dfn><code>ssrc</code></dfn></td>
                             <td>
                                 <code>unsigned long</code>
                             </td>
                             <td>Receiver/Sender</td>
                         </tr>
                         <tr id="def-codecPayloadType*">
-                           <td><dfn>codecPayloadType</dfn></td>
+                           <td><dfn><code>codecPayloadType</code></dfn></td>
                             <td>
                                 <code>payloadType</code>
                             </td>
                             <td>Receiver/Sender</td>
                         </tr>
                         <tr id="def-fec*">
-                           <td><dfn>fec</dfn></td>
+                           <td><dfn><code>fec</code></dfn></td>
                             <td>
                                 <code><a>RTCRtpFecParameters</a></code>
                             </td>
                             <td>Receiver/Sender</td>
                         </tr>
                         <tr id="def-rtx*">
-                           <td><dfn>rtx</dfn></td>
+                           <td><dfn><code>rtx</code></dfn></td>
                             <td>
                                 <code><a>RTCRtpRtxParameters</a></code>
                             </td>
                             <td>Receiver/Sender</td>
                         </tr>
                         <tr id="def-priority*">
-                           <td><dfn>priority</dfn></td>
+                           <td><dfn><code>priority</code></dfn></td>
                             <td>
                                 <code><a>RTCPriorityType</a></code>
                             </td>
                             <td>Sender</td>
                         </tr>
                         <tr id="def-maxbitrate*">
-                           <td><dfn>maxBitrate</dfn></td>
+                           <td><dfn><code>maxBitrate</code></dfn></td>
                             <td>
                                 <code>unsigned long</code>
                             </td>
                             <td>Sender</td>
                         </tr>
                         <tr id="def-resolutionscale*">
-                           <td><dfn>resolutionScale</dfn></td>
+                           <td><dfn><code>resolutionScale</code></dfn></td>
                             <td>
                                 <code>double</code>
                             </td>
                             <td>Sender</td>
                         </tr>
                         <tr id="def-frameratescale*">
-                           <td><dfn>framerateScale</dfn></td>
+                           <td><dfn><code>framerateScale</code></dfn></td>
                             <td>
                                 <code>double</code>
                             </td>
                             <td>Sender</td>
                         </tr>
                         <tr id="def-maxframerate*">
-                           <td><dfn>maxFramerate</dfn></td>
+                           <td><dfn><code>maxFramerate</code></dfn></td>
                             <td>
                                 <code>unsigned long</code>
                             </td>
                             <td>Sender</td>
                         </tr>
                         <tr id="def-active*">
-                           <td><dfn>active</dfn></td>
+                           <td><dfn><code>active</code></dfn></td>
                             <td>
                                 <code>boolean</code>
                             </td>
                             <td>Receiver/Sender</td>
                         </tr>                        
                         <tr id="def-encodingid*">
-                           <td><dfn>encodingId</dfn></td>
+                           <td><dfn><code>encodingId</code></dfn></td>
                             <td>
                                 <code>DOMString</code>
                             </td>
                             <td>Receiver/Sender</td>
                         </tr>
                         <tr id="def-dependencyencodingids*">
-                           <td><dfn>dependencyEncodingIds</dfn></td>
+                           <td><dfn><code>dependencyEncodingIds</code></dfn></td>
                             <td>
                                 <code>sequence&lt;DOMString&gt;</code>
                             </td>
@@ -4197,7 +4196,7 @@ var encodings = [{
             <section id="rtcprioritytype*">
                 <h3>enum RTCPriorityType</h3>
                 <p>
-                    <dfn>RTCPriorityType</dfn> can be used to indicate the relative priority of various flows.
+                    <dfn><code>RTCPriorityType</code></dfn> can be used to indicate the relative priority of various flows.
                     This allows applications to indicate to the browser whether a particular media flow is high, medium, low or of very
                     low importance to the application.
                     WebRTC uses the priority and Quality of Service (QoS) framework described in [[RTCWEB-TRANSPORT]] and [[!TSVWG-RTCWEB-QOS]] to
@@ -4496,8 +4495,8 @@ var encodings = [
                             <td>boolean vad</td>
                             <td>
                                 This extension indicates the audio level of the audio sample carried in an RTP packet.
-                                For an <code><a>RTCRtpSender</a></code>, the <var>vad</var> attribute indicates whether the V bit is in use (<code>true</code>) or not (<code>false</code>).
-                                For an <code><a>RTCRtpReceiver</a></code>, the <var>vad</var> attribute indicates whether the V bit is provided to the 
+                                For an <code><a>RTCRtpSender</a></code>, the <code>vad</code> attribute indicates whether the V bit is in use (<code>true</code>) or not (<code>false</code>).
+                                For an <code><a>RTCRtpReceiver</a></code>, the <code>vad</code> attribute indicates whether the V bit is provided to the 
                                 application (<code>true</code>) in <code>RTCRtpContributingSource.voiceActivityFlag</code> or is unset (<code>false</code>). 
                             </td>
                         </tr>
@@ -4549,7 +4548,7 @@ var encodings = [
                             </td>
                             <td>None</td>
                             <td>
-                                This extension defines an identifier used to carry the <var>encodingId</var>.
+                                This extension defines an identifier used to carry the <code>encodingId</code>.
                             </td>
                         </tr>
                     </tbody>
@@ -4588,7 +4587,7 @@ var encodings = [
                             Since DTMF tones cannot be sent without configuring the DTMF codec,
                             if <code>insertDTMF()</code> is called prior to <code>sender.send(parameters)</code>, or if
                             <code>sender.send(parameters)</code> was called but
-                            <var>parameters</var> did not include the DTMF codec,
+                            <code>parameters</code> did not include the DTMF codec,
                             throw an <code>InvalidStateError</code> exception.
                         </p>
                         <p>
@@ -4842,7 +4841,7 @@ sender.insertDTMF("123");
             <section id="rtcdatachannel-overview*">
                 <h3>Overview</h3>
                 <p>
-                    An <dfn>RTCDataChannel</dfn> class instance allows sending data messages to/from the remote peer.
+                    An <dfn><code>RTCDataChannel</code></dfn> class instance allows sending data messages to/from the remote peer.
                 </p>
             </section>
             <section id="rtcdatachannel-operation*">
@@ -5040,7 +5039,7 @@ sender.insertDTMF("123");
                     </li>
                     <li>
                         <p>
-                            If <var>channel.readyState</var> attribute
+                            If <code>readyState</code> attribute
                             is <code>connecting</code>, throw an <code>InvalidStateError</code>
                             exception and abort these steps.
                         </p>
@@ -5093,18 +5092,18 @@ sender.insertDTMF("123");
                         </ul>
                     <li>
                         <p>
-                            If <var>channel</var>'s underlying data transport is not
+                            If <code>channel</code>'s underlying data transport is not
                             established yet, or if the closing procedure has
                             started, then abort these steps.
                         </p>
                     </li>
                     <li>
                         <p>
-                            Attempt to send <var>data</var> on <var>channel</var>'s
+                            Attempt to send <var>data</var> on <code>channel</code>'s
                             underlying data transport; if the data cannot be sent, e.g.
                             because it would need to be buffered but the buffer is full, the user
                             agent MUST abruptly close
-                            <var>channel</var>'s underlying data transport with an error.
+                            <code>channel</code>'s underlying data transport with an error.
                         </p>
                     </li>
                 </ol>
@@ -5128,7 +5127,7 @@ sender.insertDTMF("123");
                         <p>
                             The underlying data transport is established and communication is possible.
                             This is the initial state of an <code><a>RTCDataChannel</a></code> object dispatched as a
-                            part of an RTCDataChannelEvent.
+                            part of an <code>RTCDataChannelEvent</code>.
                         </p>
                     </dd>
                     <dt>closing</dt>
@@ -5155,8 +5154,8 @@ sender.insertDTMF("123");
                     <dt>USVString label=""</dt>
                     <dd>
                         <p>
-                            The <dfn>label</dfn> attribute represents a label that can be used to distinguish this <a>RTCDataChannel</a> object from other <a>RTCDataChannel</a> objects.
-                            The attribute <em class="rfc2119" title="MUST">MUST</em> return the value to which it was set when the <a>RTCDataChannel</a> object was constructed.
+                            The <dfn><code>label</code></dfn> attribute represents a label that can be used to distinguish this <code><a>RTCDataChannel</a></code> object from other <a>RTCDataChannel</a> objects.
+                            The attribute <em class="rfc2119" title="MUST">MUST</em> return the value to which it was set when the <code><a>RTCDataChannel</a></code> object was constructed.
                             For an SCTP data channel, the label is carried in the DATA_CHANNEL_OPEN message defined in
                             [[!DATA-PROT]] Section 5.1.
                         </p>
@@ -5165,8 +5164,8 @@ sender.insertDTMF("123");
                     <dd>
                         <p>
                             The <dfn id="dom-datachannel-ordered"><code>ordered</code></dfn>
-                            attribute returns true if the <a>RTCDataChannel</a> is ordered, and
-                            false if out of order delivery is allowed. Default is true.
+                            attribute returns <code>true</code> if the <code><a>RTCDataChannel</a></code> is ordered, and
+                            <code>false</code> if out of order delivery is allowed. Default is <code>true</code>.
                             The attribute <em class="rfc2119" title="MUST">MUST</em> return the value to which it was set when the
                             <a>RTCDataChannel</a> was constructed.
                         </p>
@@ -5233,7 +5232,7 @@ sender.insertDTMF("123");
         <section id="sctp-transport*">
             <h2>The RTCSctpTransport Object</h2>
             <p>
-                The <dfn>RTCSctpTransport</dfn> includes information relating to Stream Control Transmission Protocol (SCTP) transport.
+                The <dfn><code>RTCSctpTransport</code></dfn> includes information relating to Stream Control Transmission Protocol (SCTP) transport.
             </p>
             <section id="sctp-transport-overview*">
                 <h3>Overview</h3>
@@ -5285,7 +5284,7 @@ sender.insertDTMF("123");
                     <dt>attribute EventHandler ondatachannel</dt>
                     <dd>
                         <p>
-                            The <dfn>ondatachannel</dfn> event handler, of type <code>datachannel</code>, <em class="rfc2119" title="MUST">MUST</em> be
+                            The <dfn><code>ondatachannel</code></dfn> event handler, of type <code>datachannel</code>, <em class="rfc2119" title="MUST">MUST</em> be
                             supported by all objects implementing the
                             <code><a>RTCSctpTransport</a></code> interface.
                             If the remote peers sets <code><a>RTCDataChannelParameters</a></code>.<code><a>negotiated</a></code> to false,
@@ -5304,7 +5303,7 @@ sender.insertDTMF("123");
                 </dl>
                 <section id="rtcsctptransportstate*">
                 <h3>enum RTCSctpTransportState</h3>
-                <p><dfn>RTCSctpTransportState</dfn> indicates the state of the SCTP transport.</p>
+                <p><dfn><code>RTCSctpTransportState</code></dfn> indicates the state of the SCTP transport.</p>
                 <dl class="idl" title="enum RTCSctpTransportState">
                     <dt>new</dt>
                     <dd>
@@ -5946,7 +5945,7 @@ function processStats(currentReport) {
                     be rejected.
                 </p>
                 <p>
-                    The browser SHOULD limit the time that it will allow for this process.
+                    The browser  <em class="rfc2119" title="SHOULD">SHOULD</em> limit the time that it will allow for this process.
                     This includes both the loading of
                     the <a href="#sec.identity-proxy-communications">IdP proxy</a> and the
                     identity assertion generation. Failure to do so potentially causes the
@@ -6059,7 +6058,7 @@ function processStats(currentReport) {
                     validation of an identity assertion fails for any reason.
                 </p>
                 <p>
-                    The browser SHOULD limit the time that it will allow for this process.
+                    The browser  <em class="rfc2119" title="SHOULD">SHOULD</em> limit the time that it will allow for this process.
                     This includes both the loading of
                     the <a href="#sec.identity-proxy-communications">IdP proxy</a> and the
                     identity assertion validation. Failure to do so potentially causes the
@@ -6276,7 +6275,7 @@ function signalAssertion(assertion) {
             <section id="rtccertificate-overview*">
                 <h3>Overview</h3>
                 <p>
-                    The <dfn>RTCCertificate</dfn> interface enables the certificates used by an <code><a>RTCDtlsTransport</a></code>
+                    The <dfn><code>RTCCertificate</code></dfn> interface enables the certificates used by an <code><a>RTCDtlsTransport</a></code>
                     to be provided in the constructor.
                     This makes it possible to support forking, where the offerer will create multiple <code><a>RTCDtlsTransport</a></code> objects
                     using the same local certificate and fingerprint.
@@ -6289,7 +6288,7 @@ function signalAssertion(assertion) {
                     <dt>readonly attribute DOMTimeStamp expires</dt>
                     <dd>
                         <p>
-                            The <var>expires</var> attribute indicates the date and time in milliseconds relative to
+                            The <code>expires</code> attribute indicates the date and time in milliseconds relative to
                             1970-01-01T00:00:00Z after which the certificate will be considered invalid by the browser.
                             After this time, attempts to construct an <code><a>RTCDtlsTransport</a></code> object using
                             this certificate will fail.
@@ -6308,7 +6307,7 @@ function signalAssertion(assertion) {
                     <dt>AlgorithmIdentifier getAlgorithm()</dt>
                     <dd>
                         <p>
-                            Returns the value of <var>keygenAlgorithm</var> passed in the call
+                            Returns the value of <code>keygenAlgorithm</code> passed in the call
                             to <code>generateCertificate()</code>.
                         </p>
                     </dd>	
@@ -6324,11 +6323,11 @@ function signalAssertion(assertion) {
                             by <code><a>RTCDtlsTransport</a></code>.
                         </p>
                         <p>
-                            The <var>keygenAlgorithm</var> argument is used to control how the
+                            The <code>keygenAlgorithm</code> argument is used to control how the
                             private key associated with the certificate is generated.
-                            The <var>keygenAlgorithm</var> argument uses the WebCrypto [[!WebCryptoAPI]]
+                            The <code>keygenAlgorithm</code> argument uses the WebCrypto [[!WebCryptoAPI]]
                             <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#dfn-AlgorithmIdentifier">AlgorithmIdentifier</a>
-                            type. The <var>keygenAlgorithm</var> value <em title="MUST" class="rfc2119">MUST</em> be a valid argument
+                            type. The <code>keygenAlgorithm</code> value <em title="MUST" class="rfc2119">MUST</em> be a valid argument
                             to <a href="https://dvcs.w3.org/hg/webcrypto-api/raw-file/tip/spec/Overview.html#SubtleCrypto-method-generateKey"><code>window.crypto.subtle.generateKey</code></a>;
                             that is, the value <em title="MUST" class="rfc2119">MUST</em> produce a non-error result when normalized
                             according to the
@@ -6607,9 +6606,9 @@ function signalAssertion(assertion) {
             <section id="voice-activity*">
                 <h3>Voice Activity Detection</h3>
                 <p>
-                    [[!WEBRTC10]] Section 4.2.4 defines the <code>RTCOfferOptions</code> dictionary, which includes the <var>voiceActivityDetection</var> attribute,
+                    [[!WEBRTC10]] Section 4.2.4 defines the <code>RTCOfferOptions</code> dictionary, which includes the <code>voiceActivityDetection</code> attribute,
                     which determines whether Voice Activity Detection (VAD) is enabled within the Offer produced by <code>createOffer()</code>.
-                    The effect of setting <var>voiceActivityDetection</var> to <var>true</var> is to include the Comfort Noice (CN) codec defined in
+                    The effect of setting <code>voiceActivityDetection</code> to <code>true</code> is to include the Comfort Noice (CN) codec defined in
                     [[!RFC3389]] within the Offer.
                 </p>
                 <p>
@@ -6638,7 +6637,7 @@ function signalAssertion(assertion) {
                     <code><a>RTCDtlsTransport</a></code> and <code><a>RTCIdentity</a></code> objects can be
                     constructed for RTP and RTCP. While it is possible for
                     <code>getIdentityAssertion()</code> to be called with different values of
-                    <var>provider</var>, <var>protocol</var> and <var>username</var> for the RTP and RTCP
+                    <code>provider</code>, <code>protocol</code> and <code>username</code> for the RTP and RTCP
                     <code><a>RTCIdentity</a></code> objects, application developers desiring backward
                     compatibility with WebRTC 1.0 are strongly discouraged from doing so, since this is
                     likely to result in an error.
@@ -6766,7 +6765,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/224">Issue 224</a>
                     </li>
                     <li>
-                        Removed the <var>minQuality</var> attribute, as noted in:
+                        Removed the <code>minQuality</code> attribute, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/351">Issue 351</a>
                     </li>
                     <li>
@@ -6781,7 +6780,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/402">Issue 402</a>
                     </li>
                     <li>
-                        Added state attribute to <code><a>RTCSctpTransport</a></code>, as noted in:
+                        Added <code>state</code> attribute to <code><a>RTCSctpTransport</a></code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/403">Issue 403</a>
                     </li>
                     <li>
@@ -6883,7 +6882,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/477">Issue 477</a>
                     </li>
                     <li>
-                        Updated description of <var>relatedPort</var>, as noted in:
+                        Updated description of <code>relatedPort</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/484">Issue 484</a>
                     </li>
                     <li>
@@ -6903,7 +6902,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/496">Issue 496</a>
                     </li>
                     <li>
-                        Clarified default for <var>clockRate</var> attribute, as noted in:
+                        Clarified default for <code>clockRate</code> attribute, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/500">Issue 500</a>
                     </li>
                     <li>
@@ -6932,7 +6931,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/243">Issue 243</a>
                     </li>
                     <li>
-                        Added support for <var>ptime</var>, as noted in:
+                        Added support for <code>ptime</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/160">Issue 160</a>
                     </li>
                     <li>
@@ -6952,11 +6951,11 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/263">Issue 263</a>
                     </li>
                     <li>
-                        Added definition of <var>maxBitrate</var>, as noted in:
+                        Added definition of <code>maxBitrate</code>, as noted in:
                         <a href="https://github.com/w3c/webrtc-pc/issues/267">Issue 267</a>
                     </li>
                     <li>
-                        Clarified definition of <var>audioLevel</var>, as noted in:
+                        Clarified definition of <code>audioLevel</code>, as noted in:
                         <a href="https://github.com/w3c/webrtc-pc/issues/377">Issue 377</a>
                     </li>
                     <li>
@@ -6972,7 +6971,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/289">Issue 289</a>
                     </li>
                     <li>
-                        Added support for <var>maxFramerate</var> encoding parameter, as noted in:
+                        Added support for <code>maxFramerate</code> encoding parameter, as noted in:
                         <a href="https://github.com/w3c/webrtc-pc/issues/412">Issue 412</a>
                     </li>
                     <li>
@@ -6988,7 +6987,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/294">Issue 294</a>
                     </li>
                     <li>
-                        Added explanation for unset <var>iceServers</var>, as noted in:
+                        Added explanation for unset <code>iceServers</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/302">Issue 302</a>
                     </li>
                     <li>
@@ -7004,7 +7003,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/310">Issue 310</a>
                     </li>
                     <li>
-                        Clarified value of the <var>component</var> attribute, as noted in:
+                        Clarified value of the <code>component</code> attribute, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/314">Issue 314</a>
                     </li>
                     <li>
@@ -7012,7 +7011,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/317">Issue 317</a>
                     </li>
                     <li>
-                        Added <var>credentialType</var> attribute to Examples, as noted in:
+                        Added <code>credentialType</code> attribute to Examples, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/323">Issue 323</a>
                     </li>
                     <li>
@@ -7036,7 +7035,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/344">Issue 344</a>
                     </li>
                    <li>
-                        Clarified value of <var>rtcpTransport</var> for BUNDLE and RTP/RTCP mux use, as noted in:
+                        Clarified value of <code>rtcpTransport</code> for BUNDLE and RTP/RTCP mux use, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/349">Issue 349</a>
                     </li>
                     <li>
@@ -7069,11 +7068,11 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/372">Issue 372</a>
                     </li>
                     <li>
-                        Clarified <var>encodingId</var> syntax, as noted in:
+                        Clarified <code>encodingId</code> syntax, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/375">Issue 375</a>
                     </li>
                     <li>
-                        Added <var>url</var> to <code>RTCIceGathererEvent</code>, as noted in:
+                        Added <code>url</code> to <code>RTCIceGathererEvent</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/376">Issue 376</a>
                     </li>
                     <li>
@@ -7102,7 +7101,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/252">Issue 252</a>
                     </li>
                     <li>
-                        Added <var>payloadType</var> attribute to <code><a>RTCRtpRtxParameters</a></code>, as noted in:
+                        Added <code>payloadType</code> attribute to <code><a>RTCRtpRtxParameters</a></code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/254">Issue 254</a>
                     </li>
                     <li>
@@ -7192,7 +7191,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/229">Issue 229</a>
                     </li>
                     <li>
-                        Changed <var>maxPacketLifetime</var> and <var>maxRetransmits</var> from unsigned short to unsigned long, as noted in:
+                        Changed <code>maxPacketLifetime</code> and <code>maxRetransmits</code> from unsigned short to unsigned long, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/231">Issue 231</a>
                     </li>
                     <li>
@@ -7245,7 +7244,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                     </li>
 
                     <li>
-                        Added a <var>complete</var> attribute to the <code><a>RTCIceCandidateComplete</a></code> dictionary, as noted in:
+                        Added a <code>complete</code> attribute to the <code><a>RTCIceCandidateComplete</a></code> dictionary, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/207">Issue 207</a>
                     </li>
 
@@ -7296,7 +7295,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/186">Issue 186</a>
                     </li>
                     <li>
-                        Added <var>component</var> attribute and <code>createAssociatedGatherer()</code> method to
+                        Added <code>component</code> attribute and <code>createAssociatedGatherer()</code> method to
                         the <code><a>RTCIceGatherer</a></code> object, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/188">Issue 188</a>
                     </li>
@@ -7338,7 +7337,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/85">Issue 85</a>
                     </li>
                     <li>
-                        Added support for <var>maxptime</var>, as noted in:
+                        Added support for <code>maxptime</code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/160">Issue 160</a>
                     </li>
                     <li>
@@ -7477,12 +7476,12 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/137">Issue 137</a>
                     </li>
                     <li>
-                        Substituted 'muxId' for the 'receiverId' as noted in:
+                        Substituted <code>muxId</code> for <code>receiverId</code> as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/138">Issue 138</a> and
                         <a href="https://github.com/openpeer/ortc/issues/140">Issue 140</a>
                     </li>
                     <li>
-                        Clarified the setting of <var>track.kind</var> as described in:
+                        Clarified the setting of <code>track.kind</code> as described in:
                         <a href="https://github.com/openpeer/ortc/issues/141">Issue 141</a>
                     </li>
                     <li>
@@ -7588,7 +7587,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/117">Issue 117</a>
                     </li>
                     <li>
-                        Added a typedef for <var>payloadtype</var>, as described in
+                        Added a typedef for <code>payloadtype</code>, as described in
                         <a href="https://github.com/openpeer/ortc/issues/118">Issue 118</a>
                     </li>
                     <li>
@@ -7600,7 +7599,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/129">Issue 129</a>
                     </li>
                     <li>
-                        Clarified the meaning of maxTemporalLayers and maxSpatialLayers, as noted in
+                        Clarified the meaning of <code>maxTemporalLayers</code> and <code>maxSpatialLayers</code>, as noted in
                         <a href="https://github.com/openpeer/ortc/issues/130">Issue 130</a>
                     </li>
                     <li>
@@ -7624,11 +7623,11 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/57">Issue 57</a>
                     </li>
                     <li>
-                        Added support for getRemoteCertificates(), as described in
+                        Added support for <code>getRemoteCertificates()</code>, as described in
                         <a href="https://github.com/openpeer/ortc/issues/67">Issue 67</a>
                     </li>
                     <li>
-                        Removed filterParameters() and createParameters() methods, as described in
+                        Removed <code>filterParameters()</code> and <code>createParameters()</code> methods, as described in
                         <a href="https://github.com/openpeer/ortc/issues/80">Issue 80</a>
                     </li>
                     <li>
@@ -7768,7 +7767,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/31">Issue 31</a>
                     </li>
                     <li>
-                        RTCRtpListener object added and figure in Section 1 updated, as described in
+                        <code><a>RTCRtpListener</a></code> object added and figure in Section 1 updated, as described in
                         <a href="https://github.com/openpeer/ortc/issues/32">Issue 32</a>
                     </li>
                     <li>
