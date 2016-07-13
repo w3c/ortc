@@ -3364,6 +3364,10 @@ mySignaller.myOfferTracks({
                             is called before <code>send()</code> on the same <code><a>RTCDtlsTransport</a></code> it is best to leave it unset,
                             in which case <code>ssrc</code> is chosen by the browser, though the chosen value is not reflected in <code>RTCRtcpParameters.ssrc</code>.
                             If the browser chooses the <code>ssrc</code> it may change it in event of a collision, as described in [[!RFC3550]].
+                            Where <code>send(<var>parameters</var>)</code> is called before <code>receive()</code> on the same
+                            <code><a>RTCDtlsTransport</a></code>, the browser can choose one of the SSRCs allocated to an
+                            <code><a>RTCRtpSender</a></code> of the same <code>kind</code>. Where <code>receive()</code> is called first,
+                            a random SSRC value can be chosen.
                         </p>
                     </dd>
                     <dt>DOMString cname</dt>
