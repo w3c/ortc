@@ -114,6 +114,9 @@
                 <p>
                     The terms <dfn>MediaStream</dfn>, <dfn>MediaStreamTrack</dfn>, and <dfn>MediaStreamConstraints</dfn> are defined in [[!GETUSERMEDIA]].
                 </p>
+            </section>
+            <section>
+                <h3>Scope</h3>
                 <p>
                     For Scalable Video Coding (SVC), the terms single-session transmission (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>)
                     are defined in [[RFC6190]]. This specification only supports <a>SST</a> but not <a>MST</a>.
@@ -122,7 +125,10 @@
                     single transport, using a single Real-time Transport Protocol (RTP) stream and synchronization source (SSRC).
                     The term Multiple RTP stream Single Transport (<dfn>MRST</dfn>), also defined in [[RFC7656]] Section 3.7, refers
                     to an implementation that transmits all layers within a single transport, using multiple RTP streams with
-                    a distinct SSRC for each layer.
+                    a distinct SSRC for each layer. This specification supports SVC codecs utilizing <a>SRST</a> transport
+                    (such as with H.264/SVC, VP8 and VP9). Also, sending of simulcast is supported.  SVC codecs supporting
+                    <a>MRST</a> transport (such as H.264/SVC and HEVC) can also be supported, along with reception of simulcast.
+                    However, these features should be considered experimental, since implementation experience is limited.
                 </p>
             </section>
         </section>
@@ -2928,9 +2934,9 @@ mySignaller.myOfferTracks({
                     <dt>boolean svcMultiStreamSupport</dt>
                     <dd>
                         <p>
-                            Whether the implementation can send SVC layers utilizing distinct SSRCs.
-                            Unset for audio codecs. For video codecs, only set if the codec supports scalable video coding with
-                            multiple streams.
+                            Whether the implementation can send/receive SVC layers utilizing distinct SSRCs.
+                            Unset for audio codecs. For video codecs, only set if the codec supports scalable
+                            video coding with <a>MRST</a>.
                         </p>
                     </dd>
                 </dl>
