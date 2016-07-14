@@ -4569,16 +4569,16 @@ var encodings = [
         </section>
         <section id="rtcdtmfsender*">
             <h2>The RTCDtmfSender Object</h2>
-            <div class="note">
-                This section of the ORTC API specification depends on a WebRTC 1.0 DtmfSender API Pull Request which has not yet been integrated.
-            </div>
             <section id="rtcdtmfsender-overview*">
                 <h3>Overview</h3>
                 <p>An <dfn>RTCDtmfSender</dfn> instance allows sending DTMF tones to/from the remote peer, as per [[!RFC4733]].</p>
             </section>
             <section id="rtcdtmfsender-operation*">
                 <h3>Operation</h3>
-                <p>An <a>RTCDtmfSender</a> object is constructed from an <a>RTCRtpSender</a> object.</p>
+                <p>
+                    An <a>RTCDtmfSender</a> object is constructed from an <code><a>RTCRtpSender</a></code> <var>sender</var>.
+                    If <code>sender.track.kind</code> is not "audio", throw an <code>InvalidParameters</code> exception.
+                </p>
             </section>
             <section id="rtcdtmfsender-interface-definition*">
                 <h3>Interface Definition</h3>
@@ -4597,10 +4597,11 @@ var encodings = [
                         <p>
                             The <code>insertDTMF()</code> method is used to send DTMF tones.
                             Since DTMF tones cannot be sent without configuring the DTMF codec,
-                            if <code>insertDTMF()</code> is called prior to <code>sender.send(parameters)</code>, or if
-                            <code>sender.send(parameters)</code> was called but
-                            <code>parameters</code> did not include the DTMF codec,
-                            throw an <code>InvalidStateError</code> exception.
+                            if <code>insertDTMF()</code> is called prior to
+                            <code>sender.send(<var>parameters</var>)</code>, or if
+                            <code>sender.send(<var>parameters</var>)</code> was called with
+                            <code>parameters.codecs[]</code> not including the 
+                            "telephone-event" codec, throw an <code>InvalidStateError</code> exception.
                         </p>
                         <p>
                             The tones parameter is treated as a series of characters. The
