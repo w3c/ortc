@@ -4632,7 +4632,7 @@ interface RTCDataChannel : EventTarget {
     void                     send (Blob data);
     void                     send (ArrayBuffer data);
     void                     send (ArrayBufferView data);
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCDataChannel" data-dfn-for="RTCDataChannel" class="constructors"><dt><dfn><code>RTCDataChannel</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDataTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">parameters</td><td class="prmType"><code>RTCDataChannelParameters</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCDataChannel" data-dfn-for="RTCDataChannel" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDataTransport</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCDataChannel" data-dfn-for="RTCDataChannel" class="constructors"><dt><dfn><code>RTCDataChannel</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDataTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">parameters</td><td class="prmType"><code>RTCDataChannelParameters</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCDataChannel" data-dfn-for="RTCDataChannel" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDataTransport</a></span>, readonly       </dt><dd>
                         <p>The readonly attribute referring to the related transport object.</p>
                     </dd><dt><code>readyState</code> of type <span class="idlAttrType"><a>RTCDataChannelState</a></span>, readonly       </dt><dd>
                         <p>
@@ -4731,13 +4731,13 @@ interface RTCDataChannel : EventTarget {
                         <p>4. If the closing procedure has not started yet, start it.</p>
                     <div><em>No parameters.</em></div><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>send</code></dfn></dt><dd>
                         <p>Run the steps described by the <code>send()</code> algorithm with argument type <code>string</code> object.</p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>USVString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><code>send</code></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>USVString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><code>send</code></dt><dd>
                         <p>Run the steps described by the <code>send()</code> algorithm with argument type <code>Blob</code> object.</p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>Blob</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><code>send</code></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>Blob</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><code>send</code></dt><dd>
                         <p>Run the steps described by the <code>send()</code> algorithm with argument type <code>ArrayBuffer</code> object.</p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>ArrayBuffer</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><code>send</code></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>ArrayBuffer</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><code>send</code></dt><dd>
                         <p>Run the steps described by the <code>send()</code> algorithm with argument type <code>ArrayBufferView</code> object.</p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>ArrayBufferView</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd></dl></section></div>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">data</td><td class="prmType"><code>ArrayBufferView</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd></dl></section></div>
                 <p>
                     The <code>send()</code> method is
                     overloaded to handle different data argument types. When any version of
@@ -4969,7 +4969,7 @@ interface RTCSctpTransport : RTCDataTransport {
     void                       stop ();
                     attribute EventHandler          ondatachannel;
                     attribute EventHandler          onstatechange;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="constructors"><dt><dfn><code>RTCSctpTransport</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">port</td><td class="prmType"><code>unsigned short</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptTrue"><span role="img" aria-label="True">?</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDtlsTransport</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="constructors"><dt><dfn><code>RTCSctpTransport</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">port</td><td class="prmType"><code>unsigned short</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDtlsTransport</a></span>, readonly       </dt><dd>
                         <p>The <a>RTCDtlsTransport</a> instance the <a>RTCSctpTransport</a> object is sending over.</p>
                     </dd><dt><dfn><code>state</code></dfn> of type <span class="idlAttrType"><a>RTCSctpTransportState</a></span>, readonly       </dt><dd>
                         <p>The current state of the SCTP transport.</p>
@@ -4992,7 +4992,7 @@ interface RTCSctpTransport : RTCDataTransport {
                         </p><p>
                     </p></dd></dl></section><section><h2>Methods</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="methods"><dt><dfn><code>getCapabilities</code></dfn>, static</dt><dd>
                         <p>Retrieves the <a>RTCSctpCapabilities</a> of the <a>RTCSctpTransport</a> instance.</p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCSctpCapabilities</code></div></dd><dt><dfn><code>start</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteCaps</td><td class="prmType"><code>RTCSctpCapabilities</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCSctpCapabilities</code></div></dd><dt><dfn><code>start</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteCaps</td><td class="prmType"><code>RTCSctpCapabilities</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
                         <p>Stops the <a>RTCSctpTransport</a> instance.</p>
                     <div><em>No parameters.</em></div><div><em>Return type: </em><code>void</code></div></dd></dl></section></div>
                 <section id="rtcsctptransportstate*">
@@ -5048,7 +5048,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 <div><pre class="idl">[ Constructor (DOMString type, RTCDataChannelEventInit eventInitDict)]
 interface RTCDataChannelEvent : Event {
     readonly        attribute RTCDataChannel channel;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCDataChannelEvent" data-dfn-for="RTCDataChannelEvent" class="constructors"><dt><dfn><code>RTCDataChannelEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code>RTCDataChannelEventInit</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCDataChannelEvent" data-dfn-for="RTCDataChannelEvent" class="attributes"><dt><code>channel</code> of type <span class="idlAttrType"><a>RTCDataChannel</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCDataChannelEvent" data-dfn-for="RTCDataChannelEvent" class="constructors"><dt><dfn><code>RTCDataChannelEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code>RTCDataChannelEventInit</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCDataChannelEvent" data-dfn-for="RTCDataChannelEvent" class="attributes"><dt><code>channel</code> of type <span class="idlAttrType"><a>RTCDataChannel</a></span>, readonly       </dt><dd>
                         <p>
                             The <dfn id="dom-datachannelevent-channel"><code>channel</code></dfn> attribute
                             represents the <code><a>RTCDataChannel</a></code> object associated
@@ -5254,7 +5254,7 @@ function accept(signaller, remote) {
                             generated for this stats report. The order of the property names is
                             left to the user agent.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">id</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>getter</code></div></dd></dl></section></div>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">id</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>getter</code></div></dd></dl></section></div>
             </section>
             <section>
                 <h4>RTCStats Dictionary</h4>
@@ -5766,7 +5766,7 @@ interface RTCIdentity {
     readonly        attribute RTCDtlsTransport      transport;
     Promise&lt;DOMString&gt;            getIdentityAssertion (DOMString provider, optional DOMString protocol = "default", optional DOMString username);
     Promise&lt;RTCIdentityAssertion&gt; setIdentityAssertion (DOMString assertion);
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="constructors"><dt><dfn><code>RTCIdentity</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes"><dt><code>peerIdentity</code> of type <span class="idlAttrType"><a>RTCIdentityAssertion</a></span>, readonly       , nullable</dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="constructors"><dt><dfn><code>RTCIdentity</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes"><dt><code>peerIdentity</code> of type <span class="idlAttrType"><a>RTCIdentityAssertion</a></span>, readonly       , nullable</dt><dd>
                         <p>
                             <code>peerIdentity</code> contains the peer identity assertion information if an identity
                             assertion was provided and verified. Once this value is set to a
@@ -5811,14 +5811,14 @@ interface RTCIdentity {
                                 </p>
                             </li>
                         </ol>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">provider</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">protocol</td><td class="prmType"><code>DOMString = "default"</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptTrue"><span role="img" aria-label="True">?</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">username</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptTrue"><span role="img" aria-label="True">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;DOMString&gt;</code></div></dd><dt><dfn><code>setIdentityAssertion</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">provider</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">protocol</td><td class="prmType"><code>DOMString = "default"</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">username</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;DOMString&gt;</code></div></dd><dt><dfn><code>setIdentityAssertion</code></dfn></dt><dd>
                         <p>
                             Validates the identity assertion. If the Promise is fulfilled,
                             an <code>RTCIdentityAssertion</code> is returned.
                             If the Promise is rejected, an <code>RTCIdentityError</code> object is returned, (equivalent to
                             <code>onidpvalidationerror</code> in the WebRTC 1.0 API).
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">assertion</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;RTCIdentityAssertion&gt;</code></div></dd></dl></section></div>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">assertion</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;RTCIdentityAssertion&gt;</code></div></dd></dl></section></div>
             </section>
             <section>
                 <h3>dictionary RTCIdentityError</h3>
@@ -6055,7 +6055,7 @@ function signalAssertion(assertion) {
                           It is expected that a <a class="internalDFN" href="#dfn-user-agent">user agent</a> will have a
                           small or even fixed set of values that it will accept.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">keygenAlgorithm</td><td class="prmType"><code>AlgorithmIdentifier</code></td><td class="prmNullFalse"><span role="img" aria-label="False">?</span></td><td class="prmOptFalse"><span role="img" aria-label="False">?</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;RTCCertificate&gt;</code></div></dd></dl></section></div>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">keygenAlgorithm</td><td class="prmType"><code>AlgorithmIdentifier</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;RTCCertificate&gt;</code></div></dd></dl></section></div>
             </section>
         </section>
         <section class="informative">
@@ -7278,4 +7278,237 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/132">Issue 132</a>
                     </li>
                     <li>
-               
+                        Separated references into Normative and Informative, as noted in
+                        <a href="https://github.com/openpeer/ortc/issues/133">Issue 133</a>
+                    </li>
+                </ol>
+            </section>
+            <section id="since-14-May-2014*">
+                <h3>Changes since 14 May 2014</h3>
+                <ol>
+                    <li> Added support for non-multiplexed RTP/RTCP and ICE freezing, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/57">Issue 57</a>
+                    </li>
+                    <li>
+                        Added support for <code>getRemoteCertificates()</code>, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/67">Issue 67</a>
+                    </li>
+                    <li>
+                        Removed <code>filterParameters()</code> and <code>createParameters()</code> methods, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/80">Issue 80</a>
+                    </li>
+                    <li>
+                        Partially addressed capabilities issues, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/84">Issue 84</a>
+                    </li>
+                    <li>
+                        Addressed WebIDL type issues described in
+                        <a href="https://github.com/openpeer/ortc/issues/88">Issue 88</a>
+                    </li>
+                    <li>
+                        Addressed Overview section issues described in
+                        <a href="https://github.com/openpeer/ortc/issues/91">Issue 91</a>
+                    </li>
+                    <li>
+                        Addressed readonly attribute issues described in
+                        <a href="https://github.com/openpeer/ortc/issues/92">Issue 92</a>
+                    </li>
+                    <li>
+                        Added ICE restart method to address the issue described in
+                        <a href="https://github.com/openpeer/ortc/issues/93">Issue 93</a>
+                    </li>
+                    <li>
+                        Added onerror eventhandler to sender and receiver objects as described in
+                        <a href="https://github.com/openpeer/ortc/issues/95">Issue 95</a>
+                    </li>
+                </ol>
+            </section>
+            <section id="since-29-April-2014*">
+                <h3>Changes since 29 April 2014</h3>
+                <ol>
+                    <li> ICE restart explanation added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/59">Issue 59</a>
+                    </li>
+                    <li>
+                        Fixes for error handling, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/75">Issue 75</a>
+                    </li>
+                    <li>
+                        Fixes for miscellaneous NITs, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/76">Issue 76</a>
+                    </li>
+                    <li>
+                        Enable retrieval of the SSRC to be used by RTCP, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/77">Issue 77</a>
+                    </li>
+                    <li>
+                        Support for retrieval of audio and video capabilities, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/81">Issue 81</a>
+                    </li>
+                    <li>
+                        getStats interface updated, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/82">Issue 82</a>
+                    </li>
+                    <li>
+                        Partially addressed SVC issues described in
+                        <a href="https://github.com/openpeer/ortc/issues/83">Issue 83</a>
+                    </li>
+                    <li> Partially addressed statistics update issues described in
+                        <a href="https://github.com/openpeer/ortc/issues/85">Issue 85</a>
+                    </li>
+                </ol>
+            </section>
+            <section id="since-12-April-2014*">
+                <h3>Changes since 12 April 2014</h3>
+                <ol>
+                    <li> Fixes for error handling, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/26">Issue 26</a>
+                    </li>
+                    <li>
+                        Support for contributing sources removed (re-classified as a 1.2 feature), as described in
+                        <a href="https://github.com/openpeer/ortc/issues/27">Issue 27</a>
+                    </li>
+                    <li>
+                        Cleanup of DataChannel construction, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/60">Issue 60</a>
+                    </li>
+                    <li>
+                        Separate proposal on simulcast/layering, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/61">Issue 61</a>
+                    </li>
+                    <li>
+                        Separate proposal on quality, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/62">Issue 62</a>
+                    </li>
+                    <li>
+                        Fix for TCP candidate type, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/63">Issue 63</a>
+                    </li>
+                    <li>
+                        Fix to the fingerprint attribute, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/64">Issue 64</a>
+                    </li>
+                    <li>
+                        Fix to RTCRtpFeatures, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/65">Issue 65</a>
+                    </li>
+                    <li>
+                        Support for retrieval of remote certificates, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/67">Issue 67</a>
+                    </li>
+                    <li>
+                        Support for ICE error handling, described in
+                        <a href="https://github.com/openpeer/ortc/issues/68">Issue 68</a>
+                    </li>
+                    <li>
+                        Support for Data Channel send rate control, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/69">Issue 69</a>
+                    </li>
+                    <li>
+                        Support for capabilities and settings, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/70">Issue 70</a>
+                    </li>
+                    <li>
+                        Removal of duplicate RTCIceListener functionality, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/71">Issue 71</a>
+                    </li>
+                    <li>
+                        ICE gathering state added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/72">Issue 72</a>
+                    </li>
+                    <li>
+                        Removed ICE role from the ICE transport constructor, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/73">Issue 73</a>
+                    </li>
+                </ol>
+            </section>
+            <section id="since-13-February-2014*">
+                <h3>Changes since 13 February 2014</h3>
+                <ol>
+                    <li>
+                        Support for contributing source information added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/27">Issue 27</a>
+                    </li>
+                    <li>
+                        Support for control of quality, resolution, framerate and layering added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/31">Issue 31</a>
+                    </li>
+                    <li>
+                        <code><a>RTCRtpListener</a></code> object added and figure in Section 1 updated, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/32">Issue 32</a>
+                    </li>
+                    <li>
+                        More complete support for RTP and Codec Parameters added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/33">Issue 33</a>
+                    </li>
+                    <li>
+                        Data Channel transport problem fixed, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/34">Issue 34</a>
+                    </li>
+                    <li>
+                        Various NITs fixed, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/37">Issue 37</a>
+                    </li>
+                    <li>
+                        <code><a>RTCDtlsTransport</a></code> operation and interface definition updates, as described in:
+                        <a href="https://github.com/openpeer/ortc/issues/38">Issue 38</a>
+                    </li>
+                    <li>
+                        Default values of some dictionary attributes added, to partially address the issue described in:
+                        <a href="https://github.com/openpeer/ortc/issues/39">Issue 39</a>
+                    </li>
+                    <li>
+                        Support for ICE TCP added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/41">Issue 41</a>
+                    </li>
+                    <li>
+                        Fixed issue with sequences as attributes, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/43">Issue 43</a>
+                    </li>
+                    <li>
+                        Fix for issues with onlocalcandidate, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/44">Issue 44</a>
+                    </li>
+                    <li>
+                        Initial stab at a Stats API, as requested in
+                        <a href="https://github.com/openpeer/ortc/issues/46">Issue 46</a>
+                    </li>
+                    <li>
+                        Added support for ICE gather policy, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/47">Issue 47</a>
+                    </li>
+                </ol>
+            </section>
+            <section id="since-07-November-2013*">
+                <h3>Changes since 07 November 2013</h3>
+                <ol>
+                    <li>
+                        RTCTrack split into <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> objects, as proposed on
+                        <a href="http://lists.w3.org/Archives/Public/public-orca/2014Jan/0000.html"> 06 January 2014.</a>
+                    </li>
+                    <li>
+                        RTCConnection split into <code><a>RTCIceTransport</a></code> and <code><a>RTCDtlsTransport</a></code> objects, as proposed on
+                        <a href="http://lists.w3.org/Archives/Public/public-orca/2014Jan/0005.html"> 09 January 2014. </a>
+                    </li>
+                    <li>
+                        <code><a>RTCSctpTransport</a></code> object added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/25">Issue 25</a>
+                    </li>
+                    <li>
+                        RTCRtpHeaderExtensionParameters added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/28">Issue 28</a>
+                    </li>
+                    <li>
+                        RTCIceListener added, in order to support parallel forking, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/29">Issue 29</a>
+                    </li>
+                    <li>
+                        DTMF support added, as described in
+                        <a href="https://github.com/openpeer/ortc/issues/30">Issue 30</a>
+                    </li>
+                </ol>
+            </section>
+        </section>
+    
+
+</body></html>
