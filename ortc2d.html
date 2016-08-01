@@ -1226,7 +1226,7 @@ mySignaller.send({
                 </div></div>
                 <div><pre class="idl">[ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
 interface RTCDtlsTransport : RTCStatsProvider  {
-    readonly        attribute FrozenArray&lt;RTCCertificate&gt; certificates;
+    readonly        attribute sequence&lt;RTCCertificate&gt; certificates;
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCDtlsTransportState    state;
     RTCDtlsParameters     getLocalParameters ();
