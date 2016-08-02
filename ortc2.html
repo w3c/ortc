@@ -431,7 +431,7 @@ interface RTCIceGathererIceErrorEvent : Event {
     readonly        attribute DOMString        url;
     readonly        attribute unsigned short   errorCode;
     readonly        attribute USVString        errorText;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceGathererIceErrorEvent" data-dfn-for="RTCIceGathererIceErrorEvent" class="constructors"><dt><dfn><code>RTCIceGathererIceErrorEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code>RTCIceGathererIceErrorEventInit</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceGathererIceErrorEvent" data-dfn-for="RTCIceGathererIceErrorEvent" class="attributes"><dt><dfn><code>hostCandidate</code></dfn> of type <span class="idlAttrType"><a>RTCIceCandidate</a></span>, readonly       , nullable</dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceGathererIceErrorEvent" data-dfn-for="RTCIceGathererIceErrorEvent" class="constructors"><dt><dfn><code>RTCIceGathererIceErrorEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code><a>RTCIceGathererIceErrorEventInit</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceGathererIceErrorEvent" data-dfn-for="RTCIceGathererIceErrorEvent" class="attributes"><dt><dfn><code>hostCandidate</code></dfn> of type <span class="idlAttrType"><a>RTCIceCandidate</a></span>, readonly       , nullable</dt><dd>
                         <p>
                             The <code><a>RTCIceCandidate</a></code> used to communicate with the
                             STUN or TURN server. On a multihomed system, multiple interfaces may be
@@ -441,32 +441,32 @@ interface RTCIceGathererIceErrorEvent : Event {
                         </p>
                         <p>
                             If use of multiple interfaces has been prohibited for privacy reasons,
-                            <var>hostCandidate</var> will be null.
+                            <code><a>hostCandidate</a></code> will be null.
                         </p>
                     </dd><dt><dfn><code>url</code></dfn> of type <span class="idlAttrType"><a>DOMString</a></span>, readonly       </dt><dd>
                         <p>
-                            The <code>url</code> attribute is the STUN or TURN URL identifying
+                            The <code><a>url</a></code> attribute is the STUN or TURN URL identifying
                             the server on which the failure ocurred.
                         </p>
                     </dd><dt><dfn><code>errorCode</code></dfn> of type <span class="idlAttrType"><a>unsigned short</a></span>, readonly       </dt><dd>
                         <p>
-                            The <code>errorCode</code> attribute is the numeric STUN
+                            The <code><a>errorCode</a></code> attribute is the numeric STUN
                             error code returned by the STUN or TURN server [[STUN-PARAMETERS]].
                         </p>
                         <p>
-                            If no host candidate can reach the server, <code>errorCode</code>
+                            If no host candidate can reach the server, <code><a>errorCode</a></code>
                             will be set to a value of 701, as this does not conflict
-                            with the STUN error code range, and <var>hostCandidate</var> will be null.
+                            with the STUN error code range, and <code><a>hostCandidate</a></code> will be null.
                             This error is only fired once per server URL while in the 
-                            <code>RTCIceGathererState</code> of <code>gathering</code>.
+                            <code><a>RTCIceGathererState</a></code> of <code>gathering</code>.
                         </p>
                     </dd><dt><dfn><code>errorText</code></dfn> of type <span class="idlAttrType"><a>USVString</a></span>, readonly       </dt><dd>
                         <p>
-                            The <code>errorText</code> attribute is the STUN reason text
+                            The <code><a>errorText</a></code> attribute is the STUN reason text
                             returned by the STUN or TURN server [[STUN-PARAMETERS]].
                        </p>
                        <p>
-                            If the server could not be reached, <code>errorText</code> will be set
+                            If the server could not be reached, <code><a>errorText</a></code> will be set
                             to an implementation-specific value providing details about the error.
                        </p>
                     </dd></dl></section></div>
@@ -519,7 +519,7 @@ interface RTCIceGathererIceErrorEvent : Event {
 interface RTCIceGathererEvent : Event {
     readonly        attribute RTCIceGatherCandidate candidate;
     readonly        attribute DOMString             url;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceGathererEvent" data-dfn-for="RTCIceGathererEvent" class="constructors"><dt><dfn><code>RTCIceGathererEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code>RTCIceGathererEventInit</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceGathererEvent" data-dfn-for="RTCIceGathererEvent" class="attributes"><dt><dfn><code>candidate</code></dfn> of type <span class="idlAttrType"><a>RTCIceGatherCandidate</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceGathererEvent" data-dfn-for="RTCIceGathererEvent" class="constructors"><dt><dfn><code>RTCIceGathererEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code><a>RTCIceGathererEventInit</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceGathererEvent" data-dfn-for="RTCIceGathererEvent" class="attributes"><dt><dfn><code>candidate</code></dfn> of type <span class="idlAttrType"><a>RTCIceGatherCandidate</a></span>, readonly       </dt><dd>
                         <p>
                             The <code>candidate</code> attribute is the
                             <code><a>RTCIceGatherCandidate</a></code> object with the new ICE
@@ -621,7 +621,7 @@ interface RTCIceGathererEvent : Event {
                     </dd><dt><dfn><code>credentialType</code></dfn> of type <span class="idlMemberType"><a>RTCIceCredentialType</a></span>, defaulting to <code>"password"</code></dt><dd>
                         <p>
                             If this <code><a>RTCIceServer</a></code> object represents a TURN Server, then this
-                            attribute specifies how <var>credential</var> should be used when that TURN server requests authorization.
+                            attribute specifies how <code><a>credential</a></code> should be used when that TURN server requests authorization.
                         </p>
                     </dd></dl></section></div>
             </section>
@@ -812,7 +812,7 @@ interface RTCIceTransport : RTCStatsProvider {
     void                      setRemoteCandidates (sequence&lt;RTCIceCandidate&gt; remoteCandidates);
                     attribute EventHandler         onstatechange;
                     attribute EventHandler         oncandidatepairchange;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceTransport" data-dfn-for="RTCIceTransport" class="constructors"><dt><code><a>RTCIceTransport</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">gatherer</td><td class="prmType"><code>RTCIceGatherer</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceTransport" data-dfn-for="RTCIceTransport" class="attributes"><dt><dfn><code>iceGatherer</code></dfn> of type <span class="idlAttrType"><a>RTCIceGatherer</a></span>, readonly       , nullable</dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceTransport" data-dfn-for="RTCIceTransport" class="constructors"><dt><code><a>RTCIceTransport</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">gatherer</td><td class="prmType"><code><a>RTCIceGatherer</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceTransport" data-dfn-for="RTCIceTransport" class="attributes"><dt><dfn><code>iceGatherer</code></dfn> of type <span class="idlAttrType"><a>RTCIceGatherer</a></span>, readonly       , nullable</dt><dd>
                         <p>
                             The <code>iceGatherer</code> attribute is set to the value of <var>gatherer</var> if passed in the constructor or in the latest call to <code>start()</code>.
                         </p>
@@ -820,8 +820,8 @@ interface RTCIceTransport : RTCStatsProvider {
                         <p>The current role of the ICE transport.</p>
                     </dd><dt><dfn><code>component</code></dfn> of type <span class="idlAttrType"><a>RTCIceComponent</a></span>, readonly       </dt><dd>
                         <p>The component-id of the <code><a>RTCIceTransport</a></code> object.  In <code><a>RTCIceTransport</a></code>
-                        objects returned by <code>createAssociatedTransport()</code>, the value of <code>component</code> is
-                        <code>RTCP</code>.  In all other <code><a>RTCIceTransport</a></code> objects, the value of <code>component</code> is <code>RTP</code>.
+                        objects returned by <code><a>createAssociatedTransport</a>()</code>, the value of <code><a>component</a></code> is
+                        <code>RTCP</code>.  In all other <code><a>RTCIceTransport</a></code> objects, the value of <code><a>component</a></code> is <code>RTP</code>.
                         </p>
                     </dd><dt><dfn><code>state</code></dfn> of type <span class="idlAttrType"><a>RTCIceTransportState</a></span>, readonly       </dt><dd>
                         <p>The current state of the ICE transport.</p>
@@ -833,8 +833,8 @@ interface RTCIceTransport : RTCStatsProvider {
                         </p><p>
                     </p></dd><dt><dfn><code>oncandidatepairchange</code></dfn> of type <span class="idlAttrType"><a>EventHandler</a></span></dt><dd>
                         <p>
-                            This event handler, of event handler type <code>icecandidatepairchange</code>,
-                            uses the <code>RTCIceCandidatePairChangedEvent</code> interface.
+                            This event handler, of event handler type <code><a>icecandidatepairchange</a></code>,
+                            uses the <code><a>RTCIceCandidatePairChangedEvent</a></code> interface.
                             It <em class="rfc2119" title="MUST">MUST</em> be supported by
                             all objects implementing the <code><a>RTCIceTransport</a></code> interface.
                             It is called any time the selected <code><a>RTCIceCandidatePair</a></code> changes.
@@ -843,24 +843,24 @@ interface RTCIceTransport : RTCStatsProvider {
                         <p>
                             Retrieve the sequence of candidates associated with the remote
                             <code><a>RTCIceTransport</a></code>. Only returns the candidates previously
-                            added using <code>setRemoteCandidates()</code> or <code>addRemoteCandidate()</code>.
+                            added using <code><a>setRemoteCandidates</a>()</code> or <code><a>addRemoteCandidate</a>()</code>.
                             If there are no remote candidates, an empty list is returned.
                         </p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;RTCIceCandidate&gt;</code></div></dd><dt><dfn><code>getSelectedCandidatePair</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;<code><a>RTCIceCandidate</a></code>&gt;</code></div></dd><dt><dfn><code>getSelectedCandidatePair</code></dfn></dt><dd>
                         <p>
                             Retrieves the selected candidate pair on which packets are sent. If there is no selected pair yet,
                             or consent [[!RFC7675]] is lost on the selected pair, NULL is returned.
                         </p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCIceCandidatePair</code>, nullable</div></dd><dt><dfn><code>start</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code><a>RTCIceCandidatePair</a></code>, nullable</div></dd><dt><dfn><code>start</code></dfn></dt><dd>
                         <p>
                             The first time <code>start()</code> is called, candidate connectivity checks are started and the
                             ICE transport attempts to connect to the remote <code><a>RTCIceTransport</a></code>.
                             If <code>start()</code> is called with invalid parameters, throw an <code>InvalidParameters</code> exception.
-                            For example, if <var>gatherer.component</var> has a value different from <var>iceTransport.component</var>,
-                            throw an <code>InvalidParameters</code> exception.  If <var>state</var> or <var>gatherer.state</var> is <code>closed</code>,
+                            For example, if <code>gatherer.component</code> has a value different from <code>iceTransport.component</code>,
+                            throw an <code>InvalidParameters</code> exception.  If <code>state</code> or <code>gatherer.state</code> is <code>closed</code>,
                             throw an <code>InvalidStateError</code> exception.  When <code>start()</code> is called again,
                             <code><a>RTCIceTransportState</a></code> transitions to the <code>connected</code> state, all remote candidates
-                            are flushed, and <code>addRemoteCandidate()</code> or <code>setRemoteCandidates()</code> must be called
+                            are flushed, and <code><a>addRemoteCandidate</a>()</code> or <code><a>setRemoteCandidates</a>()</code> must be called
                             to add the remote candidates back or replace them.
                         </p>
                         <p>
@@ -878,7 +878,7 @@ interface RTCIceTransport : RTCStatsProvider {
                             once <code>start()</code> is called an <code><a>RTCIceTransport</a></code> object
                             can respond to incoming connectivity checks based on its configured role, as well as initiating connectivity checks.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">gatherer</td><td class="prmType"><code>RTCIceGatherer</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">remoteParameters</td><td class="prmType"><code>RTCIceParameters</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">role</td><td class="prmType"><code>RTCIceRole</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">gatherer</td><td class="prmType"><code><a>RTCIceGatherer</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">remoteParameters</td><td class="prmType"><code><a>RTCIceParameters</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">role</td><td class="prmType"><code><a>RTCIceRole</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
                         <p>
                             Stops and closes the current object. Also removes the object from the
                             <code><a>RTCIceTransportController</a></code>.
@@ -886,7 +886,7 @@ interface RTCIceTransport : RTCStatsProvider {
                         </p>
                     <div><em>No parameters.</em></div><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>getRemoteParameters</code></dfn></dt><dd>
                         <p>Obtain the current ICE parameters of the remote <code><a>RTCIceTransport</a></code>.</p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCIceParameters</code>, nullable</div></dd><dt><dfn><code>createAssociatedTransport</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code><a>RTCIceParameters</a></code>, nullable</div></dd><dt><dfn><code>createAssociatedTransport</code></dfn></dt><dd>
                         <p>
                             Create an associated <code><a>RTCIceTransport</a></code> for RTCP.
                             If called more than once for the same component, or if <var>state</var> is <code>closed</code>,
@@ -894,7 +894,7 @@ interface RTCIceTransport : RTCStatsProvider {
                             <code>component</code> is <code>RTCP</code>,
                             throw an <code>InvalidStateError</code> exception.
                         </p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCIceTransport</code></div></dd><dt><dfn><code>addRemoteCandidate</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code><a>RTCIceTransport</a></code></div></dd><dt><dfn><code>addRemoteCandidate</code></dfn></dt><dd>
                         <p>
                             Add a remote candidate associated with the remote <code><a>RTCIceTransport</a></code>.
                             If <code>state</code> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
@@ -902,19 +902,19 @@ interface RTCIceTransport : RTCStatsProvider {
                             with an <code>RTCIceCandidateComplete</code> dictionary as an argument, so that the local <code><a>RTCIceTransport</a></code> can
                             know there are no more remote candidates expected, and can enter the <code>completed</code> state.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteCandidate</td><td class="prmType"><code>RTCIceGatherCandidate</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>setRemoteCandidates</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteCandidate</td><td class="prmType"><code><a>RTCIceGatherCandidate</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>setRemoteCandidates</code></dfn></dt><dd>
                         <p>
                             Set the sequence of candidates associated with the remote <code><a>RTCIceTransport</a></code>.
                             If <code>state</code> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteCandidates</td><td class="prmType"><code>sequence&lt;RTCIceCandidate&gt;</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd></dl></section></div>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteCandidates</td><td class="prmType"><code>sequence&lt;<code><a>RTCIceCandidate</a></code>&gt;</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd></dl></section></div>
             </section>
             <section id="rtcicecomponent*">
                 <h3>enum RTCIceComponent</h3>
                 <p>
                     <dfn><code>RTCIceComponent</code></dfn> contains the component-id of the <code><a>RTCIceTransport</a></code>,
                     which will be <code>RTP</code> unless RTP and RTCP are not multiplexed and
-                    the <code><a>RTCIceTransport</a></code> object was returned by <code>createAssociatedTransport()</code>.
+                    the <code><a>RTCIceTransport</a></code> object was returned by <code><a>createAssociatedTransport</a>()</code>.
                 </p>
                 <div><pre class="idl">enum RTCIceComponent {
     "RTP",
