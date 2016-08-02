@@ -187,10 +187,10 @@ interface RTCIceGatherer : RTCStatsProvider {
     RTCIceGatherer            createAssociatedGatherer ();
                     attribute EventHandler        onstatechange;
                     attribute EventHandler        onerror;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class="constructors"><dt><code><a>RTCIceGatherer</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">options</td><td class="prmType"><code>RTCIceGatherOptions</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class="attributes"><dt><dfn><code>component</code></dfn> of type <span class="idlAttrType"><a>RTCIceComponent</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class="constructors"><dt><code><a>RTCIceGatherer</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">options</td><td class="prmType"><code><a>RTCIceGatherOptions</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class="attributes"><dt><dfn><code>component</code></dfn> of type <span class="idlAttrType"><a>RTCIceComponent</a></span>, readonly       </dt><dd>
                         <p>The component-id of the <code><a>RTCIceGatherer</a></code> object.  In <code><a>RTCIceGatherer</a></code>
-                        objects returned by <code>createAssociatedGatherer()</code> the value of the <code>component</code> attribute is <code>RTCP</code>.
-                        In all other <code><a>RTCIceGatherer</a></code> objects, the value of the <code>component</code> attribute is <code>RTP</code>.
+                        objects returned by <code><a>createAssociatedGatherer</a>()</code> the value of the <code><a>component</a></code> attribute is <code>RTCP</code>.
+                        In all other <code><a>RTCIceGatherer</a></code> objects, the value of the <code><a>component</a></code> attribute is <code>RTP</code>.
                         </p>
                     </dd><dt><dfn><code>state</code></dfn> of type <span class="idlAttrType"><a>RTCIceGathererState</a></span>, readonly       </dt><dd>
                         <p>The current state of the ICE gatherer.</p>
@@ -211,34 +211,34 @@ interface RTCIceGatherer : RTCStatsProvider {
                             Prunes all local candidates, and closes the port. Associated <code><a>RTCIceTransport</a></code>
                             objects transition to the <code>disconnected</code> state
                             (unless they were in the <code>failed</code> state).
-                            Calling <code>close()</code> when <var>state</var> is <code>closed</code> has no effect.
+                            Calling <code>close()</code> when <closed>state</closed> is <code>closed</code> has no effect.
                         </p>
                     <div><em>No parameters.</em></div><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>gather</code></dfn></dt><dd>
                         <p>
                             Gather ICE candidates. If <var>options</var> is omitted, utilize the value
                             of <var>options</var> passed in the constructor.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">options</td><td class="prmType"><code>RTCIceGatherOptions</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>getLocalParameters</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">options</td><td class="prmType"><code><a>RTCIceGatherOptions</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>getLocalParameters</code></dfn></dt><dd>
                         <p>Obtain the ICE parameters of the <code><a>RTCIceGatherer</a></code>.</p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCIceParameters</code></div></dd><dt><dfn><code>getLocalCandidates</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code><a>RTCIceParameters</a></code></div></dd><dt><dfn><code>getLocalCandidates</code></dfn></dt><dd>
                         <p>
                             Retrieve the sequence of valid local candidates associated with the
                             <code><a>RTCIceGatherer</a></code>.
                             This retrieves all unpruned local candidates currently known (except for peer reflexive candidates),
                             even if an <code><a>onlocalcandidate</a></code>
-                            event hasn't been processed yet. Prior to calling <code>gather()</code> an empty list
+                            event hasn't been processed yet. Prior to calling <code><a>gather</a>()</code> an empty list
                             will be returned.
                         </p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;RTCIceCandidate&gt;</code></div></dd><dt><dfn><code>createAssociatedGatherer</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;<code><a>RTCIceCandidate</a></code>&gt;</code></div></dd><dt><dfn><code>createAssociatedGatherer</code></dfn></dt><dd>
                         <p>
                             Create an associated <code><a>RTCIceGatherer</a></code> for RTCP, with the same
                             <code><a>RTCIceParameters</a></code> and <code><a>RTCIceGatherOptions</a></code>.
-                            If <var>state</var> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
+                            If <code>state</code> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
                             If an <code><a>RTCIceGatherer</a></code> calls the method more than once,
-                            or if <var>component</var> is <code>RTCP</code>, throw
+                            or if <code><a>component</a></code> is <code>RTCP</code>, throw
                             an <code>InvalidStateError</code> exception.
                         </p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCIceGatherer</code></div></dd></dl></section></div>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code><a>RTCIceGatherer</a></code></div></dd></dl></section></div>
             </section>
             <section id="rtciceparameters*">
                 <h3>The RTCIceParameters Object</h3>
@@ -258,7 +258,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                         <p>
                             If only ICE-lite is supported (<code>true</code>) or not (<code>false</code> or unset). Since
                             [[!RTCWEB-TRANSPORT]] Section 3.4 requires browser support for full ICE,
-                            <var>iceLite</var> will only be <code>true</code> for a remote peer such as
+                            <code><a>iceLite</a></code> will only be <code>true</code> for a remote peer such as
                             a gateway. <code>getLocalParameters().iceLite</code> MUST NOT be set.
                         </p>
                     </dd></dl></section></div>
@@ -306,14 +306,13 @@ interface RTCIceGatherer : RTCStatsProvider {
                     </dd><dt><code>relatedAddress</code> of type <span class="idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt><dd>
                         <p>
                             For candidates that are derived from others, such as relay or reflexive candidates, the <dfn><code>relatedAddress</code></dfn>
-                            refers to the candidate that these are derived from. For host candidates, the <var>relatedAddress</var>
+                            refers to the candidate that these are derived from. For host candidates, the <code><a>relatedAddress</a></code>
                             is set to the empty string.
                         </p>
                     </dd><dt><code>relatedPort</code> of type <span class="idlMemberType"><a>unsigned short</a></span></dt><dd>
                         <p>
                             For candidates that are derived from others, such as relay or reflexive candidates, the <dfn><code>relatedPort</code></dfn>
-                            refers to the host candidate that these are derived from. For host candidates, the <var>relatedPort</var>
-                            is 0.
+                            refers to the host candidate that these are derived from. For host candidates, the <code><a>relatedPort</a></code> is 0.
                         </p>
                     </dd></dl></section></div>
                 <section>
@@ -6068,7 +6067,7 @@ function signalAssertion(assertion) {
                         <td>The <code><a>RTCDtlsTransport</a></code> object has received a DTLS Alert.</td>
                     </tr>
                     <tr>
-                        <td><dfn>statechange</dfn></td>
+                        <td><dfn><code>statechange</code></dfn></td>
                         <td><code><a>Event</a></code></td>
                         <td>The <code><a>RTCDtlsTransportState</a></code> changed.</td>
                     </tr>
@@ -6103,7 +6102,7 @@ function signalAssertion(assertion) {
                 </tr>
                 </tbody><tbody>
                     <tr>
-                        <td><dfn>icecandidateerror</dfn></td>
+                        <td><dfn><code>icecandidateerror</code></dfn></td>
                         <td><code><a>RTCIceGathererIceErrorEvent</a></code></td>
                         <td>The <code><a>RTCIceGatherer</a></code> object has experienced an ICE gathering failure (such as an authentication failure with TURN credentials).</td>
                     </tr>
