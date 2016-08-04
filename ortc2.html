@@ -524,7 +524,7 @@ interface RTCIceGathererEvent : Event {
                             The <code>candidate</code> attribute is the
                             <code><a>RTCIceGatherCandidate</a></code> object with the new ICE
                             candidate that caused the event.
-                            If <code>candidate</code> is of type <code>RTCIceCandidateComplete</code>,
+                            If <code>candidate</code> is of type <code><a>RTCIceCandidateComplete</a></code>,
                             there are no additional candidates.
                         </p>
                     </dd><dt><dfn><code>url</code></dfn> of type <span class="idlAttrType"><a>DOMString</a></span>, readonly       </dt><dd>The URL of the server from which the candidate was obtained.</dd></dl></section></div>
@@ -898,8 +898,8 @@ interface RTCIceTransport : RTCStatsProvider {
                         <p>
                             Add a remote candidate associated with the remote <code><a>RTCIceTransport</a></code>.
                             If <code>state</code> is <code>closed</code>, throw an <code>InvalidStateError</code> exception.
-                            When the remote <code><a>RTCIceGatherer</a></code> emits its final candidate, <code>addRemoteCandidate()</code> should be called
-                            with an <code>RTCIceCandidateComplete</code> dictionary as an argument, so that the local <code><a>RTCIceTransport</a></code> can
+                            When the remote <code><a>RTCIceGatherer</a></code> emits its final candidate, <code><a>addRemoteCandidate</a>()</code> should be called
+                            with an <code><a>RTCIceCandidateComplete</a></code> dictionary as an argument, so that the local <code><a>RTCIceTransport</a></code> can
                             know there are no more remote candidates expected, and can enter the <code>completed</code> state.
                         </p>
                     <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteCandidate</td><td class="prmType"><code><a>RTCIceGatherCandidate</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>setRemoteCandidates</code></dfn></dt><dd>
@@ -914,7 +914,7 @@ interface RTCIceTransport : RTCStatsProvider {
                 <p>
                     <dfn><code>RTCIceComponent</code></dfn> contains the component-id of the <code><a>RTCIceTransport</a></code>,
                     which will be <code>RTP</code> unless RTP and RTCP are not multiplexed and
-                    the <code><a>RTCIceTransport</a></code> object was returned by <code><a>createAssociatedTransport</a>()</code>.
+                    the <code><a>RTCIceTransport</a></code> object was returned by <code>createAssociatedTransport()</code>.
                 </p>
                 <div><pre class="idl">enum RTCIceComponent {
     "RTP",
@@ -992,7 +992,7 @@ interface RTCIceTransport : RTCStatsProvider {
                         </p>
                     </td></tr><tr><td><dfn><code id="idl-def-RTCIceTransportState.failed">failed</code></dfn></td><td>
                         <p>
-                            A local and remote <code>RTCIceCandidateComplete</code> dictionary was added as the last candidate
+                            A local and remote <code><a>RTCIceCandidateComplete</a></code> dictionary was added as the last candidate
                             to the <code><a>RTCIceTransport</a></code> and all appropriate candidate pairs have either
                             failed connectivity checks or have lost consent.
                         </p>
@@ -1050,14 +1050,14 @@ interface RTCIceTransport : RTCStatsProvider {
                     which does not bubble (except where otherwise stated) and is not
                     cancelable (except where otherwise stated), and which uses the
                     <code><a>RTCIceCandidatePairChangedEvent</a></code> interface with
-                    <var>pair</var> set to the selected <code>RTCIceCandidatePair</code>,
+                    <var>pair</var> set to the selected <code><a>RTCIceCandidatePair</a></code>,
                     <em class="rfc2119" title="MUST">MUST</em> be
                     created and dispatched at the given target.
                 </p>
                 <div><pre class="idl">[ Constructor (DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict)]
 interface RTCIceCandidatePairChangedEvent : Event {
     readonly        attribute RTCIceCandidatePair pair;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceCandidatePairChangedEvent" data-dfn-for="RTCIceCandidatePairChangedEvent" class="constructors"><dt><dfn><code>RTCIceCandidatePairChangedEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code>RTCIceCandidatePairChangedEventInit</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceCandidatePairChangedEvent" data-dfn-for="RTCIceCandidatePairChangedEvent" class="attributes"><dt><dfn><code>pair</code></dfn> of type <span class="idlAttrType"><a>RTCIceCandidatePair</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIceCandidatePairChangedEvent" data-dfn-for="RTCIceCandidatePairChangedEvent" class="constructors"><dt><dfn><code>RTCIceCandidatePairChangedEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code><a>RTCIceCandidatePairChangedEventInit</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIceCandidatePairChangedEvent" data-dfn-for="RTCIceCandidatePairChangedEvent" class="attributes"><dt><dfn><code>pair</code></dfn> of type <span class="idlAttrType"><a>RTCIceCandidatePair</a></span>, readonly       </dt><dd>
                         <p>
                             The <code>pair</code> attribute is the selected
                             <code><a>RTCIceCandidatePair</a></code>
@@ -1188,8 +1188,8 @@ mySignaller.send({
                 <h3>Operation</h3>
                 <p>
                     A <code><a>RTCDtlsTransport</a></code> instance is constructed using an <code><a>RTCIceTransport</a></code>
-                    and a sequence of <code>RTCCertificate</code> objects. If <code>certificates</code> is non-empty,
-                    check that the <code>expires</code> attribute of each <code>RTCCertificate</code> object is in the future.
+                    and a sequence of <code><a>RTCCertificate</a></code> objects. If <code>certificates</code> is non-empty,
+                    check that the <code>expires</code> attribute of each <code><a>RTCCertificate</a></code> object is in the future.
                     If a certificate has expired, throw an InvalidParameter exception; otherwise, store the certificates.
                 </p>
                 <p>
@@ -1235,7 +1235,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
     void                  stop ();
                     attribute EventHandler             onstatechange;
                     attribute EventHandler             onerror;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class="constructors"><dt><code><a>RTCDtlsTransport</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCIceTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">certificates</td><td class="prmType"><code>sequence&lt;RTCCertificate&gt;</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class="attributes"><dt><dfn><code>certificates</code></dfn> of type <span class="idlAttrType">sequence&lt;<a>RTCCertificate</a>&gt;</span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class="constructors"><dt><code><a>RTCDtlsTransport</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCIceTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">certificates</td><td class="prmType"><code>sequence&lt;<code><a>RTCCertificate</a></code>&gt;</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class="attributes"><dt><dfn><code>certificates</code></dfn> of type <span class="idlAttrType">sequence&lt;<a>RTCCertificate</a>&gt;</span>, readonly       </dt><dd>
                         <p>The certificates provided in the constructor.</p>
                     </dd><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCIceTransport</a></span>, readonly       </dt><dd>
                         <p>The associated <code><a>RTCIceTransport</a></code> instance.</p>
@@ -1258,12 +1258,12 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                         <p>Obtain the DTLS parameters of the local <code><a>RTCDtlsTransport</a></code>.
                         If multiple certificates were provided in the constructor, then multiple
                         fingerprints will be returned, one for each certificate.</p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCDtlsParameters</code></div></dd><dt><dfn><code>getRemoteParameters</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code><a>RTCDtlsParameters</a></code></div></dd><dt><dfn><code>getRemoteParameters</code></dfn></dt><dd>
                         <p>Obtain the remote DTLS parameters passed in the <code>start()</code> method.
                         Prior to calling <code>start()</code>, null is returned.</p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>RTCDtlsParameters</code>, nullable</div></dd><dt><dfn><code>getRemoteCertificates</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code><a>RTCDtlsParameters</a></code>, nullable</div></dd><dt><dfn><code>getRemoteCertificates</code></dfn></dt><dd>
                         <p>Returns the certificate chain in use by the remote side, with each certificate encoded
-                        in binary Distinguished Encoding Rules (DER) [[!X690]]. <code>getRemoteCertificates()</code>
+                        in binary Distinguished Encoding Rules (DER) [[!X690]]. <code><a>getRemoteCertificates</a>()</code>
                         returns an empty list prior to selection of the remote certificate, which is completed
                         once <code><a>RTCDtlsTransportState</a></code> transitions to <code>connected</code>.</p>
                     <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;ArrayBuffer&gt;</code></div></dd><dt><dfn><code>start</code></dfn></dt><dd>
@@ -1285,7 +1285,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                             <var>dtlsTransportA</var>, then if <code>dtlsTransportB.start()</code> is called prior to having called <code>dtlsTransportA.stop()</code>,
                             then throw an <code>InvalidStateError</code> exception.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteParameters</td><td class="prmType"><code>RTCDtlsParameters</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">remoteParameters</td><td class="prmType"><code><a>RTCDtlsParameters</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
                         <p>
                             Stops and closes the <code><a>RTCDtlsTransport</a></code> object.
                             Calling <code>stop()</code> when <code>state</code> is <code>closed</code> has no effect.
@@ -1587,9 +1587,9 @@ interface RTCRtpSender : RTCStatsProvider {
                         </p>
                     </dd><dt><code>onssrcconflict</code> of type <span class="idlAttrType"><a>EventHandler</a></span></dt><dd>
                         <p>
-                            The <dfn><code>onssrcconflict</code></dfn> event handler, of event handler type <code>RTCSsrcConflictEvent</code>, is fired
+                            The <dfn><code>onssrcconflict</code></dfn> event handler, of event handler type <code><a>RTCSsrcConflictEvent</a></code>, is fired
                             if an SSRC conflict is detected within the RTP session or an SSRC misconfiguration is detected after
-                            <code>send()</code> or <code>receive()</code> returns or when <code>setTransport()</code> is called.
+                            <code><a>send</a>()</code> or <code><a>receive</a>()</code> returns or when <code><a>setTransport</a>()</code> is called.
                             In this situation, the <code><a>RTCRtpSender</a></code> automatically sends an RTCP BYE on the conflicted SSRC,
                             if RTP packets were sent using that SSRC.
                         </p>
@@ -1597,20 +1597,20 @@ interface RTCRtpSender : RTCStatsProvider {
                         <p>
                             Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>.
                             If <code>setTransport()</code> is called with a single argument or if <code>rtcpTransport</code> is not set,
-                            and the last call to <code>sender.send(parameters)</code>
+                            and the last call to <code>sender.send(<var>parameters</var>)</code>
                             had <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an <code>InvalidParameters</code>
                             exception.
                             If <code>stop()</code> has been called, or <code>transport.state</code> or <code>rtcpTransport.state</code> is <code>closed</code>,
                             throw an <code>InvalidStateError</code> exception.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">rtcpTransport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>setTrack</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">rtcpTransport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>setTrack</code></dfn></dt><dd>
                         <p>Attempts to replace the track being sent with another track provided.</p>
-                        <p>When the <code>setTrack()</code> method is invoked, the user agent MUST run the following steps:</p>
+                        <p>When the <code><a>setTrack</a>()</code> method is invoked, the user agent MUST run the following steps:</p>
                         <ol>
                             <li>
                                 <p>
                                     Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object on which
-                                    <code>setTrack()</code> is invoked.
+                                    <code><a>setTrack</a>()</code> is invoked.
                                 </p>
                             </li>
                             <li>
@@ -1656,21 +1656,21 @@ interface RTCRtpSender : RTCStatsProvider {
                                 </ol>
                             </li>
                         </ol>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">track</td><td class="prmType"><code>MediaStreamTrack</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;void&gt;</code></div></dd><dt><dfn><code>getCapabilities</code></dfn>, static</dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">track</td><td class="prmType"><code><a>MediaStreamTrack</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;void&gt;</code></div></dd><dt><dfn><code>getCapabilities</code></dfn>, static</dt><dd>
                         <p>
                             Obtain the sender capabilities, based on <code>kind</code>. Capabilities that can apply to multiple
                             values of <code>kind</code> (such as retransmission [[!RFC4588]], redundancy [[RFC2198]] and
                             Forward Error Correction) have <code>RTCRtpCapabilities.RTCRtpCodecCapability[i].kind</code>
                             set to the value of the <code>kind</code> argument.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">kind</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>RTCRtpCapabilities</code></div></dd><dt><dfn><code>send</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">kind</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code><a>RTCRtpCapabilities</a></code></div></dd><dt><dfn><code>send</code></dfn></dt><dd>
                         <p>Attempts to set the parameters controlling the sending of media.</p>
                         <p>When the <code>send()</code> method is invoked, the user agent MUST run the following steps:</p>
                         <ol>
                             <li>
                                 <p>
                                     Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object on which
-                                    <code>send()</code> is invoked.
+                                    <code><a>send</a>()</code> is invoked.
                                 </p>
                             </li>
                             <li>
@@ -1732,8 +1732,8 @@ interface RTCRtpSender : RTCStatsProvider {
                                 <ol>
                                     <li>
                                         <p>
-                                            If <code>send()</code> is called for the first time, start sending. If
-                                            <code>send()</code> was called previously, have the sender
+                                            If <code><a>send</a>()</code> is called for the first time, start sending. If
+                                            <code><a>send</a>()</code> was called previously, have the sender
                                             switch to sending using <var>withParameters</var>.
                                         </p>
                                     </li>
@@ -1745,7 +1745,7 @@ interface RTCRtpSender : RTCStatsProvider {
                                 </ol>
                             </li>
                         </ol>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">parameters</td><td class="prmType"><code>RTCRtpParameters</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;void&gt;</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">parameters</td><td class="prmType"><code><a>RTCRtpParameters</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;void&gt;</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
                         <p>
                             Stops sending the track on the wire, and sends an RTCP BYE.
                             Stop is final as in <code>MediaStreamTrack.stop()</code>.
@@ -1760,7 +1760,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </p>
                 <p>
                     Firing an
-                    <code>RTCSsrcConflictEvent</code> event named
+                    <code><a>RTCSsrcConflictEvent</a></code> event named
                     <var>e</var> with an
                     <code>ssrc</code> means that an event with the name <var>e</var>,
                     which does not bubble (except where otherwise stated) and is not
@@ -1773,7 +1773,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <div><pre class="idl">[ Constructor (DOMString type, RTCSsrcConflictEventInit eventInitDict)]
 interface RTCSsrcConflictEvent : Event {
     readonly        attribute unsigned long ssrc;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCSsrcConflictEvent" data-dfn-for="RTCSsrcConflictEvent" class="constructors"><dt><dfn><code>RTCSsrcConflictEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code>RTCSsrcConflictEventInit</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCSsrcConflictEvent" data-dfn-for="RTCSsrcConflictEvent" class="attributes"><dt><dfn><code>ssrc</code></dfn> of type <span class="idlAttrType"><a>unsigned long</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCSsrcConflictEvent" data-dfn-for="RTCSsrcConflictEvent" class="constructors"><dt><dfn><code>RTCSsrcConflictEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code><a>RTCSsrcConflictEventInit</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCSsrcConflictEvent" data-dfn-for="RTCSsrcConflictEvent" class="attributes"><dt><dfn><code>ssrc</code></dfn> of type <span class="idlAttrType"><a>unsigned long</a></span>, readonly       </dt><dd>
                         <p>
                             The <code>ssrc</code> attribute represents the conflicting SSRC
                             that caused the event.
@@ -1831,7 +1831,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
     Promise&lt;void&gt;                      receive (RTCRtpParameters parameters);
     sequence&lt;RTCRtpContributingSource&gt; getContributingSources ();
     void                               stop ();
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class="constructors"><dt><code><a>RTCRtpReceiver</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">kind</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">rtcpTransport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class="attributes"><dt><dfn><code>track</code></dfn> of type <span class="idlAttrType"><a>MediaStreamTrack</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class="constructors"><dt><code><a>RTCRtpReceiver</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">kind</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">rtcpTransport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class="attributes"><dt><dfn><code>track</code></dfn> of type <span class="idlAttrType"><a>MediaStreamTrack</a></span>, readonly       </dt><dd>
                         <p>
                              The associated <code><a>MediaStreamTrack</a></code> instance.
                              Upon construction, <code>track</code> is set. The value of
@@ -1852,7 +1852,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                         <p>
                             Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used)
                             RTCP <code><a>RTCDtlsTransport</a></code>.
-                            If <code>setTransport()</code> is called with a single argument
+                            If <code><a>setTransport</a>()</code> is called with a single argument
                             or if <code>rtcpTransport</code> is not set,
                             and the last call to <code>receiver.receive(parameters)</code>
                             had <code>parameters.rtcp.mux</code> set to <code>false</code>,
@@ -1861,14 +1861,14 @@ interface RTCRtpReceiver : RTCStatsProvider {
                             or <code>rtcpTransport.state</code> is <code>closed</code>,
                             throw an <code>InvalidStateError</code> exception.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">rtcpTransport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>getCapabilities</code></dfn>, static</dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">rtcpTransport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>getCapabilities</code></dfn>, static</dt><dd>
                         <p>
                             Obtain the receiver capabilities, based on <code>kind</code>. Capabilities that can apply to multiple
                             values of <code>kind</code> (such as retransmission [[!RFC4588]], redundancy [[RFC2198]] and
                             Forward Error Correction) have <code>RTCRtpCapabilities.RTCRtpCodecCapability[<var>i</var>].kind</code>
                             set to the value of the <code>kind</code> argument.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">kind</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>RTCRtpCapabilities</code></div></dd><dt><dfn><code>receive</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">kind</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code><a>RTCRtpCapabilities</a></code></div></dd><dt><dfn><code>receive</code></dfn></dt><dd>
                         <p>Attempts to set the parameters controlling the receiving of media.</p>
                         <p>When the <code>receive()</code> method is invoked, the user agent MUST run the following steps:</p>
                         <ol>
@@ -1938,8 +1938,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                                 <ol>
                                     <li>
                                         <p>
-                                            If <code>receive()</code> is called for the first time, start receiving. If
-                                            <code>receive()</code> was called previously, have the receiver
+                                            If <code><a>receive</a>()</code> is called for the first time, start receiving. If
+                                            <code><a>receive</a>()</code> was called previously, have the receiver
                                             switch to receiving using <var>withParameters</var>.
                                         </p>
                                     </li>
@@ -1951,13 +1951,13 @@ interface RTCRtpReceiver : RTCStatsProvider {
                                 </ol>
                             </li>
                         </ol>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">parameters</td><td class="prmType"><code>RTCRtpParameters</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;void&gt;</code></div></dd><dt><dfn><code>getContributingSources</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">parameters</td><td class="prmType"><code><a>RTCRtpParameters</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>Promise&lt;void&gt;</code></div></dd><dt><dfn><code>getContributingSources</code></dfn></dt><dd>
                         <p>
                             Returns an <code><a>RTCRtpContributingSource</a></code> object for each unique CSRC or SSRC received by this
                             <code><a>RTCRtpReceiver</a></code>. The browser MUST keep information from RTP packets
                             received in the last 10 seconds. If no contributing sources are available, an empty list is returned. 
                         </p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;RTCRtpContributingSource&gt;</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;<code><a>RTCRtpContributingSource</a></code>&gt;</code></div></dd><dt><dfn><code>stop</code></dfn></dt><dd>
                         <p>
                             Stops the <code><a>RTCRtpReceiver</a></code>. <code>receiver.stop()</code> is final like
                             <code>receiver.track.stop()</code>.  <code>receiver.track.stop()</code> does not affect
@@ -2166,7 +2166,7 @@ interface RTCIceTransportController {
                             Adds <code>transport</code> to the <code><a>RTCIceTransportController</a></code>
                             object for the purposes of managing
                             ICE freezing and sharing bandwidth estimation.
-                            Since <code>addTransport</code> manages ICE freezing, candidate pairs that are not in the
+                            Since <code><a>addTransport</a>()</code> manages ICE freezing, candidate pairs that are not in the
                             frozen state maintain their state when <code>addTransport(transport)</code> is called.
                             <code><a>RTCIceTransport</a></code> objects will be unfrozen
                             according to their <var>index</var>. <var>transport</var> is inserted at <var>index</var>,
@@ -2179,12 +2179,12 @@ interface RTCIceTransportController {
                             <code><a>RTCIceTransportController</a></code> object,
                             or if <code>transport.component</code> is <code>RTCP</code>, throw an <code>InvalidStateError</code> exception.
                         </p>
-                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCIceTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">index</td><td class="prmType"><code>unsigned long</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>getTransports</code></dfn></dt><dd>
+                    <table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCIceTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">index</td><td class="prmType"><code>unsigned long</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table><div><em>Return type: </em><code>void</code></div></dd><dt><dfn><code>getTransports</code></dfn></dt><dd>
                         <p>
                             Returns the <code><a>RTCIceTransport</a></code> objects with a <code>component</code> of <code>RTP</code>.
-                            If <code>addTransport()</code> has not been called, an empty list is returned.
+                            If <code><a>addTransport</a>()</code> has not been called, an empty list is returned.
                         </p>
-                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;RTCIceTransport&gt;</code></div></dd></dl></section></div>
+                    <div><em>No parameters.</em></div><div><em>Return type: </em><code>sequence&lt;<code><a>RTCIceTransport</a></code>&gt;</code></div></dd></dl></section></div>
             </section>
             <section id="rtcicetransportcontroller-example1*">
                 <h3>Examples</h3>
@@ -2535,7 +2535,7 @@ mySignaller.myOfferTracks({
 interface RTCRtpListener {
     readonly        attribute RTCDtlsTransport transport;
                     attribute EventHandler     onunhandledrtp;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCRtpListener" data-dfn-for="RTCRtpListener" class="constructors"><dt><code><a>RTCRtpListener</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCRtpListener" data-dfn-for="RTCRtpListener" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDtlsTransport</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCRtpListener" data-dfn-for="RTCRtpListener" class="constructors"><dt><code><a>RTCRtpListener</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCRtpListener" data-dfn-for="RTCRtpListener" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDtlsTransport</a></span>, readonly       </dt><dd>
                         <p>The RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
                     </dd><dt><dfn><code>onunhandledrtp</code></dfn> of type <span class="idlAttrType"><a>EventHandler</a></span></dt><dd>
                         <p>
@@ -2568,18 +2568,18 @@ interface RTCRtpUnhandledEvent : Event {
     readonly        attribute DOMString     rid;
     readonly        attribute payloadtype   payloadType;
     readonly        attribute unsigned long ssrc;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCRtpUnhandledEvent" data-dfn-for="RTCRtpUnhandledEvent" class="constructors"><dt><dfn><code>RTCRtpUnhandledEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code>RTCRtpUnhandledEventInit</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCRtpUnhandledEvent" data-dfn-for="RTCRtpUnhandledEvent" class="attributes"><dt><dfn><code>muxId</code></dfn> of type <span class="idlAttrType"><a>DOMString</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCRtpUnhandledEvent" data-dfn-for="RTCRtpUnhandledEvent" class="constructors"><dt><dfn><code>RTCRtpUnhandledEvent</code></dfn></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">type</td><td class="prmType"><code>DOMString</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">eventInitDict</td><td class="prmType"><code><a>RTCRtpUnhandledEventInit</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCRtpUnhandledEvent" data-dfn-for="RTCRtpUnhandledEvent" class="attributes"><dt><dfn><code>muxId</code></dfn> of type <span class="idlAttrType"><a>DOMString</a></span>, readonly       </dt><dd>
                         <p>
                             The value of the <a>MID</a> RTP header extension [[!BUNDLE]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
-                            If <code>receive()</code> has not been called, the <a>MID</a> header
+                            If <code><a>receive</a>()</code> has not been called, the <a>MID</a> header
                             extension cannot be decoded, so that <code>muxId</code> will be unset.
                         </p>
                     </dd><dt><dfn><code>rid</code></dfn> of type <span class="idlAttrType"><a>DOMString</a></span>, readonly       </dt><dd>
                         <p>
                             The value of the <a>RID</a> RTP header extension [[!RID]] in the RTP stream
                             triggering the <code><a>unhandledrtp</a></code> event.
-                            If <code>receive()</code> has not been called, the <a>RID</a> header
+                            If <code><a>receive</a>()</code> has not been called, the <a>RID</a> header
                             extension cannot be decoded, so that <code>rid</code> will be unset.
                         </p>
                     </dd><dt><dfn><code>payloadType</code></dfn> of type <span class="idlAttrType"><a>payloadtype</a></span>, readonly       </dt><dd>
@@ -3590,7 +3590,7 @@ interface RTCRtpUnhandledEvent : Event {
                             dimension, resulting in sending a video of one quarter size. If the value is
                             1.0 (the default), the video will not be affected.  A value less than 1.0
                             will result in a <code>RangeError</code> exception when <code>send()</code>
-                            or <code>receive()</code> is called. For scalable video coding, <code>resolutionScale</code> 
+                            or <code><a>receive</a>()</code> is called. For scalable video coding, <code>resolutionScale</code> 
                             refers to the aggregate scale down of this layer when combined with all dependent layers.
                         </p>
                     </dd><dt><dfn><code>framerateScale</code></dfn> of type <span class="idlMemberType"><a>double</a></span></dt><dd>
@@ -4967,7 +4967,7 @@ interface RTCSctpTransport : RTCDataTransport {
     void                       stop ();
                     attribute EventHandler          ondatachannel;
                     attribute EventHandler          onstatechange;
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="constructors"><dt><code><a>RTCSctpTransport</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">port</td><td class="prmType"><code>unsigned short</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDtlsTransport</a></span>, readonly       </dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="constructors"><dt><code><a>RTCSctpTransport</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr><tr><td class="prmName">port</td><td class="prmType"><code>unsigned short</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptTrue"><span role="img" aria-label="True">&#10004;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class="attributes"><dt><dfn><code>transport</code></dfn> of type <span class="idlAttrType"><a>RTCDtlsTransport</a></span>, readonly       </dt><dd>
                         <p>The <a>RTCDtlsTransport</a> instance the <a>RTCSctpTransport</a> object is sending over.</p>
                     </dd><dt><dfn><code>state</code></dfn> of type <span class="idlAttrType"><a>RTCSctpTransportState</a></span>, readonly       </dt><dd>
                         <p>The current state of the SCTP transport.</p>
@@ -5763,7 +5763,7 @@ interface RTCIdentity {
     readonly        attribute RTCDtlsTransport      transport;
     Promise&lt;DOMString&gt;            getIdentityAssertion (DOMString provider, optional DOMString protocol = "default", optional DOMString username);
     Promise&lt;RTCIdentityAssertion&gt; setIdentityAssertion (DOMString assertion);
-};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="constructors"><dt><code><a>RTCIdentity</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code>RTCDtlsTransport</code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes"><dt><code>peerIdentity</code> of type <span class="idlAttrType"><a>RTCIdentityAssertion</a></span>, readonly       , nullable</dt><dd>
+};</pre><section><h2>Constructors</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="constructors"><dt><code><a>RTCIdentity</a></code></dt><dd><table class="parameters"><tbody><tr><th>Parameter</th><th>Type</th><th>Nullable</th><th>Optional</th><th>Description</th></tr><tr><td class="prmName">transport</td><td class="prmType"><code><a>RTCDtlsTransport</a></code></td><td class="prmNullFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmOptFalse"><span role="img" aria-label="False">&#10008;</span></td><td class="prmDesc"></td></tr></tbody></table></dd></dl></section><section><h2>Attributes</h2><dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes"><dt><code>peerIdentity</code> of type <span class="idlAttrType"><a>RTCIdentityAssertion</a></span>, readonly       , nullable</dt><dd>
                         <p>
                             <code>peerIdentity</code> contains the peer identity assertion information if an identity
                             assertion was provided and verified. Once this value is set to a
