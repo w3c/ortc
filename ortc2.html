@@ -3547,15 +3547,15 @@ interface RTCRtpUnhandledEvent : Event {
 };</pre><section><h2>Dictionary <a class="idlType">RTCRtpEncodingParameters</a> Members</h2><dl data-link-for="RTCRtpEncodingParameters" data-dfn-for="RTCRtpEncodingParameters" class="dictionary-members"><dt><dfn><code>ssrc</code></dfn> of type <span class="idlMemberType"><a>unsigned long</a></span></dt><dd>
                         <p>
                             The SSRC for this layering/encoding.
-                            Multiple <code>RTCRtpEncodingParameters</code> objects can share the same <code>ssrc</code> value
+                            Multiple <code><a>RTCRtpEncodingParameters</a></code> objects can share the same <code>ssrc</code> value
                             (useful, for example, to indicate that different RTX payload types associated to different codecs are carried over the same stream).
-                            If <code>ssrc</code> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>receive()</code> method, the
-                            next unhandled SSRC will match, and an <code>RTCRtpUnhandledEvent</code> will not be fired.
-                            If <code>ssrc</code> is unset in a <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
-                            method, the browser will choose, and the chosen value is not reflected in <code>RTCRtpEncodingParameters.ssrc</code>.
-                            If the browser chooses the <code>ssrc</code>, it may change it due to a collision without firing an <code>RTCSsrcConflictEvent</code>.
-                            If <code>ssrc</code> is set in an <code>RTCRtpEncodingParameters</code> object passed to the <code>send()</code>
-                            method and an SSRC conflict is detected within the RTP session, then an <code>RTCSsrcConflictEvent</code> is fired (see Section 5.4).
+                            If <code>ssrc</code> is unset in a <code><a>RTCRtpEncodingParameters</a></code> object passed to the <code><a>receive</a>()</code> method, the
+                            next unhandled SSRC will match, and an <code><a>RTCRtpUnhandledEvent</a></code> will not be fired.
+                            If <code>ssrc</code> is unset in a <code><a>RTCRtpEncodingParameters</a></code> object passed to the <code>send()</code>
+                            method, the browser will choose, and the chosen value is not reflected in <code><a>RTCRtpEncodingParameters</a>.ssrc</code>.
+                            If the browser chooses the <code>ssrc</code>, it may change it due to a collision without firing an <code><a>RTCSsrcConflictEvent</a></code>.
+                            If <code>ssrc</code> is set in an <code><a>RTCRtpEncodingParameters</a></code> object passed to the <code>send()</code>
+                            method and an SSRC conflict is detected within the RTP session, then an <code><a>RTCSsrcConflictEvent</a></code> is fired (see Section 5.4).
                         </p>
                     </dd><dt><dfn><code>codecPayloadType</code></dfn> of type <span class="idlMemberType"><a>payloadtype</a></span></dt><dd>
                         <p>
@@ -3603,7 +3603,7 @@ interface RTCRtpUnhandledEvent : Event {
                     </dd><dt><dfn><code>maxFramerate</code></dfn> of type <span class="idlMemberType"><a>unsigned long</a></span></dt><dd>
                         <p>
                             The maximum framerate to use for this encoding.  This setting is not used for scalable video coding.
-                            If <code>framerateScale</code> is set, then <code>maxFramerate</code> is ignored.
+                            If <code><a>framerateScale</a></code> is set, then <code>maxFramerate</code> is ignored.
                         </p>
                     </dd><dt><dfn><code>active</code></dfn> of type <span class="idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt><dd>
                         <p>
@@ -6522,7 +6522,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
                         <a href="https://github.com/openpeer/ortc/issues/468">Issue 468</a>
                     </li>
                     <li>
-                        Clarified use of <code>RTCRtpEncodingParameters</code>, as noted in:
+                        Clarified use of <code><a>RTCRtpEncodingParameters</a></code>, as noted in:
                         <a href="https://github.com/openpeer/ortc/issues/470">Issue 470</a>
                     </li>
                     <li>
