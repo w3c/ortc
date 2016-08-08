@@ -6058,9 +6058,20 @@ var encodings = [
             <dt><dfn><code>parameters</code></dfn> of type <span class=
             "idlMemberType"><a>Dictionary</a></span></dt>
             <dd>
-              <p>Configuration parameters for the header extension. An example is the
-              "vad" attribute in the client-to-mixer header extension, described in
-              [[!RFC6464]] Section 4.</p>
+              <p>
+                Configuration parameters for the header extension.
+                An example is the "vad" extension attribute in the
+                client-to-mixer header extension, described in
+                [[!RFC6464]] Section 4.
+              </p>
+              <div class="note">
+                At the time of publication there were no implementations
+                of the <code>parameters</code> dictionary.  Most header
+                extensions do not require configuration parameters, and
+                the ORTC Lib implementation assumes that the "V" bit from
+                [[!RFC6464]] is always enabled so that a <code>vad</code>
+                parameter is unnecessary.
+              </div>
             </dd>
           </dl>
         </section>
@@ -8909,6 +8920,9 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         </li>
         <li>Clarified effect of <code>RTCRtpReceiver.track.stop()</code>, as noted in:
         <a href="https://github.com/openpeer/ortc/issues/498">Issue 498</a>
+        </li>
+        <li>Summarized header extension parameters implementation experience, as noted in:
+        <a href="https://github.com/openpeer/ortc/issues/502">Issue 502</a>
         </li>
         <li>Updated text relating to consent failures, as noted in: <a href=
         "https://github.com/w3c/webrtc-pc/issues/517">Issue 517</a>
