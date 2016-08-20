@@ -1984,7 +1984,14 @@ function accept(mySignaller, remote) {
                              The associated <code><a>MediaStreamTrack</a></code> instance.
                              Upon construction, <code>track</code> is set. The value of
                              <code>track.kind</code> is set to the value of
-                             <code>kind</code> passed in the constructor. 
+                             <code>kind</code> passed in the constructor.
+                             <div class="note">
+                                 Prior to verification of the remote DTLS fingerprint within
+                                 the <code><a>RTCDtlsTransport</a></code> <var>transport</var>,
+                                 and (if set) <var>rtcpTransport</var>, <code>track</code>
+                                 <em title="MUST NOT" class="rfc2119">MUST NOT</em> emit media
+                                 for rendering.
+                             </div>
                         </p>
                     </dd>
                     <dt>readonly attribute RTCDtlsTransport transport</dt>
