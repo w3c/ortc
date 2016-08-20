@@ -1,8 +1,8 @@
 ortc
 ====
 
-The initial alpha version of the proposed WebRTC Object based API can be found here:
-http://openpeer.github.io/ortc/
+The latest editor's draft is located here:
+http://draft.ortc.org/
 
-Updates can be found here, upper right hand side:
+Official published versions are found here (upper right hand side):
 http://ortc.org
