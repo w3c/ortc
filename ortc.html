@@ -130,6 +130,15 @@
                     <a>MRST</a> transport (such as H.264/SVC and HEVC) can also be supported, along with reception of simulcast.
                     However, these features should be considered experimental, since implementation experience is limited.
                 </p>
+                <div class="note">
+                    At the time of publication, there were two ORTC implementations supporting simulcast reception.
+                    Since neither implementation supported [[!RFC6051]], mechanisms needed to be provided to handle
+                    intermingling of received simulcast streams due to reordering. The ORTC Lib
+                    implementation deals with this by utilizing timing heuristics as well as "hidden" receivers
+                    for each received simulcast stream, with each "hidden" receiver producing a "hidden" track.
+                    The "hidden" tracks are then mixed internally to produce a single
+                    <code><a>MediaStreamTrack</a></code> <code>RTCRtpReceiver.track</code>.
+                </div>
             </section>
         </section>
         <section id="rtcicegatherer*">
