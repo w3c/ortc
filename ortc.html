@@ -4461,8 +4461,21 @@ var encodings = [
                     </dd>
                     <dt>Dictionary parameters</dt>
                     <dd>
-                        <p>Configuration parameters for the header extension.  An example is the "vad" attribute
-                        in the client-to-mixer header extension, described in [[!RFC6464]] Section 4.</p>
+                        <p>
+                            Configuration parameters for the header extension.
+                            An example is the "vad" extension attribute in the
+                            client-to-mixer header extension, described in
+                            [[!RFC6464]] Section 4.
+                        </p>
+                        <div class="note">
+                            At the time of publication there were no implementations of the
+                            <code>parameters</code> dictionary. Most header extensions
+                            do not require configuration parameters, and the ORTC Lib
+                            implementation assumes that the "V" bit from [[!RFC6464]]
+                            is always enabled so that a <code>vad</code> parameter is
+                            unnecessary. The need for a <code>parameters</code> dictionary
+                            is therefore unclear.
+                        </div>
                     </dd>
                 </dl>
             </section>
