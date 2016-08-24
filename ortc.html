@@ -1808,6 +1808,16 @@ function accept(mySignaller, remote) {
                             set to the value of the <code>kind</code> argument.
                         </p>
                     </dd>
+                    <dt>RTCRtpParameters getParameters()</dt>
+                    <dd>
+                        <p>
+                            Retrieve the sender parameters. <code>getParameters()</code> returns the
+                            <code><a>RTCRtpParameters</a></code> <var>parameters</var> provided in the
+                            last successful call to <code>send(<var>parameters</var>)</code>.
+                            If <code>send(<var>parameters</var>)</code> has not been called successfully,
+                            throw an <code>InvalidStateError</code> exception.
+                        </p>
+                    </dd>
                     <dt>Promise&lt;void&gt; send(RTCRtpParameters parameters)</dt>
                     <dd>
                         <p>Attempts to set the parameters controlling the sending of media.</p>
@@ -2039,6 +2049,16 @@ function accept(mySignaller, remote) {
                             values of <code>kind</code> (such as retransmission [[!RFC4588]], redundancy [[RFC2198]] and
                             Forward Error Correction) have <code>RTCRtpCapabilities.RTCRtpCodecCapability[<var>i</var>].kind</code>
                             set to the value of the <code>kind</code> argument.
+                        </p>
+                    </dd>
+                    <dt>RTCRtpParameters getParameters()</dt>
+                    <dd>
+                        <p>
+                            Retrieve the receiver parameters. <code>getParameters()</code> returns the
+                            <code><a>RTCRtpParameters</a></code> <var>parameters</var> provided in the last
+                            successful call to <code>receive(<var>parameters</var>)</code>.
+                            If <code>receive(<var>parameters</var>)</code> has not been called successfully,
+                            throw an <code>InvalidStateError</code> exception.
                         </p>
                     </dd>
                     <dt>Promise&lt;void&gt; receive(RTCRtpParameters parameters)</dt>
