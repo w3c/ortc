@@ -4576,12 +4576,15 @@ interface RTCRtpUnhandledEvent : Event {
             <tbody>
               <tr id="def-profile-level-id*">
                 <td><dfn><code>profileLevelId</code></dfn></td>
-                <td><code>unsigned long</code></td>
+                <td><code>DOMString</code></td>
                 <td>Receiver/Sender</td>
-                <td>This parameter describes the maximum capability of the decoder (for
-                an <code><a>RTCRtpReceiver</a></code>) or the encoder (for an
-                <code><a>RTCRtpSender</a></code>). It MUST be supported, as noted in
-                [[!RFC7742]] Section 6.2.</td>
+                <td>This parameter is encoded as a string representation of 6
+                upper case hexadecimal digits, representing the profile-level-id
+                parameter described in [[RFC6184]] Section 8.1.  It represents
+                the maximum capability of the decoder (for an
+                <code><a>RTCRtpReceiver</a></code>) or the encoder (for an
+                <code><a>RTCRtpSender</a></code>). It MUST be supported, as noted
+                in [[!RFC7742]] Section 6.2.</td>
               </tr>
               <tr id="def-packetization-mode*">
                 <td><dfn><code>packetizationMode</code></dfn></td>
@@ -5132,11 +5135,12 @@ interface RTCRtpUnhandledEvent : Event {
                 <td>
                   <a>profileLevelId</a>
                 </td>
-                <td><code>unsigned long</code></td>
+                <td><code>DOMString</code></td>
                 <td>Sender</td>
-                <td>This parameter indicates the configuration of the stream to be sent,
-                as noted in [[RFC6184]] Section 8.2.2. It MUST be supported, as noted in
-                [[!RFC7742]] Section 6.2.</td>
+                <td>This parameter, encoded as a string of 6 upper case hexadecimal
+                digits, indicates the configuration of the stream to be sent, as
+                described in [[RFC6184]] Section 8.2.2. It MUST be supported,
+                as noted in [[!RFC7742]] Section 6.2.</td>
               </tr>
               <tr id="sec-packetization-mode*">
                 <td>
