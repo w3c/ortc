@@ -186,6 +186,7 @@ interface RTCIceGatherer : RTCStatsProvider {
     RTCIceGatherer            createAssociatedGatherer ();
                     attribute EventHandler        onstatechange;
                     attribute EventHandler        onerror;
+                    attribute EventHandler        onlocalcandidate;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -249,6 +250,21 @@ interface RTCIceGatherer : RTCStatsProvider {
               <code><a>icecandidateerror</a></code>, <em class="rfc2119" title=
               "MUST">MUST</em> be fired if an error occurs in the gathering of ICE
               candidates (such as if TURN credentials are invalid).</p>
+            </dd>
+            <dt><dfn><code>onlocalcandidate</code></dfn> of type <span class=
+            "idlAttrType"><a>EventHandler</a></span></dt>
+            <dd>
+              <p>This event handler, of event handler event type
+              <code><a>icecandidate</a></code>, uses the
+              <code><a>RTCIceGathererEvent</a></code> interface.
+              It receives events when a new local ICE candidate
+              is available. Since ICE candidate gathering begins
+              once an <code><a>RTCIceGatherer</a></code> object is
+              created, <code>candidate</code> events are queued
+              until an <code>onlocalcandidate</code> event handler
+              is assigned. When the final candidate is gathered,
+              a <code>candidate</code> event occurs with an
+              <code>RTCIceCandidateComplete</code> emitted.</p>
             </dd>
           </dl>
         </section>
