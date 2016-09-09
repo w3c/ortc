@@ -2680,8 +2680,8 @@ interface RTCRtpSender : RTCStatsProvider {
             <dt><dfn><code>setTransport</code></dfn></dt>
             <dd>
               <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
-              (and if used) RTCP <code><a>RTCDtlsTransport</a></code> with the transport(s)
-              provided.</p>
+              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
+              <code>rtcpTransport</code> with the transport(s) provided.</p>
               <p>When the <code><a>setTransport</a>()</code> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
@@ -3195,8 +3195,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
             <dt><dfn><code>setTransport</code></dfn></dt>
             <dd>
               <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
-              (and if used) RTCP <code><a>RTCDtlsTransport</a></code> with the transport(s)
-              provided.</p>
+              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
+              <code>rtcpTransport</code> with the transport(s) provided.</p>
               <p>When the <code><a>setTransport</a>()</code> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
