@@ -2740,10 +2740,6 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>Let <var>withTrack</var> be the argument to this method.</p>
                 </li>
                 <li>
-                  <p>If <code>track.stop()</code> has been called, return a promise
-                  rejected with an <code>InvalidStateError</code>.</p>
-                </li>
-                <li>
                   <p>If <code><var>withTrack</var>.kind</code> differs from the
                   <code><var>sender</var>.<a>track</a>.kind</code>, return a promise
                   rejected with a <code>TypeError</code>.</p>
@@ -8914,6 +8910,14 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <h2>Change Log</h2>
     <p>This section will be removed before publication.</p>
     <!-- Why do the first two headings automatically convert to <h2>? -->
+    <section id="since-20-August-2016*">
+      <h3>Changes since 20 August 2016</h3>
+      <ol>
+        <li>Enabled <code>setTrack()</code> to replace a track that is "ended", as noted in:
+        <a href="https://github.com/w3c/ortc/issues/589">Issue 589</a>
+        </li>
+      </ol>
+    </section>
     <section id="since-04-May-2016*">
       <h3>Changes since 04 May 2016</h3>
       <ol>
