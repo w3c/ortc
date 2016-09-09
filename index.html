@@ -2679,15 +2679,48 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
             <dt><dfn><code>setTransport</code></dfn></dt>
             <dd>
-              <p>Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP
-              <code><a>RTCDtlsTransport</a></code>. If <code>setTransport()</code> is
-              called with a single argument or if <code>rtcpTransport</code> is not set,
-              and the last call to <code>sender.send(<var>parameters</var>)</code> had
-              <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an
-              <code>InvalidParameters</code> exception. If <code>stop()</code> has been
-              called, or <code>transport.state</code> or <code>rtcpTransport.state</code>
-              is <code>closed</code>, throw an <code>InvalidStateError</code>
-              exception.</p>
+              <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
+              (and if used) RTCP <code><a>RTCDtlsTransport</a></code> with the transport(s)
+              provided.</p>
+              <p>When the <code><a>setTransport</a>()</code> method is invoked, the user
+              agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
+                  on which <code><a>setTransport</a>()</code> is invoked.</p>
+                </li>
+                <li>
+                  <p>If <code>sender.stop()</code> has been called, throw an
+                  <code>InvalidStateError</code> exception.</p>
+                </li>
+                <li>
+                  <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
+                  be the arguments to this method.</p>
+                </li>
+                <li>
+                  <p>If <code>setTransport()</code> is called with a single argument
+                  or if <code>rtcpTransport</code> is not set, and the last call
+                  to <code>sender.send(<var>parameters</var>)</code> had
+                  <code><var>parameters</var>.rtcp.mux</code> set to <code>false</code>,
+                  throw an <code>InvalidParameters</code> exception.
+                  </p>
+                </li>
+                <li>
+                  <p>If <code>setTransport()</code> is called with a single argument
+                  or if <code>rtcpTransport</code> is not set, and the last call
+                  to <code>sender.send(<var>parameters</var>)</code> had
+                  <code><var>parameters</var>.rtcp.mux</code> set to <code>false</code>,
+                  throw an <code>InvalidParameters</code> exception. If <code>stop()</code> has been
+                  </p>
+                </li>
+                <li>
+                  <p>If <code><var>withTransport</var>.state</code> is <code>closed</code>
+                  or <code>failed</code> or if <code><var>withRtcpTransport</var>.state</code>
+                  is <code>closed</code> or <code>failed</code>, throw an
+                  <code>InvalidState</code> exception.
+                  </p>
+                </li>
+              </ol>
               <table class="parameters">
                 <tbody>
                   <tr>
