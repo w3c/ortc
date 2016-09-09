@@ -2693,8 +2693,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>setTransport</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called, reject
-                  the promise with an <code>InvalidStateError</code> error.</p>
+                  <p>If <code><var>sender</var>.stop()</code> has been called, return
+                  <var>p</var> rejected with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -2702,37 +2702,36 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, reject the promise with
-                  an <code>InvalidParameters</code> error.</p>
+                  or if <var>withTransport</var> is unset, return <var>p</var>
+                  rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with a single argument
                   or if <code>rtcpTransport</code> is not set, and the last call
                   to <code><var>sender</var>.send(<var>parameters</var>)</code> had
                   <code><var>parameters</var>.rtcp.mux</code> set to <code>false</code>,
-                  reject the promise with an <code>InvalidParameters</code> error.
-                  </p>
+                  return <var>p</var> rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>RTCP</code>, reject the promise with an 
-                  <code>InvalidParameters</code> error.</p>
+                  <code>RTCP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>RTP</code>, reject the promise with an
-                  <code>InvalidParameters</code> error.</p>
+                  <code>RTP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, reject the promise with an
-                  <code>InvalidState</code> error.</p>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, reject the promise with an
-                  <code>InvalidState</code> error.</p>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
@@ -3221,8 +3220,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   on which <code><a>setTransport</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>receiver</var>.stop()</code> has been called, reject
-                  the promise with an <code>InvalidStateError</code> error.</p>
+                  <p>If <code><var>receiver</var>.stop()</code> has been called, return
+                  <var>p</var> rejected with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3230,37 +3229,36 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, reject the promise with
-                  an <code>InvalidParameters</code> error.</p>
+                  or if <var>withTransport</var> is unset, return <var>p</var>
+                  rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with a single argument
                   or if <code>rtcpTransport</code> is not set, and the last call
                   to <code><var>receiver</var>.receive(<var>parameters</var>)</code> had
                   <code><var>parameters</var>.rtcp.mux</code> set to <code>false</code>,
-                  reject the promise with an <code>InvalidParameters</code> error.
-                  </p>
+                  return <var>p</var> rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>RTCP</code>, reject the promise with an 
-                  <code>InvalidParameters</code> error.</p>
+                  <code>RTCP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>RTP</code>, reject the promise with an
-                  <code>InvalidParameters</code> error.</p>
+                  <code>RTP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, reject the promise with an
-                  <code>InvalidState</code> error.</p>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, reject the promise with an
-                  <code>InvalidState</code> error.</p>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
