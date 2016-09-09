@@ -2832,7 +2832,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>send</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code>sender.stop()</code> has been called, return a promise
+                  <p>If <code><var>sender</var>.stop()</code> has been called, return a promise
                   rejected with an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
@@ -2845,32 +2845,32 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
-                  <code>withParameters.rtcp.mux</code> is set to <code>false</code>,
+                  <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
                   return a promise rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
-                  that each value of <code>withParameters.codecs[i].payloadType</code> is
+                  that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
                   set. If any value is unset, return a promise rejected with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of encodings,
                   check whether
-                  <code>withParameters.encodings[<var>i</var>].codecPayloadType</code>
+                  <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>
                   (if set) corresponds to a value of
-                  <code>withParameters.codecs[<var>j</var>].payloadType</code> where
+                  <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code> where
                   <var>j</var> goes from 0 to the number of codecs. If there is no
                   correspondence, or if
-                  <var>withParameters.<code>codecs[<var>j</var>].name</code> is equal to
+                  <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
                   "red", "cn", "telephone-event", "rtx" or a forward error correction
                   codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]), return a promise
-                  rejected with <code>InvalidParameters</code>.</var></p>
+                  rejected with <code>InvalidParameters</code>./p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of
-                  <code>withParameters.codecs[<var>i</var>].name</code> not equal to
+                  <code><var>withParameters</var>.codecs[<var>i</var>].name</code> not equal to
                   "red", "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]]
                   or "flexfec" [[FLEXFEC]]), is included in
                   <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>,
@@ -3193,12 +3193,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
             </dd>
             <dt><dfn><code>getCapabilities</code></dfn>, static</dt>
             <dd>
-              <p>Obtain the receiver capabilities, based on <code>kind</code>.
-              Capabilities that can apply to multiple values of <code>kind</code> (such
+              <p>Obtain the receiver capabilities, based on <code><var>kind</var></code>.
+              Capabilities that can apply to multiple values of <code><var>kind</var></code> (such
               as retransmission [[!RFC4588]], redundancy [[RFC2198]] and Forward Error
               Correction) have
               <code>RTCRtpCapabilities.RTCRtpCodecCapability[<var>i</var>].kind</code>
-              set to the value of the <code>kind</code> argument.</p>
+              set to the value of the <code><var>kind</var></code> argument.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -3234,7 +3234,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   object on which <code>receive()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code>receiver.stop()</code> has been called, return a promise
+                  <p>If <code><var>receiver</var>.stop()</code> has been called, return a promise
                   rejected with an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
@@ -3249,24 +3249,24 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
-                  <var>withParameters.rtcp.mux</var> is set to <code>false</code>, return
+                  <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>, return
                   a promise rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of
-                  <code>withParameters.codecs[<var>i</var>].payloadType</code> is set. If
+                  <code><var>withParameters</var>.codecs[<var>i</var>].payloadType</code> is set. If
                   any value is unset, return a promise rejected with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of encodings,
                   check whether
-                  <code>withParameters.encodings[<var>i</var>].codecPayloadType</code>
+                  <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>
                   corresponds to a value of
-                  <var>withParameters.codecs[j].payloadType</var> where <var>j</var> goes
+                  <code><var>withParameters</var>.codecs[j].payloadType</code> where <var>j</var> goes
                   from 0 to the number of codecs. If there is no correspondence, or if
-                  <var>withParameters.codecs[j].name</var> is equal to "red", "cn",
+                  <code><var>withParameters</var>.codecs[j].name</code> is equal to "red", "cn",
                   "telephone-event", "rtx" or a forward error correction codec ("ulpfec"
                   [[RFC5109]] or "flexfec" [[FLEXFEC]]), return a promise rejected with
                   <code>InvalidParameters</code>.</p>
@@ -3274,10 +3274,10 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of
-                  <code>withParameters.codecs[<var>i</var>].name</code> not equal to
+                  <code><var>withParameters</var>.codecs[<var>i</var>].name</code> not equal to
                   "red", "rtx" or a forward error correction codec is included in
-                  <code>getCapabilities(kind).codecs[<var>j</var>].name</code>, where j
-                  goes from 0 to the number of codecs, and <code>kind</code> takes the
+                  <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].name</code>, where <var>j</var>
+                  goes from 0 to the number of codecs, and <code><var>kind</var></code> takes the
                   value passed in the <code><a>RTCRtpReceiver</a></code> constructor. If
                   no match is found for any value of <var>i</var>, return a promise
                   rejected with <code>InvalidParameters</code>.</p>
@@ -3341,12 +3341,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>Stops the <code><a>RTCRtpReceiver</a></code>.
-              <code>receiver.stop()</code> is final like
-              <code>receiver.track.stop()</code>. <code>receiver.track.stop()</code> does
-              not affect track clones and also does not stop the
-              <code><a>RTCRtpReceiver</a></code> so that Receiver Reports continue to be
-              sent.</p>
+              <p>Stops the <code><a>RTCRtpReceiver</a></code>
+              <var>receiver</var>. <code><var>receiver</var>.stop()</code>
+              is final like <code><var>receiver</var>.track.stop()</code>.
+              <code><var>receiver</var>.track.stop()</code> does
+              not affect track clones and also does not stop <var>receiver</var>
+              so that Receiver Reports continue to be sent.</p>
               <div>
                 <em>No parameters.</em>
               </div>
