@@ -2733,15 +2733,11 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>setTrack</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code>sender.stop()</code> has been called, return a promise
-                  rejected with an <code>InvalidStateError</code>.</p>
+                  <p>If <code><var>sender</var>.stop()</code> has been called, return
+                  a promise rejected with an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTrack</var> be the argument to this method.</p>
-                </li>
-                <li>
-                  <p>If <code>track.stop()</code> has been called, return a promise
-                  rejected with an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTrack</var>.kind</code> differs from the
