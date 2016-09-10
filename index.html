@@ -1718,14 +1718,18 @@ interface RTCIceTransport : RTCStatsProvider {
               <td><dfn><code id=
               "idl-def-RTCIceTransportState.disconnected">disconnected</code></dfn></td>
               <td>
-                <p>The <code><a>RTCIceTransport</a></code> has received at least one
+                <p>Connectivity is currently lost for this <code><a>RTCIceTransport</a></code>.
+                The <code><a>RTCIceTransport</a></code> has received at least one
                 local and remote candidate, and a local and remote
                 <code><a>RTCIceCandidateComplete</a></code> dictionary was not added as
                 the last candidate, but all appropriate candidate pairs thus far have
-                been tested and failed (or consent checks [[!RFC7675]] once successful,
-                have now failed). Other candidate pairs may become available for testing
-                as new candidates are trickled, and therefore the <code>failed</code>
-                state has not been reached.</p>
+                been tested and failed, or consent checks [[!RFC7675]] once successful,
+                have repeatedly failed to receive a response.  At the implementation's
+                discretion, this state may be entered prior to consent failure, and
+                therefore could resolve itself without action.  Other candidate pairs
+                may become available for testing as new candidates are trickled,
+                and a temporary consent failure could resolve itself, therefore
+                the <code>failed</code>state has not been reached.</p>
               </td>
             </tr>
             <tr>
