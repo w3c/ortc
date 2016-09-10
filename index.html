@@ -2577,7 +2577,7 @@ interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
-    void                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    Promise&lt;void&gt;             setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     Promise&lt;void&gt;             setTrack (MediaStreamTrack track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
     Promise&lt;void&gt;             send (RTCRtpParameters parameters);
@@ -2679,15 +2679,65 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
             <dt><dfn><code>setTransport</code></dfn></dt>
             <dd>
-              <p>Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP
-              <code><a>RTCDtlsTransport</a></code>. If <code>setTransport()</code> is
-              called with a single argument or if <code>rtcpTransport</code> is not set,
-              and the last call to <code>sender.send(<var>parameters</var>)</code> had
-              <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an
-              <code>InvalidParameters</code> exception. If <code>stop()</code> has been
-              called, or <code>transport.state</code> or <code>rtcpTransport.state</code>
-              is <code>closed</code>, throw an <code>InvalidStateError</code>
-              exception.</p>
+              <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
+              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
+              <code>rtcpTransport</code> with the transport(s) provided.</p>
+              <p>When the <code><a>setTransport</a>()</code> method is invoked, the user
+              agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>p</var> be a new promise.</p>
+                </li>
+                <li>
+                  <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
+                  on which <code><a>setTransport</a>()</code> is invoked.</p>
+                </li>
+                <li>
+                  <p>If <code><var>sender</var>.stop()</code> has been called, return
+                  <var>p</var> rejected with <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
+                  be the arguments to this method.</p>
+                </li>
+                <li>
+                  <p>If <code>setTransport()</code> is called with no arguments,
+                  or if <var>withTransport</var> is unset, return <var>p</var>
+                  rejected with <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withTransport</var>.transport.component</code> is
+                  <code>RTCP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withRtcpTransport</var></code> is set and
+                  <code><var>withRtcpTransport</var>.transport.component</code> is
+                  <code>RTP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withTransport</var>.state</code> is <code>closed</code>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withRtcpTransport</var>.state</code> is <code>closed</code>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
+                </li>
+                <li>
+                  <p>Run the following steps:</p>
+                  <ol>
+                    <li>
+                      <p>Replace <code>transport</code> with <var>withTransport</var> and
+                      <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var> and
+                      seamlessly send over the new transport(s).</p>
+                    </li>
+                    <li>
+                      <p>Resolve <var>p</var> with <code>undefined</code>.</p>
+                    </li>
+              </ol>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -3049,7 +3099,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
-    void                               setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    Promise&lt;void&gt;                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     static RTCRtpCapabilities          getCapabilities (DOMString kind);
     Promise&lt;void&gt;                      receive (RTCRtpParameters parameters);
     sequence&lt;RTCRtpContributingSource&gt; getContributingSources ();
@@ -3145,15 +3195,65 @@ interface RTCRtpReceiver : RTCStatsProvider {
           "methods">
             <dt><dfn><code>setTransport</code></dfn></dt>
             <dd>
-              <p>Set the RTP <code><a>RTCDtlsTransport</a></code> (and if used) RTCP
-              <code><a>RTCDtlsTransport</a></code>. If <code><a>setTransport</a>()</code>
-              is called with a single argument or if <code>rtcpTransport</code> is not
-              set, and the last call to <code>receiver.receive(parameters)</code> had
-              <code>parameters.rtcp.mux</code> set to <code>false</code>, throw an
-              <code>InvalidParameters</code> exception. If <code>stop()</code> has been
-              called, or <code>transport.state</code> or <code>rtcpTransport.state</code>
-              is <code>closed</code>, throw an <code>InvalidStateError</code>
-              exception.</p>
+              <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
+              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
+              <code>rtcpTransport</code> with the transport(s) provided.</p>
+              <p>When the <code><a>setTransport</a>()</code> method is invoked, the user
+              agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>Let <var>p</var> be a new promise.</p>
+                </li>
+                <li>
+                  <p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object
+                  on which <code><a>setTransport</a>()</code> is invoked.</p>
+                </li>
+                <li>
+                  <p>If <code><var>receiver</var>.stop()</code> has been called, return
+                  <var>p</var> rejected with <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
+                  be the arguments to this method.</p>
+                </li>
+                <li>
+                  <p>If <code>setTransport()</code> is called with no arguments,
+                  or if <var>withTransport</var> is unset, return <var>p</var>
+                  rejected with <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withTransport</var>.transport.component</code> is
+                  <code>RTCP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withRtcpTransport</var></code> is set and
+                  <code><var>withRtcpTransport</var>.transport.component</code> is
+                  <code>RTP</code>, return <var>p</var> rejected with
+                  <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withTransport</var>.state</code> is <code>closed</code>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withRtcpTransport</var>.state</code> is <code>closed</code>
+                  or <code>failed</code>, return <var>p</var> rejected with
+                  <code>InvalidState</code>.</p>
+                </li>
+                <li>
+                  <p>Run the following steps:</p>
+                  <ol>
+                    <li>
+                      <p>Replace <code>transport</code> with <var>withTransport</var> and
+                      <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var> and
+                      seamlessly receive over the new transport(s).</p>
+                    </li>
+                    <li>
+                      <p>Resolve <var>p</var> with <code>undefined</code>.</p>
+                    </li>
+              </ol>
               <table class="parameters">
                 <tbody>
                   <tr>
