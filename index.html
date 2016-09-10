@@ -2882,26 +2882,28 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>send</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called, return a promise
-                  rejected with an <code>InvalidStateError</code>.</p>
+                  <p>Let <var>p</var> be a new promise.</p>
+                </li>
+                <li>
+                  <p>If <code><var>sender</var>.stop()</code> has been called,
+                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
                 </li>
                 <li>
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage or
-                  other reasons, return a promise rejected with
-                  <code>InvalidParameters</code>.</p>
+                  other reasons, reject <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
-                  return a promise rejected with <code>InvalidParameters</code>.</p>
+                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
-                  set. If any value is unset, return a promise rejected with
+                  set. If any value is unset, reject <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -2914,8 +2916,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   correspondence, or if
                   <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
                   "red", "cn", "telephone-event", "rtx" or a forward error correction
-                  codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]), return a promise
-                  rejected with <code>InvalidParameters</code>./p>
+                  codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]), reject <var>p</var> with
+                  <code>InvalidParameters</code>./p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
@@ -2925,11 +2927,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   or "flexfec" [[FLEXFEC]]), is included in
                   <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>,
                   where <var>j</var> goes from 0 to the number of codecs. If a match is
-                  not found for any value of <var>i</var>, return a promise rejected with
+                  not found for any value of <var>i</var>, reject <var>p</var> with
                   <code>InvalidParameters</code>.</p>
-                </li>
-                <li>
-                  <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
@@ -2937,8 +2936,7 @@ interface RTCRtpSender : RTCStatsProvider {
                     <li>
                       <p>If <code><a>send</a>()</code> is called for the first time,
                       start sending. If <code><a>send</a>()</code> was called previously,
-                      have the sender switch to sending using
-                      <var>withParameters</var>.</p>
+                      have the sender switch to sending using <var>withParameters</var>.</p>
                     </li>
                     <li>
                       <p>Resolve <var>p</var> with <code>undefined</code>.</p>
@@ -3334,8 +3332,11 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   object on which <code>receive()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>receiver</var>.stop()</code> has been called, return a promise
-                  rejected with an <code>InvalidStateError</code>.</p>
+                  <p>Let <var>p</var> be a new promise.</p>
+                </li>
+                <li>
+                  <p>If <code><var>receiver</var>.stop()</code> has been called,
+                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
@@ -3344,19 +3345,18 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage,
                   <code>ssrc_table</code>, <code>muxId_table</code> or
                   <code>pt_table</code> conflicts described in Section 8.3 or other
-                  reasons, return a promise rejected with
-                  <code>InvalidParameters</code>.</p>
+                  reasons, reject <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
-                  <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>, return
-                  a promise rejected with <code>InvalidParameters</code>.</p>
+                  <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
+                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of
-                  <code><var>withParameters</var>.codecs[<var>i</var>].payloadType</code> is set. If
-                  any value is unset, return a promise rejected with
+                  <code><var>withParameters</var>.codecs[<var>i</var>].payloadType</code>
+                  is set. If any value is unset, reject <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3368,7 +3368,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   from 0 to the number of codecs. If there is no correspondence, or if
                   <code><var>withParameters</var>.codecs[j].name</code> is equal to "red", "cn",
                   "telephone-event", "rtx" or a forward error correction codec ("ulpfec"
-                  [[RFC5109]] or "flexfec" [[FLEXFEC]]), return a promise rejected with
+                  [[RFC5109]] or "flexfec" [[FLEXFEC]]), reject <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3379,11 +3379,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].name</code>, where <var>j</var>
                   goes from 0 to the number of codecs, and <code><var>kind</var></code> takes the
                   value passed in the <code><a>RTCRtpReceiver</a></code> constructor. If
-                  no match is found for any value of <var>i</var>, return a promise
-                  rejected with <code>InvalidParameters</code>.</p>
-                </li>
-                <li>
-                  <p>Let <var>p</var> be a new promise.</p>
+                  no match is found for any value of <var>i</var>,
+                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
