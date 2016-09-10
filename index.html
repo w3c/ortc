@@ -5382,18 +5382,15 @@ interface RTCRtpUnhandledEvent : Event {
               sending. For example, if the value is 2.0, the video will be
               scaled down by a factor of at least 2 in each dimension,
               resulting in sending a video no greater than one quarter size.
-              If the value is 1.0 (the default), the <code><var>sender</var></code>
+              If the value is 1.0 or unset, the <code><var>sender</var></code>
               will attempt to encode with the resolution of <code>track</code>. For
               scalable video coding, <code>resolutionScale</code> refers to the aggregate
               scale down of this layer when combined with all dependent layers.</p>
               If <code>resolutionScale</code> is less than 1.0, reject the
               promise with <code>RangeError</code> when <code>send()</code>
-              or <code><a>receive</a>()</code> is called. If 
-              <code>resolutionScale</code><code> is set and 
-              <var>sender</var>.track.kind</code> is "audio", reject the promise
-              with <code>InvalidParameters</code> when <code>send()</code>
-              or <code>receive()</code> is called.
-              </p>
+              or <code><a>receive</a>()</code> is called.  If
+              <var>sender</var>.track.kind</code> is "audio", the value is
+              ignored.</p>
             </dd>
             <dt><dfn><code>framerateScale</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
