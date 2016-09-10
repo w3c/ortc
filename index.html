@@ -1726,10 +1726,10 @@ interface RTCIceTransport : RTCStatsProvider {
                 been tested and failed, or consent checks [[!RFC7675]] once successful,
                 have repeatedly failed to receive a response.  At the implementation's
                 discretion, this state may be entered prior to consent failure, and
-                therefore could resolve itself without action.
-                Other candidate pairs may become available for testing
-                as new candidates are trickled, and therefore the <code>failed</code>
-                state has not been reached.</p>
+                therefore could resolve itself without action.  Other candidate pairs
+                may become available for testing as new candidates are trickled,
+                and a temporary consent failure could resolve itself, therefore
+                the <code>failed</code>state has not been reached.</p>
               </td>
             </tr>
             <tr>
