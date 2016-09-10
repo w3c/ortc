@@ -8917,11 +8917,23 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <section id="since-20-August-2016*">
       <h3>Changes since 20 August 2016</h3>
       <ol>
+        <li>Clarified operation of <code>resolutionScale</code>, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/362">Issue 362</a>
+        </li>
+        <li>Clarified meaning of the <code>disconnected</code> state, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/565">Issue 565</a>
+        </li>
+        <li>Changed <code>profileLevelId</code> to a DOMString, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/587">Issue 587</a>
+        </li>
         <li>Enabled <code>setTrack()</code> to replace a track that is "ended", as noted in:
         <a href="https://github.com/w3c/ortc/issues/589">Issue 589</a>
         </li>
         <li>Clarified operation of <code>setTransport()</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/591">Issue 591</a>
+        </li>
+        <li>Changed <code>setTransport()</code> to a promise, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/598">Issue 598</a>
         </li>
       </ol>
     </section>
