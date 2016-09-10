@@ -2783,23 +2783,23 @@ interface RTCRtpSender : RTCStatsProvider {
               agent MUST run the following steps:</p>
               <ol>
                 <li>
+                  <p>Let <var>p</var> be a new promise.</p>
+                </li>
+                <li>
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
                   on which <code><a>setTrack</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called, return
-                  a promise rejected with an <code>InvalidStateError</code>.</p>
+                  <p>If <code><var>sender</var>.stop()</code> has been called,
+                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTrack</var> be the argument to this method.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTrack</var>.kind</code> differs from the
-                  <code><var>sender</var>.<a>track</a>.kind</code>, return a promise
-                  rejected with a <code>TypeError</code>.</p>
-                </li>
-                <li>
-                  <p>Let <var>p</var> be a new promise.</p>
+                  <code><var>sender</var>.<a>track</a>.kind</code>,
+                  reject <var>p</var> with <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
