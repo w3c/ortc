@@ -5476,15 +5476,21 @@ interface RTCRtpUnhandledEvent : Event {
             <dt><dfn><code>resolutionScale</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
             <dd>
-              <p>If the sender's <code>kind</code> is "video", the video's resolution
-              will be scaled down in each dimension by the given value before sending.
-              For example, if the value is 2.0, the video will be scaled down by a factor
-              of 2 in each dimension, resulting in sending a video of one quarter size.
-              If the value is 1.0 (the default), the video will not be affected. A value
-              less than 1.0 will result in a <code>RangeError</code> exception when
-              <code>send()</code> or <code><a>receive</a>()</code> is called. For
+              <p>If <code><var>sender</var>.track.kind</code> is "video",
+              the encoder will scale down the resolution of 
+              <code><var>sender</var>.track</code> in each dimension before
+              sending. For example, if the value is 2.0, the video will be
+              scaled down by a factor of at least 2 in each dimension,
+              resulting in sending a video no greater than one quarter size.
+              If the value is 1.0 or unset, the <code><var>sender</var></code>
+              will attempt to encode with the resolution of <code>track</code>. For
               scalable video coding, <code>resolutionScale</code> refers to the aggregate
               scale down of this layer when combined with all dependent layers.</p>
+              If <code>resolutionScale</code> is less than 1.0, reject the
+              promise with <code>RangeError</code> when <code>send()</code>
+              or <code><a>receive</a>()</code> is called.  If
+              <var>sender</var>.track.kind</code> is "audio", the value is
+              ignored.</p>
             </dd>
             <dt><dfn><code>framerateScale</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
