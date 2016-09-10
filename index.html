@@ -2706,13 +2706,6 @@ interface RTCRtpSender : RTCStatsProvider {
                   rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
-                  <p>If <code>setTransport()</code> is called with a single argument
-                  or if <code>rtcpTransport</code> is not set, and the last call
-                  to <code><var>sender</var>.send(<var>parameters</var>)</code> had
-                  <code><var>parameters</var>.rtcp.mux</code> set to <code>false</code>,
-                  return <var>p</var> rejected with <code>InvalidParameters</code>.</p>
-                </li>
-                <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
                   <code>RTCP</code>, return <var>p</var> rejected with
                   <code>InvalidParameters</code>.</p>
@@ -3231,13 +3224,6 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>If <code>setTransport()</code> is called with no arguments,
                   or if <var>withTransport</var> is unset, return <var>p</var>
                   rejected with <code>InvalidParameters</code>.</p>
-                </li>
-                <li>
-                  <p>If <code>setTransport()</code> is called with a single argument
-                  or if <code>rtcpTransport</code> is not set, and the last call
-                  to <code><var>receiver</var>.receive(<var>parameters</var>)</code> had
-                  <code><var>parameters</var>.rtcp.mux</code> set to <code>false</code>,
-                  return <var>p</var> rejected with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
