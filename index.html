@@ -2581,7 +2581,7 @@ interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
-    Promise&lt;void&gt;             setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    void                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     Promise&lt;void&gt;             setTrack (MediaStreamTrack track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
     Promise&lt;void&gt;             send (RTCRtpParameters parameters);
@@ -2690,15 +2690,12 @@ interface RTCRtpSender : RTCStatsProvider {
               agent MUST run the following steps:</p>
               <ol>
                 <li>
-                  <p>Let <var>p</var> be a new promise.</p>
-                </li>
-                <li>
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
                   on which <code><a>setTransport</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called, return
-                  <var>p</var> rejected with <code>InvalidStateError</code>.</p>
+                  <p>If <code><var>sender</var>.stop()</code> has been called, throw an
+                  <code>InvalidStateError</code> exception.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -2706,41 +2703,25 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, return <var>p</var>
-                  rejected with <code>InvalidParameters</code>.</p>
+                  or if <var>withTransport</var> is unset, throw an
+                  <code>InvalidParameters</code> exception.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>RTCP</code>, return <var>p</var> rejected with
-                  <code>InvalidParameters</code>.</p>
+                  <code>RTCP</code>, throw an <code>InvalidParameters</code>
+                  exception.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>RTP</code>, return <var>p</var> rejected with
-                  <code>InvalidParameters</code>.</p>
+                  <code>RTP</code>, throw an <code>InvalidParameters</code>
+                  exception.</p>
                 </li>
                 <li>
-                  <p>If <code><var>withTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, return <var>p</var> rejected with
-                  <code>InvalidState</code>.</p>
+                  <p>Replace <code>transport</code> with <var>withTransport</var> and
+                  <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var>
+                  and seamlessly send over the new transport(s).</p>
                 </li>
-                <li>
-                  <p>If <code><var>withRtcpTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, return <var>p</var> rejected with
-                  <code>InvalidState</code>.</p>
-                </li>
-                <li>
-                  <p>Run the following steps:</p>
-                  <ol>
-                    <li>
-                      <p>Replace <code>transport</code> with <var>withTransport</var> and
-                      <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var> and
-                      seamlessly send over the new transport(s).</p>
-                    </li>
-                    <li>
-                      <p>Resolve <var>p</var> with <code>undefined</code>.</p>
-                    </li>
               </ol>
               <table class="parameters">
                 <tbody>
@@ -2772,7 +2753,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+                <em>Return type:</em> <code>void</code>
               </div>
             </dd>
             <dt><dfn><code>setTrack</code></dfn></dt>
@@ -3204,15 +3185,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
               agent MUST run the following steps:</p>
               <ol>
                 <li>
-                  <p>Let <var>p</var> be a new promise.</p>
-                </li>
-                <li>
                   <p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object
                   on which <code><a>setTransport</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>receiver</var>.stop()</code> has been called, return
-                  <var>p</var> rejected with <code>InvalidStateError</code>.</p>
+                  <p>If <code><var>receiver</var>.stop()</code> has been called, throw an
+                  <code>InvalidStateError</code> exception.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3220,41 +3198,23 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, return <var>p</var>
-                  rejected with <code>InvalidParameters</code>.</p>
+                  or if <var>withTransport</var> is unset, throw an
+                  <code>InvalidParameters</code> exception</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>RTCP</code>, return <var>p</var> rejected with
-                  <code>InvalidParameters</code>.</p>
+                  <code>RTCP</code>, throw an <code>InvalidParameters</code>
+                  exception.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>RTP</code>, return <var>p</var> rejected with
-                  <code>InvalidParameters</code>.</p>
+                  <code>RTP</code>, throw an <code>InvalidParameters</code> exception.</p>
                 </li>
                 <li>
-                  <p>If <code><var>withTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, return <var>p</var> rejected with
-                  <code>InvalidState</code>.</p>
-                </li>
-                <li>
-                  <p>If <code><var>withRtcpTransport</var>.state</code> is <code>closed</code>
-                  or <code>failed</code>, return <var>p</var> rejected with
-                  <code>InvalidState</code>.</p>
-                </li>
-                <li>
-                  <p>Run the following steps:</p>
-                  <ol>
-                    <li>
-                      <p>Replace <code>transport</code> with <var>withTransport</var> and
-                      <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var> and
-                      seamlessly receive over the new transport(s).</p>
-                    </li>
-                    <li>
-                      <p>Resolve <var>p</var> with <code>undefined</code>.</p>
-                    </li>
+                  <p>Replace <code>transport</code> with <var>withTransport</var> and
+                  <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var> and
+                  seamlessly receive over the new transport(s).</p>
               </ol>
               <table class="parameters">
                 <tbody>
@@ -3286,7 +3246,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+                <em>Return type:</em> <code>void</code>
               </div>
             </dd>
             <dt><dfn><code>getCapabilities</code></dfn>, static</dt>
