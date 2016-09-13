@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2016-09-09",
+  publishDate: "2016-09-15",
   editors: [
     {
       name: "Robin Raymond",
@@ -28,6 +28,24 @@ var respecConfig = {
   wgURI: "http://www.w3.org/community/ortc/",
   wgPublicList: "public-ortc",
   wgPatentURI: "",
+  "issueBase": "https://github.com/w3c/ortc/issues/",
+  "otherLinks": [
+      {
+        "key": "Participate",
+        "data": [
+        {
+          "value": "Mailing list",
+          "href": "https://lists.w3.org/Archives/Public/public-ortc/"
+        },
+        {
+          "value": "Browse open issues",
+          "href": "https://github.com/w3c/ortc/issues"
+        },
+        {
+          "value": "IETF RTCWEB Working Group",
+          "href": "https://tools.ietf.org/wg/rtcweb/"
+        }]
+      }],
   localBiblio: {
     "IANA-RTP-2": {
       "title": "RTP Payload Format media types",
