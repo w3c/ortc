@@ -1,13 +1,13 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2016-09-15",
+  publishDate: "2016-09-13",
   editors: [
     {
       name: "Robin Raymond",
       url: "http://about.me/robinraymond",
-      company: "Hookflash",
-      companyURL: "http://www.hookflash.com/"
+      company: "Optical Tone Ltd.",
+      companyURL: "http://opticaltone.com/"
     }
   ],
   authors: [
