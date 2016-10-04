@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2016-09-13",
+  publishDate: "2016-10-04",
   editors: [
     {
       name: "Robin Raymond",
@@ -88,7 +88,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "25 March 2016. Internet Draft (work in progress)",
+      "status": "18 July 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "MUX-FIXES": {
@@ -98,7 +98,7 @@ var respecConfig = {
         "M. Petit-Huguenin",
         "G. Salgueiro"
       ],
-      "status": "15 June 2016. Internet draft (work in progress)",
+      "status": "01 September 2016. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -109,7 +109,7 @@ var respecConfig = {
         "S. Nandakumar",
         "P. Thatcher"
       ],
-      "status": "21 June 2016. Internet Draft (work in progress)",
+      "status": "26 August 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RFC3264": {
@@ -477,7 +477,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "19 June 2016. Internet Draft (work in progress)",
+      "status": "17 August 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -531,7 +531,7 @@ var respecConfig = {
         "C. Jennings",
         "E. Rescorla"
       ],
-      "status": "21 March 2016. Internet Draft (work in progress)",
+      "status": "20 September 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "REMB": {
@@ -610,7 +610,7 @@ var respecConfig = {
         "M. Flodman",
         "E. Sprang"
       ],
-      "status": "October 19, 2015. Internet Draft (work in progress)",
+      "status": "19 October 2015. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TRICKLE": {
@@ -622,7 +622,7 @@ var respecConfig = {
         "J. Uberti",
         "P. Saint-Andre"
       ],
-      "status": "06 June 2016. Internet Draft (work in progress)",
+      "status": "08 September 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TS26.114": {
@@ -641,7 +641,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "26 May 2016 (work in progress)",
+      "status": "21 September 2016 (work in progress)",
       "publisher": "W3C"
     }
   }
