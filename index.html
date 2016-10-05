@@ -2642,7 +2642,11 @@ interface RTCRtpSender : RTCStatsProvider {
             <dt><dfn><code>track</code></dfn> of type <span class=
             "idlAttrType"><a>MediaStreamTrack</a></span>, readonly</dt>
             <dd>
-              <p>The associated <code><a>MediaStreamTrack</a></code> instance.</p>
+              <p>The associated <code><a>MediaStreamTrack</a></code> instance.
+              If <code>track</code> is ended, or if
+              <code>track</code>.<var>muted</var> is set to <code>true</code>,
+              the <code>RTCRtpSender</code> sends silence (audio) or a black
+              frame (video).</p>
             </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
