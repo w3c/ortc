@@ -6296,8 +6296,8 @@ var encodings = [
     <section id="rtcdtmfsender-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[ Constructor (RTCRtpSender sender)]
-interface RTCDtmfSender {
+        <pre class="idl">[ NamedConstructor=RTCDtmfSender (RTCRtpSender sender)]
+interface RTCDTMFSender {
     readonly        attribute boolean      canInsertDTMF;
     void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
     readonly        attribute RTCRtpSender sender;
@@ -6335,12 +6335,12 @@ interface RTCDtmfSender {
         </section>
         <section>
           <h2>Attributes</h2>
-          <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class=
+          <dl data-link-for="RTCDTMFSender" data-dfn-for="RTCDTMFSender" class=
           "attributes">
             <dt><dfn><code>canInsertDTMF</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>, readonly</dt>
             <dd>
-              <p>Whether the <a>RTCDtmfSender</a> is capable of sending DTMF.</p>
+              <p>Whether the <a>RTCDTMFSender</a> is capable of sending DTMF.</p>
             </dd>
             <dt><dfn><code>sender</code></dfn> of type <span class=
             "idlAttrType"><a>RTCRtpSender</a></span>, readonly</dt>
@@ -6364,7 +6364,7 @@ interface RTCDtmfSender {
         </section>
         <section>
           <h2>Methods</h2>
-          <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class="methods">
+          <dl data-link-for="RTCDTMFSender" data-dfn-for="RTCDTMFSender" class="methods">
             <dt><dfn><code>insertDTMF</code></dfn></dt>
             <dd>
               <p>The <code>insertDTMF()</code> method is used to send DTMF tones. Since
