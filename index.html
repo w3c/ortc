@@ -2575,6 +2575,13 @@ function accept(mySignaller, remote) {
     <section id="rtcrtpsender-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
+        <pre class="idl">typedef (RTCDtlsTransport or RTCQuicTransport) RTCTransport;</pre>
+        <div class="idlTypedefDesc">
+          An <dfn>RTCTransport</dfn> may represent either an <code><a>RTCDtlsTransport</a></code>
+          or an <code><a>RTCQuicTransport</a></code>.
+        </div>
+      </div>
+      <div>
         <pre class="idl">
         [ Constructor (MediaStreamTrack track, RTCTransport transport, optional RTCTransport rtcpTransport)]
 interface RTCRtpSender : RTCStatsProvider {
