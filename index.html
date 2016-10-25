@@ -3443,7 +3443,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
               is final like <code><var>receiver</var>.track.stop()</code>.
               <code><var>receiver</var>.track.stop()</code> does
               not affect track clones and also does not stop <var>receiver</var>
-              so that Receiver Reports continue to be sent.</p>
+              so that Receiver Reports continue to be sent. Calling
+              <code><var>receiver</var>.track.stop()</code> does not cause
+              the "onended" event to fire for <code>track</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
