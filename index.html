@@ -2564,7 +2564,7 @@ function accept(mySignaller, remote) {
       <h3>Operation</h3>
       <p>A <code><a>RTCRtpSender</a></code> instance is constructed from an
       <a>MediaStreamTrack</a> object and associated to an
-      <code><a>RTCDtlsTransport</a></code>. If an attempt is made to construct an
+      <code><a>RTCTransport</a></code>. If an attempt is made to construct an
       <code><a>RTCRtpSender</a></code> object with <code>transport.state</code> or
       <code>rtcpTransport.state</code> <code>closed</code>, or if
       <code>track.readyState</code> is <code>ended</code>, throw an
@@ -2576,12 +2576,12 @@ function accept(mySignaller, remote) {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (MediaStreamTrack track, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
+        [ Constructor (MediaStreamTrack track, RTCTransport transport, optional RTCTransport rtcpTransport)]
 interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
-    readonly        attribute RTCDtlsTransport  transport;
-    readonly        attribute RTCDtlsTransport? rtcpTransport;
-    Promise&lt;void&gt;             setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    readonly        attribute RTCTransport  transport;
+    readonly        attribute RTCTransport? rtcpTransport;
+    Promise&lt;void&gt;             setTransport (RTCTransport transport, optional RTCTransport rtcpTransport);
     Promise&lt;void&gt;             setTrack (MediaStreamTrack track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
     Promise&lt;void&gt;             send (RTCRtpParameters parameters);
@@ -2614,7 +2614,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">transport</td>
-                    <td class="prmType"><code>RTCDtlsTransport</code></td>
+                    <td class="prmType"><code>RTCTransport</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -2623,7 +2623,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">rtcpTransport</td>
-                    <td class="prmType"><code>RTCDtlsTransport</code></td>
+                    <td class="prmType"><code>RTCTransport</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptTrue"><span role="img" aria-label=
@@ -2645,24 +2645,24 @@ interface RTCRtpSender : RTCStatsProvider {
               <p>The associated <code><a>MediaStreamTrack</a></code> instance.</p>
             </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
+            "idlAttrType"><a>RTCTransport</a></span>, readonly</dt>
             <dd>
-              <p>The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is
+              <p>The <code><a>RTCTransport</a></code> instance over which RTCP is
               sent and received. When BUNDLE is used, many
               <code><a>RTCRtpSender</a></code> objects will share one
               <code>rtcpTransport</code> and will all send and receive RTCP over the same
-              <code><a>RTCDtlsTransport</a></code>. When RTCP mux is used,
+              <code><a>RTCTransport</a></code>. When RTCP mux is used,
               <code>rtcpTransport</code> will be null, and both RTP and RTCP traffic will
-              flow over the <code><a>RTCDtlsTransport</a></code>
+              flow over the <code><a>RTCTransport</a></code>
               <var>transport</var>.</p>
             </dd>
             <dt><dfn><code>rtcpTransport</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly , nullable</dt>
+            "idlAttrType"><a>RTCTransport</a></span>, readonly , nullable</dt>
             <dd>
-              <p>The associated RTCP <code><a>RTCDtlsTransport</a></code> instance if one
+              <p>The associated RTCP <code><a>RTCTransport</a></code> instance if one
               was provided in the constructor. When RTCP mux is used,
               <code>rtcpTransport</code> will be null, and both RTP and RTCP traffic will
-              flow over the <code><a>RTCDtlsTransport</a></code>
+              flow over the <code><a>RTCTransport</a></code>
               <var>transport</var>.</p>
             </dd>
             <dt><code>onssrcconflict</code> of type <span class=
@@ -2683,8 +2683,8 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
             <dt><dfn><code>setTransport</code></dfn></dt>
             <dd>
-              <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
-              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
+              <p>Attempts to replace the the RTP <code><a>RTCTransport</a></code> 
+              <code>transport</code> (and if used) RTCP <code><a>RTCTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
               <p>When the <code><a>setTransport</a>()</code> method is invoked, the user
               agent MUST run the following steps:</p>
@@ -2753,7 +2753,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">transport</td>
-                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmType"><code><a>RTCTransport</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -2762,7 +2762,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">rtcpTransport</td>
-                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmType"><code><a>RTCTransport</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptTrue"><span role="img" aria-label=
@@ -3083,7 +3083,7 @@ interface RTCSsrcConflictEvent : Event {
     <section id="rtcrtpreceiver-operation*">
       <h3>Operation</h3>
       <p>A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of
-      <code>kind</code> and an <code><a>RTCDtlsTransport</a></code> object. If an attempt
+      <code>kind</code> and an <code><a>RTCTransport</a></code> object. If an attempt
       is made to construct an <code><a>RTCRtpReceiver</a></code> object with
       <code>transport.state</code> or <code>rtcpTransport.state</code> with a value of
       <code>closed</code>, throw an <code>InvalidStateError</code> exception. Upon
@@ -3096,12 +3096,12 @@ interface RTCSsrcConflictEvent : Event {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString kind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
+        [ Constructor (DOMString kind, RTCTransport transport, optional RTCTransport rtcpTransport)]
 interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
-    readonly        attribute RTCDtlsTransport  transport;
-    readonly        attribute RTCDtlsTransport? rtcpTransport;
-    Promise&lt;void&gt;                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    readonly        attribute RTCTransport  transport;
+    readonly        attribute RTCTransport? rtcpTransport;
+    Promise&lt;void&gt;                      setTransport (RTCTransport transport, optional RTCTransport rtcpTransport);
     static RTCRtpCapabilities          getCapabilities (DOMString kind);
     Promise&lt;void&gt;                      receive (RTCRtpParameters parameters);
     sequence&lt;RTCRtpContributingSource&gt; getContributingSources ();
@@ -3133,7 +3133,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">transport</td>
-                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmType"><code><a>RTCDTransport</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -3142,7 +3142,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">rtcpTransport</td>
-                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmType"><code><a>RTCTransport</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptTrue"><span role="img" aria-label=
@@ -3166,27 +3166,27 @@ interface RTCRtpReceiver : RTCStatsProvider {
               <code>track.kind</code> is set to the value of <var>kind</var> passed in
               the constructor.</p>
               <div class="note">
-                Prior to verification of the remote DTLS fingerprint within the
-                <code><a>RTCDtlsTransport</a></code> <var>transport</var>, and (if set)
+                Prior to verification of the remote fingerprint within the
+                <code><a>RTCTransport</a></code> <var>transport</var>, and (if set)
                 <var>rtcpTransport</var>, <code>track</code> <em title="MUST NOT" class=
                 "rfc2119">MUST NOT</em> emit media for rendering.
               </div>
             </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
+            "idlAttrType"><a>RTCTransport</a></span>, readonly</dt>
             <dd>
-              <p>The associated RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
+              <p>The associated RTP <code><a>RTCTransport</a></code> instance.</p>
             </dd>
             <dt><dfn><code>rtcpTransport</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly , nullable</dt>
+            "idlAttrType"><a>RTCTransport</a></span>, readonly , nullable</dt>
             <dd>
-              <p>The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is
+              <p>The <code><a>RTCTransport</a></code> instance over which RTCP is
               sent and received. When BUNDLE is used, multiple
               <code><a>RTCRtpReceiver</a></code> objects will share one
               <code>rtcpTransport</code> and will send and receive RTCP over the same
-              <code><a>RTCDtlsTransport</a></code>. When RTCP mux is used,
+              <code><a>RTCTransport</a></code>. When RTCP mux is used,
               <code>rtcpTransport</code> will be null, and both RTP and RTCP traffic will
-              flow over the <code><a>RTCDtlsTransport</a></code>
+              flow over the <code><a>RTCTransport</a></code>
               <var>transport</var>.</p>
             </dd>
           </dl>
@@ -3197,8 +3197,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
           "methods">
             <dt><dfn><code>setTransport</code></dfn></dt>
             <dd>
-              <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
-              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
+              <p>Attempts to replace the the RTP <code><a>RTCTransport</a></code> 
+              <code>transport</code> (and if used) RTCP <code><a>RTCTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
               <p>When the <code><a>setTransport</a>()</code> method is invoked, the user
               agent MUST run the following steps:</p>
@@ -3267,7 +3267,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">transport</td>
-                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmType"><code><a>RTCTransport</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -3276,7 +3276,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">rtcpTransport</td>
-                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmType"><code><a>RTCTransport</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptTrue"><span role="img" aria-label=
