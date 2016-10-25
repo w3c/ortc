@@ -1275,7 +1275,7 @@ interface RTCIceTransport : RTCStatsProvider {
     readonly        attribute RTCIceTransportState state;
     sequence&lt;RTCIceCandidate&gt; getRemoteCandidates ();
     RTCIceCandidatePair?      getSelectedCandidatePair ();
-    void                      start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role);
+    void                      start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role = controlling);
     void                      stop ();
     RTCIceParameters?         getRemoteParameters ();
     RTCIceTransport           createAssociatedTransport ();
@@ -1397,22 +1397,24 @@ interface RTCIceTransport : RTCStatsProvider {
             </dd>
             <dt><dfn><code>start</code></dfn></dt>
             <dd>
+              <p>If <code>start()</code> is called with invalid parameters,
+              throw an <code>InvalidParameters</code> exception (such as
+              if <code>gatherer.component</code> has a value different from
+              <code>iceTransport.component</code>).  If <code>state</code> or
+              <code>gatherer.state</code> is <code>closed</code>, throw an
+              <code>InvalidStateError</code> exception.</p>
               <p>The first time <code>start()</code> is called, candidate connectivity
               checks are started and the ICE transport attempts to connect to the remote
-              <code><a>RTCIceTransport</a></code>. If <code>start()</code> is called with
-              invalid parameters, throw an <code>InvalidParameters</code> exception. For
-              example, if <code>gatherer.component</code> has a value different from
-              <code>iceTransport.component</code>, throw an
-              <code>InvalidParameters</code> exception. If <code>state</code> or
-              <code>gatherer.state</code> is <code>closed</code>, throw an
-              <code>InvalidStateError</code> exception. When <code>start()</code> is
-              called again, <code><a>RTCIceTransportState</a></code> transitions to the
-              <code>connected</code> state, all remote candidates are flushed, and
+              <code><a>RTCIceTransport</a></code>. When <code>start()</code> is
+              called again, all remote candidates are flushed, and
               <code><a>addRemoteCandidate</a>()</code> or
               <code><a>setRemoteCandidates</a>()</code> must be called to add the remote
               candidates back or replace them.</p>
-              <p>If a newly constructed <code><a>RTCIceGatherer</a></code> object is
-              passed as an argument when <code>start()</code> is called again, an ICE
+              <p>If <var>gatherer</var> was passed in the constructor and a newly
+              constructed <code><a>RTCIceGatherer</a></code> <var>gatherer</var> is
+              passed as an argument when <code>start()</code> is called, or if
+              <code>start()</code> is called again with a newly constructed
+              <code><a>RTCIceGatherer</a></code> <var>gatherer</var>, an ICE
               restart as defined in [[!RFC5245]] Section 9.2.1.1 occurs. Since
               <code>start()</code> does not change the username fragment and password of
               <var>gatherer</var>, if <code>start()</code> is called again with the same
