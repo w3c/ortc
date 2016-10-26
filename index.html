@@ -1411,15 +1411,14 @@ interface RTCIceTransport : RTCStatsProvider {
               <code>gatherer.state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <p>If <var>gatherer</var> was passed in the constructor and a newly
-              constructed <code><a>RTCIceGatherer</a></code> <var>gatherer</var> is
-              passed as an argument when <code>start()</code> is called, or if
+              constructed <code><a>RTCIceGatherer</a></code> is passed as an
+              argument when <code>start()</code> is called, or if
               <code>start()</code> is called again with a newly constructed
-              <code><a>RTCIceGatherer</a></code> <var>gatherer</var>, an ICE
-              restart as defined in [[!RFC5245]] Section 9.2.1.1 occurs. Since
-              <code>start()</code> does not change the username fragment and password of
-              <var>gatherer</var>, if <code>start()</code> is called again with the same
-              value of <var>gatherer</var>, the existing local candidates are reused and
-              the ICE username fragment and password remains unchanged. However, other
+              <code><a>RTCIceGatherer</a></code>, an ICE restart as
+              defined in [[!RFC5245]] Section 9.2.1.1 occurs. If <code>start()</code>
+              is called again with the same value of <var>gatherer</var>,
+              the existing local candidates are reused and the local ICE
+              username fragment and password remains unchanged. However, other
               aspects of the behavior are not currently defined.</p>
               <p>As noted in [[!RFC5245]] Section 7.1.2.3, an incoming connectivity check
               utilizes the local/remote username fragment and the local password, whereas
