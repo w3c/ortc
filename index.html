@@ -1400,9 +1400,10 @@ interface RTCIceTransport : RTCStatsProvider {
               <p>The first time <code>start()</code> is called, candidate connectivity
               checks are started and the ICE transport attempts to connect to the remote
               <code><a>RTCIceTransport</a></code>. If <code>start()</code> is called with
-              invalid parameters, throw an <code>InvalidParameters</code> exception (such
-              as if <code>gatherer.component</code> has a value different from
-              <code>iceTransport.component</code>).  If <code>state</code> or
+              invalid parameters, throw an <code>InvalidParameters</code> exception. For
+              example, if <code>gatherer.component</code> has a value different from
+              <code>iceTransport.component</code>), throw an <code>InvalidParameters</code>
+              exception.  If <code>state</code> or
               <code>gatherer.state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <p>When <code>start()</code> is called again, all remote
