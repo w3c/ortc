@@ -2718,6 +2718,18 @@ interface RTCRtpSender : RTCStatsProvider {
                   exception.</p>
                 </li>
                 <li>
+                  <p>If <code><var>withTransport</var></code> is set and
+                  <code><var>withTransport</var>.state</code> is
+                  <code>closed</code>, throw an <code>InvalidStateError</code>
+                  exception.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withRtcpTransport</var></code> is set and
+                  <code><var>withRtcpTransport</var>.state</code> is
+                  <code>closed</code>, throw an <code>InvalidStateError</code>
+                  exception.</p>
+                </li>
+                <li>
                   <p>Replace <code>transport</code> with <var>withTransport</var> and
                   <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var>
                   and seamlessly send over the new transport(s).</p>
@@ -3210,6 +3222,18 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
                   <code>RTP</code>, throw an <code>InvalidParameters</code> exception.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withTransport</var></code> is set and
+                  <code><var>withTransport</var>.state</code> is
+                  <code>closed</code>, throw an <code>InvalidStateError</code>
+                  exception.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withRtcpTransport</var></code> is set and
+                  <code><var>withRtcpTransport</var>.state</code> is
+                  <code>closed</code>, throw an <code>InvalidStateError</code>
+                  exception.</p>
                 </li>
                 <li>
                   <p>Replace <code>transport</code> with <var>withTransport</var> and
