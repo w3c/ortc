@@ -3115,7 +3115,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
-    Promise&lt;void&gt;                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    void            setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     static RTCRtpCapabilities          getCapabilities (DOMString kind);
     Promise&lt;void&gt;                      receive (RTCRtpParameters parameters);
     sequence&lt;RTCRtpContributingSource&gt; getContributingSources ();
