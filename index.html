@@ -1414,9 +1414,9 @@ interface RTCIceTransport : RTCStatsProvider {
               <code>InvalidParameters</code> exception. If <code>state</code> or
               <code>gatherer.state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception.</p>
-              <p>When <code>start()</code> is called again and <var>remoteParameters</var>
-              has changed, all remote candidates are flushed, and
-              <code><a>addRemoteCandidate</a>()</code> or
+              <p>When <code>start()</code> is called again and the value of 
+              <var>remoteParameters</var> has changed, all remote candidates are
+              flushed, and <code><a>addRemoteCandidate</a>()</code> or
               <code><a>setRemoteCandidates</a>()</code> must be called to add the remote
               candidates back or replace them. If <code>start()</code> is called again
               and <var>role</var> is changed, throw an <code>InvalidParameters</code>
