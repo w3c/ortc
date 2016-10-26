@@ -289,7 +289,9 @@ interface RTCIceGatherer : RTCStatsProvider {
             <dt><dfn><code>gather</code></dfn></dt>
             <dd>
               <p>Gather ICE candidates. If <var>options</var> is omitted, utilize the
-              value of <var>options</var> passed in the constructor.</p>
+              value of <var>options</var> passed in the constructor. If  
+              <code>state</code> is <code>closed</code>, throw an
+              <code>InvalidStateError</code> exception.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -316,7 +318,9 @@ interface RTCIceGatherer : RTCStatsProvider {
             </dd>
             <dt><dfn><code>getLocalParameters</code></dfn></dt>
             <dd>
-              <p>Obtain the ICE parameters of the <code><a>RTCIceGatherer</a></code>.</p>
+              <p>Obtain the ICE parameters of the <code><a>RTCIceGatherer</a></code>.
+              If <code>state</code> is <code>closed</code>, throw an
+              <code>InvalidStateError</code> exception.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -331,7 +335,8 @@ interface RTCIceGatherer : RTCStatsProvider {
               candidates currently known (except for peer reflexive candidates), even if
               an <code><a>onlocalcandidate</a></code> event hasn't been processed yet.
               Prior to calling <code><a>gather</a>()</code> an empty list will be
-              returned.</p>
+              returned. If  <code>state</code> is <code>closed</code>, throw an
+              <code>InvalidStateError</code> exception.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -689,8 +694,10 @@ interface RTCIceGatherer : RTCStatsProvider {
               <td><dfn><code id=
               "idl-def-RTCIceGathererState.closed">closed</code></dfn></td>
               <td>
-                <p>The <code><a>RTCIceGatherer</a></code> has been closed intentionally
-                (by calling <code>close()</code>).</p>
+                <p>The <code>closed</code> state can only be entered when 
+                the <code><a>RTCIceGatherer</a></code> has been closed
+                intentionally by calling <code>close()</code>. This is a
+                terminal state.</p>
               </td>
             </tr>
           </tbody>
