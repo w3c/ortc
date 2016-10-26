@@ -694,8 +694,10 @@ interface RTCIceGatherer : RTCStatsProvider {
               <td><dfn><code id=
               "idl-def-RTCIceGathererState.closed">closed</code></dfn></td>
               <td>
-                <p>The <code><a>RTCIceGatherer</a></code> has been closed intentionally
-                (by calling <code>close()</code>). This is a terminal state.</p>
+                <p>The <code>closed</code> state can only be entered when 
+                the <code><a>RTCIceGatherer</a></code> has been closed
+                intentionally by calling <code>close()</code>. This is a
+                terminal state.</p>
               </td>
             </tr>
           </tbody>
