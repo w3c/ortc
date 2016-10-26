@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2016-10-04",
+  publishDate: "2016-10-26",
   editors: [
     {
       name: "Robin Raymond",
