@@ -1283,7 +1283,7 @@ interface RTCIceTransport : RTCStatsProvider {
     readonly        attribute RTCIceTransportState state;
     sequence&lt;RTCIceCandidate&gt; getRemoteCandidates ();
     RTCIceCandidatePair?      getSelectedCandidatePair ();
-    void                      start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role = controlled);
+    void                      start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role = "controlled");
     void                      stop ();
     RTCIceParameters?         getRemoteParameters ();
     RTCIceTransport           createAssociatedTransport ();
@@ -1473,7 +1473,7 @@ interface RTCIceTransport : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">role</td>
-                    <td class="prmType"><code><a>RTCIceRole</a></code></td>
+                    <td class="prmType"><code><a>RTCIceRole</a></code>=<code>controlled</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptTrue"><span role="img" aria-label=
