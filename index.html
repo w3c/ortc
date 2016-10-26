@@ -6322,12 +6322,10 @@ var encodings = [
         <pre class="idl">[ Constructor (RTCRtpSender sender)]
 interface RTCDtmfSender {
     readonly        attribute boolean      canInsertDTMF;
-    void insertDTMF (DOMString tones, optional long duration, optional long interToneGap);
+    void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
     readonly        attribute RTCRtpSender sender;
                     attribute EventHandler ontonechange;
     readonly        attribute DOMString    toneBuffer;
-    readonly        attribute long         duration;
-    readonly        attribute long         interToneGap;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -6385,24 +6383,6 @@ interface RTCDtmfSender {
               <p>The <dfn>toneBuffer</dfn> attribute returns a list of the tones
               remaining to be played out.</p>
             </dd>
-            <dt><code>duration</code> of type <span class=
-            "idlAttrType"><a>long</a></span>, readonly</dt>
-            <dd>
-              <p>The <dfn>duration</dfn> attribute returns the current tone duration
-              value in milliseconds. This value will be the value last set via the
-              <code><a>insertDTMF</a>()</code> method, or the default value of 100 ms if
-              <code><a>insertDTMF</a>()</code> was called without specifying the
-              duration.</p>
-            </dd>
-            <dt><code>interToneGap</code> of type <span class=
-            "idlAttrType"><a>long</a></span>, readonly</dt>
-            <dd>
-              <p>The <dfn>interToneGap</dfn> attribute returns the current value of the
-              between-tone gap. This value will be the value last set via the
-              <code><a>insertDTMF</a>()</code> method, or the default value of 70 ms if
-              <code><a>insertDTMF</a>()</code> was called without specifying the
-              <code>interToneGap.</code></p>
-            </dd>
           </dl>
         </section>
         <section>
@@ -6417,18 +6397,20 @@ interface RTCDtmfSender {
               <code>sender.send(<var>parameters</var>)</code> was called with
               <code>parameters.codecs[]</code> not including the "telephone-event" codec,
               throw an <code>InvalidStateError</code> exception.</p>
-              <p>The tones parameter is treated as a series of characters. The characters
-              0 through 9, A through D, #, and * generate the associated DTMF tones. The
-              characters a to d are equivalent to A to D. The character ',' indicates a
-              delay of 2 seconds before processing the next character in the tones
-              parameter. All other characters <em title="MUST" class="rfc2119">MUST</em>
-              be considered <dfn id="dtmf-unrecognized">unrecognized</dfn>. As noted in
-              [[!RFC7874]] Section 3, support for the characters 0 through 9, A through
-              D, #, and * are required.</p>
-              <p>The duration parameter indicates the duration in ms to use for each
-              character passed in the tones parameters. The duration cannot be more than
-              6000 ms or less than 40 ms. The default duration is 100 ms for each
-              tone.</p>
+              <p>The tones parameter is treated as a series of characters. The
+              characters 0 through 9, A through D, #, and * generate the
+              associated DTMF tones. The characters a to d MUST be normalized 
+              to uppercase on entry and are equivalent to A to D.
+              As noted in [[!RFC7874]] Section 3, support for the characters
+              0 through 9, A through D, #, and * are required.
+              The character ',' MUST be supported, and indicates a delay
+              of 2 seconds before processing the next character in the tones
+              parameter. All other characters (and only those other characters)
+              MUST be considered <dfn id="dtmf-unrecognized">unrecognized</dfn>.</p>
+              <p>The duration parameter indicates the duration in ms to use for
+              each character passed in the tones parameters. The duration
+              cannot be more than 6000 ms or less than 40 ms. The default
+              duration is 100 ms for each tone.</p>
               <p>The interToneGap parameter indicates the gap between tones. It
               <em title="MUST" class="rfc2119">MUST</em> be at least 30 ms. The default
               value is 70 ms.</p>
@@ -6437,66 +6419,59 @@ interface RTCDtmfSender {
               to align with the boundaries of RTP packets but it <em title="MUST" class=
               "rfc2119">MUST</em> not increase either of them by more than the duration
               of a single RTP audio packet.</p>
-              <p>When the <code><a class="internalDFN" href=
-              "#dom-RTCDTMFSender-insertDTMF"><code>insertDTMF()</code></a></code> method
+              <p>When the <code><a><code>insertDTMF()</code></a></code> method
               is invoked, the user agent <em title="MUST" class="rfc2119">MUST</em> run
               the following steps:</p>
               <ol>
-                <li>Set the object's <code><a href=
-                "#dom-RTCDTMFSender-tonebuffer">toneBuffer</a></code> attribute to the
-                value of the first argument, the <code><a href=
-                "#dom-RTCDTMFSender-duration">duration</a></code> attribute to the value
-                of the second argument, and the <code><a href=
-                "#dom-RTCDTMFSender-intertonegap">interToneGap</a></code> attribute to
-                the value of the third argument.</li>
-                <li>If <code><a href=
-                "#dom-RTCDTMFSender-tonebuffer">toneBuffer</a></code> contains any
-                <a href="#dtmf-unrecognized">unrecognized</a> characters, throw an <code>
-                  InvalidCharacterError</code> exception and abort these steps.
+                <li>let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
+                used to send DTMF.
                 </li>
-                <li>If <code><a href=
-                "#dom-RTCDTMFSender-tonebuffer">toneBuffer</a></code> is an empty string,
-                return.</li>
-                <li>If the value of the <code><a href=
-                "#dom-RTCDTMFSender-duration">duration</a></code> attribute is less than
-                40, set it to 40. If, on the other hand, the value is greater than 6000,
-                set it to 6000.</li>
-                <li>If the value of the <code><a href=
-                "#dom-RTCDTMFSender-intertonegap">interToneGap</a></code> attribute is
-                less than 30, set it to 30.</li>
-                <li>If a <em>Playout task</em> is scheduled to be run; abort these steps;
-                otherwise queue a task that runs the following steps (<em>Playout
-                task</em>):
+                <li>If <var>sender</var> has been stopped, throw an
+                <code>InvalidStateError</code> exception.
+                </li>
+                <li>Let <var>tones</var> be the method's first argument.</li>
+                <li>If <var>tones</var> contains any <a>unrecognized</a>
+                characters, throw an <code>InvalidCharacterError</code>
+                  exception and abort these steps.
+                </li>
+                <li>Set the object's <code><a>toneBuffer</a></code> attribute to
+                <var>tones</var>.</li>
+                <li>If the value of the <code><a>duration</a></code> parameter
+                  is less than 40, set it to 40. If, on the other hand, the
+                  value is greater than 6000, set it to 6000.</li>
+                <li>If the value of the <code><a>interToneGap</a></code> parameter
+                  is less than 30, set it to 30.</li>
+                <li>If <code><a>toneBuffer</a></code> is an empty string,
+                  abort these steps.</li>
+                <li>If a <em>Playout task</em> is scheduled to be run; abort
+                these steps; otherwise queue a task that runs the following
+                steps (<em>Playout task</em>):
                   <ol>
-                    <li>If <code><a href=
-                    "#dom-RTCDTMFSender-tonebuffer">toneBuffer</a></code> is an empty
-                    string, fire an event named <code><a href=
-                    "#event-RTCDTMFSender-tonechange">tonechange</a></code> with an empty
-                    string at the <code><a class="idlType" href=
-                    "#idl-def-RTCDTMFSender"><code>RTCDtmfSender</code></a></code> object
-                    and abort these steps.</li>
-                    <li>Remove the first character from <code><a href=
-                    "#dom-RTCDTMFSender-tonebuffer">toneBuffer</a></code> and let that
-                    character be <var>tone</var>.</li>
-                    <li>Start playout of <var>tone</var> for <code><a href=
-                    "#dom-RTCDTMFSender-duration">duration</a></code> ms on the
-                    associated RTP media stream, using the appropriate codec.</li>
-                    <li>Queue a task to be executed in <code><a href=
-                    "#dom-RTCDTMFSender-duration">duration</a></code> + <code><a href=
-                    "#dom-RTCDTMFSender-intertonegap">interToneGap</a></code> ms from now
-                    that runs the steps labelled <em>Playout task</em>.</li>
-                    <li>Fire an event named <code><a href=
-                    "#event-RTCDTMFSender-tonechange">tonechange</a></code> with a string
-                    consisting of <var>tone</var> at the <code><a class="idlType" href=
-                    "#idl-def-RTCDTMFSender"><code>RTCDtmfSender</code></a></code>
-                    object.</li>
+                    <li>If <var>sender</var> has been stopped, abort these
+                    steps.</li>
+                    <li>If <code><a>toneBuffer</a></code> is an empty string,
+                    fire an event named <code><a>tonechange</a></code> with an
+                    empty string at the <code><a>RTCDtmfSender</a></code>
+                    object and abort these steps.</li>
+                    <li>Remove the first character from
+                      <code><a>toneBuffer</a></code> and let that character
+                      be <var>tone</var>.</li>
+                    <li>Start playout of <var>tone</var> for
+                      <code><a>duration</a></code> ms on the associated
+                      RTP media stream, using the appropriate codec.</li>
+                    <li>Queue a task to be executed in
+                      <code><a>duration</a></code> +
+                      <code><a>interToneGap</a></code> ms from now that
+                      runs the steps labelled <em>Playout task</em>.</li>
+                    <li>Fire an event named <code><a>tonechange</a></code> with
+                    a string consisting of <var>tone</var> at the
+                    <code><a>RTCDtmfSender</a></code> object.</li>
                   </ol>
                 </li>
               </ol>
-              <p>Calling <code><a href=
-              "#dom-RTCDTMFSender-insertDTMF">insertDTMF()</a></code> with an empty tones
-              parameter can be used to cancel all tones queued to play after the
-              currently playing tone.</p>
+              <p>Calling <code><a>insertDTMF</a></code> with an empty tones
+              parameter can be used to cancel all tones queued to play after
+              the currently playing tone.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -6517,7 +6492,7 @@ interface RTCDtmfSender {
                   </tr>
                   <tr>
                     <td class="prmName">duration</td>
-                    <td class="prmType"><code>long</code></td>
+                    <td class="prmType"><code>unsigned long = 100</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptTrue"><span role="img" aria-label=
@@ -6526,7 +6501,7 @@ interface RTCDtmfSender {
                   </tr>
                   <tr>
                     <td class="prmName">interToneGap</td>
-                    <td class="prmType"><code>long</code></td>
+                    <td class="prmType"><code>unsigned long = 70</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptTrue"><span role="img" aria-label=
@@ -6605,16 +6580,16 @@ interface RTCDTMFToneChangeEvent : Event {
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
               <p>The <code>tone</code> attribute contains the character for the tone that
-              has just begun playout (see <code>insertDTMF()</code>). If the value is the
-              empty string, it indicates that the previous tone has completed
-              playback.</p>
+              has just begun playout (see <code>insertDTMF()</code>). If the value is the empty
+              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string 
+              and that the previous tones have completed playback.</p>
             </dd>
           </dl>
         </section>
       </div>
       <div>
         <pre class="idl">dictionary RTCDTMFToneChangeEventInit : EventInit {
-             DOMString tone = "";
+             required DOMString tone;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCDTMFToneChangeEventInit</a> Members</h2>
@@ -6623,11 +6598,10 @@ interface RTCDTMFToneChangeEvent : Event {
             <dt><dfn><code>tone</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
             <dd>
-              <p>The <code>tone</code> parameter is treated as a series of characters.
-              The characters 0 through 9, A through D, #, and * generate the associated
-              DTMF tones. The characters a to d are equivalent to A to D. The character
-              ',' indicates a delay of 2 seconds before processing the next character in
-              the tones parameter. Unrecognized characters are ignored.</p>
+              <p>The <code>tone</code> attribute contains the character for the tone that
+              has just begun playout (see <code>insertDTMF()</code>). If the value is the empty
+              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string 
+              and that the previous tones have completed playback.</p>
             </dd>
           </dl>
         </section>
