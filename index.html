@@ -319,7 +319,7 @@ interface RTCIceGatherer : RTCStatsProvider {
             <dt><dfn><code>getLocalParameters</code></dfn></dt>
             <dd>
               <p>Obtain the ICE parameters of the <code><a>RTCIceGatherer</a></code>.
-              If  <code>state</code> is <code>closed</code>, throw an
+              If <code>state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <div>
                 <em>No parameters.</em>
@@ -335,7 +335,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               candidates currently known (except for peer reflexive candidates), even if
               an <code><a>onlocalcandidate</a></code> event hasn't been processed yet.
               Prior to calling <code><a>gather</a>()</code> an empty list will be
-              returned.  If  <code>state</code> is <code>closed</code>, throw an
+              returned. If  <code>state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <div>
                 <em>No parameters.</em>
