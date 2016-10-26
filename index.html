@@ -417,12 +417,12 @@ interface RTCIceGatherer : RTCStatsProvider {
       </div>
       <div>
         <pre class="idl">dictionary RTCIceCandidate {
-             DOMString              foundation;
-             unsigned long          priority;
-             DOMString              ip;
-             RTCIceProtocol         protocol;
-             unsigned short         port;
-             RTCIceCandidateType    type;
+             required DOMString              foundation;
+             required unsigned long          priority;
+             required DOMString              ip;
+             required RTCIceProtocol         protocol;
+             required unsigned short         port;
+             required RTCIceCandidateType    type;
              RTCIceTcpCandidateType tcpType;
              DOMString              relatedAddress = "";
              unsigned short         relatedPort;
@@ -466,7 +466,8 @@ interface RTCIceGatherer : RTCStatsProvider {
             <dt><dfn><code>tcpType</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceTcpCandidateType</a></span></dt>
             <dd>
-              <p>The type of TCP candidate.</p>
+              <p>The type of TCP candidate. For UDP candidates, this
+              attribute is unset.</p>
             </dd>
             <dt><code>relatedAddress</code> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
