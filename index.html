@@ -422,14 +422,14 @@ interface RTCIceGatherer : RTCStatsProvider {
       </div>
       <div>
         <pre class="idl">dictionary RTCIceCandidate {
-             DOMString              foundation;
-             unsigned long          priority;
-             DOMString              ip;
-             RTCIceProtocol         protocol;
-             unsigned short         port;
-             RTCIceCandidateType    type;
+             required DOMString              foundation;
+             required unsigned long          priority;
+             required DOMString              ip;
+             required RTCIceProtocol         protocol;
+             required unsigned short         port;
+             required RTCIceCandidateType    type;
              RTCIceTcpCandidateType tcpType;
-             DOMString              relatedAddress = "";
+             DOMString              relatedAddress;
              unsigned short         relatedPort;
 };</pre>
         <section>
@@ -437,49 +437,50 @@ interface RTCIceGatherer : RTCStatsProvider {
           <dl data-link-for="RTCIceCandidate" data-dfn-for="RTCIceCandidate" class=
           "dictionary-members">
             <dt><dfn><code>foundation</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>A unique identifier that allows ICE to correlate candidates that appear
               on multiple <code><a>RTCIceTransport</a></code>s.</p>
             </dd>
             <dt><dfn><code>priority</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The assigned priority of the candidate. This is automatically populated
               by the browser.</p>
             </dd>
             <dt><dfn><code>ip</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The IP address of the candidate.</p>
             </dd>
             <dt><dfn><code>protocol</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceProtocol</a></span></dt>
+            "idlMemberType"><a>RTCIceProtocol</a></span>, required</dt>
             <dd>
               <p>The protocol of the candidate (UDP/TCP).</p>
             </dd>
             <dt><dfn><code>port</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned short</a></span></dt>
+            "idlMemberType"><a>unsigned short</a></span>, required</dt>
             <dd>
               <p>The port for the candidate.</p>
             </dd>
             <dt><dfn><code>type</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceCandidateType</a></span></dt>
+            "idlMemberType"><a>RTCIceCandidateType</a></span>, required</dt>
             <dd>
               <p>The type of candidate.</p>
             </dd>
             <dt><dfn><code>tcpType</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceTcpCandidateType</a></span></dt>
             <dd>
-              <p>The type of TCP candidate.</p>
+              <p>The type of TCP candidate. For UDP candidates, this
+              attribute is unset.</p>
             </dd>
             <dt><code>relatedAddress</code> of type <span class=
-            "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
+            "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>For candidates that are derived from others, such as relay or reflexive
               candidates, the <dfn><code>relatedAddress</code></dfn> refers to the
               candidate that these are derived from. For host candidates, the
-              <code><a>relatedAddress</a></code> is set to the empty string.</p>
+              <code><a>relatedAddress</a></code> is unset.</p>
             </dd>
             <dt><code>relatedPort</code> of type <span class="idlMemberType"><a>unsigned
             short</a></span></dt>
@@ -487,7 +488,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               <p>For candidates that are derived from others, such as relay or reflexive
               candidates, the <dfn><code>relatedPort</code></dfn> refers to the host
               candidate that these are derived from. For host candidates, the
-              <code><a>relatedPort</a></code> is 0.</p>
+              <code><a>relatedPort</a></code> is unset.</p>
             </dd>
           </dl>
         </section>
