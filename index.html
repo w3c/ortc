@@ -1397,12 +1397,6 @@ interface RTCIceTransport : RTCStatsProvider {
             </dd>
             <dt><dfn><code>start</code></dfn></dt>
             <dd>
-              <p>If <code>start()</code> is called with invalid parameters,
-              throw an <code>InvalidParameters</code> exception (such as
-              if <code>gatherer.component</code> has a value different from
-              <code>iceTransport.component</code>).  If <code>state</code> or
-              <code>gatherer.state</code> is <code>closed</code>, throw an
-              <code>InvalidStateError</code> exception.</p>
               <p>The first time <code>start()</code> is called, candidate connectivity
               checks are started and the ICE transport attempts to connect to the remote
               <code><a>RTCIceTransport</a></code>. When <code>start()</code> is
@@ -1410,6 +1404,12 @@ interface RTCIceTransport : RTCStatsProvider {
               <code><a>addRemoteCandidate</a>()</code> or
               <code><a>setRemoteCandidates</a>()</code> must be called to add the remote
               candidates back or replace them.</p>
+              <p>If <code>start()</code> is called with invalid parameters,
+              throw an <code>InvalidParameters</code> exception (such as
+              if <code>gatherer.component</code> has a value different from
+              <code>iceTransport.component</code>).  If <code>state</code> or
+              <code>gatherer.state</code> is <code>closed</code>, throw an
+              <code>InvalidStateError</code> exception.</p>
               <p>If <var>gatherer</var> was passed in the constructor and a newly
               constructed <code><a>RTCIceGatherer</a></code> <var>gatherer</var> is
               passed as an argument when <code>start()</code> is called, or if
