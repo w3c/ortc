@@ -1283,7 +1283,7 @@ interface RTCIceTransport : RTCStatsProvider {
     readonly        attribute RTCIceTransportState state;
     sequence&lt;RTCIceCandidate&gt; getRemoteCandidates ();
     RTCIceCandidatePair?      getSelectedCandidatePair ();
-    void                      start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role = controlled);
+    void                      start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role);
     void                      stop ();
     RTCIceParameters?         getRemoteParameters ();
     RTCIceTransport           createAssociatedTransport ();
