@@ -1409,11 +1409,10 @@ interface RTCIceTransport : RTCStatsProvider {
               checks are started and the ICE transport attempts to connect to the remote
               <code><a>RTCIceTransport</a></code>. If <code>start()</code> is called with
               invalid parameters, throw an <code>InvalidParameters</code> exception. For
-              example, if <code>gatherer.component</code> has a value different from
-              <code>iceTransport.component</code>, throw an
-              <code>InvalidParameters</code> exception. If <code>state</code> or
-              <code>gatherer.state</code> is <code>closed</code>, throw an
-              <code>InvalidStateError</code> exception.</p>
+              example, if <code><var>gatherer</var>.component</code> has a value different
+              from <code>component</code>, throw an <code>InvalidParameters</code> exception.
+              If <code>state</code> or <code><var>gatherer</var>.state</code> is
+              <code>closed</code>, throw an <code>InvalidStateError</code> exception.</p>              
               <p>When <code>start()</code> is called again and the value of 
               <var>remoteParameters</var> has changed, all remote candidates are
               flushed, and <code><a>addRemoteCandidate</a>()</code> or
@@ -1422,12 +1421,12 @@ interface RTCIceTransport : RTCStatsProvider {
               and <var>role</var> is changed, throw an <code>InvalidParameters</code>
               exception.</p>
               <p>If <var>gatherer</var> was passed in the constructor and a newly
-              constructed <code><a>RTCIceGatherer</a></code> is passed as an
-              argument when <code>start()</code> is called, or if
+              constructed <code><a>RTCIceGatherer</a></code> <var>gatherer</var>
+              is passed as an argument when <code>start()</code> is called, or if
               <code>start()</code> is called again with a newly constructed
-              <code><a>RTCIceGatherer</a></code>, all local candidates are
-              flushed, new candidate pairs are formed, and the state transitions
-              to <code>checking</code>. If <code>start()</code>
+              <code><a>RTCIceGatherer</a></code> <var>gatherer</var>, all local
+              candidates are flushed, new candidate pairs are formed, and the
+              state transitions to <code>checking</code>. If <code>start()</code>
               is called again with the same value of <var>gatherer</var>, but with
               a different value of <var>remoteParameters</var> the existing
               local candidates are reused (since the local ICE username
