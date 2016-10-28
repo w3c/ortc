@@ -1427,24 +1427,28 @@ interface RTCIceTransport : RTCStatsProvider {
                   exception.
                 </li>
                 <li>
-                  If <code>start()</code> is called again and
-                  <code><var>role</var></code> is changed, throw an
-                  <code>InvalidParameters</code> exception.
-                </li>
-                <li>
                   If <code><var>remoteParameters</var>.usernameFragment</code>
                   or <code><var>remoteParameters</var>.password</code> is unset, 
                   throw an <code>InvalidParameters</code> exception.                  
                 </li>
                 <li>
+                  If <code>start()</code> is called again and
+                  <code><var>role</var></code> is changed, throw an
+                  <code>InvalidParameters</code> exception.
+                </li>
+                <li>
                   If <code>start()</code> is called for the first time
                   and either <code><var>gatherer</var></code> was not
                   passed in the constructor or the value of
-                  <code><var>gathererer</var></code> is unchanged,
-                  if there are remote candidates,
-                  set <code>state</code> to <code>checking</code> and
-                  start connectivity checks.  If there are no remote
-                  candidates, <code>state</code> remains <code>new</code>.
+                  <code><var>gathererer</var></code> is unchanged:
+                  <li>
+                    If there are remote candidates, set <code>state</code>
+                    to <code>checking</code> and start connectivity checks.
+                  </li>
+                  <li>
+                    If there are no remote candidates, <code>state</code>
+                    remains <code>new</code>.
+                  </li>
                 </li>
                 <li>
                   If <code>start()</code> is called for the first time
