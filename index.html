@@ -1415,7 +1415,7 @@ interface RTCIceTransport : RTCStatsProvider {
               of <code><var>remoteParameters</var></code> has changed,
               local candidates are kept, remote candidates are flushed,
               candidate pairs are flushed, <code>state</code> transitions
-              to <code>disconnected</code> and
+              to <code>new</code> and
               <code><a>addRemoteCandidate</a>()</code> or
               <code><a>setRemoteCandidates</a>()</code> must be called
               to add the remote candidates back or replace them.</p>
@@ -1431,37 +1431,41 @@ interface RTCIceTransport : RTCStatsProvider {
               local candidates are flushed, candidate pairs are flushed,
               new candidate pairs are formed with existing remote candidates,
               and <code>state</code> transitions to <code>checking</code>.</p>
-              <p>If <code><var>gatherer</var></code> was passed in the constructor
-              and a newly constructed <code><a>RTCIceGatherer</a></code>
+              <p>If <code><var>gatherer</var></code> was passed in the
+              constructor and a newly constructed
+              <code><a>RTCIceGatherer</a></code>
               <code><var>gatherer</var></code> is passed as an argument when
-              <code>start()</code> is called, or if <code>start()</code> is called
-              again with a newly constructed <code><a>RTCIceGatherer</a></code>
+              <code>start()</code> is called, or if <code>start()</code> is
+              called again with a newly constructed
+              <code><a>RTCIceGatherer</a></code>
               <code><var>gatherer</var></code>, and the value of
               <code><var>remoteParameters</var></code> changes, local
               candidates are flushed, remote candidates are flushed, 
               candidate pairs are flushed, <code>state</code> transitions to
-              <code>checking</code> and <code><a>addRemoteCandidate</a>()</code>
+              <code>new</code> and <code><a>addRemoteCandidate</a>()</code>
               or <code><a>setRemoteCandidates</a>()</code> must be called
               to add the remote candidates back or replace them.</p>
-              <p>If <code>start()</code> is called again with the same values of
-              <code><var>gatherer</var></code> and
+              <p>If <code>start()</code> is called again with the same values
+              of <code><var>gatherer</var></code> and
               <code><var>remoteParameters</var></code>, this has no effect.</p>
               <p>If <code>start()</code> is called with
-              invalid parameters, throw an <code>InvalidParameters</code> exception. For
-              example, if <code><var>gatherer</var>.component</code> has a value different
-              from <code>component</code>, throw an <code>InvalidParameters</code> exception.
-              If <code>state</code> or <code><var>gatherer</var>.state</code> is
-              <code>closed</code>, throw an <code>InvalidStateError</code> exception.
-              If <code>start()</code> is called again and <code><var>role</var></code> is
-              changed, throw an <code>InvalidParameters</code> exception.</p>             
+              invalid parameters, throw an <code>InvalidParameters</code>
+              exception. For example, if <code><var>gatherer</var>.component</code>
+              has a value different from <code>component</code>, throw an
+              <code>InvalidParameters</code> exception.  If
+              <code>state</code> or <code><var>gatherer</var>.state</code> is
+              <code>closed</code>, throw an <code>InvalidStateError</code>
+              exception. If <code>start()</code> is called again and
+              <code><var>role</var></code> is changed, throw an
+                <code>InvalidParameters</code> exception.</p>
               <p>As noted in [[!RFC5245]] Section 7.1.2.3, an incoming connectivity check
               utilizes the local/remote username fragment and the local password, whereas
               an outgoing connectivity check utilizes the local/remote username fragment
               and the remote password. Since <code>start()</code> provides role
               information, as well as the remote username fragment and password, once
               <code>start()</code> is called an <code><a>RTCIceTransport</a></code>
-              object can respond to incoming connectivity checks based on its configured
-              role, as well as initiating connectivity checks.</p>
+              object can respond to incoming connectivity checks based on its
+              configured role, as well as initiating connectivity checks.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
