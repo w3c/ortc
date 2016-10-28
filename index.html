@@ -1412,7 +1412,8 @@ interface RTCIceTransport : RTCStatsProvider {
               information, as well as the remote username fragment and password, once
               <code>start()</code> is called an <code><a>RTCIceTransport</a></code>
               object can respond to incoming connectivity checks based on its
-              configured role, as well as initiating connectivity checks.</p>
+              configured role. Since <code>start()</code> enables candidate pairs
+              to be formed, it also enables initiating connectivity checks.</p>
               <p>When <code>start()</code> is called, the following
               steps MUST be run:<p>
               <ol>
@@ -1456,7 +1457,7 @@ interface RTCIceTransport : RTCStatsProvider {
                   If <code>start()</code> is called for the first time
                   and the value of <code><var>gathererer</var></code>
                   passed as an argument is different from that passed
-                  in the constructor, flush local candidates. If there
+                  in the constructor, flush local candidates.  If there
                   are remote candidates, set <code>state</code> to
                   <code>checking</code> and start connectivity checks.
                   If there are no remote candidates, <code>state</code>
@@ -1476,8 +1477,7 @@ interface RTCIceTransport : RTCStatsProvider {
                   <code><var>remoteParameters</var></code> is unchanged,
                   local candidates are flushed, candidate pairs are flushed,
                   new candidate pairs are formed with existing remote candidates,
-                  candidates and <code>state</code> transitions to
-                  <code>checking</code>.
+                  and <code>state</code> transitions to <code>checking</code>.
               </li>
               <li>
                 If <code>start()</code> is called again with new values of
