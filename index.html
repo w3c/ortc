@@ -1414,27 +1414,27 @@ interface RTCIceTransport : RTCStatsProvider {
               If <code>state</code> or <code><var>gatherer</var>.state</code> is
               <code>closed</code>, throw an <code>InvalidStateError</code> exception.</p>              
               <p>When <code>start()</code> is called again and the value of 
-              <var>remoteParameters</var> has changed, all remote candidates are
+               <code><var>remoteParameters</var></code> has changed, all remote candidates are
               flushed, and <code><a>addRemoteCandidate</a>()</code> or
               <code><a>setRemoteCandidates</a>()</code> must be called to add the remote
               candidates back or replace them. If <code>start()</code> is called again
-              and <var>role</var> is changed, throw an <code>InvalidParameters</code>
+              and <code><var>role</var></code> is changed, throw an <code>InvalidParameters</code>
               exception.</p>
-              <p>If <var>gatherer</var> was passed in the constructor and a newly
-              constructed <code><a>RTCIceGatherer</a></code> <var>gatherer</var>
+              <p>If <code><var>gatherer</var></code> was passed in the constructor and a newly
+              constructed <code><a>RTCIceGatherer</a></code> <code><var>gatherer</var></code>
               is passed as an argument when <code>start()</code> is called, or if
               <code>start()</code> is called again with a newly constructed
-              <code><a>RTCIceGatherer</a></code> <var>gatherer</var>, all local
+              <code><a>RTCIceGatherer</a></code> <code><var>gatherer</var></code>, all local
               candidates are flushed, new candidate pairs are formed, and the
               state transitions to <code>checking</code>. If <code>start()</code>
               is called again with the same value of <var>gatherer</var>, but with
-              a different value of <var>remoteParameters</var> the existing
+              a different value of <code><var>remoteParameters</var></code> the existing
               local candidates are reused (since the local ICE username
               fragment and password is unchanged), the remote candidates are flushed,
               all candidate pairs are flushed and the state transitions to
               <code>disconnected</code>. If <code>start()</code>
-              is called again with the same value of <var>gatherer</var>
-              and with the same <var>remoteParameters</var>, this has no effect.</p>
+              is called again with the same value of <code><var>gatherer</var></code>
+               and with the same <code><var>remoteParameters</var></code>, this has no effect.</p>
               <p>As noted in [[!RFC5245]] Section 7.1.2.3, an incoming connectivity check
               utilizes the local/remote username fragment and the local password, whereas
               an outgoing connectivity check utilizes the local/remote username fragment
