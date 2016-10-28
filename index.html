@@ -1405,59 +1405,6 @@ interface RTCIceTransport : RTCStatsProvider {
             </dd>
             <dt><dfn><code>start</code></dfn></dt>
             <dd>
-              <p>The first time <code>start()</code> is called,
-              <code>state</code> transitions to <code>checking</code>,
-              connectivity checks are started, and the local
-              <code><a>RTCIceTransport</a></code> attempts to connect
-              to the remote <code><a>RTCIceTransport</a></code>.</p>           
-              <p>If <code>start()</code> is called again with the same
-              value of <code><var>gathererer</var></code> but the value
-              of <code><var>remoteParameters</var></code> has changed,
-              local candidates are kept, remote candidates are flushed,
-              candidate pairs are flushed, <code>state</code> transitions
-              to <code>new</code> and
-              <code><a>addRemoteCandidate</a>()</code> or
-              <code><a>setRemoteCandidates</a>()</code> must be called
-              to add the remote candidates back or replace them.</p>
-              <p>If <code><var>gatherer</var></code> was passed in the
-              constructor and a newly constructed
-              <code><a>RTCIceGatherer</a></code>
-              <code><var>gatherer</var></code> is passed as an argument
-              when <code>start()</code> is called, or if
-              <code>start()</code> is called again with a newly
-              constructed <code><a>RTCIceGatherer</a></code>
-              <code><var>gatherer</var></code>, but the value of
-              <code><var>remoteParameters</var></code> does not change,
-              local candidates are flushed, candidate pairs are flushed,
-              new candidate pairs are formed with existing remote candidates,
-              and <code>state</code> transitions to <code>checking</code>.</p>
-              <p>If <code><var>gatherer</var></code> was passed in the
-              constructor and a newly constructed
-              <code><a>RTCIceGatherer</a></code>
-              <code><var>gatherer</var></code> is passed as an argument when
-              <code>start()</code> is called, or if <code>start()</code> is
-              called again with a newly constructed
-              <code><a>RTCIceGatherer</a></code>
-              <code><var>gatherer</var></code>, and the value of
-              <code><var>remoteParameters</var></code> changes, local
-              candidates are flushed, remote candidates are flushed, 
-              candidate pairs are flushed, <code>state</code> transitions to
-              <code>new</code> and <code><a>addRemoteCandidate</a>()</code>
-              or <code><a>setRemoteCandidates</a>()</code> must be called
-              to add the remote candidates back or replace them.</p>
-              <p>If <code>start()</code> is called again with the same values
-              of <code><var>gatherer</var></code> and
-              <code><var>remoteParameters</var></code>, this has no effect.</p>
-              <p>If <code>start()</code> is called with
-              invalid parameters, throw an <code>InvalidParameters</code>
-              exception. For example, if <code><var>gatherer</var>.component</code>
-              has a value different from <code>component</code>, throw an
-              <code>InvalidParameters</code> exception.  If
-              <code>state</code> or <code><var>gatherer</var>.state</code> is
-              <code>closed</code>, throw an <code>InvalidStateError</code>
-              exception. If <code>start()</code> is called again and
-              <code><var>role</var></code> is changed, throw an
-              <code>InvalidParameters</code> exception.</p>
               <p>As noted in [[!RFC5245]] Section 7.1.2.3, an incoming connectivity check
               utilizes the local/remote username fragment and the local password, whereas
               an outgoing connectivity check utilizes the local/remote username fragment
@@ -1466,6 +1413,76 @@ interface RTCIceTransport : RTCStatsProvider {
               <code>start()</code> is called an <code><a>RTCIceTransport</a></code>
               object can respond to incoming connectivity checks based on its
               configured role, as well as initiating connectivity checks.</p>
+              <p>When <code>start()</code> is called, the following
+              steps MUST be run:<p>
+              <ol>
+                <li>
+                  If <code><var>gatherer</var>.component</code> has a value
+                  different from <code>component</code>, throw an
+                  <code>InvalidParameters</code> exception.
+                </li>
+                <li>
+                  If <code>state</code> or <code><var>gatherer</var>.state</code>
+                  is <code>closed</code>, throw an <code>InvalidStateError</code>
+                  exception.
+                </li>
+                <li>
+                  If <code>start()</code> is called again and
+                  <code><var>role</var></code> is changed, throw an
+                  <code>InvalidParameters</code> exception.
+                </li>
+                <li>
+                  If <code><var>remoteParameters</var>.usernameFragment</code>
+                  or <code><var>remoteParameters</var>.password</code> is unset, 
+                  throw an <code>InvalidParameters</code> exception.                  
+                </li>
+                <li>
+                  If <code>start()</code> is called for the first time
+                  and either <code><var>gatherer</var></code> was not
+                  passed in the constructor or the value of
+                  <code><var>gathererer</var></code> is unchanged,
+                  if there are remote candidates,
+                  set <code>state</code> to <code>checking</code> and
+                  start connectivity checks.  If there are no remote
+                  candidates, <code>state</code> remains <code>new</code>.
+                </li>
+                <li>
+                  If <code>start()</code> is called for the first time
+                  and the value of <code><var>gathererer</var></code>
+                  passed as an argument is different from that passed
+                  in the constructor, flush local candidates. If there
+                  are remote candidates, set <code>state</code> to
+                  <code>checking</code> and start connectivity checks.
+                  If there are no remote candidates, <code>state</code>
+                  remains <code>new</code>.
+                </li>
+                <li>If <code>start()</code> is called again with the same
+                  values of <code><var>gatherer</var></code> and
+                  <code><var>remoteParameters</var></code>, this has
+                  no effect.
+              </li>
+                <li>If <code>start()</code> is called again with the same
+                  value of <code><var>gathererer</var></code> but the value
+                  of <code><var>remoteParameters</var></code> has changed,
+                  local candidates are kept, remote candidates are flushed,
+                  candidate pairs are flushed and <code>state</code> transitions
+                  to <code>new</code>.
+                </li>
+                <li>If <code>start()</code> is called again with a new value of
+                  <code><var>gatherer</var></code> but the value of
+                  <code><var>remoteParameters</var></code> is unchanged,
+                  local candidates are flushed, candidate pairs are flushed,
+                  new candidate pairs are formed with existing remote candidates,
+                  and <code>state</code> transitions to <code>checking</code>.
+              </li>
+              <li>If <code>start()</code> is called again with new values of
+                <code><var>gatherer</var></code>and 
+                <code><var>remoteParameters</var></code>, local
+                candidates are flushed, remote candidates are flushed,
+                candidate pairs are flushed and <code>state</code> transitions
+                to <code>new</code>.
+               </li>
+              </ol>
               <table class="parameters">
                 <tbody>
                   <tr>
