@@ -1407,7 +1407,7 @@ interface RTCIceTransport : RTCStatsProvider {
             <dd>
               <p>The first time <code>start()</code> is called,
               <code>state</code> transitions to <code>checking</code>,
-              connectivity checks are started, and the
+              connectivity checks are started, and the local
               <code><a>RTCIceTransport</a></code> attempts to connect
               to the remote <code><a>RTCIceTransport</a></code>.</p>           
               <p>If <code>start()</code> is called again with the same
@@ -1457,7 +1457,7 @@ interface RTCIceTransport : RTCStatsProvider {
               <code>closed</code>, throw an <code>InvalidStateError</code>
               exception. If <code>start()</code> is called again and
               <code><var>role</var></code> is changed, throw an
-                <code>InvalidParameters</code> exception.</p>
+              <code>InvalidParameters</code> exception.</p>
               <p>As noted in [[!RFC5245]] Section 7.1.2.3, an incoming connectivity check
               utilizes the local/remote username fragment and the local password, whereas
               an outgoing connectivity check utilizes the local/remote username fragment
