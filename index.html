@@ -1437,18 +1437,20 @@ interface RTCIceTransport : RTCStatsProvider {
                   <code>InvalidParameters</code> exception.
                 </li>
                 <li>
+                  If <code>start()</code> is called again with the same
+                  values of <code><var>gatherer</var></code> and
+                  <code><var>remoteParameters</var></code>, this has
+                  no effect.
+                </li>
+                <li>
                   If <code>start()</code> is called for the first time
                   and either <code><var>gatherer</var></code> was not
                   passed in the constructor or the value of
-                  <code><var>gathererer</var></code> is unchanged:
-                  <li>
-                    If there are remote candidates, set <code>state</code>
-                    to <code>checking</code> and start connectivity checks.
-                  </li>
-                  <li>
-                    If there are no remote candidates, <code>state</code>
-                    remains <code>new</code>.
-                  </li>
+                  <code><var>gathererer</var></code> is unchanged, if
+                  there are remote candidates, set <code>state</code>
+                  to <code>checking</code> and start connectivity checks.
+                  If there are no remote candidates, <code>state</code>
+                  remains <code>new</code>.
                 </li>
                 <li>
                   If <code>start()</code> is called for the first time
@@ -1460,27 +1462,26 @@ interface RTCIceTransport : RTCStatsProvider {
                   If there are no remote candidates, <code>state</code>
                   remains <code>new</code>.
                 </li>
-                <li>If <code>start()</code> is called again with the same
-                  values of <code><var>gatherer</var></code> and
-                  <code><var>remoteParameters</var></code>, this has
-                  no effect.
-              </li>
-                <li>If <code>start()</code> is called again with the same
+                <li>
+                  If <code>start()</code> is called again with the same
                   value of <code><var>gathererer</var></code> but the value
                   of <code><var>remoteParameters</var></code> has changed,
                   local candidates are kept, remote candidates are flushed,
-                  candidate pairs are flushed and <code>state</code> transitions
-                  to <code>new</code>.
+                  candidate pairs are flushed and <code>state</code>
+                  transitions to <code>new</code>.
                 </li>
-                <li>If <code>start()</code> is called again with a new value of
-                  <code><var>gatherer</var></code> but the value of
+                <li>
+                  If <code>start()</code> is called again with a new value
+                  of <code><var>gatherer</var></code> but the value of
                   <code><var>remoteParameters</var></code> is unchanged,
                   local candidates are flushed, candidate pairs are flushed,
                   new candidate pairs are formed with existing remote candidates,
-                  and <code>state</code> transitions to <code>checking</code>.
+                  candidates and <code>state</code> transitions to
+                  <code>checking</code>.
               </li>
-              <li>If <code>start()</code> is called again with new values of
-                <code><var>gatherer</var></code>and 
+              <li>
+                If <code>start()</code> is called again with new values of
+                <code><var>gatherer</var></code> and 
                 <code><var>remoteParameters</var></code>, local
                 candidates are flushed, remote candidates are flushed,
                 candidate pairs are flushed and <code>state</code> transitions
