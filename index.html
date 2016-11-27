@@ -2642,6 +2642,7 @@ interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
+    readonly        attribute boolean stopped;
     void                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     Promise&lt;void&gt;             setTrack (MediaStreamTrack track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
@@ -3159,6 +3160,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
+    readonly        attribute boolean stopped;
     void            setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     static RTCRtpCapabilities          getCapabilities (DOMString kind);
     Promise&lt;void&gt;                      receive (RTCRtpParameters parameters);
