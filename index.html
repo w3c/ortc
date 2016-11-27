@@ -2777,8 +2777,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>setTransport</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called, throw an
-                  <code>InvalidStateError</code> exception.</p>
+                  <p>If <code><var>sender</var>.stopped</code> is <code>true</code>,
+                  throw an <code>InvalidStateError</code> exception.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -2866,7 +2866,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>setTrack</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called,
+                  <p>If <code><var>sender</var>.stopped</code> is <code>true</code>,
                   reject <var>p</var> with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
@@ -2961,7 +2961,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called,
+                  <p>If <code><var>sender</var>.stopped</code> is <code>true</code>,
                   reject <var>p</var> with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
@@ -3046,8 +3046,10 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>Stops sending the track on the wire, and sends an RTCP BYE. Stop is
-              final as in <code>MediaStreamTrack.stop()</code>.</p>
+              <p>Sets the <code>stopped</code> attribute to <code>true</code>,
+              stops sending the track on the wire, and sends an RTCP BYE.
+              <code>stop</code> is final as in
+              <code>MediaStreamTrack.stop()</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -3279,9 +3281,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
             "idlAttrType">boolean</span>, readonly</dt>
             <dd>
               <p>The <code>stopped</code> attribute indicates that the
-              <code><a>RTCRtpSender</a></code> will no longer send. It
-              is <code>true</code> if <code>stop</code> has been called,
-              <code>false</code> otherwise.</p>
+              <code><a>RTCRtpReceiver</a></code> will no longer receive.
+              It is <code>true</code> if <code>stop</code> has been
+              called, <code>false</code> otherwise.</p>
             </dd>
           </dl>
         </section>
@@ -3302,8 +3304,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   on which <code><a>setTransport</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>receiver</var>.stop()</code> has been called, throw an
-                  <code>InvalidStateError</code> exception.</p>
+                  <p>If <code><var>receiver</var>.stopped</code> is <code>true</code>,
+                  throw an <code>InvalidStateError</code> exception.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3523,7 +3525,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>Stops the <code><a>RTCRtpReceiver</a></code>
+              <p>Sets the <code>stopped</code> attribute to <code>true</code>
+              and stops the <code><a>RTCRtpReceiver</a></code>
               <var>receiver</var>. <code><var>receiver</var>.stop()</code>
               is final like <code><var>receiver</var>.track.stop()</code>.
               <code><var>receiver</var>.track.stop()</code> does
