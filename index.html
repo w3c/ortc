@@ -3422,7 +3422,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
-                  <p>If <code><var>receiver</var>.stop()</code> has been called,
+                  <p>If <code><var>receiver</var>.stopped</code> is <code>true</code>,
                   reject <var>p</var> with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
