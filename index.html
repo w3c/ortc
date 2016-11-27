@@ -2740,6 +2740,14 @@ interface RTCRtpSender : RTCStatsProvider {
               flow over the <code><a>RTCDtlsTransport</a></code>
               <var>transport</var>.</p>
             </dd>
+            <dt><dfn><code>stopped</code></dfn> of type <span class=
+            "idlAttrType">boolean</span>, readonly</dt>
+            <dd>
+              <p>The <code>stopped</code> attribute indicates that the
+              <code><a>RTCRtpSender</a></code> will no longer send. It
+              is <code>true</code> if <code>stop</code> has been called,
+              <code>false</code> otherwise.</p>
+            </dd>
             <dt><code>onssrcconflict</code> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
@@ -3266,6 +3274,14 @@ interface RTCRtpReceiver : RTCStatsProvider {
               <code>rtcpTransport</code> will be null, and both RTP and RTCP traffic will
               flow over the <code><a>RTCDtlsTransport</a></code>
               <var>transport</var>.</p>
+            </dd>
+            <dt><dfn><code>stopped</code></dfn> of type <span class=
+            "idlAttrType">boolean</span>, readonly</dt>
+            <dd>
+              <p>The <code>stopped</code> attribute indicates that the
+              <code><a>RTCRtpSender</a></code> will no longer send. It
+              is <code>true</code> if <code>stop</code> has been called,
+              <code>false</code> otherwise.</p>
             </dd>
           </dl>
         </section>
