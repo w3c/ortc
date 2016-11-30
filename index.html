@@ -2836,7 +2836,7 @@ interface RTCRtpSender : RTCStatsProvider {
             <dt><dfn><code>setTrack</code></dfn></dt>
             <dd>
               <p>Attempts to replace the track being sent with another track
-              provided.</p>
+              provided (or with a null track).</p>
               <p>When the <code><a>setTrack</a>()</code> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
@@ -2855,7 +2855,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>Let <var>withTrack</var> be the argument to this method.</p>
                 </li>
                 <li>
-                  <p>If <code><var>withTrack</var>.kind</code> differs from the
+                  <p>If <var>withTrack</var> is non-null and
+                  <code><var>withTrack</var>.kind</code> differs from the
                   <code><var>sender</var>.<a>track</a>.kind</code>,
                   reject <var>p</var> with <code>TypeError</code>.</p>
                 </li>
@@ -2863,8 +2864,10 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>Run the following steps:</p>
                   <ol>
                     <li>
-                      <p>Set the <code>track</code> attribute to <var>withTrack</var>,
-                      and have the sender seamlessly switch to transmitting
+                      <p>Set the <code>track</code> attribute to
+                      <var>withTrack</var>. If <var>withTrack</var> is null,
+                      the sender stops sending.  Otherwise, have the sender
+                      seamlessly switch to transmitting
                       <var>withTrack</var> in place of what it is sending.</p>
                     </li>
                     <li>
@@ -2886,7 +2889,7 @@ interface RTCRtpSender : RTCStatsProvider {
                     <td class="prmName">track</td>
                     <td class="prmType"><code><a>MediaStreamTrack</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
+                    "True">&#10004;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmDesc"></td>
