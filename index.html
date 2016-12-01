@@ -7682,7 +7682,8 @@ interface RTCDataChannelEvent : Event {
     label: "channel1", 
     ordered: true,
     protocol: "ship",
-    negotiated: false
+    negotiated: false,
+    priority: "medium"
   };
 
   signaller.sendInitiate({
