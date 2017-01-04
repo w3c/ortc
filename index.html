@@ -4062,7 +4062,8 @@ mySignaller.myOfferTracks({
       <var>pt_table</var>[<code>parameters.codecs[<var>j</var>].payloadType</code>] to
       <var>receiver</var>, for values of <var>j</var> from 0 to the number of codecs. If
       <var>pt_table</var>[<var>pt</var>] is already set to a value other than
-      <var>receiver</var>, do not replace the <var>pt_table</var> entry.</p>
+      <var>receiver</var>, then <code>receiver.receive()</code> will be rejected with
+      <code>InvalidParameters</code>.</p>
       <p>When an RTP packet arrives, the implementation determines the
       <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as follows:
       <p>If <var>packet.muxId</var> is set: If
@@ -4084,8 +4085,7 @@ mySignaller.myOfferTracks({
       If so, route the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does
       not match, fire the <code><a>unhandledrtp</a></code> event.</p>
       <p>Else if <var>pt_table</var>[<var>packet.pt</var>] is set: set
-      <var>rtp_receiver</var> to <var>pt_table</var>[<var>packet.pt</var>], set
-      <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>rtp_receiver</var>
+      <var>rtp_receiver</var> to <var>pt_table</var>[<var>packet.pt</var>]
       and route the packet to <var>rtp_receiver</var>.</p>
       <p>Else if no matches are found in the <var>ssrc_table</var>,
       <var>muxId_table</var> or <var>pt_table</var>, fire the
