@@ -4801,7 +4801,10 @@ interface RTCRtpUnhandledEvent : Event {
                 <td>As defined in [[!RFC4588]], the associated payload type of the
                 original stream being retransmitted. There will be an "rtx" entry in
                 <code>RTCRtpCapabilities.codecs[]</code> for each media codec that can be
-                retransmitted, each with their own <code>apt</code> parameter.</td>
+                retransmitted, each with their own <code>apt</code> parameter.  This
+                makes it possible to support "capabilities exchange" signaling as well
+                making it possible for implementations to indicate which media
+                codecs support retransmission.</td>
               </tr>
               <tr id="def-rtxtime*">
                 <td><dfn><code>rtxTime</code></dfn></td>
