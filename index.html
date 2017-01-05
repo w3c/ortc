@@ -4782,7 +4782,7 @@ interface RTCRtpUnhandledEvent : Event {
         </section>
         <section id="rtx-codec-capability*">
           <h3>RTX</h3>
-          <p>The following capability is defined for "rtx", as noted in [[!RFC4588]]
+          <p>The following capability parameters are defined for "rtx", as noted in [[!RFC4588]]
           Section 8.6:</p>
           <table class="simple">
             <thead>
@@ -4801,7 +4801,10 @@ interface RTCRtpUnhandledEvent : Event {
                 <td>As defined in [[!RFC4588]], the associated payload type of the
                 original stream being retransmitted. There will be an "rtx" entry in
                 <code>RTCRtpCapabilities.codecs[]</code> for each media codec that can be
-                retransmitted, each with their own <code>apt</code> parameter.</td>
+                retransmitted, each with their own <code>apt</code> parameter.  This
+                makes it possible to support "capabilities exchange" signaling as well
+                enabling implementations to indicate which media codecs support
+                retransmission.</td>
               </tr>
               <tr id="def-rtxtime*">
                 <td><dfn><code>rtxTime</code></dfn></td>
@@ -4826,7 +4829,7 @@ interface RTCRtpUnhandledEvent : Event {
         </section>
         <section id="flexfec-codec-capability*">
           <h3>Flexfec</h3>
-          <p>The following capabilities are defined for "flexfec", as noted in
+          <p>The following capability parameters are defined for "flexfec", as noted in
           [[FLEXFEC]] Section 5.1.1:</p>
           <table class="simple">
             <thead>
