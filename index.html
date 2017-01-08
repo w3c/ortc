@@ -4088,73 +4088,92 @@ mySignaller.myOfferTracks({
       header, as well as the value of the <a>MID</a> RTP header extension, if
       present.</p>
       <p>The <code><a>RTCRtpListener</a></code> maintains three tables in order to
-      facilitate matching: the <var>ssrc_table</var> which maps SSRC values to
-      <code><a>RTCRtpReceiver</a></code> objects; the <var>muxId_table</var> which maps
+      facilitate matching: the <code>ssrc_table</code> which maps SSRC values to
+      <code><a>RTCRtpReceiver</a></code> objects; the <code>muxId_table</code> which maps
       values of the <a>MID</a> header extension to <code><a>RTCRtpReceiver</a></code>
-      objects and the <var>pt_table</var> which maps payload type values to
+      objects and the <code>pt_table</code> which maps payload type values to
       <code><a>RTCRtpReceiver</a></code> objects.</p>
       <p>For an <code><a>RTCRtpReceiver</a></code> object <var>receiver</var>, table
-      entries are added when <code>receiver.receive()</code> is called, and are removed
-      when <code>receiver.stop()</code> is called. If <code>receiver.receive()</code> is
-      called again, all entries referencing <var>receiver</var> are removed prior to
-      adding new entries.</p>
-      <p>SSRC table: Set
-      <var>ssrc_table</var>[<code>parameters.encodings[<var>i</var>].ssrc</code>] to
-      <var>receiver</var> for each entry where
-      <code>parameters.encodings[<var>i</var>].ssrc</code> is set, for values of
-      <var>i</var> from 0 to the number of encodings. Set
-      <var>ssrc_table</var>[<code>parameters.encodings[<var>i</var>].rtx.ssrc</code>] to
-      <var>receiver</var> for each entry where
-      <code>parameters.encodings[<var>i</var>].rtx.ssrc</code> is set, for values of
-      <var>i</var> from 0 to the number of encodings. Set
-      <var>ssrc_table</var>[<code>parameters.encodings[<var>i</var>].fec.ssrc</code>] to
-      <var>receiver</var> for each entry where
-      <code>parameters.encodings[<var>i</var>].fec.ssrc</code> is set, for values of
-      <var>i</var> from 0 to the number of encodings. If
-      <var>ssrc_table</var>[<var>ssrc</var>] is already set to a value other than
-      <var>receiver</var>, then <code>receiver.receive()</code> will throw an
-      <code>InvalidParameters</code> exception.</p>
-      <p>muxId table: If <code>parameters.muxId</code> is set,
-      <var>muxId_table</var>[<var>parameters.muxId</var>] is set to <var>receiver</var>.
-      If <var>muxId_table</var>[<var>muxId</var>] is already set to a value other than
-      <var>receiver</var>, then <code>receiver.receive()</code> will throw an
-      <code>InvalidParameters</code> exception.</p>
-      <p>payload type table: If <var>parameters.muxId</var> is unset and
-      <code>parameters.encodings[i].ssrc</code> is unset for all values of <var>i</var>
-      from 0 to the number of encodings, then add entries to <var>pt_table</var> by
-      setting
-      <var>pt_table</var>[<code>parameters.codecs[<var>j</var>].payloadType</code>] to
-      <var>receiver</var>, for values of <var>j</var> from 0 to the number of codecs. If
-      <var>pt_table</var>[<var>pt</var>] is already set to a value other than
-      <var>receiver</var> then <code>receiver.receive()</code> will throw an
-      <code>InvalidParameters</code> exception.</p>
+      entries are added when <code>receiver.receive(<var>parameters</var>)</code>
+      is called, and are removed when <code>receiver.stop()</code> is called. If
+      <code>receiver.receive(<var>parameters</var>)</code> is called again, all entries
+      referencing <var>receiver</var> are removed prior to adding new entries.</p>
+      <p>muxId table: If <code><var>parameters</var>.muxId</code> is set,
+      <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <var>receiver</var>.
+       If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
+      <var>receiver</var>, then <code>receiver.receive()</code> will be rejected with
+      <code>InvalidParameters</code>.</p>
+      <p>SSRC table:</p> 
+      <ol>
+      <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
+      to <var>receiver</var> for each entry where
+      <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set, for values of
+      <var>i</var> from 0 to <code>encodings.length</code>-1.</li> 
+      <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].rtx.ssrc]</code>
+      to <var>receiver</var> for each entry where
+      <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code> is set, for values of
+      <var>i</var> from 0 to <code>encodings.length</code>-1.</li>
+      <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].fec.ssrc]</code>
+      to <var>receiver</var> for each entry where
+      <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set, for values of
+      <var>i</var> from 0 to <code>encodings.length</code>-1.</li>
+      <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
+      than <var>receiver</var>, then <code>receiver.receive()</code> will be rejected 
+      with <code>InvalidParameters</code>.</li>
+      </ol>
+      <p>payload type table:</p>
+      <ol>
+      <li>If <code><var>parameters.muxId</var> is set, abort these steps.<li>
+      <li>Set <code>pt_table[<var>parameters</var>.encodings[<var>i</var>].codecPayloadType</code>]  
+      to <var>receiver</var> for each entry where
+      <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset, for values of
+      <var>i</var> from 0 to <code>encodings.length</code>-1.</li>
+      <li>If <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code> is unset for
+      any value of <var>i</var> from 0 to <code>encodings.length</code>-1, find the value of
+      <var>j</var> where <code><var>parameters</var>.codecs[<var>j</var>].name</code> === "rtx" and
+      <code>parameters.codecs[j].parameters.apt</code> ===
+      <code>parameters.encodings[<var>i</var>].codecPayloadType</code> and then set
+      <var>pt_table</var>[<code>parameters.codecs[<var>j</var>].payloadType</code>]
+      to <var>receiver</var>.</li>
+      <li>Set <var>pt_table</var>[<code>parameters.codecs[<var>j</var>].payloadType</code>]
+      to <var>receiver</var> for values of <var>j</var> where
+      <code>codecs[<var>j</var>].name</code> === "red" if 
+      <code>parameters.encodings[<var>i</var>].fec.ssrc</code> is unset for
+      any value of <var>i</var> from 0 to <code>encodings.length</code>-1 and
+      <code>parameters.encodings[<var>i</var>].fec.method.search("red")</code> != -1.</li>
+      <li>Set <var>pt_table</var>[<code>parameters.codecs[<var>j</var>].payloadType</code>]
+      to <var>receiver</var> for values of <var>j</var> where
+      <code>parameters.codecs[<var>j</var>].name</code> === "flexfec" if 
+      <code>parameters.encodings[<var>i</var>].fec.ssrc</code> is unset for
+      any value of <var>i</var> from 0 to <code>encodings.length</code>-1 and
+      <code>parameters.encodings[<var>i</var>].fec.method</code> === "flexfec".</li>
+      </ol>     
+      <p>If <var>pt_table</var>[<var>pt</var>] is already set to a value other than
+      <var>receiver</var>, then <code>receiver.receive()</code> will be rejected with
+      <code>InvalidParameters</code>.</p>
       <p>When an RTP packet arrives, the implementation determines the
-      <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as
-      follows: If <var>ssrc_table</var>[<var>packet.ssrc</var>] is set: set
-      <var>rtp_receiver</var> to <var>ssrc_table</var>[<var>packet.ssrc</var>] and check
-      whether the value of <var>packet.pt</var> is equal to one of the values of
-      <code>parameters.codecs[<var>j</var>].payloadtype</code> for
-      <var>rtp_receiver</var>, where <var>j</var> varies from 0 to the number of codecs.
-      If so, route the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does
-      not match, fire the <code><a>unhandledrtp</a></code> event.</p>
-      <p>Else if <var>packet.muxId</var> is set: If
+      <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as follows:
+      <p>If <var>packet.muxId</var> is set: If
       <var>muxId_table</var>[<var>packet.muxId</var>] is unset, fire the
       <code><a>unhandledrtp</a></code> event, else set <var>rtp_receiver</var> to
       <var>muxId_table</var>[<var>packet.muxId</var>] and check whether the value of
       <var>packet.pt</var> is equal to one of the values of
-      <code>parameters.codecs[j].payloadtype</code> for the
+      <code>parameters.codecs[ <var>j</var>].payloadtype</code> for the
       <code><a>RTCRtpReceiver</a></code> object <var>rtp_receiver</var>, where
-      <var>j</var> varies from 0 to the number of codecs. If so, set
+      <var>j</var> varies from 0 to <code>codecs.length</code>-1. If so, set
       <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>rtp_receiver</var> and route
       the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does not match, fire
       the <code><a>unhandledrtp</a></code> event.</p>
+      <p>Else if <var>ssrc_table</var>[<var>packet.ssrc</var>] is set: set
+      <var>rtp_receiver</var> to <var>ssrc_table</var>[<var>packet.ssrc</var>] and check
+      whether the value of <var>packet.pt</var> is equal to one of the values of
+      <code>parameters.codecs[<var>j</var>].payloadtype</code> for
+      <var>rtp_receiver</var>, where <var>j</var> varies from 0 to <code>codecs.length</code>-1.
+      If so, route the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does
+      not match, fire the <code><a>unhandledrtp</a></code> event.</p>
       <p>Else if <var>pt_table</var>[<var>packet.pt</var>] is set: set
-      <var>rtp_receiver</var> to <var>pt_table</var>[<var>packet.pt</var>], set
-      <var>ssrc_table</var>[<var>packet.ssrc</var>] to <var>rtp_receiver</var>, set
-      <var>pt_table</var>[<var>packet.pt</var>] to null and route the packet to
-      <var>rtp_receiver</var>. Question: Do we remove all
-      <var>pt_table</var>[<var>packet.pt</var>] entries set to
-      <var>rtp_receiver</var>?</p>
+      <var>rtp_receiver</var> to <var>pt_table</var>[<var>packet.pt</var>]
+      and route the packet to <var>rtp_receiver</var>.</p>
       <p>Else if no matches are found in the <var>ssrc_table</var>,
       <var>muxId_table</var> or <var>pt_table</var>, fire the
       <code><a>unhandledrtp</a></code> event.</p>
