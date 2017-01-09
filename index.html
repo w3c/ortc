@@ -4098,11 +4098,14 @@ mySignaller.myOfferTracks({
       is called, and are removed when <code>receiver.stop()</code> is called. If
       <code>receiver.receive(<var>parameters</var>)</code> is called again, all entries
       referencing <var>receiver</var> are removed prior to adding new entries.</p>
-      <p>muxId table: If <code><var>parameters</var>.muxId</code> is set,
-      <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <var>receiver</var>.
-       If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
+      <p>muxId table:<p>
+      <ol>
+      <li>If <code><var>parameters</var>.muxId</code> is set,
+      <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <var>receiver</var>.<li>
+      <li>If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
       <var>receiver</var>, then <code>receiver.receive()</code> will be rejected with
-      <code>InvalidParameters</code>.</p>
+      <code>InvalidParameters</code>.</li>
+      </ol>
       <p>SSRC table:</p> 
       <ol>
       <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
@@ -4121,7 +4124,8 @@ mySignaller.myOfferTracks({
       than <var>receiver</var>, then <code>receiver.receive()</code> will be rejected 
       with <code>InvalidParameters</code>.</li>
       </ol>
-      <p>payload type table: If <var>parameters.muxId</var> is unset and
+      <p>payload type table:<p> 
+      <p>If <var>parameters.muxId</var> is unset and
       <code>parameters.encodings[i].ssrc</code> is unset for all values of <var>i</var>
       from 0 to the number of encodings, then add entries to <var>pt_table</var> by
       setting
@@ -9061,6 +9065,9 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <section id="since-02-December-2016*">
       <h3>Changes since 02 December 2016</h3>
       <ol>
+        <li>Do not remove <code>pt_table</code> entries, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/547">Issue 547</a>
+        </li>
         <li>Clarified handling of RTX in <code>RTCRtpCapabilities.codecs</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/627">Issue 627</a>
         </li>
