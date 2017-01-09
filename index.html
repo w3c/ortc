@@ -4134,6 +4134,8 @@ mySignaller.myOfferTracks({
       <var>pt_table</var>[<var>pt</var>] is already set to a value other than
       <var>receiver</var> then <code>receiver.receive()</code> will be rejected with
       <code>InvalidParameters</code>.</p>
+      <section id="rtppackethandling*">
+      <h4>RTP packet handling</h4>
       <p>When an RTP packet arrives, the implementation determines the
       <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as
       follows: If <var>ssrc_table</var>[<var>packet.ssrc</var>] is set: set
@@ -4161,6 +4163,7 @@ mySignaller.myOfferTracks({
       <p>Else if no matches are found in the <var>ssrc_table</var>,
       <var>muxId_table</var> or <var>pt_table</var>, fire the
       <code><a>unhandledrtp</a></code> event.</p>
+      </section>
     </section>
     <section id="rtcrtplistener-interface-definition*">
       <h3>Interface Definition</h3>
