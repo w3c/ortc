@@ -4130,7 +4130,7 @@ mySignaller.myOfferTracks({
       <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
       values of <var>i</var> from 0 to <code>encodings.length-1</code>, then add
       entries to <code>pt_table</code> by setting
-      <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType</code>] to
+      <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code> to
       <var>receiver</var>, for values of <var>j</var> from 0 to <code>codecs.length-1</code>.</li>
       <li>If <code>pt_table[<var>pt</var>]</code> is already set to a value other than
       <var>receiver</var> then <code>receiver.receive()</code> will be rejected with
