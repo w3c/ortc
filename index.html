@@ -405,7 +405,8 @@ interface RTCIceGatherer : RTCStatsProvider {
     <section id="rtcicecandidate*">
       <h3>The RTCIceCandidate Object</h3>
       <p>The <dfn><code>RTCIceCandidate</code></dfn> object includes information relating
-      to an ICE candidate.</p>
+      to an ICE candidate. The <dfn><code>RTCIceGatherCandidate</code></dfn> object either
+      includes an ICE candidate or an indication that gathering is complete.</p>
       <pre class="example highlight">{
   foundation: "abcd1234",
   priority: 1694498815,
@@ -813,6 +814,8 @@ interface RTCIceGathererIceErrorEvent : Event {
         <section>
           <h2>Dictionary <a class="idlType">RTCIceGathererIceErrorEventInit</a>
           Members</h2>
+          <p>The <dfn><code>RTCIceGathererIceErrorEventInit</code></dfn> dictionary contains information
+          about the ICE gathering error.</p>
           <dl data-link-for="RTCIceGathererIceErrorEventInit" data-dfn-for=
           "RTCIceGathererIceErrorEventInit" class="dictionary-members">
             <dt><dfn><code>hostCandidate</code></dfn> of type <span class=
@@ -848,7 +851,7 @@ interface RTCIceGathererIceErrorEvent : Event {
       <p>The <code>icecandidate</code> event of the <code><a>RTCIceGatherer</a></code>
       object uses the <code><a>RTCIceGathererEvent</a></code> interface.</p>
       <p>Firing an <code><a>RTCIceGathererEvent</a></code> event named <var>e</var> with
-      an <code><a>RTCIceCandidate</a></code> <var>candidate</var> and URL <var>url</var>
+      an <code><a>RTCIceGatherCandidate</a></code> <var>candidate</var> and URL <var>url</var>
       means that an event with the name <var>e</var>, which does not bubble (except where
       otherwise stated) and is not cancelable (except where otherwise stated), and which
       uses the <code><a>RTCIceGathererEvent</a></code> interface with the
@@ -927,6 +930,8 @@ interface RTCIceGathererEvent : Event {
           <h2>Dictionary <a class="idlType">RTCIceGathererEventInit</a> Members</h2>
           <dl data-link-for="RTCIceGathererEventInit" data-dfn-for=
           "RTCIceGathererEventInit" class="dictionary-members">
+          <p>The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary
+          contains information about the ICE candidate.</p>
             <dt><dfn><code>candidate</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceGatherCandidate</a></span></dt>
             <dd>
@@ -1915,6 +1920,8 @@ interface RTCIceCandidatePairChangedEvent : Event {
         <section>
           <h2>Dictionary <a class="idlType">RTCIceCandidatePairChangedEventInit</a>
           Members</h2>
+          <p>The <dfn><code>RTCIceCandidatePairChangedEventInit</code></dfn> dictionary contains information
+          about a change in the ICE selected candidate pair.</p>
           <dl data-link-for="RTCIceCandidatePairChangedEventInit" data-dfn-for=
           "RTCIceCandidatePairChangedEventInit" class="dictionary-members">
             <dt><dfn><code>pair</code></dfn> of type <span class=
@@ -2091,7 +2098,11 @@ mySignaller.send({
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">typedef (octet[]) ArrayBuffer;</pre>
-        <div class="idlTypedefDesc"></div>
+        <div class="idlTypedefDesc">
+          Throughout this specification, the identifier
+          <dfn><code>ArrayBuffer</code></dfn> is used to refer to the <span class=
+          "idlTypedefType">octet</span>[] type.
+        </div>
       </div>
       <div>
         <pre class="idl">
@@ -3126,6 +3137,8 @@ interface RTCSsrcConflictEvent : Event {
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCSsrcConflictEventInit</a> Members</h2>
+          <p>The <dfn><code>RTCSsrcConflictEventInit</code></dfn> dictionary
+          contains the conflicting  <code>ssrc</code>.</p>
           <dl data-link-for="RTCSsrcConflictEventInit" data-dfn-for=
           "RTCSsrcConflictEventInit" class="dictionary-members">
             <dt><dfn><code>ssrc</code></dfn> of type <span class=
@@ -4330,6 +4343,8 @@ interface RTCRtpUnhandledEvent : Event {
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCRtpUnhandledEventInit</a> Members</h2>
+          <p>The <dfn><code>RTCRtpUnhandledEventInit</code></dfn> dictionary contains information
+          about an incoming RTP packet that could not be handled.</p>
           <dl data-link-for="RTCRtpUnhandledEventInit" data-dfn-for=
           "RTCRtpUnhandledEventInit" class="dictionary-members">
             <dt><dfn><code>muxId</code></dfn> of type <span class=
@@ -4450,16 +4465,16 @@ interface RTCRtpUnhandledEvent : Event {
       <div>
         <pre class="idl">typedef object Dictionary;</pre>
         <div class="idlTypedefDesc">
-          Throughout this specification, the identifier <span class=
-          "idlTypedefID">Dictionary</span> is used to refer to the <span class=
+          Throughout this specification, the identifier
+          <dfn><code>Dictionary</code></dfn> is used to refer to the <span class=
           "idlTypedefType">object</span> type.
         </div>
       </div>
       <div>
         <pre class="idl">typedef octet payloadtype;</pre>
         <div class="idlTypedefDesc">
-          Throughout this specification, the identifier <span class=
-          "idlTypedefID">payloadtype</span> is used to refer to the <span class=
+          Throughout this specification, the identifier
+          <dfn><code>payloadtype</code></dfn> is used to refer to the <span class=
           "idlTypedefType">octet</span> type.
         </div>
       </div>
@@ -5468,10 +5483,10 @@ interface RTCRtpUnhandledEvent : Event {
     </section>
     <section id="rtcrtpencodingparameters*">
       <h3>dictionary RTCRtpEncodingParameters</h3>
-      <p><code><a>RTCRtpEncodingParameters</a></code> provides information relating to
-      the encoding. Note that all encoding parameters (such as <var>maxBitrate</var>,
-      <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to
-      codec-specific constraints.</p>
+      <p>The <dfn><code>RTCRtpEncodingParameters</code></dfn> dictionary provides
+      information relating to the encoding. Note that all encoding parameters
+      (such as <var>maxBitrate</var>, <var>maxFramerate</var> and <var>resolutionScale</var>)
+      are applied prior to codec-specific constraints.</p>
       <div>
         <pre class="idl">dictionary RTCRtpEncodingParameters {
              unsigned long       ssrc;
@@ -5991,6 +6006,8 @@ var encodings = [{
     </section>
     <section id="rtcrtpfecparameters*">
       <h3>dictionary RTCRtpFecParameters</h3>
+       <p>The <dfn><code>RTCRtpFecParameters</code></dfn> dictionary includes the <code>ssrc</code> and
+       <code>mechanism</code> used for Forward Error Correction (FEC).</p>
       <div>
         <pre class="idl">dictionary RTCRtpFecParameters {
              unsigned long ssrc;
@@ -6018,6 +6035,8 @@ var encodings = [{
     </section>
     <section id="rtcrtprtxparameters*">
       <h3>dictionary RTCRtpRtxParameters</h3>
+      <p>The <dfn><code>RTCRtpRtxParameters</code></dfn> dictionary includes the <code>ssrc</code>
+      used for Retransmission (RTX).</p>
       <div>
         <pre class="idl">dictionary RTCRtpRtxParameters {
              unsigned long ssrc;
@@ -6169,7 +6188,7 @@ var encodings = [
     </section>
     <section id="rtcrtpheaderextension*">
       <h3>dictionary RTCRtpHeaderExtension</h3>
-      <p>The <code><a>RTCRtpHeaderExtension</a></code> dictionary enables a header
+      <p>The <dfn><code>RTCRtpHeaderExtension</code></dfn> dictionary enables a header
       extension to be configured for use within an <code><a>RTCRtpSender</a></code> or
       <code><a>RTCRtpReceiver</a></code>. In order to provide the equivalent of the
       "direction" parameter defined in [[!RFC5285]] Section 5, an application can do the
@@ -6225,6 +6244,9 @@ var encodings = [
     </section>
     <section id="rtcrtpheaderextensionparameters*">
       <h3>dictionary RTCRtpHeaderExtensionParameters</h3>
+      <p>The <dfn><code>RTCRtpHeaderExtensionParameters</code></dfn> dictionary enables a header
+      extension to be configured for use within an <code><a>RTCRtpSender</a></code> or
+      <code><a>RTCRtpReceiver</a></code>.</p>
       <div>
         <pre class="idl">dictionary RTCRtpHeaderExtensionParameters {
     required DOMString      uri;
@@ -6645,6 +6667,8 @@ interface RTCDTMFToneChangeEvent : Event {
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCDTMFToneChangeEventInit</a> Members</h2>
+          <p>The <dfn><code>RTCDTMFToneChangeEventInit</code></dfn> dictionary contains the character
+          for the tone that has just begun playout.</p>
           <dl data-link-for="RTCDTMFToneChangeEventInit" data-dfn-for=
           "RTCDTMFToneChangeEventInit" class="dictionary-members">
             <dt><dfn><code>tone</code></dfn> of type <span class=
@@ -6736,10 +6760,10 @@ sender.insertDTMF("123");
     <section id="rtcdatachannel-operation*">
       <h3>Operation</h3>
       <p>An <code><a>RTCDataChannel</a></code> object is constructed from a
-      <code><a>RTCDataTransport</a></code> object and an
-      <code><a>RTCDataChannelParameters</a></code> object. If <var>parameters</var> is
-      invalid, throw an <code>InvalidParameters</code> exception. If
-      <code>transport.state</code> is <code>closed</code>, throw an
+      <dfn><code>RTCDataTransport</code></dfn> object which specifies the data channel
+      transport and an <code><a>RTCDataChannelParameters</a></code> object.
+      If <var>parameters</var> is invalid, throw an <code>InvalidParameters</code>
+      exception.  If <code>transport.state</code> is <code>closed</code>, throw an
       <code>InvalidState</code> exception.</p>
       <p>An <code><a>RTCDataChannel</a></code> object can be garbage-collected once
       <var>readyState</var> is <code>closed</code> and it is no longer referenced.</p>
@@ -7038,7 +7062,7 @@ interface RTCDataChannel : EventTarget {
             </dd>
             <dt><code>send</code></dt>
             <dd>
-              <p>Run the steps described by the <code>send()</code> algorithm with
+              <p>Run the steps described by the <code>send</code> algorithm with
               argument type <code>ArrayBuffer</code> object.</p>
               <table class="parameters">
                 <tbody>
@@ -7066,7 +7090,7 @@ interface RTCDataChannel : EventTarget {
             </dd>
             <dt><code>send</code></dt>
             <dd>
-              <p>Run the steps described by the <code>send()</code> algorithm with
+              <p>Run the steps described by the <code>send</code> algorithm with
               argument type <code>ArrayBufferView</code> object.</p>
               <table class="parameters">
                 <tbody>
@@ -7162,6 +7186,8 @@ interface RTCDataChannel : EventTarget {
     </section>
     <section id="rtcdatachannelstate*">
       <h3>enum RTCDataChannelState</h3>
+      <p>The <dfn><code>RTCDataChannelState</code></dfn> enum describes the
+      state of the data channel.</p>
       <div>
         <pre class="idl">enum RTCDataChannelState {
     "connecting",
@@ -7215,7 +7241,9 @@ interface RTCDataChannel : EventTarget {
     </section>
     <section id="rtcdatachannelparameters*">
       <h3>dictionary RTCDataChannelParameters</h3>
-      <p>An <code><a>RTCDataChannel</a></code> can be configured to operate in different
+      <p>The <dfn><code>RTCDataChannelParameters</code></dfn> dictionary describes how the
+      <code><a>RTCDataChannel</a></code> is configured. An <code><a>RTCDataChannel</a></code>
+      can be configured to operate in different
       reliability modes. A reliable channel ensures that the data is delivered at the
       other peer through retransmissions. An unreliable channel is configured to either
       limit the number of retransmissions (maxRetransmits ) or set a time during which
@@ -7551,6 +7579,8 @@ interface RTCSctpTransport : RTCDataTransport {
       </section>
       <section id="rtcsctpcapabilities*">
         <h3>dictionary RTCSctpCapabilities</h3>
+        <p>The <dfn><code>RTCSctpCapabilities</code></dfn> dictionary provides information
+        on the capabilities of the <code><a>RTCSctpTransport</a></code>.</p>
         <div>
           <pre class="idl">dictionary RTCSctpCapabilities {
              unsigned short maxMessageSize;
@@ -7644,6 +7674,8 @@ interface RTCDataChannelEvent : Event {
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCDataChannelEventInit</a> Members</h2>
+          <p>The <dfn><code>RTCDataChannelEventInit</code></dfn> dictionary contains information
+          about the <code><a>RTCDataChannel</a></code> object associated with the event.</p>
           <dl data-link-for="RTCDataChannelEventInit" data-dfn-for=
           "RTCDataChannelEventInit" class="dictionary-members">
             <dt><dfn><code>channel</code></dfn> of type <span class=
@@ -7775,7 +7807,8 @@ function accept(signaller, remote) {
   </section>
   <section>
     <h3>Statistics API</h3>
-    <p>The Statistics API enables retrieval of statistics relating to
+    <p>The Statistics API utilizes the <dfn><code>RTCStatsProvider</code></dfn> interface
+    to enable retrieval of statistics relating to
     <code><a>RTCRtpSender</a></code>, <code><a>RTCRtpReceiver</a></code>,
     <code><a>RTCDtlsTransport</a></code>, <code><a>RTCIceGatherer</a></code>,
     <code><a>RTCIceTransport</a></code> and <code><a>RTCSctpTransport</a></code> objects.
@@ -7788,14 +7821,14 @@ function accept(signaller, remote) {
         <h2>Methods</h2>
         <dl data-link-for="RTCStatsProvider" data-dfn-for="RTCStatsProvider" class=
         "methods">
-          <dt><code>getStats</code></dt>
+          <dt><dfn><code>getStats</code></dfn></dt>
           <dd>
             <p>Gathers stats for the given object and reports the result asynchronously.
             If the object has not yet begun to send or receive data, the returned stats
             will reflect this. If the object is in the closed state, the returned stats
             will reflect the stats at the time the object transitioned to the closed
             state.</p>
-            <p>When the <dfn>getStats()</dfn> method is invoked, the user agent MUST
+            <p>When the <code>getStats()</code> method is invoked, the user agent MUST
             queue a task to run the following steps:</p>
             <ol>
               <li>
@@ -7826,9 +7859,9 @@ function accept(signaller, remote) {
     </div>
     <section>
       <h4>RTCStatsReport Object</h4>
-      <p>The <code><a>getStats()</a></code> method delivers a successful result in the
-      form of a <code><a>RTCStatsReport</a></code> object. A
-      <code><a>RTCStatsReport</a></code> object represents a map between strings,
+      <p>The <code>getStats</code> method delivers a successful result in the
+      form of an <code><a>RTCStatsReport</a></code> object. An
+      <dfn><code>RTCStatsReport</code></dfn> object represents a map between strings,
       identifying the inspected objects (<a href="#dom-rtcstats-id">RTCStats.id</a>), and
       their corresponding <code><a>RTCStats</a></code> objects.</p>
       <p>An <code><a>RTCStatsReport</a></code> may be composed of several
@@ -7852,7 +7885,7 @@ function accept(signaller, remote) {
               <p>Getter to retrieve the <code><a>RTCStats</a></code> objects that this
               stats report is composed of.</p>
               <p>The set of supported property names [[!WEBIDL]] is defined as the ids of
-              all the <code><a>RTCStats</a></code> objects that has been generated for
+              all the <code><a>RTCStats</a></code> objects that have been generated for
               this stats report. The order of the property names is left to the user
               agent.</p>
               <table class="parameters">
@@ -8087,9 +8120,9 @@ function processStats(currentReport) {
       acts as the Authenticating Party (AP) and obtains an identity assertion from the
       IdP which is then conveyed in signaling. The responder acts as the Relying Party
       (RP) and verifies the assertion.</p>
-       <p><dfn><code>getIdentityAssertion</code></dfn>() sets the identity provider to be 
-      used for a given <code><a>RTCIdentity</a></code> object, and initiates the process of
-      obtaining an identity assertion.</p>
+       <p>The <dfn><code>getIdentityAssertion</code></dfn> method sets the identity
+      provider to be used for a given <code><a>RTCIdentity</a></code> object,
+      and initiates the process of obtaining an identity assertion.</p>
       <p>The interaction with the IdP is designed to decouple the browser from any
       particular identity provider, so that the browser need only know how to load the
       IdP's Javascript (which is deterministic from the IdP's identity), and the generic
@@ -8115,9 +8148,9 @@ function processStats(currentReport) {
       [[!RTCWEB-SECURITY-ARCH]].</p>
       <p>For purposes of generating assertions, the IdP shall be chosen as follows:</p>
       <ol>
-        <li>If the <code><a>getIdentityAssertion</a></code>() method has been called, the IdP
+        <li>If the <code><a>getIdentityAssertion</a></code> method has been called, the IdP
         provided shall be used.</li>
-        <li>If the <code><a>getIdentityAssertion</a></code>() method has not been called, then
+        <li>If the <code><a>getIdentityAssertion</a></code> method has not been called, then
         the browser can use an IdP configured into the browser.</li>
       </ol>
       <p>In order to verify assertions, the IdP domain name and protocol are taken from
@@ -8204,7 +8237,7 @@ function processStats(currentReport) {
         <p>The "LOGINNEEDED" response includes a URL for a page where the authorization
         process can be completed. This URL is exposed to the application through the
         <code><a href="#">loginUrl</a></code> attribute of the
-        <code>RTCIdentityError</code> object. This URL might be to a page where a user is
+        <dfn><code>RTCIdentityError</code></dfn> object. This URL might be to a page where a user is
         able to enter their (IdP) username and password, or otherwise provide any
         information the IdP needs to authorize a assertion request.</p>
         <p>An application can load the login URL in an IFRAME or popup; the resulting
@@ -8276,7 +8309,7 @@ function processStats(currentReport) {
       applications. If a <code><a>MediaStreamTrack</a></code> with a <code><a>peerIdentity</a></code>
       constraint applied is attached to an <code><a>RTCRtpSender</a></code>, media is not
       sent unless the attached <code><a>RTCDtlsTransport</a></code> has validated the
-      same <code><a>peerIdentity</a></code> as the MediaStreamTrack 's constraint.</p>
+      same <code><a>peerIdentity</a></code> as the MediaStreamTrack's constraint.</p>
     </section>
     <section>
       <h3>RTCIdentity Interface</h3>
@@ -8344,7 +8377,7 @@ interface RTCIdentity {
               <p>Sets the identity provider to be used for a given
               <code><a>RTCIdentity</a></code> object, and initiates the process of
               obtaining an identity assertion.</p>
-              <p>When <code><a>getIdentityAssertion</a></code>() is invoked, the user agent MUST
+              <p>When <code><a>getIdentityAssertion</a></code> is invoked, the user agent MUST
               run the following steps:</p>
               <ol>
                 <li>
@@ -8487,6 +8520,8 @@ interface RTCIdentity {
     </section>
     <section>
       <h3>dictionary RTCIdentityAssertion</h3>
+     <p>The <dfn><code>RTCIdentityAssertion</code></dfn> dictionary provides informatio
+     about the identity asserted by the IdP.</p>
       <div>
         <pre class="idl">dictionary RTCIdentityAssertion {
              DOMString idp;
@@ -9007,7 +9042,7 @@ function signalAssertion(assertion) {
       <p>Where RTP and RTCP are not multiplexed, distinct
       <code><a>RTCIceTransport</a></code>, <code><a>RTCDtlsTransport</a></code> and
       <code><a>RTCIdentity</a></code> objects can be constructed for RTP and RTCP. While
-      it is possible for <code><a>getIdentityAssertion</a></code>() to be called with different
+      it is possible for <code><a>getIdentityAssertion</a></code> to be called with different
       values of <code>provider</code>, <code>protocol</code> and <code>username</code>
       for the RTP and RTCP <code><a>RTCIdentity</a></code> objects, application
       developers desiring backward compatibility with WebRTC 1.0 are strongly discouraged
