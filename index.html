@@ -4142,14 +4142,7 @@ mySignaller.myOfferTracks({
       <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as
       follows:
       <ol>
-      <li>If <code>ssrc_table[<var>packet.ssrc</var>]</code> is set: set
-      <var>rtp_receiver</var> to <code>ssrc_table[<var>packet.ssrc</var>]</code>
-      and check whether the value of <var>packet.pt</var> is equal to one of the
-      values of <code><var>parameters</var>.codecs[<var>j</var>].payloadtype</code>
-      for <var>rtp_receiver</var>, where <var>j</var> varies from 0 to
-      <code>codecs.length-1</code>. If so, route the packet to <var>rtp_receiver</var>.
-      If <var>packet.pt</var> does not match, fire the <code><a>unhandledrtp</a></code> event.</li>
-      <li>Else if <var>packet.muxId</var> is set: If
+      <li>If <var>packet.muxId</var> is set: If
       <code>muxId_table[<var>packet.muxId</var>]</code> is unset, fire the
       <code><a>unhandledrtp</a></code> event, else set <var>rtp_receiver</var> to
       <code>muxId_table[<var>packet.muxId</var>]</code> and check whether the value of
@@ -4160,6 +4153,13 @@ mySignaller.myOfferTracks({
       <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var> and route
       the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does not match, fire
       the <code><a>unhandledrtp</a></code> event.</li>
+      <li>Else if <code>ssrc_table[<var>packet.ssrc</var>]</code> is set: set
+      <var>rtp_receiver</var> to <code>ssrc_table[<var>packet.ssrc</var>]</code>
+      and check whether the value of <var>packet.pt</var> is equal to one of the
+      values of <code><var>parameters</var>.codecs[<var>j</var>].payloadtype</code>
+      for <var>rtp_receiver</var>, where <var>j</var> varies from 0 to
+      <code>codecs.length-1</code>. If so, route the packet to <var>rtp_receiver</var>.
+      If <var>packet.pt</var> does not match, fire the <code><a>unhandledrtp</a></code> event.</li>
       <li>Else if <var>pt_table</var>[<var>packet.pt</var>] is set: set
       <var>rtp_receiver</var> to <code>pt_table[<var>packet.pt</var>]</code>, set
       <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var>
