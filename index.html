@@ -4111,29 +4111,31 @@ mySignaller.myOfferTracks({
       <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
       to <var>receiver</var> for each entry where
       <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set, for values of
-      <var>i</var> from 0 to <code>encodings.length</code>-1.</li> 
+      <var>i</var> from 0 to <code>encodings.length-1</code>.</li> 
       <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].rtx.ssrc]</code>
       to <var>receiver</var> for each entry where
       <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code> is set, for values of
-      <var>i</var> from 0 to <code>encodings.length</code>-1.</li>
+      <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
       <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].fec.ssrc]</code>
       to <var>receiver</var> for each entry where
       <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set, for values of
-      <var>i</var> from 0 to <code>encodings.length</code>-1.</li>
+      <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
       <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
       than <var>receiver</var>, then <code>receiver.receive()</code> will be rejected 
       with <code>InvalidParameters</code>.</li>
       </ol>
-      <p>payload type table:<p> 
-      <p>If <var>parameters.muxId</var> is unset and
-      <code>parameters.encodings[i].ssrc</code> is unset for all values of <var>i</var>
-      from 0 to the number of encodings, then add entries to <var>pt_table</var> by
-      setting
-      <var>pt_table</var>[<code>parameters.codecs[<var>j</var>].payloadType</code>] to
-      <var>receiver</var>, for values of <var>j</var> from 0 to the number of codecs. If
-      <var>pt_table</var>[<var>pt</var>] is already set to a value other than
+      <p>payload type table:<p>
+      <ol>
+      <li>If <code><var>parameters</var>.muxId</code> is unset and
+      <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
+      values of <var>i</var> from 0 to <code>encodings.length-1</code>, then add
+      entries to <code>pt_table</code> by setting
+      <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType</code>] to
+      <var>receiver</var>, for values of <var>j</var> from 0 to <code>codecs.length-1</code>.</li>
+      <li>If <code>pt_table[<var>pt</var>]</code> is already set to a value other than
       <var>receiver</var> then <code>receiver.receive()</code> will be rejected with
-      <code>InvalidParameters</code>.</p>
+      <code>InvalidParameters</code>.</li>
+      </ol>
       <section id="rtppackethandling*">
       <h4>RTP packet handling</h4>
       <p>When an RTP packet arrives, the implementation determines the
