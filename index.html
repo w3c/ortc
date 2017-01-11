@@ -7358,7 +7358,7 @@ interface RTCSctpTransport : RTCDataTransport {
     readonly        attribute RTCSctpTransportState state;
     readonly        attribute unsigned short        port;
     static RTCSctpCapabilities getCapabilities ();
-    void                       start (RTCSctpCapabilities remoteCaps);
+    void                       start (RTCSctpCapabilities remoteCaps, optional unsigned short remotePort);
     void                       stop ();
                     attribute EventHandler          ondatachannel;
                     attribute EventHandler          onstatechange;
@@ -7419,7 +7419,7 @@ interface RTCSctpTransport : RTCDataTransport {
             <dt><dfn><code>port</code></dfn> of type <span class=
             "idlAttrType"><a>unsigned short</a></span>, readonly</dt>
             <dd>
-              <p>The SCTP port number used by the data channel.</p>
+              <p>The local SCTP port number used by the data channel.</p>
             </dd>
             <dt><code>ondatachannel</code> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
@@ -7461,6 +7461,8 @@ interface RTCSctpTransport : RTCDataTransport {
             </dd>
             <dt><dfn><code>start</code></dfn></dt>
             <dd>
+              <p>Starts the <code><a>RTCSctpTransport</a></code> instance. If <code>remotePort</code>
+              is not provided, a default value of <code>port</code> is assumed.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -7477,6 +7479,15 @@ interface RTCSctpTransport : RTCDataTransport {
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                  <tr>
+                    <td class="prmName">remotePort</td>
+                    <td class="prmType"><code>unsigned short</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
                     <td class="prmDesc"></td>
                   </tr>
                 </tbody>
