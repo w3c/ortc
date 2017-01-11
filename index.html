@@ -4939,10 +4939,11 @@ interface RTCRtpUnhandledEvent : Event {
             "idlMemberType">sequence&lt;<a>RTCRtpEncodingParameters</a>&gt;</span></dt>
             <dd>
               <p>The "encodings" or "layers" to be used for things like simulcast,
-              Scalable Video Coding, RTX, FEC, etc. When unset in a call to
-              <code>send()</code>, the browser behaves as though a single
-              <code>encodings[0]</code> entry was provided, with
-              <code>encodings[0].ssrc</code> set to a browser-determined value,
+              Scalable Video Coding, RTX, FEC, etc.  A sender MAY send fewer layers
+              than what is specified in <code>encodings[]</code>, but MUST NOT
+              send more. When unset in a call to <code>send()</code>, the browser
+              behaves as though a single <code>encodings[0]</code> entry was provided,
+              with <code>encodings[0].ssrc</code> set to a browser-determined value,
               <code>encodings[0].active</code> set to <code>true</code>,
               <code>encodings[0].codecPayloadType</code> set to
               <code>codecs[<var>j</var>].payloadType</code> where <var>j</var> is the
@@ -5469,7 +5470,7 @@ interface RTCRtpUnhandledEvent : Event {
     <section id="rtcrtpencodingparameters*">
       <h3>dictionary RTCRtpEncodingParameters</h3>
       <p><code><a>RTCRtpEncodingParameters</a></code> provides information relating to
-      the encoding. Note that all encoding parameters (such as <var>maxBitrate</var>,
+      an encoding. Note that all encoding parameters (such as <var>maxBitrate</var>,
       <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to
       codec-specific constraints.</p>
       <div>
@@ -5562,10 +5563,10 @@ interface RTCRtpUnhandledEvent : Event {
               will attempt to encode with the resolution of <code>track</code>. For
               scalable video coding, <code>resolutionScale</code> refers to the aggregate
               scale down of this layer when combined with all dependent layers.</p>
-              If <code>resolutionScale</code> is less than 1.0, reject the
+              <p>If <code>resolutionScale</code> is less than 1.0, reject the
               promise with <code>RangeError</code> when <code>send()</code>
               or <code><a>receive</a>()</code> is called.  If
-              <var>sender</var>.track.kind</code> is "audio", the value is
+              <code><var>sender</var>.track.kind</code> is "audio", the value is
               ignored.</p>
             </dd>
             <dt><dfn><code>framerateScale</code></dfn> of type <span class=
@@ -5607,17 +5608,18 @@ interface RTCRtpUnhandledEvent : Event {
               <p>An identifier for the encoding object. This identifier should be unique
               within the scope of the localized sequence of
               <code><a>RTCRtpEncodingParameters</a></code> for any given
-              <code><a>RTCRtpParameters</a></code> object. Values must be composed only
+              <code><a>RTCRtpParameters</a></code> object. Values MUST be composed only
               of case-sensitive alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
-              of 16 characters. For a codec (such as VP8) where a compliant decoder is
-              required to be able to decode anything that an encoder can send, it is not
-              necessary to specify the expected scalable video coding configuration on
-              the receiver via use of <var>encodingId</var> (or
-              <var>dependencyEncodingIds</var>). Where specified for a receiver, the
-              expected layering is ignored. A sender MAY send fewer layers than what is
-              specified in <code><a>RTCRtpEncodingParameters</a></code>, but MUST NOT
-              send more. An <code><a>RTCRtpSender</a></code> places the value of
-              <code>encodingId</code> into the <a>RID</a> header extension [[!RID]].</p>
+              of 16 characters. An <code><a>RTCRtpSender</a></code> places the value of
+              <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
+              and an <code><a>RTCRtpReceiver</a></code> determines the 
+              <code>encodingId</code> that an RTP packet belongs to based on the value
+              of the <a>RID</a> header extension.  For a codec (such as VP8) using
+              <a>SRST</a> transport which requires a compliant decoder to be able to
+              decode anything that an encoder can send, it is not required that the
+              <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
+              in order to enable a receiver to decode scalable video coding, and if
+              set, they are ignored by the receiver.</p>
             </dd>
             <dt><dfn><code>dependencyEncodingIds</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
@@ -5626,8 +5628,8 @@ interface RTCRtpUnhandledEvent : Event {
               this specification <code><a>encodingId</a></code>s are permitted only
               within the same <code><a>RTCRtpEncodingParameters</a></code> sequence. In
               the future if <a>MST</a> were to be supported, then if searching within an
-              <code><a>RTCRtpEncodingParameters</a></code> sequence did not produce a
-              match, then a global search would be carried out.</p>
+              <code>encodings[]</code> sequence did not produce a match, then a global
+              search would be carried out.</p>
             </dd>
           </dl>
         </section>
