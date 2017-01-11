@@ -5619,7 +5619,10 @@ interface RTCRtpUnhandledEvent : Event {
               decode anything that an encoder can send, it is not required that the
               <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
               in order to enable a receiver to decode scalable video coding, and if
-              set, they are ignored by the receiver.</p>
+              set, they are ignored by the receiver.  However, in order to send
+              simulcast, the <code>encodingId</code> is required, and in order to
+              send scalable video coding, both the <code>encodingId</code> and
+              <code>dependencyEncodingIds</code> are required.</p>
             </dd>
             <dt><dfn><code>dependencyEncodingIds</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
