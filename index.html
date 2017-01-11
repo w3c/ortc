@@ -4773,11 +4773,15 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="def-packetization-mode*">
                 <td><dfn><code>packetizationMode</code></dfn></td>
-                <td><code>sequence&lt;unsigned short&gt;</code></td>
+                <td><code>unsigned short</code></td>
                 <td>Receiver/Sender</td>
-                <td>A sequence of unsigned shorts, each ranging from 0 to 2, indicating
-                supported <var>packetizationMode</var> values. As noted in [[!RFC7742]]
-                Section 6.2, support for packetization-mode 1 is mandatory.</td>
+                <td>An unsigned short, ranging from 0 to 2, indicating
+                a supported <code>packetizationMode</code> value. As noted in [[!RFC7742]]
+                Section 6.2, support for packetization-mode 1 is mandatory. In order to
+                indicate support for multiple <code>packetizationMode</code> values,
+                multiple H.264/AVC codec entries are provided, each with their own
+                <code>packetizationMode</code> and <code>preferredPayloadType</code>
+                values.</td>
               </tr>
               <tr id="def-other-h264-params*">
                 <td>maxMbps, maxSmbps, maxFs, maxCpb, maxDpb, maxBr</td>
