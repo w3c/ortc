@@ -7469,11 +7469,10 @@ interface RTCSctpTransport : RTCDataTransport {
             <dt><dfn><code>start</code></dfn></dt>
             <dd>
               <p>Starts the <code><a>RTCSctpTransport</a></code> instance and causes
-              <code>RTCSctpTransportState</code> to transition from <code>new</code> to
-              <code>connecting</code>. If the <code>start</code> method is called and
-              the value of  <code>RTCSctpTransportState</code> is not <code>new</code>,
-              throw an <code>InvalidStateError</code> exception. If
-              <code>remotePort</code> is not provided, a default value of
+              <code>RTCSctpTransportState</code> to transition to
+              <code>connecting</code>. If the <code>start</code> method is called
+              more than once, throw an <code>InvalidStateError</code> exception.
+              If <code>remotePort</code> is not provided, a default value of
               <code>port</code> is assumed.</p>
               <table class="parameters">
                 <tbody>
