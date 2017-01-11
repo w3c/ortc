@@ -7716,9 +7716,10 @@ interface RTCDataChannelEvent : Event {
 
   signaller.sendInitiate({
     // ... include ICE/DTLS info from other example.
-    "sctpCapabilities": RTCSctpTransport.getCapabilities()
+    "sctpCapabilities": RTCSctpTransport.getCapabilities(),
+    "port": sctp.port
   }, function(remote) {
-    sctp.start(remote.sctpCapabilities);
+    sctp.start(remote.sctpCapabilities, remote.port);
   // Create the data channel object
   var channel = new RTCDataChannel(sctp, parameters);
   channel.send("foo");
