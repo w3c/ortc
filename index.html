@@ -5622,9 +5622,7 @@ interface RTCRtpUnhandledEvent : Event {
               decode anything that an encoder can send, it is not required that the
               <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
               in order to enable a receiver to decode scalable video coding, and if
-              set, they are ignored by the receiver.  However, in order to send
-              send scalable video coding, both the <code>encodingId</code> and
-              <code>dependencyEncodingIds</code> are required.</p>
+              set, they are ignored by the receiver.</p>
             </dd>
             <dt><dfn><code>dependencyEncodingIds</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
@@ -5634,7 +5632,9 @@ interface RTCRtpUnhandledEvent : Event {
               within the same <code><a>RTCRtpEncodingParameters</a></code> sequence. In
               the future if <a>MST</a> were to be supported, then if searching within an
               <code>encodings[]</code> sequence did not produce a match, then a global
-              search would be carried out.</p>
+              search would be carried out. In order to send scalable video coding
+              (<a>SVC</a>), both the <code>encodingId</code> and
+              <code>dependencyEncodingIds</code> are required.</p>
             </dd>
           </dl>
         </section>
