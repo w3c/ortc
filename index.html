@@ -7343,16 +7343,8 @@ interface RTCDataChannel : EventTarget {
       <p>An <code><a>RTCSctpTransport</a></code> is constructed from an
       <code><a>RTCDtlsTransport</a></code> object, and optionally a port number (with a
       default of 5000, or the next unused port). If a port already in use is provided in
-      the constructor, throw an <code>InvalidParameters</code> exception. Creation of an
-      <code><a>RTCSctpTransport</a></code> causes an SCTP INIT request to be issued over
-      the <code><a>RTCDtlsTransport</a></code> from the local
-      <code><a>RTCSctpTransport</a></code> to the remote
-      <code><a>RTCSctpTransport</a></code> where the remote
-      <code><a>RTCSctpTransport</a></code> responds with an SCTP INIT-ACK. Since both
-      local and remote parties must mutually create an
-      <code><a>RTCSctpTransport</a></code>, SCTP SO (Simultaneous Open) is used to
-      establish a connection over SCTP.</p>
-      <p>An <code><a>RTCSctpTransport</a></code> object can be garbage-collected once
+      the constructor, throw an <code>InvalidParameters</code> exception.
+      An <code><a>RTCSctpTransport</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
     <section id="sctptransport-interface-definition*">
@@ -7468,11 +7460,19 @@ interface RTCSctpTransport : RTCDataTransport {
             </dd>
             <dt><dfn><code>start</code></dfn></dt>
             <dd>
-              <p>Starts the <code><a>RTCSctpTransport</a></code> instance and
-              causes <code><a>RTCSctpTransportState</a></code> to transition
-              to <code>connecting</code>. If
-              <code><a>RTCSctpTransportState</a></code> is
-              <code>connected</code> or <code>closed</code> or the
+              <p>Starts the <code><a>RTCSctpTransport</a></code> instance 
+              and causes an SCTP INIT request to be issued over the 
+              <code><a>RTCDtlsTransport</a></code> from the local
+              <code><a>RTCSctpTransport</a></code> to the remote
+              <code><a>RTCSctpTransport</a></code> (causing the
+              <code><a>RTCSctpTransportState</a></code> to transition
+              to to <code>connecting</code>), where the remote
+              <code><a>RTCSctpTransport</a></code> responds with an
+              SCTP INIT-ACK. Since both local and remote parties must
+              mutually create an <code><a>RTCSctpTransport</a></code>,
+              SCTP SO (Simultaneous Open) is used to establish a connection 
+              over SCTP. If <code><a>RTCSctpTransportState</a></code>
+              is <code>connected</code> or <code>closed</code> or the
               <code>start</code> method is called more than once,
               throw an <code>InvalidStateError</code> exception.
               If <code>remotePort</code> is not provided, a default
