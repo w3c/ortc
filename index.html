@@ -7553,16 +7553,17 @@ interface RTCSctpTransport : RTCDataTransport {
         <h3>dictionary RTCSctpCapabilities</h3>
         <div>
           <pre class="idl">dictionary RTCSctpCapabilities {
-             unsigned short maxMessageSize;
+             unsigned long maxMessageSize;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">RTCSctpCapabilities</a> Members</h2>
             <dl data-link-for="RTCSctpCapabilities" data-dfn-for="RTCSctpCapabilities"
             class="dictionary-members">
               <dt><dfn><code>maxMessageSize</code></dfn> of type <span class=
-              "idlMemberType"><a>unsigned short</a></span></dt>
+              "idlMemberType"><a>unsigned long</a></span></dt>
               <dd>
-                <p>Maximum message size.</p>
+                <p>The maximum size of data that can be passed to <code><a>RTCDataChannel</a></code>'s <code>send()</code> method.
+                </p>
               </dd>
             </dl>
           </section>
