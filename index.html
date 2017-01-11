@@ -112,14 +112,17 @@
       (<dfn>SST</dfn>) and multi-session transmission (<dfn>MST</dfn>) are defined in
       [[RFC6190]]. This specification only supports <a>SST</a> but not <a>MST</a>. The
       term Single Real-time transport protocol stream Single Transport (<dfn>SRST</dfn>),
-      defined in [[RFC7656]] Section 3.7, refers to an SVC implementation that transmits
-      all layers within a single transport, using a single Real-time Transport Protocol
-      (RTP) stream and synchronization source (SSRC). The term Multiple RTP stream Single
-      Transport (<dfn>MRST</dfn>), also defined in [[RFC7656]] Section 3.7, refers to an
-      implementation that transmits all layers within a single transport, using multiple
-      RTP streams with a distinct SSRC for each layer. This specification supports SVC
-      codecs utilizing <a>SRST</a> transport (such as with H.264/SVC, VP8 and VP9). Also,
-      sending of simulcast is supported. SVC codecs supporting <a>MRST</a> transport
+      defined in [[RFC7656]] Section 3.7, refers to a Scalable Video Coding
+      (<dfn>SVC</dfn> implementation that transmits all layers within
+      a single transport, using a single Real-time Transport Protocol (RTP) stream
+      and synchronization source (SSRC). The term Multiple RTP stream Single Transport
+      (<dfn>MRST</dfn>), also defined in [[RFC7656]] Section 3.7, refers to an
+      implementation that transmits all layers within a single transport, using
+      multiple RTP streams with a distinct SSRC for each layer. This specification
+      supports SVC codecs that can only utilize <a>SRST</a> transport (such as VP8
+      and VP9) as well as implementations of codecs (such as H.264/SVC or HEVC)
+      that support <a>SRTST</a> transport. Also, sending of simulcast
+      is supported. SVC codecs supporting <a>MRST</a> transport
       (such as H.264/SVC and HEVC) can also be supported, along with reception of
       simulcast. However, these features should be considered experimental, since
       implementation experience is limited.</p>
@@ -5620,7 +5623,6 @@ interface RTCRtpUnhandledEvent : Event {
               <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
               in order to enable a receiver to decode scalable video coding, and if
               set, they are ignored by the receiver.  However, in order to send
-              simulcast, the <code>encodingId</code> is required, and in order to
               send scalable video coding, both the <code>encodingId</code> and
               <code>dependencyEncodingIds</code> are required.</p>
             </dd>
