@@ -230,9 +230,9 @@ interface RTCIceGatherer : RTCStatsProvider {
               <p>The component-id of the <code><a>RTCIceGatherer</a></code> object. In
               <code><a>RTCIceGatherer</a></code> objects returned by
               <code><a>createAssociatedGatherer</a>()</code> the value of the
-              <code><a>component</a></code> attribute is <code>RTCP</code>. In all other
+              <code><a>component</a></code> attribute is <code>rtcp</code>. In all other
               <code><a>RTCIceGatherer</a></code> objects, the value of the
-              <code><a>component</a></code> attribute is <code>RTP</code>.</p>
+              <code><a>component</a></code> attribute is <code>rtp</code>.</p>
             </dd>
             <dt><dfn><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceGathererState</a></span>, readonly</dt>
@@ -459,7 +459,7 @@ interface RTCIceGatherer : RTCStatsProvider {
             <dt><dfn><code>protocol</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceProtocol</a></span>, required</dt>
             <dd>
-              <p>The protocol of the candidate (UDP/TCP).</p>
+              <p>The protocol of the candidate (udp/tcp).</p>
             </dd>
             <dt><dfn><code>port</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, required</dt>
@@ -1171,7 +1171,7 @@ export function errorHandler(error) {
 export function mySendLocalCandidate(candidate, component, kind, parameters) {
   // Set default values
   kind = kind || "all";
-  component = component || "RTP";
+  component = component || "rtp";
   parameters = parameters || null;
 
   // Signal the local candidate
@@ -1346,9 +1346,9 @@ interface RTCIceTransport : RTCStatsProvider {
               <p>The component-id of the <code><a>RTCIceTransport</a></code> object. In
               <code><a>RTCIceTransport</a></code> objects returned by
               <code><a>createAssociatedTransport</a>()</code>, the value of
-              <code><a>component</a></code> is <code>RTCP</code>. In all other
+              <code><a>component</a></code> is <code>rtcp</code>. In all other
               <code><a>RTCIceTransport</a></code> objects, the value of
-              <code><a>component</a></code> is <code>RTP</code>.</p>
+              <code><a>component</a></code> is <code>rtp</code>.</p>
             </dd>
             <dt><dfn><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceTransportState</a></span>, readonly</dt>
@@ -1657,7 +1657,7 @@ interface RTCIceTransport : RTCStatsProvider {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCIceComponent.RTP">RTP</code></dfn></td>
+              <td><dfn><code id="idl-def-RTCIceComponent.rtp">rtp</code></dfn></td>
               <td>
                 <p>The RTP component ID, defined (as '1') in [[!RFC5245]] Section
                 4.1.1.1. Protocols multiplexed with RTP (e.g. SCTP data channel) share
@@ -1665,7 +1665,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCIceComponent.RTCP">RTCP</code></dfn></td>
+              <td><dfn><code id="idl-def-RTCIceComponent.rtcp">rtcp</code></dfn></td>
               <td>
                 <p>The RTCP component ID, defined (as '2') in [[!RFC5245]] Section
                 4.1.1.1.</p>
@@ -1982,12 +1982,12 @@ var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer();
 
 // Prepare to signal local candidates
 iceRtpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTP", "audio",
+  mySendLocalCandidate(event.candidate, "rtp", "audio",
     iceRtpGatherer.getLocalParameters());
 };
 
 iceRtcpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTCP", "audio",
+  mySendLocalCandidate(event.candidate, "rtcp", "audio",
     iceRtpGatherer.getLocalParameters());
 };
 
@@ -2020,7 +2020,7 @@ mySignaller.onResponse = function(responseSignaller, response) {
     // Locate the ICE transport that the signaled candidate relates to by matching
    //  the userNameFragment.
     var transports;
-    if (remote.component === "RTP") {
+    if (remote.component === "rtp") {
       transports = iceRtpTransports;
     } else {
       transports = iceRtcpTransports;
