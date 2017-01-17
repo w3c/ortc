@@ -3693,7 +3693,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
     "sendVideoCaps": sendVideoCaps
   });
 
-  // Derive the send and receive parameters using Javascript functions defined in Section 17.2.
+  // Derive the send and receive parameters using Javascript functions defined in Section 18.2.
   var audioSendParams = myCapsToSendParams(sendAudioCaps, remote.recvAudioCaps);
   var videoSendParams = myCapsToSendParams(sendVideoCaps, remote.recvVideoCaps);
   var audioRecvParams = myCapsToRecvParams(recvAudioCaps, remote.sendAudioCaps);
