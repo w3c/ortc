@@ -418,12 +418,12 @@ interface RTCIceGatherer : RTCStatsProvider {
 };
                 </pre>
       <div>
-        <pre class="idl">
-        typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate;</pre>
-        <div class="idlTypedefDesc"></div>
         <p>The <dfn><code>RTCIceGatherCandidate</code></dfn> provides either an
         <code><a>RTCIceCandidate</a></code> or an <code><a>RTCIceCandidateComplete</a></code>
         indication that candidate gathering is complete.</p> 
+        <pre class="idl">
+        typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate;</pre>
+        <div class="idlTypedefDesc"></div>
       </div>
       <div>
         <pre class="idl">dictionary RTCIceCandidate {
@@ -714,9 +714,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       <h4>RTCIceGathererIceErrorEvent</h4>
       <p>The <code><a>icecandidateerror</a></code> event of the
       <code><a>RTCIceGatherer</a></code> object uses the
-      <code><a>RTCIceGathererIceErrorEvent</a></code> interface.
-      The <dfn><code>RTCIceGathererIceErrorEventInit</code></dfn> dictionary
-      provides information on ICE gathering errors.</p>
+      <code><a>RTCIceGathererIceErrorEvent</a></code> interface.</p>
       <div>
         <pre class="idl">
         [ Constructor (DOMString type, RTCIceGathererIceErrorEventInit eventInitDict)]
@@ -810,6 +808,8 @@ interface RTCIceGathererIceErrorEvent : Event {
         </section>
       </div>
       <div>
+      <p>The <dfn><code>RTCIceGathererIceErrorEventInit</code></dfn> dictionary
+      provides information on ICE gathering errors.</p>
         <pre class="idl">
         dictionary RTCIceGathererIceErrorEventInit : EventInit {
              RTCIceCandidate hostCandidate;
@@ -860,9 +860,7 @@ interface RTCIceGathererIceErrorEvent : Event {
       otherwise stated) and is not cancelable (except where otherwise stated), and which
       uses the <code><a>RTCIceGathererEvent</a></code> interface with the
       <code>candidate</code> attribute set to the new ICE candidate, <em class="rfc2119"
-      title="MUST">MUST</em> be created and dispatched at the given target.
-      The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary provides
-      information on the <code><a>RTCIceGatherCandidate</a></code>.</p>
+      title="MUST">MUST</em> be created and dispatched at the given target.</p>
       <div>
         <pre class="idl">
         [ Constructor (DOMString type, RTCIceGathererEventInit eventInitDict)]
@@ -928,6 +926,8 @@ interface RTCIceGathererEvent : Event {
         </section>
       </div>
       <div>
+      <p>The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary provides
+      information on the <code><a>RTCIceGatherCandidate</a></code>.</p>
         <pre class="idl">dictionary RTCIceGathererEventInit : EventInit {
              RTCIceGatherCandidate candidate;
              DOMString             url;
