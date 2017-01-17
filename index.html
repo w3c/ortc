@@ -4265,8 +4265,6 @@ interface RTCRtpListener {
       uses the <code><a>RTCRtpUnhandledEvent</a></code> interface <em class="rfc2119"
       title="MUST">MUST</em> be created and dispatched at the given target.</p>
       <div>
-      <p>The <dfn><code>RTCRtpUnhandledEventInit</code></dfn> dictionary provides
-      information on the RTP packet causing the <code><a>RTCRtpUnhandledEvent</a></code>.</p>
         <pre class="idl">
         [ Constructor (DOMString type, RTCRtpUnhandledEventInit eventInitDict)]
 interface RTCRtpUnhandledEvent : Event {
@@ -4349,6 +4347,8 @@ interface RTCRtpUnhandledEvent : Event {
         </section>
       </div>
       <div>
+      <p>The <dfn><code>RTCRtpUnhandledEventInit</code></dfn> dictionary provides
+      information on the RTP packet causing the <code><a>RTCRtpUnhandledEvent</a></code>.</p>
         <pre class="idl">dictionary RTCRtpUnhandledEventInit : EventInit {
              DOMString     muxId;
              DOMString     rid;
