@@ -1860,8 +1860,6 @@ interface RTCIceTransport : RTCStatsProvider {
       <em class="rfc2119" title="MUST">MUST</em> be created and dispatched at the given
       target.</p>
       <div>
-      <p>The <dfn><code>RTCIceCandidatePairChangedEventInit</code></dfn> dictionary
-      provides information on the newly selected <code>RTCIceCandidatePair</code>.</p>
         <pre class="idl">
         [ Constructor (DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict)]
 interface RTCIceCandidatePairChangedEvent : Event {
@@ -1920,6 +1918,8 @@ interface RTCIceCandidatePairChangedEvent : Event {
         </section>
       </div>
       <div>
+      <p>The <dfn><code>RTCIceCandidatePairChangedEventInit</code></dfn> dictionary
+      provides information on the newly selected <code>RTCIceCandidatePair</code>.</p>
         <pre class="idl">
         dictionary RTCIceCandidatePairChangedEventInit : EventInit {
              RTCIceCandidatePair pair;
