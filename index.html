@@ -714,7 +714,9 @@ interface RTCIceGatherer : RTCStatsProvider {
       <h4>RTCIceGathererIceErrorEvent</h4>
       <p>The <code><a>icecandidateerror</a></code> event of the
       <code><a>RTCIceGatherer</a></code> object uses the
-      <code><a>RTCIceGathererIceErrorEvent</a></code> interface.</p>
+      <code><a>RTCIceGathererIceErrorEvent</a></code> interface.
+      The <dfn><code>RTCIceGathererIceErrorEventInit</code></dfn> dictionary
+      provides information on ICE gathering errors.</p>
       <div>
         <pre class="idl">
         [ Constructor (DOMString type, RTCIceGathererIceErrorEventInit eventInitDict)]
@@ -808,8 +810,6 @@ interface RTCIceGathererIceErrorEvent : Event {
         </section>
       </div>
       <div>
-      <p>The <dfn><code>RTCIceGathererIceErrorEventInit</code></dfn> dictionary
-      provides information on ICE gathering errors.</p>
         <pre class="idl">
         dictionary RTCIceGathererIceErrorEventInit : EventInit {
              RTCIceCandidate hostCandidate;
@@ -860,7 +860,9 @@ interface RTCIceGathererIceErrorEvent : Event {
       otherwise stated) and is not cancelable (except where otherwise stated), and which
       uses the <code><a>RTCIceGathererEvent</a></code> interface with the
       <code>candidate</code> attribute set to the new ICE candidate, <em class="rfc2119"
-      title="MUST">MUST</em> be created and dispatched at the given target.</p>
+      title="MUST">MUST</em> be created and dispatched at the given target.
+      The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary provides
+      information on the <code><a>RTCIceGatherCandidate</a></code>.</p>
       <div>
         <pre class="idl">
         [ Constructor (DOMString type, RTCIceGathererEventInit eventInitDict)]
@@ -932,8 +934,6 @@ interface RTCIceGathererEvent : Event {
 };</pre>
         <section>
           <h2>Dictionary RTCIceGathererEventInit Members</h2>
-          <p>The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary provides
-          the <code><a>RTCIceGatherCandidate</a></code>.</p>
           <dl data-link-for="RTCIceGathererEventInit" data-dfn-for=
           "RTCIceGathererEventInit" class="dictionary-members">
             <dt><dfn><code>candidate</code></dfn> of type <span class=
