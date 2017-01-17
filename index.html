@@ -6615,8 +6615,6 @@ interface RTCDtmfSender {
       attribute set to <var>tone</var>, MUST be created and dispatched at the given
       target.</p>
       <div>
-      <p>The <dfn><code>RTCDTMFToneChangeEventInit</code></dfn> dictionary provides
-      information on the DTMF <dfn><code>tone</code></dfn> causing a tonechange event.</p>
         <pre class="idl">
         [ Constructor (DOMString type, RTCDTMFToneChangeEventInit eventInitDict)]
 interface RTCDTMFToneChangeEvent : Event {
@@ -6677,6 +6675,8 @@ interface RTCDTMFToneChangeEvent : Event {
         </section>
       </div>
       <div>
+      <p>The <dfn><code>RTCDTMFToneChangeEventInit</code></dfn> dictionary provides
+      information on the DTMF <dfn><code>tone</code></dfn> causing a tonechange event.</p>
         <pre class="idl">dictionary RTCDTMFToneChangeEventInit : EventInit {
              required DOMString tone;
 };</pre>
