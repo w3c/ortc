@@ -7508,10 +7508,9 @@ interface RTCSctpTransport : RTCDataTransport {
               mutually create an <code><a>RTCSctpTransport</a></code>,
               SCTP SO (Simultaneous Open) is used to establish a connection 
               over SCTP. If <code><a>RTCSctpTransportState</a></code>
-              is <code>connected</code> or <code>closed</code>,
-              throw an <code>InvalidStateError</code> exception.
-              If <code>remotePort</code> is not provided, a default
-              value of <code>port</code> is assumed.</p>
+              is not <code>new</code> throw an <code>InvalidStateError</code>
+              exception. If <code>remotePort</code> is not provided, a
+              default value of <code>port</code> is assumed.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
