@@ -319,8 +319,8 @@ interface RTCIceGatherer : RTCStatsProvider {
             </dd>
             <dt><code>getLocalParameters</code></dt>
             <dd>
-              <p><dfn><code>RTCIceGatherer.getLocalParameters</code></dfn>
-              obtains the ICE parameters of the <code><a>RTCIceGatherer</a></code>.
+              <p><dfn>getLocalParameters()</dfn> obtains the ICE
+              parameters of the <code><a>RTCIceGatherer</a></code>.
               If <code>state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <div>
@@ -1553,8 +1553,8 @@ interface RTCIceTransport : RTCStatsProvider {
             </dd>
             <dt><code>getRemoteParameters</code></dt>
             <dd>
-              <p><dfn><code>RTCIceTransport.getRemoteParameters</code></dfn>
-              obtains the current ICE parameters of the remote
+              <p><dfn>getRemoteParameters()</dfn> obtains
+              the current ICE parameters of the remote
               <code><a>RTCIceTransport</a></code>.</p>
               <div>
                 <em>No parameters.</em>
@@ -2204,10 +2204,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Methods</h2>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "methods">
-            <dt><code><dfn>getLocalParameters</dfn></code></dt>
+            <dt><code>getLocalParameters</code></dt>
             <dd>
-              <p><dfn><code>RTCDtlsTransport.getLocalParameters</code></dfn>
-              obtains the DTLS parameters of the local
+              <p><dfn>getLocalParameters()</dfn> obtains the DTLS parameters of the local
               <code><a>RTCDtlsTransport</a></code>. If multiple certificates were
               provided in the constructor, then multiple fingerprints will be returned,
               one for each certificate.</p>
@@ -2218,12 +2217,12 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code><a>RTCDtlsParameters</a></code>
               </div>
             </dd>
-            <dt><dfn><code>getRemoteParameters</code></dfn></dt>
+            <dt><code>getRemoteParameters</code></dt>
             <dd>
-              <p><dfn><code>RTCDtlsTransport.getRemoteParameters</code></dfn>
-              obtains the remote DTLS parameters
-              passed in the <code>start()</code> method.
-              Prior to calling <code>start()</code>, null is returned.</p>
+              <p><dfn>getRemoteParameters()</dfn> obtains
+              the remote DTLS parameters passed in the
+              <code>start()</code> method. Prior to calling
+              <code>start()</code>, null is returned.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -2762,7 +2761,7 @@ interface RTCRtpSender : RTCStatsProvider {
               handler type <code><a>RTCSsrcConflictEvent</a></code>, is fired if an SSRC
               conflict is detected within the RTP session or an SSRC misconfiguration is
               detected after <code><a>send</a>()</code> or <code><a>receive</a>()</code>
-              returns or when <code>setTransport()</code> is called. In this
+              returns or when <code>setTransport</code> is called. In this
               situation, the <code><a>RTCRtpSender</a></code> automatically sends an RTCP
               BYE on the conflicted SSRC, if RTP packets were sent using that SSRC.</p>
             </dd>
@@ -2773,7 +2772,7 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
             <dt><code>setTransport</code></dt>
             <dd>
-              <p><dfn><code>RTCRtpSender.setTransport</code></dfn> 
+              <p><dfn>setTransport()</dfn> 
               attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
               <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
@@ -2928,7 +2927,7 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><dfn><code>RTCRtpSender.getCapabilities</code></dfn>
+              <p><dfn>getCapabilities()</dfn>
               obtains the sender capabilities, based on <code>kind</code>. Capabilities
               that can apply to multiple values of <code>kind</code> (such as
               retransmission [[!RFC4588]], redundancy [[RFC2198]] and Forward Error
@@ -3193,7 +3192,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     void            setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
-    static RTCRtpCapabilities          getCapabilities (DOMString kind);
+    static RTCRtpCapabilities     getCapabilities (DOMString kind);
     Promise&lt;void&gt;                      receive (RTCRtpParameters parameters);
     sequence&lt;RTCRtpContributingSource&gt; getContributingSources ();
     void                               stop ();
@@ -3286,9 +3285,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
           <h2>Methods</h2>
           <dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class=
           "methods">
-            <dt><dfn><code>setTransport</code></dfn></dt>
+            <dt><code>setTransport</code></dt>
             <dd>
-              <p>The <code>RTCRtpReceiver.setTransport</code> method
+              <p>The <dfn>setTransport()</dfn> method
               attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
               <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
@@ -3372,9 +3371,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>getCapabilities</code></dfn>, static</dt>
+            <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><code>RTCRtpReceiver.getCapabilities</code>
+              <p><dfn>getCapabilities()</dfn>
               obtains the receiver capabilities, based on <code><var>kind</var></code>.
               Capabilities that can apply to multiple values of <code><var>kind</var></code> (such
               as retransmission [[!RFC4588]], redundancy [[RFC2198]] and Forward Error
@@ -7487,7 +7486,7 @@ interface RTCSctpTransport : RTCDataTransport {
           "methods">
             <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><dfn><code>RTCSctpTransport.getCapabilities</code></dfn>
+              <p><dfn>getCapabilities()</dfn>
               retrieves the <code><a>RTCSctpCapabilities</a></code>
               of the <a>RTCSctpTransport</a>.</p>
               <div>
