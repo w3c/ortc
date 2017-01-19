@@ -7912,8 +7912,17 @@ function accept(signaller, remote) {
       attribute).</p>
       <div>
         <pre class="idl">interface RTCStatsReport {
-    getter RTCStats (DOMString id);
+    readonly maplike&lt;DOMString, object&gt;;
 };</pre>
+        <p>This interface has "entries", "forEach", "get", "has", "keys",
+        "values", @@iterator methods and a "size" getter brought by
+        <code>readonly maplike</code>.</p>
+        <p>Use these to retrieve the various dictionaries descended from
+        <code><a>RTCStats</a></code> that this stats report is composed of. The
+        set of supported property names [[!WEBIDL-1]] is defined as the ids of
+        all the <code><a>RTCStats</a></code>-derived dictionaries that have
+        been generated for this stats report.</p>
+      </div>
         <section>
           <h2>Methods</h2>
           <dl data-link-for="RTCStatsReport" data-dfn-for="RTCStatsReport" class=
