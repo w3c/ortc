@@ -4,7 +4,7 @@
   <meta name="generator" content="HTML Tidy for HTML5 for Linux/x86 version 5.3.9">
   <meta charset="utf-8">
   <title>Object RTC (ORTC) API for WebRTC</title>
-  <script src="respec-w3c-common.js" async class="remove"></script>
+  <script src="http://www.w3.org/Tools/respec/respec-w3c-common" async class="remove"></script>
   <script src="respec-config.js" class="remove"></script>
 </head>
 <body>
@@ -7898,8 +7898,8 @@ function accept(signaller, remote) {
     <section>
       <h4>RTCStatsReport Object</h4>
       <p>The <code>getStats()</code> method delivers a successful result in the
-      form of a <code><a>RTCStatsReport</a></code> object. A
-      <dfn><code>RTCStatsReport</code></dfn> object represents a map between strings,
+      form of a <code><a>RTCStatsReport</a></code> object. An
+      <dfn>RTCStatsReport</dfn> object represents a map between strings,
       identifying the inspected objects (<a href="#dom-rtcstats-id">RTCStats.id</a>), and
       their corresponding <code><a>RTCStats</a></code> objects.</p>
       <p>An <code><a>RTCStatsReport</a></code> may be composed of several
@@ -8158,7 +8158,7 @@ function processStats(currentReport) {
       acts as the Authenticating Party (AP) and obtains an identity assertion from the
       IdP which is then conveyed in signaling. The responder acts as the Relying Party
       (RP) and verifies the assertion.</p>
-       <p><dfn><code>getIdentityAssertion</code></dfn>() sets the identity provider to be 
+       <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be 
       used for a given <code><a>RTCIdentity</a></code> object, and initiates the process of
       obtaining an identity assertion.</p>
       <p>The interaction with the IdP is designed to decouple the browser from any
@@ -8186,9 +8186,9 @@ function processStats(currentReport) {
       [[!RTCWEB-SECURITY-ARCH]].</p>
       <p>For purposes of generating assertions, the IdP shall be chosen as follows:</p>
       <ol>
-        <li>If the <code><a>getIdentityAssertion</a></code>() method has been called, the IdP
+        <li>If the <code><a>getIdentityAssertion</a></code> method has been called, the IdP
         provided shall be used.</li>
-        <li>If the <code><a>getIdentityAssertion</a></code>() method has not been called, then
+        <li>If the <code><a>getIdentityAssertion</a></code> method has not been called, then
         the browser can use an IdP configured into the browser.</li>
       </ol>
       <p>In order to verify assertions, the IdP domain name and protocol are taken from
@@ -8294,7 +8294,7 @@ function processStats(currentReport) {
     </section>
     <section>
       <h3 id="sec.identity-verify-assertion">Verifying Identity Assertions</h3>
-      <p>Identity assertion validation happens when <dfn><code>setIdentityAssertion</code></dfn>()
+      <p>Identity assertion validation happens when <code>setIdentityAssertion</code>
       is invoked. The process runs asynchronously.</p>
       <p>The identity assertion validation process involves the following steps:</p>
       <ol>
@@ -8319,7 +8319,7 @@ function processStats(currentReport) {
         [[!RTCWEB-SECURITY-ARCH]].</li>
         <li>The <code><a>RTCIdentity</a></code> stores the assertion in the
         <dfn><code>peerIdentity</code></dfn>, and returns an <code><a>RTCIdentityAssertion</a></code>
-        object when the Promise from <code><a>setIdentityAssertion</a></code> is fulfilled.
+        object when the Promise from <code>setIdentityAssertion</code> is fulfilled.
         The assertion information to be displayed MUST contain the domain name of the IdP
         as provided in the assertion.</li>
         <li>The browser MAY display identity information to a user in browser UI. Any
@@ -8330,7 +8330,7 @@ function processStats(currentReport) {
       response to the validation request. Validation can also fail due to the additional
       checks performed by the browser. In both cases, the process terminates and no
       identity information is exposed to the application or the user.</p>
-      <p>The browser MUST cause the Promise of <code><a>setIdentityAssertion</a></code> to be
+      <p>The browser MUST cause the Promise of <code>setIdentityAssertion</code> to be
       rejected if validation of an identity assertion fails for any reason.</p>
       <p>The browser <em class="rfc2119" title="SHOULD">SHOULD</em> limit the time that
       it will allow for this process. This includes both the loading of the <a href=
@@ -8393,10 +8393,10 @@ interface RTCIdentity {
         <section>
           <h2>Attributes</h2>
           <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes">
-            <dt><code><a>peerIdentity</a></code> of type <span class=
+            <dt><code>peerIdentity</code> of type <span class=
             "idlAttrType"><a>RTCIdentityAssertion</a></span>, readonly , nullable</dt>
             <dd>
-              <p><code><a>peerIdentity</a></code> contains the peer identity assertion
+              <p><dfn>peerIdentity</dfn> contains the peer identity assertion
               information if an identity assertion was provided and verified. Once this
               value is set to a non-<code>null</code> value, it cannot change.</p>
             </dd>
@@ -8412,7 +8412,7 @@ interface RTCIdentity {
           <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="methods">
             <dt><code>getIdentityAssertion</code></dt>
             <dd>
-              <p>Sets the identity provider to be used for a given
+              <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be used for a given
               <code><a>RTCIdentity</a></code> object, and initiates the process of
               obtaining an identity assertion.</p>
               <p>When <code><a>getIdentityAssertion</a></code>() is invoked, the user agent MUST
@@ -8486,9 +8486,10 @@ interface RTCIdentity {
                 <em>Return type:</em> <code>Promise&lt;DOMString&gt;</code>
               </div>
             </dd>
-            <dt><code><a>setIdentityAssertion</a></code></dt>
+            <dt><code>setIdentityAssertion</code></dt>
             <dd>
-              <p>Validates the identity assertion. If the Promise is fulfilled, an
+              <p><dfn>setIdentityAssertion</dfn> validates the identity assertion.
+              If the Promise is fulfilled, an
               <code><a>RTCIdentityAssertion</a></code> is returned. If the Promise is
               rejected, an <code>RTCIdentityError</code> object is returned, (equivalent
               to <code>onidpvalidationerror</code> in the WebRTC 1.0 API).</p>
@@ -8524,13 +8525,15 @@ interface RTCIdentity {
     <section>
       <h3>dictionary RTCIdentityError</h3>
       <div>
+      <p>The <dfn>RTCIdentityError</dfn> dictionary provides information relating to
+      error responses.</p>
         <pre class="idl">dictionary RTCIdentityError {
              DOMString  idp;
              DOMString? loginUrl;
              DOMString  protocol;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">RTCIdentityError</a> Members</h2>
+          <h2>Dictionary RTCIdentityError Members</h2>
           <dl data-link-for="RTCIdentityError" data-dfn-for="RTCIdentityError" class=
           "dictionary-members">
             <dt><dfn><code>idp</code></dfn> of type <span class=
@@ -8559,6 +8562,8 @@ interface RTCIdentity {
     <section>
       <h3>dictionary RTCIdentityAssertion</h3>
       <div>
+      <p>The <dfn>RTCIdentityAssertion</dfn> dictionary provides information
+      about an identity assertion.</p>
         <pre class="idl">dictionary RTCIdentityAssertion {
              DOMString idp;
              DOMString name;
