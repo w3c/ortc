@@ -5363,6 +5363,13 @@ interface RTCRtpUnhandledEvent : Event {
                 <var>packetizationMode</var> value to be used by the sender. This setting
                 MUST be supported, as noted in [[!RFC7742]] Section 6.2.</td>
               </tr>
+              <tr id="def-other-h264-params*">
+                <td>maxMbps, maxSmbps, maxFs, maxCpb, maxDpb, maxBr</td>
+                <td><code>unsigned long long</code></td>
+                <td>Sender</td>
+                <td>These optional settings allow the sender to restrict its
+                output to the maximum values indicated by the receiver.</td>
+              </tr>
             </tbody>
           </table>
         </section>
