@@ -3735,8 +3735,8 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
       <h3>Overview</h3>
       <p>An <code><a>RTCIceTransportController</a></code> object provides methods to add
       and retrieve <code><a>RTCIceTransport</a></code> objects with a
-      <code><a>component</a></code> of <code>rtp</code> (associated
-      <code><a>RTCIceTransport</a></code> objects with a <code><a>component</a></code> of
+      <code>component</code> of <code>rtp</code> (associated
+      <code><a>RTCIceTransport</a></code> objects with a <code>component</code> of
       <code>rtcp</code> are included implicitly).</p>
     </section>
     <section id="rtctransportcontroller-operation*">
@@ -3761,14 +3761,14 @@ interface RTCIceTransportController {
               <p>Adds <code>transport</code> to the
               <code><a>RTCIceTransportController</a></code> object for the purposes of
               managing ICE freezing and sharing bandwidth estimation. Since
-              <code><a>addTransport</a>()</code> manages ICE freezing, candidate pairs
+              <code><a>addTransport</a></code> manages ICE freezing, candidate pairs
               that are not in the frozen state maintain their state when
               <code>addTransport(transport)</code> is called.
               <code><a>RTCIceTransport</a></code> objects will be unfrozen according to
-              their <var>index</var>. <var>transport</var> is inserted at
-              <var>index</var>, or at the end if <var>index</var> is not specified. If
-              <var>index</var> is greater than the current number of
-              <code><a>RTCIceTransport</a></code>s with a <code><a>component</a></code> of
+              their <code>index</code>. <code>transport</code> is inserted at
+              <code>index</code>, or at the end if <code>index</code> is not specified. If
+              <code>index</code> is greater than the current number of
+              <code><a>RTCIceTransport</a></code>s with a <code>component</code> of
               <code>rtp</code>, throw an <code>InvalidParameters</code> exception. If
               <code>transport.state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception. If <code>transport</code> has
