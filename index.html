@@ -1568,7 +1568,7 @@ interface RTCIceTransport : RTCStatsProvider {
               <p>Create an associated <code><a>RTCIceTransport</a></code> for RTCP. If
               called more than once for the same component, or if <var>state</var> is
               <code>closed</code>, throw an <code>InvalidStateError</code> exception. If
-              called when <code>component</code> is <code>rtcp</code>, throw an
+              called when <code><a>component</a></code> is <code>rtcp</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <div>
                 <em>No parameters.</em>
@@ -3735,8 +3735,8 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
       <h3>Overview</h3>
       <p>An <code><a>RTCIceTransportController</a></code> object provides methods to add
       and retrieve <code><a>RTCIceTransport</a></code> objects with a
-      <code>component</code> of <code>rtp</code> (associated
-      <code><a>RTCIceTransport</a></code> objects with a <code>component</code> of
+      <code><a>component</a></code> of <code>rtp</code> (associated
+      <code><a>RTCIceTransport</a></code> objects with a <code><a>component</a></code> of
       <code>rtcp</code> are included implicitly).</p>
     </section>
     <section id="rtctransportcontroller-operation*">
@@ -3811,7 +3811,7 @@ interface RTCIceTransportController {
             <dt><dfn><code>getTransports</code></dfn></dt>
             <dd>
               <p>Returns the <code><a>RTCIceTransport</a></code> objects with a
-              <code>component</code> of <code>rtp</code>. If
+              <code><a>component</a></code> of <code>rtp</code>. If
               <code><a>addTransport</a>()</code> has not been called, an empty list is
               returned.</p>
               <div>
