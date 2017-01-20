@@ -228,9 +228,9 @@ interface RTCIceGatherer : RTCStatsProvider {
               <p>The component-id of the <code><a>RTCIceGatherer</a></code> object. In
               <code><a>RTCIceGatherer</a></code> objects returned by
               <code><a>createAssociatedGatherer</a>()</code> the value of the
-              <code><a>component</a></code> attribute is <code>RTCP</code>. In all other
+              <code><a>component</a></code> attribute is <code>rtcp</code>. In all other
               <code><a>RTCIceGatherer</a></code> objects, the value of the
-              <code><a>component</a></code> attribute is <code>RTP</code>.</p>
+              <code><a>component</a></code> attribute is <code>rtp</code>.</p>
             </dd>
             <dt><dfn><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceGathererState</a></span>, readonly</dt>
@@ -354,7 +354,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               <code><a>RTCIceGatherOptions</a></code>. If <code>state</code> is
               <code>closed</code>, throw an <code>InvalidStateError</code> exception. If
               an <code><a>RTCIceGatherer</a></code> calls the method more than once, or
-              if <code><a>component</a></code> is <code>RTCP</code>, throw an
+              if <code><a>component</a></code> is <code>rtcp</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <div>
                 <em>No parameters.</em>
@@ -461,7 +461,7 @@ interface RTCIceGatherer : RTCStatsProvider {
             <dt><dfn><code>protocol</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceProtocol</a></span>, required</dt>
             <dd>
-              <p>The protocol of the candidate (UDP/TCP).</p>
+              <p>The protocol of the candidate (udp/tcp).</p>
             </dd>
             <dt><dfn><code>port</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, required</dt>
@@ -1177,7 +1177,7 @@ export function errorHandler(error) {
 export function mySendLocalCandidate(candidate, component, kind, parameters) {
   // Set default values
   kind = kind || "all";
-  component = component || "RTP";
+  component = component || "rtp";
   parameters = parameters || null;
 
   // Signal the local candidate
@@ -1276,7 +1276,7 @@ export function myDtlsTransportStateChange(name, state){
       <h3>Operation</h3>
       <p>An <code><a>RTCIceTransport</a></code> instance is constructed (optionally) from
       an <code><a>RTCIceGatherer</a></code>. If <code>gatherer.state</code> is
-      <code>closed</code> or <code>gatherer.component</code> is <code>RTCP</code>, then
+      <code>closed</code> or <code>gatherer.component</code> is <code>rtcp</code>, then
       throw an <code>InvalidStateError</code> exception.</p>
       <p>An <code><a>RTCIceTransport</a></code> object in the <code>closed</code> state
       can be garbage-collected when it is no longer referenced.</p>
@@ -1352,9 +1352,9 @@ interface RTCIceTransport : RTCStatsProvider {
               <p>The component-id of the <code><a>RTCIceTransport</a></code> object. In
               <code><a>RTCIceTransport</a></code> objects returned by
               <code><a>createAssociatedTransport</a>()</code>, the value of
-              <code><a>component</a></code> is <code>RTCP</code>. In all other
+              <code><a>component</a></code> is <code>rtcp</code>. In all other
               <code><a>RTCIceTransport</a></code> objects, the value of
-              <code><a>component</a></code> is <code>RTP</code>.</p>
+              <code><a>component</a></code> is <code>rtp</code>.</p>
             </dd>
             <dt><dfn><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceTransportState</a></span>, readonly</dt>
@@ -1568,7 +1568,7 @@ interface RTCIceTransport : RTCStatsProvider {
               <p>Create an associated <code><a>RTCIceTransport</a></code> for RTCP. If
               called more than once for the same component, or if <var>state</var> is
               <code>closed</code>, throw an <code>InvalidStateError</code> exception. If
-              called when <code>component</code> is <code>RTCP</code>, throw an
+              called when <code>component</code> is <code>rtcp</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <div>
                 <em>No parameters.</em>
@@ -1664,7 +1664,7 @@ interface RTCIceTransport : RTCStatsProvider {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCIceComponent.RTP">RTP</code></dfn></td>
+              <td><dfn><code id="idl-def-RTCIceComponent.rtp">rtp</code></dfn></td>
               <td>
                 <p>The RTP component ID, defined (as '1') in [[!RFC5245]] Section
                 4.1.1.1. Protocols multiplexed with RTP (e.g. SCTP data channel) share
@@ -1672,7 +1672,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCIceComponent.RTCP">RTCP</code></dfn></td>
+              <td><dfn><code id="idl-def-RTCIceComponent.rtcp">rtcp</code></dfn></td>
               <td>
                 <p>The RTCP component ID, defined (as '2') in [[!RFC5245]] Section
                 4.1.1.1.</p>
@@ -1991,12 +1991,12 @@ var iceRtcpGatherer = iceRtpGatherer.createAssociatedGatherer();
 
 // Prepare to signal local candidates
 iceRtpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTP", "audio",
+  mySendLocalCandidate(event.candidate, "rtp", "audio",
     iceRtpGatherer.getLocalParameters());
 };
 
 iceRtcpGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTCP", "audio",
+  mySendLocalCandidate(event.candidate, "rtcp", "audio",
     iceRtpGatherer.getLocalParameters());
 };
 
@@ -2029,7 +2029,7 @@ mySignaller.onResponse = function(responseSignaller, response) {
     // Locate the ICE transport that the signaled candidate relates to by matching
    //  the userNameFragment.
     var transports;
-    if (remote.component === "RTP") {
+    if (remote.component === "rtp") {
       transports = iceRtpTransports;
     } else {
       transports = iceRtcpTransports;
@@ -2798,13 +2798,13 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>RTCP</code>, throw an <code>InvalidParameters</code>
+                  <code>rtcp</code>, throw an <code>InvalidParameters</code>
                   exception.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>RTP</code>, throw an <code>InvalidParameters</code>
+                  <code>rtp</code>, throw an <code>InvalidParameters</code>
                   exception.</p>
                 </li>
                 <li>
@@ -3313,13 +3313,13 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>RTCP</code>, throw an <code>InvalidParameters</code>
+                  <code>rtcp</code>, throw an <code>InvalidParameters</code>
                   exception.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>RTP</code>, throw an <code>InvalidParameters</code> exception.</p>
+                  <code>rtp</code>, throw an <code>InvalidParameters</code> exception.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
@@ -3735,9 +3735,9 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
       <h3>Overview</h3>
       <p>An <code><a>RTCIceTransportController</a></code> object provides methods to add
       and retrieve <code><a>RTCIceTransport</a></code> objects with a
-      <code>component</code> of <code>RTP</code> (associated
+      <code>component</code> of <code>rtp</code> (associated
       <code><a>RTCIceTransport</a></code> objects with a <code>component</code> of
-      <code>RTCP</code> are included implicitly).</p>
+      <code>rtcp</code> are included implicitly).</p>
     </section>
     <section id="rtctransportcontroller-operation*">
       <h3>Operation</h3>
@@ -3769,11 +3769,11 @@ interface RTCIceTransportController {
               <var>index</var>, or at the end if <var>index</var> is not specified. If
               <var>index</var> is greater than the current number of
               <code><a>RTCIceTransport</a></code>s with a <var>component</var> of
-              <code>RTP</code>, throw an <code>InvalidParameters</code> exception. If
+              <code>rtp</code>, throw an <code>InvalidParameters</code> exception. If
               <code>transport.state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception. If <code>transport</code> has
               already been added to another <code><a>RTCIceTransportController</a></code>
-              object, or if <code>transport.component</code> is <code>RTCP</code>, throw
+              object, or if <code>transport.component</code> is <code>rtcp</code>, throw
               an <code>InvalidStateError</code> exception.</p>
               <table class="parameters">
                 <tbody>
@@ -3811,7 +3811,7 @@ interface RTCIceTransportController {
             <dt><dfn><code>getTransports</code></dfn></dt>
             <dd>
               <p>Returns the <code><a>RTCIceTransport</a></code> objects with a
-              <code>component</code> of <code>RTP</code>. If
+              <code>component</code> of <code>rtp</code>. If
               <code><a>addTransport</a>()</code> has not been called, an empty list is
               returned.</p>
               <div>
@@ -3904,14 +3904,14 @@ videoRtcpIceTransport.onstatechange = function(event) {
 mySignaller.onRemoteCandidate = function(remote) {
   switch (remote.kind) {
     case "audio":
-      if (remote.component === "RTP") {
+      if (remote.component === "rtp") {
         audioRtpIceTransport.addRemoteCandidate(remote.candidate);
       } else {
         audioRtcpIceTransport.addRemoteCandidate(remote.candidate);
       }
       break;
     case "video":
-      if (remote.component === "RTP") {
+      if (remote.component === "rtp") {
         videoRtpIceTransport.addRemoteCandidate(remote.candidate);
       } else {
         videoRtcpIceTransport.addRemoteCandidate(remote.candidate);
@@ -5102,7 +5102,7 @@ interface RTCRtpUnhandledEvent : Event {
               default is <code>true</code>. If set to <code>false</code>, the
               <code><a>RTCIceTransport</a></code> <em class="rfc2119" title=
               "MUST">MUST</em> have an associated <code><a>RTCIceTransport</a></code>
-              object with a <code>component</code> of <code>RTCP</code>, in which case
+              object with a <code>component</code> of <code>rtcp</code>, in which case
               RTCP will be sent on the associated
               <code><a>RTCIceTransport</a></code>.</p>
             </dd>
