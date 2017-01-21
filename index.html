@@ -7519,7 +7519,9 @@ interface RTCSctpTransport : RTCDataTransport {
               over SCTP. If <code><a>RTCSctpTransportState</a></code>
               is not <code>new</code> throw an <code>InvalidStateError</code>
               exception. If <code>remotePort</code> is not provided, a
-              default value of <code>port</code> is assumed.</p>
+              default value of <code>port</code> is assumed.  If the
+              remote port is in use, throw an 
+              <code>InvalidParameters</code> exception.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
