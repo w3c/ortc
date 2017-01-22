@@ -7830,15 +7830,18 @@ function accept(signaller, remote) {
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
+  
+  // Create the SctpTransport object
+  var sctp = new RTCSctpTransport(dtls);
 
   signaller.sendAccept({
     // ... include ICE/DTLS info from other examples.
-    "sctpCapabilities": RTCSctpTransport.getCapabilities()
+    "sctpCapabilities": RTCSctpTransport.getCapabilities(),
+    "port": sctp.port
   });
 
-  // Create the SctpTransport object and start it
-  var sctp = new RTCSctpTransport(dtls);
-  sctp.start(remote.sctpCapabilties);
+  // Start the SctpTransport
+  sctp.start(remote.sctpCapabilities, remote.port);
 
   // Assume in-band signalling. We could also have sent
   // RTCDataChannelParameters in signalling and constructed
