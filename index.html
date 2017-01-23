@@ -3868,16 +3868,16 @@ var videoRtcpIceTransport = videoRtpIceTransport.createAssociatedTransport();
 
 // Enable local ICE candidates to be signaled to the remote peer.
 audioRtpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTP", "audio");
+  mySendLocalCandidate(event.candidate, "rtp", "audio");
 };
 audioRtcpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTCP", "audio");
+  mySendLocalCandidate(event.candidate, "rtcp", "audio");
 };
 videoRtpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTP", "video");
+  mySendLocalCandidate(event.candidate, "rtp", "video");
 };
 videoRtcpIceGatherer.onlocalcandidate = function(event) {
-  mySendLocalCandidate(event.candidate, "RTCP", "video");
+  mySendLocalCandidate(event.candidate, "rtcp", "video");
 };
 
 // Start gathering
