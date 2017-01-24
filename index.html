@@ -3057,8 +3057,33 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>Stops sending the track on the wire, and sends an RTCP BYE. Stop is
-              final as in <code>MediaStreamTrack.stop()</code>.</p>
+              <p>The <code>stop</code> method irreversibly stops the <code><a>RTCRtpSender</a></code>.
+                Stops sending the track on the wire, and sends an RTCP BYE. Stop is
+              final as in <code>MediaStreamTrack.stop()</code>.                
+              <p>When <code>stop</code> is called, the following
+              steps MUST be run:<p>
+              <ol>
+                <li>
+                  <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
+                    on which <code>stop</code> is called.<p>
+                </li>
+                <li>
+                   <p>If <code><var>sender</var>.stop</code> has previously been called, abort these steps.<p>
+                </li>
+                 <li>
+                  <p>Let <var>parameters</var> be the argument provided in
+                    <code><var>sender</var>.send(<var>parameters</var>)</code> the 
+                    last time it was invoked.<p>
+                </li>
+                 <li>
+                   <p>Stop sending media with <var>sender</var>.<p>
+                </li>
+                <li>[
+                  <p>Send an RTCP BYE for each SSRC in 
+                  <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>
+                  where <var>i</var> goes from 0 to <code>encodings.length-1</code>.<p>
+                </li>
+              </ol>
               <div>
                 <em>No parameters.</em>
               </div>
