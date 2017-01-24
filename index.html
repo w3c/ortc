@@ -7739,7 +7739,12 @@ interface RTCDataChannelEvent : Event {
     </section>
     <section id="rtcsctpexample*">
       <h2>Example</h2>
-      <pre class="example highlight">function initiate(signaller) {
+      <pre class="example highlight">
+// Include some helper functions
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
+  
+function initiate(mySignaller) {
   // Prepare the ICE gatherer
   var gatherOptions = {
     gatherPolicy: "all",
@@ -7748,15 +7753,28 @@ interface RTCDataChannelEvent : Event {
       { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
         credentialType: "password" }
      ]
-  };
+  }; 
   var iceGatherer = new RTCIceGatherer(gatherOptions);
+  // Handle state changes
+  iceGatherer.onstatechange = function(event) {
+    myIceGathererStateChange("iceGatherer", event.state);
+  };
+  // Handle errors
+  iceGatherer.onerror = errorHandler;
+  // Prepare to signal local candidates
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
   
   // Start gathering
   iceGatherer.gather();
-
+  // Create ICE transport
+  var ice = new RTCIceTransport(iceGatherer);
+  // Prepare to handle remote ICE candidates
+  mySignaller.onRemoteCandidate = function(remote) {
+    ice.addRemoteCandidate(remote.candidate);
+  };
+  
   // Create the DTLS certificate
   var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
@@ -7765,17 +7783,11 @@ interface RTCDataChannelEvent : Event {
   }, function(){
     trace('Certificate could not be created');
   });
-
-  // Create ICE and DTLS transports
-  var ice = new RTCIceTransport(iceGatherer);
+  
+  // Create DTLS and SCTP transport
   var dtls = new RTCDtlsTransport(ice, certs);
-
-  // Prepare to handle remote ICE candidates
-  mySignaller.onRemoteCandidate = function(remote) {
-    ice.addRemoteCandidate(remote.candidate);
-  };
   var sctp = new RTCSctpTransport(dtls);
-
+  
   // Construct RTCDataChannelParameters dictionary
   var parameters = {
     label: "channel1", 
@@ -7784,19 +7796,31 @@ interface RTCDataChannelEvent : Event {
     negotiated: false
   };
 
-  signaller.sendInitiate({
-    // ... include ICE/DTLS info from other example.
+  mySignaller.sendInitiate({
+    "ice": iceGatherer.getLocalParameters(),
+    "dtls": dtlsParameters,
     "sctpCapabilities": RTCSctpTransport.getCapabilities(),
-    "port": sctp.port
+    "port": sctp.port,
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
   }, function(remote) {
+    // Start the ICE, DTLS and SCTP transports
+    ice.start(iceGatherer, remote.ice, RTCIceRole.controlling);
+    dtls.start(remote.dtls);
     sctp.start(remote.sctpCapabilities, remote.port);
-  // Create the data channel object
-  var channel = new RTCDataChannel(sctp, parameters);
-  channel.send("foo");
+    // Create the data channel object
+    var channel = new RTCDataChannel(sctp, parameters);
+    channel.send("foo");
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
   });
 }
+</pre>
+<pre class="example highlight">
+// This is an example of how to answer
+// Include some helper functions
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+  myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
-function accept(signaller, remote) {
+function accept(mySignaller, remote) {
   var gatherOptions = {
     gatherPolicy: "all",
     iceServers: [
@@ -7806,14 +7830,27 @@ function accept(signaller, remote) {
      ]
   };
   var iceGatherer = new RTCIceGatherer(gatherOptions);
+  // Handle state changes
+  iceGatherer.onstatechange = function(event) {
+    myIceGathererStateChange("iceGatherer", event.state);
+  };
+  // Handle errors
+  iceGatherer.onerror = errorHandler;
+  // Prepare to signal local candidates
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
   
-  // Start gathering
+   // Start gathering
   iceGatherer.gather();
+  // Create ICE transport
+  var ice = new RTCIceTransport(iceGatherer);
+  // Prepare to handle remote ICE candidates
+  mySignaller.onRemoteCandidate = function(remote) {
+    ice.addRemoteCandidate(remote.candidate);
+  };
   
-  // Create the DTLS certificate
+   // Create the DTLS certificate
   var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
@@ -7821,25 +7858,25 @@ function accept(signaller, remote) {
   }, function(){
     trace('Certificate could not be created');
   });
-
-  // Create ICE and DTLS transports
-  var ice = new RTCIceTransport(iceGatherer);
+  
+  // Create DTLS and SCTP transport
   var dtls = new RTCDtlsTransport(ice, certs);
-
-  // Prepare to handle remote candidates
-  mySignaller.onRemoteCandidate = function(remote) {
-    ice.addRemoteCandidate(remote.candidate);
-  };
-
-  signaller.sendAccept({
-    // ... include ICE/DTLS info from other examples.
-    "sctpCapabilities": RTCSctpTransport.getCapabilities()
+  var sctp = new RTCSctpTransport(dtls);
+  
+  mySignaller.sendAccept({
+    "ice": iceGatherer.getLocalParameters(),
+    "dtls": dtlsParameters,
+    "sctpCapabilities": RTCSctpTransport.getCapabilities(),
+    "port": sctp.port,
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
   });
 
-  // Create the SctpTransport object and start it
-  var sctp = new RTCSctpTransport(dtls);
-  sctp.start(remote.sctpCapabilties);
+   // Start the ICE, DTLS and SCTP transports
+  ice.start(iceGatherer, remote.ice, RTCIceRole.controlled);
+  dtls.start(remote.dtls);
+  sctp.start(remote.sctpCapabilities, remote.port);
 
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8. // Start the SctpTransport
   // Assume in-band signalling. We could also have sent
   // RTCDataChannelParameters in signalling and constructed
   // the data channel with negotiated: true.
