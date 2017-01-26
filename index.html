@@ -3069,9 +3069,9 @@ interface RTCRtpSender : RTCStatsProvider {
                    <p>If <code><var>sender</var>.stop</code> has previously been called, abort these steps.<p>
                 </li>
                  <li>
-                  <p>Let <var>parameters</var> be the argument provided in
-                    <code><var>sender</var>.send(<var>parameters</var>)</code> the 
-                    last time it was invoked.<p>
+                  <p>Let <var>parameters</var> be the argument provided to
+                  <code><var>sender</var>.send(<var>parameters</var>)</code> the 
+                  last time it was invoked.<p>
                 </li>
                  <li>
                    <p>Stop sending media with <var>sender</var>.<p>
@@ -3079,7 +3079,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>Send an RTCP BYE for each SSRC in 
                   <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>,
-                  <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code>, and
+                  <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> and
                   <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code>
                   where <var>i</var> goes from 0 to <code>encodings.length-1</code>.<p>
                 </li>
