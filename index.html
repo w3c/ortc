@@ -3057,16 +3057,17 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>The <code>stop</code> method irreversibly stops the <code><a>RTCRtpSender</a></code>.</p>             
-              <p>When <code>stop</code> is called, the following
-              steps MUST be run:<p>
+              <p>The <code>stop</code> method irreversibly stops the
+              <code><a>RTCRtpSender</a></code>. When <code>stop</code>         
+              called, the following steps MUST be run:<p>
               <ol>
                 <li>
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
-                    on which <code>stop</code> is called.<p>
+                  on which <code>stop</code> is invoked.<p>
                 </li>
                 <li>
-                   <p>If <code><var>sender</var>.stop</code> has previously been called, abort these steps.<p>
+                   <p>If <code><var>sender</var>.stop</code> has previously been called,
+                   abort these steps.<p>
                 </li>
                  <li>
                   <p>Let <var>parameters</var> be the argument provided to
