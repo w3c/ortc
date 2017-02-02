@@ -1541,9 +1541,38 @@ interface RTCIceTransport : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>Stops and closes the current object. Also removes the object from the
-              <code><a>RTCIceTransportController</a></code>. Calling <code>stop()</code>
-              when <var>state</var> is <code>closed</code> has no effect.</p>
+              <p>Irreversibly stops the
+              <code><a>RTCIceTransport</a></code>. When
+              <code>stop</code> is called, the following
+              steps MUST be run:<p>             
+              <ol>
+                <li>
+                  Let <var>iceTransport</var> be the
+                  <code><a>RTCIceTransport</a></code> object on
+                  which the <code>stop</code> method is invoked.
+                </li>
+                <li>
+                  If <code><var>iceTransport</var>.state</code> is
+                  <code>closed</code>, abort these steps.
+                </li>
+                <li>
+                  Set <code><var>iceTransport</var>.state</code> to
+                  <code>closed</code>.
+                </li>
+                <li>
+                  Let <var>controller</var> be the
+                  <code><a>RTCIceTransportController</a></code> object
+                  that <var>iceTransport</var> has been added to.
+                </li>
+                <li>
+                  Remove <var>iceTransport</var> from
+                  <var>controller</var>.
+                </li>
+                <li>
+                  Fire a simple event <code>statechange</code>
+                  at <var>iceTransport</var>.
+                </li>
+              </ol>
               <div>
                 <em>No parameters.</em>
               </div>
