@@ -3255,12 +3255,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
               construction, <code>track</code> is set. The value of
               <code>track.kind</code> is set to the value of <var>kind</var> passed in
               the constructor.</p>
-              <p>When a BYE is received on one of the SSRCs in
+              <p>When one of the SSRCs in
               <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>
               (where <code><var>i</var></code> goes from 0 to
-              <code>encodings.length-1</code>) the <code>track.onmute</code>
-              EventHandler is fired once the SSRC has been removed by the
-              RTP stack. When packets are received again,
+              <code>encodings.length-1</code>) is removed (either due to BYE
+              reception or timeout) the <code>track.onmute</code>
+              EventHandler is fired. When media packets are received again,
               the <code>track.onunmute</code> EventHandler is fired.</p>   
               <div class="note">
                 Prior to verification of the remote DTLS fingerprint within the
