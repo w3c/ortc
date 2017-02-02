@@ -3316,11 +3316,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
               <p>When one of the SSRCs in
               <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>
               (where <code><var>i</var></code> goes from 0 to
-              <code>encodings.length-1</code>) is removed (either due to BYE
-              reception or timeout) the <code>mute</code> event is fired
-              at <code>track</code>. If and when media packets are received
-              again for <var>receiver</var>, the <code>unmute</code> event
-              is fired at <code>track</code>.</p>   
+              <code>encodings.length-1</code>) is removed from the source
+              identifier table described in [[!RFC3550]] Section 8.2 (either
+              due to BYE reception or timeout) the <code>mute</code> event
+              is fired at <code>track</code>. If and when media packets are
+              received again for <var>receiver</var>, the <code>unmute</code>
+              event is fired at <code>track</code>.</p>
               <div class="note">
                 Prior to verification of the remote DTLS fingerprint within the
                 <code><a>RTCDtlsTransport</a></code> <var>transport</var>, and (if set)
