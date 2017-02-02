@@ -3259,8 +3259,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
               <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>
               (where <code><var>i</var></code> goes from 0 to
               <code>encodings.length-1</code>) the <code>track.onmute</code>
-              EventHandler is fired.  When packets are received again, the
-              <code>track.onunmute</code> EventHandler is fired.</p>   
+              EventHandler is fired once the SSRC has been removed by the
+              RTP stack. When packets are received again,
+              the <code>track.onunmute</code> EventHandler is fired.</p>   
               <div class="note">
                 Prior to verification of the remote DTLS fingerprint within the
                 <code><a>RTCDtlsTransport</a></code> <var>transport</var>, and (if set)
