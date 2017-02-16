@@ -4567,7 +4567,7 @@ interface RTCRtpUnhandledEvent : Event {
              Dictionary                options;
              unsigned short            maxTemporalLayers = 0;
              unsigned short            maxSpatialLayers = 0;
-             unsigned short            maxSimulcasts = 0;
+             unsigned short            maxSimulcastStreams = 0;
              boolean                   svcMultiStreamSupport;
 };</pre>
         <section>
@@ -4664,16 +4664,16 @@ interface RTCRtpUnhandledEvent : Event {
               a value of 1 indicates support for up to 2 spatial layers). A value of 0
               indicates no support for spatial scalability.</p>
             </dd>
-            <dt><dfn><code>maxSimulcasts</code></dfn> of type <span class=
+            <dt><dfn><code>maxSimulcastStreams</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, defaulting to
             <code>0</code></dt>
             <dd>
               <p>Maximum number of simulcast streams supported by this codec.
               A value of 0 indicates no support for simulcast. This attribute
               has meaning both for an <code><a>RTCRtpReceiver</a></code>
-              (where it can be used to simulcast reception capability) and on
-              an <code><a>RTCRtpSender</a></code> (where it can be used to
-              indicate simulcast sending capability).</p>
+              (to indicate how many simulcast streams can be received) and
+              for an <code><a>RTCRtpSender</a></code> (to indicate how many
+              simulcast streams can be sent).</p>
             </dd>
             <dt><dfn><code>svcMultiStreamSupport</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span></dt>
