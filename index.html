@@ -9195,6 +9195,16 @@ function signalAssertion(assertion) {
     [[!WEBRTC10]], as well as to enable the WebRTC 1.0 API to be implemented on top of
     the ORTC API, utilizing a Javascript "shim" library. This section discusses WebRTC
     1.0 compatibility issues that have been encountered by ORTC API implementers.</p>
+    <section id="spelling*">
+      <h3>Spelling differences</h3>
+      <p>WebRTC 1.0 supports the <code>replaceTrack</code> method and the
+      <code>RTCDTMFSender</code> interface, whereas ORTC supports the <code>setTrack</code>
+      method and the <code>RTCDtmfSender</code> interface. In order to provide
+      backward compatibility, ORTC implementations should allow calls to the
+      <code>replaceTrack</code> method to invoke <code>setTrack</code>, and
+      for use of the <code>RTCDTMFSender</code> interface to invoke the
+      <code>RTCDtmfSender</code> interface.</p>
+    </section>
     <section id="bundle*">
       <h3>BUNDLE</h3>
       <p>Via the use of [[!BUNDLE]] it is possible for WebRTC 1.0 implementations to
