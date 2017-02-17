@@ -2698,7 +2698,11 @@ interface RTCRtpSender : RTCStatsProvider {
 };</pre>
         <section>
           <h2>Constructors</h2>
-          <p>If the first argument is a string, let it be
+          <p>When the constructor is invoked, the User Agent MUST run the
+              following steps:</p>
+              <ol>
+                <li>
+                  <p>If the first argument is a string, let it be
                   <var>kind</var> and run the following steps:</p>
                   <ol>
                     <li>
@@ -2711,9 +2715,19 @@ interface RTCRtpSender : RTCStatsProvider {
                       <p>Let <var>track</var> be <code>null</code>.</p>
                     </li>
                   </ol>
-          <p>If the first argument is a <code><a>MediaStreamTrack</a></code>,
-                  let it be <var>track</var> and let <var>kind</var> be
+                </li>
+                <li>
+                  <p>If the first argument is a
+                  <code><a>MediaStreamTrack</a></code>, let it be
+                  <var>track</var> and let <var>kind</var> be
                   <var>track.kind</var>.</p>
+                </li>
+                <li>
+                  <p><a>Create an RTCRtpSender</a> with <var>track</var>,
+                  <var>transport</var> and if provided <var>rtcpTransport</var>
+                  and let <var>sender</var> be the result.</p>
+                </li>
+              </ol>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "constructors">
             <dt><code><a>RTCRtpSender</a></code></dt>
@@ -2798,7 +2812,8 @@ interface RTCRtpSender : RTCStatsProvider {
             <dt><dfn><code>kind</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
-              <p>The value of <code><var>track</var>.kind</code> passed in the constructor.</p>
+              <p>The value of <code>kind</code> or <code>track.kind</code>
+              passed in the constructor.</p>
             </dd>
             <dt><code>onssrcconflict</code> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
