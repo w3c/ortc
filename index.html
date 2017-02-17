@@ -2683,9 +2683,9 @@ function accept(mySignaller, remote) {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (MediaStreamTrack track, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
+        [ Constructor ((MediaStreamTrack or DOMString) trackOrKind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
 interface RTCRtpSender : RTCStatsProvider {
-    readonly        attribute MediaStreamTrack  track;
+    readonly        attribute MediaStreamTrack?  track;
     readonly        attribute RTCDtlsTransport  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     readonly        attribute DOMString kind;
@@ -2712,8 +2712,9 @@ interface RTCRtpSender : RTCStatsProvider {
                     <th>Description</th>
                   </tr>
                   <tr>
-                    <td class="prmName">track</td>
-                    <td class="prmType"><code>MediaStreamTrack</code></td>
+                    <td class="prmName">trackOrKind</td>
+                    <td class="prmType"><code>(MediaStreamTrack or
+                    DOMString)</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -2748,7 +2749,7 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "attributes">
             <dt><dfn><code>track</code></dfn> of type <span class=
-            "idlAttrType"><a>MediaStreamTrack</a></span>, readonly</dt>
+            "idlAttrType"><a>MediaStreamTrack</a></span>, readonly , nullable</dt>
             <dd>
               <p>The associated <code><a>MediaStreamTrack</a></code> instance.
               If <code>track</code> is ended, or if
@@ -2942,7 +2943,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <tr>
                     <td class="prmName">track</td>
                     <td class="prmType"><code><a>MediaStreamTrack</a></code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
+                    <td class="prmNullTrue"><span role="img" aria-label=
                     "True">&#10004;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
