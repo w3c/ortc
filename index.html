@@ -2670,7 +2670,7 @@ function accept(mySignaller, remote) {
     <section id="rtcrtpsender-operation*">
       <h3>Operation</h3>
       <p>A <code><a>RTCRtpSender</a></code> instance is constructed from an
-      <a>MediaStreamTrack</a> object and associated to an
+      <a>MediaStreamTrack</a> object or <code>kind</code> and associated to an
       <code><a>RTCDtlsTransport</a></code>. If an attempt is made to construct an
       <code><a>RTCRtpSender</a></code> object with <code>transport.state</code> or
       <code>rtcpTransport.state</code> <code>closed</code>, or if
@@ -2698,6 +2698,22 @@ interface RTCRtpSender : RTCStatsProvider {
 };</pre>
         <section>
           <h2>Constructors</h2>
+          <p>If the first argument is a string, let it be
+                  <var>kind</var> and run the following steps:</p>
+                  <ol>
+                    <li>
+                      <p>If <var>kind</var> is not a legal
+                      <code><a>MediaStreamTrack</a></code> <code>kind</code>,
+                      throw a <code>TypeError</code> and abort these, and all
+                      further steps.</p>
+                    </li>
+                    <li>
+                      <p>Let <var>track</var> be <code>null</code>.</p>
+                    </li>
+                  </ol>
+          <p>If the first argument is a <code><a>MediaStreamTrack</a></code>,
+                  let it be <var>track</var> and let <var>kind</var> be
+                  <var>track.kind</var>.</p>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "constructors">
             <dt><code><a>RTCRtpSender</a></code></dt>
