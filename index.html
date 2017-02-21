@@ -2691,6 +2691,7 @@ interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute DOMString kind;
     void                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     Promise&lt;void&gt;             setTrack (MediaStreamTrack track);
+    Promise&lt;void&gt;             replaceTrack (MediaStreamTrack track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
     Promise&lt;void&gt;             send (RTCRtpParameters parameters);
     void                      stop ();
@@ -2962,6 +2963,35 @@ interface RTCRtpSender : RTCStatsProvider {
                   </ol>
                 </li>
               </ol>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">track</td>
+                    <td class="prmType"><code><a>MediaStreamTrack</a></code></td>
+                    <td class="prmNullTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              </div>
+            </dd>
+            <dt><dfn><code>replaceTrack</code></dfn></dt>
+            <dd>
+              <p>Attempts to replace the track being sent with another track
+              provided (or with a null track). <code>replaceTrack</code> operates
+              identically to <code>setTrack</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
