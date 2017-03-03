@@ -4567,7 +4567,16 @@ interface RTCRtpUnhandledEvent : Event {
     <section id="rtcrtpcodeccapability*">
       <h3>dictionary RTCRtpCodecCapability</h3>
       <p>The <dfn><code>RTCRtpCodecCapability</code></dfn> dictionary provides
-      information on the capabilities of a codec.</p>
+        information on the capabilities of a codec. Exactly one <code>RTCRtpCodecCapability</code>
+        will be present for each supported combination of parameters that must be identical
+        between the offer and answer. For example:</p>
+      <ol>
+        <li>Exactly one "opus" codec, with <code>numChannels</code> set to 2,
+          indicating that the browser supports either stereo or mono.</li>
+        <li>Two "h264" codecs, one for each of two supported
+          <code>parameters.packetizationMode</code> values.</li>
+        <li>Two "cn" codecs with different <code>clockRate</code> values.</li>
+      </ol>
       <div>
         <pre class="idl">typedef object Dictionary;</pre>
         <div class="idlTypedefDesc">
