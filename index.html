@@ -1456,7 +1456,7 @@ interface RTCIceTransport : RTCStatsProvider {
                   If <code>start()</code> is called for the first time
                   and either <code><var>gatherer</var></code> was not
                   passed in the constructor or the value of
-                  <code><var>gathererer</var></code> is unchanged, if
+                  <code><var>gatherer</var></code> is unchanged, if
                   there are remote candidates, set <code>state</code>
                   to <code>checking</code> and start connectivity checks.
                   If there are no remote candidates, <code>state</code>
@@ -1464,7 +1464,7 @@ interface RTCIceTransport : RTCStatsProvider {
                 </li>
                 <li>
                   If <code>start()</code> is called for the first time
-                  and the value of <code><var>gathererer</var></code>
+                  and the value of <code><var>gatherer</var></code>
                   passed as an argument is different from that passed
                   in the constructor, flush local candidates.  If there
                   are remote candidates, set <code>state</code> to
@@ -1474,7 +1474,7 @@ interface RTCIceTransport : RTCStatsProvider {
                 </li>
                 <li>
                   If <code>start()</code> is called again with the same
-                  value of <code><var>gathererer</var></code> but the value
+                  value of <code><var>gatherer</var></code> but the value
                   of <code><var>remoteParameters</var></code> has changed,
                   local candidates are kept, remote candidates are flushed,
                   candidate pairs are flushed and <code>state</code>
