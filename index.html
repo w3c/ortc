@@ -4571,10 +4571,10 @@ interface RTCRtpUnhandledEvent : Event {
         will be present for each supported combination of parameters that must be configured
         identically on the <code>RTCRtpSender</code> and <code>RTCRtpReceiver</code>. For example:</p>
       <ol>
-        <li>Exactly one "opus" codec, with <code>numChannels</code> set to 2,
-          indicating that the browser supports either stereo or mono.</li>
-        <li>Two "h264" codecs, one for each of two supported
-          <code>parameters.packetizationMode</code> values.</li>
+        <li>Multiple "h264" codecs, each with their own distinct
+          <code>packetizationMode</code> and <code>preferredPayloadType</code>
+          values.
+        </li>
         <li>Two "cn" codecs with different <code>clockRate</code> values.</li>
       </ol>
       <div>
