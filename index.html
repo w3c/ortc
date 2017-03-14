@@ -4523,8 +4523,10 @@ interface RTCRtpUnhandledEvent : Event {
             <dd>
               <p>Supported Forward Error Correction (FEC) mechanisms
               and combinations. Values include "red" [[!RFC2198]],
-              "red+ulpfec" [[RFC5109]] and "flexfec" [[FLEXFEC]].
-              [[FEC]] summarizes requirements relating to FEC mechanisms.</p>
+              "red+ulpfec" [[RFC5109]] and "flexfec" [[FLEXFEC]]. Note that
+              supported mechanisms also need to be included within
+              <code>RTCRtpCapabilities.codecs[]</code>. [[FEC]] summarizes
+              requirements relating to FEC mechanisms.</p>
             </dd>
           </dl>
         </section>
