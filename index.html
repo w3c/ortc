@@ -5147,7 +5147,7 @@ interface RTCRtpUnhandledEvent : Event {
         <pre class="idl">dictionary RTCRtcpParameters {
              unsigned long ssrc;
              DOMString     cname;
-             boolean       reducedSize = false;
+             boolean       compound = false;
              boolean       mux = true;
 };</pre>
         <section>
@@ -5187,12 +5187,12 @@ interface RTCRtpUnhandledEvent : Event {
               the CNAME only for an <code><a>RTCRtpReceiver</a></code>; if unset, the
               CNAME is chosen by the browser.</p>
             </dd>
-            <dt><dfn><code>reducedSize</code></dfn> of type <span class=
+            <dt><dfn><code>compound</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>false</code></dt>
             <dd>
               <p>Whether reduced size RTCP [[!RFC5506]] is configured (if
-              <code>true</code>) or compound RTCP as specified in [[!RFC3550]] (if
-              <code>false</code>). The default is <code>false</code>.</p>
+              <code>false</code>) or compound RTCP as specified in [[!RFC3550]] (if
+              <code>true</code>). The default is <code>false</code>.</p>
             </dd>
             <dt><dfn><code>mux</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
