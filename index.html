@@ -4568,14 +4568,13 @@ interface RTCRtpUnhandledEvent : Event {
       <h3>dictionary RTCRtpCodecCapability</h3>
       <p>The <dfn><code>RTCRtpCodecCapability</code></dfn> dictionary provides
         information on the capabilities of a codec. Exactly one <code>RTCRtpCodecCapability</code>
-        will be present for each supported combination of parameters that must be configured
-        identically on the <code>RTCRtpSender</code> and <code>RTCRtpReceiver</code>. For example:</p>
+        will be present for each supported combination of parameters that requires a distinct
+        value of <code>preferredPayloadType</code>. For example:</p>
       <ol>
         <li>Multiple "h264" codecs, each with their own distinct
-          <code>packetizationMode</code> and <code>preferredPayloadType</code>
-          values.
+          <code>packetizationMode</code> values.
         </li>
-        <li>Two "cn" codecs with different <code>clockRate</code> values.</li>
+        <li>"cn" codecs, each with distinct <code>clockRate</code> values.</li>
       </ol>
       <div>
         <pre class="idl">typedef object Dictionary;</pre>
