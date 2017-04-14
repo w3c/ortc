@@ -2732,7 +2732,7 @@ function initiate(mySignaller) {
         transport.addRemoteCandidate(remote.candidate);
       }
     }  };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... construct RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
   mySignaller.mySendInitiate({
     "ice": iceGatherer.getLocalParameters(),
@@ -8099,7 +8099,7 @@ function initiate(mySignaller) {
     "dtls": dtlsParameters,
     "sctpCapabilities": RTCSctpTransport.getCapabilities(),
     "port": sctp.port,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   }, function(remote) {
     // Start the ICE, DTLS and SCTP transports
     ice.start(iceGatherer, remote.ice, RTCIceRole.controlling);
@@ -8108,7 +8108,7 @@ function initiate(mySignaller) {
     // Create the data channel object
     var channel = new RTCDataChannel(sctp, parameters);
     channel.send("foo");
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
   });
 }
 </pre>
@@ -8166,15 +8166,17 @@ function accept(mySignaller, remote) {
     "dtls": dtlsParameters,
     "sctpCapabilities": RTCSctpTransport.getCapabilities(),
     "port": sctp.port,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   });
 
    // Start the ICE, DTLS and SCTP transports
   ice.start(iceGatherer, remote.ice, RTCIceRole.controlled);
   dtls.start(remote.dtls);
+  // Start the SctpTransport
   sctp.start(remote.sctpCapabilities, remote.port);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8. // Start the SctpTransport
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9. 
+   
   // Assume in-band signalling. We could also have sent
   // RTCDataChannelParameters in signalling and constructed
   // the data channel with negotiated: true.
