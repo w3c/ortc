@@ -2732,12 +2732,12 @@ function initiate(mySignaller) {
         transport.addRemoteCandidate(remote.candidate);
       }
     }  };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
   mySignaller.mySendInitiate({
     "ice": iceGatherer.getLocalParameters(),
     "dtls": dtlsParameters,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   }, function(remote) {
     // Create the ICE and DTLS transports
     var iceTransport = new RTCIceTransport(iceGatherer);
@@ -2749,7 +2749,7 @@ function initiate(mySignaller) {
     dtlsTransport.start(remote.dtls);
     dtlsTransports.push(dtlsTransport);
 
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
   });
 }
                 </pre>
@@ -2797,12 +2797,12 @@ function accept(mySignaller, remote) {
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
   mySignaller.mySendAccept({
     "ice": iceGatherer.getLocalParameters(),
     "dtls": dtls.getLocalParameters()
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 8.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   });
 
   // Start the ICE transport with an implicit gather policy of "all"
@@ -2811,7 +2811,7 @@ function accept(mySignaller, remote) {
   // Start the DTLS transport
   dtls.start(remote.dtls);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 8.
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 }
                 </pre>
     </section>
