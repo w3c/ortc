@@ -6538,46 +6538,6 @@ var encodings = [
       <code>sender.track.kind</code> is not "audio", throw an
       <code>InvalidParameters</code> exception.</p>
     </section>
-    <section id="rtcdtmf2sender-interface-definition*">
-      <h3>Interface Definition</h3>
-      <div>
-      <pre class="idl">[ Constructor (RTCRtpSender sender)]
-interface RTCDTMFSender {
-    readonly        attribute boolean      canInsertDTMF;
-    void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
-    readonly        attribute RTCRtpSender sender;
-                    attribute EventHandler ontonechange;
-    readonly        attribute DOMString    toneBuffer;
-};</pre>
-    <section>
-      <h2>Constructors</h2>
-      <dl data-link-for="RTCDtmf2Sender" data-dfn-for="RTCDtmf2Sender" class=
-          "constructors">
-        <dt><code><a>RTCDTMFSender</a></code></dt>
-        <dd>
-          <table class="parameters">
-            <tbody>
-              <tr>
-                <th>Parameter</th>
-                <th>Type</th>
-                <th>Nullable</th>
-                <th>Optional</th>
-                <th>Description</th>
-              </tr>
-              <tr>
-                <td class="prmName">sender</td>
-                <td class="prmType"><code><a>RTCRtpSender</a></code></td>
-                <td class="prmNullFalse"><span role="img" aria-label=
-                "False">&#10008;</span></td>
-                <td class="prmOptFalse"><span role="img" aria-label=
-                "False">&#10008;</span></td>
-                <td class="prmDesc"></td>
-              </tr>
-            </tbody>
-          </table>
-        </dd>
-      </dl>
-    </section>
     <section id="rtcdtmfsender-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
