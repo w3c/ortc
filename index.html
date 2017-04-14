@@ -8185,67 +8185,72 @@ function accept(mySignaller, remote) {
       <section id="rtcstatstype*">
         <h3>RTCStatsType DOMString</h3>
         <p><var>RTCStatsType</var> is equal to one of the following strings defined in
-        [IANA-TOBE]:</p>
+        [[!WEBRTC-STATS]] Section 6.1:</p>
         <dl>
-          <dt><code>"inboundrtp"</code></dt>
+          <dt><code>"inbound-rtp"</code></dt>
           <dd>
             <p>Statistics for the inbound RTP stream. It is accessed via the
             <code>RTCInboundRTPStreamStats</code> defined in [[!WEBRTC-STATS]] Section
-            4.2.3. Local inbound RTP statistics can be obtained from the
+            7.3. Local inbound RTP statistics can be obtained from the
             <code><a>RTCRtpReceiver</a></code> object; remote inbound RTP statistics can
             be obtained from the <code><a>RTCRtpSender</a></code> object.</p>
           </dd>
-          <dt><code>"outboundrtp"</code></dt>
+          <dt><code>"outbound-rtp"</code></dt>
           <dd>
             <p>Statistics for the outbound RTP stream. It is accessed via the
             <code>RTCOutboundRTPStreamStats</code> defined in [[!WEBRTC-STATS]] Section
-            4.2.4. Local outbound RTP statistics can be obtained from the
+            7.4. Local outbound RTP statistics can be obtained from the
             <code><a>RTCRtpSender</a></code> object; remote outbound RTP statistics can
             be obtained from the <code><a>RTCRtpReceiver</a></code> object.</p>
           </dd>
-          <dt><code>"session"</code></dt>
+          <dt><code>"peer-connection"</code></dt>
           <dd>
             <p>Statistics relating to <code><a>RTCDataChannel</a></code> objects. It is
             accessed via the <code>RTCPeerConnectionStats</code> defined in
-            [[!WEBRTC-STATS]] Section 4.3.</p>
+            [[!WEBRTC-STATS]] Section 7.5.</p>
           </dd>
-          <dt><code>"datachannel"</code></dt>
+          <dt><code>"data-channel"</code></dt>
           <dd>
             <p>Statistics relating to each <code><a>RTCDataChannel</a></code> id. It is
             accessed via the <code>RTCDataChannelStats</code> defined in
-            [[!WEBRTC-STATS]] Section 4.5.</p>
+            [[!WEBRTC-STATS]] Section 7.8.</p>
           </dd>
           <dt><code>"track"</code></dt>
           <dd>
             <p>Statistics relating to the <code>MediaStreamTrack</code> object. It is
             accessed via the <code>RTCMediaStreamTrackStats</code> defined in
-            [[!WEBRTC-STATS]] Section 4.4.2.</p>
+            [[!WEBRTC-STATS]] Section 7.7.</p>
           </dd>
           <dt><code>"transport"</code></dt>
           <dd>
             <p>Transport statistics related to the <code><a>RTCDtlsTransport</a></code>
-            object. It is accessed via the <code>RTCTransportStats</code> and
-            <code>RTCCertificateStats</code> defined in [[!WEBRTC-STATS]] Sections 4.6
-            and 4.9.</p>
+            object. It is accessed via the <code>RTCTransportStats</code> defined in
+            [[!WEBRTC-STATS]] Sections 7.9.</p>
           </dd>
-          <dt><code>"candidatepair"</code></dt>
+          <dt><code>"candidate-pair"</code></dt>
           <dd>
             <p>ICE candidate pair statistics related to
             <code><a>RTCIceTransport</a></code> objects. It is accessed via the
             <code>RTCIceCandidatePairStats</code> defined in [[!WEBRTC-STATS]] Section
-            4.8.</p>
+            7.11.</p>
           </dd>
-          <dt><code>"localcandidate"</code></dt>
+          <dt><code>"local-candidate"</code></dt>
           <dd>
-            <p>ICE local candidates, related to <code><a>RTCIceGatherer</a></code>
-            objects. It is accessed via the <code>RTCIceCandidateAttributes</code>
-            defined in [[!WEBRTC-STATS]] Section 4.7.</p>
+            <p>ICE local candidate statistics, related to <code><a>RTCIceGatherer</a></code>
+            objects. It is accessed via the <code>RTCIceCandidateStats</code> for the
+            local candidate, defined in [[!WEBRTC-STATS]] Section 7.10.</p>
           </dd>
-          <dt><code>"remotecandidate"</code></dt>
+          <dt><code>"remote-candidate"</code></dt>
           <dd>
-            <p>ICE remote candidate, related to <code><a>RTCIceTransport</a></code>
-            objects. It is accessed via the <code>RTCIceCandidateAttributes</code>
-            defined in [[!WEBRTC-STATS]] Section 4.7.</p>
+            <p>ICE remote candidate statistics, related to <code><a>RTCIceTransport</a></code>
+            objects. It is accessed via the <code>RTCIceCandidateStats</code>
+            for the remote candidate, defined in [[!WEBRTC-STATS]] Section 7.10.</p>
+          </dd>
+          <dt><code>"certificate"</code></dt>
+          <dd>
+            <p>Information about a certificate used by an <code><a>RTCDtlsTransport</a></code>
+            object. It is accessed via the <code>RTCCertificateStats</code>
+            defined in [[!WEBRTC-STATS]] Sections 7.12.</p>
           </dd>
         </dl>
       </section>
