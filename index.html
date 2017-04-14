@@ -51,7 +51,7 @@
     "#rtcdatachannel*">Section 11</a>) utilizes an <code><a>RTCSctpTransport</a></code>
     (<a href="#sctp-transport*">Section 12</a>) which can also be multiplexed over the
     <code><a>RTCDtlsTransport</a></code>. Sending of Dual Tone Multi Frequency (DTMF)
-    tones is supported via the <code><a>RTCDtmfSender</a></code> (<a href=
+    tones is supported via the <code><a>RTCDTMFSender</a></code> (<a href=
     "#rtcdtmfsender*">Section 10</a>).</p>
     <p>The <code><a>RTCDtlsTransport</a></code> utilizes an
     <code><a>RTCIceTransport</a></code> (<a href="#rtcicetransport*">Section 3</a>) to
@@ -6694,15 +6694,15 @@ var encodings = [
     </section>
   </section>
   <section id="rtcdtmfsender*">
-    <h2>The RTCDtmfSender Object</h2>
+    <h2>The RTCDTMFSender Object</h2>
     <section id="rtcdtmfsender-overview*">
       <h3>Overview</h3>
-      <p>An <dfn><code>RTCDtmfSender</code></dfn> instance allows sending DTMF tones
+      <p>An <dfn><code>RTCDTMFSender</code></dfn> instance allows sending DTMF tones
       to/from the remote peer, as per [[!RFC4733]].</p>
     </section>
     <section id="rtcdtmfsender-operation*">
       <h3>Operation</h3>
-      <p>An <code><a>RTCDtmfSender</a></code> object is constructed from an
+      <p>An <code><a>RTCDTMFSender</a></code> object is constructed from an
       <code><a>RTCRtpSender</a></code> <var>sender</var>. If
       <code>sender.track.kind</code> is not "audio", throw an
       <code>InvalidParameters</code> exception.</p>
@@ -6711,7 +6711,7 @@ var encodings = [
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">[ Constructor (RTCRtpSender sender)]
-interface RTCDtmfSender {
+interface RTCDTMFSender {
     readonly        attribute boolean      canInsertDTMF;
     void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
     readonly        attribute RTCRtpSender sender;
@@ -6720,9 +6720,9 @@ interface RTCDtmfSender {
 };</pre>
         <section>
           <h2>Constructors</h2>
-          <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class=
+          <dl data-link-for="RTCDTMFSender" data-dfn-for="RTCDTMFSender" class=
           "constructors">
-            <dt><code><a>RTCDtmfSender</a></code></dt>
+            <dt><code><a>RTCDTMFSender</a></code></dt>
             <dd>
               <table class="parameters">
                 <tbody>
@@ -6749,12 +6749,12 @@ interface RTCDtmfSender {
         </section>
         <section>
           <h2>Attributes</h2>
-          <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class=
+          <dl data-link-for="RTCDTMFSender" data-dfn-for="RTCDTMFSender" class=
           "attributes">
             <dt><dfn><code>canInsertDTMF</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>, readonly</dt>
             <dd>
-              <p>Whether the <a>RTCDtmfSender</a> is capable of sending DTMF.</p>
+              <p>Whether the <a>RTCDTMFSender</a> is capable of sending DTMF.</p>
             </dd>
             <dt><dfn><code>sender</code></dfn> of type <span class=
             "idlAttrType"><a>RTCRtpSender</a></span>, readonly</dt>
@@ -6778,7 +6778,7 @@ interface RTCDtmfSender {
         </section>
         <section>
           <h2>Methods</h2>
-          <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class="methods">
+          <dl data-link-for="RTCDTMFSender" data-dfn-for="RTCDTMFSender" class="methods">
             <dt><dfn><code>insertDTMF</code></dfn></dt>
             <dd>
               <p>The <code>insertDTMF()</code> method is used to send DTMF tones. Since
@@ -6842,7 +6842,7 @@ interface RTCDtmfSender {
                     steps.</li>
                     <li>If <code><a>toneBuffer</a></code> is an empty string,
                     fire an event named <code><a>tonechange</a></code> with an
-                    empty string at the <code><a>RTCDtmfSender</a></code>
+                    empty string at the <code><a>RTCDTMFSender</a></code>
                     object and abort these steps.</li>
                     <li>Remove the first character from
                       <code><a>toneBuffer</a></code> and let that character
@@ -6856,7 +6856,7 @@ interface RTCDtmfSender {
                       runs the steps labelled <em>Playout task</em>.</li>
                     <li>Fire an event named <code><a>tonechange</a></code> with
                     a string consisting of <var>tone</var> at the
-                    <code><a>RTCDtmfSender</a></code> object.</li>
+                    <code><a>RTCDTMFSender</a></code> object.</li>
                   </ol>
                 </li>
               </ol>
@@ -7006,7 +7006,7 @@ interface RTCDTMFToneChangeEvent : Event {
       <code><a>RTCRtpSender</a></code> object.</p>
       <p>Sending the DTMF signal "1234" with 500 ms duration per tone:</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+      var sender = new RTCDTMFSender(sendObject);
 if (sender.canInsertDTMF) {
   var duration = 500;
   sender.insertDTMF("1234", duration);
@@ -7018,7 +7018,7 @@ if (sender.canInsertDTMF) {
       <code>lightKey(key)</code> while the tone is playing (assuming that
       <code>lightKey("")</code> will darken all the keys):</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+      var sender = new RTCDTMFSender(sendObject);
 sender.ontonechange = function(e) {
   if (!e.tone) return;
 
@@ -7032,7 +7032,7 @@ sender.insertDTMF("1234");
                 </pre>
       <p>Send a 1-second "1" tone followed by a 2-second "2" tone:</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+      var sender = new RTCDTMFSender(sendObject);
 sender.ontonechange = function(e) {
   if (e.tone === "1") sender.insertDTMF("2", 2000);
 };
@@ -7041,7 +7041,7 @@ sender.insertDTMF("1", 1000);
       <p>It is always safe to append to the tone buffer. This example appends before any
       tone playout has started as well as during playout.</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+      var sender = new RTCDTMFSender(sendObject);
 sender.insertDTMF("123");
 
 // append more tones to the tone buffer before playout has begun
@@ -7056,7 +7056,7 @@ sender.ontonechange = function(e) {
                 </pre>
       <p>Send the DTMF signal "123" and abort after sending "2".</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+      var sender = new RTCDTMFSender(sendObject);
 sender.ontonechange = function(e) {
   if (e.tone === "2") {
     // empty the buffer to not play any tone after "2"
@@ -9437,9 +9437,9 @@ function signalAssertion(assertion) {
       <code>RTCDTMFSender</code> interface, whereas ORTC originally supported
       the <code>setTrack</code> method and the <code>RTCDtmfSender</code>
       interface. In order to provide backward compatibility, this specification has
-      added <code>replaceTrack</code> as an alias for <code>setTrack</code>,
-      and the <code>RTCDTMFSender</code> interface as an alias for the
-      <code>RTCDtmfSender</code> interface.</p>
+      added <code>replaceTrack</code> as an alias for <code>setTrack</code>.
+      and the <code>RTCDTMFSender</code> interface, which should be treated
+      as an alias for <code>RTCDtmfSender</code> interface (now deprecated).</p>
     </section>
     <section id="bundle*">
       <h3>BUNDLE</h3>
@@ -9674,7 +9674,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <a href="https://github.com/w3c/ortc/issues/412">Issue 412</a>
         </li>
         <li>Clarified exceptions and error conditions in the
-        <code><a>RTCDtmfSender</a></code>, as noted in: <a href=
+        <code>RTCDtmfSender</code>, as noted in: <a href=
         "https://github.com/w3c/ortc/issues/446">Issue 446</a>
         </li>
         <li>Provided <code>rtcp.ssrc</code> advice for implementations, as noted in:
