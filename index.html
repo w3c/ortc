@@ -1053,16 +1053,15 @@ interface RTCIceGathererEvent : Event {
                 <p>An OAuth 2.0 based authentication method, as described in
                 [[!RFC7635]]. It uses the OAuth 2.0 Implicit Grant type, with
                 PoP (Proof-of-Possession) Token type, as described in
-                [[!RFC6749]] and [[!OAUTH-POP-KEY-DISTRIBUTION]].
-                </p>
+                [[!RFC6749]] and [[!OAUTH-POP-KEY-DISTRIBUTION]].</p>
                 <p>The <dfn>OAuth Client</dfn> and the <dfn>Auhorization
-                Server</dfn> roles are defined in [[!RFC6749]] Section 1.1.
-                </p>
+                Server</dfn> roles are defined in [[!RFC6749]] Section 1.1.</p>
                 <p>If [[!RFC7635]] is used in ORTC then the <a>OAuth
                 Client</a> is responsible for refreshing the credential
                 information, and updating the <code><a>RTCIceGatherer</a></code>
                 with fresh new credentials before the <code>accessToken</code>
-                expires. <p>For OAuth Authentication, the <code><a>RTCIceGatherer</a></code>
+                expires.</p>
+                <p>For OAuth Authentication, the <code><a>RTCIceGatherer</a></code>
                 requires three pieces of credential information. The credential
                 is composed of a <code>kid</code>, which the <a>RTCIceServer</a>
                 <code>username</code> member is used for, and
@@ -1108,19 +1107,15 @@ interface RTCIceGathererEvent : Event {
                 <div class="issue">[[!RFC7635]] doesn't explicitly define
                 how keys are shortened; there is only a brief reference to this
                 in Appendix B. This needs to be adressed in the IETF TRAM
-                working group.
-                </div>
+                working group.</div>
                 <div class="note">According to [[!RFC7635]] Section 4.1, the
-                HMAC key MUST be a symmetric key.
-                </div>
+                HMAC key MUST be a symmetric key.</div>
                 <p>Currently the STUN/TURN protocols use only SHA-1 and SHA-2
                 family hash algorithms for Message Integrity Protection, as
                 defined in [[!RFC5389]] Section 15.4, and [[!STUN-BIS]]
-                Section 14.6.
-                </p>
-                <p>When [[!RFC7635]] is used in ORTC, this
-                specification adds the following additional consideration to
-                it.</p>
+                Section 14.6.</p>
+                <p>When [[!RFC7635]] is used in ORTC, this specification
+                adds the following additional considerations:</p>
                 <p>The <a>OAuth Client</a> SHOULD obtain the mac_key by
                 requesting an <a>alg</a> value of <code>HS256</code>. This will
                 result in a 256-bit HMAC key.</p>
@@ -1130,10 +1125,8 @@ interface RTCIceGathererEvent : Event {
                   <li>The OAuth respose key parameter is received in JWK format
                   according to [[!OAUTH-POP-KEY-DISTRIBUTION]] Section 4.2.
                   JWK's algorithms are normatively registered in the IANA
-                  "JSON Web Signature and Encryption Algorithms" registry.
-                  </li>
-                  <li>STUN/TURN currently use SHA family HMAC algorithms only.
-                  </li>
+                  "JSON Web Signature and Encryption Algorithms" registry.</li>
+                  <li>STUN/TURN currently use SHA family HMAC algorithms only.</li>
                   <li>The key MUST be symmetric, according to [[!RFC7635]].</li>
                   <li>A 256-bit key is large enough to support all currently
                   defined STUN message integrity attributes.</li>
