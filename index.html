@@ -3084,11 +3084,11 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>setTrack</code></dfn></dt>
+            <dt><code>setTrack</code></dt>
             <dd>
               <p>Attempts to replace the track being sent with another track
               provided (or with a null track).</p>
-              <p>When the <code><a>setTrack</a>()</code> method is invoked, the user
+              <p>When the <code>setTrack()</code> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
                 <li>
@@ -3096,7 +3096,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
-                  on which <code><a>setTrack</a>()</code> is invoked.</p>
+                  on which <code>setTrack()</code> is invoked.</p>
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.stop()</code> has been called,
@@ -3151,7 +3151,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>replaceTrack</code></dfn></dt>
+            <dt><code>replaceTrack</code></dt>
             <dd>
               <p>Attempts to replace the track being sent with another track
               provided (or with a null track). <code>replaceTrack</code> operates
