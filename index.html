@@ -1095,7 +1095,7 @@ interface RTCIceGathererEvent : Event {
                 <p>However, this specification uses a simplified <a>alg</a>
                 approach. The length of the HMAC key
                 (<code>RTCOAuthCredential.macKey</code>) MAY be any multiple of
-                bytes greater than 20 (160 bits). When the <a>ICE Agent</a>
+                bytes greater than 20 (160 bits). When the <code><a>RTCIceGatherer</a></code>
                 computes the message integrity attributes it supports, it will
                 shorten the key to the length required by each algorithm,
                 according to [[!RFC7635]]. For example, a 256-bit key can be
@@ -1152,11 +1152,10 @@ interface RTCIceGathererEvent : Event {
         <h4><dfn>RTCOAuthCredential</dfn> Dictionary</h4>
         <p>The <code>RTCOAuthCredential</code> dictionary is used to describe
         the OAuth auth credential information which is used by the STUN/TURN
-        client (inside the <a>ICE Agent</a>) to authenticate against a STUN/TURN
-        server, as described in [[!RFC7635]]. Note that the <code>kid</code>
-        parameter is not located in this dictionary, but in
-        <code>RTCIceServer</code>'s <code>username</code> member.
-        </p>
+        client (inside the <code><a>RTCIceGatherer</a></code>) to authenticate
+        against a STUN/TURN server, as described in [[!RFC7635]]. Note that
+        the <code>kid</code> parameter is not located in this dictionary, but
+        in <code>RTCIceServer</code>'s <code>username</code> member.</p>
         <div>
           <pre class="idl">dictionary RTCOAuthCredential {
     required DOMString        macKey;
