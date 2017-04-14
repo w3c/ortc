@@ -3081,8 +3081,37 @@ interface RTCRtpSender : RTCStatsProvider {
             <dt><dfn><code>setTrack</code></dfn></dt>
             <dd>
               <p>Attempts to replace the track being sent with another track
+              provided (or with a null track). The deprecated <code>setTrack</code>
+              method operates identically to the <code>replaceTrack</code> method.</p>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">track</td>
+                    <td class="prmType"><code><a>MediaStreamTrack</a></code></td>
+                    <td class="prmNullTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              </div>
+            </dd>
+            <dt><dfn><code>replaceTrack</code></dfn></dt>
+            <dd>
+              <p>Attempts to replace the track being sent with another track
               provided (or with a null track).</p>
-              <p>When the <code>setTrack()</code> method is invoked, the user
+              <p>When the <code>replaceTrack()</code> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
                 <li>
@@ -3090,7 +3119,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
-                  on which <code>setTrack()</code> is invoked.</p>
+                  on which <code>replaceTrack()</code> is invoked.</p>
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.stop()</code> has been called,
@@ -3121,35 +3150,6 @@ interface RTCRtpSender : RTCStatsProvider {
                   </ol>
                 </li>
               </ol>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">track</td>
-                    <td class="prmType"><code><a>MediaStreamTrack</a></code></td>
-                    <td class="prmNullTrue"><span role="img" aria-label=
-                    "True">&#10004;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
-              </div>
-            </dd>
-            <dt><dfn><code>replaceTrack</code></dfn></dt>
-            <dd>
-              <p>Attempts to replace the track being sent with another track
-              provided (or with a null track). <code>replaceTrack</code> operates
-              identically to the deprecated <code>setTrack</code> method.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
