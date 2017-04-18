@@ -6710,7 +6710,7 @@ var encodings = [
     <section id="rtcdtmfsender-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[ Constructor (RTCRtpSender sender)]
+        <pre class="idl">[ NamedConstructor=RTCDtmfSender (RTCRtpSender sender)]
 interface RTCDTMFSender {
     readonly        attribute boolean      canInsertDTMF;
     void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
