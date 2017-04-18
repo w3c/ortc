@@ -9436,10 +9436,11 @@ function signalAssertion(assertion) {
       <p>WebRTC 1.0 supports the <code>replaceTrack</code> method and the
       <code>RTCDTMFSender</code> interface, whereas ORTC originally supported
       the <code>setTrack</code> method and the <code>RTCDtmfSender</code>
-      interface. In order to provide backward compatibility, this specification has
-      added <code>replaceTrack</code> as an alias for <code>setTrack</code>.
-      and the <code>RTCDTMFSender</code> interface, which should be treated
-      as an alias for <code>RTCDtmfSender</code> interface (now deprecated).</p>
+      interface. In order to provide backward compatibility, this specification
+      provides <code>setTrack</code> (now deprecated) as an alias for
+      <code>replaceTrack</code>.  The <code>RTCDTMFSender</code> interface
+      exposes the attributes and methods formerly provided by the
+      the <code>RTCDtmfSender</code> interface.</p>
     </section>
     <section id="bundle*">
       <h3>BUNDLE</h3>
