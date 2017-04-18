@@ -4415,14 +4415,14 @@ mySignaller.myOfferTracks({
       packets to the correct <code><a>RTCRtpReceiver</a></code> the following steps
       MUST be followed:</p>
       <ol>
-        <ol>muxId table construction
+        <ul>muxId table construction
           <li>If <code><var>parameters</var>.muxId</code> is set,
           <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <var>receiver</var>.</li>
           <li>If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
            <var>receiver</var>, then <code>receiver.receive()</code> will be rejected with
            <code>InvalidParameters</code>.</li>
-         </ol>
-         <ol>SSRC table construction
+         </ul>
+         <ul>SSRC table construction
            <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
            to <var>receiver</var> for each entry where
            <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set, for values of
@@ -4438,18 +4438,13 @@ mySignaller.myOfferTracks({
             <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
             than <var>receiver</var>, then <code>receiver.receive()</code> will be rejected 
             with <code>InvalidParameters</code>.</li>
-          </ol>
-          <ol>payload type table construction
-            <li>If <code><var>parameters</var>.muxId</code> is set, abort these steps.</li>
-            <li>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
-            values of <var>i</var> from 0 to <code>encodings.length-1</code>, then add
-            entries to <code>pt_table</code> by setting
-            <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code> to
+          </ul>
+          <ul>payload type table construction
+            <li>Set <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code> to
             <var>receiver</var>, for values of <var>j</var> from 0 to <code>codecs.length-1</code>.</li>
             <li>If <code>pt_table[<var>pt</var>]</code> is already set to a value other than
-            <var>receiver</var> then <code>receiver.receive()</code> will be rejected with
-            <code>InvalidParameters</code>.</li>
-           </ol>
+            <var>receiver</var> then set <code>pt_table[<var>pt</var>]</code> to null.</li>
+           </ul>
         </ol>
       </section>
       <section id="rtppackethandling*">
