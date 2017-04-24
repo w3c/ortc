@@ -2841,15 +2841,15 @@ function accept(mySignaller, remote) {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor ((MediaStreamTrack or DOMString) trackOrKind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
+        [ Constructor ((MediaStreamTrack or DOMString) trackOrKind, optional RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
 interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute MediaStreamTrack?  track;
-    readonly        attribute RTCDtlsTransport  transport;
+    readonly        attribute RTCDtlsTransport?  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     readonly        attribute DOMString kind;
     void                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
-    Promise&lt;void&gt;             setTrack (MediaStreamTrack track);  // deprecated
-    Promise&lt;void&gt;             replaceTrack (MediaStreamTrack track);
+    Promise&lt;void&gt;             setTrack (MediaStreamTrack? track);  // deprecated
+    Promise&lt;void&gt;             replaceTrack (MediaStreamTrack? track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
     Promise&lt;void&gt;             send (RTCRtpParameters parameters);
     void                      stop ();
@@ -2860,6 +2860,11 @@ interface RTCRtpSender : RTCStatsProvider {
           <p>When the constructor is invoked, the User Agent MUST run the
               following steps:</p>
               <ol>
+               <li>
+                  <p>If <var>transport</var> is unset, and <var>rtcpTransport</var>
+                    is set, throw an <code>InvalidParameters</code> exception and
+                    abort all further steps.</p>
+                </li>
                 <li>
                   <p>If the first argument is a string, let it be
                   <var>kind</var> and run the following steps:</p>
@@ -2883,7 +2888,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Create an <code><a>RTCRtpSender</a></code> with <var>track</var>,
-                  <var>transport</var> and <var>rtcpTransport</var> (if provided)
+                  <var>transport</var> (if provided) and <var>rtcpTransport</var> (if provided)
                   and let <var>sender</var> be the result.</p>
                 </li>
               </ol>
@@ -2915,8 +2920,8 @@ interface RTCRtpSender : RTCStatsProvider {
                     <td class="prmType"><code>RTCDtlsTransport</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
+                    <td class="prmOptTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
                     <td class="prmDesc"></td>
                   </tr>
                   <tr>
@@ -2948,10 +2953,10 @@ interface RTCRtpSender : RTCStatsProvider {
               the <code><a>RTCRtpSender</a></code> does not send RTP.</p>
             </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
+            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly , nullable</dt>
             <dd>
               <p>The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is
-              sent and received. When BUNDLE is used, many
+              sent and received (if provided). When BUNDLE is used, many
               <code><a>RTCRtpSender</a></code> objects will share one
               <code>rtcpTransport</code> and will all send and receive RTCP over the same
               <code><a>RTCDtlsTransport</a></code>. When RTCP mux is used,
@@ -2994,8 +2999,8 @@ interface RTCRtpSender : RTCStatsProvider {
             <dd>
               <p><dfn>setTransport()</dfn> 
               attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
-              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
-              <code>rtcpTransport</code> with the transport(s) provided.</p>
+              <code>transport</code> (if set) and RTCP <code><a>RTCDtlsTransport</a></code>
+              <code>rtcpTransport</code> (if used) with the transport(s) provided.</p>
               <p>When the <code>setTransport()</code> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
@@ -3040,9 +3045,9 @@ interface RTCRtpSender : RTCStatsProvider {
                   exception.</p>
                 </li>
                 <li>
-                  <p>Replace <code>transport</code> with <var>withTransport</var> and
-                  <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var>
-                  and seamlessly send over the new transport(s).</p>
+                  <p>Set <code>transport</code> to <var>withTransport</var> and
+                  <code>rtcpTransport</code> to <var>withRtcpTransport</var>
+                  (if provided) and seamlessly send over the new transport(s).</p>
                 </li>
               </ol>
               <table class="parameters">
@@ -3222,6 +3227,10 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.stop()</code> has been called,
+                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>sender</var>.transport</code> is unset,
                   reject <var>p</var> with <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
