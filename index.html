@@ -2848,8 +2848,8 @@ interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     readonly        attribute DOMString kind;
     void                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
-    Promise&lt;void&gt;             setTrack (MediaStreamTrack track);  // deprecated
-    Promise&lt;void&gt;             replaceTrack (MediaStreamTrack track);
+    Promise&lt;void&gt;             setTrack (MediaStreamTrack? track);  // deprecated
+    Promise&lt;void&gt;             replaceTrack (MediaStreamTrack? track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
     Promise&lt;void&gt;             send (RTCRtpParameters parameters);
     void                      stop ();
