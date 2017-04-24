@@ -2860,6 +2860,11 @@ interface RTCRtpSender : RTCStatsProvider {
           <p>When the constructor is invoked, the User Agent MUST run the
               following steps:</p>
               <ol>
+               <li>
+                  <p>If <var>transport</var> is unset, and <var>rtcpTransport</var>
+                    is set, throw an <code>InvalidParameters</code> exception and
+                    abort all further steps.</p>
+                </li>
                 <li>
                   <p>If the first argument is a string, let it be
                   <var>kind</var> and run the following steps:</p>
