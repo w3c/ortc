@@ -8105,7 +8105,7 @@ function initiate(mySignaller) {
 
   mySignaller.sendInitiate({
     "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtlsParameters,
+    "dtls": dtls.getLocalParameters(),
     "sctpCapabilities": RTCSctpTransport.getCapabilities(),
     "port": sctp.port,
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
@@ -8172,7 +8172,7 @@ function accept(mySignaller, remote) {
   
   mySignaller.sendAccept({
     "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtlsParameters,
+    "dtls": dtls.getLocalParameters(),
     "sctpCapabilities": RTCSctpTransport.getCapabilities(),
     "port": sctp.port,
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
