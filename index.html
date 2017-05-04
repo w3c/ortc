@@ -5819,7 +5819,7 @@ interface RTCRtpUnhandledEvent : Event {
              unsigned long       maxBitrate;
              double              resolutionScale;
              double              framerateScale;
-             unsigned long       maxFramerate;
+             double              maxFramerate;
              boolean             active = true;
              DOMString           encodingId;
              sequence&lt;DOMString&gt; dependencyEncodingIds;
@@ -5915,7 +5915,7 @@ interface RTCRtpUnhandledEvent : Event {
               dependent layers.</p>
             </dd>
             <dt><dfn><code>maxFramerate</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType"><a>double</a></span></dt>
             <dd>
               <p>The maximum framerate to use for this encoding. This setting is not used
               for scalable video coding. If <code><a>framerateScale</a></code> is set,
