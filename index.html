@@ -7664,7 +7664,11 @@ interface RTCDataChannel : EventTarget {
               channel to be open. As noted in [[!DATA-PROT]], DATA_CHANNEL_OPEN is not
               sent to the remote peer nor is DATA_CHANNEL_ACK expected in return. If set
               to false, the remote party will receive an ondatachannel event with a
-              system constructed <code><a>RTCDataChannel</a></code> object.</p>
+              system constructed <code><a>RTCDataChannel</a></code> object. Note that
+              <code><a>RTCDataChannel</a></code>s utilizing
+              <code><a>RTCQuicTransport</a></code> are never negotiated by the
+              application, so that the <code>negotiated</code> attribute is always
+              unset.</p>
             </dd>
             <dt><dfn><code>id</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span></dt>
