@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2017-05-01",
+  publishDate: "2017-05-12",
   editors: [
     {
       name: "Robin Raymond",
@@ -99,6 +99,15 @@ var respecConfig = {
         "G. Salgueiro"
       ],
       "status": "01 September 2016. Internet draft (work in progress)",
+      "publisher": "IETF"
+    },
+    "QUIC-DATA": {
+      "title": "QUIC Data Channels",
+      "href": "https://tools.ietf.org/html/draft-thatcher-quic-data-channel",
+      "authors": [
+        "P. Thatcher"
+      ],
+      "status": "12 May 2017. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
