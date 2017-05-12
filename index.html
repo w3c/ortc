@@ -8255,11 +8255,11 @@ function accept(mySignaller, remote) {
         <pre class="idl">
         [ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
 interface RTCQuicTransport : RTCDataTransport  {
-    readonly        attribute FrozenArray&lt;RTCCertificate&gt; certificates;
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCQuicTransportState    state;
-    RTCDtlsParameters     getLocalParameters ();
-    RTCDtlsParameters?    getRemoteParameters ();
+    RTCQuicParameters     getLocalParameters ();
+    RTCQuicParameters?    getRemoteParameters ();
+    sequence&lt;RTCCertificate&gt; getCertificates ();
     sequence&lt;ArrayBuffer&gt; getRemoteCertificates ();
     void                  start (RTCQuicParameters remoteParameters);
     void                  stop ();
@@ -8310,11 +8310,6 @@ interface RTCQuicTransport : RTCDataTransport  {
           <h2>Attributes</h2>
           <dl data-link-for="RTCQuicTransport" data-dfn-for="RTCQuicTransport" class=
           "attributes">
-            <dt><dfn><code>certificates</code></dfn> of type <span class=
-            "idlAttrType">sequence&lt;<a>RTCCertificate</a>&gt;</span>, readonly</dt>
-            <dd>
-              <p>The certificates provided in the constructor.</p>
-            </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceTransport</a></span>, readonly</dt>
             <dd>
@@ -8385,6 +8380,17 @@ interface RTCQuicTransport : RTCDataTransport  {
               </div>
               <div>
                 <em>Return type:</em> <code><a>RTCQuicParameters</a></code>, nullable
+              </div>
+            </dd>
+            <dt><code>getCertificates</code></dt>
+            <dd>
+              <p><dfn>getCertificates()</dfn> returns the certificates provided to
+              the constructor.</p>
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>sequence&lt;RTCCertificate&gt;</code>
               </div>
             </dd>
             <dt><code>getRemoteCertificates</code></dt>
@@ -8467,7 +8473,6 @@ interface RTCQuicTransport : RTCDataTransport  {
         <pre class="idl">dictionary RTCQuicParameters {
              RTCQuicRole                  role = "auto";
              sequence&lt;RTCDtlsFingerprint&gt; fingerprints;
-             unsigned long maxMessageSize;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCQuicParameters</a> Members</h2>
@@ -8483,12 +8488,6 @@ interface RTCQuicTransport : RTCDataTransport  {
             "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span></dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
-            </dd>
-            <dt><dfn><code>maxMessageSize</code></dfn> of type <span class=
-            "idlMemberType">unsigned long</span></dt>
-            <dd>
-                <p>The maximum size of data that can be passed to <code><a>RTCDataChannel</a></code>'s
-                <code>send()</code> method.</p>
             </dd>
           </dl>
         </section>
@@ -8672,8 +8671,7 @@ function initiate(mySignaller) {
   var parameters = {
     label: "channel1",
     ordered: true,
-    protocol: "ship",
-    negotiated: false
+    protocol: "ship"
   };
 
   mySignaller.sendInitiate({
@@ -8757,10 +8755,7 @@ function accept(mySignaller, remote) {
 
   // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
-  // Assume in-band signalling. We could also have sent
-  // RTCDataChannelParameters in signalling and constructed
-  // the data channel with negotiated: true.
-
+  // QUIC only supports in-band signalling.
   quic.ondatachannel = function(channel) {
     channel.onmessage = function(message) {
       if (message === "foo") {
