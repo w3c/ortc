@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2017-04-14",
+  publishDate: "2017-05-15",
   editors: [
     {
       name: "Robin Raymond",
@@ -88,7 +88,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "25 October 2016. Internet Draft (work in progress)",
+      "status": "13 March 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "MUX-FIXES": {
@@ -477,7 +477,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "27 October 2016. Internet Draft (work in progress)",
+      "status": "12 April 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -531,7 +531,7 @@ var respecConfig = {
         "C. Jennings",
         "E. Rescorla"
       ],
-      "status": "16 January 2017. Internet Draft (work in progress)",
+      "status": "29 March 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "REMB": {
@@ -591,7 +591,7 @@ var respecConfig = {
         "C. Holmberg",
         "J. Rosenberg"
       ],
-      "status": "22 December 2016. Internet Draft (work in progress)",
+      "status": "20 April 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "STUN-PARAMETERS": {
@@ -641,7 +641,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "14 December 2016 (work in progress)",
+      "status": "31 March 2017 (work in progress)",
       "publisher": "W3C"
     }
   }
