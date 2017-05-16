@@ -88,7 +88,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "25 October 2016. Internet Draft (work in progress)",
+      "status": "13 March 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "MUX-FIXES": {
@@ -107,7 +107,7 @@ var respecConfig = {
       "authors": [
         "P. Thatcher"
       ],
-      "status": "12 May 2017. Internet draft (work in progress)",
+      "status": "15 May 2017. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -529,7 +529,7 @@ var respecConfig = {
         "M. Zanaty",
         "G. Mandyam" 
       ],
-      "status": "27 March 2017. Internet Draft (work in progress)",
+      "status": "31 October 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "JSEP": {
@@ -631,7 +631,7 @@ var respecConfig = {
         "J. Uberti",
         "P. Saint-Andre"
       ],
-      "status": "23 April 2017. Internet Draft (work in progress)",
+      "status": "08 September 2016. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TS26.114": {
