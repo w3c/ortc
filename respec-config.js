@@ -91,6 +91,15 @@ var respecConfig = {
       "status": "13 March 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "QUIC-DATA": {
+      "title": "QUIC Data Channels",
+      "href": "https://tools.ietf.org/html/draft-thatcher-quic-data-channel",
+      "authors": [
+        "P. Thatcher"
+      ],
+      "status": "15 May 2017. Internet draft (work in progress)",
+      "publisher": "IETF"
+    },
     "RID": {
       "title": "RTP Stream Identifier Source Description (SDES)",
       "href": "https://tools.ietf.org/html/draft-ietf-avtext-rid",
