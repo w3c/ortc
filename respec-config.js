@@ -91,16 +91,6 @@ var respecConfig = {
       "status": "13 March 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
-    "MUX-FIXES": {
-      "title": "Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)",
-      "href": "https://tools.ietf.org/html/draft-ietf-avtcore-rfc5764-mux-fixes",
-      "authors": [
-        "M. Petit-Huguenin",
-        "G. Salgueiro"
-      ],
-      "status": "01 September 2016. Internet draft (work in progress)",
-      "publisher": "IETF"
-    },
     "RID": {
       "title": "RTP Stream Identifier Source Description (SDES)",
       "href": "https://tools.ietf.org/html/draft-ietf-avtext-rid",
@@ -458,6 +448,16 @@ var respecConfig = {
         "C. Bran"
       ],
       "status": "May 2016. RFC",
+      "publisher": "IETF"
+    },
+    "RFC7983": {
+      "title": "Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)",
+      "href": "https://tools.ietf.org/html/rfc7983",
+      "authors": [
+        "M. Petit-Huguenin",
+        "G. Salgueiro"
+      ],
+      "status": "September 2016. RFC",
       "publisher": "IETF"
     },
     "ABS-SEND-TIME": {
