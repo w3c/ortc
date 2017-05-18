@@ -8520,7 +8520,7 @@ interface RTCQuicTransport : RTCDataTransport  {
                 <code>controlling</code> role acts as the QUIC server. Since
                 <code><a>RTCQuicRole</a></code> is initialized to <code>auto</code> on
                 construction of an <code><a>RTCQuicTransport</a></code> object,
-                <code>transport.getLocalParameters().RTCQuicRole</code> will have an
+                <code>transport.getLocalParameters().role</code> will have an
                 initial value of <code>auto</code>.</p>
               </td>
             </tr>
@@ -8529,7 +8529,7 @@ interface RTCQuicTransport : RTCDataTransport  {
               <td>
                 <p>The QUIC client role. A transition to <code>client</code> will occur
                 if <code>start(<var>remoteParameters</var>)</code> is called with
-                <code>remoteParameters.RTCQuicRole</code> having a value of
+                <code>remoteParameters.role</code> having a value of
                 <code>server</code>. If <code><a>RTCQuicRole</a></code> had previously
                 had a value of <code>server</code> (e.g. due to the
                 <code><a>RTCQuicTransport</a></code> having previously received packets
@@ -8546,7 +8546,7 @@ interface RTCQuicTransport : RTCDataTransport  {
                 transition to <code>server</code>, even before <code>start()</code> is
                 called. A transition from <code>auto</code> to <code>server</code> will
                 also occur if <code>start(<var>remoteParameters</var>)</code> is called
-                with <code>remoteParameters.RTCQuicRole</code> having a value of
+                with <code>remoteParameters.role</code> having a value of
                 <code>client</code>.</p>
               </td>
             </tr>
