@@ -2299,9 +2299,9 @@ mySignaller.send({
         <pre class="idl">
         [ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
 interface RTCDtlsTransport : RTCStatsProvider  {
-    readonly        attribute FrozenArray&lt;RTCCertificate&gt; certificates;
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCDtlsTransportState    state;
+    sequence&lt;RTCCertificate&gt;     getCertificates ();
     RTCDtlsParameters     getLocalParameters ();
     RTCDtlsParameters?    getRemoteParameters ();
     sequence&lt;ArrayBuffer&gt; getRemoteCertificates ();
@@ -2353,11 +2353,6 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Attributes</h2>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "attributes">
-            <dt><dfn><code>certificates</code></dfn> of type <span class=
-            "idlAttrType">sequence&lt;<a>RTCCertificate</a>&gt;</span>, readonly</dt>
-            <dd>
-              <p>The certificates provided in the constructor.</p>
-            </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceTransport</a></span>, readonly</dt>
             <dd>
@@ -2391,6 +2386,17 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Methods</h2>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "methods">
+            <dt><code>getCertificates</code></dt>
+            <dd>
+              <p><dfn>getCertificates()</dfn> returns the certificates provided in
+              the constructor.</p>
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>sequence&lt;RTCCertificate&gt;</code>
+              </div>
+            </dd>
             <dt><code>getLocalParameters</code></dt>
             <dd>
               <p><dfn>getLocalParameters()</dfn> obtains the DTLS parameters of the local
