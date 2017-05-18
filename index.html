@@ -2723,7 +2723,7 @@ function initiate(mySignaller) {
   });
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
-    // Figure out which IceTranport a remote candidate relates to by matching
+    // Figure out which IceTransport a remote candidate relates to by matching
     // the userNameFragment/password
     var j = 0;
     for (j = 0; j &lt; iceTransport.length; j++) {
