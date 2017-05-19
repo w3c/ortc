@@ -7103,9 +7103,9 @@ sender.insertDTMF("123");
       data channel between two peers. There are two ways to establish a connection with
       <code><a>RTCDataChannel</a></code>. The first way is to construct an
       <code><a>RTCDataChannel</a></code> at one of the peers with the
-      <code><a>RTCDataChannelParameters</a>.negotiated</code> attribute unset (required
-      when running over an <code><a>RTCQuicTransport</a></code>) or set to
-      its default value false (allowed when running over an
+      <code><a>RTCDataChannelParameters</a>.negotiated</code> attribute set to
+      its default value false (required when running over an
+      <code><a>RTCQuicTransport</a></code> and allowed when running over an
       <code><a>RTCSctpTransport</a></code>). This will announce the new channel
       in-band and trigger an <code>ondatachannel</code> event with the corresponding
       <code><a>RTCDataChannel</a></code> object at the other peer. The second way
