@@ -5,9 +5,9 @@ var respecConfig = {
   editors: [
     {
       name: "Robin Raymond",
-      url: "http://about.me/robinraymond",
+      url: "https://about.me/robinraymond",
       company: "Optical Tone Ltd.",
-      companyURL: "http://opticaltone.com/"
+      companyURL: "https://opticaltone.com/"
     }
   ],
   authors: [
@@ -15,7 +15,7 @@ var respecConfig = {
       name: "Bernard Aboba",
       url: "https://plus.google.com/+BernardAboba/about",
       company: "Microsoft Corporation",
-      companyURL: "http://www.microsoft.com/"
+      companyURL: "https://www.microsoft.com/"
     },
     {
       name: "Justin Uberti",
@@ -25,7 +25,7 @@ var respecConfig = {
     }
   ],
   wg: "Object-RTC API Community Group",
-  wgURI: "http://www.w3.org/community/ortc/",
+  wgURI: "https://www.w3.org/community/ortc/",
   wgPublicList: "public-ortc",
   wgPatentURI: "",
   "issueBase": "https://github.com/w3c/ortc/issues/",
@@ -49,32 +49,32 @@ var respecConfig = {
   localBiblio: {
     "IANA-RTP-2": {
       "title": "RTP Payload Format media types",
-      "href": "http://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-2",
+      "href": "https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-2",
       "publisher": "IANA"
     },
     "IANA-RTP-10": {
       "title": "RTP Compact Header Extensions",
-      "href": "http://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-10",
+      "href": "https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-10",
       "publisher": "IANA"
     },
     "IANA-SDP-14": {
       "title": "'rtcp-fb' Attribute Values",
-      "href": "http://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-14",
+      "href": "https://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-14",
       "publisher": "IANA"
     },
     "IANA-SDP-15": {
       "title": "'ack' and 'nack' Attribute Values",
-      "href": "http://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-15",
+      "href": "https://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-15",
       "publisher": "IANA"
     },
     "IANA-SDP-19": {
       "title": "Codec Control Messages",
-      "href": "http://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-19",
+      "href": "https://www.iana.org/assignments/sdp-parameters/sdp-parameters.xhtml#sdp-parameters-19",
       "publisher": "IANA"
     },
     "IANA-STUN-6": {
       "title": "STUN Error Codes",
-      "href": "http://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
+      "href": "https://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
       "publisher": "IANA"
     },
     "MMUSIC-RID": {
@@ -605,7 +605,7 @@ var respecConfig = {
     },
     "STUN-PARAMETERS": {
       "authors":["IETF"],
-      "href": "http://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
+      "href": "https://www.iana.org/assignments/stun-parameters/stun-parameters.xhtml#stun-parameters-6",
       "publisher": "IANA",
       "status": "IANA Parameter Assignment",
       "title": "STUN Error Codes",
@@ -645,7 +645,7 @@ var respecConfig = {
     },
     "WEBRTC-STATS": {
       "title": "Identifiers for WebRTC's Statistics API",
-      "href": "http://w3c.github.io/webrtc-stats/",
+      "href": "https://w3c.github.io/webrtc-stats/",
       "authors": [
         "Harald Alvestrand",
         "Varun Singh"
