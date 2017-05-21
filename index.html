@@ -2291,8 +2291,7 @@ mySignaller.send({
       <code>remoteParameters.fingerprints[j].value</code> and
       <code>RTCDtlsFingerprint.algorithm</code> matches
       <code>remoteParameters.fingerprints[j].algorithm</code> for any value of
-      <var>j</var>, the remote fingerprint is verified.</p>
-      <p>After the DTLS handshake exchange
+      <var>j</var>, the remote fingerprint is verified. After the DTLS handshake exchange
       completes (but before the remote fingerprint is verified) incoming media packets
       may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be
       provided to avoid loss of media prior to remote fingerprint validation (which can
