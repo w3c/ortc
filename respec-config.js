@@ -1,7 +1,8 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2017-05-19",
+  publishDate: "2017-05-22",
+  edDraftURI: "https://rawgit.com/w3c/ortc/master/index.html",
   editors: [
     {
       name: "Robin Raymond",
@@ -25,7 +26,7 @@ var respecConfig = {
     }
   ],
   wg: "Object-RTC API Community Group",
-  wgURI: "http://www.w3.org/community/ortc/",
+  wgURI: "https://www.w3.org/community/ortc/",
   wgPublicList: "public-ortc",
   wgPatentURI: "",
   "issueBase": "https://github.com/w3c/ortc/issues/",
