@@ -2244,34 +2244,16 @@ mySignaller.send({
   </section>
   <section id="rtcdtlstransport*">
     <h2>The RTCDtlsTransport Object</h2>
-    <p>The <dfn><code>RTCDtlsTransport</code></dfn> object includes information relating
-    to Datagram Transport Layer Security (DTLS) transport.</p>
-    <section id="rtcdtlstransport-overview*">
-      <h3>Overview</h3>
-      <p>An <code><a>RTCDtlsTransport</a></code> instance is associated to an
-      <code><a>RTCRtpSender</a></code>, an <code><a>RTCRtpReceiver</a></code>,
-      or an <code><a>RTCSctpTransport</a></code> instance.</p>
-    </section>
-    <section id="rtcdtlstransport-operation*">
-      <h3>Operation</h3>
-      <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed
-      using an <code><a>RTCIceTransport</a></code> and a sequence of
-      <code><a>RTCCertificate</a></code> objects.
-      If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
-      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
-      state, an <code>InvalidStateError</code> exception is thrown.
-      If <code>certificates</code> is non-empty,
-      check that the <code>expires</code> attribute of each
-      <code><a>RTCCertificate</a></code> object is in the future.
-      If a certificate has expired, throw an <code>InvalidParameter</code>
-      exception; otherwise, store the certificates.</p>
-      <p>Since the Datagram
-      Transport Layer Security (DTLS) negotiation occurs between transport endpoints
-      determined via ICE, implementations of this specification <em class="rfc2119"
-      title="MUST">MUST</em> support multiplexing of STUN, TURN, DTLS and RTP and/or
-      RTCP. This multiplexing, originally described in [[!RFC5764]] Section 5.1.2, is
-      updated in [[!RFC7983]].</p>
-      <p>To complete the DTLS negotiation it is
+      <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed using an
+      <code><a>RTCIceTransport</a></code> and a sequence of
+      <code><a>RTCCertificate</a></code> objects. If <code>certificates</code> is
+      non-empty, check that the <code>expires</code> attribute of each
+      <code><a>RTCCertificate</a></code> object is in the future. If a certificate has
+      expired, throw an InvalidParameter exception; otherwise, store the
+      certificates.</p>
+      <p>A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119"
+      title="MUST">MUST</em> listen and respond to incoming DTLS packets before
+      <code>start()</code> is called. However, to complete the negotiation it is
       necessary to verify the remote fingerprint, which is dependent on
       <code>remoteParameters</code>, passed to <code>start()</code>. To verify the remote
       fingerprint, compute the fingerprint <var>value</var> for the selected remote
@@ -2281,33 +2263,19 @@ mySignaller.send({
       <code>remoteParameters.fingerprints[j].value</code> and
       <code>RTCDtlsFingerprint.algorithm</code> matches
       <code>remoteParameters.fingerprints[j].algorithm</code> for any value of
-      <var>j</var>, the remote fingerprint is verified.</p>
-      <p>After the DTLS handshake exchange
+      <var>j</var>, the remote fingerprint is verified. After the DTLS handshake exchange
       completes (but before the remote fingerprint is verified) incoming media packets
       may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be
       provided to avoid loss of media prior to remote fingerprint validation (which can
       begin after <code>start()</code> is called).</p>
-      <p>An <code><a>RTCDtlsTransport</a></code> has a [[<dfn>dtlsRole</dfn>]] internal
-      slot. On construction, the [[<code><a>dtlsRole</a></code>]] internal slot is set to
-      <code>auto</code>.  If the [[<code><a>dtlsRole</a></code>]] internal slot is
-      <code>auto</code> it will transition to <code>client</code>
-      if <code>start(<var>remoteParameters</var>)</code>
-      is called with <code>remoteParameters.role</code>
-      having a value of <code>server</code>.</p>
-      <p>A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119"
-      title="MUST">MUST</em> listen and respond to incoming DTLS packets before
-      <code>start()</code> is called. If the [[<code><a>dtlsRole</a></code>]] internal slot is set to
-      <code>auto</code> and the <code><a>RTCDtlsTransport</a></code> receives
-      a DTLS client_hello packet, the [[<code><a>dtlsRole</a></code>]] internal slot will
-      transition to <code>server</code>, even before <code>start()</code>
-      is called, and will remain there even if
-      <code>start(<var>remoteParameters</var>)</code> is called with
-      <code>remoteParameters.role</code> having a value of <code>server</code>.
-      The [[<code><a>dtlsRole</a></code>]] internal slot will also
-      transition from <code>auto</code> to <code>server</code> if
-      <code>start(<var>remoteParameters</var>)</code> is called
-      with <code>remoteParameters.role</code> having a value of
-      <code>client</code>.</p>
+      <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
+      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
+      state, an <code>InvalidStateError</code> exception is thrown. Since the Datagram
+      Transport Layer Security (DTLS) negotiation occurs between transport endpoints
+      determined via ICE, implementations of this specification <em class="rfc2119"
+      title="MUST">MUST</em> support multiplexing of STUN, TURN, DTLS and RTP and/or
+      RTCP. This multiplexing, described in [[!RFC5764]] Section 5.1.2, is
+      updated in [[!RFC7983]].</p>
       <p>An <code><a>RTCDtlsTransport</a></code> object in the <code>closed</code> or
       <code>failed</code> states can be garbage-collected when it is no longer
       referenced.</p>
