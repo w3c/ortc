@@ -44,7 +44,7 @@
         Non-normative ORTC Big Picture Diagram
       </figcaption>
     </figure>
-    <p>In the figure above, the <code><a>RTCRtpSender</a></code> (<a href=
+     <p>In the figure above, the <code><a>RTCRtpSender</a></code> (<a href=
     "#rtcrtpsender*">Section 5</a>) encodes the track provided as input, which is
     transported over a <code><a>RTCDtlsTransport</a></code> (<a href=
     "#rtcdtlstransport*">Section 4</a>). An <code><a>RTCDataChannel</a></code> (<a href=
@@ -80,10 +80,12 @@
     RTP dictionaries are described in <a href="#rtcrtpdictionaries*">Section 9</a>, the
     Statistics API is described in <a href="#statistics-api">Section 14</a>, the Identity
     API is described in <a href="#identity-api">Section 15</a>, the Certificate API is
-    described in <a href="#certificate-api">Section 16</a>, an event summary is provided
-    in <a href="#event-summary">Section 17</a>, WebRTC 1.0 compatibility issues are
-    discussed in <a href="#webrtc-compat*">Section 18</a>, and complete examples are
-    provided in <a href="#examples*">Section 19</a>.</p>
+    described in <a href="#certificate-api">Section 16</a>, privacy and security
+    considerations are described in <a href="#privacy-security">Section 17</a>,
+    an event summary is provided
+    in <a href="#event-summary">Section 18</a>, WebRTC 1.0 compatibility issues are
+    discussed in <a href="#webrtc-compat*">Section 19</a>, and complete examples are
+    provided in <a href="#examples*">Section 20</a>.</p>
     <section>
       <h3>Terminology</h3>
       <p>The <code><a href=
@@ -2247,21 +2249,29 @@ mySignaller.send({
     <section id="rtcdtlstransport-overview*">
       <h3>Overview</h3>
       <p>An <code><a>RTCDtlsTransport</a></code> instance is associated to an
-      <code><a>RTCRtpSender</a></code>, an <code><a>RTCRtpReceiver</a></code>, or an
-      <code><a>RTCSctpTransport</a></code> instance.</p>
+      <code><a>RTCRtpSender</a></code>, an <code><a>RTCRtpReceiver</a></code>,
+      or an <code><a>RTCSctpTransport</a></code> instance.</p>
     </section>
     <section id="rtcdtlstransport-operation*">
       <h3>Operation</h3>
-      <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed using an
-      <code><a>RTCIceTransport</a></code> and a sequence of
-      <code><a>RTCCertificate</a></code> objects. If <code>certificates</code> is
-      non-empty, check that the <code>expires</code> attribute of each
-      <code><a>RTCCertificate</a></code> object is in the future. If a certificate has
-      expired, throw an InvalidParameter exception; otherwise, store the
-      certificates.</p>
-      <p>A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119"
-      title="MUST">MUST</em> listen and respond to incoming DTLS packets before
-      <code>start()</code> is called. However, to complete the negotiation it is
+      <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed
+      using an <code><a>RTCIceTransport</a></code> and a sequence of
+      <code><a>RTCCertificate</a></code> objects.
+      If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
+      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
+      state, an <code>InvalidStateError</code> exception is thrown.
+      If <code>certificates</code> is non-empty,
+      check that the <code>expires</code> attribute of each
+      <code><a>RTCCertificate</a></code> object is in the future.
+      If a certificate has expired, throw an <code>InvalidParameter</code>
+      exception; otherwise, store the certificates.</p>
+      <p>Since the Datagram
+      Transport Layer Security (DTLS) negotiation occurs between transport endpoints
+      determined via ICE, implementations of this specification <em class="rfc2119"
+      title="MUST">MUST</em> support multiplexing of STUN, TURN, DTLS and RTP and/or
+      RTCP. This multiplexing, originally described in [[!RFC5764]] Section 5.1.2, is
+      updated in [[!RFC7983]].</p>
+      <p>To complete the DTLS negotiation it is
       necessary to verify the remote fingerprint, which is dependent on
       <code>remoteParameters</code>, passed to <code>start()</code>. To verify the remote
       fingerprint, compute the fingerprint <var>value</var> for the selected remote
@@ -2271,19 +2281,33 @@ mySignaller.send({
       <code>remoteParameters.fingerprints[j].value</code> and
       <code>RTCDtlsFingerprint.algorithm</code> matches
       <code>remoteParameters.fingerprints[j].algorithm</code> for any value of
-      <var>j</var>, the remote fingerprint is verified. After the DTLS handshake exchange
+      <var>j</var>, the remote fingerprint is verified.</p>
+      <p>After the DTLS handshake exchange
       completes (but before the remote fingerprint is verified) incoming media packets
       may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be
       provided to avoid loss of media prior to remote fingerprint validation (which can
       begin after <code>start()</code> is called).</p>
-      <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
-      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
-      state, an <code>InvalidStateError</code> exception is thrown. Since the Datagram
-      Transport Layer Security (DTLS) negotiation occurs between transport endpoints
-      determined via ICE, implementations of this specification <em class="rfc2119"
-      title="MUST">MUST</em> support multiplexing of STUN, TURN, DTLS and RTP and/or
-      RTCP. This multiplexing, originally described in [[!RFC5764]] Section 5.1.2, is
-      being revised in [[MUX-FIXES]].</p>
+      <p>An <code><a>RTCDtlsTransport</a></code> has a [[<dfn>dtlsRole</dfn>]] internal
+      slot. On construction, the [[<code><a>dtlsRole</a></code>]] internal slot is set to
+      <code>auto</code>.  If the [[<code><a>dtlsRole</a></code>]] internal slot is
+      <code>auto</code> it will transition to <code>client</code>
+      if <code>start(<var>remoteParameters</var>)</code>
+      is called with <code>remoteParameters.role</code>
+      having a value of <code>server</code>.</p>
+      <p>A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119"
+      title="MUST">MUST</em> listen and respond to incoming DTLS packets before
+      <code>start()</code> is called. If the [[<code><a>dtlsRole</a></code>]] internal slot is set to
+      <code>auto</code> and the <code><a>RTCDtlsTransport</a></code> receives
+      a DTLS client_hello packet, the [[<code><a>dtlsRole</a></code>]] internal slot will
+      transition to <code>server</code>, even before <code>start()</code>
+      is called, and will remain there even if
+      <code>start(<var>remoteParameters</var>)</code> is called with
+      <code>remoteParameters.role</code> having a value of <code>server</code>.
+      The [[<code><a>dtlsRole</a></code>]] internal slot will also
+      transition from <code>auto</code> to <code>server</code> if
+      <code>start(<var>remoteParameters</var>)</code> is called
+      with <code>remoteParameters.role</code> having a value of
+      <code>client</code>.</p>
       <p>An <code><a>RTCDtlsTransport</a></code> object in the <code>closed</code> or
       <code>failed</code> states can be garbage-collected when it is no longer
       referenced.</p>
@@ -2573,39 +2597,27 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             <tr>
               <td><dfn><code id="idl-def-RTCDtlsRole.auto">auto</code></dfn></td>
               <td>
-                <p>The DTLS role is determined based on the resolved ICE role: the
-                <code>controlled</code> role acts as the DTLS client, the
-                <code>controlling</code> role acts as the DTLS server. Since
-                <code><a>RTCDtlsRole</a></code> is initialized to <code>auto</code> on
-                construction of an <code><a>RTCDtlsTransport</a></code> object,
-                <code>transport.getLocalParameters().RTCDtlsRole</code> will have an
-                initial value of <code>auto</code>.</p>
+                <p>The DLTS role is determined based on the resolved ICE role:
+                the ICE <code>controlled</code> role acts as the DTLS client and
+                the ICE <code>controlling</code> role acts as the DTLS server.
+                <code>getLocalParameters().role</code> always has a
+                value of <code>auto</code>.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCDtlsRole.client">client</code></dfn></td>
               <td>
-                <p>The DTLS client role. A transition to <code>client</code> will occur
-                if <code>start(<var>remoteParameters</var>)</code> is called with
-                <code>remoteParameters.RTCDtlsRole</code> having a value of
-                <code>server</code>. If <code><a>RTCDtlsRole</a></code> had previously
-                had a value of <code>server</code> (e.g. due to the
-                <code><a>RTCDtlsTransport</a></code> having previously received packets
-                from a DTLS client), then the DTLS session is reset prior to
-                transitioning to the <code>client</code> role.</p>
+                <p>The DTLS client role. While <code>getLocalParameters().role</code>
+                cannot return <code>client</code>, it is possible for
+                <code>remoteParameters.role</code> to take on this value.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCDtlsRole.server">server</code></dfn></td>
               <td>
-                <p>The DTLS server role. If <code><a>RTCDtlsRole</a></code> has a value
-                of <code>auto</code> and the <code><a>RTCDtlsTransport</a></code>
-                receives a DTLS client_hello packet, <code><a>RTCDtlsRole</a></code> will
-                transition to <code>server</code>, even before <code>start()</code> is
-                called. A transition from <code>auto</code> to <code>server</code> will
-                also occur if <code>start(<var>remoteParameters</var>)</code> is called
-                with <code>remoteParameters.RTCDtlsRole</code> having a value of
-                <code>client</code>.</p>
+                <p>The DTLS server role. While <code>getLocalParameters().role</code>
+                cannot return <code>server</code>, it is possible for
+                <code>remoteParameters.role</code> to take on this value.</p>
               </td>
             </tr>
           </tbody>
