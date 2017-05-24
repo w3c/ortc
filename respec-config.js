@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2017-05-22",
+  publishDate: "2017-05-24",
   edDraftURI: "https://rawgit.com/w3c/ortc/master/index.html",
   editors: [
     {
@@ -98,7 +98,7 @@ var respecConfig = {
       "authors": [
         "P. Thatcher"
       ],
-      "status": "19 May 2017. Internet draft (work in progress)",
+      "status": "24 May 2017. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
