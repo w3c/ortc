@@ -8247,7 +8247,7 @@ function accept(mySignaller, remote) {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
+        [ Constructor (RTCceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
 interface RTCQuicTransport : RTCDataTransport  {
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCQuicTransportState    state;
@@ -8552,7 +8552,7 @@ interface RTCQuicTransport : RTCDataTransport  {
       <code><a>RTCQuicTransport</a></code> is <code>server</code>.</p>
       <p>The <code>RTCQuicTransport.transport.onstatechange</code> EventHandler
       can be used to determine whether an <code><a>RTCQuicTransport</a></code>
-      transitions to the desired role as expected. When
+      transitions to the desired role. When
       <code><a>RTCQuicTransport</a>.transport.state</code> transitions to
       <code>connected</code>, if <code><a>RTCQuicTransport</a>.transport.role</code>
       is <code>controlled</code> then the role of the
