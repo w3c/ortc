@@ -2253,7 +2253,10 @@ mySignaller.send({
       <p>A <code><a>RTCDtlsTransport</a></code> instance is constructed
       using an <code><a>RTCIceTransport</a></code> and a sequence of
       <code><a>RTCCertificate</a></code> objects.
-      If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
+      An <code><a>RTCDtlsTransport</a></code> object in the <code>closed</code> or
+      <code>failed</code> states can be garbage-collected when it is no longer
+      referenced.</p>
+      <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
       instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
       state, an <code>InvalidStateError</code> exception is thrown.
       If <code>certificates</code> is non-empty,
@@ -2283,30 +2286,6 @@ mySignaller.send({
       may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be
       provided to avoid loss of media prior to remote fingerprint validation (which can
       begin after <code>start()</code> is called).</p>
-      <p>An <code><a>RTCDtlsTransport</a></code> has a [[<dfn>dtlsRole</dfn>]] internal
-      slot. On construction, the [[<code><a>dtlsRole</a></code>]] internal slot is set to
-      <code>auto</code>.  If the [[<code><a>dtlsRole</a></code>]] internal slot is
-      <code>auto</code> it will transition to <code>client</code>
-      if <code>start(<var>remoteParameters</var>)</code>
-      is called with <code>remoteParameters.role</code>
-      having a value of <code>server</code>.</p>
-      <p>A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119"
-      title="MUST">MUST</em> listen and respond to incoming DTLS packets before
-      <code>start()</code> is called. If the [[<code><a>dtlsRole</a></code>]] internal slot is set to
-      <code>auto</code> and the <code><a>RTCDtlsTransport</a></code> receives
-      a DTLS client_hello packet, the [[<code><a>dtlsRole</a></code>]] internal slot will
-      transition to <code>server</code>, even before <code>start()</code>
-      is called, and will remain there even if
-      <code>start(<var>remoteParameters</var>)</code> is called with
-      <code>remoteParameters.role</code> having a value of <code>server</code>.
-      The [[<code><a>dtlsRole</a></code>]] internal slot will also
-      transition from <code>auto</code> to <code>server</code> if
-      <code>start(<var>remoteParameters</var>)</code> is called
-      with <code>remoteParameters.role</code> having a value of
-      <code>client</code>.</p>
-      <p>An <code><a>RTCDtlsTransport</a></code> object in the <code>closed</code> or
-      <code>failed</code> states can be garbage-collected when it is no longer
-      referenced.</p>
     </section>
     <section id="rtcdtlstransport-interface-definition*">
       <h3>Interface Definition</h3>
@@ -2414,10 +2393,15 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             </dd>
             <dt><code>getLocalParameters</code></dt>
             <dd>
-              <p><dfn>getLocalParameters()</dfn> obtains the DTLS parameters of the local
-              <code><a>RTCDtlsTransport</a></code>. If multiple certificates were
-              provided in the constructor, then multiple fingerprints will be returned,
-              one for each certificate.</p>
+              <p><dfn>getLocalParameters()</dfn> obtains the DTLS parameters of
+              the local <code><a>RTCDtlsTransport</a></code> upon construction.
+              If multiple certificates were provided in the constructor, then
+              multiple fingerprints will be returned, one for each certificate.
+              <code>getLocalParameters().role</code> always returns the default
+              role of a newly constructed <code><a>RTCDtlsTransport</a></code>;
+              for a browser this will be <code>auto</code>.  Section 4.6.1
+              describes how an application can dynamically determine the role
+              of the local and remote <code>RTCDtlsTransport</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -2594,25 +2578,19 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <td>
                 <p>The DLTS role is determined based on the resolved ICE role:
                 the ICE <code>controlled</code> role acts as the DTLS client and
-                the ICE <code>controlling</code> role acts as the DTLS server.
-                <code>getLocalParameters().role</code> always has a
-                value of <code>auto</code>.</p>
+                the ICE <code>controlling</code> role acts as the DTLS server.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCDtlsRole.client">client</code></dfn></td>
               <td>
-                <p>The DTLS client role. While <code>getLocalParameters().role</code>
-                cannot return <code>client</code>, <code>getRemoteParameters().role</code>
-                can return this value.</p>
+                <p>The DTLS client role.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCDtlsRole.server">server</code></dfn></td>
               <td>
-                <p>The DTLS server role. While <code>getLocalParameters().role</code>
-                cannot return <code>server</code>, <code>getRemoteParameters().role</code>
-                can return this value.</p>
+                <p>The DTLS server role.</p>
               </td>
             </tr>
           </tbody>
