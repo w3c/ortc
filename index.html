@@ -8209,7 +8209,10 @@ function accept(mySignaller, remote) {
       <p>A <code><a>RTCQuicTransport</a></code> instance is constructed
       using an <code><a>RTCIceTransport</a></code> and a sequence of
       <code><a>RTCCertificate</a></code> objects.
-      If an attempt is made to construct a <code><a>RTCQuicTransport</a></code>
+      An <code><a>RTCQuicTransport</a></code> object in the <code>closed</code> or
+      <code>failed</code> states can be garbage-collected when it is no longer
+      referenced.</p>
+      <p>If an attempt is made to construct a <code><a>RTCQuicTransport</a></code>
       instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
       state, an <code>InvalidStateError</code> exception is thrown.
       If <code>certificates</code> is non-empty,
@@ -8222,7 +8225,9 @@ function accept(mySignaller, remote) {
       title="MUST">MUST</em> support multiplexing of STUN, TURN, QUIC, DTLS and RTP and/or
       RTCP. This multiplexing, originally described in [[!RFC5764]] Section 5.1.2 and
       [[!RFC7983]] is updated in [[!QUIC-DATA]].</p>
-      <p>To complete the QUIC negotiation it is
+      <p>A newly constructed <code><a>RTCQuicTransport</a></code> <em class="rfc2119"
+      title="MUST">MUST</em> listen and respond to incoming QUIC packets before
+      <code>start()</code> is called. However, to complete the negotiation it is
       necessary to verify the remote fingerprint, which is dependent on
       <code>remoteParameters</code>, passed to <code>start()</code>. To verify the remote
       fingerprint, compute the fingerprint <var>value</var> for the selected remote
@@ -8232,37 +8237,11 @@ function accept(mySignaller, remote) {
       <code>remoteParameters.fingerprints[j].value</code> and
       <code>RTCDtlsFingerprint.algorithm</code> matches
       <code>remoteParameters.fingerprints[j].algorithm</code> for any value of
-      <var>j</var>, the remote fingerprint is verified.</p>
-      <p>After the QUIC handshake exchange
+      <var>j</var>, the remote fingerprint is verified. After the QUIC handshake exchange
       completes (but before the remote fingerprint is verified) incoming media packets
       may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be
       provided to avoid loss of media prior to remote fingerprint validation (which can
       begin after <code>start()</code> is called).</p>
-      <p>An <code><a>RTCQuicTransport</a></code> has a [[<dfn>quicRole</dfn>]] internal
-      slot. On construction, the [[<code><a>quicRole</a></code>]] internal slot is set to
-      <code>auto</code>.  If the [[<code><a>quicRole</a></code>]] internal slot is
-      <code>auto</code> it will transition to <code>client</code>
-      if <code>start(<var>remoteParameters</var>)</code>
-      is called with <code>remoteParameters.role</code>
-      having a value of <code>server</code>.</p>
-      <p>A newly constructed <code><a>RTCQuicTransport</a></code> <em class="rfc2119"
-      title="MUST">MUST</em> listen and respond to incoming QUIC packets before
-      <code>start()</code> is called. If the [[<code><a>quicRole</a></code>]] internal slot is set to
-      <code>auto</code> and the <code><a>RTCQuicTransport</a></code> receives
-      a QUIC packet, the [[<code><a>quicRole</a></code>]] internal slot will
-      transition to <code>server</code>, even before <code>start()</code>
-      is called, and will remain there even if
-      <code>start(<var>remoteParameters</var>)</code> is called with
-      <code>remoteParameters.role</code> having a value of <code>server</code>.
-      The [[<code><a>quicRole</a></code>]] internal slot will also
-      transition from <code>auto</code> to <code>server</code> if
-      <code>start(<var>remoteParameters</var>)</code> is called
-      with <code>remoteParameters.role</code> having a value of
-      <code>client</code>.</p>
-      <p>An <code><a>RTCQuicTransport</a></code> object in the <code>closed</code> or
-      <code>failed</code> states can be garbage-collected when it is no longer
-      referenced.</p>
-
     </section>
     <section id="rtcquictransport-interface-definition*">
       <h3>Interface Definition</h3>
@@ -8373,10 +8352,13 @@ interface RTCQuicTransport : RTCDataTransport  {
           "methods">
             <dt><code>getLocalParameters</code></dt>
             <dd>
-              <p><dfn>getLocalParameters()</dfn> obtains the QUIC parameters of the local
-              <code><a>RTCQuicTransport</a></code>. If multiple certificates were
-              provided in the constructor, then multiple fingerprints will be returned,
-              one for each certificate.</p>
+              <p><dfn>getLocalParameters()</dfn> obtains the QUIC parameters of
+              the local <code><a>RTCQuicTransport</a></code> upon construction.
+              If multiple certificates were provided in the constructor, then
+              multiple fingerprints will be returned, one for each certificate.
+              <code>getLocalParameters().role</code> always returns the default
+              role of a newly constructed <code><a>RTCQuicTransport</a></code>;
+              for a browser this will be <code>auto</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -8528,30 +8510,56 @@ interface RTCQuicTransport : RTCDataTransport  {
               <td>
                 <p>The QUIC role is determined based on the resolved ICE role:
                 the ICE <code>controlled</code> role acts as the QUIC client and
-                the ICE <code>controlling</code> role acts as the QUIC server.
-                <code>getLocalParameters().role</code> always has a
-                value of <code>auto</code>.</p>
+                the ICE <code>controlling</code> role acts as the QUIC server.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCQuicRole.client">client</code></dfn></td>
               <td>
-                <p>The QUIC client role. While <code>getLocalParameters().role</code>
-                cannot return <code>client</code>, it is possible for
-                <code>getRemoteParameters().role</code> to return this value.</p>
+                <p>The QUIC client role.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCQuicRole.server">server</code></dfn></td>
               <td>
-                <p>The QUIC server role. While <code>getLocalParameters().role</code>
-                cannot return <code>server</code>, it is possible for
-                <code>getRemoteParameters().role</code> to return this value.</p>
+                <p>The QUIC server role.</p>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+    </section>
+    <section id="rtcquicroleinfo">
+      <h3>QUIC role determination</h3>
+      <p>To diagnose QUIC role issues, an application may wish to determine
+      the desired and actual QUIC role of an <code><a>RTCQuicTransport</a></code>.
+      For a browser implementing ORTC, a <code><a>RTCQuicTransport</a></code>
+      object assumes a QUIC role of <code>auto</code> upon construction.
+      This implies that the QUIC role is determined by the ICE role.  Since
+      <code>getLocalParameters().role</code> always returns the role assigned
+      to an <code><a>RTCQuicTransport</a></code> object upon construction
+      (<code>auto</code> for a browser), the <code>getLocalParameters</code>
+      method cannot be used to determine the desired or actual role of an
+      <code><a>RTCQuicTransport</a></code>.</p>
+      <p>An application can determine the
+      desired role of an <code><a>RTCQuicTransport</a></code> from the value of
+      <code><var>remoteParameters</var>.role</code> passed to
+      <code><a>RTCQuicTransport</a>.start(<var>remoteParameters</var>)</code>.
+      If <code><var>remoteParameters</var>.role</code> is <code>server</code>
+      then the desired role of the <code><a>RTCQuicTransport</a></code>
+      is <code>client</code>. If <code><var>remoteParameters</var>.role</code>
+      is <code>client</code> then the desired role of the
+      <code><a>RTCQuicTransport</a></code> is <code>server</code>.</p>
+      <p>The <code>RTCQuicTransport.transport.onstatechange</code> EventHandler
+      can be used to determine whether an <code><a>RTCQuicTransport</a></code>
+      transitions to the desired role as expected. When
+      <code><a>RTCQuicTransport</a>.transport.state</code> transitions to
+      <code>connected</code>, if <code><a>RTCQuicTransport</a>.transport.role</code>
+      is <code>controlled</code> then the role of the
+      <code><a>RTCQuicTransport</a></code> is <code>client</code>.
+      If <code><a>RTCQuicTransport</a>.transport.role</code>
+      is <code>controlling</code> then the role of the
+      <code><a>RTCQuicTransport</a></code> is <code>server</code>.</p>
     </section>
     <section id="rtcquictransportstate*">
       <h3>enum RTCQuicTransportState</h3>
