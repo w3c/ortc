@@ -2399,9 +2399,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               multiple fingerprints will be returned, one for each certificate.
               <code>getLocalParameters().role</code> always returns the default
               role of a newly constructed <code><a>RTCDtlsTransport</a></code>;
-              for a browser this will be <code>auto</code>.  Section 4.6.1
-              describes how an application can dynamically determine the role
-              of the local and remote <code>RTCDtlsTransport</code>.</p>
+              for a browser this will be <code>auto</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -2550,9 +2548,6 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             <dt><dfn><code>value</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
-              <p>The value of the certificate fingerprint with each byte
-              in upper-case hex separated by colons, utilizing the syntax
-              of 'fingerprint' in [[!RFC4572]] Section 5.</p>
             </dd>
           </dl>
         </section>
@@ -2596,6 +2591,38 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           </tbody>
         </table>
       </div>
+    </section>
+    <section id="rtcdtlsroleinfo">
+       <h3>DTLS role determination</h3>
+      <p>To diagnose DTLS role issues, an application may wish to determine
+      the desired and actual DTLS role of an <code><a>RTCDtlsTransport</a></code>.
+      For a browser implementing ORTC, a <code><a>RTCDtlsTransport</a></code>
+      object assumes a DTLS role of <code>auto</code> upon construction.
+      This implies that the DTLS role is determined by the ICE role.  Since
+      <code>getLocalParameters().role</code> always returns the role assigned
+      to an <code><a>RTCDtlsTransport</a></code> object upon construction
+      (<code>auto</code> for a browser), the <code>getLocalParameters</code>
+      method cannot be used to determine the desired or actual role of an
+      <code><a>RTCDtlsTransport</a></code>.</p>
+      <p>An application can determine the
+      desired role of an <code><a>RTCDtlsTransport</a></code> from the value of
+      <code><var>remoteParameters</var>.role</code> passed to
+      <code><a>RTCDtlsTransport</a>.start(<var>remoteParameters</var>)</code>.
+      If <code><var>remoteParameters</var>.role</code> is <code>server</code>
+      then the desired role of the <code><a>RTCDtlsTransport</a></code>
+      is <code>client</code>. If <code><var>remoteParameters</var>.role</code>
+      is <code>client</code> then the desired role of the
+      <code><a>RTCDtlsTransport</a></code> is <code>server</code>.</p>
+      <p>The <code>RTCDtlsTransport.transport.onstatechange</code> EventHandler
+      can be used to determine whether an <code><a>RTCDtlsTransport</a></code>
+      transitions to the desired role as expected. When
+      <code><a>RTCDtlsTransport</a>.transport.state</code> transitions to
+      <code>connected</code>, if <code><a>RTCDtlsTransport</a>.transport.role</code>
+      is <code>controlled</code> then the role of the
+      <code><a>RTCDtlsTransport</a></code> is <code>client</code>.
+      If <code><a>RTCDtlsTransport</a>.transport.role</code>
+      is <code>controlling</code> then the role of the
+      <code><a>RTCDtlsTransport</a></code> is <code>server</code>.</p>
     </section>
     <section id="rtcdtlstransportstate*">
       <h3>enum RTCDtlsTransportState</h3>
