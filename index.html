@@ -2270,7 +2270,9 @@ mySignaller.send({
       title="MUST">MUST</em> support multiplexing of STUN, TURN, DTLS and RTP and/or
       RTCP. This multiplexing, originally described in [[!RFC5764]] Section 5.1.2, is
       updated in [[!RFC7983]].</p>
-      <p>To complete the DTLS negotiation it is
+      <p>A newly constructed <code><a>RTCDtlsTransport</a></code> <em class="rfc2119"
+      title="MUST">MUST</em> listen and respond to incoming DTLS packets before
+      <code>start()</code> is called. However, to complete the negotiation it is
       necessary to verify the remote fingerprint, which is dependent on
       <code>remoteParameters</code>, passed to <code>start()</code>. To verify the remote
       fingerprint, compute the fingerprint <var>value</var> for the selected remote
@@ -2280,8 +2282,7 @@ mySignaller.send({
       <code>remoteParameters.fingerprints[j].value</code> and
       <code>RTCDtlsFingerprint.algorithm</code> matches
       <code>remoteParameters.fingerprints[j].algorithm</code> for any value of
-      <var>j</var>, the remote fingerprint is verified.</p>
-      <p>After the DTLS handshake exchange
+      <var>j</var>, the remote fingerprint is verified. After the DTLS handshake exchange
       completes (but before the remote fingerprint is verified) incoming media packets
       may be received. A modest buffer <em class="rfc2119" title="MUST">MUST</em> be
       provided to avoid loss of media prior to remote fingerprint validation (which can
