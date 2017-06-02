@@ -1107,7 +1107,7 @@ interface RTCIceGathererEvent : Event {
                 Algorithm capabilities of the <code><a>RTCIceGatherer</a></code>,
                 and still allows for hash agility as described by [[STUN-BIS]],
                 Section 15.3.</p>
-                <div class="issue">[[!RFC7635]] doesn't explicitly define
+                <div class="note">[[!RFC7635]] doesn't explicitly define
                 how keys are shortened; there is only a brief reference to this
                 in Appendix B. This needs to be adressed in the IETF TRAM
                 working group.</div>
@@ -2282,19 +2282,12 @@ mySignaller.send({
     <section id="rtcdtlstransport-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">typedef (octet[]) ArrayBuffer;</pre>
-        <div class="idlTypedefDesc"></div>
-          Throughout this specification, the identifier
-          <dfn><code>ArrayBuffer</code></dfn> is used to refer to the <span class=
-          "idlTypedefType">octet[]</span> type.
-      </div>
-      <div>
         <pre class="idl">
         [ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
 interface RTCDtlsTransport : RTCStatsProvider  {
-    readonly        attribute FrozenArray&lt;RTCCertificate&gt; certificates;
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCDtlsTransportState    state;
+    sequence&lt;RTCCertificate&gt;     getCertificates ();
     RTCDtlsParameters     getLocalParameters ();
     RTCDtlsParameters?    getRemoteParameters ();
     sequence&lt;ArrayBuffer&gt; getRemoteCertificates ();
@@ -2346,11 +2339,6 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Attributes</h2>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "attributes">
-            <dt><dfn><code>certificates</code></dfn> of type <span class=
-            "idlAttrType">sequence&lt;<a>RTCCertificate</a>&gt;</span>, readonly</dt>
-            <dd>
-              <p>The certificates provided in the constructor.</p>
-            </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceTransport</a></span>, readonly</dt>
             <dd>
@@ -2384,6 +2372,17 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Methods</h2>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "methods">
+            <dt><code>getCertificates</code></dt>
+            <dd>
+              <p><dfn>getCertificates()</dfn> returns the certificates provided in
+              the constructor.</p>
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>sequence&lt;RTCCertificate&gt;</code>
+              </div>
+            </dd>
             <dt><code>getLocalParameters</code></dt>
             <dd>
               <p><dfn>getLocalParameters()</dfn> obtains the DTLS parameters of the local
@@ -2538,9 +2537,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             <dt><dfn><code>value</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
-              <p>The value of the certificate fingerprint in lowercase hex string as
-              expressed utilizing the syntax of 'fingerprint' in [[!RFC4572]] Section
-              5.</p>
+              <p>The value of the certificate fingerprint with each byte
+              in upper-case hex separated by colons, utilizing the syntax
+              of 'fingerprint' in [[!RFC4572]] Section 5.</p>
             </dd>
           </dl>
         </section>
@@ -2704,7 +2703,7 @@ function initiate(mySignaller) {
   });
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
-    // Figure out which IceTranport a remote candidate relates to by matching
+    // Figure out which IceTransport a remote candidate relates to by matching
     // the userNameFragment/password
     var j = 0;
     for (j = 0; j &lt; iceTransport.length; j++) {
@@ -5756,7 +5755,7 @@ interface RTCRtpUnhandledEvent : Event {
                   <a>l</a>
                 </td>
                 <td><code>unsigned long</code></td>
-                <td>Receiver</td>
+                <td>Sender</td>
                 <td>The number of columns of the source block that are protected by this
                 FEC block.</td>
               </tr>
@@ -5765,7 +5764,7 @@ interface RTCRtpUnhandledEvent : Event {
                   <a>d</a>
                 </td>
                 <td><code>unsigned long</code></td>
-                <td>Receiver</td>
+                <td>Sender</td>
                 <td>The number of rows of the source block that are protected by this FEC
                 block.</td>
               </tr>
@@ -5774,7 +5773,7 @@ interface RTCRtpUnhandledEvent : Event {
                   <a>toP</a>
                 </td>
                 <td><code>unsigned short</code></td>
-                <td>Receiver</td>
+                <td>Sender</td>
                 <td>The type of protection applied by the sender: 0 for 1-D interleaved
                 FEC protection, 1 for 1-D non-interleaved FEC protection, and 2 for 2-D
                 parity FEC protection. The value of 3 is reserved for future use.</td>
@@ -5800,7 +5799,7 @@ interface RTCRtpUnhandledEvent : Event {
              unsigned long       maxBitrate;
              double              resolutionScale;
              double              framerateScale;
-             unsigned long       maxFramerate;
+             double              maxFramerate;
              boolean             active = true;
              DOMString           encodingId;
              sequence&lt;DOMString&gt; dependencyEncodingIds;
@@ -5896,11 +5895,12 @@ interface RTCRtpUnhandledEvent : Event {
               dependent layers.</p>
             </dd>
             <dt><dfn><code>maxFramerate</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType"><a>double</a></span></dt>
             <dd>
-              <p>The maximum framerate to use for this encoding. This setting is not used
-              for scalable video coding. If <code><a>framerateScale</a></code> is set,
-              then <code>maxFramerate</code> is ignored.</p>
+              <p>The maximum framerate to use for this encoding, in frames per
+              second. This setting is not used for scalable video coding. If
+              <code><a>framerateScale</a></code> is set, then
+              <code>maxFramerate</code> is ignored.</p>
             </dd>
             <dt><dfn><code>active</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
@@ -6005,7 +6005,7 @@ interface RTCRtpUnhandledEvent : Event {
           </tr>
           <tr id="def-maxframerate*">
             <td><dfn><code>maxFramerate</code></dfn></td>
-            <td><code>unsigned long</code></td>
+            <td><code>double</code></td>
             <td>Sender</td>
           </tr>
           <tr id="def-active*">
@@ -9803,6 +9803,115 @@ function signalAssertion(assertion) {
       </div>
     </section>
   </section>
+    <section id="privacy-security">
+    <h2>Privacy and Security Considerations</h2>
+    <p>This section is non-normative; it specifies no new behaviour, but
+    instead summarizes information already present in other parts of the
+    specification. The overall security considerations of the
+    APIs and protocols used in ORTC are described in
+    [[RTCWEB-SECURITY-ARCH]].</p>
+    <section>
+      <h2>Impact on same origin policy</h2>
+      <p>This document extends the Web platform with the ability to set up real
+      time, direct communication between browsers and other devices, including
+      other browsers.</p>
+      <p>This means that data and media can be shared between applications
+      running in different browsers, or between an application running in the
+      same browser and something that is not a browser, something that is an
+      extension to the usual barriers in the Web model against sending data
+      between entities with different origins.</p>
+      <p>The ORTC specification provides no user prompts or chrome indicators
+      for communication; it assumes that once the Web page has been allowed to
+      access media, it is free to share that media with other entities as it
+      chooses. Peer-to-peer exchanges of data view ORTC datachannels can thus
+      occur without any user explicit consent or involvement, similarly as a
+      server-mediated exchange (e.g. via Web Sockets) could occur without user
+      involvement.</p>
+      <p>The <code><a>peerIdentity</a></code> mechanism loads and executes
+      JavaScript code from a third-party server acting as an identity provider.
+      That code is executed in a separate JavaScript realm and does not affect
+      the protections afforded by the same origin policy.</p>
+    </section>
+    <section>
+      <h2>Revealing IP addresses</h2>
+      <p>Even without ORTC, the Web server providing a Web application will
+      know the public IP address to which the application is delivered. Setting
+      up communications exposes additional information about the
+      browser&#8217;s network context to the web application, and may include
+      the set of (possibly private) IP addresses available to the browser for
+      WebRTC use. Some of this information has to be passed to the
+      corresponding party to enable the establishment of a communication
+      session.</p>
+      <p>Revealing IP addresses can leak location and means of connection; this
+      can be sensitive. Depending on the network environment, it can also
+      increase the fingerprinting surface and create persistent cross-origin
+      state that cannot easily be cleared by the user.</p>
+      <p>A connection will always reveal the IP addresses proposed for
+      communication to the corresponding party. The application can limit this
+      exposure by choosing not to use certain addresses using the settings
+      exposed by the <code><a>RTCIceGatherPolicy</a></code> dictionary, and by using
+      relays (for instance TURN servers) rather than direct connections between
+      participants. One will normally assume that the IP address of TURN
+      servers is not sensitive information. These choices can for instance be
+      made by the application based on whether the user has indicated consent
+      to start a media connection with the other party.</p>
+      <p>Mitigating the exposure of IP addresses to the application itself
+      requires limiting the IP addresses that can be used, which will impact
+      the ability to communicate on the most direct path between endpoints.
+      Browsers are encouraged to provide appropriate controls for deciding
+      which IP addresses are made available to applications, based on the
+      security posture desired by the user. The choice of which addresses to
+      expose is controlled by local policy (see [[RTCWEB-IP-HANDLING]] for
+      details).</p>
+    </section>
+    <section>
+      <h2>Impact on local network</h2>
+      <p>Since the browser is an active platform executing in a trusted network
+      environment (inside the firewall), it is important to limit the damage
+      that the browser can do to other elements on the local network, and it is
+      important to protect data from interception, manipulation and
+      modification by untrusted participants.</p>
+      <p>Mitigations include:</p>
+      <ul>
+        <li>An UA will always request permission from the correspondent UA to
+        communicate using ICE. This ensures that the UA can only send to
+        partners who you have shared credentials with.</li>
+        <li>An UA will always request ongoing permission to continue sending
+        using ICE continued consent. This enables a receiver to withdraw
+        consent to receive.</li>
+        <li>An UA will always encrypt data, with strong per-session keying
+        (DTLS-SRTP).</li>
+        <li>An UA wil always use congestion control. This ensures that ORTC
+        cannot be used to flood the network.</li>
+      </ul>
+      <p>These measures are specified in the relevant IETF documents.</p>
+    </section>
+    <section>
+      <h2>Confidentiality of Communications</h2>
+      <p>The fact that communication is taking place cannot be hidden from
+      adversaries that can observe the network, so this has to be regarded as
+      public information.</p>
+      <p>A mechanism, <code><a>peerIdentity</a></code>, is provided that gives
+      Javascript the option of requesting media that the same javascript cannot
+      access, but can only be sent to certain other entities.</p>
+    </section>
+    <section>
+      <h2>Persistent information exposed by WebRTC</h2>
+      <p>As described above, the list of IP addresses exposed by the WebRTC API
+      can be used as a persistent cross-origin state.</p>
+      <p>Beyond IP addresses, the ORTC API exposes information about the
+      underlying media system via the <code>RTCRtpSender.getCapabilities</code>
+      and <code>RTCRtpReceiver.getCapabilities</code> methods, including
+      detailed and ordered information about the codecs that the system is able
+      to produce and consume.
+      That information is in most cases persistent across time
+      and origins, and increases the fingerprint surface of a given device.</p>
+      <p>When establishing DTLS connections, the ORTC API can generate
+      certificates that can be persisted by the application (e.g. in
+      IndexedDB). These certificates are not shared across origins, and get
+      cleared when persistent storage is cleared for the origin.</p>
+    </section>
+  </section>
   <section class="informative">
     <h2>Event summary</h2>
     <p>The following events fire on <code><a>RTCDtlsTransport</a></code> objects:</p>
@@ -10225,8 +10334,26 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <li>Updated Statistics API to track changes to WebRTC Statistics specification, as noted in:
         <a href="https://github.com/w3c/ortc/issues/672">Issue 672</a>
         </li>
-        <li>Allow construction of an <code><a>RTCRtpSender</a></code> without an RTP transport, as noted in:
+        <li>Allow construction of an <code><a>RTCRtpSender</a></code> without an RTP DtlsTransport, as noted in:
         <a href="https://github.com/w3c/ortc/issues/679">Issue 679</a>
+        </li>
+        <li>Clarify syntax of <code>fingerprint</code>, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/683">Issue 683</a>
+        </li>
+        <li>Change type of <code>maxFramerate</code> to double, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/687">Issue 687</a>
+        </li>
+        <li>Reference WebIDL definition of ArrayBuffer, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/692">Issue 692</a>
+        </li>
+        <li>Define <code>getCertificates()</code> method and remove <code>certificates</code> attribute, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/696">Issue 696</a>
+        </li>
+        <li>Clarify sender settings for "flexfec", as noted in:
+        <a href="https://github.com/w3c/ortc/issues/698">Issue 698</a>
+        </li>
+        <li>Added a Privacy and Security section, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/705">Issue 705</a>
         </li>
       </ol>
     </section>
