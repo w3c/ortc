@@ -8,7 +8,7 @@ var respecConfig = {
       name: "Robin Raymond",
       url: "https://about.me/robinraymond",
       company: "Optical Tone Ltd.",
-      companyURL: "http://opticaltone.com/"
+      companyURL: "https://opticaltone.com/"
     }
   ],
   authors: [
@@ -16,7 +16,7 @@ var respecConfig = {
       name: "Bernard Aboba",
       url: "https://plus.google.com/+BernardAboba/about",
       company: "Microsoft Corporation",
-      companyURL: "http://www.microsoft.com/"
+      companyURL: "https://www.microsoft.com/"
     },
     {
       name: "Justin Uberti",
