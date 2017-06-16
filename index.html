@@ -9236,19 +9236,18 @@ function signalAssertion(assertion) {
     [[RTCWEB-SECURITY-ARCH]].</p>
     <section>
       <h2>Impact on same origin policy</h2>
-      <p>This document extends the Web platform with the ability to set up real
-      time, direct communication between browsers and other devices, including
-      other browsers.</p>
+      <p>The ORTC API enables real-time communication between
+      browsers and other devices, including other browsers.</p>
       <p>This means that data and media can be shared between applications
       running in different browsers, or between an application running in the
-      same browser and something that is not a browser, something that is an
-      extension to the usual barriers in the Web model against sending data
+      same browser and something that is not a browser.  This is an extension
+      to the Web model which has had barriers against sending data
       between entities with different origins.</p>
       <p>The ORTC specification provides no user prompts or chrome indicators
       for communication; it assumes that once the Web page has been allowed to
       access media, it is free to share that media with other entities as it
-      chooses. Peer-to-peer exchanges of data view ORTC datachannels can thus
-      occur without any user explicit consent or involvement, similarly as a
+      chooses. Peer-to-peer exchanges of data via datachannels can therefore
+      occur without any user explicit consent or involvement. Similarly, a
       server-mediated exchange (e.g. via Web Sockets) could occur without user
       involvement.</p>
       <p>The <code><a>peerIdentity</a></code> mechanism loads and executes
@@ -9301,11 +9300,11 @@ function signalAssertion(assertion) {
         communicate using ICE. This ensures that the UA can only send to
         partners who you have shared credentials with.</li>
         <li>An UA will always request ongoing permission to continue sending
-        using ICE continued consent. This enables a receiver to withdraw
+        using ICE consent [[!RFC7675]]. This enables a receiver to withdraw
         consent to receive.</li>
         <li>An UA will always encrypt data, with strong per-session keying
         (DTLS-SRTP).</li>
-        <li>An UA wil always use congestion control. This ensures that ORTC
+        <li>An UA will always use congestion control. This ensures that ORTC
         cannot be used to flood the network.</li>
       </ul>
       <p>These measures are specified in the relevant IETF documents.</p>
@@ -9320,8 +9319,8 @@ function signalAssertion(assertion) {
       access, but can only be sent to certain other entities.</p>
     </section>
     <section>
-      <h2>Persistent information exposed by WebRTC</h2>
-      <p>As described above, the list of IP addresses exposed by the WebRTC API
+      <h2>Persistent information</h2>
+      <p>As described above, the list of IP addresses exposed by the ORTC API
       can be used as a persistent cross-origin state.</p>
       <p>Beyond IP addresses, the ORTC API exposes information about the
       underlying media system via the <code>RTCRtpSender.getCapabilities</code>
