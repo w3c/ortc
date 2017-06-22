@@ -9688,11 +9688,26 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <h2>Change Log</h2>
     <p>This section will be removed before publication.</p>
     <!-- Why do the first two headings automatically convert to <h2>? -->
-    <section id="since-01-June-2017*">
-      <h3>Changes since 01 June 2017</h3>
+    <section id="since-01-May-2017*">
+      <h3>Changes since 01 May 2017</h3>
       <ol>
+        <li>Change type of <code>maxFramerate</code> to double, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/687">Issue 687</a>
+        </li>
         <li>Clarified operation of <code><a>RTCDtlsTransport</a>.getLocalParameters</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/690">Issue 690</a>
+        </li>
+        <li>Reference WebIDL definition of ArrayBuffer, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/692">Issue 692</a>
+        </li>
+        <li>Define <code>getCertificates()</code> method and remove <code>certificates</code> attribute, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/696">Issue 696</a>
+        </li>
+        <li>Clarify sender settings for "flexfec", as noted in:
+        <a href="https://github.com/w3c/ortc/issues/698">Issue 698</a>
+        </li>
+        <li>Added a Privacy and Security section, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/705">Issue 705</a>
         </li>
         <li>Marked <code>getAlgorithm</code> as a "feature at risk", as noted in:
         <a href="https://github.com/w3c/ortc/issues/707">Issue 707</a>
@@ -9771,22 +9786,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         </li>
         <li>Clarify syntax of <code>fingerprint</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/683">Issue 683</a>
-        </li>
-        <li>Change type of <code>maxFramerate</code> to double, as noted in:
-        <a href="https://github.com/w3c/ortc/issues/687">Issue 687</a>
-        </li>
-        <li>Reference WebIDL definition of ArrayBuffer, as noted in:
-        <a href="https://github.com/w3c/ortc/issues/692">Issue 692</a>
-        </li>
-        <li>Define <code>getCertificates()</code> method and remove <code>certificates</code> attribute, as noted in:
-        <a href="https://github.com/w3c/ortc/issues/696">Issue 696</a>
-        </li>
-        <li>Clarify sender settings for "flexfec", as noted in:
-        <a href="https://github.com/w3c/ortc/issues/698">Issue 698</a>
-        </li>
-        <li>Added a Privacy and Security section, as noted in:
-        <a href="https://github.com/w3c/ortc/issues/705">Issue 705</a>
-        </li>    
+        </li>  
       </ol>
     </section>
     <section id="since-20-August-2016*">
