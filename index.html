@@ -143,8 +143,8 @@
     </section>
   </section>
   <section id="rtcicegatherer*">
-    <h2>The RTCIceGatherer Object</h2>
-    <p>The <dfn><code>RTCIceGatherer</code></dfn> gathers local host, server reflexive
+    <h2><dfn>RTCIceGatherer</dfn> Interface</h2>
+    <p>The <code>RTCIceGatherer</code> gathers local host, server reflexive
     and relay candidates, as well as enabling the retrieval of local Interactive
     Connectivity Establishment (ICE) parameters which can be exchanged in signaling. By
     enabling an endpoint to use a set of local candidates to construct multiple
@@ -374,8 +374,8 @@ interface RTCIceGatherer : RTCStatsProvider {
       </div>
     </section>
     <section id="rtciceparameters*">
-      <h3>dictionary RTCIceParameters</h3>
-      <p>The <dfn><code>RTCIceParameters</code></dfn> dictionary includes the ICE username
+      <h3><dfn>RTCIceParameters</dfn> Dictionary</h3>
+      <p>The <code>RTCIceParameters</code> dictionary includes the ICE username
       fragment and password and other ICE-related parameters.</p>
       <div>
         <pre class="idl">dictionary RTCIceParameters {
@@ -411,8 +411,8 @@ interface RTCIceGatherer : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcicecandidate*">
-      <h3>dictionary RTCIceCandidate</h3>
-      <p>The <dfn><code>RTCIceCandidate</code></dfn> dictionary includes information relating
+      <h3><dfn>RTCIceCandidate</dfn> Dictionary</h3>
+      <p>The <code>RTCIceCandidate</code> dictionary includes information relating
       to an ICE candidate.</p>
       <pre class="example highlight">{
   foundation: "abcd1234",
@@ -505,8 +505,8 @@ interface RTCIceGatherer : RTCStatsProvider {
         </section>
       </div>
       <section>
-        <h4>The RTCIceProtocol</h4>
-        <p>The <dfn><code>RTCIceProtocol</code></dfn> includes the protocol of the ICE
+        <h4><dfn>RTCIceProtocol</dfn> Enum</h4>
+        <p>The <code>RTCIceProtocol</code> includes the protocol of the ICE
         candidate.</p>
         <div>
           <pre class="idl">enum RTCIceProtocol {
@@ -536,8 +536,8 @@ interface RTCIceGatherer : RTCStatsProvider {
         </div>
       </section>
       <section>
-        <h4>The RTCIceTcpCandidateType</h4>
-        <p>The <dfn><code>RTCIceTcpCandidateType</code></dfn> includes the type of the
+        <h4><dfn>RTCIceTcpCandidateType</dfn> Enum</h4>
+        <p>The <code>RTCIceTcpCandidateType</code> includes the type of the
         ICE TCP candidate, as described in [[!RFC6544]]. Browsers MUST gather active TCP
         candidates and only active TCP candidates. Servers and other endpoints MAY gather
         active, passive or so candidates.</p>
@@ -583,8 +583,8 @@ interface RTCIceGatherer : RTCStatsProvider {
         </div>
       </section>
       <section>
-        <h4>The RTCIceCandidateType</h4>
-        <p>The <dfn><code>RTCIceCandidateType</code></dfn> includes the type of the ICE
+        <h4><dfn>RTCIceCandidateType</dfn> Enum</h4>
+        <p>The <code>RTCIceCandidateType</code> includes the type of the ICE
         candidate as defined in [[!RFC5245]] section 15.1.</p>
         <div>
           <pre class="idl">enum RTCIceCandidateType {
@@ -636,8 +636,8 @@ interface RTCIceGatherer : RTCStatsProvider {
       </section>
     </section>
     <section id="rtcicecandidatecomplete*">
-      <h3>dictionary RTCIceCandidateComplete</h3>
-      <p><dfn><code>RTCIceCandidateComplete</code></dfn> is a dictionary signifying that
+      <h3><dfn>RTCIceCandidateComplete</dfn> Dictionary</h3>
+      <p><code>RTCIceCandidateComplete</code> is a dictionary signifying that
       all <code>RTCIceCandidate</code>s are gathered.</p>
       <div>
         <pre class="idl">dictionary RTCIceCandidateComplete {
@@ -658,8 +658,8 @@ interface RTCIceGatherer : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcicegathererstate*">
-      <h3>enum RTCIceGathererState</h3>
-      <p><dfn><code>RTCIceGathererState</code></dfn> represents the current state of the
+      <h3><dfn>RTCIceGathererState</dfn> Enum</h3>
+      <p><code>RTCIceGathererState</code> represents the current state of the
       ICE gatherer.</p>
       <div>
         <pre class="idl">enum RTCIceGathererState {
@@ -955,8 +955,8 @@ interface RTCIceGathererEvent : Event {
       </div>
     </section>
     <section id="rtcicegatheroptions*">
-      <h3>dictionary RTCIceGatherOptions</h3>
-      <p><dfn><code>RTCIceGatherOptions</code></dfn> provides options relating to the
+      <h3><dfn>RTCIceGatherOptions</dfn> Dictionary</h3>
+      <p><code>RTCIceGatherOptions</code> provides options relating to the
       gathering of ICE candidates.</p>
       <div>
         <pre class="idl">dictionary RTCIceGatherOptions {
@@ -984,8 +984,8 @@ interface RTCIceGathererEvent : Event {
       </div>
     </section>
     <section id="rtcicegatherpolicy*">
-      <h3>enum RTCIceGatherPolicy</h3>
-      <p><dfn><code>RTCIceGatherPolicy</code></dfn> denotes the policy relating to the
+      <h3><dfn>RTCIceGatherPolicy</dfn> Enum</h3>
+      <p><code>RTCIceGatherPolicy</code> denotes the policy relating to the
       gathering of ICE candidates.</p>
       <div>
         <pre class="idl">enum RTCIceGatherPolicy {
@@ -1030,8 +1030,8 @@ interface RTCIceGathererEvent : Event {
       </div>
     </section>
     <section id="rtcicecredentialtype*">
-      <h3>enum RTCIceCredentialType</h3>
-      <p><dfn><code>RTCIceCredentialType</code></dfn> represents the type of credential
+      <h3><dfn>RTCIceCredentialType</dfn> Enum</h3>
+      <p><code>RTCIceCredentialType</code> represents the type of credential
       used by a TURN server.</p>
       <div>
         <pre class="idl">enum RTCIceCredentialType {
@@ -1205,8 +1205,8 @@ interface RTCIceGathererEvent : Event {
 }</code></pre>
     </section>
     <section id="rtciceserver*">
-      <h3>dictionary RTCIceServer</h3>
-      <p>The <dfn><code>RTCIceServer</code></dfn> dictionary is used to configure the
+      <h3><dfn>RTCIceServer</dfn> Dictionary</h3>
+      <p>The <code>RTCIceServer</code> dictionary is used to configure the
       STUN and/or TURN servers. In network topologies with multiple layers of NATs,
       it is desirable to have a STUN server between every layer of NATs in addition
       to the TURN servers to minimize the peer to peer network latency.</p>
@@ -1425,8 +1425,8 @@ export function myDtlsTransportStateChange(name, state){
     </section>
   </section>
   <section id="rtcicetransport*">
-    <h2>The RTCIceTransport Object</h2>
-    <p>The <dfn><code>RTCIceTransport</code></dfn> allows an application access to
+    <h2><dfn>RTCIceTransport</dfn> Interface</h2>
+    <p>The <code>RTCIceTransport</code> allows an application access to
     information about the Interactive Connectivity Establishment (ICE) transport over
     which packets are sent and received. In particular, ICE manages peer-to-peer
     connections which involve state which the application may want to access.</p>
@@ -1840,8 +1840,8 @@ interface RTCIceTransport : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcicecomponent*">
-      <h3>enum RTCIceComponent</h3>
-      <p><dfn><code>RTCIceComponent</code></dfn> contains the component-id of the
+      <h3><dfn>RTCIceComponent</dfn> Enum</h3>
+      <p><code>RTCIceComponent</code> contains the component-id of the
       <code><a>RTCIceTransport</a></code>, which will be <code>rtp</code> unless RTP and
       RTCP are not multiplexed and the <code><a>RTCIceTransport</a></code> object was
       returned by <code>createAssociatedTransport()</code>.</p>
@@ -1876,8 +1876,8 @@ interface RTCIceTransport : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcicerole*">
-      <h3>enum RTCIceRole</h3>
-      <p><dfn><code>RTCIceRole</code></dfn> contains the current role of the ICE
+      <h3><dfn>RTCIceRole</dfn> Enum</h3>
+      <p><code>RTCIceRole</code> contains the current role of the ICE
       transport.</p>
       <div>
         <pre class="idl">enum RTCIceRole {
@@ -1908,8 +1908,8 @@ interface RTCIceTransport : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcicetransportstate*">
-      <h3>enum RTCIceTransportState</h3>
-      <p><dfn><code>RTCIceTransportState</code></dfn> represents the current state of the
+      <h3><dfn>RTCIceTransportState</dfn> Enum</h3>
+      <p><code>RTCIceTransportState</code> represents the current state of the
       ICE transport.</p>
       <div>
         <pre class="idl">enum RTCIceTransportState {
@@ -2133,8 +2133,8 @@ interface RTCIceCandidatePairChangedEvent : Event {
       </div>
     </section>
     <section id="rtcicecandidatepair*">
-      <h3>dictionary RTCIceCandidatePair</h3>
-      <p>The <dfn><code>RTCIceCandidatePair</code></dfn> contains the currently selected
+      <h3><dfn>RTCIceCandidatePair</dfn> Dictionary</h3>
+      <p>The <code>RTCIceCandidatePair</code> contains the currently selected
       ICE candidate pair.</p>
       <div>
         <pre class="idl">dictionary RTCIceCandidatePair {
@@ -2245,8 +2245,8 @@ mySignaller.send({
     </section>
   </section>
   <section id="rtcdtlstransport*">
-    <h2>The RTCDtlsTransport Object</h2>
-    <p>The <dfn><code>RTCDtlsTransport</code></dfn> object includes information relating
+    <h2><dfn>RTCDtlsTransport</dfn> Interface</h2>
+    <p>The <code>RTCDtlsTransport</code> object includes information relating
     to Datagram Transport Layer Security (DTLS) transport.</p>
     <section id="rtcdtlstransport-overview*">
       <h3>Overview</h3>
@@ -2503,8 +2503,8 @@ interface RTCDtlsTransport : RTCStatsProvider  {
       </div>
     </section>
     <section id="rtcdtlsparameters*">
-      <h3>dictionary RTCDtlsParameters</h3>
-      <p>The <dfn><code>RTCDtlsParameters</code></dfn> dictionary includes information
+      <h3><dfn>RTCDtlsParameters</dfn> Dictionary</h3>
+      <p>The <code>RTCDtlsParameters</code> dictionary includes information
       relating to DTLS configuration.</p>
       <div>
         <pre class="idl">dictionary RTCDtlsParameters {
@@ -2531,8 +2531,8 @@ interface RTCDtlsTransport : RTCStatsProvider  {
       </div>
     </section>
     <section id="rtcdtlsfingerprint*">
-      <h3>dictionary RTCDtlsFingerprint</h3>
-      <p>The <dfn><code>RTCDtlsFingerprint</code></dfn> dictionary includes the hash function
+      <h3><dfn>RTCDtlsFingerprint</dfn> Dictionary</h3>
+      <p>The <code>RTCDtlsFingerprint</code> dictionary includes the hash function
       algorithm and certificate fingerprint as described in [[!RFC4572]].</p>
       <div>
         <pre class="idl">dictionary RTCDtlsFingerprint {
@@ -2560,8 +2560,8 @@ interface RTCDtlsTransport : RTCStatsProvider  {
       </div>
     </section>
     <section id="rtcdtlsrole*">
-      <h3>enum RTCDtlsRole</h3>
-      <p><dfn><code>RTCDtlsRole</code></dfn> indicates the role of the DTLS
+      <h3><dfn>RTCDtlsRole</dfn> Enum</h3>
+      <p><code>RTCDtlsRole</code> indicates the role of the DTLS
       transport.</p>
       <div>
         <pre class="idl">enum RTCDtlsRole {
@@ -2631,8 +2631,8 @@ interface RTCDtlsTransport : RTCStatsProvider  {
       <code><a>RTCDtlsTransport</a></code> is <code>server</code>.</p>
     </section>
     <section id="rtcdtlstransportstate*">
-      <h3>enum RTCDtlsTransportState</h3>
-      <p><dfn><code>RTCDtlsTransportState</code></dfn> indicates the state of the DTLS
+      <h3><dfn>RTCDtlsTransportState</dfn> Enum</h3>
+      <p><code>RTCDtlsTransportState</code> indicates the state of the DTLS
       transport.</p>
       <div>
         <pre class="idl">enum RTCDtlsTransportState {
@@ -2837,8 +2837,8 @@ function accept(mySignaller, remote) {
     </section>
   </section>
   <section id="rtcrtpsender*">
-    <h2>The RTCRtpSender Object</h2>
-    <p>The <dfn><code>RTCRtpSender</code></dfn> includes information relating to the RTP
+    <h2><dfn>RTCRtpSender</dfn> Interface</h2>
+    <p>The <code>RTCRtpSender</code> includes information relating to the RTP
     sender.</p>
     <section id="rtcrtpsender-overview*">
       <h3>Overview</h3>
@@ -3466,8 +3466,8 @@ interface RTCSsrcConflictEvent : Event {
     </section>
   </section>
   <section id="rtcrtpreceiver*">
-    <h2>The RTCRtpReceiver Object</h2>
-    <p>The <dfn><code>RTCRtpReceiver</code></dfn> includes information relating to the
+    <h2><dfn>RTCRtpReceiver</dfn> Interface</h2>
+    <p>The <code>RTCRtpReceiver</code> includes information relating to the
     RTP receiver.</p>
     <section id="rtcrtpreceiver-overview*">
       <h3>Overview</h3>
@@ -3871,8 +3871,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcrtpsynchronizationsource*">
-      <h3>dictionary RTCRtpSynchronizationSource</h3>
-      <p>The <dfn><code>RTCRtpSynchronizationSource</code></dfn> dictionary contains information
+      <h3><dfn>RTCRtpSynchronizationSource</dfn> Dictionary</h3>
+      <p>The <code>RTCRtpSynchronizationSource</code> dictionary contains information
       about a given synchronization source (SSRC), including the most recent time a
       packet that the source contributed to was played out. The browser MUST
       keep information from RTP packets received in the previous 10 seconds.</p>
@@ -3925,8 +3925,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcrtpcontributingsource*">
-      <h3>dictionary RTCRtpContributingSource</h3>
-      <p>The <dfn><code>RTCRtpContributingSource</code></dfn> dictionary contains information
+      <h3><dfn>RTCRtpContributingSource</dfn> Dictionary</h3>
+      <p>The <code>RTCRtpContributingSource</code> dictionary contains information
       about a given contributing source (CSRC), including the most recent time a
       packet that the source contributed to was played out. The browser MUST
       keep information from RTP packets received in the previous 10 seconds.</p>
@@ -4118,8 +4118,8 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
     </section>
   </section>
   <section id="rtcicetransportcontroller*">
-    <h2>The RTCIceTransportController Object</h2>
-    <p>The <dfn><code>RTCIceTransportController</code></dfn> object assists in the
+    <h2><dfn>RTCIceTransportController</dfn> Interface</h2>
+    <p>The <code>RTCIceTransportController</code> object assists in the
     managing of ICE freezing and bandwidth estimation.</p>
     <section id="rtctransportcontroller-overview*">
       <h3>Overview</h3>
@@ -4465,8 +4465,8 @@ mySignaller.myOfferTracks({
     </section>
   </section>
   <section id="rtcrtplistener*">
-    <h2>The RTCRtpListener Object</h2>
-    <p>The <dfn><code>RTCRtpListener</code></dfn> listens to RTP packets received from
+    <h2><dfn>RTCRtpListener</dfn> Interface</h2>
+    <p>The <code>RTCRtpListener</code> listens to RTP packets received from
     the <code><a>RTCDtlsTransport</a></code>, determining whether an incoming RTP stream
     is configured to be processed by an existing <code><a>RTCRtpReceiver</a></code>
     object. If no match is found, the <code><a>unhandledrtp</a></code> event is fired.
@@ -4781,8 +4781,8 @@ interface RTCRtpUnhandledEvent : Event {
   <section id="rtcrtpdictionaries*">
     <h2>Dictionaries related to Rtp</h2>
     <section id="rtcrtpcapabilities*">
-      <h3>dictionary RTCRtpCapabilities</h3>
-      <p>The <dfn><code>RTCRtpCapabilities</code></dfn> object expresses the capabilities
+      <h3><dfn>RTCRtpCapabilities</dfn> Dictionary</h3>
+      <p>The <code>RTCRtpCapabilities</code> object expresses the capabilities
       of <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> objects.
       Features which are mandatory to implement in [[!RTP-USAGE]], such as RTP/RTCP
       multiplexing [[!RFC5761]], audio/video multiplexing [[!RTP-MULTI-STREAM]] and
@@ -4824,8 +4824,8 @@ interface RTCRtpUnhandledEvent : Event {
       </div>
     </section>
     <section id="rtcrtcpfeedback*">
-      <h3>dictionary RTCRtcpFeedback</h3>
-      <p><dfn>RTCRtcpFeedback</dfn> provides information on RTCP feedback messages.</p>
+      <h3><dfn>RTCRtcpFeedback</dfn> Dictionary</h3>
+      <p><code>RTCRtcpFeedback</code> provides information on RTCP feedback messages.</p>
       <div>
         <pre class="idl">dictionary RTCRtcpFeedback {
              DOMString type;
@@ -4859,8 +4859,8 @@ interface RTCRtpUnhandledEvent : Event {
       </div>
     </section>
     <section id="rtcrtpcodeccapability*">
-      <h3>dictionary RTCRtpCodecCapability</h3>
-      <p>The <dfn><code>RTCRtpCodecCapability</code></dfn> dictionary provides
+      <h3><dfn>RTCRtpCodecCapability</dfn> Dictionary</h3>
+      <p>The <code>RTCRtpCodecCapability</code> dictionary provides
         information on the capabilities of a codec. Exactly one <code>RTCRtpCodecCapability</code>
         will be present for each supported combination of parameters that requires a distinct
         value of <code>preferredPayloadType</code>. For example:</p>
@@ -5310,8 +5310,8 @@ interface RTCRtpUnhandledEvent : Event {
       </section>
     </section>
     <section id="rtcrtpparameters*">
-      <h3>dictionary RTCRtpParameters</h3>
-      <p><dfn>RTCRtpParameters</dfn> contains the RTP stack settings.</p>
+      <h3><dfn>RTCRtpParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpParameters</code> contains the RTP stack settings.</p>
       <div>
         <pre class="idl">dictionary RTCRtpParameters {
              DOMString                                 muxId = "";
@@ -5400,8 +5400,8 @@ interface RTCRtpUnhandledEvent : Event {
       </div>
     </section>
     <section id="rtcdegradationpreference*">
-      <h3>enum RTCDegradationPreference</h3>
-      <p><dfn><code>RTCDegradationPreference</code></dfn> can be used to indicate the
+      <h3><dfn>RTCDegradationPreference</dfn> Enum</h3>
+      <p><code>RTCDegradationPreference</code> can be used to indicate the
       desired choice between degrading resolution and degrading framerate when bandwidth
       is constrained.</p>
       <div>
@@ -5442,8 +5442,8 @@ interface RTCRtpUnhandledEvent : Event {
       </div>
     </section>
     <section id="rtcrtcpparameters*">
-      <h3>dictionary RTCRtcpParameters</h3>
-      <p><dfn><code>RTCRtcpParameters</code></dfn> provides information on RTCP
+      <h3><dfn>RTCRtcpParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtcpParameters</code> provides information on RTCP
       settings.</p>
       <div>
         <pre class="idl">dictionary RTCRtcpParameters {
@@ -5512,8 +5512,8 @@ interface RTCRtpUnhandledEvent : Event {
       </div>
     </section>
     <section id="rtcrtpcodecparameters*">
-      <h3>dictionary RTCRtpCodecParameters</h3>
-      <p><dfn>RTCRtpCodecParameters</dfn> provides information on codec settings.</p>
+      <h3><dfn>RTCRtpCodecParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpCodecParameters</code> provides information on codec settings.</p>
       <div>
         <pre class="idl">dictionary RTCRtpCodecParameters {
     required DOMString                 name;
@@ -5898,8 +5898,8 @@ interface RTCRtpUnhandledEvent : Event {
       </section>
     </section>
     <section id="rtcrtpencodingparameters*">
-      <h3>dictionary RTCRtpEncodingParameters</h3>
-      <p><dfn><code>RTCRtpEncodingParameters</code></dfn> provides information relating to
+      <h3><dfn>RTCRtpEncodingParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpEncodingParameters</code> provides information relating to
       an encoding. Note that all encoding parameters (such as <var>maxBitrate</var>,
       <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to
       codec-specific constraints.</p>
@@ -6372,8 +6372,8 @@ var encodings = [{
       </section>
     </section>
     <section id="rtcprioritytype*">
-      <h3>enum RTCPriorityType</h3>
-      <p><dfn><code>RTCPriorityType</code></dfn> can be used to indicate the relative
+      <h3><dfn>RTCPriorityType</dfn> Enum</h3>
+      <p><code>RTCPriorityType</code> can be used to indicate the relative
       priority of various flows. This allows applications to indicate to the browser
       whether a particular media flow is high, medium, low or of very low importance to
       the application. WebRTC uses the priority and Quality of Service (QoS) framework
@@ -6429,8 +6429,8 @@ var encodings = [{
       </div>
     </section>
     <section id="rtcrtpfecparameters*">
-      <h3>dictionary RTCRtpFecParameters</h3>
-      <p>The <dfn><code>RTCRtpFecParameters</code></dfn> dictionary contains information
+      <h3><dfn>RTCRtpFecParameters<dfn> Dictionary</h3>
+      <p>The <code>RTCRtpFecParameters</code> dictionary contains information
       relating to Forward Error Correction (FEC) settings.</p>
       <div>
         <pre class="idl">dictionary RTCRtpFecParameters {
@@ -6458,8 +6458,8 @@ var encodings = [{
       </div>
     </section>
     <section id="rtcrtprtxparameters*">
-      <h3>dictionary RTCRtpRtxParameters</h3>
-      <p>The <dfn><code>RTCRtpRtxParameters</code></dfn> dictionary contains information
+      <h3><dfn>RTCRtpRtxParameters</dfn> Dictionary</h3>
+      <p>The <code>RTCRtpRtxParameters</code> dictionary contains information
       relating to retransmission (RTX) settings.</p>
       <div>
         <pre class="idl">dictionary RTCRtpRtxParameters {
@@ -6611,8 +6611,8 @@ var encodings = [
       </section>
     </section>
     <section id="rtcrtpheaderextension*">
-      <h3>dictionary RTCRtpHeaderExtension</h3>
-      <p>The <dfn><code>RTCRtpHeaderExtension</code></dfn> dictionary provides
+      <h3><dfn>RTCRtpHeaderExtension</dfn> Dictionary</h3>
+      <p>The <code>RTCRtpHeaderExtension</code> dictionary provides
       information relating to supported header extensions.</p>
       <div>
         <pre class="idl">dictionary RTCRtpHeaderExtension {
@@ -6652,8 +6652,8 @@ var encodings = [
       </div>
     </section>
     <section id="rtcrtpheaderextensionparameters*">
-      <h3>dictionary RTCRtpHeaderExtensionParameters</h3>
-      <p>The <dfn><code>RTCRtpHeaderExtensionParameters</code></dfn>
+      <h3><dfn>RTCRtpHeaderExtensionParameters</dfn> Dictionary</h3>
+      <p>The <code>RTCRtpHeaderExtensionParameters</code>
       dictionary enables a header extension to be configured for use
       within an <code><a>RTCRtpSender</a></code> or
       <code><a>RTCRtpReceiver</a></code>. In order to provide the
@@ -6802,10 +6802,10 @@ var encodings = [
     </section>
   </section>
   <section id="rtcdtmfsender*">
-    <h2>The RTCDtmfSender Object</h2>
+    <h2><dfn>RTCDtmfSender</dfn> Interface</h2>
     <section id="rtcdtmfsender-overview*">
       <h3>Overview</h3>
-      <p>An <dfn><code>RTCDtmfSender</code></dfn> instance allows sending DTMF tones
+      <p>An <code>RTCDtmfSender</code> instance allows sending DTMF tones
       to/from the remote peer, as per [[!RFC4733]].</p>
     </section>
     <section id="rtcdtmfsender-operation*">
@@ -7176,10 +7176,10 @@ sender.insertDTMF("123");
     </section>
   </section>
   <section id="rtcdatachannel*">
-    <h2>The RTCDataChannel Object</h2>
+    <h2><dfn>RTCDataChannel</dfn> Interface</h2>
     <section id="rtcdatachannel-overview*">
       <h3>Overview</h3>
-      <p>An <dfn><code>RTCDataChannel</code></dfn> object allows sending data
+      <p>An <code>RTCDataChannel</code> object allows sending data
       messages to/from the remote peer.</p>
     </section>
     <section id="rtcdatachannel-operation*">
@@ -7614,8 +7614,8 @@ interface RTCDataChannel : EventTarget {
       </div>
     </section>
     <section id="rtcdatachannelstate*">
-      <h3>enum RTCDataChannelState</h3>
-      <p>The <dfn><code>RTCDataChannelState</code></dfn> enum provides information
+      <h3><dfn>RTCDataChannelState</dfn> Enum</h3>
+      <p>The <code>RTCDataChannelState</code> provides information
       on the state of the data channel.</p>
       <div>
         <pre class="idl">enum RTCDataChannelState {
@@ -7669,8 +7669,8 @@ interface RTCDataChannel : EventTarget {
       </div>
     </section>
     <section id="rtcdatachannelparameters*">
-      <h3>dictionary RTCDataChannelParameters</h3>
-      <p>The <dfn><code>RTCDataChannelParameters</code></dfn> dictionary describes
+      <h3><dfn>RTCDataChannelParameters</dfn> Dictionary</h3>
+      <p>The <code>RTCDataChannelParameters</code> dictionary describes
       the configuration of the <code><a>RTCDataChannel</a></code>.
       An <code><a>RTCDataChannel</a></code> can be configured to operate in different
       reliability modes. A reliable channel ensures that the data is delivered at the
@@ -7780,8 +7780,8 @@ interface RTCDataChannel : EventTarget {
     </section>
   </section>
   <section id="sctp-transport*">
-    <h2>The RTCSctpTransport Object</h2>
-    <p>The <dfn><code>RTCSctpTransport</code></dfn> includes information relating to
+    <h2><dfn>RTCSctpTransport</dfn> Interface</h2>
+    <p>The <code>RTCSctpTransport</code> includes information relating to
     Stream Control Transmission Protocol (SCTP) transport.</p>
     <section id="sctp-transport-overview*">
       <h3>Overview</h3>
@@ -7975,8 +7975,8 @@ interface RTCSctpTransport : RTCDataTransport {
         </section>
       </div>
       <section id="rtcsctptransportstate*">
-        <h3>enum RTCSctpTransportState</h3>
-        <p><dfn><code>RTCSctpTransportState</code></dfn> indicates the state of the SCTP
+        <h3><dfn>RTCSctpTransportState</dfn> Enum</h3>
+        <p><code>RTCSctpTransportState</code> indicates the state of the SCTP
         transport.</p>
         <div>
           <pre class="idl">enum RTCSctpTransportState {
@@ -8032,8 +8032,8 @@ interface RTCSctpTransport : RTCDataTransport {
         </div>
       </section>
       <section id="rtcsctpcapabilities*">
-        <h3>dictionary RTCSctpCapabilities</h3>
-        <p>The <dfn><code>RTCSctpCapabilities</code></dfn> dictionary provides information
+        <h3><dfn>RTCSctpCapabilities</dfn> Dictionary</h3>
+        <p>The <code>RTCSctpCapabilities</code> dictionary provides information
         about the capabilities of the <code><a>RTCSctpTransport</a></code>.
         <div>
           <pre class="idl">dictionary RTCSctpCapabilities {
@@ -8301,8 +8301,8 @@ function accept(mySignaller, remote) {
     </section>
   </section>
   <section id="quic-transport*">
-    <h2>The RTCQuicTransport Object</h2>
-    <p>The <dfn><code>RTCQuicTransport</code></dfn> object includes information relating
+    <h2><dfn>RTCQuicTransport</dfn> Interface</h2>
+    <p>The <code>RTCQuicTransport</code> includes information relating
     to QUIC transport.</p>
     <section id="rtcquictransport-overview*">
       <h3>Overview</h3>
@@ -8547,8 +8547,8 @@ interface RTCQuicTransport {
       </div>
     </section>
     <section id="rtcquicparameters*">
-      <h3>dictionary RTCQuicParameters</h3>
-      <p>The <dfn><code>RTCQuicParameters</code></dfn> dictionary includes information
+      <h3><dfn>RTCQuicParameters</dfn> Dictionary</h3>
+      <p>The <code>RTCQuicParameters</code> dictionary includes information
       relating to QUIC configuration.</p>
       <div>
         <pre class="idl">dictionary RTCQuicParameters {
@@ -8575,8 +8575,8 @@ interface RTCQuicTransport {
       </div>
     </section>
     <section id="rtcquicrole*">
-      <h3>enum RTCQuicRole</h3>
-      <p><dfn><code>RTCQuicRole</code></dfn> indicates the role of the QUIC
+      <h3><dfn>RTCQuicRole</dfn> Enum</h3>
+      <p><code>RTCQuicRole</code> indicates the role of the QUIC
       transport.</p>
       <div>
         <pre class="idl">enum RTCQuicRole {
@@ -8646,8 +8646,8 @@ interface RTCQuicTransport {
       <code><a>RTCQuicTransport</a></code> is <code>server</code>.</p>
     </section>
     <section id="rtcquictransportstate*">
-      <h3>enum RTCQuicTransportState</h3>
-      <p><dfn><code>RTCQuicTransportState</code></dfn> indicates the state of the QUIC
+      <h3><dfn>RTCQuicTransportState</dfn> Enum</h3>
+      <p><code>RTCQuicTransportState</code> indicates the state of the QUIC
       transport.</p>
       <div>
         <pre class="idl">enum RTCQuicTransportState {
@@ -8897,10 +8897,10 @@ function accept(mySignaller, remote) {
       </section>
     </div>
     <section>
-      <h4>RTCStatsReport Object</h4>
+      <h4><dfn>RTCStatsReport</dfn> Interface</h4>
       <p>The <code>getStats()</code> method delivers a successful result in the
       form of a <code><a>RTCStatsReport</a></code> object. An
-      <dfn>RTCStatsReport</dfn> object represents a map between strings,
+      <code>RTCStatsReport</code> represents a map between strings,
       identifying the inspected objects (<a href="#dom-rtcstats-id">RTCStats.id</a>), and
       their corresponding <code><a>RTCStats</a></code> objects.</p>
       <p>An <code><a>RTCStatsReport</a></code> may be composed of several
@@ -8965,12 +8965,12 @@ function accept(mySignaller, remote) {
       </div>
     </section>
     <section>
-      <h4>RTCStats Dictionary</h4>
-      <p>An <code><a>RTCStats</a></code> dictionary represents the stats gathered by
-      inspecting a specific object. The <code><a>RTCStats</a></code> dictionary is a base
+      <h4><dfn>RTCStats</dfn> Dictionary</h4>
+      <p>An <code>RTCStats</code> dictionary represents the stats gathered by
+      inspecting a specific object. The <code>RTCStats</code> dictionary is a base
       type that specifies as set of default attributes, such as <code>timestamp</code>
       and <code>type</code>. Specific stats are added by extending the
-      <code><a>RTCStats</a></code> dictionary.</p>
+      <code>RTCStats</code> dictionary.</p>
       <p>Note that while stats names are standardized, any given implementation may be
       using experimental values or values not yet known to the Web application. Thus,
       applications MUST be prepared to deal with unknown stats.</p>
@@ -8979,7 +8979,7 @@ function accept(mySignaller, remote) {
       reported, they both need to be reported over the same interval, so that "average
       packet size" can be computed as "bytes / packets" - if the intervals are different,
       this will yield errors. Thus implementations MUST return synchronized values for
-      all stats in a <code><a>RTCStats</a></code> object.</p>
+      all stats in an <code>RTCStats</code> dictionary.</p>
       <div>
         <pre class="idl">dictionary RTCStats {
              DOMHighResTimeStamp timestamp;
@@ -9025,8 +9025,8 @@ function accept(mySignaller, remote) {
         </section>
       </div>
       <section id="rtcstatstype*">
-        <h3>RTCStatsType DOMString</h3>
-        <p>For ORTC, <var>RTCStatsType</var> is equal to one of the
+        <h3><dfn>RTCStatsType</dfn> DOMString</h3>
+        <p>For ORTC, <code>RTCStatsType</code> is equal to one of the
         following strings defined in [[!WEBRTC-STATS]] Section 6.1:</p>
         <dl>
           <dt><code>"inbound-rtp"</code></dt>
@@ -9565,9 +9565,9 @@ interface RTCIdentity {
       </div>
     </section>
     <section>
-      <h3>dictionary RTCIdentityError</h3>
+      <h3><dfn>RTCIdentityError</dfn> Dictionary</h3>
       <div>
-      <p>The <dfn>RTCIdentityError</dfn> dictionary provides information relating to
+      <p>The <code>RTCIdentityError</code> dictionary provides information relating to
       error responses.</p>
         <pre class="idl">dictionary RTCIdentityError {
              DOMString  idp;
@@ -9602,9 +9602,9 @@ interface RTCIdentity {
       </div>
     </section>
     <section>
-      <h3>dictionary RTCIdentityAssertion</h3>
+      <h3><dfn>RTCIdentityAssertion</dfn> Dictionary</h3>
       <div>
-      <p>The <dfn>RTCIdentityAssertion</dfn> dictionary provides information
+      <p>The <code>RTCIdentityAssertion</code> dictionary provides information
       about an identity assertion.</p>
         <pre class="idl">dictionary RTCIdentityAssertion {
              DOMString idp;
@@ -9707,15 +9707,15 @@ function signalAssertion(assertion) {
     <h2>Certificate Management</h2>
     <section id="rtccertificate-overview*">
       <h3>Overview</h3>
-      <p>The <dfn><code>RTCCertificate</code></dfn> interface enables the certificates
+      <p>The <code>RTCCertificate</code> interface enables the certificates
       used by an <code><a>RTCDtlsTransport</a></code> to be provided in the constructor.
       This makes it possible to support forking, where the offerer will create multiple
       <code><a>RTCDtlsTransport</a></code> objects using the same local certificate and
       fingerprint.</p>
     </section>
     <section>
-      <h3>RTCCertificate Interface</h3>
-      <p>The Certificate API is described below.</p>
+      <h3><dfn>RTCCertificate</dfn> Interface</h3>
+      <p>The <code>RTCCertificate</code> interface is described below.</p>
       <div>
         <pre class="idl">interface RTCCertificate {
     readonly        attribute DOMTimeStamp       expires;
