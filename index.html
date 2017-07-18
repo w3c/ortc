@@ -8247,10 +8247,6 @@ function accept(mySignaller, remote) {
       <code><a>RTCCertificate</a></code> object is in the future.
       If a certificate has expired, throw an <code>InvalidParameter</code>
       exception; otherwise, store the certificates.</p>
-      <p>Since the QUIC negotiation occurs between transport endpoints
-      determined via ICE, implementations of this specification <em class="rfc2119"
-      title="MUST">MUST</em> support multiplexing of STUN, TURN, QUIC, DTLS and RTP and/or
-      RTCP.</p>
       <p>A newly constructed <code><a>RTCQuicTransport</a></code> <em class="rfc2119"
       title="MUST">MUST</em> listen and respond to incoming QUIC packets before
       <code>start()</code> is called. However, to complete the negotiation it is
