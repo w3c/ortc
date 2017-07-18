@@ -2424,14 +2424,13 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code><a>RTCDtlsParameters</a></code>, nullable
               </div>
             </dd>
-            <dt><dfn><code>getRemoteCertificates</code></dfn></dt>
+            <dt><code>getRemoteCertificates</code></dt>
             <dd>
-              <p>Returns the certificate chain in use by the remote side, with each
-              certificate encoded in binary Distinguished Encoding Rules (DER) [[!X690]].
-              <code><a>getRemoteCertificates</a>()</code> returns an empty list prior to
-              selection of the remote certificate, which is completed once
-              <code><a>RTCDtlsTransportState</a></code> transitions to
-              <code>connected</code>.</p>
+              <p><dfn>getRemoteCertificates()</dfn> returns the certificate chain in use
+              by the remote side, with each certificate encoded in binary Distinguished
+              Encoding Rules (DER) [[!X690]]. <code><a>getRemoteCertificates</a>()</code>
+              returns an empty list prior to selection of the remote certificate, which
+              is completed once <code>state</code> transitions to <code>connected</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
