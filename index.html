@@ -53,8 +53,7 @@
     <code><a>RTCDtlsTransport</a></code>. Sending of Dual Tone Multi Frequency (DTMF)
     tones is supported via the <code><a>RTCDtmfSender</a></code> (<a href=
     "#rtcdtmfsender*">Section 10</a>).</p>
-    <p>The <code><a>RTCDtlsTransport</a></code> and <code><a>RTCQuicTransport</a></code>
-    (<a href="#quic-transport*">Section 13</a>) utilize an
+    <p>The <code><a>RTCDtlsTransport</a></code> utilizes an
     <code><a>RTCIceTransport</a></code> (<a href="#rtcicetransport*">Section 3</a>) to
     select a communication path to reach the receiving peer's
     <code><a>RTCIceTransport</a></code>, which is in turn associated with an
@@ -72,7 +71,11 @@
     (<a href="#rtcrtplistener*">Section 8</a>) detects whether an RTP stream is received
     that cannot be delivered to any existing <code><a>RTCRtpReceiver</a></code>,
     providing an <code>onunhandledrtp</code> event handler that the application can use
-    to correct the situation.</p>
+    to correct the situation. The <code><a>RTCQuicTransport</a></code>
+    (<a href="#quic-transport*">Section 13</a>) utilizes an
+    <code><a>RTCIceTransport</a></code> to select a communication path to reach the
+    receiving peer's <code><a>RTCIceTransport</a></code>, which is in turn associated
+    with an <code><a>RTCQuicTransport</a></code>.</p>
     <p>Remaining sections of the specification fill in details relating to RTP
     capabilities and parameters, operational statistics, media authentication via
     Certificates and Identity Providers (IdP) and compatibility with the WebRTC 1.0 API.
