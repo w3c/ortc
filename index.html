@@ -8899,11 +8899,11 @@ function accept(mySignaller, remote) {
     <section>
       <h4><dfn>RTCStatsReport</dfn> Interface</h4>
       <p>The <code>getStats()</code> method delivers a successful result in the
-      form of a <code><a>RTCStatsReport</a></code> object. An
+      form of a <code>RTCStatsReport</code> object. An
       <code>RTCStatsReport</code> represents a map between strings,
       identifying the inspected objects (<a href="#dom-rtcstats-id">RTCStats.id</a>), and
       their corresponding <code><a>RTCStats</a></code> objects.</p>
-      <p>An <code><a>RTCStatsReport</a></code> may be composed of several
+      <p>An <code>RTCStatsReport</code> may be composed of several
       <code><a>RTCStats</a></code> objects, each reporting stats for one underlying
       object. One achieves the total for the object by summing over all stats of a
       certain type; for instance, if an <code><a>RTCRtpSender</a></code> object is
@@ -8928,7 +8928,7 @@ function accept(mySignaller, remote) {
           <h2>Methods</h2>
           <dl data-link-for="RTCStatsReport" data-dfn-for="RTCStatsReport" class=
           "methods">
-            <dt><dfn><code>RTCStats</code></dfn></dt>
+            <dt><code>RTCStats</code></dt>
             <dd>
               <p>Getter to retrieve the <code><a>RTCStats</a></code> objects that this
               stats report is composed of.</p>
@@ -8965,7 +8965,7 @@ function accept(mySignaller, remote) {
       </div>
     </section>
     <section>
-      <h4>RTCStats Dictionary</h4>
+      <h4><dfn>RTCStats</dfn> Dictionary</h4>
       <p>An <code>RTCStats</code> dictionary represents the stats gathered by
       inspecting a specific object. The <code>RTCStats</code> dictionary is a base
       type that specifies as set of default attributes, such as <code>timestamp</code>
