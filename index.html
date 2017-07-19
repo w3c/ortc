@@ -6806,13 +6806,17 @@ var encodings = [
     <section id="rtcdtmfsender-overview*">
       <h3>Overview</h3>
       <p>An <code>RTCDtmfSender</code> instance allows sending DTMF tones
-      to/from the remote peer, as per [[!RFC4733]].</p>
+      to/from the remote peer, as per [[!RFC4733]]. Since WebRTC [!WEBRTC10]
+      utilizes the <dfn><code>RTCDTMFSender</code></dfn>, ORTC API implementations SHOULD
+      support both spellings. Therefore, wherever <code>RTCDtmfSender</code> is used in
+      this specification, support for <code>RTCDTMFSender</code> should also be assumed
+      to apply.</p>
     </section>
     <section id="rtcdtmfsender-operation*">
       <h3>Operation</h3>
-      <p>An <code><a>RTCDtmfSender</a></code> object is constructed from an
-      <code><a>RTCRtpSender</a></code> <var>sender</var>. If
-      <code>sender.track.kind</code> is not "audio", throw an
+      <p>An <code><a>RTCDtmfSender</a></code> or <code><a>RTCDTMFSEnder</a></code>
+      object is constructed from an <code><a>RTCRtpSender</a></code> <var>sender</var>.
+      If <code>sender.track.kind</code> is not "audio", throw an
       <code>InvalidParameters</code> exception.</p>
     </section>
     <section id="rtcdtmfsender-interface-definition*">
