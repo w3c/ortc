@@ -6802,7 +6802,7 @@ var encodings = [
     </section>
   </section>
   <section id="rtcdtmfsender*">
-    <h2><dfn>RTCTMFSender</dfn> Interface</h2>
+    <h2><dfn>RTCDTMFSender</dfn> Interface</h2>
     <section id="rtcdtmfsender-overview*">
       <p>Since WebRTC [!WEBRTC10] utilizes the <code>RTCDTMFSender</code>
       interface, the ORTC API also supports this as the preferred interface for
@@ -6999,8 +6999,108 @@ interface RTCDTMFSender : EventTarget {
           </dl>
         </section>
       </div>
-    </section>  
-    <section id="rtcdtmfsender-legacy">
+    </section>
+    <section>
+      <h3>RTCDTMFToneChangeEvent</h3>
+      <p>The <code><a>tonechange</a></code> event uses the
+      <code><a>RTCDTMFToneChangeEvent</a></code> interface.</p>
+      <p><dfn id="fire-a-tonechange-event" data-lt=
+      "fire a tonechange event">Firing a tonechange event named
+      <var>e</var></dfn> with a <code>DOMString</code> <var>tone</var> means
+      that an event with the name <var>e</var>, which does not bubble (except
+      where otherwise stated) and is not cancelable (except where otherwise
+      stated), and which uses the <code><a>RTCDTMFToneChangeEvent</a></code>
+      interface with the <code><a data-for=
+      "RTCDTMFToneChangeEvent">tone</a></code> attribute set to
+      <var>tone</var>, MUST be created and dispatched at the given target.</p>
+      <div>
+        <pre class="idl">
+        [ Constructor (DOMString type, RTCDTMFToneChangeEventInit eventInitDict)]
+interface RTCDTMFToneChangeEvent : Event {
+    readonly        attribute DOMString tone;
+};</pre>
+        <section>
+          <h2>Constructors</h2>
+          <dl data-link-for="RTCDTMFToneChangeEvent" data-dfn-for=
+          "RTCDTMFToneChangeEvent" class="constructors">
+            <dt><dfn><code>RTCDTMFToneChangeEvent</code></dfn></dt>
+            <dd>
+              readonly attribute DOMString tone
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">type</td>
+                    <td class="prmType"><code>DOMString</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                  <tr>
+                    <td class="prmName">eventInitDict</td>
+                    <td class="prmType">
+                    <code>RTCDTMFToneChangeEventInit</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="RTCDTMFToneChangeEvent" data-dfn-for=
+          "RTCDTMFToneChangeEvent" class="attributes">
+            <dt><code>tone</code> of type <span class=
+            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            <dd>
+              <p>The <dfn><code>tone</code></dfn> attribute contains the
+              character for the tone (including ",") that has just
+              begun playout (see <code><a>insertDTMF</a></code> ). If the
+              value is the empty string, it indicates that the <code><a data-for=
+              "RTCDTMFSender">toneBuffer</a></code> is an empty string and that
+              the previous tones have completed playback.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+      <div>
+        <pre class="idl">dictionary RTCDTMFToneChangeEventInit : EventInit {
+             required DOMString tone;
+};</pre>
+        <section>
+          <h2>Dictionary <dfn>RTCDTMFToneChangeEventInit</dfn>
+          Members</h2>
+          <dl data-link-for="RTCDTMFToneChangeEventInit" data-dfn-for=
+          "RTCDTMFToneChangeEventInit" class="dictionary-members">
+            <dt><dfn><code>tone</code></dfn> of type <span class=
+            "idlMemberType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>The <code>tone</code> attribute contains the
+              character for the tone (including ",") that has just
+              begun playout (see <code><a>insertDTMF</a></code> ). If the
+              value is the empty string, it indicates that the <code><a data-for=
+              "RTCDTMFSender">toneBuffer</a></code> is an empty string and that
+              the previous tones have completed playback.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
+  </section>
+  <section id="rtcdtmfsender-legacy">
       <h3><dfn>RTCDtmfSender</dfn> Interface</h3>
       <p>An <code>RTCDtmfSender</code> instance allows sending DTMF tones
       to/from the remote peer, as per [[!RFC4733]].</p>
@@ -7311,20 +7411,19 @@ interface RTCDTMFToneChangeEvent : Event {
       <code><a>RTCRtpSender</a></code> object.</p>
       <p>Sending the DTMF signal "1234" with 500 ms duration per tone:</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
-if (sender.canInsertDTMF) {
+if (senderObject.dtmf) {
   var duration = 500;
-  sender.insertDTMF("1234", duration);
+  dtmf.insertDTMF("1234", duration);
 } else {
-  trace("DTMF function not available");
+  trace("DTMF not available");
 }
                 </pre>
       <p>Send the DTMF signal "1234", and light up the active key using
       <code>lightKey(key)</code> while the tone is playing (assuming that
       <code>lightKey("")</code> will darken all the keys):</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
-sender.ontonechange = function(e) {
+      var sender = sendObject.dtmf;
+      sender.ontonechange = function(e) {
   if (!e.tone) return;
 
   // light up the key when playout starts
@@ -7337,7 +7436,7 @@ sender.insertDTMF("1234");
                 </pre>
       <p>Send a 1-second "1" tone followed by a 2-second "2" tone:</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+var sender = sendObject.dtmf;
 sender.ontonechange = function(e) {
   if (e.tone === "1") sender.insertDTMF("2", 2000);
 };
@@ -7346,7 +7445,7 @@ sender.insertDTMF("1", 1000);
       <p>It is always safe to append to the tone buffer. This example appends before any
       tone playout has started as well as during playout.</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+var sender = sendObject.dtmf;
 sender.insertDTMF("123");
 
 // append more tones to the tone buffer before playout has begun
@@ -7361,7 +7460,7 @@ sender.ontonechange = function(e) {
                 </pre>
       <p>Send the DTMF signal "123" and abort after sending "2".</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+var sender = sendObject.dtmf;
 sender.ontonechange = function(e) {
   if (e.tone === "2") {
     // empty the buffer to not play any tone after "2"
