@@ -7108,6 +7108,74 @@ interface RTCDTMFToneChangeEvent : Event {
         </section>
       </div>
     </section>
+    <section id="rtcdtmfsender2*">
+    <h2><dfn>RTCTMFSender</dfn> Interface</h2>
+    <section id="rtcdtmfsender2-overview*">
+      <h3>Overview</h3>
+      <p>An <code>RTCDTMFSender</code> instance allows sending DTMF tones
+      to/from the remote peer, as per [[!RFC4733]].</p>
+    </section>
+    <section id="rtcdtmfsender-operation2*">
+      <h3>Operation</h3>
+      <p>The <code>RTCDTMFSender</code> is an attribute of the
+      <code><a>RTCRtpSender</a><code> interface.</p>
+    </section>
+    <section id="rtcdtmfsender-interface-definition2*">
+      <h3>Interface Definition</h3>
+      <div>
+        <pre class="idl">partial interface RTCRtpSender {
+    readonly        attribute RTCDTMFSender? dtmf;
+};</pre>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
+          "attributes">
+            <dt><code>dtmf</code> of type <span class=
+            "idlAttrType"><a>RTCDTMFSender</a></span>, readonly, nullable</dt>
+            <dd>
+              <p>The <dfn>dtmf</dfn> attribute returns a RTCDTMFSender which
+              can be used to send DTMF. A null value indicates that this
+              <code><a>RTCRtpSender</a></code> cannot send DTMF.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+      <div>
+        <pre class="idl">
+interface RTCDTMFSender : EventTarget {
+    void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
+                    attribute EventHandler ontonechange;
+    readonly        attribute DOMString    toneBuffer;
+};</pre>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="RTCDTMFSender" data-dfn-for="RTCDTMFSender" class=
+          "attributes">
+            <dt><dfn><code>ontonechange</code></dfn> of type <span class=
+            "idlAttrType"><a>EventHandler</a></span></dt>
+            <dd>
+              <p>The event type of this event handler is
+              <code><a>tonechange</a></code>.</p>
+            </dd>
+            <dt><dfn><code>toneBuffer</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            <dd>
+              <p>The <code>toneBuffer</code> attribute MUST return a list of
+              the tones remaining to be played out. For the syntax, content,
+              and interpretation of this list, see <code><a>insertDTMF</a></code>.</p>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Methods</h2>
+          <dl data-link-for="RTCDTMFSender" data-dfn-for="RTCDTMFSender" class=
+          "methods">
+            <dt><code>insertDTMF</code></dt>
+            <dd>This method operates identically to <code><a>insertDTMF</a></code>.</dd>
+          </dl>
+        </section>
+      </div>
+    </section>
     <section>
       <h3>DTMF Example</h3>
       <p>Examples assume that <var>sendObject</var> is an
@@ -10094,7 +10162,8 @@ function signalAssertion(assertion) {
         </tr>
       </tbody>
     </table>
-    <p>The following events fire on <code><a>RTCDTMFSender</a></code> objects:</p>
+    <p>The following events fire on <code><a>RTCDTMFSender</a></code>
+    and <code><a>RTCDtmfSender</a></code> objects:</p>
     <table style="border-width:0; width:60%" border="1">
       <tbody>
         <tr>
@@ -10107,7 +10176,7 @@ function signalAssertion(assertion) {
         <tr>
           <td><dfn id="event-RTCDTMFSender-tonechange"><code>tonechange</code></dfn></td>
           <td><code><a>Event</a></code></td>
-          <td>The <code><a>RTCDTMFSender</a></code> object has either just begun playout
+          <td>The <code><a>RTCDtmfSender</a></code> object has either just begun playout
           of a tone (returned as the <code>tone</code> attribute) or just ended playout
           of a tone (returned as an empty value in the <code>tone</code> attribute).</td>
         </tr>
@@ -10196,14 +10265,18 @@ function signalAssertion(assertion) {
     the ORTC API, utilizing a Javascript "shim" library. This section discusses WebRTC
     1.0 compatibility issues that have been encountered by ORTC API implementers.</p>
     <section id="spelling*">
-      <h3>Spelling differences</h3>
-      <p>WebRTC 1.0 supports the <code>replaceTrack</code> method and the
-      <code>RTCDTMFSender</code> interface, whereas ORTC originally supported
-      the <code>setTrack</code> method and the <code>RTCDtmfSender</code>
-      interface. In order to provide backward compatibility, this specification has
-      added <code>replaceTrack</code> as an alias for <code>setTrack</code>,
-      and the <code>RTCDTMFSender</code> interface as an alias for the
-      <code>RTCDtmfSender</code> interface.</p>
+      <h3>replaceTrack/setTrack</h3>
+      <p>WebRTC 1.0 supports the <code>replaceTrack</code> method,
+      whereas ORTC originally supported the <code>setTrack</code> method.
+      In order to provide backward compatibility, this specification has
+      added <code>replaceTrack</code> as an alias for <code>setTrack</code>.</p>
+    </section>
+    <section id="dtmfcompat">
+      <h3>RTCDTMFSender/RTCDtmfSender</h3>
+      <p>WebRTC 1.0 supports the <code>RTCDTMFSender</code> interface,
+      whereas ORTC originally supported the <code>RTCDtmfSender</code>
+      interface. In order to provide backward compatibility, this specification
+      has added the <code>RTCDTMFSender</code> interface.</p>
     </section>
     <section id="bundle*">
       <h3>BUNDLE</h3>
