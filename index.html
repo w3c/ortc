@@ -3103,11 +3103,11 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>setTrack</code></dfn></dt>
+            <dt><code>setTrack</code></dt>
             <dd>
-              <p>Attempts to replace the track being sent with another track
+              <p><dfn>setTrack</dfn> Attempts to replace the track being sent with another track
               provided (or with a null track). The deprecated <code>setTrack</code>
-              method operates identically to the <code>replaceTrack</code> method.</p>
+              method operates identically to the <code><a>replaceTrack</a></code> method.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -3132,11 +3132,11 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>replaceTrack</code></dfn></dt>
+            <dt><code>replaceTrack</code></dt>
             <dd>
               <p>Attempts to replace the track being sent with another track
               provided (or with a null track).</p>
-              <p>When the <code>replaceTrack()</code> method is invoked, the user
+              <p>When the <dfn>replaceTrack</dfn> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
                 <li>
