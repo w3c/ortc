@@ -6874,13 +6874,15 @@ interface RTCDtmfSender {
             <dd>
               <p>The <dfn>ontonechange</dfn> event handler uses the
               <a>RTCDTMFToneChangeEvent</a> interface to return the character for each
-              tone as it is played out.</p>
+              tone as it is played out. The event type of the <dfn>ontonechange</dfn>
+              event handler is <code><a>tonechange</a></code>.</p>
             </dd>
             <dt><code>toneBuffer</code> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
               <p>The <dfn>toneBuffer</dfn> attribute returns a list of the tones
-              remaining to be played out.</p>
+              remaining to be played out. For the syntax, content, and interpretation
+              of this list, see <code><a>insertDTMF</a></code>.</p>
             </dd>
           </dl>
         </section>
