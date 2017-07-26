@@ -7042,13 +7042,14 @@ interface RTCDtmfSender {
     </section>
     <section>
       <h3><dfn>RTCDTMFToneChangeEvent</dfn></h3>
-      <p>The tonechange event uses the <code>RTCDTMFToneChangeEvent</code> interface.</p>
-      <p>Firing a tonechange event named <var>e</var> with a DOMString <var>tone</var>
-      means that an event with the name <var>e</var>, which does not bubble (except where
-      otherwise stated) and is not cancelable (except where otherwise stated), and which
-      uses the <a>RTCDTMFToneChangeEvent</a> interface with the <code>tone</code>
-      attribute set to <var>tone</var>, MUST be created and dispatched at the given
-      target.</p>
+      <p>The <code><a>tonechange</a></code> event uses the <code>RTCDTMFToneChangeEvent</code>
+      interface.</p>
+      <p>Firing a <code><a>tonechange</a></code> event named <var>e</var> with a
+      DOMString <var>tone</var> means that an event with the name <var>e</var>,
+      which does not bubble (except where otherwise stated) and is not cancelable
+      (except where otherwise stated), and which uses the <a>RTCDTMFToneChangeEvent</a>
+      interface with the <code>tone</code> attribute set to <var>tone</var>,
+      MUST be created and dispatched at the given target.</p>
       <div>
         <pre class="idl">
         [ Constructor (DOMString type, RTCDTMFToneChangeEventInit eventInitDict)]
@@ -7101,10 +7102,10 @@ interface RTCDTMFToneChangeEvent : Event {
             <dt><code>tone</code> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone that
-              has just begun playout (see <code>insertDTMF()</code>). If the value is the empty
-              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string
-              and that the previous tones have completed playback.</p>
+              <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone
+              (including ",") that has just begun playout (see <code><a>insertDTMF</a></code> ).
+              If the value is the empty string, it indicates that the <code><a>toneBuffer</a></code>
+              is an empty string and that the previous tones have completed playback.</p>
             </dd>
           </dl>
         </section>
@@ -7122,10 +7123,10 @@ interface RTCDTMFToneChangeEvent : Event {
             <dt><code>tone</code> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
             <dd>
-              <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone that
-              has just begun playout (see <code>insertDTMF()</code>). If the value is the empty
-              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string
-              and that the previous tones have completed playback.</p>
+              <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone
+              (including ",") that has just begun playout (see <code><a>insertDTMF</a></code> ).
+              If the value is the empty string, it indicates that the <code><a>toneBuffer</a></code>
+              is an empty string and that the previous tones have completed playback.</p>
             </dd>
           </dl>
         </section>
