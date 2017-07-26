@@ -296,7 +296,7 @@ interface RTCIceGatherer : RTCStatsProvider {
             <dt><dfn><code>gather</code></dfn></dt>
             <dd>
               <p>Gather ICE candidates. If <var>options</var> is omitted, utilize the
-              value of <var>options</var> passed in the constructor. If  
+              value of <var>options</var> passed in the constructor. If
               <code>state</code> is <code>closed</code>, throw an
               <code>InvalidStateError</code> exception.</p>
               <table class="parameters">
@@ -426,7 +426,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       <div>
         <p>The <dfn><code>RTCIceGatherCandidate</code></dfn> provides either an
         <code><a>RTCIceCandidate</a></code> or an <code><a>RTCIceCandidateComplete</a></code>
-        indication that candidate gathering is complete.</p> 
+        indication that candidate gathering is complete.</p>
         <pre class="idl">
         typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate;</pre>
         <div class="idlTypedefDesc"></div>
@@ -706,7 +706,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               <td><dfn><code id=
               "idl-def-RTCIceGathererState.closed">closed</code></dfn></td>
               <td>
-                <p>The <code>closed</code> state can only be entered when 
+                <p>The <code>closed</code> state can only be entered when
                 the <code><a>RTCIceGatherer</a></code> has been closed
                 intentionally by calling <code>close()</code>. This is a
                 terminal state.</p>
@@ -1291,7 +1291,7 @@ var gatherOptions = {
   gatherPolicy: "relay",
   iceServers: [
     { urls: "stun:stun1.example.net" },
-    { urls: "turn:turn.example.org", username: "user", credential: "myPassword", 
+    { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
       credentialType: "password" }
    ]
 };
@@ -1355,7 +1355,7 @@ export function mySendLocalCandidate(candidate, component, kind, parameters) {
 
 export function myIceGathererStateChange(name, state) {
   switch (state) {
-    case "new": 
+    case "new":
       trace("IceGatherer: " + name + " Has been created");
       break;
     case "gathering":
@@ -1602,8 +1602,8 @@ interface RTCIceTransport : RTCStatsProvider {
                 </li>
                 <li>
                   If <code><var>remoteParameters</var>.usernameFragment</code>
-                  or <code><var>remoteParameters</var>.password</code> is unset, 
-                  throw an <code>InvalidParameters</code> exception.                  
+                  or <code><var>remoteParameters</var>.password</code> is unset,
+                  throw an <code>InvalidParameters</code> exception.
                 </li>
                 <li>
                   If <code>start()</code> is called again and
@@ -1654,7 +1654,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </li>
               <li>
                 If <code>start()</code> is called again with new values of
-                <code><var>gatherer</var></code> and 
+                <code><var>gatherer</var></code> and
                 <code><var>remoteParameters</var></code>, local
                 candidates are flushed, remote candidates are flushed,
                 candidate pairs are flushed and <code>state</code> transitions
@@ -1708,7 +1708,7 @@ interface RTCIceTransport : RTCStatsProvider {
               <p>Irreversibly stops the
               <code><a>RTCIceTransport</a></code>. When
               <code>stop</code> is called, the following
-              steps MUST be run:<p>             
+              steps MUST be run:<p>
               <ol>
                 <li>
                   Let <var>iceTransport</var> be the
@@ -2705,7 +2705,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
 // and start both ICE and DTLS, when RTP and RTCP are multiplexed.
 // Assume that we have a way to signal (mySignaller).
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 function initiate(mySignaller) {
@@ -2722,7 +2722,7 @@ function initiate(mySignaller) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
-  
+
   // Start gathering
   iceGatherer.gather();
 
@@ -2778,7 +2778,7 @@ function initiate(mySignaller) {
 // and DTLS parameters and ICE candidates and start both ICE and DTLS,
 // assuming that RTP and RTCP are multiplexed.
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 // Assume that remote info is signalled to us.
@@ -2796,7 +2796,7 @@ function accept(mySignaller, remote) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
-  
+
   // Start gathering
   iceGatherer.gather();
 
@@ -3017,8 +3017,8 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
             <dt><code>setTransport</code></dt>
             <dd>
-              <p><dfn>setTransport()</dfn> 
-              attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
+              <p><dfn>setTransport()</dfn>
+              attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (if set) and RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> (if used) with the transport(s) provided.</p>
               <p>When the <code>setTransport()</code> method is invoked, the user
@@ -3336,7 +3336,7 @@ interface RTCRtpSender : RTCStatsProvider {
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
               <p>The <code>stop</code> method irreversibly stops the
-              <code><a>RTCRtpSender</a></code>. When <code>stop</code>         
+              <code><a>RTCRtpSender</a></code>. When <code>stop</code>
               called, the following steps MUST be run:<p>
               <ol>
                 <li>
@@ -3349,14 +3349,14 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                  <li>
                   <p>Let <var>parameters</var> be the argument provided to
-                  <code><var>sender</var>.send(<var>parameters</var>)</code> the 
+                  <code><var>sender</var>.send(<var>parameters</var>)</code> the
                   last time it was invoked.<p>
                 </li>
                  <li>
                    <p>Stop sending media with <var>sender</var>.<p>
                 </li>
                 <li>
-                  <p>Send an RTCP BYE for each SSRC in 
+                  <p>Send an RTCP BYE for each SSRC in
                   <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>,
                   <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> and
                   <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code>
@@ -3605,7 +3605,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
             <dt><code>setTransport</code></dt>
             <dd>
               <p>The <dfn>setTransport()</dfn> method
-              attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code> 
+              attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
               <p>When the <code>setTransport()</code> method is invoked, the user
@@ -4418,7 +4418,7 @@ mySignaller.myOfferTracks({
       controller.addTransport(videoRtpIceTransport);
       // Start the ICE transports
       audioRtpIceTransport.start(audioRtpIceGatherer, answer.audioRtpIce, RTCIceRole.controlling);
-      audioRtcpIceTransport.start(audioRtcpIceGatherer, answer.audioRtcpIce, 
+      audioRtcpIceTransport.start(audioRtcpIceGatherer, answer.audioRtcpIce,
         RTCIceRole.controlling);
       videoRtpIceTransport.start(videoRtpIceGatherer, answer.videoRtpIce, RTCIceRole.controlling);
       videoRtcpIceTransport.start(videoRtcpIceGatherer, answer.videoRtcpIce,
@@ -4520,12 +4520,12 @@ mySignaller.myOfferTracks({
       <var>receiver</var>, then <code>receiver.receive()</code> will be rejected with
       <code>InvalidParameters</code>.</li>
       </ol>
-      <p>SSRC table:</p> 
+      <p>SSRC table:</p>
       <ol>
       <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
       to <var>receiver</var> for each entry where
       <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set, for values of
-      <var>i</var> from 0 to <code>encodings.length-1</code>.</li> 
+      <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
       <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].rtx.ssrc]</code>
       to <var>receiver</var> for each entry where
       <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code> is set, for values of
@@ -4535,7 +4535,7 @@ mySignaller.myOfferTracks({
       <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set, for values of
       <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
       <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
-      than <var>receiver</var>, then <code>receiver.receive()</code> will be rejected 
+      than <var>receiver</var>, then <code>receiver.receive()</code> will be rejected
       with <code>InvalidParameters</code>.</li>
       </ol>
       <p>payload type table:<p>
@@ -5984,7 +5984,7 @@ interface RTCRtpUnhandledEvent : Event {
             "idlMemberType"><a>double</a></span></dt>
             <dd>
               <p>If <code><var>sender</var>.track.kind</code> is "video",
-              the encoder will scale down the resolution of 
+              the encoder will scale down the resolution of
               <code><var>sender</var>.track</code> in each dimension before
               sending. For example, if the value is 2.0, the video will be
               scaled down by a factor of at least 2 in each dimension,
@@ -6043,7 +6043,7 @@ interface RTCRtpUnhandledEvent : Event {
               of case-sensitive alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
               of 16 characters. An <code><a>RTCRtpSender</a></code> places the value of
               <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
-              and an <code><a>RTCRtpReceiver</a></code> determines the 
+              and an <code><a>RTCRtpReceiver</a></code> determines the
               <code>encodingId</code> that an RTP packet belongs to based on the value
               of the <a>RID</a> header extension.  For a codec (such as VP8) using
               <a>SRST</a> transport which requires a compliant decoder to be able to
@@ -6566,17 +6566,17 @@ var codecs = [
       apt: 116
     }
   }
-]; 
+];
 //
 //   Define rtx parameters
 var rtxParams = {
   ssrc: 3254585230
-}; 
+};
 //   Define FEC parameters for "red+ulpfec"
 var redulpfec = {
   ssrc: 3254585230,
   mechanism: "red+ulpfec"
-}; 
+};
 //   Define RTCRtpEncodingParameters
 //
 var encodings = [
@@ -6606,7 +6606,7 @@ var encodings = [
     fec: redulplfec,
     rtx: rtxParams
   }
-];  
+];
                     </pre>
       </section>
     </section>
@@ -6898,7 +6898,7 @@ interface RTCDtmfSender {
               throw an <code>InvalidStateError</code> exception.</p>
               <p>The tones parameter is treated as a series of characters. The
               characters 0 through 9, A through D, #, and * generate the
-              associated DTMF tones. The characters a to d MUST be normalized 
+              associated DTMF tones. The characters a to d MUST be normalized
               to uppercase on entry and are equivalent to A to D.
               As noted in [[!RFC7874]] Section 3, support for the characters
               0 through 9, A through D, #, and * are required.
@@ -7080,7 +7080,7 @@ interface RTCDTMFToneChangeEvent : Event {
             <dd>
               <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone that
               has just begun playout (see <code>insertDTMF()</code>). If the value is the empty
-              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string 
+              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string
               and that the previous tones have completed playback.</p>
             </dd>
           </dl>
@@ -7101,7 +7101,7 @@ interface RTCDTMFToneChangeEvent : Event {
             <dd>
               <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone that
               has just begun playout (see <code>insertDTMF()</code>). If the value is the empty
-              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string 
+              string, it indicates that the <code><a>toneBuffer</a></code> is an empty string
               and that the previous tones have completed playback.</p>
             </dd>
           </dl>
@@ -7911,8 +7911,8 @@ interface RTCSctpTransport : RTCDataTransport {
             </dd>
             <dt><dfn><code>start</code></dfn></dt>
             <dd>
-              <p>Starts the <code><a>RTCSctpTransport</a></code> instance 
-              and causes an SCTP INIT request to be issued over the 
+              <p>Starts the <code><a>RTCSctpTransport</a></code> instance
+              and causes an SCTP INIT request to be issued over the
               <code><a>RTCDtlsTransport</a></code> from the local
               <code><a>RTCSctpTransport</a></code> to the remote
               <code><a>RTCSctpTransport</a></code> (causing the
@@ -7921,12 +7921,12 @@ interface RTCSctpTransport : RTCDataTransport {
               <code><a>RTCSctpTransport</a></code> responds with an
               SCTP INIT-ACK. Since both local and remote parties must
               mutually create an <code><a>RTCSctpTransport</a></code>,
-              SCTP SO (Simultaneous Open) is used to establish a connection 
+              SCTP SO (Simultaneous Open) is used to establish a connection
               over SCTP. If <code><a>RTCSctpTransportState</a></code>
               is not <code>new</code> throw an <code>InvalidStateError</code>
               exception. If <code>remotePort</code> is not provided, a
               default value of <code>port</code> is assumed.  If the
-              remote port is in use, throw an 
+              remote port is in use, throw an
               <code>InvalidParameters</code> exception.</p>
               <table class="parameters">
                 <tbody>
@@ -8149,7 +8149,7 @@ interface RTCDataChannelEvent : Event {
 // Include some helper functions
 import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
-  
+
 function initiate(mySignaller) {
   // Prepare the ICE gatherer
   var gatherOptions = {
@@ -8159,7 +8159,7 @@ function initiate(mySignaller) {
       { urls: "turn:turn.example.org", username: "user", credential: "myPassword",
         credentialType: "password" }
      ]
-  }; 
+  };
   var iceGatherer = new RTCIceGatherer(gatherOptions);
   // Handle state changes
   iceGatherer.onstatechange = function(event) {
@@ -8171,7 +8171,7 @@ function initiate(mySignaller) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
-  
+
   // Start gathering
   iceGatherer.gather();
   // Create ICE transport
@@ -8180,7 +8180,7 @@ function initiate(mySignaller) {
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
-  
+
   // Create the DTLS certificate
   var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
@@ -8189,14 +8189,14 @@ function initiate(mySignaller) {
   }, function(){
     trace('Certificate could not be created');
   });
-  
+
   // Create DTLS and SCTP transport
   var dtls = new RTCDtlsTransport(ice, certs);
   var sctp = new RTCSctpTransport(dtls);
-  
+
   // Construct RTCDataChannelParameters dictionary
   var parameters = {
-    label: "channel1", 
+    label: "channel1",
     ordered: true,
     protocol: "ship",
     negotiated: false
@@ -8223,7 +8223,7 @@ function initiate(mySignaller) {
 <pre class="example highlight">
 // This is an example of how to answer
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 function accept(mySignaller, remote) {
@@ -8246,7 +8246,7 @@ function accept(mySignaller, remote) {
   iceGatherer.onlocalcandidate = function(event) {
     mySignaller.mySendLocalCandidate(event.candidate);
   };
-  
+
    // Start gathering
   iceGatherer.gather();
   // Create ICE transport
@@ -8255,7 +8255,7 @@ function accept(mySignaller, remote) {
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
-  
+
    // Create the DTLS certificate
   var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
@@ -8264,11 +8264,11 @@ function accept(mySignaller, remote) {
   }, function(){
     trace('Certificate could not be created');
   });
-  
+
   // Create DTLS and SCTP transport
   var dtls = new RTCDtlsTransport(ice, certs);
   var sctp = new RTCSctpTransport(dtls);
-  
+
   mySignaller.sendAccept({
     "ice": iceGatherer.getLocalParameters(),
     "dtls": dtls.getLocalParameters(),
@@ -8283,8 +8283,8 @@ function accept(mySignaller, remote) {
   // Start the SctpTransport
   sctp.start(remote.sctpCapabilities, remote.port);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9. 
-   
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+
   // Assume in-band signalling. We could also have sent
   // RTCDataChannelParameters in signalling and constructed
   // the data channel with negotiated: true.
@@ -9135,7 +9135,7 @@ function accept(mySignaller, remote) {
       <p>RTCP packets arriving on a <code><a>RTCDtlsTransport</a></code> are decrypted
       and the algorithm described in [[!BUNDLE]] Section 10.2 is used to route the RTCP
       packets to the appropriate <code><a>RTCRtpSender</a></code> and
-      <code><a>RTCRtpReceiver</a></code> objects.  The <code><a>RTCRtpSender</a></code> 
+      <code><a>RTCRtpReceiver</a></code> objects.  The <code><a>RTCRtpSender</a></code>
       and <code><a>RTCRtpReceiver</a></code> objects then examine the RTCP packets to
       determine the information relevant to their operation and the statistics maintained
       by them.</p>
@@ -9200,7 +9200,7 @@ function processStats(currentReport) {
       acts as the Authenticating Party (AP) and obtains an identity assertion from the
       IdP which is then conveyed in signaling. The responder acts as the Relying Party
       (RP) and verifies the assertion.</p>
-       <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be 
+       <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be
       used for a given <code><a>RTCIdentity</a></code> object, and initiates the process of
       obtaining an identity assertion.</p>
       <p>The interaction with the IdP is designed to decouple the browser from any
@@ -9645,7 +9645,7 @@ interface RTCIdentity {
         // Set ICE gather options and construct the RTCIceGatherer object, assuming that
 // we are using RTP/RTCP mux and A/V mux so that only one RTCIceTransport is needed.
 // Include some helper functions
-import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange, 
+import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 var gatherOptions = {
   gatherPolicy: "all",
@@ -9678,7 +9678,7 @@ var identity = new RTCIdentity(dtls);
 identity
   .getIdentityAssertion("example.com", "default", "alice@example.com")
   .then(signalAssertion(assertion), function(e) {
-    trace("Could not obtain an Identity Assertion. idp: " + e.idp + " Protocol: " 
+    trace("Could not obtain an Identity Assertion. idp: " + e.idp + " Protocol: "
       + e.protocol + " loginUrl: " + e.loginUrl);
   });
 
@@ -9692,7 +9692,7 @@ function signalAssertion(assertion) {
     // Call dtls.start() before setIdentityAssertion so the peer assertion can be validated.
     dtls.start(response.dtls);
     identity.setIdentityAssertion(response.myAssertion).then(function(peerAssertion) {
-      trace("Peer identity assertion validated. idp: " + peerAssertion.idp + " name: " 
+      trace("Peer identity assertion validated. idp: " + peerAssertion.idp + " name: "
         + peerAssertion.name);
     }, function(e) {
       trace("Could not validate peer assertion. idp: " + e.idp + " Protocol: " + e.protocol);
@@ -10280,7 +10280,7 @@ function signalAssertion(assertion) {
   // Steps to be followed:
   // 1. Determine the RTP features that the receiver and sender have in common.
   // 2. Determine the codecs that the sender and receiver have in common.
-  // 3. Within each common codec, determine the common formats, header extensions 
+  // 3. Within each common codec, determine the common formats, header extensions
   //    and rtcpFeedback mechanisms.
   // 4. Determine the payloadType to be used, based on the receiver preferredPayloadType.
   // 5. Set RTCRtcpParameters such as mux to their default values.
@@ -10289,7 +10289,7 @@ function signalAssertion(assertion) {
 
 RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
   RTCRtpCapabilities remoteSendCaps) {
-  // Function returning the receiver RTCRtpParameters, based on the local 
+  // Function returning the receiver RTCRtpParameters, based on the local
   // receiver and remote sender capabilities.
   return myCapsToSendParams(remoteSendCaps, recvCaps);
 }
@@ -10408,7 +10408,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         </li>
         <li>Clarify syntax of <code>fingerprint</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/683">Issue 683</a>
-        </li>  
+        </li>
       </ol>
     </section>
     <section id="since-20-August-2016*">
