@@ -6891,14 +6891,8 @@ interface RTCDtmfSender {
           <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class="methods">
             <dt><dfn><code>insertDTMF</code></dfn></dt>
             <dd>
-              <p>The <code>insertDTMF()</code> method is used to send DTMF tones. Since
-              DTMF tones cannot be sent without configuring the DTMF codec, if
-              <code>insertDTMF()</code> is called prior to
-              <code>sender.send(<var>parameters</var>)</code>, or if
-              <code>sender.send(<var>parameters</var>)</code> was called with
-              <code>parameters.codecs[]</code> not including the "telephone-event" codec,
-              throw an <code>InvalidStateError</code> exception.</p>
-              <p>The tones parameter is treated as a series of characters. The
+              <p>The <code>insertDTMF()</code> method is used to send DTMF tones.
+              The tones parameter is treated as a series of characters. The
               characters 0 through 9, A through D, #, and * generate the
               associated DTMF tones. The characters a to d MUST be normalized
               to uppercase on entry and are equivalent to A to D.
@@ -6912,14 +6906,15 @@ interface RTCDtmfSender {
               each character passed in the tones parameters. The duration
               cannot be more than 6000 ms or less than 40 ms. The default
               duration is 100 ms for each tone.</p>
-              <p>The interToneGap parameter indicates the gap between tones. It
-              <em title="MUST" class="rfc2119">MUST</em> be at least 30 ms. The default
-              value is 70 ms.</p>
-              <p>The browser <em title="MAY" class="rfc2119">MAY</em> increase the
-              duration and interToneGap times to cause the times that DTMF start and stop
-              to align with the boundaries of RTP packets but it <em title="MUST" class=
-              "rfc2119">MUST</em> not increase either of them by more than the duration
-              of a single RTP audio packet.</p>
+              <p>The interToneGap parameter indicates the gap between tones in
+              ms. The user agent clamps it to at least 30 ms and at most
+              6000 ms. The default value is 70 ms.</p>
+              <p>Implementations <em title="MAY" class="rfc2119">MAY</em>
+              increase the duration and interToneGap times
+              to cause the times that DTMF start and stop to align with the
+              boundaries of RTP packets but it <em title="MUST" class=
+              "rfc2119">MUST</em> not increase either of them
+              by more than the duration of a single RTP audio packet.</p>
               <p>When the <code><a><code>insertDTMF()</code></a></code> method
               is invoked, the user agent <em title="MUST" class="rfc2119">MUST</em> run
               the following steps:</p>
@@ -6928,23 +6923,39 @@ interface RTCDtmfSender {
                 used to send DTMF.
                 </li>
                 <li>If <var>sender</var> has been stopped, throw an
-                <code>InvalidStateError</code> exception.
+                <code>InvalidStateError</code> exception and abort these
+                steps.
                 </li>
+                <li>If <code><var>sender</var>.send</code> has not been called, 
+                throw an <code>InvalidStateError</code> exception and abort
+                these steps.
+                </li>
+                <li>
+                Let <var>parameters</var> be the argument provided to
+                <code><var>sender</var>.send</code> the last time it
+                was called.
+                </li>
+                <li>If <code><var>parameters</var>.codecs[<var>j</var>]</code> is
+                not equal to "telephone-event" for any value of <var>j</var>,
+                throw an <code>InvalidStateError</code> exception and abort
+                these steps.
+                </li>            
                 <li>Let <var>tones</var> be the method's first argument.</li>
                 <li>If <var>tones</var> contains any <a>unrecognized</a>
                 characters, throw an <code>InvalidCharacterError</code>
-                  exception and abort these steps.
+                exception and abort these steps.
                 </li>
                 <li>Set the object's <code><a>toneBuffer</a></code> attribute to
                 <var>tones</var>.</li>
                 <li>If the value of the <code><a>duration</a></code> parameter
-                  is less than 40, set it to 40. If, on the other hand, the
-                  value is greater than 6000, set it to 6000.</li>
+                is less than 40, set it to 40. If, on the other hand, the
+                value is greater than 6000, set it to 6000.</li>
                 <li>If the value of the <code><a>interToneGap</a></code> parameter
-                  is less than 30, set it to 30.</li>
+                is less than 30, set it to 30. If, on the other hand, the
+                value is greater than 6000, set it to 6000.</li>
                 <li>If <code><a>toneBuffer</a></code> is an empty string,
-                  abort these steps.</li>
-                <li>If a <em>Playout task</em> is scheduled to be run; abort
+                abort these steps.</li>
+                <li>If a <em>Playout task</em> is scheduled to be run, abort
                 these steps; otherwise queue a task that runs the following
                 steps (<em>Playout task</em>):
                   <ol>
@@ -6955,21 +6966,31 @@ interface RTCDtmfSender {
                     empty string at the <code><a>RTCDtmfSender</a></code>
                     object and abort these steps.</li>
                     <li>Remove the first character from
-                      <code><a>toneBuffer</a></code> and let that character
-                      be <var>tone</var>.</li>
-                    <li>Start playout of <var>tone</var> for
-                      <code><a>duration</a></code> ms on the associated
-                      RTP media stream, using the appropriate codec.</li>
-                    <li>Queue a task to be executed in
-                      <code><a>duration</a></code> +
-                      <code><a>interToneGap</a></code> ms from now that
-                      runs the steps labelled <em>Playout task</em>.</li>
+                    <code><a>toneBuffer</a></code> and let that character
+                    be <var>tone</var>.</li>
+                    <li>If <var>tone</var> is "," delay sending tones for
+                    2000 ms on the associated RTP media stream, and queue
+                    a task to be executed in 2000 ms from now that
+                    runs the steps labelled <em>Playout task</em>.</li>
+                    <li>If <var>tone</var> is not "," start playout of
+                    <var>tone</var> for <code><a>duration</a></code> ms
+                    on the associated RTP media stream, using the
+                    appropriate codec, then queue a task to be executed in
+                    <code><a>duration</a></code> +
+                    <code><a>interToneGap</a></code> ms from now that
+                    runs the steps labelled <em>Playout task</em>.</li>
                     <li>Fire an event named <code><a>tonechange</a></code> with
                     a string consisting of <var>tone</var> at the
                     <code><a>RTCDtmfSender</a></code> object.</li>
                   </ol>
                 </li>
               </ol>
+              <p>Since <code>insertDTMF</code> replaces the tone
+              buffer, in order to add to the DTMF tones being played,
+              it is necessary to call <code>insertDTMF</code> with a
+              string containing both the remaining tones (stored in
+              <code>toneBuffer</code>) and the new tones appended
+              together.</p>        
               <p>Calling <code><a>insertDTMF</a></code> with an empty tones
               parameter can be used to cancel all tones queued to play after
               the currently playing tone.</p>
