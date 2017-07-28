@@ -10364,8 +10364,11 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <section id="since-01-May-2017*">
       <h3>Changes since 01 May 2017</h3>
       <ol>
-        <li>Change type of <code>maxFramerate</code> to double, as noted in:
+        <li>Changed type of <code>maxFramerate</code> to double, as noted in:
         <a href="https://github.com/w3c/ortc/issues/687">Issue 687</a>
+        </li>
+         <li>Changed codec parameter names from camelCase to match SDP naming, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/689">Issue 689</a>
         </li>
         <li>Clarified operation of <code><a>RTCDtlsTransport</a>.getLocalParameters</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/690">Issue 690</a>
@@ -10387,6 +10390,18 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         </li>
         <li>Marked the QoS/Priority API as a "feature at risk", as noted in:
         <a href="https://github.com/w3c/ortc/issues/708">Issue 708</a>
+        </li>
+         <li>Updated contributing and synchronization sources for compatibility with WebRTC 1.0, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/718">Issue 718</a>
+        </li>
+        <li>Updated DTMF support for compatibility with WebRTC 1.0, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/719">Issue 719</a>
+        </li>
+        <li>Clarified key shortening behavior with use of OAuth credentials, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/721">Issue 721</a>
+        </li>
+        <li>Enabled <code>setTrack</code>/<code>replaceTrack</code> argument to be null, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/722">Issue 722</a>
         </li>
       </ol>
     </section>
