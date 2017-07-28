@@ -7589,12 +7589,13 @@ interface RTCDataChannel : EventTarget {
       following steps:</p>
       <ol>
         <li>
-          <p>Let <var>channel</var> be the <code><a>RTCDataChannel</a></code> object on
-          which data is to be sent.</p>
+          <p>Let <var>channel</var> be the <code><a>RTCDataChannel</a></code>
+          object on which data is to be sent.</p>
         </li>
         <li>
-          <p>If <code>readyState</code> attribute is <code>connecting</code>, throw an
-          <code>InvalidStateError</code> exception and abort these steps.</p>
+          <p>If <var>channel</var>'s <a data-for=
+          "RTCDataChannel"><code>readyState</code></a> attribute is not
+          <code>open</code>, throw an <code>InvalidStateError</code>.</p>
         </li>
         <li>
           <p>Execute the sub step that corresponds to the type of the methods
@@ -7602,43 +7603,52 @@ interface RTCDataChannel : EventTarget {
           <ul>
             <li>
               <p><code>string</code> object:</p>
-              <p>Let <var>data</var> be the object and increase the <code><a href=
-              "#dom-datachannel-bufferedamount">bufferedAmount</a></code> attribute by
-              the number of bytes needed to express <var>data</var> as UTF-8.</p>
+              <p>Let <var>data</var> be the object and increase the
+              <code><a data-for="RTCDataChannel">bufferedAmount</a></code>
+              attribute by the number of bytes needed to express
+              <var>data</var> as UTF-8.</p>
             </li>
             <li>
               <p><code>Blob</code> object:</p>
-              <p>Let <var>data</var> be the raw data represented by the <code>Blob</code>
-              object and increase the <code><a href=
-              "#dom-datachannel-bufferedamount">bufferedAmount</a></code> attribute by
-              the size of data, in bytes.</p>
+              <p>Let <var>data</var> be the raw data represented by the
+              <code>Blob</code> object and increase the <code><a data-for=
+              "RTCDataChannel">bufferedAmount</a></code> attribute by the size
+              of data, in bytes.</p>
             </li>
             <li>
               <p><code>ArrayBuffer</code> object:</p>
-              <p>Let <var>data</var> be the data stored in the buffer described by the
-              <code>ArrayBuffer</code> object and increase the <code><a href=
-              "#dom-datachannel-bufferedamount">bufferedAmount</a></code> attribute by
-              the length of the <code>ArrayBuffer</code> in bytes.</p>
+              <p>Let <var>data</var> be the data stored in the buffer described
+              by the <code>ArrayBuffer</code> object and increase the
+              <code><a data-for="RTCDataChannel">bufferedAmount</a></code>
+              attribute by the length of the <code>ArrayBuffer</code> in
+              bytes.</p>
             </li>
             <li>
               <p><code>ArrayBufferView</code> object:</p>
-              <p>Let <var>data</var> be the data stored in the section of the buffer
-              described by the <code>ArrayBuffer</code> object that the
+              <p>Let <var>data</var> be the data stored in the section of the
+              buffer described by the <code>ArrayBuffer</code> object that the
               <code>ArrayBufferView</code> object references and increase the
-              <code><a href="#dom-datachannel-bufferedamount">bufferedAmount</a></code>
-              attribute by the length of the <code>ArrayBufferView</code> in bytes.</p>
+              <code><a data-for="RTCDataChannel">bufferedAmount</a></code>
+              attribute by the length of the <code>ArrayBufferView</code> in
+              bytes.</p>
             </li>
           </ul>
         </li>
         <li>
-          <p>If <code>channel</code>'s underlying data transport is not established yet,
-          or if the closing procedure has started, then abort these steps.</p>
+          <p>If the size of <var>data</var> exceeds the value of <code><a
+          data-link-for="RTCSctpCapabilities">maxMessageSize</a></code> on
+          <var>channel</var>'s associated <code>RTCSctpTransport</code>,
+          throw a <code>TypeError</code>.</p>
         </li>
         <li>
-          <p>Attempt to send <var>data</var> on <code>channel</code>'s underlying data
-          transport; if the data cannot be sent, e.g. because it would need to be
-          buffered but the buffer is full, the user agent MUST abruptly close
-          <code>channel</code>'s underlying data transport with an error.</p>
+          <p>Queue <var>data</var> for transmission on <var>channel</var>'s
+          <a>underlying data transport</a>. If queuing <var>data</var> is not
+          possible because not enough buffer space is available, throw<
+          an <code>OperationError</code>.</p>
+          <div class="note">The actual transmission of data occurs in
+          parallel. If sending data leads to an SCTP-level error, the
+          application will be notified asynchronously through <code><a
+          data-link-for="RTCDataChannel">onerror</a></code>.</div>
         </li>
       </ol>
     </section>
@@ -8079,7 +8089,7 @@ interface RTCSctpTransport : RTCDataTransport {
             <h2>Dictionary <a class="idlType">RTCSctpCapabilities</a> Members</h2>
             <dl data-link-for="RTCSctpCapabilities" data-dfn-for="RTCSctpCapabilities"
             class="dictionary-members">
-              <dt><dfn>maxMessageSize</dfn> of type <span class=
+              <dt><dfn><code>maxMessageSize</code></dfn> of type <span class=
               "idlMemberType"><a>unsigned long</a></span></dt>
               <dd>
                 <p>The maximum size of data that can be passed to <code><a>RTCDataChannel</a></code>'s <code>send()</code> method.
