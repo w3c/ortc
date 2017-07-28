@@ -7132,6 +7132,28 @@ interface RTCDTMFToneChangeEvent : Event {
         </section>
       </div>
     </section>
+    <section id="rtcdtmfsender2*">
+    <h2>RTCDTMFSender Interface</h2>
+    <section id="rtcdtmfsender2-overview*">
+      <h3>Overview</h3>
+      <p>An <code>RTCDTMFSender</code> instance allows sending DTMF tones
+      to/from the remote peer in a manner identical to that of the <code><a>RTCDtmfSender</a></code> interface.</p>
+    </section>
+    <section id="rtcdtmfsender-operation2*">
+      <h3>Operation</h3>
+      <p>An <code>RTCDTMFSender</code> object is constructed from an
+      <code><a>RTCRtpSender</a></code> <var>sender</var>, as with
+      <code><a>RTCDtmfSender</a></code>. If
+      <code>sender.track.kind</code> is not "audio", throw an
+      <code>InvalidParameters</code> exception.</p>
+    </section>
+    <section id="rtcdtmfsender-interface-definition2*">
+      <h3>Interface Definition</h3>
+      <p>The <code>RTCDTMFSender</code> interface is identical to the
+      <code><a>RTCDtmfSender</a></code> interface, with the exception
+      of spelling.</p>
+    </section>
+    </section>
     <section>
       <h3>DTMF Example</h3>
       <p>Examples assume that <var>sendObject</var> is an
@@ -10118,7 +10140,8 @@ function signalAssertion(assertion) {
         </tr>
       </tbody>
     </table>
-    <p>The following events fire on <code><a>RTCDTMFSender</a></code> objects:</p>
+    <p>The following events fire on <code><a>RTCDTMFSender</a></code>
+    and <code><a>RTCDtmfSender</a></code> objects:</p>
     <table style="border-width:0; width:60%" border="1">
       <tbody>
         <tr>
@@ -10131,7 +10154,7 @@ function signalAssertion(assertion) {
         <tr>
           <td><dfn id="event-RTCDTMFSender-tonechange"><code>tonechange</code></dfn></td>
           <td><code><a>Event</a></code></td>
-          <td>The <code><a>RTCDTMFSender</a></code> object has either just begun playout
+          <td>The <code><a>RTCDtmfSender</a></code> object has either just begun playout
           of a tone (returned as the <code>tone</code> attribute) or just ended playout
           of a tone (returned as an empty value in the <code>tone</code> attribute).</td>
         </tr>
@@ -10220,14 +10243,18 @@ function signalAssertion(assertion) {
     the ORTC API, utilizing a Javascript "shim" library. This section discusses WebRTC
     1.0 compatibility issues that have been encountered by ORTC API implementers.</p>
     <section id="spelling*">
-      <h3>Spelling differences</h3>
-      <p>WebRTC 1.0 supports the <code>replaceTrack</code> method and the
-      <code>RTCDTMFSender</code> interface, whereas ORTC originally supported
-      the <code>setTrack</code> method and the <code>RTCDtmfSender</code>
-      interface. In order to provide backward compatibility, this specification has
-      added <code>replaceTrack</code> as an alias for <code>setTrack</code>,
-      and the <code>RTCDTMFSender</code> interface as an alias for the
-      <code>RTCDtmfSender</code> interface.</p>
+      <h3>replaceTrack/setTrack</h3>
+      <p>WebRTC 1.0 supports the <code>replaceTrack</code> method,
+      whereas ORTC originally supported the <code>setTrack</code> method.
+      In order to provide backward compatibility, this specification has
+      added <code>replaceTrack</code> as an alias for <code>setTrack</code>.</p>
+    </section>
+    <section id="dtmfcompat">
+      <h3>RTCDTMFSender/RTCDtmfSender</h3>
+      <p>WebRTC 1.0 supports the <code>RTCDTMFSender</code> interface,
+      whereas ORTC originally supported the <code>RTCDtmfSender</code>
+      interface. In order to provide backward compatibility, this specification
+      has added support for the <code>RTCDTMFSender</code> interface.</p>
     </section>
     <section id="bundle*">
       <h3>BUNDLE</h3>
