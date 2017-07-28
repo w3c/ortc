@@ -4856,7 +4856,7 @@ interface RTCRtpUnhandledEvent : Event {
         value of <code>preferredPayloadType</code>. For example:</p>
       <ol>
         <li>Multiple "h264" codecs, each with their own distinct
-          <code>packetizationMode</code> values.
+          <code>packetization-mode</code> values.
         </li>
         <li>"cn" codecs, each with distinct <code>clockRate</code> values.</li>
       </ol>
@@ -5041,14 +5041,14 @@ interface RTCRtpUnhandledEvent : Event {
                 Possible values are "voip", "audio" and "lowdelay".</td>
               </tr>
               <tr id="def-packetlossperc*">
-                <td><dfn><code>packetLossPerc</code></dfn></td>
+                <td><dfn><code>packetlossperc</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
                 <td>Indicates the default value for the encoder's expected packet loss
                 percentage. Possible values are 0-100.</td>
               </tr>
               <tr id="def-predictiondisabled*">
-                <td><dfn><code>predictionDisabled</code></dfn></td>
+                <td><dfn><code>predictiondisabled</code></dfn></td>
                 <td><code>boolean</code></td>
                 <td>Sender</td>
                 <td>Indicates the default value for whether prediction is disabled,
@@ -5083,21 +5083,21 @@ interface RTCRtpUnhandledEvent : Event {
             </thead>
             <tbody>
               <tr id="def-maxplaybackrate*">
-                <td><dfn><code>maxPlaybackRate</code></dfn></td>
+                <td><dfn><code>maxplaybackrate</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Receiver</td>
                 <td>A hint about the maximum output sampling rate that the receiver is
                 capable of rendering in Hz.</td>
               </tr>
               <tr id="def-sprop-maxcapturerate*">
-                <td><dfn><code>spropMaxCaptureRate</code></dfn></td>
+                <td><dfn><code>sprop-maxcapturerate</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
                 <td>A hint about the maximum input sampling rate that the sender is
                 likely to produce.</td>
               </tr>
               <tr id="def-maxaveragebitrate*">
-                <td><dfn><code>maxAverageBitrate</code></dfn></td>
+                <td><dfn><code>maxaveragebitrate</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Receiver</td>
                 <td>Specifies the maximum average receive bitrate of a session in bits
@@ -5111,14 +5111,14 @@ interface RTCRtpUnhandledEvent : Event {
                 <code>true</code>) or variable bitrate (if <code>false</code>).</td>
               </tr>
               <tr id="def-useinbandfec*">
-                <td><dfn><code>useInbandFec</code></dfn></td>
+                <td><dfn><code>useinbandfec</code></dfn></td>
                 <td><code>boolean</code></td>
                 <td>Receiver</td>
                 <td>Specifies if the decoder has the capability to take advantage of Opus
                 in-band fec (if <code>true</code>) or not (if <code>false</code>).</td>
               </tr>
               <tr id="def-usedtx*">
-                <td><dfn><code>useDtx</code></dfn></td>
+                <td><dfn><code>usedtx</code></dfn></td>
                 <td><code>boolean</code></td>
                 <td>Receiver</td>
                 <td>Specifies if the decoder prefers the use of DTX (if
@@ -5142,14 +5142,14 @@ interface RTCRtpUnhandledEvent : Event {
             </thead>
             <tbody>
               <tr id="def-max-fr*">
-                <td><dfn><code>maxFr</code></dfn></td>
+                <td><dfn><code>max-fr</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Receiver</td>
                 <td>This parameter indicates the maximum frame rate in frames per second
                 that the decoder is capable of decoding.</td>
               </tr>
               <tr id="def-max-fs*">
-                <td><dfn><code>maxFs</code></dfn></td>
+                <td><dfn><code>max-fs</code></dfn></td>
                 <td><code>unsigned long long</code></td>
                 <td>Receiver</td>
                 <td>This parameter indicates the maximum frame size in macroblocks that
@@ -5173,7 +5173,7 @@ interface RTCRtpUnhandledEvent : Event {
             </thead>
             <tbody>
               <tr id="def-profile-level-id*">
-                <td><dfn><code>profileLevelId</code></dfn></td>
+                <td><dfn><code>profile-level-id</code></dfn></td>
                 <td><code>DOMString</code></td>
                 <td>Receiver/Sender</td>
                 <td>This parameter is encoded as a string representation of 6
@@ -5185,15 +5185,15 @@ interface RTCRtpUnhandledEvent : Event {
                 in [[!RFC7742]] Section 6.2.</td>
               </tr>
               <tr id="def-packetization-mode*">
-                <td><dfn><code>packetizationMode</code></dfn></td>
+                <td><dfn><code>packetization-mode</code></dfn></td>
                 <td><code>unsigned short</code></td>
                 <td>Receiver/Sender</td>
                 <td>An unsigned short, ranging from 0 to 2, indicating
-                a supported <code>packetizationMode</code> value. As noted in [[!RFC7742]]
+                a supported <code>packetization-mode</code> value. As noted in [[!RFC7742]]
                 Section 6.2, support for packetization-mode 1 is mandatory.</td>
               </tr>
               <tr id="def-other-h264-params*">
-                <td>maxMbps, maxSmbps, maxFs, maxCpb, maxDpb, maxBr</td>
+                <td>max-mbps, max-smbps, max-fs, max-cpb, max-dpb, max-br</td>
                 <td><code>unsigned long long</code></td>
                 <td>Receiver</td>
                 <td>As noted in [[!RFC7742]] Section 6.2, these optional parameters allow
@@ -5230,8 +5230,8 @@ interface RTCRtpUnhandledEvent : Event {
                 enabling implementations to indicate which media codecs support
                 retransmission.</td>
               </tr>
-              <tr id="def-rtxtime*">
-                <td><dfn><code>rtxTime</code></dfn></td>
+              <tr id="def-rtx-time*">
+                <td><dfn><code>rtx-time</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
                 <td>As defined in [[!RFC4588]], the default time in milliseconds
@@ -5265,29 +5265,29 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
             </thead>
             <tbody>
-              <tr id="def-repairwindow*">
-                <td><dfn><code>repairWindow</code></dfn></td>
+              <tr id="def-repair-window*">
+                <td><dfn><code>repair-window</code></dfn></td>
                 <td><code>unsigned long long</code></td>
                 <td>Sender</td>
                 <td>The default time that spans the source packets and the corresponding
                 repair packets, in microseconds.</td>
               </tr>
-              <tr id="def-l*">
-                <td><dfn><code>l</code></dfn></td>
+              <tr id="def-L*">
+                <td><dfn><code>L</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
                 <td>The default number of columns of the source block that are protected
                 by this FEC block.</td>
               </tr>
-              <tr id="def-d*">
-                <td><dfn><code>d</code></dfn></td>
+              <tr id="def-D*">
+                <td><dfn><code>D</code></dfn></td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
                 <td>The default number of rows of the source block that are protected by
                 this FEC block.</td>
               </tr>
-              <tr id="def-top*">
-                <td><dfn><code>toP</code></dfn></td>
+              <tr id="def-ToP*">
+                <td><dfn><code>ToP</code></dfn></td>
                 <td><code>unsigned short</code></td>
                 <td>Sender</td>
                 <td>The default type of protection for the sender: 0 for 1-D interleaved
@@ -5596,7 +5596,7 @@ interface RTCRtpUnhandledEvent : Event {
             <tbody>
               <tr id="sec-maxplaybackrate*">
                 <td>
-                  <a>maxPlaybackRate</a>
+                  <a>maxplaybackrate</a>
                 </td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
@@ -5604,7 +5604,7 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="sec-sprop-maxcapturerate*">
                 <td>
-                  <a>spropMaxCaptureRate</a>
+                  <a>sprop-maxcapturerate</a>
                 </td>
                 <td><code>unsigned long</code></td>
                 <td>Receiver</td>
@@ -5621,7 +5621,7 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="sec-useinbandfec*">
                 <td>
-                  <a>useInbandFec</a>
+                  <a>useinbandfec</a>
                 </td>
                 <td><code>boolean</code></td>
                 <td>Sender</td>
@@ -5630,7 +5630,7 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="sec-usedtx*">
                 <td>
-                  <a>useDtx</a>
+                  <a>usedtx</a>
                 </td>
                 <td><code>boolean</code></td>
                 <td>Sender</td>
@@ -5666,7 +5666,7 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="sec-packetlossperc*">
                 <td>
-                  <a>packetLossPerc</a>
+                  <a>packetlossperc</a>
                 </td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
@@ -5675,7 +5675,7 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="sec-predictiondisabled*">
                 <td>
-                  <a>predictionDisabled</a>
+                  <a>predictiondisabled</a>
                 </td>
                 <td><code>boolean</code></td>
                 <td>Sender</td>
@@ -5701,7 +5701,7 @@ interface RTCRtpUnhandledEvent : Event {
             <tbody>
               <tr id="sec-max-fr*">
                 <td>
-                  <a>maxFr</a>
+                  <a>max-fr</a>
                 </td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
@@ -5710,7 +5710,7 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="sec-max-fs*">
                 <td>
-                  <a>maxFs</a>
+                  <a>max-fs</a>
                 </td>
                 <td><code>unsigned long long</code></td>
                 <td>Sender</td>
@@ -5735,7 +5735,7 @@ interface RTCRtpUnhandledEvent : Event {
             <tbody>
               <tr id="sec-profile-level-id*">
                 <td>
-                  <a>profileLevelId</a>
+                  <a>profile-level-id</a>
                 </td>
                 <td><code>DOMString</code></td>
                 <td>Sender</td>
@@ -5746,16 +5746,16 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
               <tr id="sec-packetization-mode*">
                 <td>
-                  <a>packetizationMode</a>
+                  <a>packetization-mode</a>
                 </td>
                 <td><code>unsigned short</code></td>
                 <td>Sender</td>
                 <td>An unsigned short ranging from 0 to 2, indicating the
-                <var>packetizationMode</var> value to be used by the sender. This setting
+                <var>packetization-mode</var> value to be used by the sender. This setting
                 MUST be supported, as noted in [[!RFC7742]] Section 6.2.</td>
               </tr>
               <tr id="def-other-h264-params*">
-                <td>maxMbps, maxSmbps, maxFs, maxCpb, maxDpb, maxBr</td>
+                <td>max-mbps, max-smbps, max-fs, max-cpb, max-dpb, max-br</td>
                 <td><code>unsigned long long</code></td>
                 <td>Sender</td>
                 <td>These optional settings allow the sender to restrict its
@@ -5789,9 +5789,9 @@ interface RTCRtpUnhandledEvent : Event {
                 <code>RTCRtpParameters.codecs[]</code> for each media codec that can be
                 retransmitted, each with their own <code>apt</code> parameter.</td>
               </tr>
-              <tr id="sec-rtxtime*">
+              <tr id="sec-rtx-time*">
                 <td>
-                  <a>rtxTime</a>
+                  <a>rtx-time</a>
                 </td>
                 <td><code>unsigned long</code></td>
                 <td>Receiver</td>
@@ -5845,36 +5845,36 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
             </thead>
             <tbody>
-              <tr id="sec-repairwindow*">
+              <tr id="sec-repair-window*">
                 <td>
-                  <a>repairWindow</a>
+                  <a>repair-window</a>
                 </td>
                 <td><code>unsigned long long</code></td>
                 <td>Receiver</td>
                 <td>The time that spans the source packets and the corresponding repair
                 packets, in microseconds.</td>
               </tr>
-              <tr id="sec-l*">
+              <tr id="sec-L*">
                 <td>
-                  <a>l</a>
+                  <a>L</a>
                 </td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
                 <td>The number of columns of the source block that are protected by this
                 FEC block.</td>
               </tr>
-              <tr id="sec-d*">
+              <tr id="sec-D*">
                 <td>
-                  <a>d</a>
+                  <a>D</a>
                 </td>
                 <td><code>unsigned long</code></td>
                 <td>Sender</td>
                 <td>The number of rows of the source block that are protected by this FEC
                 block.</td>
               </tr>
-              <tr id="sec-top*">
+              <tr id="sec-ToP*">
                 <td>
-                  <a>toP</a>
+                  <a>ToP</a>
                 </td>
                 <td><code>unsigned short</code></td>
                 <td>Sender</td>
@@ -10283,12 +10283,12 @@ function signalAssertion(assertion) {
       <h3>H.264/AVC</h3>
       <p>[[RFC6184]] Section 8.1 defines the <code>level-asymmetry-allowed</code> SDP
       parameter supported by some WebRTC 1.0 API implementations. Within ORTC API, the
-      <code>profileLevelId</code> capability is supported for both the
+      <code>profile-level-id</code> capability is supported for both the
       <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code>, and the
-      <code>profileLevelId</code> setting is provided for the
+      <code>profile-level-id</code> setting is provided for the
       <code><a>RTCRtpSender</a></code>. Since in ORTC API sender and receiver
-      <code>profileLevelId</code> capabilities are independent and there is no
-      <code>profileLevelId</code> setting for an <code><a>RTCRtpReceiver</a></code>, ORTC
+      <code>profile-level-id</code> capabilities are independent and there is no
+      <code>profile-level-id</code> setting for an <code><a>RTCRtpReceiver</a></code>, ORTC
       API assumes that implementations support level asymmetry. Therefore a WebRTC 1.0
       API shim library for ORTC API should provide a <code>level-asymmetry-allowed</code>
       value of <code>1</code>.</p>
@@ -10397,7 +10397,7 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <a href="https://github.com/w3c/ortc/issues/368">Issue 368</a> and
         <a href="https://github.com/w3c/ortc/issues/547">Issue 547</a>.
         </li>
-        <li>Clarified handling of H.264 packetization-mode in <code>RTCRtpCodecCapability</code>, as noted in:
+        <li>Clarified handling of H.264 packetizationMode in <code>RTCRtpCodecCapability</code>, as noted in:
           <a href="https://github.com/w3c/ortc/issues/567">Issue 567</a>
         </li>
         <li>Provided updated guidance on use of multiple encodings as noted in:
