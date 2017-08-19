@@ -4885,7 +4885,7 @@ interface RTCRtpUnhandledEvent : Event {
              payloadtype               preferredPayloadType;
              unsigned long             maxptime;
              unsigned long             ptime;
-             unsigned long             numChannels;
+             unsigned long             channels;
              sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback;
              Dictionary                parameters;
              Dictionary                options;
@@ -4948,7 +4948,7 @@ interface RTCRtpUnhandledEvent : Event {
               for the <code><a>RTCRtpSender</a></code> or
               <code><a>RTCRtpReceiver</a></code>.</p>
             </dd>
-            <dt><dfn><code>numChannels</code></dfn> of type <span class=
+            <dt><dfn><code>channels</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The number of channels supported (e.g. two for stereo). For video, this
@@ -5512,7 +5512,7 @@ interface RTCRtpUnhandledEvent : Event {
              unsigned long             clockRate;
              unsigned long             maxptime;
              unsigned long             ptime;
-             unsigned long             numChannels;
+             unsigned long             channels;
              sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback;
              Dictionary                parameters;
 };</pre>
@@ -5559,7 +5559,7 @@ interface RTCRtpUnhandledEvent : Event {
               <code><a>RTCRtpSender</a></code> may select any value up to
               <code>maxptime</code>.</p>
             </dd>
-            <dt><dfn><code>numChannels</code></dfn> of type <span class=
+            <dt><dfn><code>channels</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The number of channels supported (e.g. two for stereo). If unset for
