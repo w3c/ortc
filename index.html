@@ -1192,8 +1192,8 @@ interface RTCIceGathererEvent : Event {
           </div>
           <p>An example of an RTCOAuthCredential dictionary is:</p>
           <pre class="example highlight"><code>{
-    "macKey": "WmtzanB3ZW9peFhtdm42NzUzNG0=",
-    "accessToken": "AAwg3kPHWPfvk9bDFL936wYvkoctMADzQ5VhNDgeMR3+ZlZ35byg972fW8QjpEl7bx91YLBPFsIhsxloWcXPhA=="
+    macKey: "WmtzanB3ZW9peFhtdm42NzUzNG0=",
+    accessToken: "AAwg3kPHWPfvk9bDFL936wYvkoctMADzQ5VhNDgeMR3+ZlZ35byg972fW8QjpEl7bx91YLBPFsIhsxloWcXPhA=="
 }</code></pre>
     </section>
     <section id="rtciceserver*">
@@ -1255,18 +1255,18 @@ interface RTCIceGathererEvent : Event {
       </div>
       <p>An example array of <code><a>RTCIceServer</a></code> objects is:</p>
       <pre class="example highlight"><code>[
-{ "urls": "stun:stun1.example.net" },
-{ "urls": ["turns:turn.example.org", "turn:turn.example.net"],
-  "username": "user",
-  "credential": "myPassword",
-  "credentialType": "password" },
-     { "urls": "turns:turn2.example.net",
-       "username": "22BIjxU93h/IgwEb",
-       "credential": {
-                       "macKey": "WmtzanB3ZW9peFhtdm42NzUzNG0=",
-                       "accessToken": "AAwg3kPHWPfvk9bDFL936wYvkoctMADzQ5VhNDgeMR3+ZlZ35byg972fW8QjpEl7bx91YLBPFsIhsxloWcXPhA=="
+{ urls: "stun:stun1.example.net" },
+{ urls: ["turns:turn.example.org", "turn:turn.example.net"],
+  username: "user",
+  credential: "myPassword",
+  credentialType: "password" },
+     { urls: "turns:turn2.example.net",
+       username: "22BIjxU93h/IgwEb",
+       credential: {
+                       macKey: "WmtzanB3ZW9peFhtdm42NzUzNG0=",
+                       accessToken: "AAwg3kPHWPfvk9bDFL936wYvkoctMADzQ5VhNDgeMR3+ZlZ35byg972fW8QjpEl7bx91YLBPFsIhsxloWcXPhA=="
                      },
-       "credentialType": "oauth" },
+       credentialType: "oauth" },
      }
 ]</code></pre>
     </section>
@@ -1310,7 +1310,7 @@ mySignaller.onResponse = function(responseSignaller, response) {
 };
 
 mySignaller.send({
-  "ice": iceGatherer.getLocalParameters()
+  ice: iceGatherer.getLocalParameters()
 });
                 </pre>
       <pre class="example highlight">
@@ -1338,10 +1338,10 @@ export function mySendLocalCandidate(candidate, component, kind, parameters) {
 
   // Signal the local candidate
   mySignaller.mySendLocalCandidate({
-    "candidate": candidate,
-    "component": component,
-    "kind": kind,
-    "parameters": parameters
+    candidate: candidate,
+    component: component,
+    kind: kind,
+    parameters: parameters
   });
 }
 
@@ -2231,7 +2231,7 @@ mySignaller.onResponse = function(responseSignaller, response) {
 
 mySignaller.send({
   // The RTP and RTCP parameters are identical, so no need to send both
-  "icertp": iceRtpGatherer.getLocalParameters()
+  icertp: iceRtpGatherer.getLocalParameters()
 });
                 </pre>
     </section>
@@ -2747,8 +2747,8 @@ function initiate(mySignaller) {
   // ... construct RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
   mySignaller.mySendInitiate({
-    "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtlsParameters,
+    ice: iceGatherer.getLocalParameters(),
+    dtls: dtlsParameters,
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   }, function(remote) {
     // Create the ICE and DTLS transports
@@ -2812,8 +2812,8 @@ function accept(mySignaller, remote) {
   // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
 
   mySignaller.mySendAccept({
-    "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtls.getLocalParameters()
+    ice: iceGatherer.getLocalParameters(),
+    dtls: dtls.getLocalParameters()
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   });
 
@@ -4009,10 +4009,10 @@ function myInitiate(mySignaller, transport, audioTrack, videoTrack) {
 
   mySignaller.myOfferTracks({
     // The initiator offers its receiver and sender capabilities.
-    "recvAudioCaps": recvAudioCaps,
-    "recvVideoCaps": recvVideoCaps,
-    "sendAudioCaps": sendAudioCaps,
-    "sendVideoCaps": sendVideoCaps
+    recvAudioCaps: recvAudioCaps,
+    recvVideoCaps: recvVideoCaps,
+    sendAudioCaps: sendAudioCaps,
+    sendVideoCaps: sendVideoCaps
   }, function(answer) {
     // The responder answers with its receiver capabilities
 
@@ -4068,10 +4068,10 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
   var sendVideoCaps = RTCRtpSender.getCapabilities("video");
 
   mySignaller.myAnswerTracks({
-    "recvAudioCaps": recvAudioCaps,
-    "recvVideoCaps": recvVideoCaps,
-    "sendAudioCaps": sendAudioCaps,
-    "sendVideoCaps": sendVideoCaps
+    recvAudioCaps: recvAudioCaps,
+    recvVideoCaps: recvVideoCaps,
+    sendAudioCaps: sendAudioCaps,
+    sendVideoCaps: sendVideoCaps
   });
 
   // Derive the send and receive parameters using Javascript functions defined in Section 18.2.
@@ -4334,24 +4334,24 @@ var sendVideoCaps = RTCRtpSender.getCapabilities("video");
 
 mySignaller.myOfferTracks({
   // Indicate that the initiator would prefer to multiplex both A/V and RTP/RTCP
-  "bundle": true,
+  bundle: true,
   // Indicate that the initiator is willing to multiplex RTP/RTCP without A/V mux
-  "rtcpMux": true,
+  rtcpMux: true,
   // Offer the ICE parameters
-  "audioRtpIce": audioRtpIceGatherer.getLocalParameters(),
-  "audioRtcpIce": audioRtcpIceGatherer.getLocalParameters(),
-  "videoRtpIce": videoRtpIceGatherer.getLocalParameters(),
-  "videoRtcpIce": videoRtcpIceGatherer.getLocalParameters(),
+  audioRtpIce: audioRtpIceGatherer.getLocalParameters(),
+  audioRtcpIce: audioRtcpIceGatherer.getLocalParameters(),
+  videoRtpIce: videoRtpIceGatherer.getLocalParameters(),
+  videoRtcpIce: videoRtcpIceGatherer.getLocalParameters(),
   // Offer the DTLS parameters
-  "audioRtpDtls": audioRtpDtlsTransport.getLocalParameters(),
-  "audioRtcpDtls": audioRtcpDtlsTransport.getLocalParameters(),
-  "videoRtpDtls": videoRtpDtlsTransport.getLocalParameters(),
-  "videoRtcpDtls": videoRtcpDtlsTransport.getLocalParameters(),
+  audioRtpDtls: audioRtpDtlsTransport.getLocalParameters(),
+  audioRtcpDtls: audioRtcpDtlsTransport.getLocalParameters(),
+  videoRtpDtls: videoRtpDtlsTransport.getLocalParameters(),
+  videoRtcpDtls: videoRtcpDtlsTransport.getLocalParameters(),
   // Offer the receiver and sender audio and video capabilities.
-  "recvAudioCaps": recvAudioCaps,
-  "recvVideoCaps": recvVideoCaps,
-  "sendAudioCaps": sendAudioCaps,
-  "sendVideoCaps": sendVideoCaps
+  recvAudioCaps: recvAudioCaps,
+  recvVideoCaps: recvVideoCaps,
+  sendAudioCaps: sendAudioCaps,
+  sendVideoCaps: sendVideoCaps
 }, function(answer) {
   // The responder answers with its preferences, parameters and capabilities
   // Since we didn"t create transport arrays, we are assuming that there
@@ -8251,10 +8251,10 @@ function initiate(mySignaller) {
   };
 
   mySignaller.sendInitiate({
-    "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtls.getLocalParameters(),
-    "sctpCapabilities": RTCSctpTransport.getCapabilities(),
-    "port": sctp.port,
+    ice: iceGatherer.getLocalParameters(),
+    dtls: dtls.getLocalParameters(),
+    sctpCapabilities: RTCSctpTransport.getCapabilities(),
+    port: sctp.port,
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   }, function(remote) {
     // Start the ICE, DTLS and SCTP transports
@@ -8318,10 +8318,10 @@ function accept(mySignaller, remote) {
   var sctp = new RTCSctpTransport(dtls);
 
   mySignaller.sendAccept({
-    "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtls.getLocalParameters(),
-    "sctpCapabilities": RTCSctpTransport.getCapabilities(),
-    "port": sctp.port,
+    ice: iceGatherer.getLocalParameters(),
+    dtls: dtls.getLocalParameters(),
+    sctpCapabilities: RTCSctpTransport.getCapabilities(),
+    port: sctp.port,
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   });
 
@@ -8811,9 +8811,9 @@ function initiate(mySignaller) {
   var quic = new RTCQuicTransport(ice, certs);
 
   mySignaller.sendInitiate({
-    "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtls.getLocalParameters(),
-    "quic": quic.getLocalParameters(),
+    ice: iceGatherer.getLocalParameters(),
+    dtls: dtls.getLocalParameters(),
+    quic: quic.getLocalParameters(),
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   }, function(remote) {
     // Start the ICE, DTLS and QUIC transports
@@ -8874,9 +8874,9 @@ function accept(mySignaller, remote) {
   var quic = new RTCQuicTransport(ice, certs);
 
   mySignaller.sendAccept({
-    "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtls.getLocalParameters(),
-    "quic": quic.getLocalParameters(),
+    ice: iceGatherer.getLocalParameters(),
+    dtls: dtls.getLocalParameters(),
+    quic: quic.getLocalParameters(),
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   });
 
@@ -9732,9 +9732,9 @@ identity
 
 function signalAssertion(assertion) {
   mySignalInitiate({
-    "myAssertion": assertion,
-    "ice": iceGatherer.getLocalParameters(),
-    "dtls": dtls.getLocalParameters()
+    myAssertion: assertion,
+    ice: iceGatherer.getLocalParameters(),
+    dtls: dtls.getLocalParameters()
   }, function(response) {
     ice.start(iceGatherer, response.ice, RTCIceRole.controlling);
     // Call dtls.start() before setIdentityAssertion so the peer assertion can be validated.
