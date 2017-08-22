@@ -3191,13 +3191,15 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><dfn>getCapabilities()</dfn>
-              obtains the sender capabilities, based on <code>kind</code>. Capabilities
-              that can apply to multiple values of <code>kind</code> (such as
-              retransmission [[!RFC4588]], redundancy [[RFC2198]] and Forward Error
-              Correction) have
-              <code>RTCRtpCapabilities.RTCRtpCodecCapability[i].kind</code> set to the
-              value of the <code>kind</code> argument.</p>
+              <p><dfn>getCapabilities()</dfn> obtains the sender capabilities,
+              based on <code><var>kind</var></code>. If there are no
+              capabilities corresponding to the value of <code><var>kind</var></code>,
+              <code>getCapabilities</code> returns <code>null</code>. Capabilities
+              that can apply to multiple values of <code><var>kind</var></code>
+              (such as retransmission [[!RFC4588]], redundancy [[RFC2198]]
+              and Forward Error Correction) have
+              <code>RTCRtpCapabilities.RTCRtpCodecCapability[<var>i</var>].kind</code>
+              set to the value of the <code><var>kind</var></code> argument.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -3680,11 +3682,13 @@ interface RTCRtpReceiver : RTCStatsProvider {
             </dd>
             <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><dfn>getCapabilities()</dfn>
-              obtains the receiver capabilities, based on <code><var>kind</var></code>.
-              Capabilities that can apply to multiple values of <code><var>kind</var></code> (such
-              as retransmission [[!RFC4588]], redundancy [[RFC2198]] and Forward Error
-              Correction) have
+              <p><dfn>getCapabilities()</dfn> obtains the receiver capabilities,
+              based on <code><var>kind</var></code>. If there are no
+              capabilities corresponding to the value of <code><var>kind</var></code>,
+              <code>getCapabilities</code> returns <code>null</code>. Capabilities
+              that can apply to multiple values of <code><var>kind</var></code>
+              (such as retransmission [[!RFC4588]], redundancy [[RFC2198]]
+              and Forward Error Correction) have
               <code>RTCRtpCapabilities.RTCRtpCodecCapability[<var>i</var>].kind</code>
               set to the value of the <code><var>kind</var></code> argument.</p>
               <table class="parameters">
