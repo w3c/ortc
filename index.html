@@ -10054,6 +10054,28 @@ function signalAssertion(assertion) {
         </tr>
       </tbody>
     </table>
+        <p>The following events fire on <code><a>RTCQuicTransport</a></code> objects:</p>
+    <table style="border-width:0; width:60%" border="1">
+      <tbody>
+        <tr>
+          <th>Event name</th>
+          <th>Interface</th>
+          <th>Fired when...</th>
+        </tr>
+      </tbody>
+      <tbody>
+        <tr>
+          <td><code>error</code></td>
+          <td><code><a>ErrorEvent</a></code></td>
+          <td>The <code><a>RTCQuicTransport</a></code> object has encountered an error.</td>
+        </tr>
+        <tr>
+          <td><dfn><code>statechange</code></dfn></td>
+          <td><code><a>Event</a></code></td>
+          <td>The <code><a>RTCQuicTransportState</a></code> changed.</td>
+        </tr>
+      </tbody>
+    </table>
     <p>The following events fire on <code><a>RTCIceTransport</a></code> objects:</p>
     <table style="border-width:0; width:60%" border="1">
       <tbody>
