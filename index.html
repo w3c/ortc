@@ -2955,7 +2955,7 @@ interface RTCRtpSender : RTCStatsProvider {
 };</pre>
         <section>
           <h2>Constructors</h2>
-          <p>When the constructor is invoked, the User Agent MUST run the
+          <p>When the constructor is invoked, the <a>user agent</a> MUST run the
               following steps:</p>
               <ol>
                <li>
@@ -3317,7 +3317,7 @@ interface RTCRtpSender : RTCStatsProvider {
             <dt><dfn><code>send</code></dfn></dt>
             <dd>
               <p>Attempts to set the parameters controlling the sending of media.</p>
-              <p>When the <code>send()</code> method is invoked, the user agent MUST run
+              <p>When the <code>send()</code> method is invoked, the <a>user agent</a> MUST run
               the following steps:</p>
               <ol>
                 <li>
@@ -3810,7 +3810,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
             <dt><dfn><code>receive</code></dfn></dt>
             <dd>
               <p>Attempts to set the parameters controlling the receiving of media.</p>
-              <p>When the <code>receive()</code> method is invoked, the user agent MUST
+              <p>When the <code>receive()</code> method is invoked, the <a>user agent</a> MUST
               run the following steps:</p>
               <ol>
                 <li>
@@ -4018,7 +4018,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
       keep information from RTP packets received in the previous 10 seconds.</p>
       <p>When the first audio frame contained in an RTP packet is delivered to the
       <code><a>RTCRtpReceiver</a></code>'s <code><a>MediaStreamTrack</a></code>
-      for playout, the user agent MUST queue a task to update the relevant
+      for playout, the <a>user agent</a> MUST queue a task to update the relevant
       <code><a>RTCRtpContributingSource</a></code> and
       <code><a>RTCRtpSynchronizationSource</a></code> objects based on the
       contents of the packet. The <code><a>RTCRtpSynchronizationSource</a></code>
@@ -6993,7 +6993,7 @@ interface RTCDtmfSender {
               cannot be more than 6000 ms or less than 40 ms. The default
               duration is 100 ms for each tone.</p>
               <p>The interToneGap parameter indicates the gap between tones in
-              ms. The user agent clamps it to at least 30 ms and at most
+              ms. The <a>user agent</a> clamps it to at least 30 ms and at most
               6000 ms. The default value is 70 ms.</p>
               <p>Implementations <em title="MAY" class="rfc2119">MAY</em>
               increase the duration and interToneGap times
@@ -7002,7 +7002,7 @@ interface RTCDtmfSender {
               "rfc2119">MUST</em> not increase either of them
               by more than the duration of a single RTP audio packet.</p>
               <p>When the <code><a><code>insertDTMF()</code></a></code> method
-              is invoked, the user agent <em title="MUST" class="rfc2119">MUST</em> run
+              is invoked, the <a>user agent</a> <em title="MUST" class="rfc2119">MUST</em> run
               the following steps:</p>
               <ol>
                 <li>let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
@@ -7425,7 +7425,7 @@ interface RTCDataChannel : EventTarget {
               <p>The <dfn id="dom-datachannel-readystate"><code>readyState</code></dfn>
               attribute represents the state of the <a>RTCDataChannel</a> object. It
               <em class="rfc2119" title="MUST">MUST</em> return the value to which the
-              user agent last set it (as defined by the processing model algorithms).</p>
+              <a>user agent</a> last set it (as defined by the processing model algorithms).</p>
             </dd>
             <dt><code>bufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
@@ -7437,7 +7437,7 @@ interface RTCDataChannel : EventTarget {
               queued using send() but that, as of the last time the event loop started
               executing a task, had not yet been transmitted to the network. This
               includes any text sent during the execution of the current task, regardless
-              of whether the user agent is able to transmit text asynchronously with
+              of whether the <a>user agent</a> is able to transmit text asynchronously with
               script execution. This does not include framing overhead incurred by the
               protocol, or buffering done by the operating system or network hardware. If
               the channel is closed, this attribute's value will only increase with each
@@ -7466,7 +7466,7 @@ interface RTCDataChannel : EventTarget {
             <dd>
               <p>The <dfn id="dom-datachannel-binarytype"><code>binaryType</code></dfn>
               attribute <em class="rfc2119" title="MUST">MUST</em>, on getting, return
-              the value to which it was last set. On setting, the user agent <em class=
+              the value to which it was last set. On setting, the <a>user agent</a> <em class=
               "rfc2119" title="MUST">MUST</em> set the IDL attribute to the new value.
               When an <a>RTCDataChannel</a> object is constructed, the
               <code>binaryType</code> attribute <em class="rfc2119" title=
@@ -7681,7 +7681,7 @@ interface RTCDataChannel : EventTarget {
         </section>
       </div>
       <p>The <code>send()</code> method is overloaded to handle different data argument
-      types. When any version of the method is called, the user agent MUST run the
+      types. When any version of the method is called, the <a>user agent</a> MUST run the
       following steps:</p>
       <ol>
         <li>
@@ -7776,7 +7776,7 @@ interface RTCDataChannel : EventTarget {
               <td><dfn><code id=
               "idl-def-RTCDataChannelState.connecting">connecting</code></dfn></td>
               <td>
-                <p>The user agent is attempting to establish the underlying data
+                <p>The <a>user agent</a> is attempting to establish the underlying data
                 transport. This is the initial state of an
                 <code><a>RTCDataChannel</a></code> object.</p>
               </td>
@@ -9009,7 +9009,7 @@ function accept(mySignaller, remote) {
             will reflect this. If the object is in the closed state, the returned stats
             will reflect the stats at the time the object transitioned to the closed
             state.</p>
-            <p>When the <dfn><code>getStats</code></dfn> method is invoked, the user agent MUST
+            <p>When the <dfn><code>getStats</code></dfn> method is invoked, the <a>user agent</a> MUST
             queue a task to run the following steps:</p>
             <ol>
               <li>
@@ -9599,7 +9599,7 @@ interface RTCIdentity {
               <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be used for a given
               <code><a>RTCIdentity</a></code> object, and initiates the process of
               obtaining an identity assertion.</p>
-              <p>When <code><a>getIdentityAssertion</a></code>() is invoked, the user agent MUST
+              <p>When <code><a>getIdentityAssertion</a></code>() is invoked, the <a>user agent</a> MUST
               run the following steps:</p>
               <ol>
                 <li>
