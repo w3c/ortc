@@ -4256,8 +4256,8 @@ interface RTCIceTransportController {
               <code>transport.state</code> is <code>closed</code>, <a>throw</a> an
               <code>InvalidStateError</code> exception. If <code>transport</code> has
               already been added to another <code><a>RTCIceTransportController</a></code>
-              object, or if <code>transport.component</code> is <code>rtcp</code>, throw
-              an <code>InvalidStateError</code> exception.</p>
+              object, or if <code>transport.component</code> is <code>rtcp</code>, <a>throw</a>
+              an <code>InvalidStateError</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -7746,7 +7746,7 @@ interface RTCDataChannel : EventTarget {
         <li>
           <p>Queue <var>data</var> for transmission on <var>channel</var>'s
           <a>underlying data transport</a>. If queuing <var>data</var> is not
-          possible because not enough buffer space is available, throw<
+          possible because not enough buffer space is available, <a>throw</a>
           an <code>OperationError</code>.</p>
           <div class="note">The actual transmission of data occurs in
           parallel. If sending data leads to an SCTP-level error, the
@@ -8466,12 +8466,12 @@ function accept(mySignaller, remote) {
       referenced.</p>
       <p>If an attempt is made to construct a <code><a>RTCQuicTransport</a></code>
       instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
-      state, an <code>InvalidStateError</code> exception is thrown.
+      state, <a>throw</a> an <code>InvalidStateError</code>.
       If <code>certificates</code> is non-empty,
       check that the <code>expires</code> attribute of each
       <code><a>RTCCertificate</a></code> object is in the future.
-      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>
-      exception; otherwise, store the certificates.</p>
+      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>;
+      otherwise, store the certificates.</p>
       <p>A newly constructed <code><a>RTCQuicTransport</a></code> <em class="rfc2119"
       title="MUST">MUST</em> listen and respond to incoming QUIC packets before
       <code>start()</code> is called. However, to complete the negotiation it is
