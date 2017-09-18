@@ -8642,10 +8642,6 @@ interface RTCQuicTransport {
             <dd>
               <p>Start QUIC transport negotiation with the parameters of the remote QUIC
               transport, including verification of the remote fingerprint.
-              If <var>remoteParameters</var> is invalid, <a>throw</a> an
-              <code>InvalidParameters</code> exception. If <code>start()</code> is called
-              after a previous <code>start()</code> call, or if <code>state</code> is
-              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception.
               Only a single QUIC transport can be multiplexed over an ICE transport.
               Therefore if a <code><a>RTCQuicTransport</a></code> object
               <var>quicTransportB</var> is constructed with an
@@ -8654,7 +8650,13 @@ interface RTCQuicTransport {
               object <var>quicTransportA</var>, then if
               <code>quicTransportB.start()</code> is called prior to having called
               <code>quicTransportA.stop()</code>, then <a>throw</a> an
-              <code>InvalidStateError</code> exception.</p>
+              <code>InvalidStateError</code>.</p>
+              <p>If <code>start</code> is called after a previous <code>start</code>
+              call, or if <code>state</code> is <code>closed</code>, <a>throw</a>
+              an <code>InvalidStateError</code>.</p>
+              <p>If <var>remoteParameters</var> contains <code>RTCDtlsFingerprint</code>
+              algorithms that are all unsupported, then <a>throw</a> a
+              <code>NotSupportedError</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
