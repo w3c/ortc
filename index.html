@@ -5293,7 +5293,7 @@ interface RTCRtpUnhandledEvent : Event {
                 <td>Receiver/Sender</td>
                 <td>An unsigned short, ranging from 0 to 2, indicating
                 a supported <code>packetization-mode</code> value. As noted in [[!RFC7742]]
-                Section 6.2, support for packetization-mode 1 is mandatory.</td>
+                Section 6.2, support for a value of 1 is mandatory.</td>
               </tr>
               <tr id="def-other-h264-params*">
                 <td>max-mbps, max-smbps, max-fs, max-cpb, max-dpb, max-br</td>
@@ -5855,7 +5855,8 @@ interface RTCRtpUnhandledEvent : Event {
                 <td>Sender</td>
                 <td>An unsigned short ranging from 0 to 2, indicating the
                 <var>packetization-mode</var> value to be used by the sender. This setting
-                MUST be supported, as noted in [[!RFC7742]] Section 6.2.</td>
+                MUST be supported, as noted in [[!RFC7742]] Section 6.2. A value of
+                1 is assumed if <code>packetization-mode</code> is not set.</td>
               </tr>
               <tr id="def-other-h264-params*">
                 <td>max-mbps, max-smbps, max-fs, max-cpb, max-dpb, max-br</td>
