@@ -7253,65 +7253,78 @@ interface RTCDTMFToneChangeEvent : Event {
       <code><a>RTCRtpSender</a></code> object.</p>
       <p>Sending the DTMF signal "1234" with 500 ms duration per tone:</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
+var sender = new RTCDtmfSender(sendObject);
 if (sender.canInsertDTMF) {
-  var duration = 500;
-  sender.insertDTMF("1234", duration);
-} else {
-  trace("DTMF function not available");
-}
-                </pre>
+    var duration = 500;
+    sender.insertDTMF("1234", duration);
+} else 
+    trace("DTMF function not available");
+</pre>
+      <p>Send the DTMF signal "123" and abort after sending "2".</p>
+      <pre class="example highlight">
+var sender = new RTCDtmfSender(sendObject);
+if (sender.canInsertDTMF) {
+  sender.ontonechange = function (e) {
+      if (e.tone == "2")
+          // empty the buffer to not play any tone after "2"
+          sender.insertDTMF("");
+  };
+  sender.insertDTMF("123");
+} else
+    trace("DTMF function not available");
+</pre>
+
       <p>Send the DTMF signal "1234", and light up the active key using
       <code>lightKey(key)</code> while the tone is playing (assuming that
       <code>lightKey("")</code> will darken all the keys):</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
-sender.ontonechange = function(e) {
-  if (!e.tone) return;
+var sender = new RTCDtmfSender(sendObject);
+if (sender.canInsertDTMF) {
+  var duration = 500;
+  sender.ontonechange = function (e) {
+      if (!e.tone)
+          return;
+      // light up the key when playout starts
+      lightKey(e.tone);
+      // turn off the light after tone duration
+      setTimeout(lightKey, duration, "");
+  };
+  sender.insertDTMF(sender.toneBuffer + "1234");
+} else
+    trace("DTMF function not available");
+</pre>      
+      
+      <p>It is always safe to append to the tone buffer. This example appends
+      before any tone playout has started as well as during playout.</p>
+      <pre class="example highlight">
+var sender = new RTCDtmfSender(sendObject);
+if (sender.canInsertDTMF) {
+  sender.insertDTMF("123");
+  // append more tones to the tone buffer before playout has begun
+  sender.insertDTMF(sender.toneBuffer + "456");
 
-  // light up the key when playout starts
-  lightKey(e.tone);
-
-  // turn off the light after tone duration
-  setTimeout(lightKey, sender.duration, "");
-};
-sender.insertDTMF("1234");
-                </pre>
+  sender.ontonechange = function (e) {
+      if (e.tone == "1")
+          // append more tones when playout has begun
+          sender.insertDTMF(sender.toneBuffer + "789");
+  };
+} else
+    trace("DTMF function not available");    
+</pre>
+      
       <p>Send a 1-second "1" tone followed by a 2-second "2" tone:</p>
       <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
-sender.ontonechange = function(e) {
-  if (e.tone === "1") sender.insertDTMF("2", 2000);
-};
-sender.insertDTMF("1", 1000);
-                </pre>
-      <p>It is always safe to append to the tone buffer. This example appends before any
-      tone playout has started as well as during playout.</p>
-      <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
-sender.insertDTMF("123");
-
-// append more tones to the tone buffer before playout has begun
-sender.insertDTMF(sender.toneBuffer + "456");
-
-sender.ontonechange = function(e) {
-  if (e.tone === "1") {
-    // append more tones when playout has begun
-    sender.insertDTMF(sender.toneBuffer + "789");
-  }
-};
-                </pre>
-      <p>Send the DTMF signal "123" and abort after sending "2".</p>
-      <pre class="example highlight">
-      var sender = new RTCDtmfSender(sendObject);
-sender.ontonechange = function(e) {
-  if (e.tone === "2") {
-    // empty the buffer to not play any tone after "2"
-    sender.insertDTMF("");
-  }
-};
-sender.insertDTMF("123");
-                </pre>
+var sender = new RTCDtmfSender(sendObject);
+if (sender.canInsertDTMF) {
+  sender.ontonechange = function (e) {
+      if (e.tone == "1")
+          sender.insertDTMF(sender.toneBuffer + "2", 2000);
+  };
+  sender.insertDTMF(sender.toneBuffer + "1", 1000);
+} else
+    trace("DTMF function not available");
+</pre>
+      
     </section>
   </section>
   <section id="rtcdatachannel*">
