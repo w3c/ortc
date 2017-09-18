@@ -4610,7 +4610,7 @@ mySignaller.myOfferTracks({
       <li>If <code><var>parameters</var>.muxId</code> is set,
       <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <var>receiver</var>.</li>
       <li>If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
-      <var>receiver</var>, then <code>receiver.receive()</code> will be rejected with
+      <var>receiver</var>, then <code>receiver.receive()</code> will be <a>rejected</a> with
       <code>InvalidParameters</code>.</li>
       </ol>
       <p>SSRC table:</p>
@@ -4628,7 +4628,7 @@ mySignaller.myOfferTracks({
       <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set, for values of
       <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
       <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
-      than <var>receiver</var>, then <code>receiver.receive()</code> will be rejected
+      than <var>receiver</var>, then <code>receiver.receive()</code> will be <a>rejected</a>
       with <code>InvalidParameters</code>.</li>
       </ol>
       <p>payload type table:<p>
@@ -4640,7 +4640,7 @@ mySignaller.myOfferTracks({
       <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code> to
       <var>receiver</var>, for values of <var>j</var> from 0 to <code>codecs.length-1</code>.</li>
       <li>If <code>pt_table[<var>pt</var>]</code> is already set to a value other than
-      <var>receiver</var> then <code>receiver.receive()</code> will be rejected with
+      <var>receiver</var> then <code>receiver.receive()</code> will be <a>rejected</a> with
       <code>InvalidParameters</code>.</li>
       </ol>
       <section id="rtppackethandling*">
@@ -9449,7 +9449,7 @@ function processStats(currentReport) {
       <p>The format and contents of the messages that are exchanged are described in
       detail in [[!RTCWEB-SECURITY-ARCH]].</p>
       <p>The IdP proxy can return an "ERROR" response. If an error is encountered, the
-      <code><a>getIdentityAssertion</a></code> Promise MUST be rejected.</p>
+      <code><a>getIdentityAssertion</a></code> Promise MUST be <a>rejected</a>.</p>
       <p>The browser <em class="rfc2119" title="SHOULD">SHOULD</em> limit the time that
       it will allow for this process. This includes both the loading of the <a href=
       "#sec.identity-proxy-communications">IdP proxy</a> and the identity assertion
@@ -9522,7 +9522,7 @@ function processStats(currentReport) {
       checks performed by the browser. In both cases, the process terminates and no
       identity information is exposed to the application or the user.</p>
       <p>The browser MUST cause the Promise of <code>setIdentityAssertion</code> to be
-      rejected if validation of an identity assertion fails for any reason.</p>
+      <a>rejected</a> if validation of an identity assertion fails for any reason.</p>
       <p>The browser <em class="rfc2119" title="SHOULD">SHOULD</em> limit the time that
       it will allow for this process. This includes both the loading of the <a href=
       "#sec.identity-proxy-communications">IdP proxy</a> and the identity assertion
@@ -9630,7 +9630,7 @@ interface RTCIdentity {
                   <p>If the IdP proxy provides an assertion over the message channel, the
                   Promise is fulfilled, and the assertion is returned (equivalent to
                   <code>onidentityresult</code> in the WebRTC 1.0 API). If the IdP proxy
-                  returns an "ERROR" response, the Promise is rejected, and an
+                  returns an "ERROR" response, the Promise is <a>rejected</a>, and an
                   <code>RTCIdentityError</code> object is returned, (equivalent to
                   <code>onidpassertionerror</code> in the WebRTC 1.0 API).</p>
                 </li>
@@ -9682,7 +9682,7 @@ interface RTCIdentity {
               <p><dfn>setIdentityAssertion</dfn> validates the identity assertion.
               If the Promise is fulfilled, an
               <code><a>RTCIdentityAssertion</a></code> is returned. If the Promise is
-              rejected, an <code>RTCIdentityError</code> object is returned, (equivalent
+              <a>rejected</a>, an <code>RTCIdentityError</code> object is returned, (equivalent
               to <code>onidpvalidationerror</code> in the WebRTC 1.0 API).</p>
               <table class="parameters">
                 <tbody>
@@ -9943,7 +9943,7 @@ function signalAssertion(assertion) {
               value specific to production of certificates for
               <code><a>RTCDtlsTransport</a></code>. If the algorithm normalization
               process produces an error, the call to <code>generateCertificate()</code>
-              <em title="MUST" class="rfc2119">MUST</em> be rejected with that error.</p>
+              <em title="MUST" class="rfc2119">MUST</em> be <a>rejected</a> with that error.</p>
               <p>Signatures produced by the generated key are used to authenticate the
               DTLS connection. The identified algorithm (as identified by the
               <code>name</code> of the normalized <code>AlgorithmIdentifier</code>)
