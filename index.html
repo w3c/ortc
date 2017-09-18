@@ -1081,7 +1081,6 @@ interface RTCIceGathererEvent : Event {
       <div>
         <pre class="idl">enum RTCIceGatherPolicy {
     "all",
-    "nohost",
     "relay"
 };</pre>
         <table data-link-for="RTCIceGatherPolicy" data-dfn-for="RTCIceGatherPolicy"
@@ -1096,14 +1095,6 @@ interface RTCIceGathererEvent : Event {
                 <p>The <code><a>RTCIceGatherer</a></code> gathers all types of candidates
                 when this value is specified. This will not include addresses that have
                 been filtered by the browser.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><dfn><code id=
-              "idl-def-RTCIceGatherPolicy.nohost">nohost</code></dfn></td>
-              <td>
-                <p>The <code><a>RTCIceGatherer</a></code> gathers all ICE candidate types
-                except for host candidates.</p>
               </td>
             </tr>
             <tr>
