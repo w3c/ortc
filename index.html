@@ -2349,7 +2349,7 @@ mySignaller.send({
       referenced.</p>
       <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
       instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
-      state, an <code>InvalidStateError</code> exception is thrown.
+      state, <a>throw</a> an <code>InvalidStateError</code>.
       If <code>certificates</code> is non-empty,
       check that the <code>expires</code> attribute of each
       <code><a>RTCCertificate</a></code> object is in the future.
@@ -2534,11 +2534,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               [[!RFC5764]] session to establish keys so as protect media using SRTP
               [[!RFC3711]]. Since symmetric RTP [[!RFC4961]] is utilized, the
               <a>DTLS-SRTP</a> session is bi-directional.</p>
-              <p>If <var>remoteParameters</var> is invalid, <a>throw</a> an
-              <code>InvalidParameters</code> exception. If <code>start()</code> is called
-              after a previous <code>start()</code> call, or if <code>state</code> is
-              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception.
-              Only a single DTLS transport can be multiplexed over an ICE transport.
+              <p>Only a single DTLS transport can be multiplexed over an ICE transport.
               Therefore if a <code><a>RTCDtlsTransport</a></code> object
               <var>dtlsTransportB</var> is constructed with an
               <code><a>RTCIceTransport</a></code> object <var>iceTransport</var>
@@ -2546,7 +2542,13 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               object <var>dtlsTransportA</var>, then if
               <code>dtlsTransportB.start()</code> is called prior to having called
               <code>dtlsTransportA.stop()</code>, then <a>throw</a> an
-              <code>InvalidStateError</code> exception.</p>
+              <code>InvalidStateError</code>.</p>
+              <p>If <code>start</code> is called after a previous <code>start</code>
+              call, or if <code>state</code> is <code>closed</code>, <a>throw</a>
+              an <code>InvalidStateError</code>.</p>
+              <p>If <var>remoteParameters</var> contains <code>RTCDtlsFingerprint</code>
+              algorithms that are all unsupported, then <a>throw</a> a
+              <code>NotSupportedError</code>.</p> 
               <table class="parameters">
                 <tbody>
                   <tr>
