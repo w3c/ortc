@@ -7336,28 +7336,33 @@ sender.insertDTMF("123");
     <section id="rtcdatachannel-interface-definition*">
       <h3>Interface Definition</h3>
       <p>The <code><a>RTCDataChannel</a></code> interface represents a bi-directional
-      data channel between two peers. There are two ways to establish a connection with
+      data channel between two peers. Each <code><a>RTCDataChannel</a></code> has
+      an associated <dfn>underlying data transport</dfn> that is used to
+      transport actual data to the other peer. The transport properties of the
+      underlying data transport, such as in order delivery settings and
+      reliability mode, are configured by the peer as the channel is created.
+      The properties of a channel cannot change after the channel has been created.</p>
+      <p>There are two ways to establish a connection with
       <code><a>RTCDataChannel</a></code>. The first way is to construct an
       <code><a>RTCDataChannel</a></code> at one of the peers with the
-      <code><a>RTCDataChannelParameters</a>.negotiated</code> attribute unset or set to
-      its default value false. This will announce the new channel in-band and trigger an
-      <code>ondatachannel</code> event with the corresponding
-      <code><a>RTCDataChannel</a></code> object at the other peer. The second way is to
-      let the application negotiate the <code><a>RTCDataChannel</a></code>. To do this,
-      create an <code><a>RTCDataChannel</a></code> object with the
-      <code><a>RTCDataChannelParameters</a>.negotiated</code> dictionary member set to
-      true, and signal out-of-band (e.g. via a web server) to the other side that it
-      should create a corresponding <code><a>RTCDataChannel</a></code> with the
-      <code><a>RTCDataChannelParameters</a>.negotiated</code> dictionary member set to
-      true and the same <var>id</var>. This will connect the two separately created
-      <code><a>RTCDataChannel</a></code> objects. The second way makes it possible to
-      create channels with asymmetric properties and to create channels in a declarative
-      way by specifying matching <var>id</var>s. Each <code><a>RTCDataChannel</a></code>
-      has an associated <dfn>underlying data transport</dfn> that is used to transport
-      actual data to the other peer. The transport properties of the underlying data
-      transport, such as in order delivery settings and reliability mode, are configured
-      by the peer as the channel is created. The properties of a channel cannot change
-      after the channel has been created.</p>
+      <code><a>RTCDataChannelParameters</a>.negotiated</code> attribute unset
+      or set to its default value <code>false</code>. This will announce the
+      new channel in-band and trigger an <code>ondatachannel</code> event
+      with the corresponding <code><a>RTCDataChannel</a></code> object at
+      the other peer.</p>
+      <p>The second way is to let the application negotiate the
+      <code><a>RTCDataChannel</a></code>. To do this, create an
+      <code><a>RTCDataChannel</a></code> object with the
+      <code><a>RTCDataChannelParameters</a>.negotiated</code> dictionary member
+      set to <code>true</code>, and signal out-of-band (e.g. via a web server)
+      to the other side that it should create a corresponding
+      <code><a>RTCDataChannel</a></code> with the
+      <code><a>RTCDataChannelParameters</a>.negotiated</code> dictionary member
+      set to <code>true</code> and the same <var>id</var>. This will connect
+      the two separately created <code><a>RTCDataChannel</a></code> objects.
+      The second way makes it possible to create channels with asymmetric
+      properties and to create channels in a declarative way by specifying
+      matching <var>id</var>s.</p>
       <div>
         <pre class="idl">
         [ Constructor (RTCDataTransport transport, RTCDataChannelParameters parameters)]
