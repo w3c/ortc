@@ -6914,10 +6914,10 @@ var encodings = [
         <pre class="idl">[ Constructor (RTCRtpSender sender)]
 interface RTCDtmfSender {
     readonly        attribute boolean      canInsertDTMF;
-    void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
     readonly        attribute RTCRtpSender sender;
-                    attribute EventHandler ontonechange;
     readonly        attribute DOMString    toneBuffer;
+    void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
+                    attribute EventHandler ontonechange;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -6962,6 +6962,13 @@ interface RTCDtmfSender {
             <dd>
               <p>The <code><a>RTCRtpSender</a></code> instance</p>
             </dd>
+            <dt><code>toneBuffer</code> of type <span class=
+            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            <dd>
+              <p>The <dfn>toneBuffer</dfn> attribute returns a list of the tones
+              remaining to be played out. For the syntax, content, and interpretation
+              of this list, see <code><a>insertDTMF</a></code>.</p>
+            </dd>
             <dt><code>ontonechange</code> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
@@ -6969,13 +6976,6 @@ interface RTCDtmfSender {
               <a>RTCDTMFToneChangeEvent</a> interface to return the character for each
               tone as it is played out. The event type of the <code>ontonechange</code>
               event handler is <code><a>tonechange</a></code>.</p>
-            </dd>
-            <dt><code>toneBuffer</code> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
-            <dd>
-              <p>The <dfn>toneBuffer</dfn> attribute returns a list of the tones
-              remaining to be played out. For the syntax, content, and interpretation
-              of this list, see <code><a>insertDTMF</a></code>.</p>
             </dd>
           </dl>
         </section>
