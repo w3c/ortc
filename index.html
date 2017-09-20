@@ -2139,7 +2139,7 @@ interface RTCIceTransport : RTCStatsProvider {
       target.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict), Exposed=Window]
 interface RTCIceCandidatePairChangedEvent : Event {
     readonly        attribute RTCIceCandidatePair pair;
 };</pre>
@@ -8770,7 +8770,7 @@ interface RTCQuicTransport {
       </div>
     </section>
     <section id="rtcquicroleinfo">
-       <h3>QUIC role determination</h3>
+      <h3>QUIC role determination</h3>
       <p>To diagnose QUIC role issues, an application may wish to determine
       the desired and actual QUIC role of an <code><a>RTCQuicTransport</a></code>.
       For a browser implementing ORTC, a <code><a>RTCQuicTransport</a></code>
@@ -9068,7 +9068,8 @@ function accept(mySignaller, remote) {
       SSRC (which can be distinguished by the value of the <var>ssrc</var> stats
       attribute).</p>
       <div>
-        <pre class="idl">interface RTCStatsReport {
+        <pre class="idl">[Exposed=Window]
+interface RTCStatsReport {
     readonly maplike&lt;DOMString, object&gt;;
 };</pre>
         <p>This interface has "entries", "forEach", "get", "has", "keys",
