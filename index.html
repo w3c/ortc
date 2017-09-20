@@ -10387,6 +10387,10 @@ function signalAssertion(assertion) {
       whereas ORTC originally supported the <code>RTCDtmfSender</code>
       interface. In order to provide backward compatibility, this specification
       has added support for the <code>RTCDTMFSender</code> interface.</p>
+      <p>In WebRTC 1.0 the <code>RTCDTMFSender</code> is an extension of
+      <code>RTCRtpSender</code> whereas in ORTC it is created with an
+      <code>RTCRtpSender</code>. The WebRTC 1.0 behaviour can be emulated by
+      providing a getter for <code>RTCRtpSender</code>.<var>dtmf</var> attribute.
     </section>
     <section id="bundle*">
       <h3>BUNDLE</h3>
