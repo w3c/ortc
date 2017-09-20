@@ -5412,7 +5412,7 @@ interface RTCRtpUnhandledEvent : Event {
              sequence&lt;RTCRtpHeaderExtensionParameters&gt; headerExtensions;
              sequence&lt;RTCRtpEncodingParameters&gt;        encodings;
              RTCRtcpParameters                         rtcp;
-             RTCDegradationPreference                  degradationPreference = "balanced";
+             RTCDegradationPreference                  degradationPreference;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCRtpParameters</a> Members</h2>
@@ -5478,8 +5478,7 @@ interface RTCRtpUnhandledEvent : Event {
               Section 9.6.1 are assumed.</p>
             </dd>
             <dt><dfn><code>degradationPreference</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCDegradationPreference</a></span>, defaulting to
-            <code>"balanced"</code></dt>
+            "idlMemberType"><a>RTCDegradationPreference</a></span></dt>
             <dd>
               <p>When bandwidth is constrained and the <code><a>RTCRtpSender</a></code>
               needs to choose between degrading resolution or degrading framerate,
