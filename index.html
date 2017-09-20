@@ -6065,13 +6065,14 @@ interface RTCRtpUnhandledEvent : Event {
             <dt><dfn><code>maxBitrate</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
-              <p>Ramp up resolution/quality/framerate until this bitrate, if set.
-              maxBitrate is the Transport Independent Application Specific (TIAS) maximum
+              <p>Ramp up resolution/quality/framerate until this bitrate, 
+              if set; if unset, there is no maximum bitrate.
+              <code>maxBitrate</code> is computed the same way as the
+              Transport Independent Application Specific Maximum (TIAS)
               bandwidth defined in [[RFC3890]] Section 6.2.2, which is the maximum
               bandwidth needed without counting IP or other transport layers like TCP or
-              UDP. Summed when using dependent layers. This parameter is ignored in
-              scalable video coding, or in an <code><a>RTCRtpReceiver</a></code> object.
-              If unset, there is no maximum bitrate.</p>
+              UDP. Summed when using dependent layers. This attribute is ignored in
+              scalable video coding, or for an <code><a>RTCRtpReceiver</a></code>.</p>
             </dd>
             <dt><dfn><code>resolutionScale</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
@@ -6090,7 +6091,8 @@ interface RTCRtpUnhandledEvent : Event {
               promise with <code>RangeError</code> when <code>send()</code>
               or <code><a>receive</a>()</code> is called.  If
               <code><var>sender</var>.track.kind</code> is "audio", the value is
-              ignored.</p>
+              ignored. This attribute is ignored for an
+              <code><a>RTCRtpReceiver</a></code>.</p>
             </dd>
             <dt><dfn><code>framerateScale</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
@@ -6099,15 +6101,17 @@ interface RTCRtpUnhandledEvent : Event {
               full framerate, 2.0 = one half of the full framerate. For scalable video
               coding, <code>framerateScale</code> refers to the inverse of the aggregate
               fraction of input framerate achieved by this layer when combined with all
-              dependent layers.</p>
+              dependent layers. This attribute is ignored for an
+              <code><a>RTCRtpReceiver</a></code>.</p>
             </dd>
             <dt><dfn><code>maxFramerate</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
             <dd>
               <p>The maximum framerate to use for this encoding, in frames per
-              second. This setting is not used for scalable video coding. If
+              second. This attribute is not used for scalable video coding. If
               <code><a>framerateScale</a></code> is set, then
-              <code>maxFramerate</code> is ignored.</p>
+              <code>maxFramerate</code> is ignored. This attribute is ignored
+              for an <code><a>RTCRtpReceiver</a></code>.</p></p>
             </dd>
             <dt><dfn><code>active</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
@@ -6133,7 +6137,7 @@ interface RTCRtpUnhandledEvent : Event {
               within the scope of the localized sequence of
               <code><a>RTCRtpEncodingParameters</a></code> for any given
               <code><a>RTCRtpParameters</a></code> object. Values MUST be composed only
-              of case-sensitive alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
+              of alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
               of 16 characters. An <code><a>RTCRtpSender</a></code> places the value of
               <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
               and an <code><a>RTCRtpReceiver</a></code> determines the
