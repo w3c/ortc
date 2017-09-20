@@ -2546,9 +2546,10 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <p>If <code>start</code> is called after a previous <code>start</code>
               call, or if <code>state</code> is <code>closed</code>, <a>throw</a>
               an <code>InvalidStateError</code>.</p>
-              <p>If <var>remoteParameters</var> contains <code>RTCDtlsFingerprint</code>
-              algorithms that are all unsupported, then <a>throw</a> a
-              <code>NotSupportedError</code>.</p> 
+              <p>If all of the values of
+              <code><var>remoteParameters</var>.fingerprints[<var>j</var>].algorithm</code>
+              are unsupported, where <var>j</var> goes from 0 to the number of fingerprints.
+              <a>throw</a> a <code>NotSupportedError</code>.</p> 
               <table class="parameters">
                 <tbody>
                   <tr>
