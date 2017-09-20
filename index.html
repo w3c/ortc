@@ -823,7 +823,7 @@ interface RTCIceGathererIceErrorEvent : Event {
     readonly        attribute RTCIceCandidate? hostCandidate;
     readonly        attribute DOMString        url;
     readonly        attribute unsigned short   errorCode;
-    readonly        attribute USVString        errorText;
+    readonly        attribute USVString        statusText;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -880,7 +880,7 @@ interface RTCIceGathererIceErrorEvent : Event {
               <code><a>hostCandidate</a></code> will be null.</p>
             </dd>
             <dt><dfn><code>url</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            "idlAttrType"><a>DOMString</a></span>, readonly , nullable</dt>
             <dd>
               <p>The <code><a>url</a></code> attribute is the STUN or TURN URL
               identifying the server on which the failure ocurred.</p>
@@ -896,12 +896,11 @@ interface RTCIceGathererIceErrorEvent : Event {
               error is only fired once per server URL while in the
               <code><a>RTCIceGathererState</a></code> of <code>gathering</code>.</p>
             </dd>
-            <dt><dfn><code>errorText</code></dfn> of type <span class=
+            <dt><dfn><code>statusText</code></dfn> of type <span class=
             "idlAttrType"><a>USVString</a></span>, readonly</dt>
             <dd>
-              <p>The <code><a>errorText</a></code> attribute is the STUN reason text
-              returned by the STUN or TURN server [[STUN-PARAMETERS]].</p>
-              <p>If the server could not be reached, <code><a>errorText</a></code> will
+              <p>The STUN reason text returned by the STUN or TURN server [[STUN-PARAMETERS]].</p>
+              <p>If the server could not be reached, <code><a>statusText</a></code> will
               be set to an implementation-specific value providing details about the
               error.</p>
             </dd>
@@ -915,7 +914,7 @@ interface RTCIceGathererIceErrorEvent : Event {
         dictionary RTCIceGathererIceErrorEventInit : EventInit {
              RTCIceCandidate hostCandidate;
              DOMString       url;
-             unsigned short  errorCode;
+             required unsigned short  errorCode;
              USVString       errorText;
 };</pre>
         <section>
@@ -967,7 +966,7 @@ interface RTCIceGathererIceErrorEvent : Event {
         [ Constructor (DOMString type, RTCIceGathererEventInit eventInitDict)]
 interface RTCIceGathererEvent : Event {
     readonly        attribute RTCIceGatherCandidate candidate;
-    readonly        attribute DOMString             url;
+    readonly        attribute DOMString?            url;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -1021,7 +1020,7 @@ interface RTCIceGathererEvent : Event {
               candidates.</p>
             </dd>
             <dt><dfn><code>url</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly</dt>
+            "idlAttrType"><a>DOMString</a></span>, readonly , nullable</dt>
             <dd>The URL of the server from which the candidate was obtained.</dd>
           </dl>
         </section>
