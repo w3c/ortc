@@ -1096,9 +1096,15 @@ interface RTCIceGathererEvent : Event {
             <tr>
               <td><dfn><code id="idl-def-RTCIceGatherPolicy.all">all</code></dfn></td>
               <td>
-                <p>The <code><a>RTCIceGatherer</a></code> gathers all types of candidates
-                when this value is specified. This will not include addresses that have
-                been filtered by the browser.</p>
+                  <p>
+                    The <code><a>RTCIceGatherer</a></code> MAY gather any type of
+                    candidate when this value is specified.
+                  </p>
+                  <div class="note">
+                    The implementation may still use its own candidate
+                    filtering policy in order to limit the IP addresses
+                    exposed to the application.
+                  </div>
               </td>
             </tr>
             <tr>
@@ -1113,10 +1119,18 @@ interface RTCIceGathererEvent : Event {
               <td><dfn><code id=
               "idl-def-RTCIceGatherPolicy.relay">relay</code></dfn></td>
               <td>
-                <p>The <code><a>RTCIceGatherer</a></code> <em class="rfc2119" title=
-                "MUST">MUST</em> only gather media relay candidates such as candidates
-                passing through a TURN server. This can be used to reduce leakage of IP
-                addresses in certain use cases.</p>
+                  <p>
+                    The <code><a>RTCIceGatherer</a></code> MUST only gather media relay
+                    candidates such as candidates passing through a TURN server.
+                  </p>
+                  <div class="note">
+                    This can be used to prevent the remote endpoint from learning
+                    the user's IP addresses, which may be desired in certain
+                    use cases. For example, in a "call"-based application, the
+                    application may want to prevent an unknown caller from
+                    learning the callee's IP addresses until the callee has
+                    consented in some way.
+                  </div>
               </td>
             </tr>
           </tbody>
