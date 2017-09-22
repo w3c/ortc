@@ -4633,7 +4633,7 @@ mySignaller.myOfferTracks({
       based on tables containing SSRC, PT and MID entries. In ORTC, table entries
       referencing the <code><a>RTCRtpReceiver</a></code> object <var>receiver</var>
       are added when <code><var>receiver</var>.receive(<var>parameters</var>)</code>
-      is called. When <code>var>receiver</var>.receive(<var>parameters</var>)</code> is
+      is called. When <code><var>receiver</var>.receive(<var>parameters</var>)</code> is
       called again, changes are made to table entries. When <code><var>receiver</var>.stop()</code>
       is called, all entries referencing <var>receiver</var> are removed.</p>
       <p>When multiple <code><a>RTCRtpReceiver<a></code> or <code><a>RTCRtpSender<a></code>
@@ -10627,11 +10627,17 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <li>Marked the QoS/Priority API as a "feature at risk", as noted in:
         <a href="https://github.com/w3c/ortc/issues/708">Issue 708</a>
         </li>
-         <li>Updated contributing and synchronization sources for compatibility with WebRTC 1.0, as noted in:
+        <li>Added validation steps in the <code>RTCDataChannel</code> constructor, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/717">Issue 717</a>
+        </li>
+        <li>Updated contributing and synchronization sources for compatibility with WebRTC 1.0, as noted in:
         <a href="https://github.com/w3c/ortc/issues/718">Issue 718</a>
         </li>
         <li>Updated DTMF support for compatibility with WebRTC 1.0, as noted in:
         <a href="https://github.com/w3c/ortc/issues/719">Issue 719</a>
+        </li>
+        <li>Synchronized with WebRTC 1.0 changes to ICE, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/720">Issue 720</a>
         </li>
         <li>Clarified key shortening behavior with use of OAuth credentials, as noted in:
         <a href="https://github.com/w3c/ortc/issues/721">Issue 721</a>
@@ -10639,17 +10645,38 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <li>Enabled <code>setTrack</code>/<code>replaceTrack</code> argument to be <code>null</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/722">Issue 722</a>
         </li>
+        <li>Synchronized with WebRTC 1.0 changes to <code>RTCRtpParameters</code>, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/723">Issue 723</a>
+        </li>
+        <li>Added support for DTLS error reporting, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/724">Issue 724</a>
+        </li>
+        <li>Fixed race conditions in the DTMF examples, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/732">Issue 732</a>
+        </li>
         <li>Changed <code>numChannels</code> to <code>channels</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/738">Issue 738</a>
         </li>
-        <li>Clarified behavior or <code>getCapabilities</code>, as noted in:
+        <li>Clarified behavior of <code>getCapabilities</code>, as noted in:
         <a href="https://github.com/w3c/ortc/issues/740">Issue 740</a>
         </li>
-        <li>Sync of <code>RTCStatsType</code> with WebRTC 1.0, as noted in:
+        <li>Removed the <code>nohost</code> gathering policy, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/742">Issue 742</a>
+        </li>
+        <li>Added support for the <code>getDefaultIceServers</code> method, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/743">Issue 743</a>
+        </li>
+        <li>Synchronized <code>RTCStatsType</code> values with WebRTC 1.0, as noted in:
         <a href="https://github.com/w3c/ortc/issues/745">Issue 745</a>
         </li>
         <li>Added validation steps in the <code><a>RTCIceGatherer</a></code> constructor, as noted in:
         <a href="https://github.com/w3c/ortc/issues/748">Issue 748</a>
+        </li>
+        <li>Clarified handling of unsupported fingerprint algorithms, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/752">Issue 752</a>
+        </li>
+        <li>Added [Exposed] to interfaces, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/766">Issue 766</a>
         </li>
       </ol>
     </section>
