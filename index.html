@@ -7396,6 +7396,15 @@ if (sender.canInsertDTMF) {
       underlying data transport, such as in order delivery settings and
       reliability mode, are configured by the peer as the channel is created.
       The properties of a channel cannot change after the channel has been created.</p>
+      <p>An <code><a>RTCDataChannel</a></code> can be configured to operate in
+      different reliability modes.  A reliable channel ensures that the data is
+      delivered at the other peer through retransmissions.  An unreliable channel
+      is configured to either limit the number of retransmissions
+      (<code>maxRetransmits</code>) or set a time during which transmissions
+      (including retransmissions) are allowed (<code>maxPacketLifeTime</code>).
+      These properties can not be used simultaneously and an attempt to do so
+      will result in an error.  Not setting any of these properties results in
+      a reliable channel.</p>  
       <p>There are two ways to establish a connection with
       <code><a>RTCDataChannel</a></code>. The first way is to construct an
       <code><a>RTCDataChannel</a></code> at one of the peers with the
