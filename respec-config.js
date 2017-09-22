@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2017-09-19",
+  publishDate: "2017-09-22",
   edDraftURI: "https://rawgit.com/w3c/ortc/master/index.html",
   editors: [
     {
