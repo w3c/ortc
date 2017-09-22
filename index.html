@@ -1677,23 +1677,22 @@ interface RTCIceTransport : RTCStatsProvider {
               <ol>
                 <li>
                   If <code><var>gatherer</var>.component</code> has a value
-                  different from <code>component</code>, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.
+                  different from <code>component</code>, <a>throw</a> a
+                  <code>TypeError</code>.
                 </li>
                 <li>
                   If <code>state</code> or <code><var>gatherer</var>.state</code>
-                  is <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.
+                  is <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.
                 </li>
                 <li>
                   If <code><var>remoteParameters</var>.usernameFragment</code>
                   or <code><var>remoteParameters</var>.password</code> is unset,
-                  <a>throw</a> an <code>InvalidParameters</code> exception.
+                  <a>throw</a> a <code>TypeError</code>.
                 </li>
                 <li>
                   If <code>start()</code> is called again and
-                  <code><var>role</var></code> is changed, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.
+                  <code><var>role</var></code> is changed, <a>throw</a> a
+                  <code>TypeError</code>.
                 </li>
                 <li>
                   If <code>start()</code> is called again with the same
@@ -2535,7 +2534,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               [[!RFC3711]]. Since symmetric RTP [[!RFC4961]] is utilized, the
               <a>DTLS-SRTP</a> session is bi-directional.</p>
               <p>If <var>remoteParameters</var> is invalid, <a>throw</a> an
-              <code>InvalidParameters</code> exception. If <code>start()</code> is called
+              <code>InvalidAccessError</code>. If <code>start()</code> is called
               after a previous <code>start()</code> call, or if <code>state</code> is
               <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception.
               Only a single DTLS transport can be multiplexed over an ICE transport.
@@ -2967,7 +2966,7 @@ interface RTCRtpSender : RTCStatsProvider {
               <ol>
                <li>
                   <p>If <var>transport</var> is unset, and <var>rtcpTransport</var>
-                    is set, <a>throw</a> an <code>InvalidParameters</code> exception and
+                    is set, <a>throw</a> a <code>TypeError</code> and
                     abort all further steps.</p>
                 </li>
                 <li>
@@ -3123,19 +3122,17 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.</p>
+                  or if <var>withTransport</var> is unset, <a>throw</a> a
+                  <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>
-                  exception.</p>
+                  <code>rtcp</code>, <a>throw</a> a <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code>
-                  exception.</p>
+                  <code>rtp</code>, <a>throw</a> a <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
@@ -3336,29 +3333,32 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.stop()</code> has been called,
-                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
+                  reject <var>p</var> with a newly <a>created</a>
+                  <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.transport</code> is unset,
-                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
+                  reject <var>p</var> with a newly <a>created</a>
+                  <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
                 </li>
                 <li>
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage or
-                  other reasons, reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  other reasons, reject <var>p</var> with a newly <a>created</a>
+                  <code>InvalidAccessError</code>.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
-                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  reject <var>p</var> with a newly <a>created</a> <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
-                  set. If any value is unset, reject <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  set. If any value is unset, reject <var>p</var> with a newly <a>created</a>
+                  <code>InvalidAccessError</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of encodings,
@@ -3371,7 +3371,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
                   "red", "cn", "telephone-event", "rtx" or a forward error correction
                   codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]), reject <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  a newly <a>created</a> <code>InvalidAccessError</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
@@ -3382,7 +3382,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>,
                   where <var>j</var> goes from 0 to the number of codecs. If a match is
                   not found for any value of <var>i</var>, reject <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  a newly <a>created</a> <code>InvalidAccessError</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
@@ -3706,7 +3706,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>receiver</var>.stop()</code> has been called, <a>throw</a> an
-                  <code>InvalidStateError</code> exception.</p>
+                  <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3714,30 +3714,27 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.</p>
+                  or if <var>withTransport</var> is unset, <a>throw</a> a
+                  <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>
-                  exception.</p>
+                  <code>rtcp</code>, <a>throw</a> a <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code> exception.</p>
+                  <code>rtp</code>, <a>throw</a> a <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
                   <code><var>withTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Replace <code>transport</code> with <var>withTransport</var> and
@@ -3838,19 +3835,19 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage,
                   <code>ssrc_table</code>, <code>muxId_table</code> or
                   <code>pt_table</code> conflicts described in Section 8.3 or other
-                  reasons, reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  reasons, reject <var>p</var> with <code>InvalidAccessError</code>.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
-                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  reject <var>p</var> with a newly <a>created</a> <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of
                   <code><var>withParameters</var>.codecs[<var>i</var>].payloadType</code>
                   is set. If any value is unset, reject <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  a newly <a>created</a> <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of encodings,
@@ -3862,7 +3859,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <code><var>withParameters</var>.codecs[j].name</code> is equal to "red", "cn",
                   "telephone-event", "rtx" or a forward error correction codec ("ulpfec"
                   [[RFC5109]] or "flexfec" [[FLEXFEC]]), reject <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  a newly <a>created</a> <code>InvalidAccessError</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
@@ -3873,7 +3870,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   goes from 0 to the number of codecs, and <code><var>kind</var></code> takes the
                   value passed in the <code><a>RTCRtpReceiver</a></code> constructor. If
                   no match is found for any value of <var>i</var>,
-                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  reject <var>p</var> with a newly <a>created</a> <code>InvalidAccessError</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
@@ -4252,12 +4249,13 @@ interface RTCIceTransportController {
               <code>index</code>, or at the end if <code>index</code> is not specified. If
               <code>index</code> is greater than the current number of
               <code><a>RTCIceTransport</a></code>s with a <code>component</code> of
-              <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code> exception. If
+              <code>rtp</code>, <a>throw</a> an <code>InvalidAccessError</code>. If
               <code>transport.state</code> is <code>closed</code>, <a>throw</a> an
-              <code>InvalidStateError</code> exception. If <code>transport</code> has
+              <code>InvalidStateError</code>. If <code>transport</code> has
               already been added to another <code><a>RTCIceTransportController</a></code>
-              object, or if <code>transport.component</code> is <code>rtcp</code>, <a>throw</a>
-              an <code>InvalidStateError</code>.</p>
+              object <a>throw</a> an <code>InvalidAccessError</code>. If
+              <code>transport.component</code> is <code>rtcp</code> <a>throw</a> a
+              <code>TypeError</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -4611,7 +4609,7 @@ mySignaller.myOfferTracks({
       <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <var>receiver</var>.</li>
       <li>If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
       <var>receiver</var>, then <code>receiver.receive()</code> will be <a>rejected</a> with
-      <code>InvalidParameters</code>.</li>
+      <code>InvalidAccessError</code>.</li>
       </ol>
       <p>SSRC table:</p>
       <ol>
@@ -4629,7 +4627,7 @@ mySignaller.myOfferTracks({
       <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
       <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
       than <var>receiver</var>, then <code>receiver.receive()</code> will be <a>rejected</a>
-      with <code>InvalidParameters</code>.</li>
+      with a newly <a>created</a> <code>InvalidModificationError</code>.</li>
       </ol>
       <p>payload type table:<p>
       <ol>
@@ -4641,7 +4639,7 @@ mySignaller.myOfferTracks({
       <var>receiver</var>, for values of <var>j</var> from 0 to <code>codecs.length-1</code>.</li>
       <li>If <code>pt_table[<var>pt</var>]</code> is already set to a value other than
       <var>receiver</var> then <code>receiver.receive()</code> will be <a>rejected</a> with
-      <code>InvalidParameters</code>.</li>
+      a newly <a>created</a> <code>InvalidModificationError</code>.</li>
       </ol>
       <section id="rtppackethandling*">
       <h4>RTP packet handling</h4>
@@ -6905,8 +6903,8 @@ var encodings = [
       <h3>Operation</h3>
       <p>An <code><a>RTCDtmfSender</a></code> object is constructed from an
       <code><a>RTCRtpSender</a></code> <var>sender</var>. If
-      <code>sender.track.kind</code> is not "audio", <a>throw</a> an
-      <code>InvalidParameters</code> exception.</p>
+      <code>sender.track.kind</code> is not "audio", <a>throw</a> a
+      <code>TypeError</code>.</p>
     </section>
     <section id="rtcdtmfsender-interface-definition*">
       <h3>Interface Definition</h3>
@@ -7237,8 +7235,8 @@ interface RTCDTMFToneChangeEvent : Event {
       <p>An <code>RTCDTMFSender</code> object is constructed from an
       <code><a>RTCRtpSender</a></code> <var>sender</var>, as with
       <code><a>RTCDtmfSender</a></code>. If
-      <code>sender.track.kind</code> is not "audio", <a>throw</a> an
-      <code>InvalidParameters</code> exception.</p>
+      <code>sender.track.kind</code> is not "audio", <a>throw</a> a
+      <code>TypeError</code>.</p>
     </section>
     <section id="rtcdtmfsender-interface-definition2*">
       <h3>Interface Definition</h3>
@@ -7947,7 +7945,7 @@ interface RTCDataChannel : EventTarget {
       <p>An <code><a>RTCSctpTransport</a></code> is constructed from an
       <code><a>RTCDtlsTransport</a></code> object, and optionally a port number (with a
       default of 5000, or the next unused port). If a port already in use is provided in
-      the constructor, <a>throw</a> an <code>InvalidParameters</code> exception.
+      the constructor, <a>throw</a> an <code>InvalidAccessError</code>.
       An <code><a>RTCSctpTransport</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
@@ -8081,7 +8079,7 @@ interface RTCSctpTransport : RTCDataTransport {
               exception. If <code>remotePort</code> is not provided, a
               default value of <code>port</code> is assumed.  If the
               remote port is in use, <a>throw</a> an
-              <code>InvalidParameters</code> exception.</p>
+              <code>InvalidAccessError</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
