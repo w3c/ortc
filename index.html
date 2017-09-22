@@ -411,7 +411,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               <p>Gather ICE candidates. If <var>options</var> is omitted, utilize the
               value of <var>options</var> passed in the constructor. If
               <code>state</code> is <code>closed</code>, <a>throw</a> an
-              <code>InvalidStateError</code> exception.</p>
+              <code>InvalidStateError</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -441,7 +441,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               <p><dfn>getLocalParameters()</dfn> obtains the ICE
               parameters of the <code><a>RTCIceGatherer</a></code>.
               If <code>state</code> is <code>closed</code>, <a>throw</a> an
-              <code>InvalidStateError</code> exception.</p>
+              <code>InvalidStateError</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -457,7 +457,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               an <code><a>onlocalcandidate</a></code> event hasn't been processed yet.
               Prior to calling <code><a>gather</a>()</code> an empty list will be
               returned. If  <code>state</code> is <code>closed</code>, <a>throw</a> an
-              <code>InvalidStateError</code> exception.</p>
+              <code>InvalidStateError</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -471,10 +471,10 @@ interface RTCIceGatherer : RTCStatsProvider {
               <p>Create an associated <code><a>RTCIceGatherer</a></code> for RTCP, with
               the same <code><a>RTCIceParameters</a></code> and
               <code><a>RTCIceGatherOptions</a></code>. If <code>state</code> is
-              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception. If
+              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>. If
               an <code><a>RTCIceGatherer</a></code> calls the method more than once, or
               if <code><a>component</a></code> is <code>rtcp</code>, <a>throw</a> an
-              <code>InvalidStateError</code> exception.</p>
+              <code>InvalidStateError</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -1547,8 +1547,8 @@ export function myDtlsTransportStateChange(name, state){
       <h3>Operation</h3>
       <p>An <code><a>RTCIceTransport</a></code> instance is constructed (optionally) from
       an <code><a>RTCIceGatherer</a></code>. If <code>gatherer.state</code> is
-      <code>closed</code> or <code>gatherer.component</code> is <code>rtcp</code>, then
-      <a>throw</a> an <code>InvalidStateError</code> exception.</p>
+      <code>closed</code> or <code>gatherer.component</code> is <code>rtcp</code>,
+      <a>throw</a> an <code>InvalidStateError</code>.</p>
       <p>An <code><a>RTCIceTransport</a></code> object in the <code>closed</code> state
       can be garbage-collected when it is no longer referenced.</p>
     </section>
@@ -1700,22 +1700,21 @@ interface RTCIceTransport : RTCStatsProvider {
                 <li>
                   If <code><var>gatherer</var>.component</code> has a value
                   different from <code>component</code>, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.
+                  <code>InvalidParameters</code>.
                 </li>
                 <li>
                   If <code>state</code> or <code><var>gatherer</var>.state</code>
-                  is <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.
+                  is <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.
                 </li>
                 <li>
                   If <code><var>remoteParameters</var>.usernameFragment</code>
                   or <code><var>remoteParameters</var>.password</code> is unset,
-                  <a>throw</a> an <code>InvalidParameters</code> exception.
+                  <a>throw</a> an <code>InvalidParameters</code>.
                 </li>
                 <li>
                   If <code>start()</code> is called again and
                   <code><var>role</var></code> is changed, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.
+                  <code>InvalidParameters</code>.
                 </li>
                 <li>
                   If <code>start()</code> is called again with the same
@@ -1869,7 +1868,7 @@ interface RTCIceTransport : RTCStatsProvider {
               called more than once for the same component, or if <var>state</var> is
               <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception. If
               called when <code><a>component</a></code> is <code>rtcp</code>, <a>throw</a> an
-              <code>InvalidStateError</code> exception.</p>
+              <code>InvalidStateError</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -1881,7 +1880,7 @@ interface RTCIceTransport : RTCStatsProvider {
             <dd>
               <p>Add a remote candidate associated with the remote
               <code><a>RTCIceTransport</a></code>. If <code>state</code> is
-              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception.
+              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.
               When the remote <code><a>RTCIceGatherer</a></code> emits its final
               candidate, <code><a>addRemoteCandidate</a>()</code> should be called with
               an <code><a>RTCIceCandidateComplete</a></code> dictionary as an argument,
@@ -1916,7 +1915,7 @@ interface RTCIceTransport : RTCStatsProvider {
             <dd>
               <p>Set the sequence of candidates associated with the remote
               <code><a>RTCIceTransport</a></code>. If <code>state</code> is
-              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception.</p>
+              <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -2375,8 +2374,8 @@ mySignaller.send({
       If <code>certificates</code> is non-empty,
       check that the <code>expires</code> attribute of each
       <code><a>RTCCertificate</a></code> object is in the future.
-      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>
-      exception; otherwise, store the certificates.</p>
+      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>;
+      otherwise, store the certificates.</p>
       <p>Since the Datagram
       Transport Layer Security (DTLS) negotiation occurs between transport endpoints
       determined via ICE, implementations of this specification <em class="rfc2119"
@@ -2972,7 +2971,7 @@ function accept(mySignaller, remote) {
       <code><a>RTCRtpSender</a></code> object with <code>transport.state</code> or
       <code>rtcpTransport.state</code> <code>closed</code>, or if
       <code>track.readyState</code> is <code>ended</code>, <a>throw</a> an
-      <code>InvalidStateError</code> exception.</p>
+      <code>InvalidStateError</code>.</p>
       <p>An <code><a>RTCRtpSender</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
@@ -3001,7 +3000,7 @@ interface RTCRtpSender : RTCStatsProvider {
               <ol>
                <li>
                   <p>If <var>transport</var> is unset, and <var>rtcpTransport</var>
-                    is set, <a>throw</a> an <code>InvalidParameters</code> exception and
+                    is set, <a>throw</a> an <code>InvalidParameters</code> and
                     abort all further steps.</p>
                 </li>
                 <li>
@@ -3148,8 +3147,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code>setTransport()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called, <a>throw</a> an
-                  <code>InvalidStateError</code> exception.</p>
+                  <p>If <code><var>sender</var>.stop()</code> has been called, <a>throw</a>
+                  an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3158,30 +3157,26 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
                   or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.</p>
+                  <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>
-                  exception.</p>
+                  <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code>
-                  exception.</p>
+                  <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
                   <code><var>withTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Set <code>transport</code> to <var>withTransport</var> and
@@ -3603,7 +3598,7 @@ interface RTCSsrcConflictEvent : Event {
       <code>kind</code> and an <code><a>RTCDtlsTransport</a></code> object. If an attempt
       is made to construct an <code><a>RTCRtpReceiver</a></code> object with
       <code>transport.state</code> or <code>rtcpTransport.state</code> with a value of
-      <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code> exception. Upon
+      <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>. Upon
       construction, <code>track</code> is set, and the value of <code>track.kind</code>
       is determined based on the value of <var>kind</var> passed in the constructor.</p>
       <p>An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once
@@ -3740,7 +3735,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>receiver</var>.stop()</code> has been called, <a>throw</a> an
-                  <code>InvalidStateError</code> exception.</p>
+                  <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3749,29 +3744,26 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
                   or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code> exception.</p>
+                  <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
-                  <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>
-                  exception.</p>
+                  <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.transport.component</code> is
-                  <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code> exception.</p>
+                  <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
                   <code><var>withTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>
-                  exception.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Replace <code>transport</code> with <var>withTransport</var> and
@@ -4286,9 +4278,9 @@ interface RTCIceTransportController {
               <code>index</code>, or at the end if <code>index</code> is not specified. If
               <code>index</code> is greater than the current number of
               <code><a>RTCIceTransport</a></code>s with a <code>component</code> of
-              <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code> exception. If
+              <code>rtp</code>, <a>throw</a> an <code>InvalidParameters</code>. If
               <code>transport.state</code> is <code>closed</code>, <a>throw</a> an
-              <code>InvalidStateError</code> exception. If <code>transport</code> has
+              <code>InvalidStateError</code>. If <code>transport</code> has
               already been added to another <code><a>RTCIceTransportController</a></code>
               object, or if <code>transport.component</code> is <code>rtcp</code>, <a>throw</a>
               an <code>InvalidStateError</code>.</p>
@@ -6960,7 +6952,7 @@ var encodings = [
       <p>An <code><a>RTCDtmfSender</a></code> object is constructed from an
       <code><a>RTCRtpSender</a></code> <var>sender</var>. If
       <code>sender.track.kind</code> is not "audio", <a>throw</a> an
-      <code>InvalidParameters</code> exception.</p>
+      <code>InvalidParameters</code>.</p>
     </section>
     <section id="rtcdtmfsender-interface-definition*">
       <h3>Interface Definition</h3>
@@ -7070,11 +7062,11 @@ interface RTCDtmfSender {
                 used to send DTMF.
                 </li>
                 <li>If <var>sender</var> has been stopped, <a>throw</a> an
-                <code>InvalidStateError</code> exception and abort these
+                <code>InvalidStateError</code> and abort these
                 steps.
                 </li>
                 <li>If <code><var>sender</var>.send</code> has not been called, 
-                <a>throw</a> an <code>InvalidStateError</code> exception and abort
+                <a>throw</a> an <code>InvalidStateError</code> and abort
                 these steps.
                 </li>
                 <li>
@@ -7084,13 +7076,13 @@ interface RTCDtmfSender {
                 </li>
                 <li>If <code><var>parameters</var>.codecs[<var>j</var>]</code> is
                 not equal to "telephone-event" for any value of <var>j</var>,
-                <a>throw</a> an <code>InvalidStateError</code> exception and abort
+                <a>throw</a> an <code>InvalidStateError</code> and abort
                 these steps.
                 </li>            
                 <li>Let <var>tones</var> be the method's first argument.</li>
                 <li>If <var>tones</var> contains any <a>unrecognized</a>
                 characters, <a>throw</a> an <code>InvalidCharacterError</code>
-                exception and abort these steps.
+                and abort these steps.
                 </li>
                 <li>Set the object's <code><a>toneBuffer</a></code> attribute to
                 <var>tones</var>.</li>
@@ -7292,7 +7284,7 @@ interface RTCDTMFToneChangeEvent : Event {
       <code><a>RTCRtpSender</a></code> <var>sender</var>, as with
       <code><a>RTCDtmfSender</a></code>. If
       <code>sender.track.kind</code> is not "audio", <a>throw</a> an
-      <code>InvalidParameters</code> exception.</p>
+      <code>InvalidParameters</code>.</p>
     </section>
     <section id="rtcdtmfsender-interface-definition2*">
       <h3>Interface Definition</h3>
@@ -8042,7 +8034,7 @@ interface RTCDataChannel : EventTarget {
       <p>An <code><a>RTCSctpTransport</a></code> is constructed from an
       <code><a>RTCDtlsTransport</a></code> object, and optionally a port number (with a
       default of 5000, or the next unused port). If a port already in use is provided in
-      the constructor, <a>throw</a> an <code>InvalidParameters</code> exception.
+      the constructor, <a>throw</a> an <code>InvalidParameters</code>.
       An <code><a>RTCSctpTransport</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
@@ -8172,11 +8164,11 @@ interface RTCSctpTransport : RTCDataTransport {
               mutually create an <code><a>RTCSctpTransport</a></code>,
               SCTP SO (Simultaneous Open) is used to establish a connection
               over SCTP. If <code><a>RTCSctpTransportState</a></code>
-              is not <code>new</code> <a>throw</a> an <code>InvalidStateError</code>
-              exception. If <code>remotePort</code> is not provided, a
+              is not <code>new</code> <a>throw</a> an <code>InvalidStateError</code>.
+              If <code>remotePort</code> is not provided, a
               default value of <code>port</code> is assumed.  If the
               remote port is in use, <a>throw</a> an
-              <code>InvalidParameters</code> exception.</p>
+              <code>InvalidParameters</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -9717,7 +9709,7 @@ interface RTCIdentity {
               <ol>
                 <li>
                   <p>If <code>transport.state</code> is <code>closed</code>, <a>throw</a> an
-                  <code>InvalidStateError</code> exception and abort these steps.</p>
+                  <code>InvalidStateError</code> and abort these steps.</p>
                 </li>
                 <li>
                   <p>Set the current identity provider values to the triplet
