@@ -8460,10 +8460,13 @@ function accept(mySignaller, remote) {
     to QUIC transport.</p>
     <section id="rtcquictransport-overview*">
       <h3>Overview</h3>
+      <p>An <code><a>RTCQuicTransport</a></code> instance is associated to
+      an <code>RTCQuicStream</code> instance.</p>
     </section>
     <section id="rtcquictransport-operation*">
       <h3>Operation</h3>
-      <p>A <code><a>RTCQuicTransport</a></code> instance is constructed
+      <p>The QUIC protocol is described in [[!QUIC-TRANSPORT]].
+      A <code><a>RTCQuicTransport</a></code> instance is constructed
       using an <code><a>RTCIceTransport</a></code> and a sequence of
       <code><a>RTCCertificate</a></code> objects.
       An <code><a>RTCQuicTransport</a></code> object in the <code>closed</code> or
