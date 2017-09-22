@@ -2470,10 +2470,19 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type <code>error</code>,
-              <em class="rfc2119" title="MUST">MUST</em> be fired on reception of a DTLS
-              error alert; an implementation <em class="rfc2119" title=
-              "SHOULD">SHOULD</em> include DTLS error alert information in
-              <var>error.message</var> (defined in [[!HTML5]] Section 6.1.3.6.2).</p>
+              <em class="rfc2119" title="MUST">MUST</em> be fired after a DTLS
+              error. An implementation <em class="rfc2119" title=
+              "SHOULD">SHOULD</em> provide more details on DTLS errors as follows: 
+              <ol>
+                <li>A fingerprint validation failure is indicated by setting
+                  <code>error.name</code> to "fingerprint-failure".</li>
+                <li>Reception of a DTLS alert is indicated by setting
+                  <code>error.name</code> to "dtls-alert-received".</li>
+                <li>Sending of a DTLS alert is indicated by setting <code>error.name</code>
+                   to "dtls-alert-sent".</li>
+                <li>The DTLS alert value is provided by setting <code>error.message</code> 
+                  (defined in [[!HTML5]] Section 6.1.3.6.2) to "DTLS Alert: <number>".</li>
+              </ol>
             </dd>
           </dl>
         </section>
