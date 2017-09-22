@@ -281,6 +281,7 @@
 interface RTCIceGatherer : RTCStatsProvider {
     readonly        attribute RTCIceComponent     component;
     readonly        attribute RTCIceGathererState state;
+    static sequence&lt;RTCIceServer&gt; getDefaultIceServers ();
     void                      close ();
     void                      gather (optional RTCIceGatherOptions options);
     RTCIceParameters          getLocalParameters ();
@@ -374,6 +375,23 @@ interface RTCIceGatherer : RTCStatsProvider {
           <h2>Methods</h2>
           <dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class=
           "methods">
+            <dt><dfn><code>getDefaultIceServers</code></dfn></dt>
+            <dd>
+              <p>Returns a list of ICE servers that are configured into the
+              browser. A browser might be configured to use local or private
+              STUN or TURN servers. This method allows an application to learn
+              about these servers and optionally use them.</p>
+              <p class="fingerprint">This list is likely to be persistent and
+              is the same across origins. It thus increases the
+              fingerprinting surface of the browser. In privacy-sensitive
+              contexts, browsers can consider mitigations such as only
+              providing this data to whitelisted origins (or not providing it
+              at all.)</p>
+              <p class="note">Since the use of this information is left to
+              the discretion of application developers, configuring a user
+              agent with these defaults does not per se increase a user's
+              ability to limit the exposure of their IP addresses.</p>
+            </dd>
             <dt><dfn><code>close</code></dfn></dt>
             <dd>
               <p>Prunes all local candidates, and closes the port. Associated
