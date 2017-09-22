@@ -4599,10 +4599,9 @@ mySignaller.myOfferTracks({
       based on tables containing SSRC, PT and MID entries. In ORTC, table entries
       referencing the <code><a>RTCRtpReceiver</a></code> object <var>receiver</var>
       are added when <code><var>receiver</var>.receive(<var>parameters</var>)</code>
-      is called. When <code>var>receiver</var>.receive(<var>parameters</var>)</code>
-      is called again, all entries referencing <var>receiver</var> are removed
-      prior to adding new entries. When <code><var>receiver</var>.stop()</code> is
-      called, all entries referencing <var>receiver</var> are removed.</p>
+      is called. When <code>var>receiver</var>.receive(<var>parameters</var>)</code> is
+      called again, changes are made to table entries. When <code><var>receiver</var>.stop()</code>
+      is called, all entries referencing <var>receiver</var> are removed.</p>
       <p>When multiple <code><a>RTCRtpReceiver<a></code> or <code><a>RTCRtpSender<a></code>
       objects share a <code><a>RTCDtlsTransport</a></code>, this implies that they also
       share a single SSRC numbering space [[!RFC3550]]. The restrictions arising from
