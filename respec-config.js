@@ -92,6 +92,16 @@ var respecConfig = {
       "status": "13 March 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
+    "QUIC-TRANSPORT": {
+      "title": "QUIC: A UDP-Based Multiplexed and Secure Transport",
+      "href": "https://tools.ietf.org/html/draft-ietf-quic-transport",
+      "authors": [
+        "J. Iyengar",
+        "M. Thomson"
+      ],
+      "status": "15 August 2017. Internet draft (work in progress)",
+      "publisher": "IETF"
+    },
     "QUIC-DATA": {
       "title": "QUIC Data Channels",
       "href": "https://tools.ietf.org/html/draft-thatcher-quic-data-channel",
