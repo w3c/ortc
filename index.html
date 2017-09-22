@@ -4642,13 +4642,13 @@ mySignaller.myOfferTracks({
       this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
       <section class="informative" id="rtppackethandling*">
       <h4>ORTC routing rules</h4> 
-      <p>The algorithm described in [[!BUNDLE]] Section 10.2 describes how RTP
-      packets are routed to an SDP m-line (an <code><a>RTCRtpSender</a></code>/
-      <code><a>RTCRtpReceiver</a></code> pair). Since ORTC does not utilize SDP,
-      this section provides a (non-normative) translation of the algorithm to ORTC terms.</p>
-      <p>To facilitate RTP packet routing, the <code><a>RTCRtpListener</a></code>
-      maintains three tables: the <code>ssrc_table</code> which maps SSRC values to
-      <code><a>RTCRtpReceiver</a></code> objects; the <code>muxId_table</code> which maps
+      <p>[[!BUNDLE]] Section 10.2 describes how RTP packets are routed to the
+      <code><a>RTCRtpSender</a></code>/<code><a>RTCRtpReceiver</a></code> pair
+      representing an SDP m-line. Since ORTC does not utilize SDP,
+      this section provides a (non-normative) example of how the
+      <code><a>RTCRtpListener</a></code> can maintain the three tables used
+      in the routing algorithm: the <code>ssrc_table</code> which maps SSRC values to
+      <code><a>RTCRtpReceiver</a></code> objects, the <code>muxId_table</code> which maps
       values of the <a>MID</a> header extension to <code><a>RTCRtpReceiver</a></code>
       objects and the <code>pt_table</code> which maps payload type values to
       <code><a>RTCRtpReceiver</a></code> objects. When
