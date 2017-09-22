@@ -4593,18 +4593,37 @@ mySignaller.myOfferTracks({
       attempts to determine which <code><a>RTCRtpReceiver</a></code> object to deliver
       the packet to, based on the values of the SSRC and payload type fields in the RTP
       header, as well as the value of the <a>MID</a> RTP header extension, if
-      present.</p>
+      present. If the <code><a>RTCRtpReceiver</a></code> object to deliver the RTP
+      packet to cannot be determined, the <code><a>unhandledrtp</a></code> event is
+      fired.</p>
+      <p>As described in [[!BUNDLE]] Section 10.2, the algorithm for routing of
+      RTP packets is based on tables containing SSRC, PT and MID entries. In order
+      to route RTP packets to the appropriate <code><a>RTCRtpReceiver</a></code>
+      object <var>receiver</var>, table entries are added when
+      <code><var>receiver</var>.receive(<var>parameters</var>)</code> is called. When
+      <code>var>receiver</var>.receive(<var>parameters</var>)</code> is called again,
+      all entries referencing <var>receiver</var> are removed prior to adding new
+      entries. When <code><var>receiver</var>.stop()</code> is called, all entries
+      referencing <var>receiver</var> are removed.</p>
+      <p>When multiple <code><a>RTCRtpReceiver<a></code> or <code><a>RTCRtpSender<a></code>
+      objects share a <code><a>RTCDtlsTransport</a></code>, this implies that they also
+      share a single SSRC numbering space [[!RFC3550]]. The restrictions arising from
+      this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
+      <section class="informative" id="rtppackethandling*">
+      <h4>ORTC routing rules</h4> 
+      <p>The algorithm described in [[!BUNDLE]] Section 10.2 routes RTP packets
+      to an SDP m-line (an <code><a>RTCRtpReceiver<a></code>/
+      <code><a>RTCRtpSender<a></code> object pair).  Since ORTC does not utilize
+      SDP, the algorithm needs to be translated into ORTC terms.  This section
+      provides such a (non-normative) translation.</p>
       <p>The <code><a>RTCRtpListener</a></code> maintains three tables in order to
       facilitate matching: the <code>ssrc_table</code> which maps SSRC values to
       <code><a>RTCRtpReceiver</a></code> objects; the <code>muxId_table</code> which maps
       values of the <a>MID</a> header extension to <code><a>RTCRtpReceiver</a></code>
       objects and the <code>pt_table</code> which maps payload type values to
-      <code><a>RTCRtpReceiver</a></code> objects.</p>
-      <p>For an <code><a>RTCRtpReceiver</a></code> object <var>receiver</var>, table
-      entries are added when <code>receiver.receive(<var>parameters</var>)</code>
-      is called, and are removed when <code>receiver.stop()</code> is called. If
-      <code>receiver.receive(<var>parameters</var>)</code> is called again, all entries
-      referencing <var>receiver</var> are removed prior to adding new entries.</p>
+      <code><a>RTCRtpReceiver</a></code> objects. When
+      <code><var>receiver</var>.receive(<var>parameters</var>)</code> is called,
+      the tables are filled as follows:</p>
       <p>muxId table:<p>
       <ol>
       <li>If <code><var>parameters</var>.muxId</code> is set,
@@ -4643,6 +4662,7 @@ mySignaller.myOfferTracks({
       <var>receiver</var> then <code>receiver.receive()</code> will be <a>rejected</a> with
       <code>InvalidParameters</code>.</li>
       </ol>
+      </section>
       <section id="rtppackethandling*">
       <h4>RTP packet handling</h4>
       <p>When an RTP packet arrives, the implementation determines the
