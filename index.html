@@ -7359,14 +7359,33 @@ if (sender.canInsertDTMF) {
     <section id="rtcdatachannel-operation*">
       <h3>Operation</h3>
       <p>An <code><a>RTCDataChannel</a></code> object is constructed from a
-      <code><a>RTCDataTransport</a></code> object (providing the transport
-      for the data channel) and an
-      <code><a>RTCDataChannelParameters</a></code> object. If <var>parameters</var> is
-      invalid, <a>throw</a> an <code>InvalidParameters</code> exception. If
-      <code>transport.state</code> is <code>closed</code>, <a>throw</a> an
-      <code>InvalidState</code> exception.</p>
-      <p>An <code><a>RTCDataChannel</a></code> object can be garbage-collected once
+      <code><a>RTCDataTransport</a></code> object (providing the transport for the
+      data channel) and an <code><a>RTCDataChannelParameters</a></code> object.  
+      An <code><a>RTCDataChannel</a></code> object can be garbage-collected once
       <var>readyState</var> is <code>closed</code> and it is no longer referenced.</p>
+      <p>When the constructor is invoked, the following steps MUST be run:</p>
+      <ol>
+        <li>Let <var>transport</var> be the first argument.</li>
+        <li>If <code><var>transport</var>.state</code> is <code>closed</code>,
+        <a>throw</a> an <code>InvalidStateError</code>.</li>
+        <li>Let <var>parameters</var> be the second argument.</li>
+        <li>If <code><var>parameters</var>.label</code> is longer than
+        65535 bytes, <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If <code><var>parameters</var>.protocol</code> is longer than
+        65535 bytes, <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If <code><var>parameters</var>.negotiated</code> is <code>true</code>
+        and <code><var>parameters</var>.id</code> is <code>null</code>,
+        <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If both <code><var>parameters</var>.maxPacketLifetime</code>
+        and <code><var>parameters</var>.maxRetransmits</code> are set
+        (not null), <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If <code><var>parameters</var>.id</code> is being used by an
+        existing <code><a>RTCDataChannel</a></code>, <a>throw</a> an
+        <code>OperationError</code>.</li>
+        <li>If <code><var>parameters</var>.id</code> is equal to 65535,
+        which is greater than the maximum allowed ID of 65534, 
+        <a>throw</a> a <code>TypeError</code>.</li>
+      </ol>
     </section>
     <section id="rtcdatachannel-interface-definition*">
       <h3>Interface Definition</h3>
