@@ -277,7 +277,7 @@
     <section id="rtcicegatherer-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[ Constructor (RTCIceGatherOptions options)]
+        <pre class="idl">[ Constructor (RTCIceGatherOptions options), Exposed=Window]
 interface RTCIceGatherer : RTCStatsProvider {
     readonly        attribute RTCIceComponent     component;
     readonly        attribute RTCIceGathererState state;
@@ -836,7 +836,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       <code><a>RTCIceGathererIceErrorEvent</a></code> interface.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCIceGathererIceErrorEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCIceGathererIceErrorEventInit eventInitDict), Exposed=Window]
 interface RTCIceGathererIceErrorEvent : Event {
     readonly        attribute RTCIceCandidate? hostCandidate;
     readonly        attribute DOMString        url;
@@ -982,7 +982,7 @@ interface RTCIceGathererIceErrorEvent : Event {
       title="MUST">MUST</em> be created and dispatched at the given target.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCIceGathererEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCIceGathererEventInit eventInitDict), Exposed=Window]
 interface RTCIceGathererEvent : Event {
     readonly        attribute RTCIceGatherCandidate candidate;
     readonly        attribute DOMString             url;
@@ -1542,7 +1542,7 @@ export function myDtlsTransportStateChange(name, state){
     <section id="rtcicetransport-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[ Constructor (optional RTCIceGatherer gatherer)]
+        <pre class="idl">[ Constructor (optional RTCIceGatherer gatherer), Exposed=Window]
 interface RTCIceTransport : RTCStatsProvider {
     readonly        attribute RTCIceGatherer?      iceGatherer;
     readonly        attribute RTCIceRole           role;
@@ -2148,7 +2148,7 @@ interface RTCIceTransport : RTCStatsProvider {
       target.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCIceCandidatePairChangedEventInit eventInitDict), Exposed=Window]
 interface RTCIceCandidatePairChangedEvent : Event {
     readonly        attribute RTCIceCandidatePair pair;
 };</pre>
@@ -2392,7 +2392,7 @@ mySignaller.send({
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
+        [ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates), Exposed=Window]
 interface RTCDtlsTransport : RTCStatsProvider  {
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCDtlsTransportState    state;
@@ -2967,7 +2967,7 @@ function accept(mySignaller, remote) {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor ((MediaStreamTrack or DOMString) trackOrKind, optional RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
+        [ Constructor ((MediaStreamTrack or DOMString) trackOrKind, optional RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport), Exposed=Window]
 interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute MediaStreamTrack?  track;
     readonly        attribute RTCDtlsTransport?  transport;
@@ -3498,7 +3498,7 @@ interface RTCRtpSender : RTCStatsProvider {
       target.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCSsrcConflictEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCSsrcConflictEventInit eventInitDict), Exposed=Window]
 interface RTCSsrcConflictEvent : Event {
     readonly        attribute unsigned long ssrc;
 };</pre>
@@ -3600,7 +3600,7 @@ interface RTCSsrcConflictEvent : Event {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString kind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport)]
+        [ Constructor (DOMString kind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport), Exposed=Window]
 interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport  transport;
@@ -4251,7 +4251,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
     <section id="rtcicetransportcontroller-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[Constructor()]
+        <pre class="idl">[Constructor(), Exposed=Window]
 interface RTCIceTransportController {
     void                      addTransport (RTCIceTransport transport, optional unsigned long index);
     sequence&lt;RTCIceTransport&gt; getTransports ();
@@ -4701,7 +4701,7 @@ mySignaller.myOfferTracks({
     <section id="rtcrtplistener-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[ Constructor (RTCDtlsTransport transport)]
+        <pre class="idl">[ Constructor (RTCDtlsTransport transport), Exposed=Window]
 interface RTCRtpListener {
     readonly        attribute RTCDtlsTransport transport;
                     attribute EventHandler     onunhandledrtp;
@@ -4769,7 +4769,7 @@ interface RTCRtpListener {
       title="MUST">MUST</em> be created and dispatched at the given target.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCRtpUnhandledEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCRtpUnhandledEventInit eventInitDict), Exposed=Window]
 interface RTCRtpUnhandledEvent : Event {
     readonly        attribute DOMString     muxId;
     readonly        attribute DOMString     rid;
@@ -6933,7 +6933,7 @@ var encodings = [
     <section id="rtcdtmfsender-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[ Constructor (RTCRtpSender sender)]
+        <pre class="idl">[ Constructor (RTCRtpSender sender), Exposed=Window]
 interface RTCDtmfSender {
     readonly        attribute boolean      canInsertDTMF;
     readonly        attribute RTCRtpSender sender;
@@ -7167,7 +7167,7 @@ interface RTCDtmfSender {
       MUST be created and dispatched at the given target.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCDTMFToneChangeEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCDTMFToneChangeEventInit eventInitDict), Exposed=Window]
 interface RTCDTMFToneChangeEvent : Event {
     readonly        attribute DOMString tone;
 };</pre>
@@ -7428,7 +7428,7 @@ if (sender.canInsertDTMF) {
       matching <var>id</var>s.</p>
       <div>
         <pre class="idl">
-        [ Constructor (RTCDataTransport transport, RTCDataChannelParameters parameters)]
+        [ Constructor (RTCDataTransport transport, RTCDataChannelParameters parameters), Exposed=Window]
 interface RTCDataChannel : EventTarget {
     readonly        attribute RTCDataTransport    transport;
     readonly        attribute RTCDataChannelState readyState;
@@ -8018,7 +8018,7 @@ interface RTCDataChannel : EventTarget {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (RTCDtlsTransport transport, optional unsigned short port)]
+        [ Constructor (RTCDtlsTransport transport, optional unsigned short port), Exposed=Window]
 interface RTCSctpTransport : RTCDataTransport {
     readonly        attribute RTCDtlsTransport      transport;
     readonly        attribute RTCSctpTransportState state;
@@ -8284,7 +8284,7 @@ interface RTCSctpTransport : RTCDataTransport {
       <var>channel</var>, MUST be created and dispatched at the given target.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCDataChannelEventInit eventInitDict)]
+        [ Constructor (DOMString type, RTCDataChannelEventInit eventInitDict), Exposed=Window]
 interface RTCDataChannelEvent : Event {
     readonly        attribute RTCDataChannel channel;
 };</pre>
@@ -8565,7 +8565,7 @@ function accept(mySignaller, remote) {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (RTCceTransport transport, sequence&lt;RTCCertificate&gt; certificates)]
+        [ Constructor (RTCceTransport transport, sequence&lt;RTCCertificate&gt; certificates), Exposed=Window]
 interface RTCQuicTransport {
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCQuicTransportState    state;
@@ -8836,7 +8836,7 @@ interface RTCQuicTransport {
       </div>
     </section>
     <section id="rtcquicroleinfo">
-       <h3>QUIC role determination</h3>
+      <h3>QUIC role determination</h3>
       <p>To diagnose QUIC role issues, an application may wish to determine
       the desired and actual QUIC role of an <code><a>RTCQuicTransport</a></code>.
       For a browser implementing ORTC, a <code><a>RTCQuicTransport</a></code>
@@ -9134,7 +9134,8 @@ function accept(mySignaller, remote) {
       SSRC (which can be distinguished by the value of the <var>ssrc</var> stats
       attribute).</p>
       <div>
-        <pre class="idl">interface RTCStatsReport {
+        <pre class="idl">[Exposed=Window]
+interface RTCStatsReport {
     readonly maplike&lt;DOMString, object&gt;;
 };</pre>
         <p>This interface has "entries", "forEach", "get", "has", "keys",
@@ -9939,7 +9940,8 @@ function signalAssertion(assertion) {
       <h3><dfn>RTCCertificate</dfn> Interface</h3>
       <p>The <code>RTCCertificate</code> interface is described below.</p>
       <div>
-        <pre class="idl">interface RTCCertificate {
+        <pre class="idl">[Exposed=Window]
+        interface RTCCertificate {
     readonly        attribute DOMTimeStamp       expires;
     readonly        attribute RTCDtlsFingerprint fingerprint;
     AlgorithmIdentifier            getAlgorithm ();
