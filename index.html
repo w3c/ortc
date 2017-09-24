@@ -123,7 +123,7 @@
       [[!ECMASCRIPT-6.0]].</p>
       <p>In this specification the term <dfn>user agent</dfn> refers to any
       implementation; the term <dfn>browser</dfn> specifically refers to browser
-      implementations.</p>     
+      implementations.</p>
     </section>
     <section>
       <h3>Scope</h3>
@@ -2485,7 +2485,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <p>This event handler, of event handler event type <code>error</code>,
               <em class="rfc2119" title="MUST">MUST</em> be fired after a DTLS
               error. An implementation <em class="rfc2119" title=
-              "SHOULD">SHOULD</em> provide more details on DTLS errors as follows: 
+              "SHOULD">SHOULD</em> provide more details on DTLS errors as follows:
               <ol>
                 <li>A fingerprint validation failure is indicated by setting
                   <code>error.name</code> to "fingerprint-failure".</li>
@@ -2493,7 +2493,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                   <code>error.name</code> to "dtls-alert-received".</li>
                 <li>Sending of a DTLS alert is indicated by setting <code>error.name</code>
                    to "dtls-alert-sent".</li>
-                <li>The DTLS alert value is provided by setting <code>error.message</code> 
+                <li>The DTLS alert value is provided by setting <code>error.message</code>
                   (defined in [[!HTML5]] Section 6.1.3.6.2) to "DTLS Alert: <number>".</li>
               </ol>
             </dd>
@@ -2580,7 +2580,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <p>If all of the values of
               <code><var>remoteParameters</var>.fingerprints[<var>j</var>].algorithm</code>
               are unsupported, where <var>j</var> goes from 0 to the number of fingerprints.
-              <a>throw</a> a <code>NotSupportedError</code>.</p> 
+              <a>throw</a> a <code>NotSupportedError</code>.</p>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -4634,7 +4634,7 @@ mySignaller.myOfferTracks({
       share a single SSRC numbering space [[!RFC3550]]. The restrictions arising from
       this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
       <section class="informative" id="rtppackethandling*">
-      <h4>ORTC routing rules</h4> 
+      <h4>ORTC routing rules</h4>
       <p>[[!BUNDLE]] Section 10.2 describes how RTP packets are routed to the
       <code><a>RTCRtpSender</a></code>/<code><a>RTCRtpReceiver</a></code> pair
       representing an SDP m-line. Since ORTC does not utilize SDP,
@@ -6108,7 +6108,7 @@ interface RTCRtpUnhandledEvent : Event {
             <dt><dfn><code>maxBitrate</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
-              <p>Ramp up resolution/quality/framerate until this bitrate, 
+              <p>Ramp up resolution/quality/framerate until this bitrate,
               if set; if unset, there is no maximum bitrate.
               <code>maxBitrate</code> is computed the same way as the
               Transport Independent Application Specific Maximum (TIAS)
@@ -7066,7 +7066,7 @@ interface RTCDtmfSender {
                 <code>InvalidStateError</code> and abort these
                 steps.
                 </li>
-                <li>If <code><var>sender</var>.send</code> has not been called, 
+                <li>If <code><var>sender</var>.send</code> has not been called,
                 <a>throw</a> an <code>InvalidStateError</code> and abort
                 these steps.
                 </li>
@@ -7079,7 +7079,7 @@ interface RTCDtmfSender {
                 not equal to "telephone-event" for any value of <var>j</var>,
                 <a>throw</a> an <code>InvalidStateError</code> and abort
                 these steps.
-                </li>            
+                </li>
                 <li>Let <var>tones</var> be the method's first argument.</li>
                 <li>If <var>tones</var> contains any <a>unrecognized</a>
                 characters, <a>throw</a> an <code>InvalidCharacterError</code>
@@ -7130,7 +7130,7 @@ interface RTCDtmfSender {
               it is necessary to call <code>insertDTMF</code> with a
               string containing both the remaining tones (stored in
               <code>toneBuffer</code>) and the new tones appended
-              together.</p>        
+              together.</p>
               <p>Calling <code><a>insertDTMF</a></code> with an empty tones
               parameter can be used to cancel all tones queued to play after
               the currently playing tone.</p>
@@ -7303,7 +7303,7 @@ var sender = new RTCDtmfSender(sendObject);
 if (sender.canInsertDTMF) {
     var duration = 500;
     sender.insertDTMF("1234", duration);
-} else 
+} else
     trace("DTMF function not available");
 </pre>
       <p>Send the DTMF signal "123" and abort after sending "2".</p>
@@ -7338,8 +7338,8 @@ if (sender.canInsertDTMF) {
   sender.insertDTMF(sender.toneBuffer + "1234");
 } else
     trace("DTMF function not available");
-</pre>      
-      
+</pre>
+
       <p>It is always safe to append to the tone buffer. This example appends
       before any tone playout has started as well as during playout.</p>
       <pre class="example highlight">
@@ -7355,9 +7355,9 @@ if (sender.canInsertDTMF) {
           sender.insertDTMF(sender.toneBuffer + "789");
   };
 } else
-    trace("DTMF function not available");    
+    trace("DTMF function not available");
 </pre>
-      
+
       <p>Send a 1-second "1" tone followed by a 2-second "2" tone:</p>
       <pre class="example highlight">
 var sender = new RTCDtmfSender(sendObject);
@@ -7370,7 +7370,7 @@ if (sender.canInsertDTMF) {
 } else
     trace("DTMF function not available");
 </pre>
-      
+
     </section>
   </section>
   <section id="rtcdatachannel*">
@@ -7384,7 +7384,7 @@ if (sender.canInsertDTMF) {
       <h3>Operation</h3>
       <p>An <code><a>RTCDataChannel</a></code> object is constructed from a
       <code><a>RTCDataTransport</a></code> object (providing the transport for the
-      data channel) and an <code><a>RTCDataChannelParameters</a></code> object.  
+      data channel) and an <code><a>RTCDataChannelParameters</a></code> object.
       An <code><a>RTCDataChannel</a></code> object can be garbage-collected once
       <var>readyState</var> is <code>closed</code> and it is no longer referenced.</p>
       <p>When the constructor is invoked, the following steps MUST be run:</p>
@@ -7407,7 +7407,7 @@ if (sender.canInsertDTMF) {
         existing <code><a>RTCDataChannel</a></code>, <a>throw</a> an
         <code>OperationError</code>.</li>
         <li>If <code><var>parameters</var>.id</code> is equal to 65535,
-        which is greater than the maximum allowed ID of 65534, 
+        which is greater than the maximum allowed ID of 65534,
         <a>throw</a> a <code>TypeError</code>.</li>
       </ol>
     </section>
@@ -7428,7 +7428,7 @@ if (sender.canInsertDTMF) {
       (including retransmissions) are allowed (<code>maxPacketLifeTime</code>).
       These properties can not be used simultaneously and an attempt to do so
       will result in an error.  Not setting any of these properties results in
-      a reliable channel.</p>  
+      a reliable channel.</p>
       <p>There are two ways to establish a connection with
       <code><a>RTCDataChannel</a></code>. The first way is to construct an
       <code><a>RTCDataChannel</a></code> at one of the peers with the
@@ -8033,8 +8033,11 @@ interface RTCDataChannel : EventTarget {
       <h3>Operation</h3>
       <p>An <code><a>RTCSctpTransport</a></code> is constructed from an
       <code><a>RTCDtlsTransport</a></code> object, and optionally a port number (with a
-      default of 5000, or the next unused port). If a port already in use is provided in
-      the constructor, <a>throw</a> an <code>InvalidParameters</code>.
+      default of 5000, or the next unused port). If an attempt is made to construct an
+      <code><a>RTCSctpTransport</a></code> object with <code>transport.state</code>
+      <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p> If a port
+      already in use is provided in the constructor, <a>throw</a> an
+      <code>InvalidParameters</code>.
       An <code><a>RTCSctpTransport</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
@@ -8047,6 +8050,7 @@ interface RTCSctpTransport : RTCDataTransport {
     readonly        attribute RTCDtlsTransport      transport;
     readonly        attribute RTCSctpTransportState state;
     readonly        attribute unsigned short        port;
+    void                       setTransport (RTCDtlsTransport transport);
     static RTCSctpCapabilities getCapabilities ();
     void                       start (RTCSctpCapabilities remoteCaps, optional unsigned short remotePort);
     void                       stop ();
@@ -8138,6 +8142,62 @@ interface RTCSctpTransport : RTCDataTransport {
           <h2>Methods</h2>
           <dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class=
           "methods">
+            <dt><code>setTransport</code></dt>
+            <dd>
+              <p><dfn>setTransport()</dfn>
+              attempts to replace the SCTP <code><a>RTCDtlsTransport</a></code>
+              <code>transport</code> with the transport provided.</p>
+              <p>When the <code>setTransport()</code> method is invoked, the user
+              agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>If <code>state</code> is <code>closed</code>, <a>throw</a>
+                  an <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>withTransport</var> be the argument to this method.</p>
+                </li>
+                <li>
+                  <p>If <code>setTransport()</code> is called with no arguments,
+                  or if <var>withTransport</var> is unset, <a>throw</a> an
+                  <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>withTransport</var>.state</code> is
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>Set <code>transport</code> to <var>withTransport</var> and
+                  seamlessly send and receive over the new transport.</p>
+                </li>
+              </ol>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">transport</td>
+                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>void</code>
+              </div>
+            </dd>
+
+
+
             <dt><code>getCapabilities</code>, static</dt>
             <dd>
               <p><dfn>getCapabilities()</dfn>
