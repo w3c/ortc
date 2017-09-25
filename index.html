@@ -3263,7 +3263,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.stop()</code> has been called,
-                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
+                  <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withTrack</var> be the argument to this method.</p>
@@ -3271,8 +3271,8 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>If <var>withTrack</var> is non-null and
                   <code><var>withTrack</var>.kind</code> differs from
-                  <code><var>sender</var>.kind</code>,
-                  reject <var>p</var> with <code>TypeError</code>.</p>
+                  <code><var>sender</var>.kind</code>, <a>reject</a>
+                  <var>p</var> with a newly created <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
@@ -3366,28 +3366,30 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.stop()</code> has been called,
-                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
+                  <a>reject</a> <var>p</var> with a newly created
+                  <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.transport</code> is unset,
-                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
+                  <a>reject</a> <var>p</var> with a newly created
+                  <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
                 </li>
                 <li>
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage or
-                  other reasons, reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  other reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
-                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
-                  set. If any value is unset, reject <var>p</var> with
+                  set. If any value is unset, <a>reject</a> <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3400,7 +3402,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   correspondence, or if
                   <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
                   "red", "cn", "telephone-event", "rtx" or a forward error correction
-                  codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]), reject <var>p</var> with
+                  codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]), <a>reject</a> <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3411,7 +3413,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   or "flexfec" [[FLEXFEC]]), is included in
                   <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>,
                   where <var>j</var> goes from 0 to the number of codecs. If a match is
-                  not found for any value of <var>i</var>, reject <var>p</var> with
+                  not found for any value of <var>i</var>, <a>reject</a> <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3854,9 +3856,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
-                <li>
+                <li><a>reject</a>
                   <p>If <code><var>receiver</var>.stop()</code> has been called,
-                  reject <var>p</var> with <code>InvalidStateError</code>.</p>
+                  <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
@@ -3865,18 +3867,18 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage,
                   <code>ssrc_table</code>, <code>muxId_table</code> or
                   <code>pt_table</code> conflicts described in Section 8.3 or other
-                  reasons, reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
-                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of
                   <code><var>withParameters</var>.codecs[<var>i</var>].payloadType</code>
-                  is set. If any value is unset, reject <var>p</var> with
+                  is set. If any value is unset, <a>reject</a> <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3888,7 +3890,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   from 0 to the number of codecs. If there is no correspondence, or if
                   <code><var>withParameters</var>.codecs[j].name</code> is equal to "red", "cn",
                   "telephone-event", "rtx" or a forward error correction codec ("ulpfec"
-                  [[RFC5109]] or "flexfec" [[FLEXFEC]]), reject <var>p</var> with
+                  [[RFC5109]] or "flexfec" [[FLEXFEC]]), <a>reject</a> <var>p</var> with
                   <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3900,7 +3902,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   goes from 0 to the number of codecs, and <code><var>kind</var></code> takes the
                   value passed in the <code><a>RTCRtpReceiver</a></code> constructor. If
                   no match is found for any value of <var>i</var>,
-                  reject <var>p</var> with <code>InvalidParameters</code>.</p>
+                  <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
@@ -6130,7 +6132,7 @@ interface RTCRtpUnhandledEvent : Event {
               will attempt to encode with the resolution of <code>track</code>. For
               scalable video coding, <code>resolutionScale</code> refers to the aggregate
               scale down of this layer when combined with all dependent layers.</p>
-              <p>If <code>resolutionScale</code> is less than 1.0, reject the
+              <p>If <code>resolutionScale</code> is less than 1.0, <a>reject</a> the
               promise with <code>RangeError</code> when <code>send()</code>
               or <code><a>receive</a>()</code> is called.  If
               <code><var>sender</var>.track.kind</code> is "audio", the value is
@@ -10072,7 +10074,7 @@ function signalAssertion(assertion) {
               to limit the period over which an <code><a>RTCCertificate</a></code> is
               valid.</p>
               <p>A <a class="internalDFN" href="#dfn-user-agent">user agent</a>
-              <em title="MUST" class="rfc2119">MUST</em> reject a call to
+              <em title="MUST" class="rfc2119">MUST</em> <a>reject</a> a call to
               <code>generateCertificate()</code> with a <code>DOMError</code> of type
               "NotSupportedError" if the <var>keygenAlgorithm</var> parameter identifies
               an algorithm that the <a class="internalDFN" href="#dfn-user-agent">user
