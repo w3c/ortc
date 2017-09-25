@@ -3157,8 +3157,8 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code>.</p>
+                  or if <var>withTransport</var> is unset, <a>throw</a> a
+                  <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
@@ -3172,12 +3172,14 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
                   <code><var>withTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code> or <code>failed</code>,
+                  <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code> or <code>failed</code>,
+                  <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Set <code>transport</code> to <var>withTransport</var> and
@@ -3746,8 +3748,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code>.</p>
+                  or if <var>withTransport</var> is unset, <a>throw</a> a
+                  <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withTransport</var>.transport.component</code> is
@@ -3761,12 +3763,14 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
                   <code><var>withTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code> or <code>failed</code>,
+                  <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.state</code> is
-                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code> or <code>failed</code>,
+                  <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Replace <code>transport</code> with <var>withTransport</var> and
