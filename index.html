@@ -4641,8 +4641,8 @@ mySignaller.myOfferTracks({
       <code><a>RTCRtpSender</a></code>/<code><a>RTCRtpReceiver</a></code> pair
       representing an SDP m-line. Since ORTC does not utilize SDP,
       this section provides a (non-normative) example of how the
-      <code><a>RTCRtpListener</a></code> can maintain the three tables used
-      in the routing algorithm: the <code>ssrc_table</code> which maps SSRC values to
+      <code><a>RTCRtpListener</a></code> can maintain the receiver tables used
+      in the algorithm: the <code>ssrc_table</code> which maps SSRC values to
       <code><a>RTCRtpReceiver</a></code> objects, the <code>muxId_table</code> which maps
       values of the <a>MID</a> header extension to <code><a>RTCRtpReceiver</a></code>
       objects and the <code>pt_table</code> which maps payload type values to
@@ -4654,8 +4654,8 @@ mySignaller.myOfferTracks({
       <li>If <code><var>parameters</var>.muxId</code> is set,
       <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <code><var>receiver</var></code>.</li>
       <li>If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
-      <code><var>receiver</var></code>, then <code>receiver.receive()</code> will be <a>rejected</a> with
-      <code>InvalidParameters</code>.</li>
+      <code><var>receiver</var></code>, then <code><var>receiver</var>.receive()</code> will
+      be <a>rejected</a> with <code>InvalidParameters</code>.</li>
       </ol>
       <p>SSRC table:</p>
       <ol>
@@ -4672,8 +4672,8 @@ mySignaller.myOfferTracks({
       <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set, for values of
       <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
       <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
-      than <code><var>receiver</var></code>, then <code>receiver.receive()</code> will be <a>rejected</a>
-      with <code>InvalidParameters</code>.</li>
+      than <code><var>receiver</var></code>, then <code><var>receiver</var>.receive()</code>
+      will be <a>rejected</a> with <code>InvalidParameters</code>.</li>
       </ol>
       <p>payload type table:<p>
       <ol>
@@ -4684,8 +4684,8 @@ mySignaller.myOfferTracks({
       <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code> to
       <code><var>receiver</var></code>, for values of <var>j</var> from 0 to <code>codecs.length-1</code>.</li>
       <li>If <code>pt_table[<var>pt</var>]</code> is already set to a value other than
-      <code><var>receiver</var></code> then <code>receiver.receive()</code> will be <a>rejected</a> with
-      <code>InvalidParameters</code>.</li>
+      <code><var>receiver</var></code> then <code><var>receiver</var>.receive()</code> is
+      <a>rejected</a> with <code>InvalidParameters</code>.</li>
       </ol>
       </section>
       <section id="rtppackethandling*">
