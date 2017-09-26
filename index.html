@@ -9445,7 +9445,7 @@ function processStats(currentReport) {
     <section id="rtcidentity-overview*">
       <h3>Overview</h3>
       <p>An <code>RTCIdentity</code> instance enables authentication of an
-      <code><a>RTCDtlsTransport<a></code> using a web-based Identity Provider (IdP).
+      <code><a>RTCDtlsTransport</a></code> using a web-based Identity Provider (IdP).
       The initiator acts as the Authenticating Party (AP) and obtains an
       identity assertion from the IdP which is then conveyed in signaling.
       The responder acts as the Relying Party (RP) and verifies the assertion.</p>
@@ -9457,9 +9457,6 @@ function processStats(currentReport) {
       to the IdP's specific requirements. Thus, a single browser can support any
       number of identity protocols, including being forward compatible with IdPs
       which did not exist at the time the browser was written.</p>
-      <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be
-      used for a given <code><a>RTCIdentity</a></code> object, and initiates the process of
-      obtaining an identity assertion.</p>
     </section>
     <section id="rtcidentity-operation*">
       <h3>Operation</h3>
@@ -9472,7 +9469,10 @@ function processStats(currentReport) {
       interpreted context, effectively an invisible IFRAME. The initial contents of the
       context are loaded from a URI derived from the IdP's domain name, as described in
       [[!RTCWEB-SECURITY-ARCH]].</p>
-      <p>For purposes of generating assertions, the IdP shall be chosen as follows:</p>
+      <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be
+      used for a given <code><a>RTCIdentity</a></code> object, and initiates the process of
+      obtaining an identity assertion. For purposes of generating assertions, the IdP
+      shall be chosen as follows:</p>
       <ol>
         <li>If the <code><a>getIdentityAssertion</a></code> method has been called, the IdP
         provided shall be used.</li>
