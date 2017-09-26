@@ -9440,29 +9440,26 @@ function processStats(currentReport) {
     <h2>Identity</h2>
     <div class="issue atrisk">
        <p>The Identity API is marked as a feature at risk, since there is no
-         clear commitment from implementers.</p>
+         clear commitment from ORTC implementers.</p>
     </div>
     <section id="rtcidentity-overview*">
       <h3>Overview</h3>
-      <p>An <code>RTCIdentity</code> instance enables authentication of a DTLS
-      transport using a web-based identity provider (IdP). The idea is that the initiator
-      acts as the Authenticating Party (AP) and obtains an identity assertion from the
-      IdP which is then conveyed in signaling. The responder acts as the Relying Party
-      (RP) and verifies the assertion.</p>
-       <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be
+      <p>An <code>RTCIdentity</code> instance enables authentication of an
+      <code><a>RTCDtlsTransport<a></code> using a web-based Identity Provider (IdP).
+      The initiator acts as the Authenticating Party (AP) and obtains an
+      identity assertion from the IdP which is then conveyed in signaling.
+      The responder acts as the Relying Party (RP) and verifies the assertion.</p>
+      <p>The interaction with the IdP is designed to decouple the browser from any
+      particular identity provider; the browser need only know how to load the
+      IdP's JavaScript, the location of which is determined by the IdP's identity,
+      and the generic interface to generating and validating assertions.
+      The IdP provides whatever logic is necessary to bridge the generic protocol
+      to the IdP's specific requirements. Thus, a single browser can support any
+      number of identity protocols, including being forward compatible with IdPs
+      which did not exist at the time the browser was written.</p>
+      <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be
       used for a given <code><a>RTCIdentity</a></code> object, and initiates the process of
       obtaining an identity assertion.</p>
-      <p>The interaction with the IdP is designed to decouple the browser from any
-      particular identity provider, so that the browser need only know how to load the
-      IdP's Javascript (which is deterministic from the IdP's identity), and the generic
-      protocol for requesting and verifying assertions. The IdP provides whatever logic
-      is necessary to bridge the generic protocol to the IdP's specific requirements.
-      Thus, a single browser can support any number of identity protocols, including
-      being forward compatible with IdPs which did not exist at the time the Identity
-      Provider API was implemented. The generic protocol details are described in
-      [[!RTCWEB-SECURITY-ARCH]]. This section specifies the procedures required to
-      instantiate the IdP proxy, request identity assertions, and consume the
-      results.</p>
     </section>
     <section id="rtcidentity-operation*">
       <h3>Operation</h3>
