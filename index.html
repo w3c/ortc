@@ -4694,7 +4694,7 @@ mySignaller.myOfferTracks({
       <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as
       follows:
       <ol>
-        <li>If <var>packet.muxId</var> is set:</li> 
+        If <var>packet.muxId</var> is set:
         <ol>
           <li>If <code>muxId_table[<var>packet.muxId</var>]</code> is unset, fire the
           <code><a>unhandledrtp</a></code> event, and abort these steps.</li>
@@ -4708,7 +4708,7 @@ mySignaller.myOfferTracks({
           <li>Set <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var>.</li>
           <li>Route the packet to <var>rtp_receiver</var> and abort these steps.</li>
         </ol>
-        <li>Else if <code>ssrc_table[<var>packet.ssrc</var>]</code> is set:</li> 
+        Else if <code>ssrc_table[<var>packet.ssrc</var>]</code> is set: 
         <ol>
           <li>Check whether the value of <var>packet.pt</var> is equal to one of the
           values of <code><var>parameters</var>.codecs[<var>j</var>].payloadtype</code>
@@ -4719,14 +4719,14 @@ mySignaller.myOfferTracks({
           <li>Set <var>rtp_receiver</var> to <code>ssrc_table[<var>packet.ssrc</var>]</code>.</li>
           <li>Route the packet to <var>rtp_receiver</var> and abort these steps.</li>
         </ol>
-        <li>Else if <code>pt_table[<var>packet.pt</var>]</code> is set:</li>
+        Else if <code>pt_table[<var>packet.pt</var>]</code> is set:
          <ol>
            <li>Set <var>rtp_receiver</var> to <code>pt_table[<var>packet.pt</var>]</code>.</li>
            <li>Set <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var>.</li>
            <li>Route the packet to <var>rtp_receiver</var> and abort these steps.</li>
          </ol>
-         <li>If no matches are found in the <code>ssrc_table</code>, <code>muxId_table</code>
-         or <code>pt_table</code>, fire the <code><a>unhandledrtp</a></code> event.</li>
+         If no matches are found in the <code>ssrc_table</code>, <code>muxId_table</code>
+         or <code>pt_table</code>, fire the <code><a>unhandledrtp</a></code> event.
       </ol>
       </section>
     </section>
