@@ -4694,31 +4694,39 @@ mySignaller.myOfferTracks({
       <code><a>RTCRtpReceiver</a></code> <var>rtp_receiver</var> to send it to as
       follows:
       <ol>
-      <li>If <var>packet.muxId</var> is set: If
-      <code>muxId_table[<var>packet.muxId</var>]</code> is unset, fire the
-      <code><a>unhandledrtp</a></code> event, else set <var>rtp_receiver</var> to
-      <code>muxId_table[<var>packet.muxId</var>]</code> and check whether the value of
-      <var>packet.pt</var> is equal to one of the values of
-      <code><var>parameters</var>.codecs[<var>j</var>].payloadtype</code> for the
-      <code><a>RTCRtpReceiver</a></code> object <var>rtp_receiver</var>, where
-      <var>j</var> varies from 0 to <code>codecs.length-1</code>. If so, set
-      <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var> and route
-      the packet to <var>rtp_receiver</var>. If <var>packet.pt</var> does not match, fire
-      the <code><a>unhandledrtp</a></code> event.</li>
-      <li>Else if <code>ssrc_table[<var>packet.ssrc</var>]</code> is set: set
-      <var>rtp_receiver</var> to <code>ssrc_table[<var>packet.ssrc</var>]</code>
-      and check whether the value of <var>packet.pt</var> is equal to one of the
-      values of <code><var>parameters</var>.codecs[<var>j</var>].payloadtype</code>
-      for <var>rtp_receiver</var>, where <var>j</var> varies from 0 to
-      <code>codecs.length-1</code>. If so, route the packet to <var>rtp_receiver</var>.
-      If <var>packet.pt</var> does not match, fire the <code><a>unhandledrtp</a></code> event.</li>
-      <li>Else if <code>pt_table[<var>packet.pt</var>]</code> is set: set
-      <var>rtp_receiver</var> to <code>pt_table[<var>packet.pt</var>]</code>, set
-      <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var>
-      and route the packet to <var>rtp_receiver</var>.</li>
-      <li>Else if no matches are found in the <code>ssrc_table</code>,
-      <code>muxId_table</code> or <code>pt_table</code>, fire the
-      <code><a>unhandledrtp</a></code> event.</li>
+        <li>If <var>packet.muxId</var> is set:</li> 
+        <ol>
+          <li>If <code>muxId_table[<var>packet.muxId</var>]</code> is unset, fire the
+          <code><a>unhandledrtp</a></code> event, and abort these steps.</li>
+          <li>Check whether the value of <var>packet.pt</var> is equal to one of the
+          values of <code><var>parameters</var>.codecs[<var>j</var>].payloadtype</code>
+          for the <code><a>RTCRtpReceiver</a></code> object <var>rtp_receiver</var>,
+          where <var>j</var> varies from 0 to <code>codecs.length-1</code>.
+          If <var>packet.pt</var> does not match, fire the
+          <code><a>unhandledrtp</a></code> event and abort these steps.</li>
+          <li>Set <var>rtp_receiver</var> to <code>muxId_table[<var>packet.muxId</var>]</code>.</li>
+          <li>Set <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var>.</li>
+          <li>Route the packet to <var>rtp_receiver</var> and abort these steps.</li>
+        </ol>
+        <li>Else if <code>ssrc_table[<var>packet.ssrc</var>]</code> is set:</li> 
+        <ol>
+          <li>Check whether the value of <var>packet.pt</var> is equal to one of the
+          values of <code><var>parameters</var>.codecs[<var>j</var>].payloadtype</code>
+          for the <code><a>RTCRtpReceiver</a></code> object <var>rtp_receiver</var>,
+          where <var>j</var> varies from 0 to <code>codecs.length-1</code>.
+          If <var>packet.pt</var> does not match, fire the
+          <code><a>unhandledrtp</a></code> event and abort these steps.</li>
+          <li>Set <var>rtp_receiver</var> to <code>ssrc_table[<var>packet.ssrc</var>]</code>.</li>
+          <li>Route the packet to <var>rtp_receiver</var> and abort these steps.</li>
+        </ol>
+        <li>Else if <code>pt_table[<var>packet.pt</var>]</code> is set:</li>
+         <ol>
+           <li>Set <var>rtp_receiver</var> to <code>pt_table[<var>packet.pt</var>]</code>.</li>
+           <li>Set <code>ssrc_table[<var>packet.ssrc</var>]</code> to <var>rtp_receiver</var>.</li>
+           <li>Route the packet to <var>rtp_receiver</var> and abort these steps.</li>
+         </ol>
+         <li>If no matches are found in the <code>ssrc_table</code>, <code>muxId_table</code>
+         or <code>pt_table</code>, fire the <code><a>unhandledrtp</a></code> event.</li>
       </ol>
       </section>
     </section>
