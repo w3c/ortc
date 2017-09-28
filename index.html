@@ -3148,8 +3148,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code>setTransport()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called, <a>throw</a>
-                  an <code>InvalidStateError</code>.</p>
+                  <p>If <var>sender</var>'s <a>[[\IsStopped]]</a> slot is <code>true</code>,
+                  <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</p>
                 </li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3460,14 +3460,10 @@ interface RTCRtpSender : RTCStatsProvider {
               <code><a>RTCRtpSender</a></code>. When <code>stop</code>
               called, the following steps MUST be run:<p>
               <ol>
-                <li>
-                  <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
-                  on which <code>stop</code> is invoked.<p>
-                </li>
-                <li>
-                   <p>If <code><var>sender</var>.stop</code> has previously been called,
-                   abort these steps.<p>
-                </li>
+                 <li>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
+                  on which <code>stop</code> is invoked.</li>
+                 <li>If <var>sender</var>'s <a>[[\IsStopped]]</a> slot is <code>true</code>,
+                   abort these steps.</li>
                  <li>
                   <p>Let <var>parameters</var> be the argument provided to
                   <code><var>sender</var>.send(<var>parameters</var>)</code> the
@@ -3483,6 +3479,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code>
                   where <var>i</var> goes from 0 to <code>encodings.length-1</code>.<p>
                 </li>
+                <li>Set <var>sender</var>'s <a>[[\IsStopped]]</a> slot to <code>true</code>.</li>
               </ol>
               <div>
                 <em>No parameters.</em>
@@ -3973,14 +3970,15 @@ interface RTCRtpReceiver : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>Stops the <code><a>RTCRtpReceiver</a></code>
-              <var>receiver</var>. <code><var>receiver</var>.stop()</code>
-              is final like <code><var>receiver</var>.track.stop()</code>.
+              <p>Stops the <code><a>RTCRtpReceiver</a></code> <var>receiver</var>.
+              <code><var>receiver</var>.stop()</code> is final
+              like <code><var>receiver</var>.track.stop()</code>.
               <code><var>receiver</var>.track.stop()</code> does
               not affect track clones and also does not stop <var>receiver</var>
               so that Receiver Reports continue to be sent. Calling
-              <code><var>receiver</var>.stop()</code> does not cause
-              the "onended" event to fire for <code>track</code>.</p>
+              <code><var>receiver</var>.stop</code> sets <var>receiver</var>'s
+              <a>[[\IsStopped]] slot to <code>true</code> but does not
+              cause the "onended" event to fire for <code>track</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -7072,14 +7070,10 @@ interface RTCDtmfSender {
                 <li>let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
                 used to send DTMF.
                 </li>
-                <li>If <var>sender</var> has been stopped, <a>throw</a> an
-                <code>InvalidStateError</code> and abort these
-                steps.
-                </li>
+                <li>If <var>sender</var>'s <a>[[\IsStopped]] slot is <code>true</code>,
+                <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</li>
                 <li>If <code><var>sender</var>.send</code> has not been called, 
-                <a>throw</a> an <code>InvalidStateError</code> and abort
-                these steps.
-                </li>
+                <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</li>
                 <li>
                 Let <var>parameters</var> be the argument provided to
                 <code><var>sender</var>.send</code> the last time it
@@ -7109,8 +7103,8 @@ interface RTCDtmfSender {
                 these steps; otherwise queue a task that runs the following
                 steps (<em>Playout task</em>):
                   <ol>
-                    <li>If <var>sender</var> has been stopped, abort these
-                    steps.</li>
+                    <li>If <var>sender</var>'s <a>[[\IsStopped]] slot is
+                    <code>true</code>, abort these steps.</li>
                     <li>If <code><a>toneBuffer</a></code> is an empty string,
                     fire an event named <code><a>tonechange</a></code> with an
                     empty string at the <code><a>RTCDtmfSender</a></code>
