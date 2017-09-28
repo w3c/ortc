@@ -2968,13 +2968,9 @@ function accept(mySignaller, remote) {
       <h3>Operation</h3>
       <p>A <code><a>RTCRtpSender</a></code> instance is constructed from an
       <a>MediaStreamTrack</a> object or <code>kind</code> and associated to an
-      <code><a>RTCDtlsTransport</a></code>. If an attempt is made to construct an
-      <code><a>RTCRtpSender</a></code> object with <code>transport.state</code> or
-      <code>rtcpTransport.state</code> <code>closed</code>, or if
-      <code>track.readyState</code> is <code>ended</code>, <a>throw</a> an
-      <code>InvalidStateError</code>.</p>
-      <p>An <code><a>RTCRtpSender</a></code> object can be garbage-collected once
-      <code>stop()</code> is called and it is no longer referenced.</p>
+      <code><a>RTCDtlsTransport</a></code>. An <code><a>RTCRtpSender</a></code>
+      object can be garbage-collected once <code>stop()</code> is called and
+      it is no longer referenced.</p>
     </section>
     <section id="rtcrtpsender-interface-definition*">
       <h3>Interface Definition</h3>
@@ -2999,37 +2995,32 @@ interface RTCRtpSender : RTCStatsProvider {
           <p>When the constructor is invoked, the <a>user agent</a> MUST run the
               following steps:</p>
               <ol>
-               <li>
-                  <p>If <var>transport</var> is unset, and <var>rtcpTransport</var>
-                    is set, <a>throw</a> an <code>InvalidParameters</code> and
-                    abort all further steps.</p>
-                </li>
-                <li>
-                  <p>If the first argument is a string, let it be
-                  <var>kind</var> and run the following steps:</p>
-                  <ol>
-                    <li>
-                      <p>If <var>kind</var> is not a legal
-                      <code><a>MediaStreamTrack</a></code> <code>kind</code>,
-                      <a>throw</a> a <code>TypeError</code> and abort these, and all
-                      further steps.</p>
-                    </li>
-                    <li>
-                      <p>Let <var>track</var> be <code>null</code>.</p>
-                    </li>
-                  </ol>
-                </li>
-                <li>
-                  <p>If the first argument is a
-                  <code><a>MediaStreamTrack</a></code>, let it be
-                  <var>track</var> and let <var>kind</var> be
-                  <var>track.kind</var>.</p>
-                </li>
-                <li>
-                  <p>Create an <code><a>RTCRtpSender</a></code> with <var>track</var>,
-                  <var>transport</var> (if provided) and <var>rtcpTransport</var> (if provided)
-                  and let <var>sender</var> be the result.</p>
-                </li>
+                <li>Let the first argument be <var>trackOrKind</var>.</li>
+                <li>If <var>trackOrKind</var> is a DOMString and is not a supported
+                code><a>MediaStreamTrack</a></code> <code>kind</code>,
+                <a>throw</a> a <code>TypeError</code> and abort these steps.</li>
+                <li>If <var>trackOrKind</var> is a <code>MediaStreamTrack</code>
+                and <code><var>trackOrKind</var>.readyState</code> is <code>ended</code>,
+                <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</li>
+                <li>Let <var>transport</var> be the second argument.</li>
+                <li>Let <var>rtcpTransport</var> be the third argument.</li>
+                <li>If <var>transport</var> is unset, and <var>rtcpTransport</var>
+                is set, <a>throw</a> an <code>InvalidParameters</code> and
+                abort these steps.</li>
+                <li>If <var>transport</var> is set and <code><var>transport</var>.state</code>
+                is <code>closed</code> or <code>failed</code> <a>throw</a> an
+                <code>InvalidStateError</code> and abort these steps.</li>
+                <li>If <var>rtcpTransport</var> is set and <code><var>rtcpTransport</var>.state</code>
+                is <code>closed</code> or <code>failed</code> <a>throw</a> an
+                <code>InvalidStateError</code> and abort these steps.</li>
+                <li>Construct an <code><a>RTCRtpSender</a></code> with <var>transport</var>
+                (if provided) and <var>rtcpTransport</var> (if provided) and let
+                <var>sender</var> be the result.</li>
+                <li>Let <var>sender</var> have a <dfn>[[\Track]]</dfn> internal slot.</li>
+                <li>If <var>trackOrKind</var> is a <code>MediaStreamTrack</code> initialize <var>sender</var>'s
+                [[\Track]] internal slot to <var>trackOrKind</var>.</li>
+                <li>If <var>trackOrKind</var> is a DOMString initialize <var>sender</var>'s
+                [[\Track]] internal slot to <code>null</code>.</li>
               </ol>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "constructors">
