@@ -3018,14 +3018,14 @@ interface RTCRtpSender : RTCStatsProvider {
                 <var>sender</var> be the result.</li>
                 <li>Let <var>sender</var> have an <dfn>[[\IsStopped]]</dfn> internal slot,
                 initialized to <code>false</code>.</li>
-                <li>Let <var>sender</var> have a <dfn>[[\Kind]]</dfn> internal slot.</li>
-                <li>Let <var>sender</var> have a <dfn>[[\Track]]</dfn> internal slot.</li>
+                <li>Let <var>sender</var> have a <dfn>[[\SenderKind]]</dfn> internal slot.</li>
+                <li>Let <var>sender</var> have a <dfn>[[\SenderTrack]]</dfn> internal slot.</li>
                 <li>If <var>trackOrKind</var> is a <code>MediaStreamTrack</code> initialize
-                <var>sender</var>'s <a>[[\Track]]</a> slot to <var>trackOrKind</var> and
-                <var>sender</var>'s <a>[[\Kind]]</a> slot to <code><var>trackOrKind</var>.kind</code>.</li>
+                <var>sender</var>'s <a>[[\SenderTrack]]</a> slot to <var>trackOrKind</var> and
+                <var>sender</var>'s <a>[[\SenderKind]]</a> slot to <code><var>trackOrKind</var>.kind</code>.</li>
                 <li>If <var>trackOrKind</var> is a DOMString initialize <var>sender</var>'s
-                <a>[[\Track]]</a> internal slot to <code>null</code> and
-                <var>sender</var>'s <a>[[\Kind]]</a> slot to <var>trackOrKind</var>.</li>
+                <a>[[\SenderTrack]]</a> internal slot to <code>null</code> and
+                <var>sender</var>'s <a>[[\SenderKind]]</a> slot to <var>trackOrKind</var>.</li>
               </ol>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "constructors">
