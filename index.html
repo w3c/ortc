@@ -3600,27 +3600,15 @@ interface RTCSsrcConflictEvent : Event {
     <section id="rtcrtpreceiver-operation*">
       <h3>Operation</h3>
       <p>A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of
-      <code>kind</code> and an <code><a>RTCDtlsTransport</a></code> object.
-      An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once
+      <code>kind</code> and an <code><a>RTCDtlsTransport</a></code> object. If an attempt
+      is made to construct an <code><a>RTCRtpReceiver</a></code> object with
+      <code>transport.state</code> or <code>rtcpTransport.state</code> with a value of
+      <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>. Upon
+      construction, <code>track</code> is set, and the value of <code>track.kind</code>
+      is determined based on the value of <var>kind</var> passed in the constructor.</p>
+      <p>An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
-      <p>When an <code><a>RTCRtpReceiver</a></code> is constructed, the user agent
-      MUST run the following steps:</p>
-      <ol>
-        <li>Let <var>kind</var> be the first argument.</li>
-        <li>If <var>kind</var> does not represent a supported <code>kind</code>,
-        <a>throw</a> a <code>TypeError</code>.</li>
-        <li>Let <var>transport</var> be the second argument.</li>
-        <li>If <code><var>transport</var>.state</code> is <code>closed</code> or
-        <code>failed</code>, <a>throw</a> an <code>InvalidStateError</code>.</li>
-        <li>Let <var>rtcpTransport</var> be the third argument, if provided.</li>
-        <li>If <var>rtcpTransport</var> is set and
-        <code><var>rtcpTransport</var>.state</code> is <code>closed</code> or
-        <code>failed</code>, <a>throw</a> an <code>InvalidStateError</code>.</li>
-        <li>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object being constructed.</li>
-        <li>Let <var>receiver</var> have an <dfn>[[\Track]]</dfn> internal slot, initialized to a
-        <code>MediaStreakTrack</code>.</li>
-        <li>Set <code>[[\Track]].kind</code> to the value of <var>kind</var>.</li>
-      </ol>
+
     </section>
     <section id="rtcrtpreceiver-interface-definition*">
       <h3>Interface Definition</h3>
