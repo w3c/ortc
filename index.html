@@ -3644,9 +3644,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 is <code>closed</code> or <code>failed</code> <a>throw</a> an
                 <code>InvalidStateError</code> and abort these steps.</li>
                 <li>Construct an <code><a>RTCRtpReceiver</a></code> with <var>transport</var>
-                (if provided) and <var>rtcpTransport</var> (if provided) and let
-                <var>receiver</var> be the result.</li>
-                <li>Let <var>receiver</var> have a <dfn>[[\Stopped]]</dfn> internal slot,
+                and <var>rtcpTransport</var> (if provided) and let <var>receiver</var>
+                be the result.</li>
+                <li>Let <var>receiver</var> have a <dfn>[[\IsStopped]]</dfn> internal slot,
                 initialized to <code>false</code>.</li>
                 <li>Let <var>receiver</var> have a <dfn>[[\Kind]]</dfn> internal slot,
                 initialized to <var>kind</var>.</li>
