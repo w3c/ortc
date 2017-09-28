@@ -2966,30 +2966,13 @@ function accept(mySignaller, remote) {
     </section>
     <section id="rtcrtpsender-operation*">
       <h3>Operation</h3>
-      <p>A <code><a>RTCRtpSender</a></code> instance is constructed from an
-      <a>MediaStreamTrack</a> object or <code>kind</code> and associated to an
-      <code><a>RTCDtlsTransport</a></code>. An <code><a>RTCRtpSender</a></code>
-      object can be garbage-collected once <code>stop()</code> is called and it
-      is no longer referenced.</p>
-      <p>When an <code><a>RTCRtpSender</a></code> is constructed, the user agent
-      MUST run the following steps:</p>
-      <ol>
-        <li>Let <var>trackOrKind</var> be the first argument.</li>
-        <li>If <var>trackOrKind</var> is of type <code>MediaStreamTrack</code>
-        and <code><var>trackOrKind</var>.readyState</code> is <code>ended</code>,
-        <a>throw</a> an <code>InvalidStateError</code>.</li>
-        <li>If <var>trackOrKind</var> is of type <code>DOMString</code>
-        and <var>trackOrKind</var> does not represent a supported <code>kind</code>,
-        <a>throw</a> a <code>TypeError</code>.</li>
-        <li>Let <var>transport</var> be the second argument, if provided.</li>
-        <li>If <var>transport</var> is set and
-        <code><var>transport</var>.state</code> is <code>closed</code> or
-        <code>failed</code>, <a>throw</a> an <code>InvalidStateError</code>.</li>
-        <li>Let <var>rtcpTransport</var> be the third argument, if provided.</li>
-        <li>If <var>rtcpTransport</var> is set and
-        <code><var>rtcpTransport</var>.state</code> is <code>closed</code> or
-        <code>failed</code>, <a>throw</a> an <code>InvalidStateError</code>.</li>
-      </ol>
+      <code><a>RTCDtlsTransport</a></code>. If an attempt is made to construct an
+      <code><a>RTCRtpSender</a></code> object with <code>transport.state</code> or
+      <code>rtcpTransport.state</code> <code>closed</code>, or if
+      <code>track.readyState</code> is <code>ended</code>, <a>throw</a> an
+      <code>InvalidStateError</code>.</p>
+      <p>An <code><a>RTCRtpSender</a></code> object can be garbage-collected once
+      <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
     <section id="rtcrtpsender-interface-definition*">
       <h3>Interface Definition</h3>
