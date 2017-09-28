@@ -3261,10 +3261,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
                   on which <code>replaceTrack()</code> is invoked.</p>
                 </li>
-                <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called,
-                  <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</p>
-                </li>
+                <li>If <var>sender</var>'s <a>[[\IsStopped]]</a> slot is <code>true</code>,
+                  <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withTrack</var> be the argument to this method.</p>
                 </li>
@@ -3364,11 +3362,8 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
-                <li>
-                  <p>If <code><var>sender</var>.stop()</code> has been called,
-                  <a>reject</a> <var>p</var> with a newly created
-                  <code>InvalidStateError</code>.</p>
-                </li>
+                <li>If <var>sender</var>'s <a>[[\IsStopped]]</a> slot is <code>true</code>,
+                <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</li>
                 <li>
                   <p>If <code><var>sender</var>.transport</code> is unset,
                   <a>reject</a> <var>p</var> with a newly created
@@ -3733,10 +3728,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object
                   on which <code>setTransport()</code> is invoked.</p>
                 </li>
-                <li>
-                  <p>If <code><var>receiver</var>.stop()</code> has been called, <a>throw</a> an
-                  <code>InvalidStateError</code>.</p>
-                </li>
+                <li>If <var>receiver</var>'s <a>[[\IsStopped]]</a> slot is <code>true</code>,
+                <a>throw</a> an <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
                   be the arguments to this method.</p>
@@ -3853,10 +3846,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
-                <li>
-                  <p>If <code><var>receiver</var>.stop()</code> has been called,
-                  <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</p>
-                </li>
+                <li>If <var>receiver</var>'s <a>[[\IsStopped]]</a> slot is <code>true</code>,
+                <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
                 </li>
@@ -3977,7 +3968,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
               not affect track clones and also does not stop <var>receiver</var>
               so that Receiver Reports continue to be sent. Calling
               <code><var>receiver</var>.stop</code> sets <var>receiver</var>'s
-              <a>[[\IsStopped]] slot to <code>true</code> but does not
+              <a>[[\IsStopped]]</a> slot to <code>true</code> but does not
               cause the "onended" event to fire for <code>track</code>.</p>
               <div>
                 <em>No parameters.</em>
