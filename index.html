@@ -3011,6 +3011,9 @@ function accept(mySignaller, remote) {
       <code>InvalidStateError</code>.</p>
       <p>An <code><a>RTCRtpSender</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
+      <p>When sending media, the sender may need to rescale or resample
+      the media to meet various requirements. The rules outlined in
+      [[!JSEP]] Section 3.6 MUST be followed when resizing the video.</p>
     </section>
     <section id="rtcrtpsender-interface-definition*">
       <h3>Interface Definition</h3>
