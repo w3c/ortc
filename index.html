@@ -88,6 +88,42 @@
     in <a href="#event-summary">Section 18</a>, WebRTC 1.0 compatibility issues are
     discussed in <a href="#webrtc-compat*">Section 19</a>, and complete examples are
     provided in <a href="#examples*">Section 20</a>.</p>
+    <section id="conformance">
+      <p>This specification defines conformance criteria that apply to a single
+      product: the <dfn>user agent</dfn> that implements the interfaces that it
+      contains.</p>
+      <p>Conformance requirements phrased as algorithms or specific steps may be
+      implemented in any manner, so long as the end result is equivalent. In
+      particular, the algorithms defined in this specification are intended to be
+      easy to follow, and not intended to be performant.</p>
+      <p>Implementations that use ECMAScript to implement the APIs defined in
+      this specification MUST implement them in a manner consistent with the
+      ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL-1]], as
+      this specification uses that specification and terminology.</p>
+      <p>Implementation of the following interfaces is mandatory:</p> 
+        <ol>
+          <li><code><a>RTCIceGatherer</a></code> (<a href="#rtcicegatherer*">Section 2</a>)</li>
+          <li><code><a>RTCIceTransport</a></code> (<a href="#rtcicetransport*">Section 3</a>)</li>
+          <li><code><a>RTCDtlsTransport</a></code> (<a href="#rtcdtlstransport*">Section 4</a>)</li>
+          <li><code><a>RTCRtpSender</a></code> (<a href="#rtcrtpsender*">Section 5</a>)</li>
+          <li><code><a>RTCRtpReceiver</a></code> (<a href="#rtcrtpreceiver*">Section 6</a>)</li>
+          <li><code><a>RTCDtmfSender</a></code> (<a href="#rtcdtmfsender*">Section 10</a>)</li>
+          <li><code><a>RTCDataChannel</a></code> (<a href="#rtcdatachannel*">Section 11</a>)</li>
+          <li><code><a>RTCSctpTransport</a></code>(<a href="#sctp-transport*">Section 12</a>)</li>
+          <li><code><a>RTCCertificate</a></code> (<a href="#certificate-api">Section 16</a>)</li>
+        </ol>
+      <p>Since the <code>send</code> and <code>receive</code> methods are mandatory-to-implement, the
+      RTP dictionaries (<a href="#rtcrtpdictionaries*">Section 9</a>) that these methods depend on are also
+      mandatory-to-implement. 
+      <p>Mandatory-to-implement statistics are described in <a href="#mandatory-to-implement-stats">Section 14.3</a>.</p>
+      <p>Implementation of the following interfaces is optional:</p>
+        <ol>
+          <li><code><a>RTCIceTransportController</a></code> (<a href="#rtcicetransportcontroller*">Section 7</a>)</li>
+          <li><code><a>RTCRtpListener</a></code> (<a href="#rtcrtplistener*">Section 8</a>) </li>
+          <li><code><a>RTCQuicTransport</a></code>(<a href="#quic-transport*">Section 13</a>)</li>
+          <li><code><a>RTCIdentity</a></code> (<a href="#identity-api">Section 15</a>)</li>
+        </ol>        
+    </section>
     <section>
       <h3>Terminology</h3>
       <p>The <code><a href=
