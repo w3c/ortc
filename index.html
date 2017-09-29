@@ -3208,14 +3208,12 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
                   <code><var>withTransport</var>.state</code> is
-                  <code>closed</code> or <code>failed</code>,
-                  <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.state</code> is
-                  <code>closed</code> or <code>failed</code>,
-                  <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Set <code>transport</code> to <var>withTransport</var> and
@@ -3644,7 +3642,6 @@ interface RTCSsrcConflictEvent : Event {
       is determined based on the value of <var>kind</var> passed in the constructor.</p>
       <p>An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
-
     </section>
     <section id="rtcrtpreceiver-interface-definition*">
       <h3>Interface Definition</h3>
@@ -3800,14 +3797,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>If <code><var>withTransport</var></code> is set and
                   <code><var>withTransport</var>.state</code> is
-                  <code>closed</code> or <code>failed</code>,
-                  <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>If <code><var>withRtcpTransport</var></code> is set and
                   <code><var>withRtcpTransport</var>.state</code> is
-                  <code>closed</code> or <code>failed</code>,
-                  <a>throw</a> an <code>InvalidStateError</code>.</p>
+                  <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
                   <p>Replace <code>transport</code> with <var>withTransport</var> and
