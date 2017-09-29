@@ -3016,16 +3016,16 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>Construct an <code><a>RTCRtpSender</a></code> with <var>transport</var>
                 (if provided) and <var>rtcpTransport</var> (if provided) and let
                 <var>sender</var> be the result.</li>
-                <li>Let <var>sender</var> have an <dfn>[[\IsSenderStopped]]</dfn> internal slot,
+                <li>Let <var>sender</var> have an <dfn>[[\RtpSenderIsStopped]]</dfn> internal slot,
                 initialized to <code>false</code>.</li>
-                <li>Let <var>sender</var> have a <dfn>[[\SenderKind]]</dfn> internal slot.</li>
-                <li>Let <var>sender</var> have a <dfn>[[\SenderTrack]]</dfn> internal slot.</li>
+                <li>Let <var>sender</var> have a <dfn>[[\RtpSenderKind]]</dfn> internal slot.</li>
+                <li>Let <var>sender</var> have a <dfn>[[\RtpSenderTrack]]</dfn> internal slot.</li>
                 <li>If <var>trackOrKind</var> is a <code>MediaStreamTrack</code> initialize
-                <var>sender</var>'s <a>[[\SenderTrack]]</a> slot to <var>trackOrKind</var> and
-                <var>sender</var>'s <a>[[\SenderKind]]</a> slot to <code><var>trackOrKind</var>.kind</code>.</li>
+                <var>sender</var>'s <a>[[\RtpSenderTrack]]</a> slot to <var>trackOrKind</var> and
+                <var>sender</var>'s <a>[[\RtpSenderKind]]</a> slot to <code><var>trackOrKind</var>.kind</code>.</li>
                 <li>If <var>trackOrKind</var> is a DOMString initialize <var>sender</var>'s
-                <a>[[\SenderTrack]]</a> internal slot to <code>null</code> and
-                <var>sender</var>'s <a>[[\SenderKind]]</a> slot to <var>trackOrKind</var>.</li>
+                <a>[[\RtpSenderTrack]]</a> internal slot to <code>null</code> and
+                <var>sender</var>'s <a>[[\RtpSenderKind]]</a> slot to <var>trackOrKind</var>.</li>
               </ol>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "constructors">
