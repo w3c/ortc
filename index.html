@@ -8641,7 +8641,7 @@ function accept(mySignaller, remote) {
       <div>
         <pre class="idl">
         [ Constructor (RTCceTransport transport, sequence&lt;RTCCertificate&gt; certificates), Exposed=Window]
-interface RTCQuicTransport {
+interface RTCQuicTransport : RTCStatsProvider {
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCQuicTransportState    state;
     RTCQuicParameters     getLocalParameters ();
