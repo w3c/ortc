@@ -75,19 +75,23 @@
     (<a href="#quic-transport*">Section 13</a>) utilizes an
     <code><a>RTCIceTransport</a></code> to select a communication path to reach the
     receiving peer's <code><a>RTCIceTransport</a></code>, which is in turn associated
-    with an <code><a>RTCQuicTransport</a></code>.</p>
+    with an <code><a>RTCQuicTransport</a></code>.  An <code><a>RTCQuicTransport</a></code>
+    is associated with zero or more <code><a>RTCQuicStream</a></code>
+    (<a href="#quicstream*">Section 14</a>) objects which
+    read data from and write data to <code><a>RTCQuicStream</a></code> objects on the
+    remote peer.</p>
     <p>Remaining sections of the specification fill in details relating to RTP
     capabilities and parameters, operational statistics, media authentication via
     Certificates and Identity Providers (IdP) and compatibility with the WebRTC 1.0 API.
     RTP dictionaries are described in <a href="#rtcrtpdictionaries*">Section 9</a>, the
-    Statistics API is described in <a href="#statistics-api">Section 14</a>, the Identity
-    API is described in <a href="#identity-api">Section 15</a>, the Certificate API is
-    described in <a href="#certificate-api">Section 16</a>, privacy and security
-    considerations are described in <a href="#privacy-security">Section 17</a>,
+    Statistics API is described in <a href="#statistics-api">Section 15</a>, the Identity
+    API is described in <a href="#identity-api">Section 16</a>, the Certificate API is
+    described in <a href="#certificate-api">Section 17</a>, privacy and security
+    considerations are described in <a href="#privacy-security">Section 18</a>,
     an event summary is provided
-    in <a href="#event-summary">Section 18</a>, WebRTC 1.0 compatibility issues are
-    discussed in <a href="#webrtc-compat*">Section 19</a>, and complete examples are
-    provided in <a href="#examples*">Section 20</a>.</p>
+    in <a href="#event-summary">Section 19</a>, WebRTC 1.0 compatibility issues are
+    discussed in <a href="#webrtc-compat*">Section 20</a>, and complete examples are
+    provided in <a href="#examples*">Section 21</a>.</p>
     <section id="conformance">
       <p>This specification defines conformance criteria that apply to a single
       product: the <a>user agent</a> that implements the interfaces that it
@@ -101,7 +105,7 @@
       ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL-1]], as
       this specification uses that specification and terminology.</p>
       <p>Implementation of the following interfaces is mandatory:
-      <code><a>RTCIceGatherer</a></code> (<a href="#rtcicegatherer*">Section 2</a>), 
+      <code><a>RTCIceGatherer</a></code> (<a href="#rtcicegatherer*">Section 2</a>),
       <code><a>RTCIceTransport</a></code> (<a href="#rtcicetransport*">Section 3</a>),
       <code><a>RTCDtlsTransport</a></code> (<a href="#rtcdtlstransport*">Section 4</a>),
       <code><a>RTCRtpSender</a></code> (<a href="#rtcrtpsender*">Section 5</a>),
@@ -109,16 +113,17 @@
       <code><a>RTCDtmfSender</a></code> (<a href="#rtcdtmfsender*">Section 10</a>),
       <code><a>RTCDataChannel</a></code> (<a href="#rtcdatachannel*">Section 11</a>),
       <code><a>RTCSctpTransport</a></code> (<a href="#sctp-transport*">Section 12</a>) and
-      <code><a>RTCCertificate</a></code> (<a href="#certificate-api">Section 16</a>).
+      <code><a>RTCCertificate</a></code> (<a href="#certificate-api">Section 17</a>).
       Since the <code>send</code> and <code>receive</code> methods are mandatory-to-implement, the
       RTP dictionaries (<a href="#rtcrtpdictionaries*">Section 9</a>) that these methods depend on are also
       mandatory-to-implement.  Mandatory-to-implement statistics are described in
-      <a href="#mandatory-to-implement-stats">Section 14.3</a>.</p>
+      <a href="#mandatory-to-implement-stats">Section 15.3</a>.</p>
       <p>Implementation of the following interfaces is optional:
       <code><a>RTCIceTransportController</a></code> (<a href="#rtcicetransportcontroller*">Section 7</a>),
       <code><a>RTCRtpListener</a></code> (<a href="#rtcrtplistener*">Section 8</a>),
-      <code><a>RTCQuicTransport</a></code> (<a href="#quic-transport*">Section 13</a>) and
-      <code><a>RTCIdentity</a></code> (<a href="#identity-api">Section 15</a>).       
+      <code><a>RTCQuicTransport</a></code> (<a href="#quic-transport*">Section 13</a>),
+      <code><a>RTCQuicStream</a></code> (<a href="#quicstream*">Section 14</a>) and
+      <code><a>RTCIdentity</a></code> (<a href="#identity-api">Section 16</a>).
     </section>
     <section>
       <h3>Terminology</h3>
@@ -8599,7 +8604,7 @@ function accept(mySignaller, remote) {
     <section id="rtcquictransport-overview*">
       <h3>Overview</h3>
       <p>An <code><a>RTCQuicTransport</a></code> instance is associated to
-      an <code>RTCQuicStream</code> instance.</p>
+      one or more <code><a>RTCQuicStream</a></code> instances.</p>
     </section>
     <section id="rtcquictransport-operation*">
       <h3>Operation</h3>
@@ -8650,8 +8655,10 @@ interface RTCQuicTransport : RTCStatsProvider {
     sequence&lt;ArrayBuffer&gt; getRemoteCertificates ();
     void                  start (RTCQuicParameters remoteParameters);
     void                  stop ();
+    RTCQuicStream         createStream (RTCQuicStreamParameters parameters);
                     attribute EventHandler             onstatechange;
                     attribute EventHandler             onerror;
+                    attribute EventHandler             onstream;
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -8722,6 +8729,13 @@ interface RTCQuicTransport : RTCStatsProvider {
               error; an implementation <em class="rfc2119" title=
               "SHOULD">SHOULD</em> include QUIC error information in
               <var>error.message</var> (defined in [[!HTML5]] Section 6.1.3.6.2).</p>
+            </dd>
+            <dt><dfn><code>onstream</code></dfn> of type <span class=
+            "idlAttrType"><a>EventHandler</a></span></dt>
+            <dd>
+              <p>This event handler, of event handler event type <code>quicstream</code>,
+              <em class="rfc2119" title="MUST">MUST</em> be fired on when a remote
+              <code><a>RTCQuicStream</a></code> is created.</p>
             </dd>
           </dl>
         </section>
@@ -8840,6 +8854,88 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
+            <dt><dfn><code>createStream</code></dfn></dt>
+            <dd>
+              <p>Creates an <code><a>RTCQuicStream</a></code> object.
+              The <code><a>RTCQuicStreamParameters</a></code>
+              dictionary can be used to configure properties of the underlying
+              QUIC stream such as data reliability.</p>
+              <p>When <code>createStream</code> is called, the user agent MUST run the
+              following steps:</p>
+              <ol>
+                <li>Let <var>transport</var> be the <code><a>RTCQuicTransport</a></code>
+                on which <code>createStream</code> is invoked.</li>
+                <li>If <code><var>transport</var>.state</code> is <code>closed</code>
+                <a>throw</a> an <code>InvalidStateError</code>.</li>
+                <li>Let <var>parameters</var> be the first argument.</li>
+               <li>
+                  <p>Let <var>stream</var> be a newly created
+                  <code><a>RTCQuicStream</a></code> object.</p>
+                </li>
+                <li>
+                  <p>Let <var>stream</var> have a <dfn>[[\Readable]]</dfn> internal
+                  slot initialized to <code>false</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>stream</var> have a <dfn>[[\MaxPacketLifeTime]]</dfn> internal
+                  slot initialized to <var>parameters</var>'s
+                  <code>maxPacketLifeTime</code> member, if present, otherwise
+                  <code>null</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>stream</var> have a <dfn>[[\MaxRetransmits]]</dfn> internal slot
+                  initialized to <var>parameter</var>'s <code>maxRetransmits</code>
+                  member, if present, otherwise <code>null</code>.</p>
+                </li>
+                <li>
+                  <p>If both <a>[[\MaxPacketLifeTime]]</a> and
+                  <a>[[\MaxRetransmits]]</a>
+                  attributes are set (not null), <a>throw</a> a
+                  <code>TypeError</code>.</p>
+                </li>
+                <li>
+                  <p>If a setting, either <a>[[\MaxPacketLifeTime]]</a> or
+                  <a>[[\MaxRetransmits]]</a>,
+                  has been set to indicate unreliable mode, and that value
+                  exceeds the maximum value supported by the user agent, the
+                  value MUST be set to the user agents maximum value.</p>
+                </li>
+                <li>
+                  <p>Return <var>stream</var> and continue the following steps
+                  in the background.</p>
+                </li>
+                <li>
+                  <p>Create <var>stream</var>'s associated <a>underlying data
+                  transport</a> and configure it according to the relevant
+                  properties of <var>stream</var>.</p>
+                </li>
+              </ol>
+              <div>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">parameters</td>
+                    <td class="prmType"><code><a>RTCQuicStreamParameters</a></code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+              <div>
+                <em>Return type:</em> <code><a>RTCQuicStream</a></code>
+              </div>
+            </dd>
           </dl>
         </section>
       </div>
@@ -8867,6 +8963,140 @@ interface RTCQuicTransport : RTCStatsProvider {
             "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span></dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
+    <section id="rtcquicstreamparameters*">
+      <h3><dfn>RTCQuicStreamParameters</dfn> Dictionary</h3>
+      <p>The <code>RTCQuicStreamParameters</code> dictionary describes
+      the configuration of the <code><a>RTCQuicStream</a></code>.
+      An <code><a>RTCQuicStream</a></code> can be configured to operate in different
+      reliability modes. A reliable QUIC stream ensures that the data is delivered at the
+      other peer through retransmissions. An unreliable QUIC stream is configured to either
+      limit the number of retransmissions (<code>maxRetransmits</code>) or set a time during which
+      transmissions (including retransmissions) are allowed (<code>maxPacketLifeTime</code>). These
+      properties can not be used simultaneously and an attempt to do so will result in an
+      error. Not setting any of these properties results in a reliable channel.</p>
+      <div>
+        <pre class="idl">dictionary RTCQuicStreamParameters {
+             unsigned long  maxPacketLifetime;
+             unsigned long  maxRetransmits;
+};</pre>
+        <section>
+          <h2>Dictionary <a class="idlType">RTCQuicStreamParameters</a> Members</h2>
+          <dl data-link-for="RTCQuicStreamParameters" data-dfn-for=
+          "RTCQuicStreamParameters" class="dictionary-members">
+            <dt><code>maxPacketLifetime</code> of type <span class=
+            "idlMemberType"><a>unsigned long</a></span></dt>
+            <dd>
+              <p>The <dfn id=
+              "dom-quicstream-maxpacketlifetime"><code>maxPacketLifetime</code></dfn>
+              attribute represents the length of the time window (in milliseconds) during
+              which retransmissions may occur in unreliable mode. The attribute
+              <em class="rfc2119" title="MUST">MUST</em> return the value to which it was
+              set when the <code><a>RTCQuicStream</a></code> was constructed.</p>
+            </dd>
+            <dt><code>maxRetransmits</code> of type <span class=
+            "idlMemberType"><a>unsigned long</a></span></dt>
+            <dd>
+              <p>The <dfn id=
+              "dom-quicstream-maxretransmits"><code>maxRetransmits</code></dfn>
+              attribute returns the maximum number of retransmissions that are attempted
+              in unreliable mode. The attribute <em class="rfc2119" title=
+              "MUST">MUST</em> be initialized to null by default and <em class="rfc2119"
+              title="MUST">MUST</em> return the value to which it was set when the
+              <code><a>RTCQuicStream</a></code> was constructed.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
+    <section>
+      <h3><dfn>RTCQuicStreamEvent</dfn></h3>
+      <p>The <code><a href="#event-quicstream">quicstream</a></code> event uses the
+      <code><a>RTCQuicStreamEvent</a></code> interface.</p>
+      <p>Firing a quicstream event named <var>e</var> with a
+      <code><a>RTCQuicStream</a></code> <var>stream</var> means that an event with the
+      name <var>e</var>, which does not bubble (except where otherwise stated) and is not
+      cancelable (except where otherwise stated), and which uses the
+      <code><a>RTCQuicStreamEvent</a></code> interface with the <code><a href=
+      "#dom-quicstreamevent-stream">stream</a></code> attribute set to
+      <var>stream</var>, MUST be created and dispatched at the given target.</p>
+      <div>
+        <pre class="idl">
+        [ Constructor (DOMString type, RTCQuicStreamEventInit eventInitDict), Exposed=Window]
+interface RTCQuicStreamEvent : Event {
+    readonly        attribute RTCQuicStream stream;
+};</pre>
+        <section>
+          <h2>Constructors</h2>
+          <dl data-link-for="RTCQuicStreamEvent" data-dfn-for="RTCQuicStreamEvent"
+          class="constructors">
+            <dt><code>RTCQuicStreamEvent</code></dt>
+            <dd>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">type</td>
+                    <td class="prmType"><code>DOMString</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=  
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                  <tr>
+                    <td class="prmName">eventInitDict</td>
+                    <td class="prmType"><code><a>RTCQuicStreamEventInit</a></code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="RTCQuicStreamEvent" data-dfn-for="RTCQuicStreamEvent"
+          class="attributes">
+            <dt><code>stream</code> of type <span class=
+            "idlAttrType"><a>RTCQuicStream</a></span>, readonly</dt>
+            <dd>
+              <p>The <dfn id="dom-quicstreamevent-stream"><code>stream</code></dfn>
+              attribute represents the <code><a>RTCQuicStream</a></code> object
+              associated with the event.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+      <div>
+          <p>The <dfn><code>RTCQuicStreamEventInit</code></dfn> dictionary includes
+          information on the configuration of the QUIC stream.</p>
+        <pre class="idl">dictionary RTCQuicStreamEventInit : EventInit {
+             RTCQuicStream stream;
+};</pre>
+        <section>
+          <h2>Dictionary RTCQuicStreamEventInit Members</h2>
+          <dl data-link-for="RTCQuicStreamEventInit" data-dfn-for=
+          "RTCQuicStreamEventInit" class="dictionary-members">
+            <dt><dfn><code>stream</code></dfn> of type <span class=
+            "idlMemberType"><a>RTCQuicStream</a></span></dt>
+            <dd>
+              <p>The <code><a>RTCQuicStream</a></code> object associated with the
+              event.</p>
             </dd>
           </dl>
         </section>
@@ -9140,6 +9370,21 @@ function accept(mySignaller, remote) {
 
 }
                 </pre>
+    </section>
+  </section>
+  <section id="quicstream*">
+    <h2><dfn>RTCQuicStream</dfn> Interface</h2>
+    <p>The <code>RTCQuicStream</code> includes information relating
+    to a QUIC stream.</p>
+    <section id="rtcquicstream-overview*">
+      <h3>Overview</h3>
+      <p>An <code><a>RTCQuicStream</a></code> instance is associated to
+      an <code><a>RTCQuicTransport</a></code> instance.</p>
+    </section>
+    <section id="rtcquicstream-operation*">
+      <h3>Operation</h3>
+      <p>An <code><a>RTCQuicStream</a></code> instance is constructed
+      using the <code><a>RTCQuicTransport</a>.createStream</code> method.</p>
     </section>
   </section>
   <section>
@@ -10322,6 +10567,12 @@ function signalAssertion(assertion) {
           <td><code>statechange</code></td>
           <td><code><a>Event</a></code></td>
           <td>The <code><a>RTCQuicTransportState</a></code> changed.</td>
+        </tr>
+        <tr>
+          <td><dfn><code>quicstream</code></dfn></td>
+          <td><code><a>RTCQuicStreamEvent</a></code></td>
+          <td>A new <code><a>RTCQuicStream</a></code> is dispatched to the script in
+          response to the other peer creating a QUIC stream.</td>
         </tr>
       </tbody>
     </table>
