@@ -8655,7 +8655,7 @@ interface RTCQuicTransport : RTCStatsProvider {
     sequence&lt;ArrayBuffer&gt; getRemoteCertificates ();
     void                  start (RTCQuicParameters remoteParameters);
     void                  stop ();
-    RTCQuicStream         createStream (RTCQuicStreamParameters parameters);
+    RTCQuicStream         createStream ();
                     attribute EventHandler             onstatechange;
                     attribute EventHandler             onerror;
                     attribute EventHandler             onstream;
@@ -8857,9 +8857,10 @@ interface RTCQuicTransport : RTCStatsProvider {
             <dt><dfn><code>createStream</code></dfn></dt>
             <dd>
               <p>Creates an <code><a>RTCQuicStream</a></code> object.
-              The <code><a>RTCQuicStreamParameters</a></code>
-              dictionary can be used to configure properties of the underlying
-              QUIC stream such as data reliability.</p>
+              Since [[QUIC-TRANSPORT]] only supports reliable QUIC streams,
+              <code>createStream</code> only supports creation of reliable
+              streams, properties of the underlying QUIC stream such as
+              data reliability cannot be configured.</p>
               <p>When <code>createStream</code> is called, the user agent MUST run the
               following steps:</p>
               <ol>
@@ -8877,60 +8878,16 @@ interface RTCQuicTransport : RTCStatsProvider {
                   slot initialized to <code>false</code>.</p>
                 </li>
                 <li>
-                  <p>Let <var>stream</var> have a <dfn>[[\MaxPacketLifeTime]]</dfn> internal
-                  slot initialized to <var>parameters</var>'s
-                  <code>maxPacketLifeTime</code> member, if present, otherwise
-                  <code>null</code>.</p>
-                </li>
-                <li>
-                  <p>Let <var>stream</var> have a <dfn>[[\MaxRetransmits]]</dfn> internal slot
-                  initialized to <var>parameter</var>'s <code>maxRetransmits</code>
-                  member, if present, otherwise <code>null</code>.</p>
-                </li>
-                <li>
-                  <p>If both <a>[[\MaxPacketLifeTime]]</a> and
-                  <a>[[\MaxRetransmits]]</a>
-                  attributes are set (not null), <a>throw</a> a
-                  <code>TypeError</code>.</p>
-                </li>
-                <li>
-                  <p>If a setting, either <a>[[\MaxPacketLifeTime]]</a> or
-                  <a>[[\MaxRetransmits]]</a>,
-                  has been set to indicate unreliable mode, and that value
-                  exceeds the maximum value supported by the user agent, the
-                  value MUST be set to the user agents maximum value.</p>
-                </li>
-                <li>
                   <p>Return <var>stream</var> and continue the following steps
                   in the background.</p>
                 </li>
                 <li>
                   <p>Create <var>stream</var>'s associated <a>underlying data
-                  transport</a> and configure it according to the relevant
-                  properties of <var>stream</var>.</p>
+                  transport</a>.</p>
                 </li>
               </ol>
               <div>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">parameters</td>
-                    <td class="prmType"><code><a>RTCQuicStreamParameters</a></code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
+                <em>No parameters.</em>
               </div>
               <div>
                 <em>Return type:</em> <code><a>RTCQuicStream</a></code>
@@ -8963,51 +8920,6 @@ interface RTCQuicTransport : RTCStatsProvider {
             "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span></dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
-            </dd>
-          </dl>
-        </section>
-      </div>
-    </section>
-    <section id="rtcquicstreamparameters*">
-      <h3><dfn>RTCQuicStreamParameters</dfn> Dictionary</h3>
-      <p>The <code>RTCQuicStreamParameters</code> dictionary describes
-      the configuration of the <code><a>RTCQuicStream</a></code>.
-      An <code><a>RTCQuicStream</a></code> can be configured to operate in different
-      reliability modes. A reliable QUIC stream ensures that the data is delivered at the
-      other peer through retransmissions. An unreliable QUIC stream is configured to either
-      limit the number of retransmissions (<code>maxRetransmits</code>) or set a time during which
-      transmissions (including retransmissions) are allowed (<code>maxPacketLifeTime</code>). These
-      properties can not be used simultaneously and an attempt to do so will result in an
-      error. Not setting any of these properties results in a reliable channel.</p>
-      <div>
-        <pre class="idl">dictionary RTCQuicStreamParameters {
-             unsigned long  maxPacketLifetime;
-             unsigned long  maxRetransmits;
-};</pre>
-        <section>
-          <h2>Dictionary <a class="idlType">RTCQuicStreamParameters</a> Members</h2>
-          <dl data-link-for="RTCQuicStreamParameters" data-dfn-for=
-          "RTCQuicStreamParameters" class="dictionary-members">
-            <dt><code>maxPacketLifetime</code> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
-            <dd>
-              <p>The <dfn id=
-              "dom-quicstream-maxpacketlifetime"><code>maxPacketLifetime</code></dfn>
-              attribute represents the length of the time window (in milliseconds) during
-              which retransmissions may occur in unreliable mode. The attribute
-              <em class="rfc2119" title="MUST">MUST</em> return the value to which it was
-              set when the <code><a>RTCQuicStream</a></code> was constructed.</p>
-            </dd>
-            <dt><code>maxRetransmits</code> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
-            <dd>
-              <p>The <dfn id=
-              "dom-quicstream-maxretransmits"><code>maxRetransmits</code></dfn>
-              attribute returns the maximum number of retransmissions that are attempted
-              in unreliable mode. The attribute <em class="rfc2119" title=
-              "MUST">MUST</em> be initialized to null by default and <em class="rfc2119"
-              title="MUST">MUST</em> return the value to which it was set when the
-              <code><a>RTCQuicStream</a></code> was constructed.</p>
             </dd>
           </dl>
         </section>
