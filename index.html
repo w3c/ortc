@@ -8857,10 +8857,9 @@ interface RTCQuicTransport : RTCStatsProvider {
             <dt><dfn><code>createStream</code></dfn></dt>
             <dd>
               <p>Creates an <code><a>RTCQuicStream</a></code> object.
-              Since [[QUIC-TRANSPORT]] only supports reliable QUIC streams,
+              Since [[QUIC-TRANSPORT]] only defines reliable QUIC streams,
               <code>createStream</code> only supports creation of reliable
-              streams, properties of the underlying QUIC stream such as
-              data reliability cannot be configured.</p>
+              streams.</p>
               <p>When <code>createStream</code> is called, the user agent MUST run the
               following steps:</p>
               <ol>
@@ -8876,6 +8875,10 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <li>
                   <p>Let <var>stream</var> have a <dfn>[[\Readable]]</dfn> internal
                   slot initialized to <code>false</code>.</p>
+                </li>
+                <li>
+                  <p>Let <var>stream</var> have a <dfn>[[\QuicStreamState]]</dfn> internal
+                  slot initialized to <code>idle</code>.</p>
                 </li>
                 <li>
                   <p>Return <var>stream</var> and continue the following steps
