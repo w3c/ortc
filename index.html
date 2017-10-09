@@ -3466,6 +3466,12 @@ interface RTCRtpSender : RTCStatsProvider {
                        <var>p</var> with a newly created <code>InvalidParameters</code>.</p></li>
                        <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
                        <code>InvalidParameters</code>.</p></li>
+                       <li><p>Let <var>ssrc</var> be
+                       <code><var>withParameters</var>.encodings[<var>i</var>].ssrc</code>.</p></li>
+                       <li><p>Let <var>dep</var> be
+                       <code><var>withParameters</var>.encodings[<var>i</var>].dependencyEncodingIds</code>.</p></li>
+                       <li><p>If <var>ssrc</var> is set and <var>dep</var> is unset, check that
+                       <var>ssrc</var> is unique. If not, <a>throw</a> a <code>NotSupportedError</code>.</p></li>
                      </ol>
                 </li>
                 <li>
