@@ -5802,23 +5802,15 @@ interface RTCRtpUnhandledEvent : Event {
           </table>
           <div class="note">
             "flexfec" supports both forward error correction and retransmission
-            and unlike RTX [[!RFC4588]] does not consume a payload type for each codec
-            to be retransmitted. If when <code>send(<var>parameters</var>)</code> is
-            called, "flexfec" is specified in 
-            <code><var>parameters</var>.encodings[<var>j</var>].fec.mechanism</code>
-            and <code><var>parameters</var>.encodings[<var>j</var>].rtx</code> is set
-            (for any value of <var>j</var> from 0 to length(encodings) - 1)
-            or "rtx" is included in <code><var>parameters</var>.codecs[<var>k</var>].name</code>
-            (for any value of <var>k</var> from 0 to length(codecs) - 1), then "flexfec"
-            is used for retransmission of encoding <var>j</var>.
-            If when <code>receive(<var>parameters</var>)</code> is
-            called, "flexfec" is specified in
-            <code><var>parameters</var>.encodings[<var>j</var>].fec.mechanism</code>
-            and <code><var>parameters</var>.encodings[<var>j</var>].rtx</code> is set
-            (for any value of <var>j</var> from 0 to length(encodings) - 1)
-            or "rtx" is included in <code><var>parameters</var>.codecs[<var>k</var>].name</code>
-            (for any value of <var>k</var> from 0 to length(codecs) - 1), then
-            encoding <var>j</var> is configured to handle both "flexfec" and "rtx".
+            and unlike RTX [[!RFC4588]] does not consume a payload type for each
+            codec to be retransmitted. Therefore when
+            <code>send(<var>parameters</var>)</code> is called, if both "flexfec"
+            and "rtx" are configured in <var>parameters</var>, then "flexfec" alone
+            is used for encoding (both for FEC and for retransmission) and "rtx"
+            is not used. When <code>receive(<var>parameters</var>)</code> is called, 
+            if both "flexfec" and "rtx" are configured in <var>parameters</var>, then
+            the receiver is configured to decode packets containing either "flexfec"
+            or "rtx".
           </div>
         </section>
       </section>
