@@ -3392,7 +3392,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot is
-                   <code>true</code>,<a>reject</a> <var>p</var> with a newly created
+                   <code>true</code>, <a>reject</a> <var>p</var> with a newly created
                    <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
@@ -3416,25 +3416,47 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
                      <ol>
-                       <li><p>Let <var>name</var> be
-                       <code><var>withParameters</var>.codecs[<var>i</var>].name</code>.</p></li>
-                       <li><p>If <var>name</var> is unset, <a>throw</a> a <code>TypeError</code> and
-                       abort all of these steps.</p></li>
+                       <li><p>Let <var>codec</var> be
+                       <code><var>withParameters</var>.codecs[<var>i</var>]</code>.</p></li>
+                       <li><p>Let <var>clockRate</var> be <code><var>codec</var>.clockRate</code>.</p></li>
+                       <li><p>Let <var>name</var> be <code><var>codec</var>.name</code>.</p></li>
+                       <li><p>If <var>name</var> or <var>clockRate</var> is unset, <a>throw</a>
+                       a <code>TypeError</code> and abort all of these steps.</p></li>
                        <li><p>If <var>name</var> is not equal to "red", "rtx" or a forward
                        error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                        check whether <var>name</var> is equal to
-                       <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>,
-                       where <var>j</var> goes from 0 to the number of codecs.</p></li>
+                       <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code> and
+                       <var>clockRate</var> is equal to
+                       <code>getCapabilities(track.kind).codecs[<var>j</var>].clockRate</code>
+                       for any value of <var>j</var> from 0 to the number of codecs.</p></li>
+                       <li><p>If a match is found for a value of <var>j</var>, check that:
+                         <ol>
+                           <li><p><code><var>codec</var>.channels</code> is less than or equal to
+                           <code>getCapabilities(track.kind).codecs[<var>j</var>].channels</code>.
+                           If not, <a>reject</a> <var>p</var> with a newly created
+                           <code>NotSupportedError</code>.</p></li>
+                           <li><p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>]</code>
+                           is included in <code>getCapabilities(track.kind).codecs[<var>j</var>].rtcpFeedback</code>
+                           where <var>k</var> goes from 0 to the number of feedback mechanisms.
+                           If not, <a>reject</a> <var>p</var> with a newly created
+                           <code>NotSupportedError</code>.</p></li>
+                           <li><p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
+                           is a valid value as indicated by <code>getCapabilities(track.kind).codecs[<var>j</var>].parameters</code>
+                           where <var>k</var> goes from 0 to the number of feedback mechanisms.
+                           If not, <a>reject</a> <var>p</var> with a newly created
+                           <code>NotSupportedError</code>.</p></li>
+                         </ol>
+                       </li>
                        <li><p>If a match is not found for any value of <var>j</var>,
-                       <a>reject<a> <var>p</var> with a newly created <code>TypeError</code>.</p></li>
+                       <a>reject</a> <var>p</var> with a newly created <code>TypeError</code>.</p></li>
                   </ol>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of encodings:</p>
                      <ol>
-                       <li><p>Let <var>pt</var> be
+                       <li><p>Let <var>payloadType</var> be
                        <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>.</p></li>
-                       <li><p>If <var>pt</var> is set, check whether <var>pt</var> is equal to
+                       <li><p>If <var>payloadType</var> is set, check whether <var>payloadType</var> is equal to
                        <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code>
                        for values of <var>j</var> from 0 to the number of codecs. If a match is
                        found for any value of <var>j</var>, check whether
