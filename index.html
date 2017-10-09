@@ -6085,6 +6085,18 @@ interface RTCRtpUnhandledEvent : Event {
               </tr>
             </tbody>
           </table>
+          <div class="note">
+            "flexfec" supports both forward error correction and retransmission
+            and unlike RTX [[!RFC4588]] does not consume a payload type for each
+            codec to be retransmitted. Therefore when
+            <code>send(<var>parameters</var>)</code> is called, if both "flexfec"
+            and "rtx" are configured in <var>parameters</var>, then "flexfec" alone
+            is used for encoding (both for FEC and for retransmission) and "rtx"
+            is not used. When <code>receive(<var>parameters</var>)</code> is called, 
+            if both "flexfec" and "rtx" are configured in <var>parameters</var>, then
+            the receiver is configured to decode packets containing either "flexfec"
+            or "rtx".
+          </div>
         </section>
       </section>
     </section>
