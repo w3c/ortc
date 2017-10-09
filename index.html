@@ -3390,54 +3390,65 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
-                <li>If <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot is <code>true</code>,
-                <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</li>
                 <li>
-                  <p>If <code><var>sender</var>.transport</code> is unset,
-                  <a>reject</a> <var>p</var> with a newly created
-                  <code>TypeError</code>.</p>
+                  <p>If <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot is
+                   <code>true</code>,<a>reject</a> <var>p</var> with a newly created
+                   <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>If <code><var>sender</var>.transport</code> is unset, <a>reject</a>
+                  <var>p</var> with a newly created <code>TypeError</code>.</p>
+                </li>
+                <li>
+                  <p>If <code>rtcpTransport</code> is unset and
+                  <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
+                  <a>reject</a> <var>p</var> with a newly created <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
                 </li>
                 <li>
-                  <p>If <var>withParameters</var> is invalid due to SSRC misusage or
-                  other reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
-                </li>
-                <li>
-                  <p>If <code>rtcpTransport</code> is not set and
-                  <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
-                  <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
-                </li>
-                <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
-                  set. If any value is unset, <a>reject</a> <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  set. If any value is unset, <a>reject</a> <var>p</var> with a newly created
+                  <code>TypeError</code>.</p>
                 </li>
                 <li>
-                  <p>For each value of <var>i</var> from 0 to the number of encodings,
-                  check whether
-                  <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>
-                  (if set) corresponds to a value of
-                  <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code> where
-                  <var>j</var> goes from 0 to the number of codecs. If there is no
-                  correspondence, or if
-                  <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
-                  "red", "cn", "telephone-event", "rtx" or a forward error correction
-                  codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]), <a>reject</a> <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
+                     <ol>
+                       <li><p>Let <var>name</var> be
+                       <code><var>withParameters</var>.codecs[<var>i</var>].name</code>.</p></li>
+                       <li><p>If <var>name</var> is unset, <a>throw</a> a <code>TypeError</code> and
+                       abort all of these steps.</p></li>
+                       <li><p>If <var>name</var> is not equal to "red", "rtx" or a forward
+                       error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
+                       check whether <var>name</var> is equal to
+                       <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>,
+                       where <var>j</var> goes from 0 to the number of codecs.</p></li>
+                       <li><p>If a match is not found for any value of <var>j</var>,
+                       <a>reject<a> <var>p</var> with a newly created <code>TypeError</code>.</p></li>
+                  </ol>
                 </li>
                 <li>
-                  <p>For each value of <var>i</var> from 0 to the number of codecs, check
-                  that each value of
-                  <code><var>withParameters</var>.codecs[<var>i</var>].name</code> not equal to
-                  "red", "rtx" or a forward error correction codec ("ulpfec" [[RFC5109]]
-                  or "flexfec" [[FLEXFEC]]), is included in
-                  <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code>,
-                  where <var>j</var> goes from 0 to the number of codecs. If a match is
-                  not found for any value of <var>i</var>, <a>reject</a> <var>p</var> with
-                  <code>InvalidParameters</code>.</p>
+                  <p>For each value of <var>i</var> from 0 to the number of encodings:</p>
+                     <ol>
+                       <li><p>Let <var>pt</var> be
+                       <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>.</p></li>
+                       <li><p>If <var>pt</var> is set, check whether <var>pt</var> is equal to
+                       <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code>
+                       for values of <var>j</var> from 0 to the number of codecs. If a match is
+                       found for any value of <var>j</var>, check whether
+                       <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
+                       "red", "cn", "telephone-event", "rtx" or a forward error correction codec
+                       ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]).  If so, <a>reject</a>
+                       <var>p</var> with a newly created <code>InvalidParameters</code>.</p></li>
+                       <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
+                       <code>InvalidParameters</code>.</p></li>
+                     </ol>
+                </li>
+                <li>
+                  <p>If <var>withParameters</var> is invalid due to SSRC misusage or
+                  other reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
                   <p>Run the following steps:</p>
