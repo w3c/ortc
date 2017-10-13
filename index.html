@@ -9306,7 +9306,6 @@ interface RTCStatsReport {
 interface RTCQuicStream {
     readonly        attribute RTCQuicTransport    transport;
     readonly        attribute RTCQuicStreamState  state;
-    readonly        attribute unsigned long       bufferedAmount;
     void                  close ();
     void                  write (ArrayBuffer data);
     ArrayBuffer           read ();
@@ -9329,23 +9328,6 @@ interface RTCQuicStream {
               <em class="rfc2119" title="MUST">MUST</em> return the value to which the
               <a>user agent</a> last set it (as defined by the processing model algorithms).</p>
             </dd>
-            <dt><code>bufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
-            long</a></span>, readonly</dt>
-            <dd>
-              <p>The <dfn id=
-              "dom-quicstream-bufferedamount"><code>bufferedAmount</code></dfn>
-              attribute <em class="rfc2119" title="MUST">MUST</em> return the number of
-              bytes of application data that have been
-              queued using write() but that, as of the last time the event loop started
-              executing a task, had not yet been transmitted to the network. This
-              includes any data sent during the execution of the current task, regardless
-              of whether the <a>user agent</a> is able to transmit text asynchronously with
-              script execution. This does not include framing overhead incurred by the
-              protocol, or buffering done by the operating system or network hardware. If
-              the QUIC stream is closed, this attribute's value will only increase with each
-              call to the write() method (the attribute does not reset to zero once the
-              QUIC stream closes).</p>
-            </dd>
             <dt><dfn><code>onstatechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
@@ -9354,7 +9336,8 @@ interface RTCQuicStream {
               be fired any time the <code><a>RTCQuicStreamState</a></code>
               changes.</p>
             </dd>
-                  </section>
+          </dl>
+       </section>
        <section>
           <h2>Methods</h2>
           <dl data-link-for="RTCQuicStream" data-dfn-for="RTCQuicStream" class=
@@ -9442,6 +9425,7 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>ArrayBuffer</code>
               </div>
             </dd>
+        </dl>
       </section>
       </div>
     </section>
