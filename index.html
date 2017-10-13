@@ -9298,6 +9298,279 @@ interface RTCStatsReport {
         </section>
       </div>
     </section>
+    <section id="rtcquicstream-interface-definition*">
+      <h3>Interface Definition</h3>
+      <div>
+        <pre class="idl">
+        [ Exposed=Window ]
+interface RTCQuicStream {
+    readonly        attribute RTCQuicTransport    transport;
+    readonly        attribute RTCQuicStreamState  state;
+    readonly        attribute unsigned long       bufferedAmount;
+    void                  close ();
+    void                  write (ArrayBuffer data);
+    ArrayBuffer           read ();
+                    attribute EventHandler        onstatechange;
+};</pre>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="RTCQuicStream" data-dfn-for="RTCQuicStream" class=
+          "attributes">
+            <dt><dfn><code>transport</code></dfn> of type <span class=
+            "idlAttrType"><a>RTCQuicTransport</a></span>, readonly</dt>
+            <dd>
+              <p>The readonly attribute referring to the related <code><a>RTCQuicTransport</a></code> object.</p>
+            </dd>
+            <dt><code>state</code> of type <span class=
+            "idlAttrType"><a>RTCQuicStreamState</a></span>, readonly</dt>
+            <dd>
+              <p>The <dfn id="dom-quicstream-state"><code>state</code></dfn>
+              attribute represents the state of the <a>RTCQuicStream</a> object. It
+              <em class="rfc2119" title="MUST">MUST</em> return the value to which the
+              <a>user agent</a> last set it (as defined by the processing model algorithms).</p>
+            </dd>
+            <dt><code>bufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
+            long</a></span>, readonly</dt>
+            <dd>
+              <p>The <dfn id=
+              "dom-quicstream-bufferedamount"><code>bufferedAmount</code></dfn>
+              attribute <em class="rfc2119" title="MUST">MUST</em> return the number of
+              bytes of application data that have been
+              queued using write() but that, as of the last time the event loop started
+              executing a task, had not yet been transmitted to the network. This
+              includes any data sent during the execution of the current task, regardless
+              of whether the <a>user agent</a> is able to transmit text asynchronously with
+              script execution. This does not include framing overhead incurred by the
+              protocol, or buffering done by the operating system or network hardware. If
+              the QUIC stream is closed, this attribute's value will only increase with each
+              call to the write() method (the attribute does not reset to zero once the
+              QUIC stream closes).</p>
+            </dd>
+            <dt><dfn><code>onstatechange</code></dfn> of type <span class=
+            "idlAttrType"><a>EventHandler</a></span></dt>
+            <dd>
+              <p>This event handler, of event handler event type
+              <code><a>statechange</a></code>, <em class="rfc2119" title="MUST">MUST</em>
+              be fired any time the <code><a>RTCQuicStreamState</a></code>
+              changes.</p>
+            </dd>
+                  </section>
+       <section>
+          <h2>Methods</h2>
+          <dl data-link-for="RTCQuicStream" data-dfn-for="RTCQuicStream" class=
+          "methods">
+            <dt><dfn><code>close</code></dfn></dt>
+            <dd>
+              <p>Closes the <code><a>RTCQuicStream</a></code>. It may be called regardless of whether
+              the <code><a>RTCQuicStream</a></code> object was created by this peer or
+              the remote peer. When the <code>close()</code> method is called, the user
+              agent <em class="rfc2119" title="MUST">MUST</em> run the following
+              steps:</p>
+              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object which is about to be
+              closed.</p>
+              <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or <code>closed</code>, then abort
+              these steps.</p>
+              <p>3. Set <var>stream</var>'s <code>state</code> attribute to <code>closing</code>.</p>
+              <p>4. If the closing procedure has not started yet, start it.</p>
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>void</code>
+              </div>
+            </dd>
+            <dt><dfn><code>write</code></dfn></dt>
+            <dd>
+              <p>When the <code>write</code> method is called, the <a>user agent</a> MUST run the
+              following steps:</p>
+              <ol>
+               <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code>
+               object on which data is to be sent.</li>
+               <li>If <var>stream</var>'s <code>state</code> attribute is not <code>open</code>,
+               <a>throw</a> an <code>InvalidStateError</code>.</li>
+               <li>Let <var>data</var> be the data stored in the section of the
+               buffer described by the <code>ArrayBuffer</code> object that the
+               <code>ArrayBufferView</code> object references and increase the
+               <code><a>bufferedAmount</a></code> attribute by the length of the
+               <code>ArrayBufferView</code> in bytes.</li>
+               <li>Queue <var>data</var> for transmission on <var>stream</var>'s
+               underlying data transport. If queuing <var>data</var> is not
+               possible because not enough buffer space is available, <a>throw</a>
+               an <code>OperationError</code>.</p>
+               <div class="note">The actual transmission of data occurs in
+               parallel. If sending data leads to a QUIC-level error, the
+               application will be notified asynchronously through the
+               <code><a>RTCQuicTransport</a></code>'s <code><a>onerror</a></code>.</div></li>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">data</td>
+                    <td class="prmType"><code>ArrayBuffer</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>void</code>
+              </div>
+            </dd>
+            <dt><dfn><code>read</code></dfn></dt>
+            <dd>
+              <p>Reads from <code><a>RTCQuicStream</a></code>. When the <code>read()</code> method is called,
+              the user agent <em class="rfc2119" title="MUST">MUST</em> run the following
+              steps:</p>
+              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object on which <code>read()</code>
+              is invoked.</p>
+              <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or <code>closed</code>, then abort
+              these steps.</p>
+              <p>3. If <var>stream</var>'s <a>[[\Readable]]</a> slot is <code>false</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>ArrayBuffer</code>
+              </div>
+            </dd>
+      </section>
+      </div>
+    </section>
+    <section id="rtcquicstreamstate*">
+      <h2><dfn>RTCQuicStreamState</dfn> Enum</h2>
+      <p>The <code>RTCQuicStreamState</code> provides information
+      on the state of the QUIC stream.</p>
+      <div>
+        <pre class="idl">enum RTCQuicStreamState {
+    "idle",
+    "open",
+    "closing",
+    "closed"
+};</pre>
+        <table data-link-for="RTCQuicStreamState" data-dfn-for="RTCQuicStreamState"
+        class="simple">
+          <tbody>
+            <tr>
+              <th colspan="2">Enumeration description</th>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-RTCQuicStreamState.idle">idle</code></dfn></td>
+              <td>
+                <p>The <a>user agent</a> is attempting to establish the underlying stream
+                transport. This is the initial state of an
+                <code><a>RTCQuicStream</a></code> object.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id="idl-def-RTCQuicStreamState.open">open</code></dfn></td>
+              <td>
+                <p>The underlying QUIC stream is established and communication is
+                possible. This is the initial state of an
+                <code><a>RTCQuicStream</a></code> object dispatched as a part of an
+                <code>RTCQuicStreamEvent</code>.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-RTCQuicStreamState.closing">closing</code></dfn></td>
+              <td>
+                <p>The procedure to close down the QUIC stream has started.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id=
+              "idl-def-RTCQuicStreamState.closed">closed</code></dfn></td>
+              <td>
+                <p>The QUIC stream has been closed or could not be established.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section>
+      <h3><dfn>RTCQuicStreamReceivedEvent</dfn></h3>
+      <p>The <code><a href="#event-received">received</a></code> event uses the
+      <code><a>RTCQuicStreamReceivedEvent</a></code> interface.</p>
+      <p>Firing a received event named <var>e</var> means that an event with the
+      name <var>e</var>, which does not bubble (except where otherwise stated) and is not
+      cancelable (except where otherwise stated), and which uses the
+      <code><a>RTCQuicStreamReceivedEvent</a></code> interface
+      MUST be created and dispatched at the given target.</p>
+      <div>
+        <pre class="idl">
+        [ Constructor (DOMString type, RTCQuicStreamReceivedEventInit eventInitDict), Exposed=Window]
+interface RTCQuicStreamReceivedEvent : Event {
+};</pre>
+        <section>
+          <h2>Constructors</h2>
+          <dl data-link-for="RTCQuicStreamReceivedEvent" data-dfn-for="RTCQuicStreamReceivedEvent"
+          class="constructors">
+            <dt><code>RTCQuicStreamReceivedEvent</code></dt>
+            <dd>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">type</td>
+                    <td class="prmType"><code>DOMString</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                  <tr>
+                    <td class="prmName">eventInitDict</td>
+                    <td class="prmType"><code><a>RTCQuicStreamReceivedEventInit</a></code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="RTCQuicStreamReceivedEvent" data-dfn-for="RTCQuicStreamReceivedvent"
+          class="attributes">
+          </dl>
+        </section>
+      </div>
+      <div>
+          <p>The <dfn><code>RTCQuicStreamReceivedEventInit</code></dfn> dictionary includes
+          information on the read configuration of the QUIC stream.</p>
+        <pre class="idl">dictionary RTCQuicStreamReceivedEventInit : EventInit {
+};</pre>
+        <section>
+          <h2>Dictionary RTCQuicStreamReceivedEventInit Members</h2>
+          <dl data-link-for="RTCQuicStreamReceivedEventInit" data-dfn-for=
+          "RTCQuicStreamReceivedEventInit" class="dictionary-members">
+          </dl>
+        </section>
+      </div>
+    </section>
+  </section>
     <section>
       <h4><dfn>RTCStats</dfn> Dictionary</h4>
       <p>An <code>RTCStats</code> dictionary represents the stats gathered by
