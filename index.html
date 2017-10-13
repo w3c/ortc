@@ -8873,10 +8873,6 @@ interface RTCQuicTransport : RTCStatsProvider {
                   <code><a>RTCQuicStream</a></code> object.</p>
                 </li>
                 <li>
-                  <p>Let <var>stream</var> have a <dfn>[[\Readable]]</dfn> internal
-                  slot initialized to <code>false</code>.</p>
-                </li>
-                <li>
                   <p>Let <var>stream</var> have a <dfn>[[\QuicStreamState]]</dfn> internal
                   slot initialized to <code>idle</code>.</p>
                 </li>
@@ -8885,8 +8881,8 @@ interface RTCQuicTransport : RTCStatsProvider {
                   in the background.</p>
                 </li>
                 <li>
-                  <p>Create <var>stream</var>'s associated <a>underlying data
-                  transport</a>.</p>
+                  <p>Create <var>stream</var>'s associated underlying data
+                  transport.</p>
                 </li>
               </ol>
               <div>
