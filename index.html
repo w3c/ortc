@@ -9307,8 +9307,8 @@ interface RTCQuicStream {
     readonly        attribute RTCQuicTransport    transport;
     readonly        attribute RTCQuicStreamState  state;
     void                  close ();
-    void                  write (ArrayBuffer data);
-    ArrayBuffer           read ();
+    void                  write (Uint8Array data);
+    Uint8Array            read ();
                     attribute EventHandler        onstatechange;
 };</pre>
         <section>
@@ -9372,10 +9372,7 @@ interface RTCQuicStream {
                <li>If <var>stream</var>'s <code>state</code> attribute is not <code>open</code>,
                <a>throw</a> an <code>InvalidStateError</code>.</li>
                <li>Let <var>data</var> be the data stored in the section of the
-               buffer described by the <code>ArrayBuffer</code> object that the
-               <code>ArrayBufferView</code> object references and increase the
-               <code><a>bufferedAmount</a></code> attribute by the length of the
-               <code>ArrayBufferView</code> in bytes.</li>
+               buffer described by the <code>Uint8Array</code> object.</li>
                <li>Queue <var>data</var> for transmission on <var>stream</var>'s
                underlying data transport. If queuing <var>data</var> is not
                possible because not enough buffer space is available, <a>throw</a>
