@@ -9392,7 +9392,7 @@ interface RTCQuicStream {
                   </tr>
                   <tr>
                     <td class="prmName">data</td>
-                    <td class="prmType"><code>ArrayBuffer</code></td>
+                    <td class="prmType"><code>Uint8Array</code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -9412,14 +9412,15 @@ interface RTCQuicStream {
               steps:</p>
               <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object on which <code>read()</code>
               is invoked.</p>
-              <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or <code>closed</code>, then abort
+              <p>2. If <var>stream</var>'s <code>state</code> is <code>closing</code> or <code>closed</code>, then abort
               these steps.</p>
-              <p>3. If <var>stream</var>'s <a>[[\Readable]]</a> slot is <code>false</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
+              <p>3. If <var>stream</var>'s <a>[[\Readable]]</a> slot is <code>false</code>, <a>throw</a> an
+              <code>InvalidStateError</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>ArrayBuffer</code>
+                <em>Return type:</em> <code>Uint8Array</code>
               </div>
             </dd>
         </dl>
