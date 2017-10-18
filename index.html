@@ -4710,9 +4710,12 @@ mySignaller.myOfferTracks({
       header, as well as the value of the <a>MID</a> RTP header extension, if present.
       If the <code><a>RTCRtpReceiver</a></code> object to deliver the RTP packet to
       cannot be determined, the <code><a>unhandledrtp</a></code> event is fired.</p>
-      <p>[[!BUNDLE]] Section 10.2 describes the algorithm for routing of RTP packets,
-      based on tables containing SSRC, PT and MID entries. In ORTC, table entries
-      referencing the <code><a>RTCRtpReceiver</a></code> object <code><var>receiver</var></code>
+      <p>[[!BUNDLE]] Section 10.2 describes the algorithm for routing of RTP packets
+      to the <code><a>RTCRtpSender</a></code>/<code><a>RTCRtpReceiver</a></code> pair
+      representing an SDP m-line, based on tables containing SSRC, PT and MID entries. 
+      based on tables containing SSRC, PT and MID entries.</p>
+      <p>In ORTC, table entries referencing the
+      <code><a>RTCRtpReceiver</a></code> object <code><var>receiver</var></code>
       are added when <code><var>receiver</var>.receive(<var>parameters</var>)</code>
       is called. When <code><var>receiver</var>.receive(<var>parameters</var>)</code> is
       called again, changes are made to table entries. When <code><var>receiver</var>.stop</code>
@@ -4723,12 +4726,9 @@ mySignaller.myOfferTracks({
       this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
       <section class="informative" id="rtppackethandling*">
       <h4>ORTC routing rules</h4> 
-      <p>[[!BUNDLE]] Section 10.2 describes how RTP packets are routed to the
-      <code><a>RTCRtpSender</a></code>/<code><a>RTCRtpReceiver</a></code> pair
-      representing an SDP m-line. Since ORTC does not utilize SDP,
-      this section provides a (non-normative) example of how the
-      <code><a>RTCRtpListener</a></code> can maintain the receiver tables used
-      in the algorithm: the <code>ssrc_table</code> which maps SSRC values to
+      <p>Since ORTC does not utilize SDP, this section provides a (non-normative) example
+      of how the <code><a>RTCRtpListener</a></code> can maintain the tables described in
+      [[!BUNDLE]] Section 10.2: the <code>ssrc_table</code> which maps SSRC values to
       <code><a>RTCRtpReceiver</a></code> objects, the <code>muxId_table</code> which maps
       values of the <a>MID</a> header extension to <code><a>RTCRtpReceiver</a></code>
       objects and the <code>pt_table</code> which maps payload type values to
