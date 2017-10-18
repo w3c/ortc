@@ -9308,7 +9308,7 @@ interface RTCQuicStream {
     readonly        attribute RTCQuicStreamState  state;
     void                  close ();
     void                  write (Uint8Array data);
-    Uint8Array            read ();
+    void                  readInto (Uint8Array data);
                     attribute EventHandler        onstatechange;
 };</pre>
         <section>
@@ -9344,17 +9344,18 @@ interface RTCQuicStream {
           "methods">
             <dt><dfn><code>close</code></dfn></dt>
             <dd>
-              <p>Closes the <code><a>RTCQuicStream</a></code>. It may be called regardless of whether
-              the <code><a>RTCQuicStream</a></code> object was created by this peer or
-              the remote peer. When the <code>close()</code> method is called, the user
-              agent <em class="rfc2119" title="MUST">MUST</em> run the following
-              steps:</p>
-              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object which is about to be
-              closed.</p>
-              <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or <code>closed</code>, then abort
-              these steps.</p>
+              <p>Closes the <code><a>RTCQuicStream</a></code>. It may be called
+              regardless of whether the <code><a>RTCQuicStream</a></code> object
+              was created by the local or remote peer. When the <code>close()</code>
+              method is called, the user agent <em class="rfc2119" title="MUST">MUST</em>
+              run the following steps:</p>
+              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
+              which is about to be closed.</p>
+              <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or
+              <code>closed</code>, then abort these steps.</p>
               <p>3. Set <var>stream</var>'s <code>state</code> attribute to <code>closing</code>.</p>
-              <p>4. If the closing procedure has not started yet, start it.</p>
+              <p>4. If the closing procedure has not started yet, start it by sending a STREAM
+              frame with the FIN bit set.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -9374,13 +9375,12 @@ interface RTCQuicStream {
                <li>Let <var>data</var> be the data stored in the section of the
                buffer described by the <code>Uint8Array</code> object.</li>
                <li>Queue <var>data</var> for transmission on <var>stream</var>'s
-               underlying data transport. If queuing <var>data</var> is not
-               possible because not enough buffer space is available, <a>throw</a>
-               an <code>OperationError</code>.</p>
+               underlying data transport.
                <div class="note">The actual transmission of data occurs in
                parallel. If sending data leads to a QUIC-level error, the
                application will be notified asynchronously through the
                <code><a>RTCQuicTransport</a></code>'s <code><a>onerror</a></code>.</div></li>
+              </ol>
               <table class="parameters">
                 <tbody>
                   <tr>
@@ -9405,22 +9405,40 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>read</code></dfn></dt>
+            <dt><dfn><code>readInto</code></dfn></dt>
             <dd>
-              <p>Reads from <code><a>RTCQuicStream</a></code>. When the <code>read()</code> method is called,
+              <p>Reads from <code><a>RTCQuicStream</a></code> into the buffer specified
+              by the first argument. When the <code>readInto()</code> method is called,
               the user agent <em class="rfc2119" title="MUST">MUST</em> run the following
               steps:</p>
-              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object on which <code>read()</code>
-              is invoked.</p>
-              <p>2. If <var>stream</var>'s <code>state</code> is <code>closing</code> or <code>closed</code>, then abort
-              these steps.</p>
+              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object on which
+              <code>readInto()</code> is invoked.</p>
+              <p>2. If <var>stream</var>'s <code>state</code> is <code>closing</code> or <code>closed</code>,
+              then abort these steps.</p>
               <p>3. If <var>stream</var>'s <a>[[\Readable]]</a> slot is <code>false</code>, <a>throw</a> an
               <code>InvalidStateError</code>.</p>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">data</td>
+                    <td class="prmType"><code>Uint8Array</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
               <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>Uint8Array</code>
+                <em>Return type:</em> <code>void</code>
               </div>
             </dd>
         </dl>
@@ -9433,8 +9451,9 @@ interface RTCQuicStream {
       on the state of the QUIC stream.</p>
       <div>
         <pre class="idl">enum RTCQuicStreamState {
-    "idle",
+    "new",
     "open",
+    "opening",
     "closing",
     "closed"
 };</pre>
@@ -9446,18 +9465,28 @@ interface RTCQuicStream {
             </tr>
             <tr>
               <td><dfn><code id=
-              "idl-def-RTCQuicStreamState.idle">idle</code></dfn></td>
+              "idl-def-RTCQuicStreamState.new">new</code></dfn></td>
               <td>
-                <p>The <a>user agent</a> is attempting to establish the underlying stream
-                transport. This is the initial state of an
-                <code><a>RTCQuicStream</a></code> object.</p>
+                <p>The <a>user agent</a> has not yet attempted to
+                establish the underlying stream transport.  This is
+                the initial state of an
+                <code><a>RTCQuicStream</a></code> object, corresponding
+                to the "idle" state in [[QUIC-TRANSPORT]] Section 10.2.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn><code id="idl-def-RTCQuicStreamState.opening">opening</code></dfn></td>
+              <td>
+                <p>The underlying QUIC stream has sent a STREAM frame, but has
+                not yet received an acknowledgement.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCQuicStreamState.open">open</code></dfn></td>
               <td>
-                <p>The underlying QUIC stream is established and communication is
-                possible. This is the initial state of an
+                <p>The underlying QUIC stream has received a STREAM, MAX_STREAM_DATA or
+                STREAM_BLOCKED frame, or has sent a STREAM frame and received an acknowledgement,
+                as described in [[QUIC-TRANSPORT]] Section 10.2. This is the initial state of an
                 <code><a>RTCQuicStream</a></code> object dispatched as a part of an
                 <code>RTCQuicStreamEvent</code>.</p>
               </td>
@@ -9466,14 +9495,23 @@ interface RTCQuicStream {
               <td><dfn><code id=
               "idl-def-RTCQuicStreamState.closing">closing</code></dfn></td>
               <td>
-                <p>The procedure to close down the QUIC stream has started.</p>
+                <p>The procedure to close down the QUIC stream has started.
+                The underlying QUIC stream has sent a RST_STREAM frame or
+                has set the FIN flag in a STREAM frame, but has not yet
+                received a RST_STREAM frame or a STREAM frame with the FIN
+                flag set. Alternatively, the QUIC stream has received a
+                RST_STREAM frame or a STREAM frame with the FIN flag set,
+                but has not yet replied.  This corresponds to the
+                "half closed" states described in [[QUIC-TRANSPORT]].</li>
               </td>
             </tr>
             <tr>
               <td><dfn><code id=
               "idl-def-RTCQuicStreamState.closed">closed</code></dfn></td>
               <td>
-                <p>The QUIC stream has been closed or could not be established.</p>
+                <p>The QUIC stream has been closed or could not be established.
+                This corresponds to the "closed" state in [[QUIC-TRANSPORT]]
+                Section 10.2.</p>
               </td>
             </tr>
           </tbody>
