@@ -9177,126 +9177,19 @@ function accept(mySignaller, remote) {
                 </pre>
     </section>
   </section>
-  <section>
-    <h3>Statistics API</h3>
-    <p>The Statistics API enables retrieval of statistics relating to
-    <code><a>RTCRtpSender</a></code>, <code><a>RTCRtpReceiver</a></code>,
-    <code><a>RTCDtlsTransport</a></code>, <code><a>RTCIceGatherer</a></code>,
-    <code><a>RTCIceTransport</a></code> and <code><a>RTCSctpTransport</a></code> objects.
-    For detailed information on the Statistics API, consult [[!WEBRTC-STATS]].</p>
-    <div>
-      <p>The <dfn><code>RTCStatsProvider</code></dfn> interface enables the retrieval of statistics.</p>
-      <pre class="idl">interface RTCStatsProvider {
-    Promise&lt;RTCStatsReport&gt; getStats ();
-};</pre>
-      <section>
-        <h2>Methods</h2>
-        <dl data-link-for="RTCStatsProvider" data-dfn-for="RTCStatsProvider" class=
-        "methods">
-          <dt><code>getStats</code></dt>
-          <dd>
-            <p>Gathers stats for the given object and reports the result asynchronously.
-            If the object has not yet begun to send or receive data, the returned stats
-            will reflect this. If the object is in the closed state, the returned stats
-            will reflect the stats at the time the object transitioned to the closed
-            state.</p>
-            <p>When the <dfn><code>getStats</code></dfn> method is invoked, the <a>user agent</a> MUST
-            queue a task to run the following steps:</p>
-            <ol>
-              <li>
-                <p>Let <var>p</var> be a new promise.</p>
-              </li>
-              <li>
-                <p>Return, but continue the following steps in the background.</p>
-              </li>
-              <li>
-                <p>Start gathering the stats.</p>
-              </li>
-              <li>
-                <p>When the relevant stats have been gathered, return a new
-                <code><a>RTCStatsReport</a></code> object, representing the gathered
-                stats.</p>
-              </li>
-            </ol>
-            <div>
-              <em>No parameters.</em>
-            </div>
-            <div>
-              <em>Return type:</em>
-              <code>Promise</code>&lt;<code><a>RTCStatsReport</a></code>&gt;
-            </div>
-          </dd>
-        </dl>
-      </section>
-    </div>
-    <section>
-      <h4><dfn>RTCStatsReport</dfn> Interface</h4>
-      <p>The <code>getStats()</code> method delivers a successful result in the
-      form of a <code>RTCStatsReport</code> object. An
-      <code>RTCStatsReport</code> represents a map between strings,
-      identifying the inspected objects (<a href="#dom-rtcstats-id">RTCStats.id</a>), and
-      their corresponding <code><a>RTCStats</a></code> objects.</p>
-      <p>An <code>RTCStatsReport</code> may be composed of several
-      <code><a>RTCStats</a></code> objects, each reporting stats for one underlying
-      object. One achieves the total for the object by summing over all stats of a
-      certain type; for instance, if an <code><a>RTCRtpSender</a></code> object is
-      sending RTP streams involving multiple SSRCs over the network, the
-      <code><a>RTCStatsReport</a></code> may contain one <code>RTCStats</code> object per
-      SSRC (which can be distinguished by the value of the <var>ssrc</var> stats
-      attribute).</p>
-      <div>
-        <pre class="idl">[Exposed=Window]
-interface RTCStatsReport {
-    readonly maplike&lt;DOMString, object&gt;;
-};</pre>
-        <p>This interface has "entries", "forEach", "get", "has", "keys",
-        "values", @@iterator methods and a "size" getter brought by
-        <code>readonly maplike</code>.</p>
-        <p>Use these to retrieve the various dictionaries descended from
-        <code><a>RTCStats</a></code> that this stats report is composed of. The
-        set of supported property names [[!WEBIDL-1]] is defined as the ids of
-        all the <code><a>RTCStats</a></code>-derived dictionaries that have
-        been generated for this stats report.</p>
-      </div>
-        <section>
-          <h2>Methods</h2>
-          <dl data-link-for="RTCStatsReport" data-dfn-for="RTCStatsReport" class=
-          "methods">
-            <dt><code>RTCStats</code></dt>
-            <dd>
-              <p>Getter to retrieve the <code><a>RTCStats</a></code> objects that this
-              stats report is composed of.</p>
-              <p>The set of supported property names [[!WEBIDL]] is defined as the ids of
-              all the <code><a>RTCStats</a></code> objects that has been generated for
-              this stats report. The order of the property names is left to the user
-              agent.</p>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">id</td>
-                    <td class="prmType"><code>DOMString</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>getter</code>
-              </div>
-            </dd>
-          </dl>
-        </section>
-      </div>
+  <section id="quicstream*">
+    <h2><dfn>RTCQuicStream</dfn> Interface</h2>
+    <p>The <code>RTCQuicStream</code> includes information relating
+    to a QUIC stream.</p>
+    <section id="rtcquicstream-overview*">
+      <h3>Overview</h3>
+      <p>An <code><a>RTCQuicStream</a></code> instance is associated to
+      an <code><a>RTCQuicTransport</a></code> instance.</p>
+    </section>
+    <section id="rtcquicstream-operation*">
+      <h3>Operation</h3>
+      <p>An <code><a>RTCQuicStream</a></code> instance is constructed
+      using the <code><a>RTCQuicTransport</a>.createStream</code> method.</p>
     </section>
     <section id="rtcquicstream-interface-definition*">
       <h3>Interface Definition</h3>
@@ -9591,6 +9484,127 @@ interface RTCQuicStreamReceivedEvent : Event {
       </div>
     </section>
   </section>
+  <section>
+    <h3>Statistics API</h3>
+    <p>The Statistics API enables retrieval of statistics relating to
+    <code><a>RTCRtpSender</a></code>, <code><a>RTCRtpReceiver</a></code>,
+    <code><a>RTCDtlsTransport</a></code>, <code><a>RTCIceGatherer</a></code>,
+    <code><a>RTCIceTransport</a></code> and <code><a>RTCSctpTransport</a></code> objects.
+    For detailed information on the Statistics API, consult [[!WEBRTC-STATS]].</p>
+    <div>
+      <p>The <dfn><code>RTCStatsProvider</code></dfn> interface enables the retrieval of statistics.</p>
+      <pre class="idl">interface RTCStatsProvider {
+    Promise&lt;RTCStatsReport&gt; getStats ();
+};</pre>
+      <section>
+        <h2>Methods</h2>
+        <dl data-link-for="RTCStatsProvider" data-dfn-for="RTCStatsProvider" class=
+        "methods">
+          <dt><code>getStats</code></dt>
+          <dd>
+            <p>Gathers stats for the given object and reports the result asynchronously.
+            If the object has not yet begun to send or receive data, the returned stats
+            will reflect this. If the object is in the closed state, the returned stats
+            will reflect the stats at the time the object transitioned to the closed
+            state.</p>
+            <p>When the <dfn><code>getStats</code></dfn> method is invoked, the <a>user agent</a> MUST
+            queue a task to run the following steps:</p>
+            <ol>
+              <li>
+                <p>Let <var>p</var> be a new promise.</p>
+              </li>
+              <li>
+                <p>Return, but continue the following steps in the background.</p>
+              </li>
+              <li>
+                <p>Start gathering the stats.</p>
+              </li>
+              <li>
+                <p>When the relevant stats have been gathered, return a new
+                <code><a>RTCStatsReport</a></code> object, representing the gathered
+                stats.</p>
+              </li>
+            </ol>
+            <div>
+              <em>No parameters.</em>
+            </div>
+            <div>
+              <em>Return type:</em>
+              <code>Promise</code>&lt;<code><a>RTCStatsReport</a></code>&gt;
+            </div>
+          </dd>
+        </dl>
+      </section>
+    </div>
+    <section>
+      <h4><dfn>RTCStatsReport</dfn> Interface</h4>
+      <p>The <code>getStats()</code> method delivers a successful result in the
+      form of a <code>RTCStatsReport</code> object. An
+      <code>RTCStatsReport</code> represents a map between strings,
+      identifying the inspected objects (<a href="#dom-rtcstats-id">RTCStats.id</a>), and
+      their corresponding <code><a>RTCStats</a></code> objects.</p>
+      <p>An <code>RTCStatsReport</code> may be composed of several
+      <code><a>RTCStats</a></code> objects, each reporting stats for one underlying
+      object. One achieves the total for the object by summing over all stats of a
+      certain type; for instance, if an <code><a>RTCRtpSender</a></code> object is
+      sending RTP streams involving multiple SSRCs over the network, the
+      <code><a>RTCStatsReport</a></code> may contain one <code>RTCStats</code> object per
+      SSRC (which can be distinguished by the value of the <var>ssrc</var> stats
+      attribute).</p>
+      <div>
+        <pre class="idl">[Exposed=Window]
+interface RTCStatsReport {
+    readonly maplike&lt;DOMString, object&gt;;
+};</pre>
+        <p>This interface has "entries", "forEach", "get", "has", "keys",
+        "values", @@iterator methods and a "size" getter brought by
+        <code>readonly maplike</code>.</p>
+        <p>Use these to retrieve the various dictionaries descended from
+        <code><a>RTCStats</a></code> that this stats report is composed of. The
+        set of supported property names [[!WEBIDL-1]] is defined as the ids of
+        all the <code><a>RTCStats</a></code>-derived dictionaries that have
+        been generated for this stats report.</p>
+      </div>
+        <section>
+          <h2>Methods</h2>
+          <dl data-link-for="RTCStatsReport" data-dfn-for="RTCStatsReport" class=
+          "methods">
+            <dt><code>RTCStats</code></dt>
+            <dd>
+              <p>Getter to retrieve the <code><a>RTCStats</a></code> objects that this
+              stats report is composed of.</p>
+              <p>The set of supported property names [[!WEBIDL]] is defined as the ids of
+              all the <code><a>RTCStats</a></code> objects that has been generated for
+              this stats report. The order of the property names is left to the user
+              agent.</p>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">id</td>
+                    <td class="prmType"><code>DOMString</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>getter</code>
+              </div>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
     <section>
       <h4><dfn>RTCStats</dfn> Dictionary</h4>
       <p>An <code>RTCStats</code> dictionary represents the stats gathered by
