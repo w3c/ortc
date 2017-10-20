@@ -9340,9 +9340,10 @@ function accept(mySignaller, remote) {
 interface RTCQuicStream {
     readonly        attribute RTCQuicTransport    transport;
     readonly        attribute RTCQuicStreamState  state;
-    void                  close ();
+    void                  finish ();
+    void                  reset ();
     void                  write (Uint8Array data);
-    void                  readInto (Uint8Array data);
+    unsigned long         readInto (Uint8Array data);
                     attribute EventHandler        onstatechange;
 };</pre>
         <section>
@@ -9376,11 +9377,11 @@ interface RTCQuicStream {
           <h2>Methods</h2>
           <dl data-link-for="RTCQuicStream" data-dfn-for="RTCQuicStream" class=
           "methods">
-            <dt><dfn><code>close</code></dfn></dt>
+            <dt><dfn><code>finish</code></dfn></dt>
             <dd>
               <p>Closes the <code><a>RTCQuicStream</a></code>. It may be called
               regardless of whether the <code><a>RTCQuicStream</a></code> object
-              was created by the local or remote peer. When the <code>close()</code>
+              was created by the local or remote peer. When the <code>finish()</code>
               method is called, the user agent <em class="rfc2119" title="MUST">MUST</em>
               run the following steps:</p>
               <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
@@ -9390,6 +9391,27 @@ interface RTCQuicStream {
               <p>3. Set <var>stream</var>'s <code>state</code> attribute to <code>closing</code>.</p>
               <p>4. If the closing procedure has not started yet, start it by sending a STREAM
               frame with the FIN bit set.</p>
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>void</code>
+              </div>
+            </dd>
+            <dt><dfn><code>reset</code></dfn></dt>
+            <dd>
+              <p>Resets the <code><a>RTCQuicStream</a></code>. It may be called
+              regardless of whether the <code><a>RTCQuicStream</a></code> object
+              was created by the local or remote peer. When the <code>reset()</code>
+              method is called, the user agent <em class="rfc2119" title="MUST">MUST</em>
+              run the following steps:</p>
+              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
+              which is about to be reset.</p>
+              <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or
+              <code>closed</code>, then abort these steps.</p>
+              <p>3. Set <var>stream</var>'s <code>state</code> attribute to <code>closing</code>.</p>
+              <p>4. If the closing procedure has not started yet, start it by sending a RST_STREAM
+              frame.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -9442,7 +9464,8 @@ interface RTCQuicStream {
             <dt><dfn><code>readInto</code></dfn></dt>
             <dd>
               <p>Reads from <code><a>RTCQuicStream</a></code> into the buffer specified
-              by the first argument. When the <code>readInto()</code> method is called,
+              by the first argument and returns the number of octets read.
+              When the <code>readInto()</code> method is called,
               the user agent <em class="rfc2119" title="MUST">MUST</em> run the following
               steps:</p>
               <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object on which
@@ -9472,7 +9495,7 @@ interface RTCQuicStream {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>usigned long</code>
               </div>
             </dd>
         </dl>
@@ -9530,7 +9553,7 @@ interface RTCQuicStream {
               "idl-def-RTCQuicStreamState.closing">closing</code></dfn></td>
               <td>
                 <p>The procedure to close down the QUIC stream has started.
-                The underlying QUIC stream has sent a RST_STREAM frame or
+                The underlying QUIC stream queued for transmission a RST_STREAM frame or
                 has set the FIN flag in a STREAM frame, but has not yet
                 received a RST_STREAM frame or a STREAM frame with the FIN
                 flag set. Alternatively, the QUIC stream has received a
