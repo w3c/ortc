@@ -8889,7 +8889,7 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>createStream</code></dfn></dt>
+           <dt><dfn><code>createStream</code></dfn></dt>
             <dd>
               <p>Creates an <code><a>RTCQuicStream</a></code> object.
               Since [[QUIC-TRANSPORT]] only defines reliable QUIC streams,
@@ -8909,8 +8909,13 @@ interface RTCQuicTransport : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Let <var>stream</var> have a <dfn>[[\QuicStreamState]]</dfn> internal
-                  slot initialized to <code>idle</code>.</p>
+                  slot initialized to <code>new</code>.</p>
                 </li>
+                <li>
+                  <p>Let <var>stream</var> have a <dfn>[[\HalfClosedLocal]]</dfn> internal
+                  slot initialized to <code>false</code>.</p>
+                </li>
+
                 <li>
                   <p>Return <var>stream</var> and continue the following steps
                   in the background.</p>
@@ -9360,13 +9365,13 @@ interface RTCQuicStream {
             <dd>
               <p>The <dfn id="dom-quicstream-state"><code>state</code></dfn>
               attribute represents the state of the <a>RTCQuicStream</a> object. It
-              <em class="rfc2119" title="MUST">MUST</em> return the value to which the
-              <a>user agent</a> last set it (as defined by the processing model algorithms).</p>
+              <em class="rfc2119" title="MUST">MUST</em> return the value of the
+             <a>[[\QuicStreamState]]</a> internal slot.</p>
             </dd>
             <dt><dfn><code>onstatechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
-              <p>This event handler, of event handler event type
+             <p>This event handler, of event handler event type
               <code><a>statechange</a></code>, <em class="rfc2119" title="MUST">MUST</em>
               be fired any time the <code><a>RTCQuicStreamState</a></code>
               changes.</p>
@@ -9388,8 +9393,9 @@ interface RTCQuicStream {
               which is about to be closed.</p>
               <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or
               <code>closed</code>, then abort these steps.</p>
-              <p>3. Set <var>stream</var>'s <code>state</code> attribute to <code>closing</code>.</p>
-              <p>4. If the closing procedure has not started yet, start it by sending a STREAM
+              <p>3. Set <var>stream</var>'s <a>[[\HalfClosedLocal]]</a> slot to <code>true</code>.</p>
+              <p>4. Set <var>stream</var>'s <a>[[\QuicStreamState]]</a> slot to <code>closing</code>.</p>
+              <p>5. If the closing procedure has not started yet, start it by sending a STREAM
               frame with the FIN bit set.</p>
               <div>
                 <em>No parameters.</em>
@@ -9405,12 +9411,13 @@ interface RTCQuicStream {
               was created by the local or remote peer. When the <code>reset()</code>
               method is called, the user agent <em class="rfc2119" title="MUST">MUST</em>
               run the following steps:</p>
-              <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
+             <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
               which is about to be reset.</p>
-              <p>2. If <var>stream</var>'s  <code>state</code> is <code>closing</code> or
-              <code>closed</code>, then abort these steps.</p>
-              <p>3. Set <var>stream</var>'s <code>state</code> attribute to <code>closing</code>.</p>
-              <p>4. If the closing procedure has not started yet, start it by sending a RST_STREAM
+              <p>2. If <var>stream</var>'s  <a>[[\QuicStreamState]]</a> slot is <code>closing</code>
+              or <code>closed</code>, then abort these steps.</p>
+              <p>3. Set <var>stream</var>'s <a>[[\HalfClosedLocal]]</a> slot to <code>true</code>.</p>
+              <p>4. Set <var>stream</var>'s <a>[[\QuicStreamState]]</a> slot to <code>closing</code>.</p>
+              <p>5. If the closing procedure has not started yet, start it by sending a RST_STREAM
               frame.</p>
               <div>
                 <em>No parameters.</em>
@@ -9426,8 +9433,12 @@ interface RTCQuicStream {
               <ol>
                <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code>
                object on which data is to be sent.</li>
-               <li>If <var>stream</var>'s <code>state</code> attribute is not <code>open</code>,
-               <a>throw</a> an <code>InvalidStateError</code>.</li>
+               <li>If <var>stream</var>'s <a>[[\HalfClosedLocal]]</a> slot is
+               <code>true</code>, <a>throw</a> an <code>InvalidStateError</code> and
+               abort these steps.</li>
+               <li>If <var>stream</var>'s <a>[[\QuicStreamState]]</a> slot is not <code>open</code>
+               or <code>closing</code>, <a>throw</a> an <code>InvalidStateError</code> and
+               abort these steps.</li>
                <li>Let <var>data</var> be the data stored in the section of the
                buffer described by the <code>Uint8Array</code> object.</li>
                <li>Queue <var>data</var> for transmission on <var>stream</var>'s
@@ -9435,9 +9446,48 @@ interface RTCQuicStream {
                <div class="note">The actual transmission of data occurs in
                parallel. If sending data leads to a QUIC-level error, the
                application will be notified asynchronously through the
-               <code><a>RTCQuicTransport</a></code>'s <code><a>onerror</a></code>.</div></li>
+               <code><a>RTCQuicTransport</a></code>'s <code><a>onerror</a></code>
+               EventHandler.</div></li>
               </ol>
-              <table class="parameters">
+             <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
+              which is about to be reset.</p>
+              <p>2. If <var>stream</var>'s  <a>[[\QuicStreamState]]</a> slot is <code>closing</code>
+              or <code>closed</code>, then abort these steps.</p>
+              <p>3. Set <var>stream</var>'s <a>[[\HalfClosedLocal]]</a> slot to <code>true</code>.</p>
+              <p>4. Set <var>stream</var>'s <a>[[\QuicStreamState]]</a> slot to <code>closing</code>.</p>
+              <p>5. If the closing procedure has not started yet, start it by sending a RST_STREAM
+              frame.</p>
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>void</code>
+              </div>
+            </dd>
+            <dt><dfn><code>write</code></dfn></dt>
+            <dd>
+              <p>When the <code>write</code> method is called, the <a>user agent</a> MUST run the
+              following steps:</p>
+              <ol>
+               <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code>
+               object on which data is to be sent.</li>
+               <li>If <var>stream</var>'s <a>[[\HalfClosedLocal]]</a> slot is
+               <code>true</code>, <a>throw</a> an <code>InvalidStateError</code> and
+               abort these steps.</li>
+               <li>If <var>stream</var>'s <a>[[\QuicStreamState]]</a> slot is not <code>open</code>
+               or <code>closing</code>, <a>throw</a> an <code>InvalidStateError</code> and
+               abort these steps.</li>
+               <li>Let <var>data</var> be the data stored in the section of the
+               buffer described by the <code>Uint8Array</code> object.</li>
+               <li>Queue <var>data</var> for transmission on <var>stream</var>'s
+               underlying data transport.
+               <div class="note">The actual transmission of data occurs in
+               parallel. If sending data leads to a QUIC-level error, the
+               application will be notified asynchronously through the
+               <code><a>RTCQuicTransport</a></code>'s <code><a>onerror</a></code>
+               EventHandler.</div></li>
+              </ol>
+             <table class="parameters">
                 <tbody>
                   <tr>
                     <th>Parameter</th>
@@ -9470,12 +9520,13 @@ interface RTCQuicStream {
               steps:</p>
               <p>1. Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object on which
               <code>readInto()</code> is invoked.</p>
-              <p>2. If <var>stream</var>'s <code>state</code> is <code>closing</code> or <code>closed</code>,
-              then abort these steps.</p>
+              <p>2. If <var>stream</var>'s <a>[[\QuicStreamState]]</a> slot is <code>closing</code>
+              or <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>, then
+              abort these steps.</p>
               <p>3. If <var>stream</var>'s <a>[[\Readable]]</a> slot is <code>false</code>, <a>throw</a> an
-              <code>InvalidStateError</code>.</p>
+              <code>InvalidStateError</code>, then abort these steps.</p>
               <table class="parameters">
-                <tbody>
+               <tbody>
                   <tr>
                     <th>Parameter</th>
                     <th>Type</th>
@@ -9505,7 +9556,8 @@ interface RTCQuicStream {
     <section id="rtcquicstreamstate*">
       <h2><dfn>RTCQuicStreamState</dfn> Enum</h2>
       <p>The <code>RTCQuicStreamState</code> provides information
-      on the state of the QUIC stream.</p>
+      on the state of the QUIC stream. On getting, it returns the
+      value of the <a>[[\QuicStreamState]]</a> slot.</p>
       <div>
         <pre class="idl">enum RTCQuicStreamState {
     "new",
@@ -9514,7 +9566,7 @@ interface RTCQuicStream {
     "closing",
     "closed"
 };</pre>
-        <table data-link-for="RTCQuicStreamState" data-dfn-for="RTCQuicStreamState"
+       <table data-link-for="RTCQuicStreamState" data-dfn-for="RTCQuicStreamState"
         class="simple">
           <tbody>
             <tr>
@@ -9526,9 +9578,9 @@ interface RTCQuicStream {
               <td>
                 <p>The <a>user agent</a> has not yet attempted to
                 establish the underlying stream transport.  This is
-                the initial state of an
-                <code><a>RTCQuicStream</a></code> object, corresponding
-                to the "idle" state in [[QUIC-TRANSPORT]] Section 10.2.</p>
+                the initial state of an <code><a>RTCQuicStream</a></code>
+                object, corresponding to the "idle" state in
+                [[QUIC-TRANSPORT]] Section 10.2.</p>
               </td>
             </tr>
             <tr>
@@ -9548,18 +9600,19 @@ interface RTCQuicStream {
                 <code>RTCQuicStreamEvent</code>.</p>
               </td>
             </tr>
-            <tr>
+           <tr>
               <td><dfn><code id=
               "idl-def-RTCQuicStreamState.closing">closing</code></dfn></td>
               <td>
                 <p>The procedure to close down the QUIC stream has started.
-                The <code>finish</code> or <code>reset</code> methods have
-                been called, causing a RST_STREAM frame or FIN flag in a
-                STREAM frame to be queued for transmission but a RST_STREAM
-                frame or STREAM frame with the FIN flag set has not yet been
-                received. Alternatively, the QUIC stream has received a
-                STREAM frame with the FIN flag set but has not yet replied.
-                has not yet been replied to.</li>
+                The <code>reset</code> method has been called, causing a
+                RST_STREAM frame to be queued for transmission, or the
+                <code>finish</code> method has been called, causing a
+                STREAM frame with the FIN flag set to be queued for transmission.
+                However, a RST_STREAM frame or STREAM frame with the FIN flag
+                set has not yet been received. Alternatively, the QUIC stream
+                has received a STREAM frame with the FIN flag set but has not
+                yet queued a reply for transmission.</p>
               </td>
             </tr>
             <tr>
@@ -9577,7 +9630,7 @@ interface RTCQuicStream {
         </table>
       </div>
     </section>
-    <section>
+   <section>
       <h3><dfn>RTCQuicStreamReceivedEvent</dfn></h3>
       <p>The <code><a href="#event-received">received</a></code> event uses the
       <code><a>RTCQuicStreamReceivedEvent</a></code> interface.</p>
