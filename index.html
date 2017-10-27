@@ -9551,8 +9551,10 @@ interface RTCQuicStream {
             <tr>
               <td><dfn><code id="idl-def-RTCQuicStreamState.opening">opening</code></dfn></td>
               <td>
-                <p>The underlying QUIC stream has sent a STREAM frame, but has
-                not yet received an acknowledgement.</p>
+                <p>The underlying QUIC stream has queued a STREAM frame for
+                transmission, but has not yet received an acknowledgement.
+                On transitioning to the <code>opening</code> state, the
+                <a>[[\Writeable]]</a> slot is set to <code>true</code>.</p>
               </td>
             </tr>
             <tr>
@@ -9567,7 +9569,7 @@ interface RTCQuicStream {
                 <code>true</code>.</p>
               </td>
             </tr>
-           <tr>
+            <tr>
               <td><dfn><code id=
               "idl-def-RTCQuicStreamState.closing">closing</code></dfn></td>
               <td>
@@ -9578,8 +9580,8 @@ interface RTCQuicStream {
                 STREAM frame with the FIN flag set to be queued for transmission.
                 However, a RST_STREAM frame or STREAM frame with the FIN flag
                 set has not yet been received. Alternatively, the QUIC stream
-                has received a STREAM frame with the FIN flag set but has not
-                yet queued a reply for transmission.</p>
+                has received a RST_STREAM frame or a STREAM frame with the
+                FIN flag set.</p>
               </td>
             </tr>
             <tr>
@@ -9591,7 +9593,18 @@ interface RTCQuicStream {
                 has been queued for transmission in response or a FIN flag
                 in a STREAM frame has been received and a FIN flag in a
                 STREAM frame has been queued for transmission in response.
-                On transitioning to the <code>closed</code> state, the
+                Alternatively:</p>
+                  <ol>
+                     <li>A RST_STREAM frame has been sent and a RST_STREAM
+                     frame or a STREAM frame within the FIN flag set has been
+                     received, OR</li>
+                     <li>A STREAM frame with the FIN flag set has been sent
+                     and a RST_STREAM frame has been received, OR</li>
+                     <li>A STREAM frame with the FIN flag set has been sent
+                     and a STREAM frame with the FIN flag set has been received.
+                     </li>
+                  </ol>
+                <p>On transitioning to the <code>closed</code> state, the
                 <a>[[\Readable]]</a> and <a>[[\Writeable]]</a> slots are set to
                 <code>false</code>.</p>
               </td>
@@ -9599,6 +9612,13 @@ interface RTCQuicStream {
           </tbody>
         </table>
       </div>
+      <figure>
+      <img alt="RTCQuicStreamState transition diagram" src=
+      "images/quicstream-state.svg" style="width:100%">
+      <figcaption>
+        RTCQuicStreamState transition diagram
+      </figcaption>
+      </figure>
     </section>
    <section>
       <h3><dfn>RTCQuicStreamReceivedEvent</dfn></h3>
