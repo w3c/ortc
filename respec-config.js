@@ -613,7 +613,7 @@ var respecConfig = {
         "C. Holmberg",
         "J. Rosenberg"
       ],
-      "status": "20 April 2017. Internet Draft (work in progress)",
+      "status": "24 October 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "STUN-PARAMETERS": {
@@ -644,7 +644,7 @@ var respecConfig = {
         "J. Uberti",
         "P. Saint-Andre"
       ],
-      "status": "08 September 2016. Internet Draft (work in progress)",
+      "status": "11 September 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TS26.114": {
@@ -663,7 +663,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "31 March 2017 (work in progress)",
+      "status": "29 October 2017 (work in progress)",
       "publisher": "W3C"
     }
   }
