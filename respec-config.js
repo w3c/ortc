@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2017-10-27",
+  publishDate: "2017-10-30",
   edDraftURI: "https://rawgit.com/w3c/ortc/master/index.html",
   editors: [
     {
@@ -79,7 +79,7 @@ var respecConfig = {
       "publisher": "IANA"
     },
     "MMUSIC-RID": {
-      "title": "RTP Payload Format Constraints",
+      "title": "RTP Payload Format Restrictions",
       "href": "https://tools.ietf.org/html/draft-ietf-mmusic-rid",
       "authors": [
         "P. Thatcher",
@@ -89,7 +89,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "13 March 2017. Internet Draft (work in progress)",
+      "status": "19 July 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "QUIC-TRANSPORT": {
@@ -102,13 +102,15 @@ var respecConfig = {
       "status": "13 October 2017. Internet draft (work in progress)",
       "publisher": "IETF"
     },
-    "QUIC-DATA": {
-      "title": "QUIC Data Channels",
-      "href": "https://tools.ietf.org/html/draft-thatcher-quic-data-channel",
+    "QUIC-MULT": {
+      "title": "QUIC Multiplexing",
+      "href": "https://tools.ietf.org/html/draft-aboba-avtcore-quic-multiplexing",
       "authors": [
-        "P. Thatcher"
+        "B. Aboba",
+        "P. Thatcher",
+        "C. Perkins"
       ],
-      "status": "02 June 2017. Internet draft (work in progress)",
+      "status": "29 October 2017. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -497,7 +499,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "12 April 2017. Internet Draft (work in progress)",
+      "status": "31 August 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -528,7 +530,7 @@ var respecConfig = {
       "authors": [
         "J. Uberti"
       ],
-      "status": "31 October 2016. Internet Draft (work in progress)",
+      "status": "03 July 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "FLEXFEC": {
@@ -540,7 +542,7 @@ var respecConfig = {
         "M. Zanaty",
         "G. Mandyam" 
       ],
-      "status": "31 October 2016. Internet Draft (work in progress)",
+      "status": "03 July 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "JSEP": {
@@ -551,7 +553,7 @@ var respecConfig = {
         "C. Jennings",
         "E. Rescorla"
       ],
-      "status": "29 March 2017. Internet Draft (work in progress)",
+      "status": "10 October 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "REMB": {
@@ -569,7 +571,7 @@ var respecConfig = {
       "authors": [
         "E. Rescorla"
       ],
-      "status": "26 February 2015. Internet Draft (work in progress)",
+      "status": "29 October 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTCWEB-SECURITY-ARCH": {
