@@ -580,7 +580,7 @@ var respecConfig = {
       "authors": [
         "E. Rescorla"
       ],
-      "status": "08 June 2016. Internet Draft (work in progress)",
+      "status": "30 October 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTP-MULTI-STREAM": {
