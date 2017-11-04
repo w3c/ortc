@@ -8650,6 +8650,9 @@ function accept(mySignaller, remote) {
       An <code><a>RTCQuicTransport</a></code> object in the <code>closed</code> or
       <code>failed</code> states can be garbage-collected when it is no longer
       referenced.</p>
+      <p>The QUIC negotiation occurs between transport endpoints determined via ICE.
+      Approaches to multiplexing of QUIC with STUN, TURN, DTLS, RTP and RTCP
+      are described in [[QUIC-MULT]].</p>
       <p>If an attempt is made to construct a <code><a>RTCQuicTransport</a></code>
       instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
       state, <a>throw</a> an <code>InvalidStateError</code>.
