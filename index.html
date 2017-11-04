@@ -9354,7 +9354,11 @@ interface RTCQuicStream {
     void                  finish ();
     void                  reset ();
     void                  write (Uint8Array data);
+    Promise&lt;void&gt;   waitForWritable(unsigned long amount,
+                                          optional unsigned long maxBufferedAmount);
     unsigned long         readInto (Uint8Array data);
+    Promise&lt;void&gt;   waitForReadableOrFinished(unsigned long amount,
+                                                    optional unsigned long maxBufferedAmount);
                     attribute EventHandler        onstatechange;
 };</pre>
         <section>
@@ -9482,6 +9486,45 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
+            <dt><dfn><code>waitForWritable</code></dfn></dt>
+            <dd>
+              <p><code>waitForWritable()</code> will be resolved when "amount" is available in the
+              buffer, and the max buffered amount is "maxBufferedAmount". It waits until the buffer
+              is drained if it's already too full. If "maxBufferedAmount" is not provided, it will be
+              equal to "amount".</p>
+              <table class = "parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">amount</td>
+                    <td class="prmType"><code>unsigned long</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                  <tr>
+                    <td class="prmName">maxBufferedAmount</td>
+                    <td class="prmType"><code>unsigned long</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+              </div>
+            </dd>
             <dt><dfn><code>readInto</code></dfn></dt>
             <dd>
               <p>Reads from <code><a>RTCQuicStream</a></code> into the buffer specified
@@ -9515,6 +9558,45 @@ interface RTCQuicStream {
               </table>
               <div>
                 <em>Return type:</em> <code>usigned long</code>
+              </div>
+            </dd>
+            <dt><dfn><code>waitForReadableOrFinished</code></dfn></dt>
+            <dd>
+              <p><code>waitForReadableOrFinished()</code> will be resolved when "amount" is available
+              in the buffer, and the max buffered amount is maxBufferedAmount. It will keep filling
+              up to maxBufferedAmount, even if it's more than "amount". If "maxBufferedAmount" is
+              not provided, it will be equal to "amount".</p>
+              <table class = "parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">amount</td>
+                    <td class="prmType"><code>unsigned long</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                  <tr>
+                    <td class="prmName">maxBufferedAmount</td>
+                    <td class="prmType"><code>unsigned long</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
         </dl>
