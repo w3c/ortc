@@ -9483,10 +9483,10 @@ interface RTCQuicStream {
             <dt><dfn><code>readInto</code></dfn></dt>
             <dd>
               <p>Reads from <code><a>RTCQuicStream</a></code> into the buffer specified
-              by the first argument and returns the number of bytes read.
-              When the <code>readInto</code> method is called,
-              the user agent <em class="rfc2119" title="MUST">MUST</em> run the following
-              steps:</p>
+              by the first argument and returns the number of bytes read. If there is
+              no data to be read then <code>readInto</code> returns zero.
+              When the <code>readInto</code> method is called, the user agent
+              <em class="rfc2119" title="MUST">MUST</em> run the following steps:</p>
               <ol>
                <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
                on which <code>readInto</code> is invoked.</li>
@@ -9628,9 +9628,9 @@ interface RTCQuicStream {
             </dd>
            <dt><dfn><code>waitForReadable</code></dfn></dt>
             <dd>
-              <p><code>waitForReadable</code> allows the read buffer to
-              grow, resolving the promise when the data queued in the
-              read buffer increases above a computed threshold.</p>
+              <p><code>waitForReadable</code> resolves the promise 
+              when the data queued in the read buffer increases above
+              a computed threshold.</p>
               <p>When the <code>waitForReadable</code> method is called,
               the <a>user agent</a> MUST run the following steps:</p>
               <ol>
@@ -9673,10 +9673,9 @@ interface RTCQuicStream {
             </dd>
             <dt><dfn><code>waitForWritable</code></dfn></dt>
             <dd>
-              <p><code>waitForWritable</code> allows the write buffer to
-              empty, resolving the promise when the data queued in the
-              write buffer falls below a threshold computed from the
-              arguments to the method.</p>
+              <p><code>waitForWritable</code> resolves the promise when
+              the data queued in the write buffer falls below a threshold
+              computed from the arguments to the method.</p>
               <p>When the <code>waitForWritable</code> method is called,
               the <a>user agent</a> MUST run the following steps:</p>
               <ol>
