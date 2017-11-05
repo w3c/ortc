@@ -9630,8 +9630,7 @@ interface RTCQuicStream {
             <dd>
               <p><code>waitForReadable</code> resolves the promise 
               when the data queued in the read buffer increases above
-              a computed threshold.</p>
-              <p>When the <code>waitForReadable</code> method is called,
+              a computed threshold. When the <code>waitForReadable</code> method is called,
               the <a>user agent</a> MUST run the following steps:</p>
               <ol>
                 <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code>
@@ -9675,8 +9674,8 @@ interface RTCQuicStream {
             <dd>
               <p><code>waitForWritable</code> resolves the promise when
               the data queued in the write buffer falls below a threshold
-              computed from the arguments to the method.</p>
-              <p>When the <code>waitForWritable</code> method is called,
+              computed from the arguments to the method.
+              When the <code>waitForWritable</code> method is called,
               the <a>user agent</a> MUST run the following steps:</p>
               <ol>
                 <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code>
