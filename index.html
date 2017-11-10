@@ -9494,8 +9494,9 @@ interface RTCQuicStream {
                <li>If <var>stream</var>'s <a>[[\Readable]]</a> slot is <code>false</code>,
                <a>throw</a> an <code>InvalidStateError</code>, then abort these steps.</li>
                <li>Let <var>data</var> be the first argument.</li>
-               <li>If the read is empty and end-of-file has been encountered, return
-               a negative number.</li>
+               <li>If the read buffer is empty and end-of-file has been encountered, return
+               a negative number, set <var>stream</var>'s <a>[[\Readable]]</a> slot to 
+               <code>false</code> and abort these steps.</li>
                <li>Transfer data from the read buffer into <var>data</var>.</li>
                <li>Decrease the value of <var>stream</var>'s <a>[[\ReadBufferedAmount]]</a>
                slot by the length of <var>data</var> in bytes.</li>
