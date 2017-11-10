@@ -9376,7 +9376,7 @@ interface RTCQuicStream {
     readonly        attribute unsigned long       targetReadBufferedAmount;
     readonly        attribute unsigned long       writeBufferedAmount;
     readonly        attribute unsigned long       maxWriteBufferedAmount;
-    unsigned long         readInto (Uint8Array data);
+    long                  readInto (Uint8Array data);
     void                  write (Uint8Array data);
     void                  finish ();
     void                  reset ();
@@ -9483,9 +9483,10 @@ interface RTCQuicStream {
             <dt><dfn><code>readInto</code></dfn></dt>
             <dd>
               <p>Reads from <code><a>RTCQuicStream</a></code> into the buffer specified
-              by the first argument and returns the number of bytes read. If there is
-              no data to be read then <code>readInto</code> returns zero.
-              When the <code>readInto</code> method is called, the user agent
+              by the first argument and returns the number of bytes read; a negative
+              number indicates end-of-file. If there is no data to be read then
+              <code>readInto</code> returns zero. When the <code>readInto</code>
+              method is called, the user agent
               <em class="rfc2119" title="MUST">MUST</em> run the following steps:</p>
               <ol>
                <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code> object
@@ -9493,6 +9494,8 @@ interface RTCQuicStream {
                <li>If <var>stream</var>'s <a>[[\Readable]]</a> slot is <code>false</code>,
                <a>throw</a> an <code>InvalidStateError</code>, then abort these steps.</li>
                <li>Let <var>data</var> be the first argument.</li>
+               <li>If the read is empty and end-of-file has been encountered, return
+               a negative number.</li>
                <li>Transfer data from the read buffer into <var>data</var>.</li>
                <li>Decrease the value of <var>stream</var>'s <a>[[\ReadBufferedAmount]]</a>
                slot by the length of <var>data</var> in bytes.</li>
@@ -9519,7 +9522,7 @@ interface RTCQuicStream {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>usigned long</code>
+                <em>Return type:</em> <code>long</code>
               </div>
             </dd>
             <dt><dfn><code>write</code></dfn></dt>
@@ -9837,12 +9840,14 @@ interface RTCQuicStream {
               <td>
                 <p>The procedure to close down the QUIC stream has started.
                 The <code>reset</code> method has been called, causing a
-                RST_STREAM frame to be queued for transmission, or the
+                RST_STREAM frame to be queued for transmission and the
+                read and write buffers to be cleared.  Alternatively, the
                 <code>finish</code> method has been called, causing a
                 STREAM frame with the FIN flag set to be queued for transmission.
                 However, a RST_STREAM frame or STREAM frame with the FIN flag
                 set has not yet been received. Alternatively, the QUIC stream
-                has received a RST_STREAM frame or a STREAM frame with the
+                has received a RST_STREAM frame (causing the read and write
+                buffers to be cleared) or a STREAM frame with the
                 FIN flag set.</p>
               </td>
             </tr>
