@@ -3672,10 +3672,10 @@ interface RTCSsrcConflictEvent : Event {
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString kind, RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport), Exposed=Window]
+        [ Constructor (DOMString kind, optional RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport), Exposed=Window]
 interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
-    readonly        attribute RTCDtlsTransport  transport;
+    readonly        attribute RTCDtlsTransport?  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     void            setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     static RTCRtpCapabilities     getCapabilities (DOMString kind);
@@ -3691,7 +3691,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
               <ol>
                 <li>Let the first argument be <var>kind</var>.</li>
                 <li>If <var>kind</var> is not a supported
-                code><a>MediaStreamTrack</a></code> <code>kind</code>,
+                <code><a>MediaStreamTrack</a></code> <code>kind</code>,
                 <a>throw</a> a <code>TypeError</code> and abort these steps.</li>
                 <li>Let <var>transport</var> be the second argument.</li>
                 <li>Let <var>rtcpTransport</var> be the third argument.</li>
@@ -3704,7 +3704,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>If <var>rtcpTransport</var> is set and <code><var>rtcpTransport</var>.state</code>
                 is <code>closed</code>, <a>throw</a> an
                 <code>InvalidStateError</code> and abort these steps.</li>
-                <li>Construct an <code><a>RTCRtpReceiver</a></code> with <var>transport</var>
+                <li>Construct an <code><a>RTCRtpReceiver</a></code> with <var>transport</var> (if provided)
                 and <var>rtcpTransport</var> (if provided) and let <var>receiver</var>
                 be the result.</li>
                 <li>Let <var>receiver</var> have an <dfn>[[\RtpReceiverIsStopped]]</dfn> internal slot,
@@ -3742,8 +3742,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                     <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
+                    <td class="prmOptTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
                     <td class="prmDesc"></td>
                   </tr>
                   <tr>
@@ -3785,13 +3785,13 @@ interface RTCRtpReceiver : RTCStatsProvider {
               event is fired at <code>track</code>.</p>
               <div class="note">
                 Prior to verification of the remote DTLS fingerprint within the
-                <code><a>RTCDtlsTransport</a></code> <var>transport</var>, and (if set)
-                <var>rtcpTransport</var>, <code>track</code> <em title="MUST NOT" class=
-                "rfc2119">MUST NOT</em> emit media for rendering.
+                <code><a>RTCDtlsTransport</a></code> <var>transport</var> (if set), and
+                <var>rtcpTransport</var> (if set), <code>track</code> <em title="MUST NOT"
+                class="rfc2119">MUST NOT</em> emit media for rendering.
               </div>
             </dd>
             <dt><dfn><code>transport</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
+            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly, nullable</dt>
             <dd>
               <p>The associated RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
             </dd>
@@ -3816,7 +3816,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
             <dt><code>setTransport</code></dt>
             <dd>
               <p>The <dfn>setTransport()</dfn> method
-              attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code>
+              attempts to replace the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
               <p>When the <code>setTransport()</code> method is invoked, the user
@@ -3857,7 +3857,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
-                  <p>Replace <code>transport</code> with <var>withTransport</var> and
+                  <p>Replace <code>transport</code> (if set) with <var>withTransport</var> and
                   <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var> and
                   seamlessly receive over the new transport(s).</p>
               </ol>
@@ -3954,6 +3954,10 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <code>ssrc_table</code>, <code>muxId_table</code> or
                   <code>pt_table</code> conflicts described in Section 8.3 or other
                   reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code>.</p>
+                </li>
+                <li>
+                  <p>If <code>transport</code> is not set, <a>reject</a> <var>p</var>
+                  with a newly created <code>TypeError</code>.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is not set and
