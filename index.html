@@ -3544,13 +3544,15 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>Construct an <code><a>RTCRtpReceiver</a></code> with <var>transport</var> (if provided)
                 and <var>rtcpTransport</var> (if provided) and let <var>receiver</var>
                 be the result.</li>
-                <li>Let <var>receiver</var> have an <dfn>[[\RtpReceiverIsStopped]]</dfn> internal slot,
+                <li>Let <var>receiver</var> have an <dfn>[[\ReceiverIsStopped]]</dfn> internal slot,
                 initialized to <code>false</code>.</li>
-                <li>Let <var>receiver</var> have a <dfn>[[\RtpReceiverKind]]</dfn> internal slot,
+                <li>Let <var>receiver</var> have a <dfn>[[\ReceiverKind]]</dfn> internal slot,
                 initialized to <var>kind</var>.</li>
-                <li>Let <var>receiver</var> have a <dfn>[[\RtpReceiverTrack]]</dfn> internal slot,
+                <li>Let <var>receiver</var> have a <dfn>[[\ReceiverTrack]]</dfn> internal slot,
                 initialized to a newly created <code>MediaStreamTrack</code> of <code>kind</code>
                 <var>kind</var>.</li>
+                <li>Set the <code>muted</code> attribute of <var>receiver</var>'s [[\ReceiverTrack]]
+                slot to <code>false</code>.</li>
               </ol>
           <dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class=
           "constructors">
@@ -3607,19 +3609,18 @@ interface RTCRtpReceiver : RTCStatsProvider {
               <p>The <code>track</code> attribute is the
               <code><a>MediaStreamTrack</a></code> instance that is
               associated with this <code><a>RTCRtpReceiver</a></code>
-              object <var>receiver</var>. Upon construction,
-              <code>track</code> is set. The value of
-              <code>track.kind</code> is set to the value of
-              <code>kind</code> passed in the constructor.</p>
-              <p>When one of the SSRCs in
-              <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>
-              (where <code><var>i</var></code> goes from 0 to
-              <code>encodings.length-1</code>) is removed from the source
-              identifier table described in [[!RFC3550]] Section 8.2 (either
-              due to BYE reception or timeout) the <code>mute</code> event
-              is fired at <code>track</code>. If and when media packets are
-              received again for <var>receiver</var>, the <code>unmute</code>
+              object <var>receiver</var>. When one of the SSRCs for RTP
+              source media streams received by <var>receiver</var> is
+              removed (either due to reception of a BYE or via timeout),
+              the <code>mute</code> event is fired at <code>track</code>.
+              If and when packets are received again, the <code>unmute</code>
               event is fired at <code>track</code>.</p>
+              <p>Note that <code>track.stop()</code> is final, although
+              clones are not affected. Since
+              <code><var>receiver</var>.track.stop()</code>
+              does not implicitly stop <var>receiver</var>, Receiver
+              Reports continue to be sent. On getting, the attribute MUST
+              return the value of the <a>[[\ReceiverTrack]]</a> slot.</p>  
               <div class="note">
                 Prior to verification of the remote DTLS fingerprint within the
                 <code><a>RTCDtlsTransport</a></code> <var>transport</var> (if set), and
