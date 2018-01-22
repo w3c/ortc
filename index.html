@@ -233,6 +233,26 @@
       <code><a>RTCIceGatherOptions</a></code> object.</p>
       <p>An <code><a>RTCIceGatherer</a></code> object in the <code>closed</code> state
       can be garbage-collected when it is no longer referenced.</p>
+    </section>
+    <section id="rtcicegatherer-interface-definition*">
+      <h3>Interface Definition</h3>
+      <div>
+        <pre class="idl">[ Constructor (RTCIceGatherOptions options), Exposed=Window]
+interface RTCIceGatherer : RTCStatsProvider {
+    readonly        attribute RTCIceComponent     component;
+    readonly        attribute RTCIceGathererState state;
+    static sequence&lt;RTCIceServer&gt; getDefaultIceServers ();
+    void                      close ();
+    void                      gather (optional RTCIceGatherOptions options);
+    RTCIceParameters          getLocalParameters ();
+    sequence&lt;RTCIceCandidate&gt; getLocalCandidates ();
+    RTCIceGatherer            createAssociatedGatherer ();
+                    attribute EventHandler        onstatechange;
+                    attribute EventHandler        onerror;
+                    attribute EventHandler        onlocalcandidate;
+};</pre>
+        <section>
+          <h2>Constructors</h2>
       <p>To validate the <code>options</code> argument in the <code><a>RTCIceGatherer</a></code>
       constructor, implementations MUST run the following steps:</p>
       <ol>
@@ -314,26 +334,6 @@
            </ol>
            <p>Let <var>validatedServers</var> be the <dfn id="ice-servers-list">
            ICE servers list</dfn>.</p>
-    </section>
-    <section id="rtcicegatherer-interface-definition*">
-      <h3>Interface Definition</h3>
-      <div>
-        <pre class="idl">[ Constructor (RTCIceGatherOptions options), Exposed=Window]
-interface RTCIceGatherer : RTCStatsProvider {
-    readonly        attribute RTCIceComponent     component;
-    readonly        attribute RTCIceGathererState state;
-    static sequence&lt;RTCIceServer&gt; getDefaultIceServers ();
-    void                      close ();
-    void                      gather (optional RTCIceGatherOptions options);
-    RTCIceParameters          getLocalParameters ();
-    sequence&lt;RTCIceCandidate&gt; getLocalCandidates ();
-    RTCIceGatherer            createAssociatedGatherer ();
-                    attribute EventHandler        onstatechange;
-                    attribute EventHandler        onerror;
-                    attribute EventHandler        onlocalcandidate;
-};</pre>
-        <section>
-          <h2>Constructors</h2>
           <dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class=
           "constructors">
             <dt><code><a>RTCIceGatherer</a></code></dt>
@@ -2244,14 +2244,6 @@ mySignaller.send({
       An <code><a>RTCDtlsTransport</a></code> object in the <code>closed</code> or
       <code>failed</code> states can be garbage-collected when it is no longer
       referenced.</p>
-      <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
-      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
-      state, <a>throw</a> an <code>InvalidStateError</code>.
-      If <code>certificates</code> is non-empty,
-      check that the <code>expires</code> attribute of each
-      <code><a>RTCCertificate</a></code> object is in the future.
-      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>;
-      otherwise, store the certificates.</p>
       <p>Since the Datagram
       Transport Layer Security (DTLS) negotiation occurs between transport endpoints
       determined via ICE, implementations of this specification <em class="rfc2119"
@@ -2295,6 +2287,14 @@ interface RTCDtlsTransport : RTCStatsProvider  {
 };</pre>
         <section>
           <h2>Constructors</h2>
+      <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
+      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
+      state, <a>throw</a> an <code>InvalidStateError</code>.
+      If <code>certificates</code> is non-empty,
+      check that the <code>expires</code> attribute of each
+      <code><a>RTCCertificate</a></code> object is in the future.
+      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>;
+      otherwise, store the certificates.</p>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "constructors">
             <dt><code><a>RTCDtlsTransport</a></code></dt>
@@ -3496,12 +3496,7 @@ interface RTCSsrcConflictEvent : Event {
     <section id="rtcrtpreceiver-operation*">
       <h3>Operation</h3>
       <p>A <code><a>RTCRtpReceiver</a></code> instance is constructed from a value of
-      <code>kind</code> and an <code><a>RTCDtlsTransport</a></code> object. If an attempt
-      is made to construct an <code><a>RTCRtpReceiver</a></code> object with
-      <code>transport.state</code> or <code>rtcpTransport.state</code> with a value of
-      <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>. Upon
-      construction, <code>track</code> is set, and the value of <code>track.kind</code>
-      is determined based on the value of <var>kind</var> passed in the constructor.</p>
+      <code>kind</code> and an <code><a>RTCDtlsTransport</a></code> object.</p>
       <p>An <code><a>RTCRtpReceiver</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
@@ -6888,9 +6883,7 @@ var encodings = [
     <section id="rtcdtmfsender-operation*">
       <h3>Operation</h3>
       <p>An <code><a>RTCDtmfSender</a></code> object is constructed from an
-      <code><a>RTCRtpSender</a></code> <var>sender</var>. If
-      <code>sender.track.kind</code> is not "audio", <a>throw</a> an
-      <code>InvalidParameters</code>.</p>
+      <code><a>RTCRtpSender</a></code> <var>sender</var>.</p>
     </section>
     <section id="rtcdtmfsender-interface-definition*">
       <h3>Interface Definition</h3>
@@ -6905,6 +6898,8 @@ interface RTCDtmfSender {
 };</pre>
         <section>
           <h2>Constructors</h2>
+          <p>If <code>sender.track.kind</code> is not "audio", <a>throw</a> an
+          <code>InvalidParameters</code>.</p>
           <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class=
           "constructors">
             <dt><code><a>RTCDtmfSender</a></code></dt>
@@ -7320,29 +7315,6 @@ if (sender.canInsertDTMF) {
       data channel) and an <code><a>RTCDataChannelParameters</a></code> object.  
       An <code><a>RTCDataChannel</a></code> object can be garbage-collected once
       <var>readyState</var> is <code>closed</code> and it is no longer referenced.</p>
-      <p>When the constructor is invoked, the following steps MUST be run:</p>
-      <ol>
-        <li>Let <var>transport</var> be the first argument.</li>
-        <li>If <code><var>transport</var>.state</code> is <code>closed</code>,
-        <a>throw</a> an <code>InvalidStateError</code>.</li>
-        <li>Let <var>parameters</var> be the second argument.</li>
-        <li>If <code><var>parameters</var>.label</code> is longer than
-        65535 bytes, <a>throw</a> a <code>TypeError</code>.</li>
-        <li>If <code><var>parameters</var>.protocol</code> is longer than
-        65535 bytes, <a>throw</a> a <code>TypeError</code>.</li>
-        <li>If <code><var>parameters</var>.negotiated</code> is <code>true</code>
-        and <code><var>parameters</var>.id</code> is <code>null</code>,
-        <a>throw</a> a <code>TypeError</code>.</li>
-        <li>If both <code><var>parameters</var>.maxPacketLifetime</code>
-        and <code><var>parameters</var>.maxRetransmits</code> are set
-        (not null), <a>throw</a> a <code>TypeError</code>.</li>
-        <li>If <code><var>parameters</var>.id</code> is being used by an
-        existing <code><a>RTCDataChannel</a></code>, <a>throw</a> an
-        <code>OperationError</code>.</li>
-        <li>If <code><var>parameters</var>.id</code> is equal to 65535,
-        which is greater than the maximum allowed ID of 65534, 
-        <a>throw</a> a <code>TypeError</code>.</li>
-      </ol>
     </section>
     <section id="rtcdatachannel-interface-definition*">
       <h3>Interface Definition</h3>
@@ -7406,6 +7378,29 @@ interface RTCDataChannel : EventTarget {
 };</pre>
         <section>
           <h2>Constructors</h2>
+      <p>When the constructor is invoked, the following steps MUST be run:</p>
+      <ol>
+        <li>Let <var>transport</var> be the first argument.</li>
+        <li>If <code><var>transport</var>.state</code> is <code>closed</code>,
+        <a>throw</a> an <code>InvalidStateError</code>.</li>
+        <li>Let <var>parameters</var> be the second argument.</li>
+        <li>If <code><var>parameters</var>.label</code> is longer than
+        65535 bytes, <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If <code><var>parameters</var>.protocol</code> is longer than
+        65535 bytes, <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If <code><var>parameters</var>.negotiated</code> is <code>true</code>
+        and <code><var>parameters</var>.id</code> is <code>null</code>,
+        <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If both <code><var>parameters</var>.maxPacketLifetime</code>
+        and <code><var>parameters</var>.maxRetransmits</code> are set
+        (not null), <a>throw</a> a <code>TypeError</code>.</li>
+        <li>If <code><var>parameters</var>.id</code> is being used by an
+        existing <code><a>RTCDataChannel</a></code>, <a>throw</a> an
+        <code>OperationError</code>.</li>
+        <li>If <code><var>parameters</var>.id</code> is equal to 65535,
+        which is greater than the maximum allowed ID of 65534, 
+        <a>throw</a> a <code>TypeError</code>.</li>
+      </ol>
           <dl data-link-for="RTCDataChannel" data-dfn-for="RTCDataChannel" class=
           "constructors">
             <dt><code><a>RTCDataChannel</a></code></dt>
@@ -7966,8 +7961,7 @@ interface RTCDataChannel : EventTarget {
       <h3>Operation</h3>
       <p>An <code><a>RTCSctpTransport</a></code> is constructed from an
       <code><a>RTCDtlsTransport</a></code> object, and optionally a port number (with a
-      default of 5000, or the next unused port). If a port already in use is provided in
-      the constructor, <a>throw</a> an <code>InvalidParameters</code>.
+      default of 5000, or the next unused port).
       An <code><a>RTCSctpTransport</a></code> object can be garbage-collected once
       <code>stop()</code> is called and it is no longer referenced.</p>
     </section>
@@ -7988,6 +7982,8 @@ interface RTCSctpTransport : RTCDataTransport {
 };</pre>
         <section>
           <h2>Constructors</h2>
+          <p>If a port already in use is provided in
+          the constructor, <a>throw</a> an <code>InvalidParameters</code>.</p>
           <dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class=
           "constructors">
             <dt><code><a>RTCSctpTransport</a></code></dt>
@@ -8505,14 +8501,6 @@ function accept(mySignaller, remote) {
       <p>The QUIC negotiation occurs between transport endpoints determined via ICE.
       Approaches to multiplexing of QUIC with STUN, TURN, DTLS, RTP and RTCP
       are described in [[QUIC-MULT]].</p>
-      <p>If an attempt is made to construct a <code><a>RTCQuicTransport</a></code>
-      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
-      state, <a>throw</a> an <code>InvalidStateError</code>.
-      If <code>certificates</code> is non-empty,
-      check that the <code>expires</code> attribute of each
-      <code><a>RTCCertificate</a></code> object is in the future.
-      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>;
-      otherwise, store the certificates.</p>
       <p>A newly constructed <code><a>RTCQuicTransport</a></code> <em class="rfc2119"
       title="MUST">MUST</em> listen and respond to incoming QUIC packets before
       <code>start()</code> is called. However, to complete the negotiation it is
@@ -8552,6 +8540,14 @@ interface RTCQuicTransport : RTCStatsProvider {
 };</pre>
         <section>
           <h2>Constructors</h2>
+      <p>If an attempt is made to construct a <code><a>RTCQuicTransport</a></code>
+      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
+      state, <a>throw</a> an <code>InvalidStateError</code>.
+      If <code>certificates</code> is non-empty,
+      check that the <code>expires</code> attribute of each
+      <code><a>RTCCertificate</a></code> object is in the future.
+      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>;
+      otherwise, store the certificates.</p>
           <dl data-link-for="RTCQuicTransport" data-dfn-for="RTCQuicTransport" class=
           "constructors">
             <dt><code><a>RTCQuicTransport</a></code></dt>
