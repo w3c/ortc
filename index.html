@@ -11328,7 +11328,31 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <h2>Change Log</h2>
     <p>This section will be removed before publication.</p>
     <!-- Why do the first two headings automatically convert to <h2>? -->
-    <section id="since-01-May-2017*">
+    <section id="since-22-September-2017*">
+      <h3>Changes since 22 September 2017</h3>
+      <ol>
+        <li>Clarified handling of unsupported fingerprint algorithms, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/752">Issue 752</a>
+        </li>
+        <li>Added [Exposed] to interfaces, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/766">Issue 766</a>
+        </li>
+        <li>Clarified operation of the <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> constructor, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/778">Issue 778</a>
+        </li>
+        <li>Clarified definition of <code><a>RTCQuicStreamState</a></code>, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/788">Issue 788</a>
+        </li>
+        <li>Referenced [[!WEBRTC]] for definitions of <code><a>RTCIceCredentialType</a></code>
+        and <code><a>RTCOauthCredential</a></code>, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/792">Issue 792</a>
+        </li>
+        <li>Allow construction of an <code><a>RTCRtpReceiver</a></code> object without a transport, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/801">Issue 801</a>
+        </li>
+      </ol>
+      </section>
+      <section id="since-01-May-2017*">
       <h3>Changes since 01 May 2017</h3>
       <ol>
         <li>Added checks in the <code>send</code> method, as noted in:
@@ -11411,15 +11435,6 @@ RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         </li>
         <li>Added validation steps in the <code><a>RTCIceGatherer</a></code> constructor, as noted in:
         <a href="https://github.com/w3c/ortc/issues/748">Issue 748</a>
-        </li>
-        <li>Clarified handling of unsupported fingerprint algorithms, as noted in:
-        <a href="https://github.com/w3c/ortc/issues/752">Issue 752</a>
-        </li>
-        <li>Added [Exposed] to interfaces, as noted in:
-        <a href="https://github.com/w3c/ortc/issues/766">Issue 766</a>
-        </li>
-        <li>Clarified operation of the <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> constructor, as noted in:
-        <a href="https://github.com/w3c/ortc/issues/778">Issue 778</a>
         </li>
       </ol>
     </section>
