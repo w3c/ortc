@@ -8491,16 +8491,16 @@ function accept(mySignaller, remote) {
     </section>
     <section id="rtcquictransport-operation*">
       <h3>Operation</h3>
-      <p>The QUIC transport protocol is described in [[QUIC-TRANSPORT]].
-      A <code><a>RTCQuicTransport</a></code> instance is constructed
+      <p>A <code><a>RTCQuicTransport</a></code> instance is constructed
       using an <code><a>RTCIceTransport</a></code> and a sequence of
       <code><a>RTCCertificate</a></code> objects.
       An <code><a>RTCQuicTransport</a></code> object in the <code>closed</code> or
       <code>failed</code> states can be garbage-collected when it is no longer
       referenced.</p>
       <p>The QUIC negotiation occurs between transport endpoints determined via ICE.
-      Approaches to multiplexing of QUIC with STUN, TURN, DTLS, RTP and RTCP
-      are described in [[QUIC-MULT]].</p>
+      The QUICv1 transport protocol, described in [[!QUIC-TRANSPORT]], supports
+      multiplexing of a single QUIC connection with STUN, TURN, DTLS, RTP and RTCP.
+      Issues relating to multiplexing are described in [[QUIC-MULT]].</p>
       <p>A newly constructed <code><a>RTCQuicTransport</a></code> <em class="rfc2119"
       title="MUST">MUST</em> listen and respond to incoming QUIC packets before
       <code>start()</code> is called. However, to complete the negotiation it is
