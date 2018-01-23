@@ -99,7 +99,7 @@ var respecConfig = {
         "J. Iyengar",
         "M. Thomson"
       ],
-      "status": "13 October 2017. Internet draft (work in progress)",
+      "status": "05 December 2017. Internet draft (work in progress)",
       "publisher": "IETF"
     },
     "QUIC-MULT": {
