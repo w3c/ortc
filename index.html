@@ -10672,75 +10672,77 @@ function signalAssertion(assertion) {
     <section id="rtccertificate-overview*">
       <h3>Overview</h3>
       <p>The <code>RTCCertificate</code> interface enables the certificates
-      used by an <code><a>RTCDtlsTransport</a></code> to be provided in the constructor.
-      This makes it possible to support forking, where the offerer will create multiple
-      <code><a>RTCDtlsTransport</a></code> objects using the same local certificate and
-      fingerprint.</p>
+      used by an <code><a>RTCDtlsTransport</a></code> or <code><a>RTCQuicTransport</a></code>
+      to be provided in the constructor. This makes it possible to support forking, where
+      the offerer will create multiple <code><a>RTCDtlsTransport</a></code> or
+      <code><a>RTCQuicTransport</a></code> objects using the same local certificate and
+      fingerprint. Also, an <code>RTCCertificate</code> can be persisted in
+      [[INDEXEDDB]] and reused. Persistence and reuse also avoids the
+      cost of key generation.</p>
     </section>
     <section>
       <h3><dfn>RTCCertificate</dfn> Interface</h3>
       <p>The <code>RTCCertificate</code> interface is described below.</p>
       <div>
-        <pre class="idl">[Exposed=Window]
-        interface RTCCertificate {
-    readonly        attribute DOMTimeStamp       expires;
-    readonly        attribute RTCDtlsFingerprint fingerprint;
-    AlgorithmIdentifier            getAlgorithm ();
+      <pre class="idl">[Exposed=Window] interface RTCCertificate {
+    readonly        attribute DOMTimeStamp expires;
+    static sequence&lt;AlgorithmIdentifier&gt; getSupportedAlgorithms();
+    sequence&lt;RTCDtlsFingerprint&gt; getFingerprints ();
     static Promise&lt;RTCCertificate&gt; generateCertificate (AlgorithmIdentifier keygenAlgorithm);
 };</pre>
         <section>
           <h2>Attributes</h2>
-          <dl data-link-for="RTCCertificate" data-dfn-for="RTCCertificate" class=
-          "attributes">
-            <dt><dfn><code>expires</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly</dt>
-            <dd>
-              <p>The <code>expires</code> attribute indicates the date and time in
-              milliseconds relative to 1970-01-01T00:00:00Z after which the certificate
-              will be considered invalid by the browser. After this time, attempts to
-              construct an <code><a>RTCDtlsTransport</a></code> object using this
-              certificate will fail.</p>
-              <p>Note that this value might not be reflected in a <code>notAfter</code>
-              parameter in the certificate itself.</p>
-            </dd>
-            <dt><dfn><code>fingerprint</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsFingerprint</a></span>, readonly</dt>
-            <dd>
-              <p>The fingerprint of the certificate. As noted in [[!JSEP]] Section 5.2.1,
-              the digest algorithm used for the fingerprint matches that used in the
-              certificate signature.</p>
-            </dd>
-          </dl>
+            <dl data-link-for="RTCCertificate" data-dfn-for="RTCCertificate"
+            class="attributes">
+              <dt><dfn><code>expires</code></dfn> of type <span class=
+              "idlAttrType"><a>DOMTimeStamp</a></span>, readonly</dt>
+              <dd>
+                <p>The <var>expires</var> attribute indicates the date and time
+                in milliseconds relative to 1970-01-01T00:00:00Z after which
+                the certificate will be considered invalid by the browser.
+                After this time, attempts to construct an
+                object using this certificate fail.</p>
+                <p>Note that this value might not be reflected in a
+                <code>notAfter</code> parameter in the certificate itself.</p>
+              </dd>
+            </dl>
         </section>
         <section>
           <h2>Methods</h2>
           <dl data-link-for="RTCCertificate" data-dfn-for="RTCCertificate" class=
           "methods">
-            <dt><dfn><code>getAlgorithm</code></dfn></dt>
+            <dt><dfn><code>getSupportedAlgorithms</code></dfn></dt>
             <dd>
-              <p>Returns the value of <code>keygenAlgorithm</code> passed in the call to
-              <code>generateCertificate()</code>.</p>
-              <div class="issue atrisk">
-              <p>getAlgorithm is marked as a feature at risk, since there is no
-              clear commitment from implementers.</p>
-              </div>
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>AlgorithmIdentifier</code>
-              </div>
+                <p>Returns a sequence providing a representative set of supported
+                certificate algorithms. At least one algorithm MUST be returned.</p>
+                <div class="note">
+                  <p>For example, the "RSASSA-PKCS1-v1_5" algorithm dictionary,
+                  <code>RsaHashedKeyGenParams</code>, contains fields for the modulus
+                  length, public exponent, and hash algorithm. Implementations
+                  are likely to support a wide range of modulus lengths and exponents,
+                  but a finite number of hash algorithms. So in this case, it would be
+                  reasonable for the implementation to return one
+                  <code>AlgorithmIdentifier</code> for each supported hash algorithm
+                  that can be used with RSA, using default/recommended values for
+                  <code>modulusLength</code> and <code>publicExponent</code>
+                  (such as 1024 and 65537, respectively).</p>
+                </div>
+            </dd>
+            <dt><dfn><code>getFingerprints</code></dfn></dt>
+            <dd>
+                <p>Returns the list of certificate fingerprints, one of which is
+                computed with the digest algorithm used in the certificate
+                signature.</p>
             </dd>
             <dt><dfn><code>generateCertificate</code></dfn>, static</dt>
             <dd>
-              <p>The <code>generateCertificate</code> method causes the <a class=
-              "internalDFN" href="#dfn-user-agent">user agent</a> to create and store an
-              X.509 certificate [[!X509V3]] and corresponding private key. A handle to
+              <p>The <code>generateCertificate</code> method causes the
+              <a>user agent</a> to create and store an X.509 certificate
+              [[!X509V3]] and corresponding private key. A handle to
               information is provided in the form of the
               <code><a>RTCCertificate</a></code> interface. The returned
-              <code><a>RTCCertificate</a></code> can be used to control the certificate
-              that is offered in the DTLS session established by
-              <code><a>RTCDtlsTransport</a></code>.</p>
+              <code><a>RTCCertificate</a></code> can be used to control the certificates
+              that are offered in DTLS or QUIC.</p>
               <p>The <code>keygenAlgorithm</code> argument is used to control how the
               private key associated with the certificate is generated. The
               <code>keygenAlgorithm</code> argument uses the WebCrypto [[!WebCryptoAPI]]
@@ -10761,18 +10763,18 @@ function signalAssertion(assertion) {
               process produces an error, the call to <code>generateCertificate()</code>
               <em title="MUST" class="rfc2119">MUST</em> be <a>rejected</a> with that error.</p>
               <p>Signatures produced by the generated key are used to authenticate the
-              DTLS connection. The identified algorithm (as identified by the
+              DTLS or QUIC connection. The identified algorithm (as identified by the
               <code>name</code> of the normalized <code>AlgorithmIdentifier</code>)
               <em title="MUST" class="rfc2119">MUST</em> be an asymmetric algorithm that
               can be used to produce a signature.</p>
               <p>The certificate produced by this process also contains a signature. The
               validity of this signature is only relevant for compatibility reasons. Only
               the public key and the resulting certificate fingerprint are used by
-              <code><a>RTCDtlsTransport</a></code>, but it is more likely that a
-              certificate will be accepted if the certificate is well formed. The browser
-              selects the algorithm used to sign the certificate; a browser <em title=
-              "SHOULD" class="rfc2119">SHOULD</em> select SHA-256 [[!FIPS-180-4]] if a
-              hash algorithm is needed.</p>
+              <code><a>RTCDtlsTransport</a></code> or <code><a>RTCQuicTransport</a></code>,
+              but it is more likely that a certificate will be accepted if the certificate
+              is well formed. The browser selects the algorithm used to sign the certificate;
+              a browser <em title="SHOULD" class="rfc2119">SHOULD</em> select
+              SHA-256 [[!FIPS-180-4]] if a hash algorithm is needed.</p>
               <p>The resulting certificate <em title="MUST NOT" class="rfc2119">MUST
               NOT</em> include information that can be linked to a user or <a class=
               "internalDFN" href="#dfn-user-agent">user agent</a>. Randomized values for
