@@ -499,7 +499,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "31 August 2017. Internet Draft (work in progress)",
+      "status": "18 December 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -530,7 +530,7 @@ var respecConfig = {
       "authors": [
         "J. Uberti"
       ],
-      "status": "03 July 2017. Internet Draft (work in progress)",
+      "status": "10 December 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "FLEXFEC": {
@@ -571,7 +571,7 @@ var respecConfig = {
       "authors": [
         "E. Rescorla"
       ],
-      "status": "29 October 2017. Internet Draft (work in progress)",
+      "status": "22 January 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTCWEB-SECURITY-ARCH": {
@@ -644,7 +644,7 @@ var respecConfig = {
         "J. Uberti",
         "P. Saint-Andre"
       ],
-      "status": "11 September 2017. Internet Draft (work in progress)",
+      "status": "13 November 2017. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TS26.114": {
@@ -663,7 +663,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "29 October 2017 (work in progress)",
+      "status": "17 January 2018 (work in progress)",
       "publisher": "W3C"
     }
   }
