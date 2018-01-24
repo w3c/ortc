@@ -10770,12 +10770,26 @@ function signalAssertion(assertion) {
                   <code>modulusLength</code> and <code>publicExponent</code>
                   (such as 1024 and 65537, respectively).</p>
                 </div>
+                <div>
+                  <em>No parameters.</em>
+                </div>
+                <div>
+                  <em>Return type:</em>
+                  sequence&lt;<code>AlgorithmIdentifier</code>&gt
+                </div>
             </dd>
             <dt><dfn><code>getFingerprints</code></dfn></dt>
             <dd>
                 <p>Returns the list of certificate fingerprints, one of which is
                 computed with the digest algorithm used in the certificate
                 signature.</p>
+                <div>
+                  <em>No parameters.</em>
+                </div>
+                <div>
+                  <em>Return type:</em>
+                  sequence&lt;<code><a>RTCDtlsFingerprint</a></code>&gt
+              </div>
             </dd>
             <dt><dfn><code>generateCertificate</code></dfn>, static</dt>
             <dd>
