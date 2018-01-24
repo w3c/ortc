@@ -1423,11 +1423,8 @@ export function myDtlsTransportStateChange(name, state){
     <section id="rtcicetransport-operation*">
       <h3>Operation</h3>
       <p>An <code><a>RTCIceTransport</a></code> instance is constructed (optionally) from
-      an <code><a>RTCIceGatherer</a></code>. If <code>gatherer.state</code> is
-      <code>closed</code> or <code>gatherer.component</code> is <code>rtcp</code>,
-      <a>throw</a> an <code>InvalidStateError</code>.</p>
-      <p>An <code><a>RTCIceTransport</a></code> object in the <code>closed</code> state
-      can be garbage-collected when it is no longer referenced.</p>
+      an <code><a>RTCIceGatherer</a></code>. An <code><a>RTCIceTransport</a></code> object
+      in the <code>closed</code> state can be garbage-collected when it is no longer referenced.</p>
     </section>
     <section id="rtcicetransport-interface-definition*">
       <h3>Interface Definition</h3>
@@ -1451,6 +1448,9 @@ interface RTCIceTransport : RTCStatsProvider {
 };</pre>
         <section>
           <h2>Constructors</h2>
+          <p>If <code>gatherer.state</code> is
+          <code>closed</code> or <code>gatherer.component</code> is <code>rtcp</code>,
+          <a>throw</a> an <code>InvalidStateError</code>.</p>
           <dl data-link-for="RTCIceTransport" data-dfn-for="RTCIceTransport" class=
           "constructors">
             <dt><code><a>RTCIceTransport</a></code></dt>
