@@ -10684,8 +10684,9 @@ function signalAssertion(assertion) {
       <h3><dfn>RTCCertificate</dfn> Interface</h3>
       <p>The <code>RTCCertificate</code> interface is described below.</p>
       <div>
-      <pre class="idl">[Exposed=Window] interface RTCCertificate {
-    readonly        attribute DOMTimeStamp expires;
+        <pre class="idl">[Exposed=Window]
+        interface RTCCertificate {
+    readonly        attribute DOMTimeStamp       expires;
     static sequence&lt;AlgorithmIdentifier&gt; getSupportedAlgorithms();
     sequence&lt;RTCDtlsFingerprint&gt; getFingerprints ();
     static Promise&lt;RTCCertificate&gt; generateCertificate (AlgorithmIdentifier keygenAlgorithm);
