@@ -10693,20 +10693,19 @@ function signalAssertion(assertion) {
 };</pre>
         <section>
           <h2>Attributes</h2>
-            <dl data-link-for="RTCCertificate" data-dfn-for="RTCCertificate"
-            class="attributes">
-              <dt><dfn><code>expires</code></dfn> of type <span class=
-              "idlAttrType"><a>DOMTimeStamp</a></span>, readonly</dt>
-              <dd>
-                <p>The <var>expires</var> attribute indicates the date and time
-                in milliseconds relative to 1970-01-01T00:00:00Z after which
-                the certificate will be considered invalid by the browser.
-                After this time, attempts to construct an
-                object using this certificate fail.</p>
-                <p>Note that this value might not be reflected in a
-                <code>notAfter</code> parameter in the certificate itself.</p>
-              </dd>
-            </dl>
+          <dl data-link-for="RTCCertificate" data-dfn-for="RTCCertificate" class=
+          "attributes">
+            <dt><dfn><code>expires</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMTimeStamp</a></span>, readonly</dt>
+            <dd>
+              <p>The <code>expires</code> attribute indicates the date and time in
+              milliseconds relative to 1970-01-01T00:00:00Z after which the certificate
+              will be considered invalid by the browser. After this time, attempts to
+              construct an object using this certificate will fail.</p>
+              <p>Note that this value might not be reflected in a <code>notAfter</code>
+              parameter in the certificate itself.</p>
+            </dd>
+          </dl>
         </section>
         <section>
           <h2>Methods</h2>
