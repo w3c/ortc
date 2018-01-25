@@ -3017,7 +3017,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
                   on which <code>setTransport()</code> is invoked.</p>
-                </li>Sender
+                </li>
                 <li>
                   <p>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is <code>true</code>,
                   <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</p>
@@ -3544,7 +3544,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>Construct an <code><a>RTCRtpReceiver</a></code> with <var>transport</var> (if provided)
                 and <var>rtcpTransport</var> (if provided) and let <var>receiver</var>
                 be the result.</li>
-                <li>Let <var>receiver</var> have an <dfn>[[\Stopped]]</dfn> internal slot,
+                <li>Let <var>receiver</var> have an <dfn>[[\ReceiverStopped]]</dfn> internal slot,
                 initialized to <code>false</code>.</li>
                 <li>Let <var>receiver</var> have a <dfn>[[\ReceiverKind]]</dfn> internal slot,
                 initialized to <var>kind</var>.</li>
@@ -3664,7 +3664,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object
                   on which <code>setTransport()</code> is invoked.</p>
                 </li>
-                <li>If <var>receiver</var>'s <a>[[\Stopped]]</a> slot is <code>true</code>,
+                <li>If <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot is <code>true</code>,
                 <a>throw</a> an <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3782,7 +3782,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
-                <li>If <var>receiver</var>'s <a>[[\Stopped]]</a> slot is <code>true</code>,
+                <li>If <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot is <code>true</code>,
                 <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
@@ -3908,7 +3908,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
               not affect track clones and also does not stop <var>receiver</var>
               so that Receiver Reports continue to be sent. Calling
               <code><var>receiver</var>.stop</code> sets <var>receiver</var>'s
-              <a>[[\Stopped]]</a> slot to <code>true</code> but does not
+              <a>[[\ReceiverStopped]]</a> slot to <code>true</code> but does not
               cause the "onended" event to fire for <code>track</code>.</p>
               <div>
                 <em>No parameters.</em>
