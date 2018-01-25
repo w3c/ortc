@@ -3661,10 +3661,8 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object
                   on which <code>setTransport()</code> is invoked.</p>
                 </li>
-                <li>
-                  <p>If <var>receiver</var>'s <a>[[\RtpReceiverIsStopped]]</a> slot is <code>true</code>,
-                  <a>throw</a> an <code>InvalidStateError</code>.</p>
-                </li>
+                <li>If <var>receiver</var>'s <a>[[\RtpReceiverIsStopped]]</a> slot is <code>true</code>,
+                <a>throw</a> an <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
                   be the arguments to this method.</p>
