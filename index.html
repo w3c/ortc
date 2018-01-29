@@ -3031,12 +3031,13 @@ interface RTCRtpSender : RTCStatsProvider {
                   be the arguments to this method.</p>
                 </li>
                 <li>
-                  <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code>.</p>
+                  <p>If <code><var>withTransport</var></code> is null and
+                  <code><var>withRtcpTransport</var></code> is set, <a>throw</a> an
+                  <code>OperationError</code> and abort these steps.</p>
                 </li>
                 <li>
-                  <p>If <code><var>withTransport</var>.transport.component</code> is
+                  <p>If <code><var>withTransport</var></code> is set and
+                  <code><var>withTransport</var>.transport.component</code> is
                   <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3056,8 +3057,10 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Set <code>transport</code> to <var>withTransport</var> and
-                  <code>rtcpTransport</code> to <var>withRtcpTransport</var>
-                  (if provided) and seamlessly send over the new transport(s).</p>
+                  <code>rtcpTransport</code> to <var>withRtcpTransport</var>.</p>
+                </li>
+                  <p>If <code>transport</code> is set and <code>transport.state</code>
+                  is not <code>failed</code>, seamlessly send over the new transport(s).</p>
                 </li>
               </ol>
               <table class="parameters">
@@ -3670,12 +3673,13 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   be the arguments to this method.</p>
                 </li>
                 <li>
-                  <p>If <code>setTransport()</code> is called with no arguments,
-                  or if <var>withTransport</var> is unset, <a>throw</a> an
-                  <code>InvalidParameters</code>.</p>
+                  <p>If <code><var>withTransport</var></code> is null and
+                  <code><var>withRtcpTransport</var></code> is set, <a>throw</a> an
+                  <code>OperationError</code> and abort these steps.</p>
                 </li>
                 <li>
-                  <p>If <code><var>withTransport</var>.transport.component</code> is
+                  <p>If <code><var>withTransport</var></code> is set and
+                  <code><var>withTransport</var>.transport.component</code> is
                   <code>rtcp</code>, <a>throw</a> an <code>InvalidParameters</code>.</p>
                 </li>
                 <li>
@@ -3694,9 +3698,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
                 <li>
-                  <p>Replace <code>transport</code> (if set) with <var>withTransport</var> and
-                  <code>rtcpTransport</code> (if set) with <var>withRtcpTransport</var> and
-                  seamlessly receive over the new transport(s).</p>
+                  <p>Set <code>transport</code> to <var>withTransport</var> and
+                  <code>rtcpTransport</code> to <var>withRtcpTransport</var>.</p>
+                </li>
+                  <p>If <code>transport</code> is set and <code>transport.state</code>
+                  is not <code>failed</code>, seamlessly receive over the new transport(s).</p>
+                </li>                
               </ol>
               <table class="parameters">
                 <tbody>
