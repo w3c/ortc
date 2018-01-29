@@ -2892,16 +2892,16 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>Construct an <code><a>RTCRtpSender</a></code> with <var>transport</var>
                 (if provided) and <var>rtcpTransport</var> (if provided) and let
                 <var>sender</var> be the result.</li>
-                <li>Let <var>sender</var> have an <dfn>[[\RtpSenderIsStopped]]</dfn> internal slot,
+                <li>Let <var>sender</var> have an <dfn>[[\SenderStopped]]</dfn> internal slot,
                 initialized to <code>false</code>.</li>
-                <li>Let <var>sender</var> have a <dfn>[[\RtpSenderKind]]</dfn> internal slot.</li>
-                <li>Let <var>sender</var> have a <dfn>[[\RtpSenderTrack]]</dfn> internal slot.</li>
+                <li>Let <var>sender</var> have a <dfn>[[\SenderKind]]</dfn> internal slot.</li>
+                <li>Let <var>sender</var> have a <dfn>[[\SenderTrack]]</dfn> internal slot.</li>
                 <li>If <var>trackOrKind</var> is a <code>MediaStreamTrack</code> initialize
-                <var>sender</var>'s <a>[[\RtpSenderTrack]]</a> slot to <var>trackOrKind</var> and
-                <var>sender</var>'s <a>[[\RtpSenderKind]]</a> slot to <code><var>trackOrKind</var>.kind</code>.</li>
+                <var>sender</var>'s <a>[[\SenderTrack]]</a> slot to <var>trackOrKind</var> and
+                <var>sender</var>'s <a>[[\SenderKind]]</a> slot to <code><var>trackOrKind</var>.kind</code>.</li>
                 <li>If <var>trackOrKind</var> is a DOMString initialize <var>sender</var>'s
-                <a>[[\RtpSenderTrack]]</a> internal slot to <code>null</code> and
-                <var>sender</var>'s <a>[[\RtpSenderKind]]</a> slot to <var>trackOrKind</var>.</li>
+                <a>[[\SenderTrack]]</a> internal slot to <code>null</code> and
+                <var>sender</var>'s <a>[[\SenderKind]]</a> slot to <var>trackOrKind</var>.</li>
               </ol>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "constructors">
@@ -3020,7 +3020,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code>setTransport()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>If <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot is <code>true</code>,
+                  <p>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is <code>true</code>,
                   <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</p>
                 </li>
                 <li>
@@ -3133,7 +3133,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code> object
                   on which <code>replaceTrack()</code> is invoked.</p>
                 </li>
-                <li>If <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot is <code>true</code>,
+                <li>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is <code>true</code>,
                   <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withTrack</var> be the argument to this method.</p>
@@ -3235,7 +3235,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
-                  <p>If <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot is
+                  <p>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is
                    <code>true</code>, <a>reject</a> <var>p</var> with a newly created
                    <code>InvalidStateError</code>.</p>
                 </li>
@@ -3364,7 +3364,7 @@ interface RTCRtpSender : RTCStatsProvider {
               <ol>
                  <li>Let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
                  on which <code>stop</code> is invoked.</li>
-                 <li>If <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot is
+                 <li>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is
                  <code>true</code>, abort these steps.</li>
                  <li>
                   <p>Let <var>parameters</var> be the argument provided to
@@ -3381,7 +3381,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code>
                   where <var>i</var> goes from 0 to <code>encodings.length-1</code>.<p>
                 </li>
-                <li>Set <var>sender</var>'s <a>[[\RtpSenderIsStopped]]</a> slot to <code>true</code>.</li>
+                <li>Set <var>sender</var>'s <a>[[\SenderStopped]]</a> slot to <code>true</code>.</li>
               </ol>
               <div>
                 <em>No parameters.</em>
@@ -3540,13 +3540,15 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>Construct an <code><a>RTCRtpReceiver</a></code> with <var>transport</var> (if provided)
                 and <var>rtcpTransport</var> (if provided) and let <var>receiver</var>
                 be the result.</li>
-                <li>Let <var>receiver</var> have an <dfn>[[\RtpReceiverIsStopped]]</dfn> internal slot,
+                <li>Let <var>receiver</var> have an <dfn>[[\ReceiverStopped]]</dfn> internal slot,
                 initialized to <code>false</code>.</li>
-                <li>Let <var>receiver</var> have a <dfn>[[\RtpReceiverKind]]</dfn> internal slot,
+                <li>Let <var>receiver</var> have a <dfn>[[\ReceiverKind]]</dfn> internal slot,
                 initialized to <var>kind</var>.</li>
-                <li>Let <var>receiver</var> have a <dfn>[[\RtpReceiverTrack]]</dfn> internal slot,
+                <li>Let <var>receiver</var> have a <dfn>[[\ReceiverTrack]]</dfn> internal slot,
                 initialized to a newly created <code>MediaStreamTrack</code> of <code>kind</code>
                 <var>kind</var>.</li>
+                <li>Set the <code>muted</code> attribute of <var>receiver</var>'s [[\ReceiverTrack]]
+                slot to <code>false</code>.</li>
               </ol>
           <dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class=
           "constructors">
@@ -3603,19 +3605,18 @@ interface RTCRtpReceiver : RTCStatsProvider {
               <p>The <code>track</code> attribute is the
               <code><a>MediaStreamTrack</a></code> instance that is
               associated with this <code><a>RTCRtpReceiver</a></code>
-              object <var>receiver</var>. Upon construction,
-              <code>track</code> is set. The value of
-              <code>track.kind</code> is set to the value of
-              <code>kind</code> passed in the constructor.</p>
-              <p>When one of the SSRCs in
-              <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code>
-              (where <code><var>i</var></code> goes from 0 to
-              <code>encodings.length-1</code>) is removed from the source
-              identifier table described in [[!RFC3550]] Section 8.2 (either
-              due to BYE reception or timeout) the <code>mute</code> event
-              is fired at <code>track</code>. If and when media packets are
-              received again for <var>receiver</var>, the <code>unmute</code>
+              object <var>receiver</var>. When one of the SSRCs for RTP
+              source media streams received by <var>receiver</var> is
+              removed (either due to reception of a BYE or via timeout),
+              the <code>mute</code> event is fired at <code>track</code>.
+              If and when packets are received again, the <code>unmute</code>
               event is fired at <code>track</code>.</p>
+              <p>Note that <code>track.stop()</code> is final, although
+              clones are not affected. Since
+              <code><var>receiver</var>.track.stop()</code>
+              does not implicitly stop <var>receiver</var>, Receiver
+              Reports continue to be sent. On getting, the attribute MUST
+              return the value of the <a>[[\ReceiverTrack]]</a> slot.</p>  
               <div class="note">
                 Prior to verification of the remote DTLS fingerprint within the
                 <code><a>RTCDtlsTransport</a></code> <var>transport</var> (if set), and
@@ -3659,7 +3660,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code> object
                   on which <code>setTransport()</code> is invoked.</p>
                 </li>
-                <li>If <var>receiver</var>'s <a>[[\RtpReceiverIsStopped]]</a> slot is <code>true</code>,
+                <li>If <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot is <code>true</code>,
                 <a>throw</a> an <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withTransport</var> and <var>withRtcpTransport</var>
@@ -3777,7 +3778,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
-                <li>If <var>receiver</var>'s <a>[[\RtpReceiverIsStopped]]</a> slot is <code>true</code>,
+                <li>If <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot is <code>true</code>,
                 <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code>.</li>
                 <li>
                   <p>Let <var>withParameters</var> be the argument to this method.</p>
@@ -3903,7 +3904,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
               not affect track clones and also does not stop <var>receiver</var>
               so that Receiver Reports continue to be sent. Calling
               <code><var>receiver</var>.stop</code> sets <var>receiver</var>'s
-              <a>[[\RtpReceiverIsStopped]]</a> slot to <code>true</code> but does not
+              <a>[[\ReceiverStopped]]</a> slot to <code>true</code> but does not
               cause the "onended" event to fire for <code>track</code>.</p>
               <div>
                 <em>No parameters.</em>
