@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <link href="webrtc.css" rel="stylesheet">
   <title>Object RTC (ORTC) API for WebRTC</title>
-  <script src="respec-w3c-common.js" async class="remove"></script>
+  <script src="respec-w3c-common-19.0.2.js" async class="remove"></script>
   <script src="respec-config.js" class="remove"></script>
 </head>
 <body>
@@ -7728,7 +7728,7 @@ interface RTCDataChannel : EventTarget {
           object on which data is to be sent.</p>
         </li>
         <li>
-          <p>If <var>channel</var>'s <a data-for=
+          <p>If <var>channel</var>'s <a data-link-for=
           "RTCDataChannel"><code>readyState</code></a> attribute is not
           <code>open</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
         </li>
@@ -7739,14 +7739,14 @@ interface RTCDataChannel : EventTarget {
             <li>
               <p><code>string</code> object:</p>
               <p>Let <var>data</var> be the object and increase the
-              <code><a data-for="RTCDataChannel">bufferedAmount</a></code>
+              <code><a data-link-for="RTCDataChannel">bufferedAmount</a></code>
               attribute by the number of bytes needed to express
               <var>data</var> as UTF-8.</p>
             </li>
             <li>
               <p><code>Blob</code> object:</p>
               <p>Let <var>data</var> be the raw data represented by the
-              <code>Blob</code> object and increase the <code><a data-for=
+              <code>Blob</code> object and increase the <code><a data-link-for=
               "RTCDataChannel">bufferedAmount</a></code> attribute by the size
               of data, in bytes.</p>
             </li>
@@ -7754,7 +7754,7 @@ interface RTCDataChannel : EventTarget {
               <p><code>ArrayBuffer</code> object:</p>
               <p>Let <var>data</var> be the data stored in the buffer described
               by the <code>ArrayBuffer</code> object and increase the
-              <code><a data-for="RTCDataChannel">bufferedAmount</a></code>
+              <code><a data-link-for="RTCDataChannel">bufferedAmount</a></code>
               attribute by the length of the <code>ArrayBuffer</code> in
               bytes.</p>
             </li>
@@ -7763,7 +7763,7 @@ interface RTCDataChannel : EventTarget {
               <p>Let <var>data</var> be the data stored in the section of the
               buffer described by the <code>ArrayBuffer</code> object that the
               <code>ArrayBufferView</code> object references and increase the
-              <code><a data-for="RTCDataChannel">bufferedAmount</a></code>
+              <code><a data-link-for="RTCDataChannel">bufferedAmount</a></code>
               attribute by the length of the <code>ArrayBufferView</code> in
               bytes.</p>
             </li>
@@ -10722,11 +10722,11 @@ function signalAssertion(assertion) {
             <code>TypeError</code> and abort processing.</p>
             <p>A <a>user agent</a> generates a certificate that has an
             expiration date set to the current time plus the value of the
-            <code>expires</code> attribute. The <a data-for=
+            <code>expires</code> attribute. The <a data-link-for=
             "RTCCertificate"><code>expires</code></a> attribute of the returned
             <a><code>RTCCertificate</code></a> is set to the expiration time of
             the certificate. A <a>user agent</a> MAY choose to limit the value
-            of the <a data-for="RTCCertificate"><code>expires</code></a>
+            of the <a data-link-for="RTCCertificate"><code>expires</code></a>
             attribute.</p>
           </dd>
         </dl>
