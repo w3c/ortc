@@ -4938,6 +4938,26 @@ interface RTCRtpUnhandledEvent : Event {
         </section>
       </div>
     </section>
+    <section id="typedefs*" data-dfn-for="payloadtype" data-link-for="payloadtype">
+    <h2><dfn>Dictionary</dfn> Object</h2>
+      <div>
+        <pre class="idl">typedef object Dictionary;</pre>
+        <div class="idlTypedefDesc">
+          Throughout this specification, the identifier
+          <code><a>Dictionary</a></code> is used to refer to the <span class=
+          "idlTypedefType">object</span> type.
+        </div>
+      </div>
+      <h2><dfn>payloadtype</dfn> Type</h2>
+      <div>
+        <pre class="idl">typedef octet payloadtype;</pre>
+        <div class="idlTypedefDesc">
+          Throughout this specification, the identifier
+          <code><a>payloadtype</a></code> is used to refer to the <span class=
+          "idlTypedefType">octet</span> type.
+        </div>
+      </div>
+    </section>
     <section id="rtcrtpcodeccapability*">
       <h3><dfn>RTCRtpCodecCapability</dfn> Dictionary</h3>
       <p>The <code>RTCRtpCodecCapability</code> dictionary provides
@@ -4950,22 +4970,6 @@ interface RTCRtpUnhandledEvent : Event {
         </li>
         <li>"cn" codecs, each with distinct <code>clockRate</code> values.</li>
       </ol>
-      <div>
-        <pre class="idl">typedef object Dictionary;</pre>
-        <div class="idlTypedefDesc">
-          Throughout this specification, the identifier
-          <dfn><code>Dictionary</code></dfn> is used to refer to the <span class=
-          "idlTypedefType">object</span> type.
-        </div>
-      </div>
-      <div>
-        <pre class="idl">typedef octet payloadtype;</pre>
-        <div class="idlTypedefDesc">
-          Throughout this specification, the identifier
-          <dfn>payloadtype</dfn> is used to refer to the <span class=
-          "idlTypedefType">octet</span> type.
-        </div>
-      </div>
       <div>
         <pre class="idl">dictionary RTCRtpCodecCapability {
              DOMString                 name;
