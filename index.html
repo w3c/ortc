@@ -8000,8 +8000,24 @@ interface RTCSctpTransport : RTCDataTransport {
 };</pre>
         <section>
           <h2>Constructors</h2>
-          <p>If a port already in use is provided in
-          the constructor, <a>throw</a> an <code>InvalidParameters</code>.</p>
+          <p>To construct an <code><a>RTCSctpTransport</a></code>, run the following steps:</p>
+          <ol>
+            <li>Let <var>transport</var> be the first argument.</li>
+            <li>If <code><var>transport</var>.state</code> is <code>closed</code> <a>throw</a> an <code>InvalidStateError</code>.</li>
+            <li>Let <var>port</var> be the second argument.</li>
+            <li>If <var>port</var> is set and is already in use, <a>throw</a> an <code>InvalidStateError</code>.</li>
+            <li>Let <var>sctpTransport</var> be a new <code><a>RTCSctpTransport</a></code> object.</p></li>
+            <li><p>Let <var>sctpTransport</var> have a  <dfn>[[\SctpTransportState]]</dfn> internal slot initialized to
+            <code>new</code>.</p></li>
+            <p>Let <var>canSendSize</var> be the number of bytes that this
+            client can send (i.e. the size of the local send buffer) or 0 if
+            the implementation can handle messages of any size.</p>
+            <li><p>Let <var>sctpTransport</var> have a <dfn>[[\MaxMessageSize]]</dfn>
+            internal slot initialized to <var>canSendSize</var>.</p></li>
+            <li>
+              <p>Return <var>sctpTransport</var>.</p>
+            </li>
+          </ol>
           <dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class=
           "constructors">
             <dt><code><a>RTCSctpTransport</a></code></dt>
@@ -8051,7 +8067,8 @@ interface RTCSctpTransport : RTCDataTransport {
             <dt><dfn><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCSctpTransportState</a></span>, readonly</dt>
             <dd>
-              <p>The current state of the SCTP transport.</p>
+              <p>The current state of the SCTP transport. On getting, it MUST return the
+              value of the [[\SctpTransportState]] internal slot.</p>
             </dd>
             <dt><dfn><code>port</code></dfn> of type <span class=
             "idlAttrType"><a>unsigned short</a></span>, readonly</dt>
@@ -8104,18 +8121,52 @@ interface RTCSctpTransport : RTCDataTransport {
               <code><a>RTCDtlsTransport</a></code> from the local
               <code><a>RTCSctpTransport</a></code> to the remote
               <code><a>RTCSctpTransport</a></code> (causing the
-              <code><a>RTCSctpTransportState</a></code> to transition
+              [[\SctpTransportState]] internal slot to transition
               to to <code>connecting</code>), where the remote
               <code><a>RTCSctpTransport</a></code> responds with an
               SCTP INIT-ACK. Since both local and remote parties must
               mutually create an <code><a>RTCSctpTransport</a></code>,
               SCTP SO (Simultaneous Open) is used to establish a connection
-              over SCTP. If <code><a>RTCSctpTransportState</a></code>
+              over SCTP. If the [[\SctpTransportState]] slot
               is not <code>new</code> <a>throw</a> an <code>InvalidStateError</code>.
               If <code>remotePort</code> is not provided, a
               default value of <code>port</code> is assumed.  If the
               remote port is in use, <a>throw</a> an
               <code>InvalidParameters</code>.</p>
+              <p><code>start</code> also updates the 
+               [[\MaxMessageSize]] internal slot of the <code>
+               <a>RTCSctpTransport</a></code> by running the following steps:</p>
+        <ol>
+          <li>
+            <p>Let <var>sctpTtransport</var> be the <code><a>RTCSctpTransport</a>
+            </code> object to be updated.</p>
+          </li>
+          <li>Let <var>remoteCaps</var> be the first argument.</li>
+          <li>
+            <p>Let <var>remoteMaxMessageSize</var> be the value of
+            <code><var>remoteCaps</var>.maxMessagesize</code> or 65536 if
+            it is unset or null.</p>
+          </li>
+          <li>
+            <p>Let <var>canSendSize</var> be the number of bytes that this
+            client can send (i.e. the size of the local send buffer) or 0 if
+            the implementation can handle messages of any size.</p>
+          </li>
+          <li>
+            <p>If both <var>remoteMaxMessageSize</var> and
+            <var>canSendSize</var> are 0, set <a>[[\MaxMessageSize]]</a> to the
+            positive Infinity value.</p>
+          </li>
+          <li>
+            <p>Else, if either <var>remoteMaxMessageSize</var> or
+            <var>canSendSize</var> is 0, set <a>[[\MaxMessageSize]]</a> to the
+            larger of the two.</p>
+          </li>
+          <li>
+            <p>Else, set <a>[[\MaxMessageSize]]</a> to the smaller of
+            <var>remoteMaxMessageSize</var> or <var>canSendSize</var>.</p>
+          </li>
+        </ol>        
               <table class="parameters">
                 <tbody>
                   <tr>
