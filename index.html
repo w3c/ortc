@@ -6989,7 +6989,7 @@ interface RTCDtmfSender {
                 <li>let <var>sender</var> be the <code><a>RTCRtpSender</a></code>
                 used to send DTMF.
                 </li>
-                <li>If <var>sender</var>'s <a>[[\SenderStopped]] slot is <code>true</code>,
+                <li>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is <code>true</code>,
                 <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</li>
                 <li>If <code><var>sender</var>.send</code> has not been called, 
                 <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</li>
@@ -7022,7 +7022,7 @@ interface RTCDtmfSender {
                 these steps; otherwise queue a task that runs the following
                 steps (<em>Playout task</em>):
                   <ol>
-                    <li>If <var>sender</var>'s <a>[[\SenderStopped]] slot is
+                    <li>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is
                     <code>true</code>, abort these steps.</li>
                     <li>If <code><a>toneBuffer</a></code> is an empty string,
                     fire an event named <code><a>tonechange</a></code> with an
