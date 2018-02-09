@@ -7852,6 +7852,7 @@ interface RTCDataChannel : EventTarget {
              USVString      protocol = "";
              boolean        negotiated = false;
              unsigned short id;
+             RTCPriorityType priority = "low";
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCDataChannelParameters</a> Members</h2>
@@ -7937,6 +7938,11 @@ interface RTCDataChannel : EventTarget {
               The attribute <em class="rfc2119" title="MUST">MUST</em> return the value
               to which it was set when the <code><a>RTCDataChannel</a></code> was
               constructed.</p>
+            </dd>
+            <dt><dfn><code>priority</code></dfn> of type <span class=
+            "idlMemberType"><a>RTCPriorityType</a></span>, defaulting to <code>low</code></dt>
+            <dd>
+              <p>Priority of this channel.</p>
             </dd>
           </dl>
         </section>
@@ -8364,7 +8370,8 @@ function initiate(mySignaller) {
     label: "channel1",
     ordered: true,
     protocol: "ship",
-    negotiated: false
+    negotiated: false,
+    priority: "medium"
   };
 
   mySignaller.sendInitiate({
