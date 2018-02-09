@@ -8003,19 +8003,19 @@ interface RTCSctpTransport : RTCDataTransport {
           <p>To construct an <code><a>RTCSctpTransport</a></code>, run the following steps:</p>
           <ol>
             <li>Let <var>transport</var> be the first argument.</li>
-            <li>If <var>transport</var>'s <code>state</code> attribute is
-            <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</li>
+            <li>If <code><var>transport</var>.state</code> is <code>closed</code>
+            <a>throw</a> an <code>InvalidStateError</code>.</li>
             <li>Let <var>port</var> be the second argument.</li>
             <li><p>If <var>port</var> is set and is already in use,
             <a>throw</a> an <code>InvalidStateError</code>.</p></li>
             <li><p>Let <var>sctpTransport</var> be a new
             <code><a>RTCSctpTransport</a></code> object.</p></li>
-            <li><p>Let <var>sctpTransport</var> have a 
+            <li><p>Let <var>sctpTransport</var> have an
             <dfn>[[\SctpTransportState]]</dfn> internal slot initialized to
             <code>new</code>.</p></li>
-            <p>Let <var>canSendSize</var> be the number of bytes that this
+            <li><p>Let <var>canSendSize</var> be the number of bytes that this
             client can send (i.e. the size of the local send buffer) or 0 if
-            the implementation can handle messages of any size.</p>
+            the implementation can handle messages of any size.</p></li>
             <li><p>Let <var>sctpTransport</var> have a <dfn>[[\MaxMessageSize]]</dfn>
             internal slot initialized to <var>canSendSize</var>.</p></li>
             <li><p>Return <var>sctpTransport</var>.</p></li>
@@ -8144,7 +8144,7 @@ interface RTCSctpTransport : RTCDataTransport {
               remote port is in use, <a>throw</a> an
               <code>InvalidStateError</code>.</p>
               <p>When the <code>start</code> method is called, the user agent
-              MUST udpate the [[\MaxMessageSize]] internal slot of the <code>
+              MUST update the <a>[[\MaxMessageSize]]</a> internal slot of the <code>
               <a>RTCSctpTransport</a></code> by running the following steps:</p>
               <ol>
                 <li><p>Let <var>sctpTtransport</var> be the <code><a>RTCSctpTransport</a></code>
@@ -8284,8 +8284,8 @@ interface RTCSctpTransport : RTCDataTransport {
               <dt><dfn><code>maxMessageSize</code></dfn> of type <span class=
               "idlMemberType"><a>unsigned long</a></span></dt>
               <dd>
-                <p>The maximum size of data that can be passed to <code><a>RTCDataChannel</a></code>'s <code>send()</code> method.
-                </p>
+                <p>The maximum size of data that the implementation can send
+                or 0 if the implementation can handle messages of any size.</p>
               </dd>
             </dl>
           </section>
