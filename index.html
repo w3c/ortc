@@ -7320,8 +7320,8 @@ if (sender.canInsertDTMF) {
     </section>
   </section>
   <section id="rtcdatachannel*">
-   <h2><dfn>RTCDataChannel</dfn> Interface</h2>
-   <section id="rtcdatachannel-overview*">
+    <h2><dfn>RTCDataChannel</dfn> Interface</h2>
+    <section id="rtcdatachannel-overview*">
       <h3>Overview</h3>
       <p>An <code>RTCDataChannel</code> object allows sending data
       messages to/from the remote peer.</p>
@@ -7367,7 +7367,7 @@ if (sender.canInsertDTMF) {
       set to <code>true</code>, and signal out-of-band (e.g. via a web server)
       to the other side that it should create a corresponding
       <code><a>RTCDataChannel</a></code> with the
-      <code><a>RTCDataChannelParameters</a>.negotiated</code> dictionary member
+      <code><a>RTCDataChannelParameters</a></code> <code>negotiated</code> member
       set to <code>true</code> and the same <var>id</var>. This will connect
       the two separately created <code><a>RTCDataChannel</a></code> objects.
       The second way makes it possible to create channels with asymmetric
@@ -7394,13 +7394,14 @@ interface RTCDataChannel : EventTarget {
     void                     send (ArrayBuffer data);
     void                     send (ArrayBufferView data);
 };</pre>
-        <section>
-          <h2>Constructors</h2>
+    <section>
+      <h2>Constructors</h2>
       <p>When the constructor is invoked, the following steps MUST be run:</p>
       <ol>
         <li>Let <var>transport</var> be the first argument.</li>
-        <li>If <code><var>transport</var>.state</code> is <code>closed</code>,
-        <a>throw</a> an <code>InvalidStateError</code>.</li>
+        <li><p>If <var>transport</var>'s <code>state</code> attribute
+        is <code>closed</code>, <a>throw</a> an
+        <code>InvalidStateError</code>.</p></li>
         <li>Let <var>parameters</var> be the second argument.</li>
         <li><p>Let <var>channel</var> be a newly created
         <code><a>RTCDataChannel</a></code> object.</p></li>
@@ -7415,17 +7416,17 @@ interface RTCDataChannel : EventTarget {
         <code>null</code>.</p></li>
         <li><p>Let <var>channel</var> have a <dfn>[[\ReadyState]]</dfn>
         internal slot initialized to <code>connecting</code>.</p></li>
-        <li><p>Let <var>channel</var> have a <dfn>[[\MaxRetransmits]]</dfn> internal slot
-        initialized to <var>parameter</var>'s <code>maxRetransmits</code>
+        <li><p>Let <var>channel</var> have a <dfn>[[\MaxRetransmits]]</dfn>
+        internal slot initialized to <var>parameter</var>'s <code>maxRetransmits</code>
         member, if present, otherwise <code>null</code>.</p></li>
-        <li><p>Let <var>channel</var> have an <dfn>[[\Ordered]]</dfn> internal slot initialized to
-        <var>parameter</var>'s <code>ordered</code> member.</p></li>
+        <li><p>Let <var>channel</var> have an <dfn>[[\Ordered]]</dfn> internal
+        slot initialized to <var>parameter</var>'s <code>ordered</code> member.</p></li>
         <li><p>Let <var>channel</var> have a <dfn>[[\DataChannelProtocol]]</dfn>
         internal slot initialized to <var>parameter</var>'s <code>protocol</code> member.</p></li>
-        <li>If <a>[[\DataChannelProtocol]]</a> is longer than 65535 bytes long,
-        <a>throw</a> a <code>TypeError</code>.</li>
-        <li><p>Let <var>channel</var> have a <dfn>[[\Negotiated]]</dfn> internal slot initialized
-        to <var>parameter</var>'s <code>negotiated</code> member.</p></li>
+        <li><p>If <a>[[\DataChannelProtocol]]</a> is longer than 65535 bytes long,
+        <a>throw</a> a <code>TypeError</code>.</p></li>
+        <li><p>Let <var>channel</var> have a <dfn>[[\Negotiated]]</dfn> internal slot
+        initialized to <var>parameter</var>'s <code>negotiated</code> member.</p></li>
         <li><p>Let <var>channel</var> have an <dfn>[[\DataChannelId]]</dfn>
         internal slot initialized to <var>parameter</var>'s
         <code>id</code> member, if it is present and
@@ -7467,7 +7468,7 @@ interface RTCDataChannel : EventTarget {
         <code>OperationError</code> exception.</p>
         <div class="note">
            If the <var>channel</var>'s <a>[[\DataChannelId]]</a>
-           slot is <code>null</code> after this step, it will be
+           internal slot is <code>null</code> after this step, it will be
            populated once the DTLS role is determined.
         </div></li>
         <li>
@@ -7525,8 +7526,9 @@ interface RTCDataChannel : EventTarget {
             "idlAttrType"><a>RTCDataChannelState</a></span>, readonly</dt>
             <dd>
               <p>The <dfn id="dom-datachannel-readystate"><code>readyState</code></dfn>
-              attribute represents the state of the <a>RTCDataChannel</a> object.
-              On getting, it MUST return the value of <var>channel</var>'s [[\ReadyState]] internal slot.</p>
+              attribute represents the state of the <code><a>RTCDataChannel</a></code> object.
+              On getting, it MUST return the value of the <code><a>RTCDataChannel</a></code>
+              object's <a>[[\ReadyState]]</a> internal slot.</p>
             </dd>
             <dt><code>bufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
@@ -7593,13 +7595,13 @@ interface RTCDataChannel : EventTarget {
             <dd>
               <p>This event handler, of event handler type <code>error</code>, <em class=
               "rfc2119" title="MUST">MUST</em> be supported by all objects implementing
-              the RTCDataChannel interface. One reason an <code>error</code> event can be
-              fired is if the value of <var>parameters</var> passed in the constructor is
-              subsequently determined to be invalid. This can happen if <var>channel</var>'s
-              [[\Negotiated]] internal slot is set to <code>false</code> and then a call to
-              <code>RTCDtlsTransport.start()</code> causes the DTLS role to be set to a
-              value inconsistent with the value of <var>channel</var>'s [[\DataChannelId]] slot, as noted
-              in [[!DATA-PROT]] Section 4.</p>
+              the <code><a>RTCDataChannel</a></code> interface. One reason an <code>error</code>
+              event can be fired is if the value of <var>parameters</var> passed in the constructor
+              is subsequently determined to be invalid. This can happen if the <code><a>RTCDataChannel</a></code>
+              <a>[[\Negotiated]]</a> internal slot is set to <code>false</code> and then a call
+              to <code>RTCDtlsTransport.start()</code> causes the DTLS role to be set to a
+              value inconsistent with the value of the <code><a>RTCDataChannel</a></code>
+              <a>[[\DataChannelId]]</a> internal slot, as noted in [[!DATA-PROT]] Section 4.</p>
             </dd>
             <dt><dfn><code>onclose</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
@@ -7635,7 +7637,49 @@ interface RTCDataChannel : EventTarget {
           "methods">
             <dt><dfn><code>getParameters</code></dfn></dt>
             <dd>
-              <p>Returns the parameters applying to this data channel.</p>
+              <p>Returns the <code><a>RTCDataChannelParameters</a></code> applying to this
+              data channel. When the <code>getParameters</code> method is called, the user
+              agent <em class="rfc2119" title="MUST">MUST</em> run the following
+              steps:</p>
+              <ol>
+                 <li>Let <var>channel</var> be the <code><a>RTCDataChannel</a></code> object
+                 for which parameters are to be returned.</li>
+                 <li>Let <var>parameters</var> be a new
+                 <code><a>RTCDataChannelParameters</a></code> dictionary.</li>
+                 <li>Set <var>parameters</var>'s <code>label</code> member to the value of
+                 <var>channel</var>'s <a>[[\DataChannelLabel]]</a> internal slot, which <em class="rfc2119"
+                 title="MUST">MUST</em> have the value to which it was set when
+                 <var>channel</var> was constructed.</li>
+                 <li>Set <var>parameters</var>'s <code>ordered</code> member to the value of
+                 <var>channel</var>'s <a>[[\Ordered]]</a> internal slot, which <em class="rfc2119"
+                 title="MUST">MUST</em> have the value to which it was set when
+                 <var>channel</var> was constructed.</li>
+                 <li>Set <var>parameters</var>'s <code>maxPacketLifetime</code> member to the value of
+                 <var>channel</var>'s <a>[[\MaxPacketLifetime]]</a> internal slot, which <em class="rfc2119"
+                 title="MUST">MUST</em> have the value to which it was set when
+                 <var>channel</var> was constructed.</li>
+                 <li>Set <var>parameters</var>'s <code>maxRetransmits</code> member to the value of
+                 <var>channel</var>'s <a>[[\MaxRetransmits]]</a> internal slot, which <em class="rfc2119"
+                 title="MUST">MUST</em> have the value to which it was set when
+                 <var>channel</var> was constructed.</li>
+                 <li>Set <var>parameters</var>'s <code>protocol</code> member to the value of
+                 <var>channel</var>'s <a>[[\DataChannelProtocol]]</a> internal slot, which <em class="rfc2119"
+                 title="MUST">MUST</em> have the value to which it was set when
+                 <var>channel</var> was constructed.</li>
+                 <li>Set <var>parameters</var>'s <code>negotiated</code> member to the value of
+                 <var>channel</var>'s <a>[[\Negotiated]]</a> internal slot.</li>
+                 <li>Set <var>parameters</var>'s <code>id</code> member to the value of
+                 <var>channel</var>'s <a>[[\DataChannelId]]</a> internal slot.</li>
+                 <li>Set <var>parameters</var>'s <code>label</code> member to the value of
+                 <var>channel</var>'s <a>[[\DataChannelLabel]]</a> internal slot, which <em class="rfc2119"
+                 title="MUST">MUST</em> have the value to which it was set when
+                 <var>channel</var> was constructed.</li>
+                 <li>Set <var>parameters</var>'s <code>priority</code> member to the value of
+                 <var>channel</var>'s <a>[[\DataChannelPriority]]</a> internal slot,
+                 which <em class="rfc2199" title="MUST">MUST</em> have the value to
+                 which it was set when <var>channel</var> was constructed.</li>
+                 <li>Return <var>parameters</var>.</li>
+              </ol>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -7647,14 +7691,14 @@ interface RTCDataChannel : EventTarget {
             <dd>
               <p>Closes the <a>RTCDataChannel</a>. It may be called regardless of whether
               the <code><a>RTCDataChannel</a></code> object was created by this peer or
-              the remote peer. When the <code>close()</code> method is called, the user
+              the remote peer. When the <code>close</code> method is called, the user
               agent <em class="rfc2119" title="MUST">MUST</em> run the following
               steps:</p>
-              <p>1. Let <var>channel</var> be the <a>RTCDataChannel</a> object which is about to be
+              <p>1. Let <var>channel</var> be the <code><a>RTCDataChannel</a></code> object which is about to be
               closed.</p>
-              <p>2. If <var>channel</var>'s [[\ReadyState]] slot is <code>closing</code>
+              <p>2. If <var>channel</var>'s <a>[[\ReadyState]]</a> slot is <code>closing</code>
               or <code>closed</code>, then abort these steps.</p>
-              <p>3. Set <var>channel</var>'s [[\ReadyState]] slot to <code>closing</code>.</p>
+              <p>3. Set <var>channel</var>'s <a>[[\ReadyState]]</a> slot to <code>closing</code>.</p>
               <p>4. If the closing procedure has not started yet, start it.</p>
               <div>
                 <em>No parameters.</em>
@@ -7787,10 +7831,10 @@ interface RTCDataChannel : EventTarget {
       <ol>
         <li>
           <p>Let <var>channel</var> be the <code><a>RTCDataChannel</a></code>
-          object on which data is to be sent.</p>
+          on which data is to be sent.</p>
         </li>
         <li>
-          <p>If <var>channel</var>'s [[\ReadyState]] internal slot is not
+          <p>If <var>channel</var>'s <a>[[\ReadyState]]</a> internal slot is not
           <code>open</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
         </li>
         <li>
@@ -7831,8 +7875,8 @@ interface RTCDataChannel : EventTarget {
           </ul>
         </li>
         <li>
-          <p>If the size of <var>data</var> exceeds the value of <code><a
-          data-link-for="RTCSctpCapabilities">maxMessageSize</a></code> on
+          <p>If the size of <var>data</var> exceeds the value of
+          the <a>[[\MaxMessageSize]]</a> slot of
           <var>channel</var>'s associated <code>RTCSctpTransport</code>,
           <a>throw</a> a <code>TypeError</code>.</p>
         </li>
@@ -7878,16 +7922,15 @@ interface RTCDataChannel : EventTarget {
               <td>
                 <p>The <a>user agent</a> is attempting to establish the underlying data
                 transport. This is the initial state of an
-                <code><a>RTCDataChannel</a></code> object.</p>
+                <code><a>RTCDataChannel</a></code> object dispatched
+                as part of an <code>RTCDataChannelEvent</code>.</p>
               </td>
             </tr>
             <tr>
               <td><dfn><code id="idl-def-RTCDataChannelState.open">open</code></dfn></td>
               <td>
                 <p>The underlying data transport is established and communication is
-                possible. This is the initial state of an
-                <code><a>RTCDataChannel</a></code> object dispatched as a part of an
-                <code>RTCDataChannelEvent</code>.</p>
+                possible.</p>
               </td>
             </tr>
             <tr>
@@ -7942,8 +7985,7 @@ interface RTCDataChannel : EventTarget {
             <dd>
               <p>The <dfn><code>label</code></dfn> attribute represents a label that can
               be used to distinguish this <code><a>RTCDataChannel</a></code> object from
-              other <a>RTCDataChannel</a> objects. On getting, it MUST return the value
-              of <var>channel</var>'s [[\Label]] internal slot. For an SCTP data
+              other <a>RTCDataChannel</a> objects. For an SCTP data
               channel, the label is carried in the DATA_CHANNEL_OPEN message defined in
               [[!DATA-PROT]] Section 5.1.</p>
             </dd>
@@ -7951,11 +7993,9 @@ interface RTCDataChannel : EventTarget {
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
             <dd>
               <p>The <dfn id="dom-datachannel-ordered"><code>ordered</code></dfn>
-              attribute returns <code>true</code> if the
+              attribute is set to <code>true</code> if the
               <code><a>RTCDataChannel</a></code> is ordered, and <code>false</code> if
-              out of order delivery is allowed. Default is <code>true</code>. On getting,
-              it MUST return the value of <var>channel</var>'s
-              [[\Ordered]] internal slot. </p>
+              out of order delivery is allowed. Default is <code>true</code>.</p>
             </dd>
             <dt><code>maxPacketLifetime</code> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
@@ -7963,29 +8003,23 @@ interface RTCDataChannel : EventTarget {
               <p>The <dfn id=
               "dom-datachannel-maxpacketlifetime"><code>maxPacketLifetime</code></dfn>
               attribute represents the length of the time window (in milliseconds) during
-              which retransmissions may occur in unreliable mode. On getting, it MUST
-              return the value of <var>channel</var>'s
-              [[\MaxPacketLifeTime]] internal slot. </p>
+              which retransmissions may occur in unreliable mode.</p>
             </dd>
             <dt><code>maxRetransmits</code> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The <dfn id=
               "dom-datachannel-maxretransmits"><code>maxRetransmits</code></dfn>
-              attribute returns the maximum number of retransmissions that are attempted
+              attribute represents the maximum number of retransmissions that are attempted
               in unreliable mode. The attribute <em class="rfc2119" title=
-              "MUST">MUST</em> be initialized to null by default.
-              On getting, it MUST return the value of <var>channel</var>'s
-              [[\MaxRetransmits]] internal slot.</p>
+              "MUST">MUST</em> be initialized to <code>null</code> by default.</p>
             </dd>
             <dt><dfn><code>protocol</code></dfn> of type <span class=
             "idlMemberType"><a>USVString</a></span>, defaulting to <code>""</code></dt>
             <dd>
               <p>The name of the sub-protocol used with this
-              <code><a>RTCDataChannel</a></code>if any, or the empty string otherwise (in
-              which case the protocol is unspecified). On getting, it MUST return the
-              value of <var>channel</var>'s
-              [[\Protocol]] internal slot. Sub-protocols are
+              <code><a>RTCDataChannel</a></code> if any, or the empty string otherwise (in
+              which case the protocol is unspecified). Sub-protocols are
               registered in the 'Websocket Subprotocol Name Registry' created in
               [[RFC6455]] Section 11.5.</p>
             </dd>
@@ -7993,33 +8027,29 @@ interface RTCDataChannel : EventTarget {
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>false</code></dt>
             <dd>
               <p>The <dfn id="dom-datachannel-negotiated"><code>negotiated</code></dfn>
-              attribute returns true if this <code><a>RTCDataChannel</a></code> was
-              negotiated by the application, or false otherwise. The attribute <em class=
+              attribute is set to <code>true</code> if this <code><a>RTCDataChannel</a></code> was
+              negotiated by the application, or <code>false</code> otherwise. The attribute <em class=
               "rfc2119" title="MUST">MUST</em> be initialized to <code>false</code> by
-              default. On getting, it MUST return the value of <var>channel</var>'s
-              [[\Negotiated]] internal slot. If set to true, the application developer <em class="rfc2119"
+              default. If set to <code>true</code>, the application developer <em class="rfc2119"
               title="MUST">MUST</em> signal to the remote peer to construct an
-              <code><a>RTCDataChannel</a></code> object with the same [[\DataChannelId]] for the data
+              <code><a>RTCDataChannel</a></code> object with the same id for the data
               channel to be open. As noted in [[!DATA-PROT]], DATA_CHANNEL_OPEN is not
               sent to the remote peer nor is DATA_CHANNEL_ACK expected in return. If set
-              to false, the remote party will receive an ondatachannel event with a
+              to <code>false</code>, the remote party will receive an ondatachannel event with a
               system constructed <code><a>RTCDataChannel</a></code> object.</p>
             </dd>
             <dt><dfn><code>id</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span></dt>
             <dd>
-              <p>The id attribute returns the id for this
+              <p>The <code>id</code> attribute represents the identifier for this
               <code><a>RTCDataChannel</a></code>. The id was either assigned by the user
               agent at channel creation time or was selected by the script. For SCTP, the
-              id represents a stream identifier, as discussed in [[!DATA]] Section 6.5.
-              On getting, it MUST return the value of <var>channel</var>'s
-              [[\DataChannelId]] internal slot.</p></p>
+              id represents a stream identifier, as discussed in [[!DATA]] Section 6.5.</p>
             </dd>
             <dt><dfn><code>priority</code></dfn> of type <span class=
             "idlMemberType"><a>RTCPriorityType</a></span>, defaulting to <code>low</code></dt>
             <dd>
-              <p>Priority of this channel. On getting, it MUST return the value of
-              <var>channel</var>'s [[\Priority]] internal slot. </p>
+              <p>The priority of this <code><a>RTCDataChannel</a></code>.</p>
             </dd>
           </dl>
         </section>
