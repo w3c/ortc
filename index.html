@@ -4554,51 +4554,73 @@ mySignaller.myOfferTracks({
       this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
       <section class="informative" id="rtppackethandling*">
       <h4>ORTC routing rules</h4>
-      <p>Since ORTC does not utilize SDP, this section provides a (non-normative) example
-      of how the <code><a>RTCRtpListener</a></code> can maintain the tables described in
-      [[!BUNDLE]] Section 10.2: the <code>ssrc_table</code> which maps SSRC values to
-      <code><a>RTCRtpReceiver</a></code> objects, the <code>muxId_table</code> which maps
-      values of the <a>MID</a> header extension to <code><a>RTCRtpReceiver</a></code>
-      objects and the <code>pt_table</code> which maps payload type values to
-      <code><a>RTCRtpReceiver</a></code> objects. When
-      <code><var>receiver</var>.receive(<var>parameters</var>)</code> is called,
-      the tables are filled as follows:</p>
-      <p>muxId table:<p>
+      <p>[[!BUNDLE]] Section 10.2 describes how RTP/RTCP streams are associated with
+      SDP m-sections. The algorithm involves three tables: the <code>ssrc_table</code>
+      which maps SSRC values to <code><a>RTCRtpReceiver</a></code> objects,
+      the <code>muxId_table</code> which maps values of the <a>MID</a> header extension
+      to <code><a>RTCRtpReceiver</a></code> objects and the <code>pt_table</code> which
+      maps payload type values to <code><a>RTCRtpReceiver</a></code> objects. Since ORTC
+      does not utilize SDP, this section provides a (non-normative) description of
+      an example <code><a>RTCRtpListener</a></code> implementation.</p>
+      <p>When <code>receive(<var>parameters</var>)</code> is called,
+      run the following steps:</p>
       <ol>
-      <li>If <code><var>parameters</var>.muxId</code> is set,
-      <code>muxId_table[<var>parameters</var>.muxId]</code> is set to <code><var>receiver</var></code>.</li>
-      <li>If <code>muxId_table[<var>muxId</var>]</code> is already set to a value other than
-      <code><var>receiver</var></code>, then <code><var>receiver</var>.receive()</code> will
-      be <a>rejected</a> with <code>InvalidParameters</code>.</li>
-      </ol>
-      <p>SSRC table:</p>
+      <li><p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code>
+      object on which <code>receiver</code> is called.</p></li>
+      <li>Let <var>parameters</var> be the first argument.</li>
+      <p>MuxId table:<p>
       <ol>
-      <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
-      to <code><var>receiver</var></code> for each entry where
-      <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set, for values of
-      <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
-      <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].rtx.ssrc]</code>
-      to <code><var>receiver</var></code> for each entry where
-      <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code> is set, for values of
-      <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
-      <li>Set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].fec.ssrc]</code>
-      to <code><var>receiver</var></code> for each entry where
-      <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set, for values of
-      <var>i</var> from 0 to <code>encodings.length-1</code>.</li>
-      <li>If <code>ssrc_table[<var>ssrc</var>]</code> is already set to a value other
-      than <code><var>receiver</var></code>, then <code><var>receiver</var>.receive()</code>
-      will be <a>rejected</a> with <code>InvalidParameters</code>.</li>
-      </ol>
+        <li><p>If <code><var>parameters</var>.muxId</code> is set and
+        <code>muxId_table[<var>parameters</var>.muxId]</code> is unset,
+        set <code>muxId_table[<var>parameters</var>.muxId]</code> to
+        <var>receiver</var>.</p></li>
+        <li><p>If <code><var>parameters</var>.muxId</code> is set and
+        <code>muxId_table[<var>parameters</var>.muxId]</code> is set
+        to a value other than <var>receiver</var>, <a>reject</a>
+        <code>receive</code> with <code>InvalidParameters</code> and
+        abort these steps.</p></li>
+      </ol>  
+      <p>SSRC table:<p>  
+      <p>For values of <var>i</var> from 0 to <code>encodings.length-1</code>:</p>
+      <ol>
+        <li><p>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set
+        and <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
+        is unset, set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
+        to <var>receiver</var>.</p></li>
+        <li><p>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set
+        and <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].ssrc]</code>
+        is set to a value other than <var>receiver</var>, <a>reject</a>
+        <code>receive</code> with <code>InvalidParameters</code> and abort these steps.</p></li>    
+        <li><p>If <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code> is set
+        and <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].rtx.ssrc]</code>
+        is unset, set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].rtx.ssrc]</code>
+        to <var>receiver</var>.</p></li>
+        <li><p>If <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code> is set
+        and <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].rtx.ssrc]</code>
+        is set to a value other than <var>receiver</var>, <a>reject</a>
+        <code>receive</code> with <code>InvalidParameters</code> and abort these steps.</p></li>  
+        <li><p>If <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set
+        and <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].fec.ssrc]</code>
+        is unset, set <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].fec.ssrc]</code>
+        to <var>receiver</var>.</p></li>
+        <li><p>If <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> is set
+        and <code>ssrc_table[<var>parameters</var>.encodings[<var>i</var>].fec.ssrc]</code>
+        is set to a value other than <var>receiver</var>, <a>reject</a>
+        <code>receive</code> with <code>InvalidParameters</code> and abort these steps.</p></li>  
+      </ol>      
       <p>payload type table:<p>
       <ol>
-      <li>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
-      values of <var>i</var> from 0 to <code>encodings.length-1</code>, then add
-      entries to <code>pt_table</code> by setting
-      <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code> to
-      <code><var>receiver</var></code>, for values of <var>j</var> from 0 to <code>codecs.length-1</code>.</li>
-      <li>If <code>pt_table[<var>pt</var>]</code> is already set to a value other than
-      <code><var>receiver</var></code> then <code><var>receiver</var>.receive()</code> is
-      <a>rejected</a> with <code>InvalidParameters</code>.</li>
+        <li>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
+        values of <var>i</var> from 0 to <code>encodings.length-1</code>, then
+        for values of <var>j</var> from 0 to <code>codecs.length-1</code>:</li>
+        <ol>
+          <li><p>If <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code>
+          is unset, set <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code>
+          to <var>receiver</var>.</p></li>
+          <li><p>If <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code>
+          is set to a value other than <var>receiver</var>, <a>reject</a> <code>receive</code> with
+          <code>InvalidParameters</code> and abort these steps.</p></li>
+        </ol>
       </ol>
       </section>
       <section id="rtppackethandling*">
