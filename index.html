@@ -4554,9 +4554,7 @@ mySignaller.myOfferTracks({
       <p>When multiple <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code>
       objects share a <code><a>RTCDtlsTransport</a></code>, this implies that they also
       share a single SSRC numbering space [[!RFC3550]]. The restrictions arising from
-      this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
-
-      
+      this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>      
       <section class="informative" id="rtppackethandling*">
       <h4>ORTC routing rules</h4>
       <p>Since ORTC does not utilize <code>RTCRtpTransceiver</code> objects, 
@@ -4569,19 +4567,19 @@ mySignaller.myOfferTracks({
       <li><p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code>
       object on which the <code>receive</code> method was called.</p></li>
       <li>Let <var>parameters</var> be the first argument.</li>
-      <p>MuxId table:<p>
-      <ol>
-        <li><p>If <code><var>parameters</var>.muxId</code> is set and
-        <code>muxId_table[<var>parameters</var>.muxId]</code> is unset,
-        set <code>muxId_table[<var>parameters</var>.muxId]</code> to
-        <var>receiver</var>.</p></li>
-        <li><p>If <code><var>parameters</var>.muxId</code> is set and
-        <code>muxId_table[<var>parameters</var>.muxId]</code> is set
-        to a value other than <var>receiver</var>, <a>reject</a>
-        <code>receive</code> with <code>InvalidParameters</code> and
-        abort these steps.</p></li>
-      </ol>  
-      <p>SSRC table:<p>  
+      <li>MuxId table:<li>
+       <ol>
+         <li><p>If <code><var>parameters</var>.muxId</code> is set and
+         <code>muxId_table[<var>parameters</var>.muxId]</code> is unset,
+         set <code>muxId_table[<var>parameters</var>.muxId]</code> to
+         <var>receiver</var>.</p></li>
+         <li><p>If <code><var>parameters</var>.muxId</code> is set and
+         <code>muxId_table[<var>parameters</var>.muxId]</code> is set
+         to a value other than <var>receiver</var>, <a>reject</a>
+         <code>receive</code> with <code>InvalidParameters</code> and
+         abort these steps.</p></li>
+       </ol>  
+      <li>SSRC table:</li> 
       <p>For values of <var>i</var> from 0 to <code>encodings.length-1</code>:</p>
       <ol>
         <li><p>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is set
@@ -4609,7 +4607,7 @@ mySignaller.myOfferTracks({
         is set to a value other than <var>receiver</var>, <a>reject</a>
         <code>receive</code> with <code>InvalidParameters</code> and abort these steps.</p></li>  
       </ol>      
-      <p>payload type table:<p>
+      <li>payload type table:</li>
       <ol>
         <li>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
         values of <var>i</var> from 0 to <code>encodings.length-1</code>, then
