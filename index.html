@@ -4538,35 +4538,36 @@ mySignaller.myOfferTracks({
       the value of the <a>MID</a> RTP header extension, if present. If the
       <code><a>RTCRtpReceiver</a></code> object to deliver the RTP packet to
       cannot be determined, the <code><a>unhandledrtp</a></code> event is fired.</p>
-       <p>Table entries referencing the
-      <code><a>RTCRtpReceiver</a></code> object <code><var>receiver</var></code>
-      are added when <code><var>receiver</var>.receive(<var>parameters</var>)</code>
-      is called. When <code><var>receiver</var>.receive(<var>parameters</var>)</code> is
-      called again, changes are made to table entries. When <code><var>receiver</var>.stop</code>
-      is called, all entries referencing <code><var>receiver</var></code> are removed.</p>
       <p>[[!BUNDLE]] Section 10.2 describes the algorithm used in WebRTC for
       routing of RTP streams received over a shared transport to an SDP m-line
-      (representing an <code><a>RTCRtpSender</a></code>/<code><a>RTCRtpReceiver</a></code> pair).
-      This is based on tables containing SSRC, PT and MID entries. When multiple
-      <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code>
-      objects share a <code><a>RTCDtlsTransport</a></code>, this implies that they also
-      share a single SSRC numbering space [[!RFC3550]]. The restrictions arising from
-      this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
-      <section class="informative" id="rtppackethandling*">
-      <h4>ORTC routing rules</h4>
-      <p>[[!BUNDLE]] Section 10.2 describes how RTP/RTCP streams are associated with
-      SDP m-sections. The algorithm involves three tables: the <code>ssrc_table</code>
+      (representing an <code><a>RTCRtpSender</a></code>/<code><a>RTCRtpReceiver</a></code> pair),
+      using three tables: the <code>ssrc_table</code>
       which maps SSRC values to <code><a>RTCRtpReceiver</a></code> objects,
       the <code>muxId_table</code> which maps values of the <a>MID</a> header extension
       to <code><a>RTCRtpReceiver</a></code> objects and the <code>pt_table</code> which
-      maps payload type values to <code><a>RTCRtpReceiver</a></code> objects. Since ORTC
-      does not utilize SDP, this section provides a (non-normative) description of
-      an example <code><a>RTCRtpListener</a></code> implementation.</p>
+      maps payload type values to <code><a>RTCRtpReceiver</a></code> objects.</p>
+      <p>Table entries referencing the <code><a>RTCRtpReceiver</a></code> object
+      <code><var>receiver</var></code> are added when <code><var>receiver</var>.receive(<var>parameters</var>)</code>
+      is called. When <code><var>receiver</var>.receive(<var>parameters</var>)</code> is
+      called again, changes are made to table entries. When <code><var>receiver</var>.stop</code>
+      is called, all entries referencing <code><var>receiver</var></code> are removed.</p>
+      <p>When multiple <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code>
+      objects share a <code><a>RTCDtlsTransport</a></code>, this implies that they also
+      share a single SSRC numbering space [[!RFC3550]]. The restrictions arising from
+      this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>
+
+      
+      <section class="informative" id="rtppackethandling*">
+      <h4>ORTC routing rules</h4>
+      <p>Since ORTC does not utilize <code>RTCRtpTransceiver</code> objects, 
+      this section provides a (non-normative) example of how an
+      <code><a>RTCRtpListener</a></code> implementation can emulate the
+      behavior described in [[!BUNDLE]] Section 10.2.</p>
       <p>When <code>receive(<var>parameters</var>)</code> is called,
       run the following steps:</p>
       <ol>
       <li><p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code>
-      object on which <code>receiver</code> is called.</p></li>
+      object on which the <code>receive</code> method was called.</p></li>
       <li>Let <var>parameters</var> be the first argument.</li>
       <p>MuxId table:<p>
       <ol>
