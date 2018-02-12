@@ -4567,7 +4567,7 @@ mySignaller.myOfferTracks({
       <li><p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code>
       object on which the <code>receive</code> method was called.</p></li>
       <li>Let <var>parameters</var> be the first argument.</li>
-      <li>MuxId table:<li>
+      <li>MuxId table:</li>
        <ol>
          <li><p>If <code><var>parameters</var>.muxId</code> is set and
          <code>muxId_table[<var>parameters</var>.muxId]</code> is unset,
@@ -4609,9 +4609,9 @@ mySignaller.myOfferTracks({
       </ol>      
       <li>payload type table:</li>
       <ol>
-        <li>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
+        <p>If <code><var>parameters</var>.encodings[<var>i</var>].ssrc</code> is unset for all
         values of <var>i</var> from 0 to <code>encodings.length-1</code>, then
-        for values of <var>j</var> from 0 to <code>codecs.length-1</code>:</li>
+        for values of <var>j</var> from 0 to <code>codecs.length-1</code>:</p>
         <ol>
           <li><p>If <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code>
           is unset, set <code>pt_table[<var>parameters</var>.codecs[<var>j</var>].payloadType]</code>
