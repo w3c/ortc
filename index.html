@@ -543,12 +543,12 @@ interface RTCIceGatherer : RTCStatsProvider {
           <dl data-link-for="RTCIceParameters" data-dfn-for="RTCIceParameters" class=
           "dictionary-members">
             <dt><dfn><code>usernameFragment</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>ICE username fragment.</p>
             </dd>
             <dt><dfn><code>password</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>ICE password.</p>
             </dd>
@@ -796,7 +796,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       all <code>RTCIceCandidate</code>s are gathered.</p>
       <div>
         <pre class="idl">dictionary RTCIceCandidateComplete {
-             required boolean complete = true;
+             boolean complete = true;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCIceCandidateComplete</a> Members</h2>
@@ -995,7 +995,7 @@ interface RTCIceGathererIceErrorEvent : Event {
               server on which the failure ocurred.</p>
             </dd>
             <dt><dfn><code>errorCode</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned short</a></span></dt>
+            "idlMemberType"><a>unsigned short</a></span>, required</dt>
             <dd>
               <p>The <code>errorCode</code> attribute is the numeric STUN error code
               returned by the STUN or TURN server [[STUN-PARAMETERS]].</p>
@@ -1089,7 +1089,7 @@ interface RTCIceGathererEvent : Event {
       <p>The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary provides
       information on the <code><a>RTCIceGatherCandidate</a></code>.</p>
         <pre class="idl">dictionary RTCIceGathererEventInit : EventInit {
-             RTCIceGatherCandidate candidate;
+             required RTCIceGatherCandidate candidate;
              DOMString             url;
 };</pre>
         <section>
@@ -1097,7 +1097,7 @@ interface RTCIceGathererEvent : Event {
           <dl data-link-for="RTCIceGathererEventInit" data-dfn-for=
           "RTCIceGathererEventInit" class="dictionary-members">
             <dt><dfn><code>candidate</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceGatherCandidate</a></span></dt>
+            "idlMemberType"><a>RTCIceGatherCandidate</a>, required</span></dt>
             <dd>
               <p>The ICE candidate that caused the event.</p>
             </dd>
