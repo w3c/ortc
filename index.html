@@ -2107,7 +2107,7 @@ interface RTCIceCandidatePairChangedEvent : Event {
           <dl data-link-for="RTCIceCandidatePairChangedEventInit" data-dfn-for=
           "RTCIceCandidatePairChangedEventInit" class="dictionary-members">
             <dt><dfn><code>pair</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceCandidatePair</a></span></dt>
+            "idlMemberType"><a>RTCIceCandidatePair</a></span>, required</dt>
             <dd>
               <p>The <code>pair</code> attribute is the selected
               <code><a>RTCIceCandidatePair</a></code> that caused the event.</p>
@@ -2130,12 +2130,12 @@ interface RTCIceCandidatePairChangedEvent : Event {
           <dl data-link-for="RTCIceCandidatePair" data-dfn-for="RTCIceCandidatePair"
           class="dictionary-members">
             <dt><dfn><code>local</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceCandidate</a></span></dt>
+            "idlMemberType"><a>RTCIceCandidate</a></span>, required</dt>
             <dd>
               <p>The local ICE candidate.</p>
             </dd>
             <dt><dfn><code>remote</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceCandidate</a></span></dt>
+            "idlMemberType"><a>RTCIceCandidate</a></span>, required</dt>
             <dd>
               <p>The remote ICE candidate.</p>
             </dd>
@@ -2507,7 +2507,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
       relating to DTLS configuration.</p>
       <div>
         <pre class="idl">dictionary RTCDtlsParameters {
-             required RTCDtlsRole                  role = "auto";
+             RTCDtlsRole                  role = "auto";
              required sequence&lt;RTCDtlsFingerprint&gt; fingerprints;
 };</pre>
         <section>
@@ -2521,7 +2521,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <p>The DTLS role, with a default of <code>auto</code>.</p>
             </dd>
             <dt><dfn><code>fingerprints</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span></dt>
+            "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span>, required</dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
             </dd>
@@ -2543,7 +2543,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <dl data-link-for="RTCDtlsFingerprint" data-dfn-for="RTCDtlsFingerprint" class=
           "dictionary-members">
             <dt><dfn><code>algorithm</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>One of the the hash function algorithms defined in the 'Hash function
               Textual Names' registry, initially specified in [[!RFC4572]] Section 8. As
@@ -2551,7 +2551,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               fingerprint matches that used in the certificate signature.</p>
             </dd>
             <dt><dfn><code>value</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
             </dd>
           </dl>
@@ -3482,7 +3482,7 @@ interface RTCSsrcConflictEvent : Event {
           <dl data-link-for="RTCSsrcConflictEventInit" data-dfn-for=
           "RTCSsrcConflictEventInit" class="dictionary-members">
             <dt><dfn><code>ssrc</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The <code>ssrc</code> attribute represents the conflicting SSRC that
               caused the event.</p>
