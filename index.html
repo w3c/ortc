@@ -5999,7 +5999,7 @@ interface RTCRtpUnhandledEvent : Event {
              double              resolutionScale;
              double              framerateScale;
              double              maxFramerate;
-             required boolean    active = true;
+             boolean             active = true;
              DOMString           encodingId;
              sequence&lt;DOMString&gt; dependencyEncodingIds;
 };</pre>
@@ -6106,7 +6106,7 @@ interface RTCRtpUnhandledEvent : Event {
               for an <code><a>RTCRtpReceiver</a></code>.</p></p>
             </dd>
             <dt><dfn><code>active</code></dfn> of type <span class=
-            "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code>, required</dt>
+            "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
             <dd>
               <p>For an <code><a>RTCRtpSender</a></code>, indicates whether this encoding
               is actively being sent. Setting it to <code>false</code> causes this
