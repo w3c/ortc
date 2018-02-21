@@ -5533,8 +5533,8 @@ interface RTCRtpUnhandledEvent : Event {
         <pre class="idl">dictionary RTCRtcpParameters {
              unsigned long ssrc;
              DOMString     cname;
-             required boolean       reducedSize = false;
-             required boolean       mux = true;
+             boolean       reducedSize = false;
+             boolean       mux = true;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCRtcpParameters</a> Members</h2>
@@ -5574,14 +5574,14 @@ interface RTCRtpUnhandledEvent : Event {
               CNAME is chosen by the browser.</p>
             </dd>
             <dt><dfn><code>reducedSize</code></dfn> of type <span class=
-            "idlMemberType"><a>boolean</a></span>, defaulting to <code>false</code>, required</dt>
+            "idlMemberType"><a>boolean</a></span>, defaulting to <code>false</code></dt>
             <dd>
               <p>Whether reduced size RTCP [[!RFC5506]] is configured (if
               <code>true</code>) or compound RTCP as specified in [[!RFC3550]] (if
               <code>false</code>). The default is <code>false</code>.</p>
             </dd>
             <dt><dfn><code>mux</code></dfn> of type <span class=
-            "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code>, required</dt>
+            "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
             <dd>
               <p>Whether RTP and RTCP are multiplexed, as specified in [[!RFC5761]]. The
               default is <code>true</code>. If set to <code>false</code>, the
