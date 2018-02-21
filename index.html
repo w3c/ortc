@@ -4841,13 +4841,13 @@ interface RTCRtpUnhandledEvent : Event {
               the RTP stream triggering the <code><a>unhandledrtp</a></code> event.</p>
             </dd>
             <dt><dfn><code>payloadType</code></dfn> of type <span class=
-            "idlMemberType"><a>payloadtype</a></span></dt>
+            "idlMemberType"><a>payloadtype</a></span>, required</dt>
             <dd>
               <p>The Payload Type value in the RTP stream triggering the
               <code><a>unhandledrtp</a></code> event.</p>
             </dd>
             <dt><dfn><code>ssrc</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span>, required/dt>
             <dd>
               <p>The SSRC in the RTP stream triggering the
               <code><a>unhandledrtp</a></code> event.</p>
@@ -4901,7 +4901,7 @@ interface RTCRtpUnhandledEvent : Event {
           <dl data-link-for="RTCRtpCapabilities" data-dfn-for="RTCRtpCapabilities" class=
           "dictionary-members">
             <dt><dfn><code>codecs</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>RTCRtpCodecCapability</a>&gt;</span></dt>
+            "idlMemberType">sequence&lt;<a>RTCRtpCodecCapability</a>&gt;</span>, required</dt>
             <dd>
               <p>Supported codecs.</p>
             </dd>
@@ -4937,14 +4937,14 @@ interface RTCRtpUnhandledEvent : Event {
           <dl data-link-for="RTCRtcpFeedback" data-dfn-for="RTCRtcpFeedback" class=
           "dictionary-members">
             <dt><dfn><code>type</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>Valid values for <code>type</code> are the "RTCP Feedback" Attribute
               Values enumerated in [[!IANA-SDP-14]] ("ack", "ccm", "nack", etc.), as well
               as "goog-remb" [[REMB]] and "transport-cc" [[TRANSPORT-CC]].</p>
             </dd>
             <dt><dfn><code>parameter</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>For a <code>type</code> value of "ack" or "nack", valid values for
               <code>parameter</code> are the "ack" and "nack" Attribute Values enumerated
@@ -4976,8 +4976,8 @@ interface RTCRtpUnhandledEvent : Event {
              required DOMString                 name;
              DOMString                 mimeType;
              required DOMString                 kind;
-             required unsigned long             clockRate;
-             payloadtype               preferredPayloadType;
+             unsigned long             clockRate;
+             required payloadtype               preferredPayloadType;
              unsigned long             maxptime;
              unsigned long             ptime;
              unsigned long             channels;
@@ -4993,7 +4993,7 @@ interface RTCRtpUnhandledEvent : Event {
           <dl data-link-for="RTCRtpCodecCapability" data-dfn-for="RTCRtpCodecCapability"
           class="dictionary-members">
             <dt><dfn><code>name</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The MIME media subtype. Valid subtypes are listed in
               [[!IANA-RTP-2]].</p>
@@ -5005,7 +5005,7 @@ interface RTCRtpUnhandledEvent : Event {
               listed in [[IANA-RTP-2]].</p>
             </dd>
             <dt><dfn><code>kind</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The media supported by the codec: "audio", "video", etc.</p>
             </dd>
@@ -5016,7 +5016,7 @@ interface RTCRtpUnhandledEvent : Event {
               to any clock rate.</p>
             </dd>
             <dt><dfn><code>preferredPayloadType</code></dfn> of type <span class=
-            "idlMemberType"><a>payloadtype</a></span></dt>
+            "idlMemberType"><a>payloadtype</a></span>, required</dt>
             <dd>
               <p>The preferred RTP payload type for the codec denoted by
               <code>RTCRtpCodecCapability.name</code>. This attribute was added to make
@@ -5072,7 +5072,7 @@ interface RTCRtpUnhandledEvent : Event {
             <dd>
               <p>Maximum number of temporal layer extensions supported by this codec
               (e.g. a value of 1 indicates support for up to 2 temporal layers). A value
-              of 0 indicates no support for temporal scalability.</p>
+              of 0 (or unset) indicates no support for temporal scalability.</p>
             </dd>
             <dt><dfn><code>maxSpatialLayers</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, defaulting to
@@ -5080,7 +5080,7 @@ interface RTCRtpUnhandledEvent : Event {
             <dd>
               <p>Maximum number of spatial layer extensions supported by this codec (e.g.
               a value of 1 indicates support for up to 2 spatial layers). A value of 0
-              indicates no support for spatial scalability.</p>
+              (or unset) indicates no support for spatial scalability.</p>
             </dd>
             <dt><dfn><code>svcMultiStreamSupport</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span></dt>
