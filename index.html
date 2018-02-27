@@ -3238,30 +3238,31 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>send</a>()</code> is invoked.</p>
                 </li>
                 <li>
+                  <p>Let <var>withParameters</var> be the argument to this method.</p>
+                </li>
+                <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
                   <p>If <var>sender</var>'s <a>[[\SenderStopped]]</a> slot is
                    <code>true</code>, <a>reject</a> <var>p</var> with a newly created
-                   <code>InvalidStateError</code>.</p>
+                   <code>InvalidStateError</code> and abort these steps.</p>
                 </li>
                 <li>
                   <p>If <code><var>sender</var>.transport</code> is unset, <a>reject</a>
-                  <var>p</var> with a newly created <code>TypeError</code>.</p>
+                  <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
                 <li>
                   <p>If <code>rtcpTransport</code> is unset and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
-                  <a>reject</a> <var>p</var> with a newly created <code>TypeError</code>.</p>
+                  <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
-                <li>
-                  <p>Let <var>withParameters</var> be the argument to this method.</p>
-                </li>
+
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs, check
                   that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
                   set. If any value is unset, <a>reject</a> <var>p</var> with a newly created
-                  <code>TypeError</code>.</p>
+                  <code>TypeError</code> and abort these steps.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
@@ -3284,21 +3285,21 @@ interface RTCRtpSender : RTCStatsProvider {
                            <li><p><code><var>codec</var>.channels</code> is less than or equal to
                            <code>getCapabilities(track.kind).codecs[<var>j</var>].channels</code>.
                            If not, <a>reject</a> <var>p</var> with a newly created
-                           <code>NotSupportedError</code>.</p></li>
+                           <code>NotSupportedError</code> and abort these steps.</p></li>
                            <li><p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>]</code>
                            is included in <code>getCapabilities(track.kind).codecs[<var>j</var>].rtcpFeedback</code>
                            where <var>k</var> goes from 0 to the number of feedback mechanisms.
                            If not, <a>reject</a> <var>p</var> with a newly created
-                           <code>NotSupportedError</code>.</p></li>
+                           <code>NotSupportedError</code> and abort these steps.</p></li>
                            <li><p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
                            is a valid value as indicated by <code>getCapabilities(track.kind).codecs[<var>j</var>].parameters</code>
                            where <var>k</var> goes from 0 to the number of feedback mechanisms.
                            If not, <a>reject</a> <var>p</var> with a newly created
-                           <code>NotSupportedError</code>.</p></li>
+                           <code>NotSupportedError</code> and abort these steps.</p></li>
                          </ol>
                        </li>
                        <li><p>If a match is not found for any value of <var>j</var>,
-                       <a>reject</a> <var>p</var> with a newly created <code>TypeError</code>.</p></li>
+                       <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p></li>
                   </ol>
                 </li>
                 <li>
@@ -3313,15 +3314,16 @@ interface RTCRtpSender : RTCStatsProvider {
                        <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
                        "red", "cn", "telephone-event", "rtx" or a forward error correction codec
                        ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]).  If so, <a>reject</a>
-                       <var>p</var> with a newly created <code>InvalidParameters</code>.</p></li>
+                       <var>p</var> with a newly created <code>InvalidParameters</code> and abort these steps.</p></li>
                        <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
-                       <code>InvalidParameters</code>.</p></li>
+                       <code>InvalidParameters</code> and abort these steps.</p></li>
                        <li><p>Let <var>ssrc</var> be
                        <code><var>withParameters</var>.encodings[<var>i</var>].ssrc</code>.</p></li>
                        <li><p>Let <var>dep</var> be
                        <code><var>withParameters</var>.encodings[<var>i</var>].dependencyEncodingIds</code>.</p></li>
                        <li><p>If <var>ssrc</var> is set and <var>dep</var> is unset, check that
-                       <var>ssrc</var> is unique. If not, <a>throw</a> a <code>NotSupportedError</code>.</p></li>
+                       <var>ssrc</var> is unique. If not, <a>reject</a> <var>p</var> with a newly created
+                       <code>OperationError</code> and abort these steps.</p></li>
                      </ol>
                 </li>
                 <li>
@@ -3786,13 +3788,15 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   object on which <code>receive</code> is invoked.</p>
                 </li>
                 <li>
+                  <p>Let <var>withParameters</var> be the argument to this method.</p>
+                </li>
+                <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
-                <li>If <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot is <code>true</code>,
-                <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code> and
-                abort these steps. </li>
                 <li>
-                  <p>Let <var>withParameters</var> be the argument to this method.</p>
+                  <p>If <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot is <code>true</code>,
+                  <a>reject</a> <var>p</var> with a newly created <code>InvalidStateError</code> and
+                  abort these steps.</p>
                 </li>
                 <li>
                   <p>If <code>transport</code> is not set, <a>reject</a> <var>p</var>
