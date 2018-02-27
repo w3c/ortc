@@ -6754,19 +6754,16 @@ var encodings = [
       within an <code><a>RTCRtpSender</a></code> or
       <code><a>RTCRtpReceiver</a></code>. In order to provide the
       equivalent of the "direction" parameter defined in
-      [[!RFC5285]] Section 5, an application can do the
-      following:</p>
+      [[!RFC5285]] Section 5, an application can do the following:</p>
       <ol>
         <li>sendonly: Include the header extension only when calling
-        <code>send(<var>parameters</var>)</code>.</li>
+        <code>send</code>.</li>
         <li>recvonly: Include the header extension only when calling
-        <code>receive(<var>parameters</var>)</code>.</li>
+        <code>receive</code>.</li>
         <li>sendrecv: Include the header extension when calling
-        <code>send(<var>parameters</var>)</code> and
-        <code>receive(<var>parameters</var>)</code>.</li>
+        <code>send</code> and <code>receive</code>.</li>
         <li>inactive: Don't include the header extension when calling either
-        <code>send(<var>parameters</var>)</code> or
-        <code>receive(<var>parameters</var>)</code>.</li>
+        <code>send</code> or <code>receive</code>.</li>
       </ol>
       <div>
         <pre class="idl">dictionary RTCRtpHeaderExtensionParameters {
