@@ -9005,8 +9005,8 @@ interface RTCQuicTransport : RTCStatsProvider {
       name <var>e</var>, which does not bubble (except where otherwise stated)
       and is not cancelable (except where otherwise stated), and which uses the
       <code><a>RTCQuicStreamEvent</a></code> interface with the
-      <code><a href="#dom-quicstreamevent-stream">stream</a></code> attribute
-      set to <var>stream</var>, MUST be created and dispatched at the given target.</p>
+      <code><a>stream</a></code> attribute set to <var>stream</var>,
+      MUST be created and dispatched at the given target.</p>
       <div>
         <pre class="idl">
         [ Constructor (DOMString type, RTCQuicStreamEventInit eventInitDict), Exposed=Window]
@@ -9058,7 +9058,7 @@ interface RTCQuicStreamEvent : Event {
             <dt><code>stream</code> of type <span class=
             "idlAttrType"><a>RTCQuicStream</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-quicstreamevent-stream"><code>stream</code></dfn>
+              <p>The <dfn><code>stream</code></dfn>
               attribute represents the <code><a>RTCQuicStream</a></code> object
               associated with the event.</p>
             </dd>
@@ -9403,8 +9403,8 @@ interface RTCQuicStream {
             <dt><code>state</code> of type <span class=
             "idlAttrType"><a>RTCQuicStreamState</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-quicstream-state"><code>state</code></dfn>
-              attribute represents the state of the <a>RTCQuicStream</a> object.
+              <p>The <dfn id="dom-quicstream-state"><code>state</code></dfn> attribute
+              represents the state of the <code><a>RTCQuicStream</a></code> object.
               On getting it <em class="rfc2119" title="MUST">MUST</em> return
               the value of the <code><a>RTCQuicStream</a></code>'s
               <a>[[\QuicStreamState]]</a> internal slot.</p>
