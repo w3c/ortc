@@ -4569,12 +4569,12 @@ mySignaller.myOfferTracks({
       this section provides a (non-normative) example of how an
       <code><a>RTCRtpListener</a></code> implementation can emulate the
       behavior described in [[!BUNDLE]] Section 10.2.</p>
-      <p>When <code>receive</code> is called, run the following steps:</p>
+      <p>When <code>receive</code> is called, to fill the routing tables and
+      <dfn>check for conflicts</dfn>, run the following steps:</p>
       <ol>
       <li><p>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code>
       object on which the <code>receive</code> method was called.</p></li>
       <li>Let <var>withParameters</var> be the first argument.</li>
-      <ol>To <dfn>check for conflicts</dfn>, run the following steps:
       <li>MuxId table:</li>
        <ol>
          <li><p>If <code><var>withParameters</var>.muxId</code> is set and
@@ -4628,7 +4628,6 @@ mySignaller.myOfferTracks({
           is set to a value other than <var>receiver</var>, <a>reject</a> <code>receive</code> with
           <code>InvalidParameters</code> and abort these steps.</p></li>
         </ol>
-      </ol>
       </ol>
       </section>
       <section id="rtppackethandling*">
