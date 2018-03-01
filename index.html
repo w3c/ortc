@@ -3335,7 +3335,7 @@ interface RTCRtpSender : RTCStatsProvider {
       </div>
     </section>
     <section id="rtcrtpparameter-validation*">
-      <h3>RTCRtpParameters validation</h3>
+      <h3>Parameters validation</h3>
           <p>To <dfn>Complete validation checks</dfn> on <code><a>RTCRtpParameters</a></code> <var>withParameters</var>
           passed as an argument to <code>send</code> or <code>receive</code>, the <a>User Agent</a> MUST run
           the following steps:</p>
@@ -3856,30 +3856,6 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage or other
                   reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code> and
                   abort these steps.</p>
-                </li>
-                <li>
-                  <p>For each value of <var>i</var> from 0 to the number of encodings,
-                  check whether
-                  <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>
-                  corresponds to a value of
-                  <code><var>withParameters</var>.codecs[j].payloadType</code> where <var>j</var> goes
-                  from 0 to the number of codecs. If there is no correspondence, or if
-                  <code><var>withParameters</var>.codecs[j].name</code> is equal to "red", "cn",
-                  "telephone-event", "rtx" or a forward error correction codec ("ulpfec"
-                  [[RFC5109]] or "flexfec" [[FLEXFEC]]), <a>reject</a> <var>p</var> with
-                  <code>InvalidParameters</code> and abort these steps.</p>
-                </li>
-                <li>
-                  <p>For each value of <var>i</var> from 0 to the number of codecs, check
-                  that each value of
-                  <code><var>withParameters</var>.codecs[<var>i</var>].name</code> not equal to
-                  "red", "rtx" or a forward error correction codec is included in
-                  <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].name</code>, where <var>j</var>
-                  goes from 0 to the number of codecs, and <code><var>kind</var></code> takes the
-                  value passed in the <code><a>RTCRtpReceiver</a></code> constructor. If
-                  no match is found for any value of <var>i</var>,
-                  <a>reject</a> <var>p</var> with <code>InvalidParameters</code> and abort these
-                  steps.</p>
                 </li>
                 <li>
                   <p>As described in Section 8.3.1, fill the <code>ssrc_table</code>,
