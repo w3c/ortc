@@ -3249,7 +3249,7 @@ interface RTCRtpSender : RTCStatsProvider {
                    <code>InvalidStateError</code> and abort these steps.</p>
                 </li>
                 <li>
-                  <p>If <code><var>sender</var>.transport</code> is unset, <a>reject</a>
+                  <p>If <code>transport</code> is unset, <a>reject</a>
                   <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
                 <li>
@@ -3257,66 +3257,10 @@ interface RTCRtpSender : RTCStatsProvider {
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
                   <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
-
-                <li>
-                  <p>For each value of <var>i</var> from 0 to the number of codecs, check
-                  that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
-                  set. If any value is unset, <a>reject</a> <var>p</var> with a newly created
-                  <code>TypeError</code> and abort these steps.</p>
-                </li>
-                <li>
-                  <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
-                     <ol>
-                       <li><p>Let <var>codec</var> be
-                       <code><var>withParameters</var>.codecs[<var>i</var>]</code>.</p></li>
-                       <li><p>Let <var>clockRate</var> be <code><var>codec</var>.clockRate</code>.</p></li>
-                       <li><p>Let <var>name</var> be <code><var>codec</var>.name</code>.</p></li>
-                       <li><p>If <var>name</var> or <var>clockRate</var> is unset, <a>throw</a>
-                       a <code>TypeError</code> and abort all of these steps.</p></li>
-                       <li><p>If <var>name</var> is not equal to "red", "rtx" or a forward
-                       error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
-                       check whether <var>name</var> is equal to
-                       <code>getCapabilities(track.kind).codecs[<var>j</var>].name</code> and
-                       <var>clockRate</var> is equal to
-                       <code>getCapabilities(track.kind).codecs[<var>j</var>].clockRate</code>
-                       for any value of <var>j</var> from 0 to the number of codecs.</p></li>
-                       <li><p>If a match is found for a value of <var>j</var>, check that:
-                         <ol>
-                           <li><p><code><var>codec</var>.channels</code> is less than or equal to
-                           <code>getCapabilities(track.kind).codecs[<var>j</var>].channels</code>.
-                           If not, <a>reject</a> <var>p</var> with a newly created
-                           <code>NotSupportedError</code> and abort these steps.</p></li>
-                           <li><p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>]</code>
-                           is included in <code>getCapabilities(track.kind).codecs[<var>j</var>].rtcpFeedback</code>
-                           where <var>k</var> goes from 0 to the number of feedback mechanisms.
-                           If not, <a>reject</a> <var>p</var> with a newly created
-                           <code>NotSupportedError</code> and abort these steps.</p></li>
-                           <li><p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
-                           is a valid value as indicated by <code>getCapabilities(track.kind).codecs[<var>j</var>].parameters</code>
-                           where <var>k</var> goes from 0 to the number of feedback mechanisms.
-                           If not, <a>reject</a> <var>p</var> with a newly created
-                           <code>NotSupportedError</code> and abort these steps.</p></li>
-                         </ol>
-                       </li>
-                       <li><p>If a match is not found for any value of <var>j</var>,
-                       <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p></li>
-                  </ol>
-                </li>
-                <li>
-                  <p>For each value of <var>i</var> from 0 to the number of encodings:</p>
-                     <ol>
-                       <li><p>Let <var>payloadType</var> be
-                       <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>.</p></li>
-                       <li><p>If <var>payloadType</var> is set, check whether <var>payloadType</var> is equal to
-                       <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code>
-                       for values of <var>j</var> from 0 to the number of codecs. If a match is
-                       found for any value of <var>j</var>, check whether
-                       <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
-                       "red", "cn", "telephone-event", "rtx" or a forward error correction codec
-                       ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]).  If so, <a>reject</a>
-                       <var>p</var> with a newly created <code>InvalidParameters</code> and abort these steps.</p></li>
-                       <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
-                       <code>InvalidParameters</code> and abort these steps.</p></li>
+                <li><p>Let <var>kind</var> be the value of <code>track.kind</code>.</p></li>
+                <li><a>Complete validation checks</a> on <code><var>withParameters</var></code>.</li>
+                <li>For each value of <var>i</var> from 0 to the number of encodings:              
+                    <ol>
                        <li><p>Let <var>ssrc</var> be
                        <code><var>withParameters</var>.encodings[<var>i</var>].ssrc</code>.</p></li>
                        <li><p>Let <var>dep</var> be
@@ -3401,6 +3345,71 @@ interface RTCRtpSender : RTCStatsProvider {
           </dl>
         </section>
       </div>
+    </section>
+    <section id="rtcrtpparameter-validation*">
+      <h3>RTCRtpParameter validation<h3>
+        <p>To <dfn>Complete validation checks</dfn> on <code><a>RTCRtpParameters</a></code> <var>withParameters</var>
+          provided as an argument to <code>send</code> or <code>receive</code> with a media type of <var>kind</var>,
+          implementations MUST run the following steps:</p>
+           <li>
+           <p>For each value of <var>i</var> from 0 to the number of codecs, check
+           that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
+           set. If any value is unset, <a>reject</a> <var>p</var> with a newly created
+           <code>TypeError</code> and abort these steps.</p>
+           </li>
+           <li>
+             <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
+                <ol>
+                  <li><p>Let <var>codec</var> be
+                  <code><var>withParameters</var>.codecs[<var>i</var>]</code>.</p></li>
+                  <li><p>Let <var>clockRate</var> be <code><var>codec</var>.clockRate</code>.</p></li>
+                  <li><p>Let <var>name</var> be <code><var>codec</var>.name</code>.</p></li>
+                  <li><p>If <var>name</var> or <var>clockRate</var> is unset, <a>throw</a>
+                  a <code>TypeError</code> and abort all of these steps.</p></li>
+                  <li><p>If <var>name</var> is not equal to "red", "rtx" or a forward
+                  error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
+                  check whether <var>name</var> is equal to
+                  <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].name</code> and
+                  <var>clockRate</var> is equal to
+                  <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].clockRate</code>
+                  for any value of <var>j</var> from 0 to the number of codecs.</p></li>
+                  <li><p>If a match is found for a value of <var>j</var>, check that:
+                    <ol>
+                      <li><p><code><var>codec</var>.channels</code> is less than or equal to
+                      <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].channels</code>.
+                      If not, <a>reject</a> <var>p</var> with a newly created
+                      <code>NotSupportedError</code> and abort these steps.</p></li>
+                      <li><p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>]</code>
+                      is included in <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].rtcpFeedback</code>
+                      where <var>k</var> goes from 0 to the number of feedback mechanisms.
+                      If not, <a>reject</a> <var>p</var> with a newly created
+                      <code>NotSupportedError</code> and abort these steps.</p></li>
+                      <li><p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
+                      is a valid value as indicated by <code>getCapabilities(track.kind).codecs[<var>j</var>].parameters</code>
+                      where <var>k</var> goes from 0 to the number of feedback mechanisms.
+                      If not, <a>reject</a> <var>p</var> with a newly created
+                      <code>NotSupportedError</code> and abort these steps.</p></li>
+                    </ol>
+                   </li>
+                   <li><p>If a match is not found for any value of <var>j</var>,
+                   <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p></li>
+             </ol>
+             <p>For each value of <var>i</var> from 0 to the number of encodings:</p>
+                <ol>
+                  <li><p>Let <var>payloadType</var> be
+                  <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>.</p></li>
+                  <li><p>If <var>payloadType</var> is set, check whether <var>payloadType</var> is equal to
+                  <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code>
+                  for values of <var>j</var> from 0 to the number of codecs. If a match is
+                  found for any value of <var>j</var>, check whether
+                  <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
+                  "red", "cn", "telephone-event", "rtx" or a forward error correction codec
+                  ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]).  If so, <a>reject</a>
+                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort these steps.</p></li>
+                  <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
+                  <code>InvalidParameters</code> and abort these steps.</p></li>
+               </ol>
+           </li>
     </section>
     <section id="rtcsssrcconflictevent-interface-definition*">
       <h3><dfn>RTCSsrcConflictEvent</dfn></h3>
@@ -3809,16 +3818,14 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   these steps.</p>
                 </li>
                 <li>
+                  <p>Let <var>kind</var> be the first argument passed in the
+                  <code><a>RTCRtpReceiver</a></code> constructor.</p>
+                </li>
+                <li><a>Complete validation checks</a> on <code><var>withParameters</var></code>.</li>
+                <li>
                   <p>If <var>withParameters</var> is invalid due to SSRC misusage or other
                   reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code> and
                   abort these steps.</p>
-                </li>
-                <li>
-                  <p>For each value of <var>i</var> from 0 to the number of codecs, check
-                  that each value of
-                  <code><var>withParameters</var>.codecs[<var>i</var>].payloadType</code>
-                  is set. If any value is unset, <a>reject</a> <var>p</var> with
-                  <code>InvalidParameters</code> and abort these steps.</p>
                 </li>
                 <li>
                   <p>For each value of <var>i</var> from 0 to the number of encodings,
