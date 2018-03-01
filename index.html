@@ -3390,7 +3390,7 @@ interface RTCRtpSender : RTCStatsProvider {
                     </li>
                     <li>
                       <p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
-                      is a valid value as indicated by <code>getCapabilities(track.kind).codecs[<var>j</var>].parameters</code>
+                      is a valid value as indicated by <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].parameters</code>
                       where <var>k</var> goes from 0 to the number of feedback mechanisms.
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort these steps.</p>
