@@ -3351,6 +3351,7 @@ interface RTCRtpSender : RTCStatsProvider {
         <p>To <dfn>Complete validation checks</dfn> on <code><a>RTCRtpParameters</a></code> <var>withParameters</var>
           passed as an argument to <code>send</code> or <code>receive</code>, the <a>User Agent</a> MUST run
           the following steps:</p>
+          <ol>
             <li>For <code>send</code>, let <var>kind</var> be the value of <code>track.kind</code>.
               For <code>receive</code>, let <var>kind</var> be the first argument passed to the
               <code><a>RTCRtpReceiver</a></code> constructor.</li>
@@ -3360,9 +3361,8 @@ interface RTCRtpSender : RTCStatsProvider {
              set. If any value is unset, <a>reject</a> <var>p</var> with a newly created
              <code>TypeError</code> and abort these steps.</p>
            </li>
-           <li>
-             <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
-                <ol>
+           <li><p>For each value of <var>i</var> from 0 to the number of codecs:</p>
+             <ol>
                   <li><p>Let <var>codec</var> be
                   <code><var>withParameters</var>.codecs[<var>i</var>]</code>.</p></li>
                   <li><p>Let <var>clockRate</var> be <code><var>codec</var>.clockRate</code>.</p></li>
@@ -3411,7 +3411,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <var>p</var> with a newly created <code>InvalidParameters</code> and abort these steps.</p></li>
                   <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
                   <code>InvalidParameters</code> and abort these steps.</p></li>
-               </ol>
+                </ol>
            </li>
     </section>
     <section id="rtcsssrcconflictevent-interface-definition*">
