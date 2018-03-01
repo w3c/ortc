@@ -3257,19 +3257,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
                   <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
-                <li><p>Let <var>kind</var> be the value of <code>track.kind</code>.</p></li>
                 <li><a>Complete validation checks</a> on <code><var>withParameters</var></code>.</li>
-                <li>For each value of <var>i</var> from 0 to the number of encodings:              
-                    <ol>
-                       <li><p>Let <var>ssrc</var> be
-                       <code><var>withParameters</var>.encodings[<var>i</var>].ssrc</code>.</p></li>
-                       <li><p>Let <var>dep</var> be
-                       <code><var>withParameters</var>.encodings[<var>i</var>].dependencyEncodingIds</code>.</p></li>
-                       <li><p>If <var>ssrc</var> is set and <var>dep</var> is unset, check that
-                       <var>ssrc</var> is unique. If not, <a>reject</a> <var>p</var> with a newly created
-                       <code>NotSupportedError</code> and abort these steps.</p></li>
-                     </ol>
-                </li>
                 <li>
                   <p>Run the following steps:</p>
                   <ol>
@@ -3398,21 +3386,30 @@ interface RTCRtpSender : RTCStatsProvider {
                    <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p></li>
              </ol>
              <p>For each value of <var>i</var> from 0 to the number of encodings:</p>
-                <ol>
-                  <li><p>Let <var>payloadType</var> be
-                  <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>.</p></li>
-                  <li><p>If <var>payloadType</var> is set, check whether <var>payloadType</var> is equal to
-                  <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code>
-                  for values of <var>j</var> from 0 to the number of codecs. If a match is
-                  found for any value of <var>j</var>, check whether
-                  <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
-                  "red", "cn", "telephone-event", "rtx" or a forward error correction codec
-                  ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]).  If so, <a>reject</a>
-                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort these steps.</p></li>
-                  <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
-                  <code>InvalidParameters</code> and abort these steps.</p></li>
-                </ol>
+             <ol>
+               <li><p>Let <var>payloadType</var> be
+               <code><var>withParameters</var>.encodings[<var>i</var>].codecPayloadType</code>.</p></li>
+               <li><p>If <var>payloadType</var> is set, check whether <var>payloadType</var> is equal to
+               <code><var>withParameters</var>.codecs[<var>j</var>].payloadType</code>
+               for values of <var>j</var> from 0 to the number of codecs. If a match is
+               found for any value of <var>j</var>, check whether
+               <code><var>withParameters</var>.codecs[<var>j</var>].name</code> is equal to
+               "red", "cn", "telephone-event", "rtx" or a forward error correction codec
+               ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]).  If so, <a>reject</a>
+               <var>p</var> with a newly created <code>InvalidParameters</code> and abort these steps.</p></li>
+               <li>If no match is found, <a>reject</a> <var>p</var> with a newly created
+               <code>InvalidParameters</code> and abort these steps.</p></li>
+               <li><p>Let <var>ssrc</var> be
+               <code><var>withParameters</var>.encodings[<var>i</var>].ssrc</code>.</p></li>
+               <li><p>Let <var>dep</var> be
+               <code><var>withParameters</var>.encodings[<var>i</var>].dependencyEncodingIds</code>.</p></li>
+               <li><p>If <var>ssrc</var> is set and <var>dep</var> is unset, check that
+               <var>ssrc</var> is unique. If not, <a>reject</a> <var>p</var> with a newly created
+               <code>NotSupportedError</code> and abort these steps.</p></li>
+             </ol>
            </li>
+        </ol>
+    </li>
     </section>
     <section id="rtcsssrcconflictevent-interface-definition*">
       <h3><dfn>RTCSsrcConflictEvent</dfn></h3>
