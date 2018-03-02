@@ -1114,7 +1114,7 @@ interface RTCIceGathererEvent : Event {
       gathering of ICE candidates.</p>
       <div>
         <pre class="idl">dictionary RTCIceGatherOptions {
-             RTCIceGatherPolicy     gatherPolicy;
+             RTCIceGatherPolicy     gatherPolicy = "all";
              sequence&lt;RTCIceServer&gt; iceServers;
 };</pre>
         <section>
@@ -1124,8 +1124,7 @@ interface RTCIceGathererEvent : Event {
             <dt><dfn><code>gatherPolicy</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceGatherPolicy</a></span></dt>
             <dd>
-              <p>The ICE gather policy. If it is not set, a default value
-              of <code>all</code> is assumed.</p>
+              <p>The ICE gather policy.</p>
             </dd>
             <dt><dfn><code>iceServers</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCIceServer</a>&gt;</span></dt>
