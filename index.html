@@ -6628,13 +6628,13 @@ var encodings = [{
           <h2>Dictionary <a class="idlType">RTCRtpFecParameters</a> Members</h2>
           <dl data-link-for="RTCRtpFecParameters" data-dfn-for="RTCRtpFecParameters"
           class="dictionary-members">
-            <dt><dfn><code>ssrc</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The SSRC to use for FEC. If unset in an <code><a>RTCRtpSender</a></code>
               object, the browser will choose.</p>
             </dd>
-            <dt><dfn><code>mechanism</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>mechanism</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The Forward Error Correction (FEC) mechanism to use: "red", "red+ulpfec"
@@ -6656,7 +6656,7 @@ var encodings = [{
           <h2>Dictionary <a class="idlType">RTCRtpRtxParameters</a> Members</h2>
           <dl data-link-for="RTCRtpRtxParameters" data-dfn-for="RTCRtpRtxParameters"
           class="dictionary-members">
-            <dt><dfn><code>ssrc</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The SSRC to use for retransmission, as specified in [[!RFC4588]]. If
@@ -6812,23 +6812,23 @@ var encodings = [
           <h2>Dictionary <a class="idlType">RTCRtpHeaderExtension</a> Members</h2>
           <dl data-link-for="RTCRtpHeaderExtension" data-dfn-for="RTCRtpHeaderExtension"
           class="dictionary-members">
-            <dt><dfn><code>kind</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>kind</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The media supported by the header extension: "audio" for an audio codec,
               "video" for a video codec, etc.</p>
             </dd>
-            <dt><dfn><code>uri</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>uri</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The URI of the RTP header extension, as defined in [[!RFC5285]].</p>
             </dd>
-            <dt><dfn><code>preferredId</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>preferredId</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, required</dt>
             <dd>
               <p>The preferred ID value that goes in the packet.</p>
             </dd>
-            <dt><dfn><code>preferredEncrypt</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>preferredEncrypt</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>false</code></dt>
             <dd>
               <p>If <code>true</code>, it is preferred that the value in the header be
@@ -6868,23 +6868,23 @@ var encodings = [
           Members</h2>
           <dl data-link-for="RTCRtpHeaderExtensionParameters" data-dfn-for=
           "RTCRtpHeaderExtensionParameters" class="dictionary-members">
-            <dt><dfn><code>uri</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>uri</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The URI of the RTP header extension, as defined in [[!RFC5285]].</p>
             </dd>
-            <dt><dfn><code>id</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>id</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, required</dt>
             <dd>
               <p>The value that goes in the packet.</p>
             </dd>
-            <dt><dfn><code>encrypt</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>encrypt</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>false</code></dt>
             <dd>
               <p>If <code>true</code>, the value in the header is encrypted as per
               [[!RFC6904]]. Default is unencrypted.</p>
             </dd>
-            <dt><dfn><code>parameters</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>parameters</code></dfn> of type <span class=
             "idlMemberType"><a>Dictionary</a></span></dt>
             <dd>
               <p>
@@ -7043,27 +7043,27 @@ interface RTCDtmfSender {
           <h2>Attributes</h2>
           <dl data-link-for="RTCDtmfSender" data-dfn-for="RTCDtmfSender" class=
           "attributes">
-            <dt><dfn><code>canInsertDTMF</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>canInsertDTMF</code></dfn> of type <span class=
             "idlAttrType"><a>boolean</a></span>, readonly</dt>
             <dd>
               <p>Whether the <a>RTCDtmfSender</a> is capable of sending DTMF.</p>
             </dd>
-            <dt><dfn><code>sender</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>sender</code></dfn> of type <span class=
             "idlAttrType"><a>RTCRtpSender</a></span>, readonly</dt>
             <dd>
               <p>The <code><a>RTCRtpSender</a></code> instance</p>
             </dd>
-            <dt><code>toneBuffer</code> of type <span class=
+            <dt><dfn data-idl><code>toneBuffer</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn>toneBuffer</dfn> attribute returns a list of the tones
+              <p>The <code>toneBuffer</code> attribute returns a list of the tones
               remaining to be played out. For the syntax, content, and interpretation
               of this list, see <code><a>insertDTMF</a></code>.</p>
             </dd>
-            <dt><code>ontonechange</code> of type <span class=
+            <dt><dfn data-idl><code>ontonechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
-              <p>The <dfn>ontonechange</dfn> event handler uses the
+              <p>The <code>ontonechange</code> event handler uses the
               <a>RTCDTMFToneChangeEvent</a> interface to return the character for each
               tone as it is played out. The event type of the <code>ontonechange</code>
               event handler is <code><a>tonechange</a></code>.</p>
@@ -7279,10 +7279,10 @@ interface RTCDTMFToneChangeEvent : Event {
           <h2>Attributes</h2>
           <dl data-link-for="RTCDTMFToneChangeEvent" data-dfn-for=
           "RTCDTMFToneChangeEvent" class="attributes">
-            <dt><code>tone</code> of type <span class=
+            <dt><dfn data-idl><code>tone</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone
+              <p>The <code>tone</code> attribute contains the character for the tone
               (including ",") that has just begun playout (see <code><a>insertDTMF</a></code> ).
               If the value is the empty string, it indicates that the <code><a>toneBuffer</a></code>
               is an empty string and that the previous tones have completed playback.</p>
@@ -7300,10 +7300,10 @@ interface RTCDTMFToneChangeEvent : Event {
           <h2>Dictionary <a class="idlType">RTCDTMFToneChangeEventInit</a> Members</h2>
           <dl data-link-for="RTCDTMFToneChangeEventInit" data-dfn-for=
           "RTCDTMFToneChangeEventInit" class="dictionary-members">
-            <dt><code>tone</code> of type <span class=
+            <dt><dfn data-idl>code>tone</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
             <dd>
-              <p>The <dfn><code>tone</code></dfn> attribute contains the character for the tone
+              <p>The <code>tone</code> attribute contains the character for the tone
               (including ",") that has just begun playout (see <code><a>insertDTMF</a></code> ).
               If the value is the empty string, it indicates that the <code><a>toneBuffer</a></code>
               is an empty string and that the previous tones have completed playback.</p>
@@ -7608,24 +7608,23 @@ interface RTCDataChannel : EventTarget {
           <h2>Attributes</h2>
           <dl data-link-for="RTCDataChannel" data-dfn-for="RTCDataChannel" class=
           "attributes">
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDataTransport</a></span>, readonly</dt>
             <dd>
               <p>The readonly attribute referring to the related transport object.</p>
             </dd>
-            <dt><code>readyState</code> of type <span class=
+            <dt><dfn data-idl><code>readyState</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDataChannelState</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-datachannel-readystate"><code>readyState</code></dfn>
+              <p>The <code>readyState</code>
               attribute represents the state of the <code><a>RTCDataChannel</a></code> object.
               On getting, it MUST return the value of the <code><a>RTCDataChannel</a></code>
               object's <a>[[\ReadyState]]</a> internal slot.</p>
             </dd>
-            <dt><code>bufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
+            <dt><dfn data-idl><code>bufferedAmount</code></dfn> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id=
-              "dom-datachannel-bufferedamount"><code>bufferedAmount</code></dfn>
+              <p>The <code>bufferedAmount</code>
               attribute <em class="rfc2119" title="MUST">MUST</em> return the number of
               bytes of application data (UTF-8 text and binary data) that have been
               queued using send() but that, as of the last time the event loop started
@@ -7638,11 +7637,10 @@ interface RTCDataChannel : EventTarget {
               call to the send() method (the attribute does not reset to zero once the
               channel closes).</p>
             </dd>
-            <dt><code>bufferedAmountLowThreshold</code> of type <span class=
+            <dt><dfn data-idl><code>bufferedAmountLowThreshold</code></dfn> of type <span class=
             "idlAttrType"><a>unsigned long</a></span></dt>
             <dd>
-              <p>The <dfn id=
-              "dom-datachannel-bufferedamountlowthreshold"><code>bufferedAmountLowThreshold</code></dfn>
+              <p>The <code>bufferedAmountLowThreshold</code>
               attribute sets the threshold at which the <code><a href=
               "#dom-datachannel-bufferedamount">bufferedAmount</a></code> is considered
               to be low. When the <code><a href=
