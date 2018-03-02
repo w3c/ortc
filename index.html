@@ -3368,7 +3368,8 @@ interface RTCRtpSender : RTCStatsProvider {
                   error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                   check whether <var>name</var> is equal to
                   <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].name</code> and
-                  <var>clockRate</var> is equal to
+                  if <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].clockRate</code> is set,
+                  check whether <var>clockRate</var> is equal to
                   <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].clockRate</code>
                   for any value of <var>j</var> from 0 to the number of codecs.</p>
                 </li>
@@ -3376,14 +3377,15 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>If a match is found for a value of <var>j</var>, check that:
                   <ol>
                     <li>
-                      <p><code><var>codec</var>.channels</code> is less than or equal to
+                      <p>If <code><var>codec</var>.channels</code> is set, check that it is
+                      less than or equal to
                       <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].channels</code>.
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort these steps.</p>
                     </li>
                     <li>
-                      <p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>]</code>
-                      is included in <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].rtcpFeedback</code>
+                      <p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>].type</code>
+                      is included in <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].rtcpFeedback.type</code>
                       where <var>k</var> goes from 0 to the number of feedback mechanisms.
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort these steps.</p>
@@ -3391,7 +3393,7 @@ interface RTCRtpSender : RTCStatsProvider {
                     <li>
                       <p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
                       is a valid value as indicated by <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].parameters</code>
-                      where <var>k</var> goes from 0 to the number of feedback mechanisms.
+                      where <var>k</var> goes from 0 to the number of codecs.
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort these steps.</p>
                     </li>
