@@ -2964,7 +2964,7 @@ interface RTCRtpSender : RTCStatsProvider {
           <h2>Attributes</h2>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class=
           "attributes">
-            <dt><dfn><code>track</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>track</code></dfn> of type <span class=
             "idlAttrType"><a>MediaStreamTrack</a></span>, readonly , nullable</dt>
             <dd>
               <p>The associated <code><a>MediaStreamTrack</a></code> instance.
@@ -2974,7 +2974,7 @@ interface RTCRtpSender : RTCStatsProvider {
               frame (video). If <code>track</code> is set to null then
               the <code><a>RTCRtpSender</a></code> does not send RTP.</p>
             </dd>
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly , nullable</dt>
             <dd>
               <p>The <code><a>RTCDtlsTransport</a></code> instance over which RTCP is
@@ -2986,7 +2986,7 @@ interface RTCRtpSender : RTCStatsProvider {
               flow over the <code><a>RTCDtlsTransport</a></code>
               <var>transport</var>.</p>
             </dd>
-            <dt><dfn><code>rtcpTransport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>rtcpTransport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly , nullable</dt>
             <dd>
               <p>The associated RTCP <code><a>RTCDtlsTransport</a></code> instance if one
@@ -2995,16 +2995,16 @@ interface RTCRtpSender : RTCStatsProvider {
               flow over the <code><a>RTCDtlsTransport</a></code>
               <var>transport</var>.</p>
             </dd>
-            <dt><dfn><code>kind</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>kind</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
               <p>The value of <code>kind</code> or <code>track.kind</code>
               passed in the constructor.</p>
             </dd>
-            <dt><code>onssrcconflict</code> of type <span class=
+            <dt><dfn data-idl><code>onssrcconflict</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
-              <p>The <dfn><code>onssrcconflict</code></dfn> event handler, of event
+              <p>The <code>onssrcconflict</code> event handler, of event
               handler type <code><a>RTCSsrcConflictEvent</a></code>, is fired if an SSRC
               conflict is detected within the RTP session or an SSRC misconfiguration is
               detected after <code><a>send</a>()</code> or <code><a>receive</a>()</code>
@@ -3019,7 +3019,7 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
             <dt><code>setTransport</code></dt>
             <dd>
-              <p><dfn>setTransport()</dfn>
+              <p><dfn data-idl>setTransport()</dfn>
               attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (if set) and RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> (if used) with the transport(s) provided.</p>
@@ -3106,7 +3106,7 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><code>setTrack</code></dt>
             <dd>
-              <p><dfn>setTrack</dfn> Attempts to replace the track being sent with another track
+              <p><dfn data-idl>setTrack</dfn> Attempts to replace the track being sent with another track
               provided (or with a null track). The deprecated <code>setTrack</code>
               method operates identically to the <code><a>replaceTrack</a></code> method.</p>
               <table class="parameters">
@@ -3133,7 +3133,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><code>replaceTrack</code></dt>
+            <dt><dfn data-idl><code>replaceTrack</code></dfn></dt>
             <dd>
               <p>Attempts to replace the track being sent with another track
               provided (or with a null track).</p>
@@ -3200,7 +3200,7 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><dfn>getCapabilities()</dfn> obtains the sender capabilities,
+              <p><dfn data-idl>getCapabilities()</dfn> obtains the sender capabilities,
               based on <code><var>kind</var></code>. Browsers
               MUST support <var>kind</var> values of <code>"audio"</code>
               and <code>"video"</code>. If there are no capabilities
@@ -3235,7 +3235,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code><a>RTCRtpCapabilities</a></code>
               </div>
             </dd>
-            <dt><dfn><code>send</code></dfn></dt>
+            <dt><dfn data-idl><code>send</code></dfn></dt>
             <dd>
               <p>Attempts to set the parameters controlling the sending of media.</p>
               <p>When the <code>send()</code> method is invoked, the <a>user agent</a> MUST run
@@ -3304,7 +3304,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>stop</code></dfn></dt>
+            <dt><dfn data-idl><code>stop</code></dfn></dt>
             <dd>
               <p>The <code>stop</code> method irreversibly stops the
               <code><a>RTCRtpSender</a></code>. When <code>stop</code>
@@ -3556,7 +3556,7 @@ interface RTCSsrcConflictEvent : Event {
           <h2>Attributes</h2>
           <dl data-link-for="RTCSsrcConflictEvent" data-dfn-for="RTCSsrcConflictEvent"
           class="attributes">
-            <dt><dfn><code>ssrc</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlAttrType"><a>unsigned long</a></span>, readonly</dt>
             <dd>
               <p>The <code>ssrc</code> attribute represents the conflicting SSRC that
@@ -3576,7 +3576,7 @@ interface RTCSsrcConflictEvent : Event {
           <h2>Dictionary <a class="idlType">RTCSsrcConflictEventInit</a> Members</h2>
           <dl data-link-for="RTCSsrcConflictEventInit" data-dfn-for=
           "RTCSsrcConflictEventInit" class="dictionary-members">
-            <dt><dfn><code>ssrc</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The <code>ssrc</code> attribute represents the conflicting SSRC that
@@ -3701,7 +3701,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
           <h2>Attributes</h2>
           <dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class=
           "attributes">
-            <dt><dfn><code>track</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>track</code></dfn> of type <span class=
             "idlAttrType"><a>MediaStreamTrack</a></span>, readonly</dt>
             <dd>
               <p>The <code>track</code> attribute is the
@@ -3726,7 +3726,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 class="rfc2119">MUST NOT</em> emit media for rendering.
               </div>
             </dd>
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly, nullable</dt>
             <dd>
               <p>The associated RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
@@ -3749,9 +3749,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
           <h2>Methods</h2>
           <dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class=
           "methods">
-            <dt><code>setTransport</code></dt>
+            <dt><dfn data-idl><code>setTransport</code></dfn></dt>
             <dd>
-              <p>The <dfn>setTransport()</dfn> method
+              <p>The <code>setTransport</code> method
               attempts to replace the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
@@ -3834,9 +3834,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><code>getCapabilities</code>, static</dt>
+            <dt><dfn data-idl><code>getCapabilities</code></dfn>, static</dt>
             <dd>
-              <p><dfn>getCapabilities()</dfn> obtains the receiver capabilities,
+              <p><code>getCapabilities</code> obtains the receiver capabilities,
               based on <code><var>kind</var></code>. Browsers
               MUST support <var>kind</var> values of <code>"audio"</code>
               and <code>"video"</code>. If there are no capabilities
@@ -3871,7 +3871,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <em>Return type:</em> <code><a>RTCRtpCapabilities</a></code>
               </div>
             </dd>
-            <dt><dfn><code>receive</code></dfn></dt>
+            <dt><dfn data-idl><code>receive</code></dfn></dt>
             <dd>
               <p>Attempts to set the parameters controlling the receiving of media.</p>
               <p>When the <code>receive()</code> method is invoked, the <a>user agent</a> MUST
@@ -3957,7 +3957,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>getContributingSources</code></dfn></dt>
+            <dt><dfn data-idl><code>getContributingSources</code></dfn></dt>
             <dd>
               <p>Returns an <code><a>RTCRtpContributingSource</a></code> for each
               unique CSRC identifier received by this <code><a>RTCRtpReceiver</a></code>.
@@ -3972,7 +3972,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <code>sequence</code>&lt;<code><a>RTCRtpContributingSource</a></code>&gt;
               </div>
             </dd>
-            <dt><dfn><code>getSynchronizationSources</code></dfn></dt>
+            <dt><dfn data-idl><code>getSynchronizationSources</code></dfn></dt>
             <dd>
               <p>Returns an <code><a>RTCRtpSynchronizationSource</a></code> for
               each unique SSRC identifier received by this RTCRtpReceiver in
@@ -3985,7 +3985,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <code>sequence&lt;RTCRtpSynchronizationSource&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>stop</code></dfn></dt>
+            <dt><dfn data-idl><code>stop</code></dfn></dt>
             <dd>
               <p>The <code>stop</code> method irreversibly stops the
               <code><a>RTCRtpReceiver</a></code> <var>receiver</var>
@@ -4065,7 +4065,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
           <h2>Dictionary RTCRtpContributingSource Members</h2>
           <dl data-link-for="RTCRtpContributingSource" data-dfn-for=
           "RTCRtpContributingSource" class="dictionary-members">
-            <dt><dfn><code>timestamp</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>timestamp</code></dfn> of type <span class=
             "idlMemberType"><a>DOMHighResTimeStamp</a></span>, required</dt>
             <dd>
               <p>The timestamp of type DOMHighResTimeStamp [[!HIGHRES-TIME]],
@@ -4073,13 +4073,13 @@ interface RTCRtpReceiver : RTCStatsProvider {
               containing the source. The timestamp is defined in
               [[!HIGHRES-TIME]] and corresponds to a local clock.</p>
             </dd>
-            <dt><dfn><code>source</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>source</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The CSRC or SSRC identifier of the contributing or
               synchronization source.</p>
             </dd>
-            <dt><dfn><code>audioLevel</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>audioLevel</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
             <dd>
               <p>This is a value between 0..1 (linear), where 1.0 represents 0
@@ -4113,7 +4113,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
           <h2>Dictionary RTCRtpSynchronizationSource Members</h2>
           <dl data-link-for="RTCRtpSynchronizationSource" data-dfn-for=
           "RTCRtpSynchronizationSource" class="dictionary-members">
-            <dt><dfn><code>voiceActivityFlag</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>voiceActivityFlag</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span></dt>
             <dd>
               <p>Whether the last RTP packet played from this source contains
@@ -4280,7 +4280,7 @@ interface RTCIceTransportController {
           <h2>Methods</h2>
           <dl data-link-for="RTCIceTransportController" data-dfn-for=
           "RTCIceTransportController" class="methods">
-            <dt><dfn><code>addTransport</code></dfn></dt>
+            <dt><dfn data-idl><code>addTransport</code></dfn></dt>
             <dd>
               <p>Adds <code>transport</code> to the
               <code><a>RTCIceTransportController</a></code> object for the purposes of
@@ -4332,7 +4332,7 @@ interface RTCIceTransportController {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>getTransports</code></dfn></dt>
+            <dt><dfn data-idl><code>getTransports</code></dfn></dt>
             <dd>
               <p>Returns the <code><a>RTCIceTransport</a></code> objects with a
               <code><a>component</a></code> of <code>rtp</code>. If
@@ -4926,26 +4926,26 @@ interface RTCRtpUnhandledEvent : Event {
           <h2>Dictionary <a class="idlType">RTCRtpUnhandledEventInit</a> Members</h2>
           <dl data-link-for="RTCRtpUnhandledEventInit" data-dfn-for=
           "RTCRtpUnhandledEventInit" class="dictionary-members">
-            <dt><dfn><code>muxId</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>muxId</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>If present, the value of the <a>MID</a> RTP header extension [[!BUNDLE]]
               in the RTP stream triggering the <code><a>unhandledrtp</a></code>
               event.</p>
             </dd>
-            <dt><dfn><code>rid</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>rid</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>If present, the value of the <a>RID</a> RTP header extension [[!RID]] in
               the RTP stream triggering the <code><a>unhandledrtp</a></code> event.</p>
             </dd>
-            <dt><dfn><code>payloadType</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>payloadType</code></dfn> of type <span class=
             "idlMemberType"><a>payloadtype</a></span>, required</dt>
             <dd>
               <p>The Payload Type value in the RTP stream triggering the
               <code><a>unhandledrtp</a></code> event.</p>
             </dd>
-            <dt><dfn><code>ssrc</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The SSRC in the RTP stream triggering the
@@ -4999,17 +4999,17 @@ interface RTCRtpUnhandledEvent : Event {
           <h2>Dictionary <a class="idlType">RTCRtpCapabilities</a> Members</h2>
           <dl data-link-for="RTCRtpCapabilities" data-dfn-for="RTCRtpCapabilities" class=
           "dictionary-members">
-            <dt><dfn><code>codecs</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>codecs</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCRtpCodecCapability</a>&gt;</span>, required</dt>
             <dd>
               <p>Supported codecs.</p>
             </dd>
-            <dt><dfn><code>headerExtensions</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>headerExtensions</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCRtpHeaderExtension</a>&gt;</span></dt>
             <dd>
               <p>Supported RTP header extensions.</p>
             </dd>
-            <dt><dfn><code>fecMechanisms</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>fecMechanisms</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
             <dd>
               <p>Supported Forward Error Correction (FEC) mechanisms
@@ -5035,14 +5035,14 @@ interface RTCRtpUnhandledEvent : Event {
           <h2>Dictionary <a class="idlType">RTCRtcpFeedback</a> Members</h2>
           <dl data-link-for="RTCRtcpFeedback" data-dfn-for="RTCRtcpFeedback" class=
           "dictionary-members">
-            <dt><dfn><code>type</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>type</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>Valid values for <code>type</code> are the "RTCP Feedback" Attribute
               Values enumerated in [[!IANA-SDP-14]] ("ack", "ccm", "nack", etc.), as well
               as "goog-remb" [[REMB]] and "transport-cc" [[TRANSPORT-CC]].</p>
             </dd>
-            <dt><dfn><code>parameter</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>parameter</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>For a <code>type</code> value of "ack" or "nack", valid values for
@@ -9902,7 +9902,7 @@ interface RTCQuicStream {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCQuicStreamState.new">new</code></dfn></td>
               <td>
                 <p>The <a>user agent</a> has not yet attempted to
@@ -9913,7 +9913,7 @@ interface RTCQuicStream {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCQuicStreamState.opening">opening</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCQuicStreamState.opening">opening</code></dfn></td>
               <td>
                 <p>The underlying QUIC stream has queued a STREAM frame for
                 transmission, but has not yet received an acknowledgement.
@@ -9922,7 +9922,7 @@ interface RTCQuicStream {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCQuicStreamState.open">open</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCQuicStreamState.open">open</code></dfn></td>
               <td>
                 <p>The underlying QUIC stream has received a STREAM, MAX_STREAM_DATA or
                 STREAM_BLOCKED frame, or has sent a STREAM frame and received an acknowledgement,
@@ -9934,7 +9934,7 @@ interface RTCQuicStream {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCQuicStreamState.closing">closing</code></dfn></td>
               <td>
                 <p>The procedure to close down the QUIC stream has started.
@@ -9951,7 +9951,7 @@ interface RTCQuicStream {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCQuicStreamState.closed">closed</code></dfn></td>
               <td>
                 <p>The QUIC stream has been closed or could not be established.
