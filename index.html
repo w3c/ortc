@@ -10593,9 +10593,9 @@ interface RTCIdentity {
         <section>
           <h2>Methods</h2>
           <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="methods">
-            <dt><code>getIdentityAssertion</code></dt>
+            <dt><dfn data-idl><code>getIdentityAssertion</code></dfn></dt>
             <dd>
-              <p><dfn>getIdentityAssertion</dfn> sets the identity provider to be used for a given
+              <p><code>getIdentityAssertion</code> sets the identity provider to be used for a given
               <code><a>RTCIdentity</a></code> object, and initiates the process of
               obtaining an identity assertion.</p>
               <p>When <code><a>getIdentityAssertion</a></code>() is invoked, the <a>user agent</a> MUST
@@ -10719,13 +10719,13 @@ interface RTCIdentity {
           <h2>Dictionary RTCIdentityError Members</h2>
           <dl data-link-for="RTCIdentityError" data-dfn-for="RTCIdentityError" class=
           "dictionary-members">
-            <dt><dfn><code>idp</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>idp</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>The domain name of the identity provider that is providing the error
               response.</p>
             </dd>
-            <dt><dfn><code>loginUrl</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>loginUrl</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, nullable</dt>
             <dd>
               <p>An IdP that is unable to generate an identity assertion due to a lack of
@@ -10733,7 +10733,7 @@ interface RTCIdentity {
               where the user can complete authentication. If the IdP provides this URL,
               this attribute includes the value provided by the IdP.</p>
             </dd>
-            <dt><dfn><code>protocol</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>protocol</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>The IdP protocol that is in use.</p>
@@ -10755,12 +10755,12 @@ interface RTCIdentity {
           <h2>Dictionary <a class="idlType">RTCIdentityAssertion</a> Members</h2>
           <dl data-link-for="RTCIdentityAssertion" data-dfn-for="RTCIdentityAssertion"
           class="dictionary-members">
-            <dt><dfn><code>idp</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>idp</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>A domain name representing the identity provider.</p>
             </dd>
-            <dt><dfn><code>name</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>name</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>A representation of the verified peer identity conforming to
