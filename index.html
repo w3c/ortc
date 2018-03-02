@@ -709,7 +709,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 <th colspan="2">Enumeration description</th>
               </tr>
               <tr>
-                <td><dfn><code id=
+                <td><dfn data-idl><code id=
                 "idl-def-RTCIceTcpCandidateType.active">active</code></dfn></td>
                 <td>
                   <p>An active TCP candidate is one for which the transport will attempt
@@ -718,7 +718,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 </td>
               </tr>
               <tr>
-                <td><dfn><code id=
+                <td><dfn data-idl><code id=
                 "idl-def-RTCIceTcpCandidateType.passive">passive</code></dfn></td>
                 <td>
                   <p>A passive TCP candidate is one for which the transport will receive
@@ -726,7 +726,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 </td>
               </tr>
               <tr>
-                <td><dfn><code id=
+                <td><dfn data-idl><code id=
                 "idl-def-RTCIceTcpCandidateType.so">so</code></dfn></td>
                 <td>
                   <p>An so candidate is one for which the transport will attempt to open
@@ -10576,14 +10576,14 @@ interface RTCIdentity {
         <section>
           <h2>Attributes</h2>
           <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes">
-            <dt><code>peerIdentity</code> of type <span class=
+            <dt><dfn data-idl><code>peerIdentity</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIdentityAssertion</a></span>, readonly , nullable</dt>
             <dd>
-              <p><dfn>peerIdentity</dfn> contains the peer identity assertion
+              <p><code>peerIdentity</code> contains the peer identity assertion
               information if an identity assertion was provided and verified. Once this
               value is set to a non-<code>null</code> value, it cannot change.</p>
             </dd>
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
             <dd>
               <p>The <code><a>RTCDtlsTransport</a></code> to be authenticated.</p>
