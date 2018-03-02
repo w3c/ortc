@@ -6265,62 +6265,62 @@ interface RTCRtpUnhandledEvent : Event {
         </thead>
         <tbody>
           <tr id="def-ssrc*">
-            <td><dfn><code>ssrc</code></dfn></td>
+            <td><dfn data-idl><code>ssrc</code></dfn></td>
             <td><code>unsigned long</code></td>
             <td>Receiver/Sender</td>
           </tr>
           <tr id="def-codecPayloadType*">
-            <td><dfn><code>codecPayloadType</code></dfn></td>
+            <td><dfn data-idl><code>codecPayloadType</code></dfn></td>
             <td><code>payloadtype</code></td>
             <td>Receiver/Sender</td>
           </tr>
           <tr id="def-fec*">
-            <td><dfn><code>fec</code></dfn></td>
+            <td><dfn data-idl><code>fec</code></dfn></td>
             <td><code><a>RTCRtpFecParameters</a></code></td>
             <td>Receiver/Sender</td>
           </tr>
           <tr id="def-rtx*">
-            <td><dfn><code>rtx</code></dfn></td>
+            <td><dfn data-idl><code>rtx</code></dfn></td>
             <td><code><a>RTCRtpRtxParameters</a></code></td>
             <td>Receiver/Sender</td>
           </tr>
           <tr id="def-priority*">
-            <td><dfn><code>priority</code></dfn></td>
+            <td><dfn data-idl><code>priority</code></dfn></td>
             <td><code><a>RTCPriorityType</a></code></td>
             <td>Sender</td>
           </tr>
           <tr id="def-maxbitrate*">
-            <td><dfn><code>maxBitrate</code></dfn></td>
+            <td><dfn data-idl><code>maxBitrate</code></dfn></td>
             <td><code>unsigned long</code></td>
             <td>Sender</td>
           </tr>
           <tr id="def-resolutionscale*">
-            <td><dfn><code>resolutionScale</code></dfn></td>
+            <td><dfn data-idl><code>resolutionScale</code></dfn></td>
             <td><code>double</code></td>
             <td>Sender</td>
           </tr>
           <tr id="def-frameratescale*">
-            <td><dfn><code>framerateScale</code></dfn></td>
+            <td><dfn data-idl><code>framerateScale</code></dfn></td>
             <td><code>double</code></td>
             <td>Sender</td>
           </tr>
           <tr id="def-maxframerate*">
-            <td><dfn><code>maxFramerate</code></dfn></td>
+            <td><dfn data-idl><code>maxFramerate</code></dfn></td>
             <td><code>double</code></td>
             <td>Sender</td>
           </tr>
           <tr id="def-active*">
-            <td><dfn><code>active</code></dfn></td>
+            <td><dfn data-idl><code>active</code></dfn></td>
             <td><code>boolean</code></td>
             <td>Receiver/Sender</td>
           </tr>
           <tr id="def-encodingid*">
-            <td><dfn><code>encodingId</code></dfn></td>
+            <td><dfn data-idl><code>encodingId</code></dfn></td>
             <td><code>DOMString</code></td>
             <td>Receiver/Sender</td>
           </tr>
           <tr id="def-dependencyencodingids*">
-            <td><dfn><code>dependencyEncodingIds</code></dfn></td>
+            <td><dfn data-idl><code>dependencyEncodingIds</code></dfn></td>
             <td><code>sequence&lt;DOMString&gt;</code></td>
             <td>Receiver/Sender</td>
           </tr>
@@ -8380,7 +8380,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>stop</code></dfn></dt>
+            <dt><dfn data-idl><code>stop</code></dfn></dt>
             <dd>
               <p>Stops the <a>RTCSctpTransport</a> instance.</p>
               <div>
@@ -8462,7 +8462,7 @@ interface RTCSctpTransport : RTCDataTransport {
             <h2>Dictionary <a class="idlType">RTCSctpCapabilities</a> Members</h2>
             <dl data-link-for="RTCSctpCapabilities" data-dfn-for="RTCSctpCapabilities"
             class="dictionary-members">
-              <dt><dfn><code>maxMessageSize</code></dfn> of type <span class=
+              <dt><dfn data-idl><code>maxMessageSize</code></dfn> of type <span class=
               "idlMemberType"><a>unsigned long</a></span>, required</dt>
               <dd>
                 <p>The maximum size of data that the implementation can send
@@ -8552,7 +8552,7 @@ interface RTCDataChannelEvent : Event {
           <h2>Dictionary RTCDataChannelEventInit Members</h2>
           <dl data-link-for="RTCDataChannelEventInit" data-dfn-for=
           "RTCDataChannelEventInit" class="dictionary-members">
-            <dt><dfn><code>channel</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>channel</code></dfn> of type <span class=
             "idlMemberType"><a>RTCDataChannel</a></span>, required</dt>
             <dd>
               <p>The <code><a>RTCDataChannel</a></code> object associated with the
@@ -10868,7 +10868,7 @@ function signalAssertion(assertion) {
 };</pre>
         <dl data-link-for="RTCCertificateExpiration" data-dfn-for=
         "RTCCertificateExpiration" class="methods">
-          <dt><dfn>expires</dfn></dt>
+          <dt><dfn data-idl>expires</dfn></dt>
           <dd>
             <p>An optional <code>expires</code> attribute MAY be added to the
             definition of the algorithm that is passed to
