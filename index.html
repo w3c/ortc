@@ -8841,17 +8841,17 @@ interface RTCQuicTransport : RTCStatsProvider {
           <h2>Attributes</h2>
           <dl data-link-for="RTCQuicTransport" data-dfn-for="RTCQuicTransport" class=
           "attributes">
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceTransport</a></span>, readonly</dt>
             <dd>
               <p>The associated <code><a>RTCIceTransport</a></code> instance.</p>
             </dd>
-            <dt><dfn><code>state</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCQuicTransportState</a></span>, readonly</dt>
             <dd>
               <p>The current state of the QUIC transport.</p>
             </dd>
-            <dt><dfn><code>onstatechange</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onstatechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type
@@ -8859,7 +8859,7 @@ interface RTCQuicTransport : RTCStatsProvider {
               be fired any time the <code><a>RTCQuicTransportState</a></code>
               changes.</p>
             </dd>
-            <dt><dfn><code>onerror</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onerror</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type <code>error</code>,
@@ -8868,7 +8868,7 @@ interface RTCQuicTransport : RTCStatsProvider {
               "SHOULD">SHOULD</em> include QUIC error information in
               <var>error.message</var> (defined in [[!HTML5]] Section 6.1.3.6.2).</p>
             </dd>
-            <dt><dfn><code>onstream</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onstream</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type <code><a>quicstream</a></code>,
@@ -8881,9 +8881,9 @@ interface RTCQuicTransport : RTCStatsProvider {
           <h2>Methods</h2>
           <dl data-link-for="RTCQuicTransport" data-dfn-for="RTCQuicTransport" class=
           "methods">
-            <dt><code>getLocalParameters</code></dt>
+            <dt><dfn data-idl><code>getLocalParameters</code></dfn></dt>
             <dd>
-              <p><dfn>getLocalParameters()</dfn> obtains the QUIC parameters of
+              <p><code>getLocalParameters</code> obtains the QUIC parameters of
               the local <code><a>RTCQuicTransport</a></code> upon construction.
               If multiple certificates were provided in the constructor, then
               multiple fingerprints will be returned, one for each certificate.
@@ -8897,9 +8897,9 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code><a>RTCQuicParameters</a></code>
               </div>
             </dd>
-            <dt><code>getRemoteParameters</code></dt>
+            <dt><dfn data-idl><code>getRemoteParameters</code></dfn></dt>
             <dd>
-              <p><dfn>getRemoteParameters()</dfn> obtains
+              <p><code>getRemoteParameters</code> obtains
               the remote QUIC parameters passed in the
               <code>start()</code> method. Prior to calling
               <code>start()</code>, null is returned.</p>
@@ -8910,9 +8910,9 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code><a>RTCQuicParameters</a></code>, nullable
               </div>
             </dd>
-            <dt><code>getCertificates</code></dt>
+            <dt><dfn data-idl><code>getCertificates</code></dfn></dt>
             <dd>
-              <p><dfn>getCertificates()</dfn> returns the certificates provided in
+              <p><code>getCertificates</code> returns the certificates provided in
               the constructor.</p>
               <div>
                 <em>No parameters.</em>
@@ -8921,9 +8921,9 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>sequence&lt;RTCCertificate&gt;</code>
               </div>
             </dd>
-            <dt><code>getRemoteCertificates</code></dt>
+            <dt><dfn data-idl><code>getRemoteCertificates</code></dfn></dt>
             <dd>
-              <p><dfn>getRemoteCertificates()</dfn> returns the certificate chain in use by the remote side, with each
+              <p><code>getRemoteCertificates</code> returns the certificate chain in use by the remote side, with each
               certificate encoded in binary Distinguished Encoding Rules (DER) [[!X690]].
               <code><a>getRemoteCertificates()</a></code> returns an empty list prior to
               selection of the remote certificate, which is completed once
@@ -8936,7 +8936,7 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>sequence&lt;ArrayBuffer&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>start</code></dfn></dt>
+            <dt><dfn data-idl><code>start</code></dfn></dt>
             <dd>
               <p>Start QUIC transport negotiation with the parameters of the remote QUIC
               transport, including verification of the remote fingerprint.
@@ -8980,7 +8980,7 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>stop</code></dfn></dt>
+            <dt><dfn data-idl><code>stop</code></dfn></dt>
             <dd>
               <p>Stops and closes the <code><a>RTCQuicTransport</a></code> object.
               Calling <code>stop()</code> when <code>state</code> is <code>closed</code>
@@ -8992,7 +8992,7 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-           <dt><dfn><code>createStream</code></dfn></dt>
+           <dt><dfn data-idl><code>createStream</code></dfn></dt>
             <dd>
               <p>Creates an <code><a>RTCQuicStream</a></code> object.
               Since [[QUIC-TRANSPORT]] only defines reliable QUIC streams,
@@ -9075,13 +9075,13 @@ interface RTCQuicTransport : RTCStatsProvider {
           <h2>Dictionary <a class="idlType">RTCQuicParameters</a> Members</h2>
           <dl data-link-for="RTCQuicParameters" data-dfn-for="RTCQuicParameters" class=
           "dictionary-members">
-            <dt><dfn><code>role</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>role</code></dfn> of type <span class=
             "idlMemberType"><a>RTCQuicRole</a></span>, defaulting to
             <code>"auto"</code></dt>
             <dd>
               <p>The QUIC role, with a default of <code>auto</code>.</p>
             </dd>
-            <dt><dfn><code>fingerprints</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>fingerprints</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span>, required</dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
@@ -9149,10 +9149,10 @@ interface RTCQuicStreamEvent : Event {
           <h2>Attributes</h2>
           <dl data-link-for="RTCQuicStreamEvent" data-dfn-for="RTCQuicStreamEvent"
           class="attributes">
-            <dt><code>stream</code> of type <span class=
+            <dt><dfn data-idl><code>stream</code></dfn> of type <span class=
             "idlAttrType"><a>RTCQuicStream</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn><code>stream</code></dfn>
+              <p>The <code>stream</code>
               attribute represents the <code><a>RTCQuicStream</a></code> object
               associated with the event.</p>
             </dd>
@@ -9169,7 +9169,7 @@ interface RTCQuicStreamEvent : Event {
           <h2>Dictionary RTCQuicStreamEventInit Members</h2>
           <dl data-link-for="RTCQuicStreamEventInit" data-dfn-for=
           "RTCQuicStreamEventInit" class="dictionary-members">
-            <dt><dfn><code>stream</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>stream</code></dfn> of type <span class=
             "idlMemberType"><a>RTCQuicStream</a></span>, required</dt>
             <dd>
               <p>The <code><a>RTCQuicStream</a></code> object associated with the
@@ -9489,21 +9489,21 @@ interface RTCQuicStream {
           <h2>Attributes</h2>
           <dl data-link-for="RTCQuicStream" data-dfn-for="RTCQuicStream" class=
           "attributes">
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCQuicTransport</a></span>, readonly</dt>
             <dd>
               <p>The readonly attribute referring to the related <code><a>RTCQuicTransport</a></code> object.</p>
             </dd>
-            <dt><code>state</code> of type <span class=
+            <dt><dfn data-idl><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCQuicStreamState</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-quicstream-state"><code>state</code></dfn> attribute
+              <p>The <code>state</code> attribute
               represents the state of the <code><a>RTCQuicStream</a></code> object.
               On getting it <em class="rfc2119" title="MUST">MUST</em> return
               the value of the <code><a>RTCQuicStream</a></code>'s
               <a>[[\QuicStreamState]]</a> internal slot.</p>
             </dd>
-            <dt><dfn><code>onstatechange</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onstatechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
              <p>This event handler, of event handler event type
@@ -9511,10 +9511,10 @@ interface RTCQuicStream {
               be fired any time the <code><a>RTCQuicStreamState</a></code>
               changes.</p>
             </dd>
-            <dt><code>readBufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
+            <dt><dfn data-idl><code>readBufferedAmount</code></dfn> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-quicstream-readbufferedamount"><code>readBufferedAmount</code></dfn>
+              <p>The <code>readBufferedAmount</code>
               attribute represents the number of bytes buffered for access by 
               <code>readInto</code> but that, as of the last time the event loop
               started executing a task, had not yet been read. This does not include
@@ -9527,29 +9527,28 @@ interface RTCQuicStream {
               <code>readInto</code> method (the attribute does not reset to zero once the 
               <code><a>RTCQuicStream</a></code> closes).</p>
             </dd>
-            <dt><code>maxReadBufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
+            <dt><dfn data-idl><code>maxReadBufferedAmount</code></dfn> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-quicstream-maxreadbufferedamount"><code>maxReadBufferedAmount</code></dfn>
+              <p>The <code>maxReadBufferedAmount</code>
               attribute represents the maximum number of bytes that the implementation allows
               to be buffered for access by <code>readInto</code>. On getting, it
               <em class="rfc2119" title="MUST">MUST</em> return the value of the
               <code><a>RTCQuicStream</a></code>'s <a>[[\MaxReadBufferedAmount]]</a> internal slot.</p>
             </dd>
-            <dt><code>targetReadBufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
+            <dt><dfn data-idl><code>targetReadBufferedAmount</code></dfn> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
             <dd>
-              <p>The
-              <dfn id="dom-quicstream-targetreadbufferedamount"><code>targetReadBufferedAmount</code></dfn>
+              <p>The <code>targetReadBufferedAmount</code>
               attribute represents the target number of bytes in the read buffer, which enables
               control of back-pressure on the sender via the maximum receive window. On getting,
               it <em class="rfc2119" title="MUST">MUST</em> return the value of the
               <code><a>RTCQuicStream</a></code>'s <a>[[\TargetReadBufferedAmount]]</a> internal slot.</p>
             </dd>
-            <dt><code>writeBufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
+            <dt><dfn data-idl><code>writeBufferedAmount</code></dfn> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-quicstream-writebufferedamount"><code>writeBufferedAmount</code></dfn>
+              <p>The <code>writeBufferedAmount</code>
               attribute represents the number of bytes of application data
               that have been queued using <code>write</code> but that, as of the last
               time the event loop started executing a task, had not yet been transmitted
@@ -9565,10 +9564,10 @@ interface RTCQuicStream {
               <code>write</code> method (the attribute does not reset to zero once the
               <code><a>RTCQuicStream</a></code> closes).</p>
             </dd>
-            <dt><code>maxWriteBufferedAmount</code> of type <span class="idlAttrType"><a>unsigned
+            <dt><dfn data-idl><code>maxWriteBufferedAmount</code></dfn> of type <span class="idlAttrType"><a>unsigned
             long</a></span>, readonly</dt>
             <dd>
-              <p>The <dfn id="dom-quicstream-maxwritebufferedamount"><code>maxWriteBufferedAmount</code></dfn>
+              <p>The <code>maxWriteBufferedAmount</code>
               attribute represents the maximum number of bytes that the implementation allows
               to be buffered by <code>write</code>. On getting, it <em class="rfc2119" title="MUST">MUST</em> 
               return the value of the <code><a>RTCQuicStream</a></code>'s
@@ -9580,7 +9579,7 @@ interface RTCQuicStream {
           <h2>Methods</h2>
           <dl data-link-for="RTCQuicStream" data-dfn-for="RTCQuicStream" class=
           "methods">
-            <dt><dfn><code>readInto</code></dfn></dt>
+            <dt><dfn data-idl><code>readInto</code></dfn></dt>
             <dd>
               <p>Reads from <code><a>RTCQuicStream</a></code> into the buffer specified
               by the first argument and returns the number of bytes read; a negative
@@ -9626,7 +9625,7 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>long</code>
               </div>
             </dd>
-            <dt><dfn><code>write</code></dfn></dt>
+            <dt><dfn data-idl><code>write</code></dfn></dt>
             <dd>
               <p>When the <code>write</code> method is called, the <a>user agent</a>
               MUST run the following steps:</p>
@@ -9674,7 +9673,7 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>finish</code></dfn></dt>
+            <dt><dfn data-idl><code>finish</code></dfn></dt>
             <dd>
               <p>Intitiates the closing procedure for the
               <code><a>RTCQuicStream</a></code>. It may be called
@@ -9702,7 +9701,7 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>reset</code></dfn></dt>
+            <dt><dfn data-idl><code>reset</code></dfn></dt>
             <dd>
               <p>Resets the <code><a>RTCQuicStream</a></code>. It may be called
               regardless of whether the <code><a>RTCQuicStream</a></code> object
@@ -9730,7 +9729,7 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-           <dt><dfn><code>waitForReadable</code></dfn></dt>
+           <dt><dfn data-idl><code>waitForReadable</code></dfn></dt>
             <dd>
               <p><code>waitForReadable</code> resolves the promise 
               when the data queued in the read buffer increases above
@@ -9774,7 +9773,7 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>waitForWritable</code></dfn></dt>
+            <dt><dfn data-idl><code>waitForWritable</code></dfn></dt>
             <dd>
               <p><code>waitForWritable</code> resolves the promise when
               the data queued in the write buffer falls below a threshold
@@ -9830,7 +9829,7 @@ interface RTCQuicStream {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>setTargetReadBufferedAmount</code></dfn></dt>
+            <dt><dfn data-idl><code>setTargetReadBufferedAmount</code></dfn></dt>
             <dd>
               <p><code>setTargetReadBufferedAmount</code> sets the value
               of the <code><a>RTCQuicStream</a></code>'s <a>[[\TargetReadBufferedAmount]]</a>
