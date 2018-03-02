@@ -2291,14 +2291,22 @@ interface RTCDtlsTransport : RTCStatsProvider  {
 };</pre>
         <section>
           <h2>Constructors</h2>
-      <p>If an attempt is made to construct a <code><a>RTCDtlsTransport</a></code>
-      instance from an <code><a>RTCIceTransport</a></code> in the <code>closed</code>
-      state, <a>throw</a> an <code>InvalidStateError</code>.
-      If <code>certificates</code> is non-empty,
-      check that the <code>expires</code> attribute of each
-      <code><a>RTCCertificate</a></code> object is in the future.
-      If a certificate has expired, <a>throw</a> an <code>InvalidParameter</code>;
-      otherwise, store the certificates.</p>
+          <p>When the constructor is invoked, the following steps MUST be run:</p>
+          <ol>
+            <li><p>Let <var>transport</var> be the first argument.</p></li>
+            <li><p>If <code><var>transport</var>.state</code> is <code>closed</code>
+            <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</p></li>
+            <li>Let <var>certificates</var> be the second argument.</li>
+            <li><p>If <var>certificates</var> is non-null, check that the
+            <code>expires</code> attribute of each <code><a>RTCCertificate</a></code>
+            object is in the future.  If a certificate has expired, <a>throw</a> an
+            <code>InvalidParameters</code> and abort these steps.</p></li>
+            <li><p>Let <var>dtlsTransport</var> be a new <code><a>RTCDtlsTransport</a></code>
+            object with <var>certificates</var>.</p></li>
+            <li><p>Let <var>dltsTransport</var> have
+            <dfn>[[\SendHeaderExtensions]]</dfn> and <dfn>[[\ReceiveHeaderExtensions]]</dfn>
+            internal slots initialized to <code>null</code>.</p></li>
+         </ol>  
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "constructors">
             <dt><code><a>RTCDtlsTransport</a></code></dt>
@@ -3309,7 +3317,7 @@ interface RTCRtpSender : RTCStatsProvider {
                  <li>
                   <p>Let <var>parameters</var> be the argument provided to
                   <code><var>sender</var>.send(<var>parameters</var>)</code> the
-                  last time it was invoked.<p>
+                  last time it was invoked.</p>
                 </li>
                  <li>
                    <p>Stop sending media with <var>sender</var>.<p>
@@ -3320,6 +3328,11 @@ interface RTCRtpSender : RTCStatsProvider {
                   <code><var>parameters</var>.encodings[<var>i</var>].fec.ssrc</code> and
                   <code><var>parameters</var>.encodings[<var>i</var>].rtx.ssrc</code>
                   where <var>i</var> goes from 0 to <code>encodings.length-1</code>.<p>
+                </li>
+                <li>
+                  <p>Remove <code><var>parameters</var>.headerExtensions</code> from
+                  <code><var>sender</var>.transport</code>'s <a>[[\SenderHeaderExtensions]]</a>
+                  internal slot.</p>
                 </li>
                 <li>Set <var>sender</var>'s <a>[[\SenderStopped]]</a> slot to <code>true</code>.</li>
               </ol>
@@ -3341,15 +3354,21 @@ interface RTCRtpSender : RTCStatsProvider {
           the following steps:</p>
           <ol>
             <li>
-               <p>For <code>send</code>, let <var>kind</var> be the value of <code>track.kind</code>.
+               <p>For <code>send</code>, let <var>kind</var> be the value of <code>track.kind</code> and let
+               <var>sender</var> be the <code><a>RTCRtpSender</a></code> on which the <code>send</code> method is invoked.
                For <code>receive</code>, let <var>kind</var> be the first argument passed to the
-               <code><a>RTCRtpReceiver</a></code> constructor.</p>
+               <code><a>RTCRtpReceiver</a></code> constructor and let <var>receiver</var> be the
+               <code><a>RTCRtpReceiver</a></code> on which the <code>receive</code> method is invoked.</p>
+            </li>
+            <li>
+               <p>For <code>send</code>, let <var>dltsTransport</var> be the value of <code><var>sender</var>.transport</code>.
+               For <code>receive</code>, let <var>dltsTransport</var> be the value of <code><var>receiver</var>.transport</code>.</p>
             </li>
             <li>
               <p>For each value of <var>i</var> from 0 to the number of codecs, check
               that each value of <code><var>withParameters</var>.codecs[i].payloadType</code> is
               set. If any value is unset, <a>reject</a> <var>p</var> with a newly created
-              <code>TypeError</code> and abort these steps.</p>
+              <code>TypeError</code> and abort all of these steps.</p>
             </li>
             <li>
              <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
@@ -3381,27 +3400,27 @@ interface RTCRtpSender : RTCStatsProvider {
                       less than or equal to
                       <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].channels</code>.
                       If not, <a>reject</a> <var>p</var> with a newly created
-                      <code>NotSupportedError</code> and abort these steps.</p>
+                      <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
                     <li>
                       <p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>].type</code>
                       is included in <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].rtcpFeedback.type</code>
                       where <var>k</var> goes from 0 to the number of feedback mechanisms.
                       If not, <a>reject</a> <var>p</var> with a newly created
-                      <code>NotSupportedError</code> and abort these steps.</p>
+                      <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
                     <li>
                       <p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
                       is a valid value as indicated by <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].parameters</code>
                       where <var>k</var> goes from 0 to the number of codecs.
                       If not, <a>reject</a> <var>p</var> with a newly created
-                      <code>NotSupportedError</code> and abort these steps.</p>
+                      <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
                   </ol>
                 </li>
                 <li>
                   <p>If a match is not found for any value of <var>j</var>, <a>reject</a> <var>p</var> with a newly
-                  created <code>TypeError</code> and abort these steps.</p>
+                  created <code>TypeError</code> and abort all of these steps.</p>
                 </li>
              </ol>
             </li>
@@ -3424,7 +3443,7 @@ interface RTCRtpSender : RTCStatsProvider {
                  </li>
                  <li>
                    <p>If no match is found, <a>reject</a> <var>p</var> with a newly created
-                   <code>InvalidParameters</code> and abort these steps.</p>
+                   <code>InvalidParameters</code> and abort all of these steps.</p>
                  </li>
                  <li>
                    <p>Let <var>ssrc</var> be
@@ -3437,8 +3456,42 @@ interface RTCRtpSender : RTCStatsProvider {
                  <li>
                    <p>If <var>ssrc</var> is set and <var>dep</var> is unset, check that
                    <var>ssrc</var> is unique. If not, <a>reject</a> <var>p</var> with a newly created
-                   <code>NotSupportedError</code> and abort these steps.</p>
+                   <code>NotSupportedError</code> and abort all of these steps.</p>
                  </li>
+              </ol>
+            </li>
+            <li>
+              <p>For each value of <var>i</var> from 0 to the number of header extensions:</p>
+              <ol>
+                 <li>
+                   <p>Let <var>headerExtension</var> be
+                    <code><var>withParameters</var>.headerExtensions[<var>i</var>]</code>.</p>
+                 </li>
+                 <li><p>Let <var>uri</var> be <code><var>headerExtension</var>.uri</code>.</p></li>
+                 <li><p>Let <var>id</var> be <code><var>headerExtension</var>.id</code>.</p></li>
+                <li>
+                  <p>If <var>uri</var> or <var>id</var> is unset, <a>throw</a>
+                  a <code>TypeError</code> and abort all of these steps.</p>
+                </li>
+                <li>
+                  <p>Check whether <var>uri</var> is equal to
+                  <code>getCapabilities(<var>kind</var>).headerExtensions[<var>j</var>].uri</code>
+                  for any value of <var>j</var> from 0 to the number of header extensions.</p>
+                </li>
+                <li>
+                  <p>If no match is found, <a>reject</a> <var>p</var> with a newly created
+                  <code>InvalidParameters</code> and abort all of these steps.</p>
+                </li>
+                <li>
+                  <p>Check whether <var>id</var> is equal to
+                  <code><var>withParameters</var>.headerExtensions[<var>j</var>].id</code>
+                  for any value of <var>j</var> from 0 to the number of header extensions.</p>
+                </li>
+                <li>
+                  <p>If a match is found and <var>j</var> != <var>i</var>, <a>reject</a>
+                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort
+                  all of these steps.</p>
+                </li>
               </ol>
             </li>
           </ol>
@@ -3934,15 +3987,35 @@ interface RTCRtpReceiver : RTCStatsProvider {
             </dd>
             <dt><dfn><code>stop</code></dfn></dt>
             <dd>
-              <p>Stops the <code><a>RTCRtpReceiver</a></code> <var>receiver</var>.
-              <code><var>receiver</var>.stop()</code> is final
-              like <code><var>receiver</var>.track.stop()</code>.
-              <code><var>receiver</var>.track.stop()</code> does
-              not affect track clones and also does not stop <var>receiver</var>
-              so that Receiver Reports continue to be sent. Calling
-              <code><var>receiver</var>.stop</code> sets <var>receiver</var>'s
-              <a>[[\ReceiverStopped]]</a> slot to <code>true</code> but does not
-              cause the "onended" event to fire for <code>track</code>.</p>
+              <p>The <code>stop</code> method irreversibly stops the
+              <code><a>RTCRtpReceiver</a></code> <var>receiver</var>
+              on which it is invoked, but does not cause the "onended"
+              event to fire for <code><var>receiver</var>.track</code>.</p>
+              <p>While <code><var>receiver</var>.track.stop()</code> is also
+              irreversible, it does not affect track clones and also does
+              not stop <var>receiver</var> so that Receiver Reports 
+              continue to be sent.</p>  
+              <p>When <code>stop</code> is called, the following steps MUST be run:<p>
+              <ol>
+                 <li>Let <var>receiver</var> be the <code><a>RTCRtpReceiver</a></code>
+                 on which <code>stop</code> is invoked.</li>
+                 <li>If <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot is
+                 <code>true</code>, abort these steps.</li>
+                 <li>
+                  <p>Let <var>parameters</var> be the argument provided to
+                  <code><var>receiver</var>.receive(<var>parameters</var>)</code> the
+                  last time it was invoked.<p>
+                </li>
+                 <li>
+                   <p>Stop receiving media with <var>receiver</var>.<p>
+                </li>
+                <li>
+                  <p>Remove <code><var>parameters</var>.headerExtensions</code> from
+                  <code><var>receiver</var>.transport</code>'s <a>[[\ReceiveHeaderExtensions]]</a>
+                  internal slot.</p>
+                </li>
+                <li>Set <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot to <code>true</code>.</li>
+              </ol>
               <div>
                 <em>No parameters.</em>
               </div>
