@@ -7300,7 +7300,7 @@ interface RTCDTMFToneChangeEvent : Event {
           <h2>Dictionary <a class="idlType">RTCDTMFToneChangeEventInit</a> Members</h2>
           <dl data-link-for="RTCDTMFToneChangeEventInit" data-dfn-for=
           "RTCDTMFToneChangeEventInit" class="dictionary-members">
-            <dt><dfn data-idl>code>tone</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>tone</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
             <dd>
               <p>The <code>tone</code> attribute contains the character for the tone
@@ -7666,20 +7666,20 @@ interface RTCDataChannel : EventTarget {
               controls how binary data is exposed to scripts. See the [[WEBSOCKETS-API]]
               for more information.</p>
             </dd>
-            <dt><dfn><code>onopen</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onopen</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler type <code>open</code>, <em class=
               "rfc2119" title="MUST">MUST</em> be supported by all objects implementing
               the <code><a>RTCDataChannel</a></code> interface.</p>
             </dd>
-            <dt><dfn><code>onbufferedamountlow</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onbufferedamountlow</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>The event type of this event handler is <code><a href=
               "#event-datachannel-bufferedamountlow">bufferedamountlow</a></code>.</p>
             </dd>
-            <dt><dfn><code>onerror</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onerror</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler type <code>error</code>, <em class=
@@ -7692,14 +7692,14 @@ interface RTCDataChannel : EventTarget {
               value inconsistent with the value of the <code><a>RTCDataChannel</a></code>
               <a>[[\DataChannelId]]</a> internal slot, as noted in [[!DATA-PROT]] Section 4.</p>
             </dd>
-            <dt><dfn><code>onclose</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onclose</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler type <code>close</code>, <em class=
               "rfc2119" title="MUST">MUST</em> be supported by all objects implementing
               the RTCDataChannel interface.</p>
             </dd>
-            <dt><dfn><code>onmessage</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onmessage</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type <code>message</code>,
@@ -7724,7 +7724,7 @@ interface RTCDataChannel : EventTarget {
           <h2>Methods</h2>
           <dl data-link-for="RTCDataChannel" data-dfn-for="RTCDataChannel" class=
           "methods">
-            <dt><dfn><code>getParameters</code></dfn></dt>
+            <dt><dfn data-idl><code>getParameters</code></dfn></dt>
             <dd>
               <p>Returns the <code><a>RTCDataChannelParameters</a></code> applying to this
               data channel. When the <code>getParameters</code> method is called, the user
@@ -7778,7 +7778,7 @@ interface RTCDataChannel : EventTarget {
                 <em>Return type:</em> <code><a>RTCDataChannelParameters</a></code>
               </div>
             </dd>
-            <dt><dfn><code>close</code></dfn></dt>
+            <dt><dfn data-idl><code>close</code></dfn></dt>
             <dd>
               <p>Closes the <a>RTCDataChannel</a>. It may be called regardless of whether
               the <code><a>RTCDataChannel</a></code> object was created by this peer or
@@ -8008,7 +8008,7 @@ interface RTCDataChannel : EventTarget {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCDataChannelState.connecting">connecting</code></dfn></td>
               <td>
                 <p>The <a>user agent</a> is attempting to establish the underlying data
@@ -8018,14 +8018,14 @@ interface RTCDataChannel : EventTarget {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCDataChannelState.open">open</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCDataChannelState.open">open</code></dfn></td>
               <td>
                 <p>The underlying data transport is established and communication is
                 possible.</p>
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCDataChannelState.closing">closing</code></dfn></td>
               <td>
                 <p>The procedure to close down the underlying data transport has
@@ -8033,7 +8033,7 @@ interface RTCDataChannel : EventTarget {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCDataChannelState.closed">closed</code></dfn></td>
               <td>
                 <p>The underlying data transport has been closed or could not be
@@ -8071,19 +8071,19 @@ interface RTCDataChannel : EventTarget {
           <h2>Dictionary <a class="idlType">RTCDataChannelParameters</a> Members</h2>
           <dl data-link-for="RTCDataChannelParameters" data-dfn-for=
           "RTCDataChannelParameters" class="dictionary-members">
-            <dt><code>label</code> of type <span class=
+            <dt><dfn data-idl><code>label</code></dfn> of type <span class=
             "idlMemberType"><a>USVString</a></span>, defaulting to <code>""</code></dt>
             <dd>
-              <p>The <dfn><code>label</code></dfn> attribute represents a label that can
+              <p>The <code>label</code> attribute represents a label that can
               be used to distinguish this <code><a>RTCDataChannel</a></code> object from
               other <a>RTCDataChannel</a> objects. For an SCTP data
               channel, the label is carried in the DATA_CHANNEL_OPEN message defined in
               [[!DATA-PROT]] Section 5.1.</p>
             </dd>
-            <dt><code>ordered</code> of type <span class=
+            <dt><dfn data-idl><code>ordered</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
             <dd>
-              <p>The <dfn id="dom-datachannel-ordered"><code>ordered</code></dfn>
+              <p>The <code>ordered</code>
               attribute is set to <code>true</code> if the
               <code><a>RTCDataChannel</a></code> is ordered, and <code>false</code> if
               out of order delivery is allowed. Default is <code>true</code>.</p>
@@ -8241,19 +8241,19 @@ interface RTCSctpTransport : RTCDataTransport {
           <h2>Attributes</h2>
           <dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class=
           "attributes">
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
             <dd>
               <p>The <code><a>RTCDtlsTransport</a></code> instance the
               <code><a>RTCSctpTransport</a></code> object is sending over.</p>
             </dd>
-            <dt><dfn><code>state</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCSctpTransportState</a></span>, readonly</dt>
             <dd>
               <p>The current state of the SCTP transport. On getting, it MUST return
               the value of the <a>[[\SctpTransportState]]</a> internal slot.</p>
             </dd>
-            <dt><dfn><code>port</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>port</code></dfn> of type <span class=
             "idlAttrType"><a>unsigned short</a></span>, readonly</dt>
             <dd>
               <p>The local SCTP port number used by the data channel.</p>
@@ -8271,7 +8271,7 @@ interface RTCSctpTransport : RTCDataTransport {
               with the <code><a>RTCDataChannel</a></code> constructed by the remote
               peer.</p>
             </dd>
-            <dt><dfn><code>onstatechange</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onstatechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type
@@ -8284,9 +8284,9 @@ interface RTCSctpTransport : RTCDataTransport {
           <h2>Methods</h2>
           <dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class=
           "methods">
-            <dt><code>getCapabilities</code>, static</dt>
+            <dt><dfn data-idl><code>getCapabilities</code></dfn>, static</dt>
             <dd>
-              <p><dfn>getCapabilities()</dfn> retrieves the <code><a>RTCSctpCapabilities</a></code>
+              <p><code>getCapabilities</code> retrieves the <code><a>RTCSctpCapabilities</a></code>
               of the <code><a>RTCSctpTransport</a></code>. When the <code>getCapabilities</code>
               method is called the user agent <em class="rfc2119" title="MUST">MUST</em> run the following
               steps:</p>
@@ -8305,7 +8305,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 <em>Return type:</em> <code><a>RTCSctpCapabilities</a></code>
               </div>
             </dd>
-            <dt><dfn><code>start</code></dfn></dt>
+            <dt><dfn data-idl><code>start</code></dfn></dt>
             <dd>
               <p>Starts the <code><a>RTCSctpTransport</a></code> instance
               and causes an SCTP INIT request to be issued over the
@@ -8411,7 +8411,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 <th colspan="2">Enumeration description</th>
               </tr>
               <tr>
-                <td><dfn><code id=
+                <td><dfn data-idl><code id=
                 "idl-def-RTCSctpTransportState.new">new</code></dfn></td>
                 <td>
                   <p>The <code><a>RTCSctpTransport</a></code> object has
@@ -8421,7 +8421,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 </td>
               </tr>
               <tr>
-                <td><dfn><code id=
+                <td><dfn data-idl><code id=
                 "idl-def-RTCSctpTransportState.connecting">connecting</code></dfn></td>
                 <td>
                   <p>The <code>start</code> method has been called and the
@@ -8430,7 +8430,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 </td>
               </tr>
               <tr>
-                <td><dfn><code id=
+                <td><dfn data-idl><code id=
                 "idl-def-RTCSctpTransportState.connected">connected</code></dfn></td>
                 <td>
                   <p>The <code><a>RTCSctpTransport</a></code> has completed
@@ -8438,7 +8438,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 </td>
               </tr>
               <tr>
-                <td><dfn><code id=
+                <td><dfn data-idl><code id=
                 "idl-def-RTCSctpTransportState.closed">closed</code></dfn></td>
                 <td>
                   <p>The SCTP association has been closed intentionally via
