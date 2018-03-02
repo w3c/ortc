@@ -3480,10 +3480,6 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>If no match is found, <a>reject</a> <var>p</var> with a newly created
                   <code>InvalidParameters</code> and abort all of these steps.</p>
                 </li>
-                <li>For <code>send</code> let <var>transportHeaderExtensions</var> be the value of
-                <var>dtlsTransport</var>'s <a>[[\SendHeaderExtensions]]</a> internal slot.</p></li>
-                <li>For <code>receive</code> let <var>transportHeaderExtensions</var> be the value of
-                <var>dtlsTransport</var>'s <a>[[\ReceiveHeaderExtensions]]</a> internal slot.</p></li>
                 <li>
                   <p>Check whether <var>id</var> is equal to
                   <code><var>withParameters</var>.headerExtensions[<var>j</var>].id</code>
@@ -3493,21 +3489,6 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>If a match is found and <var>j</var> != <var>i</var>, <a>reject</a>
                   <var>p</var> with a newly created <code>InvalidParameters</code> and abort
                   all of these steps.</p>
-                </li>
-                <li>
-                  <p>Check whether <var>id</var> is equal to
-                  <code><var>transportHeaderExtensions[<var>k</var>].id</code>
-                  for any value of <var>k</var> from 0 to the number of transport header extensions.</p>
-                </li>
-                <li>
-                  <p>If a match is found, <a>reject</a>
-                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort
-                  all of these steps.</p>
-                </li>
-                <li>
-                  <p>If no match is found, append <code><var>withParameters</var>.headerExtensions</code> to
-                  <var>dtlsTransport</var>'s <a>[[\SendHeaderExtensions]]</a> internal slot (for <code>send</code>) or
-                  to <var>dtlsTransport</var>'s <a>[[\ReceiveHeaderExtensions]]</a> internal slot (for <code>receive</code>).</p>
                 </li>
               </ol>
             </li>
