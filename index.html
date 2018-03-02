@@ -3360,8 +3360,8 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li><p>Let <var>clockRate</var> be <code><var>codec</var>.clockRate</code>.</p></li>
                 <li><p>Let <var>name</var> be <code><var>codec</var>.name</code>.</p></li>
                 <li>
-                  <p>If <var>name</var> is unset, <a>throw</a> a <code>TypeError</code> and abort all
-                  of these steps.</p>
+                  <p>If <var>name</var> or <var>clockrate</var> is unset, <a>throw</a> a
+                  <code>TypeError</code> and abort all of these steps.</p>
                 </li>
                 <li>
                   <p>If <var>name</var> is not equal to "red", "rtx" or a forward
@@ -5659,8 +5659,7 @@ interface RTCRtpUnhandledEvent : Event {
             <dt><dfn><code>clockRate</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
-              <p>Codec clock rate expressed in Hertz. If unset, the implementation
-              default is assumed.</p>
+              <p>Codec clock rate expressed in Hertz.</p>
             </dd>
             <dt><dfn><code>maxptime</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
