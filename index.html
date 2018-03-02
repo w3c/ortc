@@ -3317,7 +3317,7 @@ interface RTCRtpSender : RTCStatsProvider {
                  <li>
                   <p>Let <var>parameters</var> be the argument provided to
                   <code><var>sender</var>.send(<var>parameters</var>)</code> the
-                  last time it was invoked.<p>
+                  last time it was invoked.</p>
                 </li>
                  <li>
                    <p>Stop sending media with <var>sender</var>.<p>
@@ -3331,7 +3331,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Remove <code><var>parameters</var>.headerExtensions</code> from
-                  <code><var>sender</var>.transport</code>'s <a>[[\transportHeaderExtensions]]</a>
+                  <code><var>sender</var>.transport</code>'s <a>[[\SenderHeaderExtensions]]</a>
                   internal slot.</p>
                 </li>
                 <li>Set <var>sender</var>'s <a>[[\SenderStopped]]</a> slot to <code>true</code>.</li>
@@ -4028,7 +4028,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Remove <code><var>parameters</var>.headerExtensions</code> from
-                  <code><var>receiver</var>.transport</code>'s <a>[[\transportHeaderExtensions]]</a>
+                  <code><var>receiver</var>.transport</code>'s <a>[[\ReceiveHeaderExtensions]]</a>
                   internal slot.</p>
                 </li>
                 <li>Set <var>receiver</var>'s <a>[[\ReceiverStopped]]</a> slot to <code>true</code>.</li>
