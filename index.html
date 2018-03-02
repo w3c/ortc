@@ -366,7 +366,7 @@ interface RTCIceGatherer : RTCStatsProvider {
           <h2>Attributes</h2>
           <dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class=
           "attributes">
-            <dt><dfn>component</dfn> of type <span class=
+            <dt><dfn data-idl>component</dfn> of type <span class=
             "idlAttrType"><a>RTCIceComponent</a></span>, readonly</dt>
             <dd>
               <p>The component-id of the <code><a>RTCIceGatherer</a></code> object. In
@@ -376,19 +376,19 @@ interface RTCIceGatherer : RTCStatsProvider {
               <code><a>RTCIceGatherer</a></code> objects, the value of the
               <code><a>component</a></code> attribute is <code>rtp</code>.</p>
             </dd>
-            <dt><dfn><code>state</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>state</code></dfn> of type <span class=
             "idlAttrType"><a>RTCIceGathererState</a></span>, readonly</dt>
             <dd>
               <p>The current state of the ICE gatherer.</p>
             </dd>
-            <dt><dfn><code>onstatechange</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onstatechange</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type
               <code><a>statechange</a></code>, <em class="rfc2119" title="MUST">MUST</em>
               be fired any time the <code><a>RTCIceGathererState</a></code> changes.</p>
             </dd>
-            <dt><dfn><code>onerror</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onerror</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type
@@ -396,7 +396,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               "MUST">MUST</em> be fired if an error occurs in the gathering of ICE
               candidates (such as if TURN credentials are invalid).</p>
             </dd>
-            <dt><dfn><code>onlocalcandidate</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onlocalcandidate</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>This event handler, of event handler event type
@@ -417,7 +417,7 @@ interface RTCIceGatherer : RTCStatsProvider {
           <h2>Methods</h2>
           <dl data-link-for="RTCIceGatherer" data-dfn-for="RTCIceGatherer" class=
           "methods">
-            <dt><dfn><code>getDefaultIceServers</code></dfn></dt>
+            <dt><dfn data-idl><code>getDefaultIceServers</code></dfn></dt>
             <dd>
               <p>Returns a list of ICE servers that are configured into the
               browser. A browser might be configured to use local or private
@@ -434,7 +434,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               agent with these defaults does not per se increase a user's
               ability to limit the exposure of their IP addresses.</p>
             </dd>
-            <dt><dfn><code>close</code></dfn></dt>
+            <dt><dfn data-idl><code>close</code></dfn></dt>
             <dd>
               <p>Prunes all local candidates, and closes the port. Associated
               <code><a>RTCIceTransport</a></code> objects transition to the
@@ -448,7 +448,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>gather</code></dfn></dt>
+            <dt><dfn data-idl><code>gather</code></dfn></dt>
             <dd>
               <p>Gather ICE candidates. If <var>options</var> is omitted, utilize the
               value of <var>options</var> passed in the constructor. If
@@ -478,7 +478,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><code>getLocalParameters</code></dt>
+            <dt><dfn data-idl>getLocalParameters</code></dt>
             <dd>
               <p><dfn>getLocalParameters()</dfn> obtains the ICE
               parameters of the <code><a>RTCIceGatherer</a></code>.
@@ -491,7 +491,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 <em>Return type:</em> <code><a>RTCIceParameters</a></code>
               </div>
             </dd>
-            <dt><dfn><code>getLocalCandidates</code></dfn></dt>
+            <dt><dfn data-idl><code>getLocalCandidates</code></dfn></dt>
             <dd>
               <p>Retrieve the sequence of valid local candidates associated with the
               <code><a>RTCIceGatherer</a></code>. This retrieves all unpruned local
@@ -508,7 +508,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 <code>sequence</code>&lt;<code><a>RTCIceCandidate</a></code>&gt;
               </div>
             </dd>
-            <dt><dfn><code>createAssociatedGatherer</code></dfn></dt>
+            <dt><dfn data-idl><code>createAssociatedGatherer</code></dfn></dt>
             <dd>
               <p>Create an associated <code><a>RTCIceGatherer</a></code> for RTCP, with
               the same <code><a>RTCIceParameters</a></code> and
@@ -542,17 +542,17 @@ interface RTCIceGatherer : RTCStatsProvider {
           <h2>Dictionary <a class="idlType">RTCIceParameters</a> Members</h2>
           <dl data-link-for="RTCIceParameters" data-dfn-for="RTCIceParameters" class=
           "dictionary-members">
-            <dt><dfn><code>usernameFragment</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>usernameFragment</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>ICE username fragment.</p>
             </dd>
-            <dt><dfn><code>password</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>password</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>ICE password.</p>
             </dd>
-            <dt><dfn><code>iceLite</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>iceLite</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span></dt>
             <dd>
               <p>If only ICE-lite is supported (<code>true</code>) or not
@@ -602,45 +602,45 @@ interface RTCIceGatherer : RTCStatsProvider {
           <h2>Dictionary <a class="idlType">RTCIceCandidate</a> Members</h2>
           <dl data-link-for="RTCIceCandidate" data-dfn-for="RTCIceCandidate" class=
           "dictionary-members">
-            <dt><dfn><code>foundation</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>foundation</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>A unique identifier that allows ICE to correlate candidates that appear
               on multiple <code><a>RTCIceTransport</a></code>s.</p>
             </dd>
-            <dt><dfn><code>priority</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>priority</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The assigned priority of the candidate. This is automatically populated
               by the browser.</p>
             </dd>
-            <dt><dfn><code>ip</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ip</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The IP address of the candidate.</p>
             </dd>
-            <dt><dfn><code>protocol</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>protocol</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceProtocol</a></span>, required</dt>
             <dd>
               <p>The protocol of the candidate (udp/tcp).</p>
             </dd>
-            <dt><dfn><code>port</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>port</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, required</dt>
             <dd>
               <p>The port for the candidate.</p>
             </dd>
-            <dt><dfn><code>type</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>type</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceCandidateType</a></span>, required</dt>
             <dd>
               <p>The type of candidate.</p>
             </dd>
-            <dt><dfn><code>tcpType</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>tcpType</code></dfn> of type <span class=
             "idlMemberType"><a>RTCIceTcpCandidateType</a></span></dt>
             <dd>
               <p>The type of TCP candidate. For UDP candidates, this
               attribute is unset.</p>
             </dd>
-            <dt><code>relatedAddress</code> of type <span class=
+            <dt><dfn data-idl>relatedAddress</code> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>For candidates that are derived from others, such as relay or reflexive
@@ -648,7 +648,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               candidate that these are derived from. For host candidates, the
               <code><a>relatedAddress</a></code> is unset.</p>
             </dd>
-            <dt><code>relatedPort</code> of type <span class="idlMemberType"><a>unsigned
+            <dt><dfn data-idl>relatedPort</code> of type <span class="idlMemberType"><a>unsigned
             short</a></span></dt>
             <dd>
               <p>For candidates that are derived from others, such as relay or reflexive
