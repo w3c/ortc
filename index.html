@@ -4803,12 +4803,12 @@ interface RTCRtpListener {
           <h2>Attributes</h2>
           <dl data-link-for="RTCRtpListener" data-dfn-for="RTCRtpListener" class=
           "attributes">
-            <dt><dfn><code>transport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
             "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
             <dd>
               <p>The RTP <code><a>RTCDtlsTransport</a></code> instance.</p>
             </dd>
-            <dt><dfn><code>onunhandledrtp</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>onunhandledrtp</code></dfn> of type <span class=
             "idlAttrType"><a>EventHandler</a></span></dt>
             <dd>
               <p>The event handler which handles the
@@ -4882,7 +4882,7 @@ interface RTCRtpUnhandledEvent : Event {
           <h2>Attributes</h2>
           <dl data-link-for="RTCRtpUnhandledEvent" data-dfn-for="RTCRtpUnhandledEvent"
           class="attributes">
-            <dt><dfn><code>muxId</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>muxId</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
               <p>The value of the <a>MID</a> RTP header extension [[!BUNDLE]] in the RTP
@@ -4890,7 +4890,7 @@ interface RTCRtpUnhandledEvent : Event {
               <code><a>receive</a>()</code> has not been called, the <a>MID</a> header
               extension cannot be decoded, so that <code>muxId</code> will be unset.</p>
             </dd>
-            <dt><dfn><code>rid</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>rid</code></dfn> of type <span class=
             "idlAttrType"><a>DOMString</a></span>, readonly</dt>
             <dd>
               <p>The value of the <a>RID</a> RTP header extension [[!RID]] in the RTP
@@ -4898,13 +4898,13 @@ interface RTCRtpUnhandledEvent : Event {
               <code><a>receive</a>()</code> has not been called, the <a>RID</a> header
               extension cannot be decoded, so that <code>rid</code> will be unset.</p>
             </dd>
-            <dt><dfn><code>payloadType</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>payloadType</code></dfn> of type <span class=
             "idlAttrType"><a>payloadtype</a></span>, readonly</dt>
             <dd>
               <p>The Payload Type value in the RTP stream triggering the
               <code><a>unhandledrtp</a></code> event.</p>
             </dd>
-            <dt><dfn><code>ssrc</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlAttrType"><a>unsigned long</a></span>, readonly</dt>
             <dd>
               <p>The SSRC in the RTP stream triggering the
@@ -5091,30 +5091,30 @@ interface RTCRtpUnhandledEvent : Event {
           <h2>Dictionary <a class="idlType">RTCRtpCodecCapability</a> Members</h2>
           <dl data-link-for="RTCRtpCodecCapability" data-dfn-for="RTCRtpCodecCapability"
           class="dictionary-members">
-            <dt><dfn><code>name</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>name</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The MIME media subtype. Valid subtypes are listed in
               [[!IANA-RTP-2]].</p>
             </dd>
-            <dt><dfn><code>mimeType</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>mimeType</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>The codec MIME media type/subtype. Valid media types and subtypes are
               listed in [[IANA-RTP-2]].</p>
             </dd>
-            <dt><dfn><code>kind</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>kind</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The media supported by the codec: "audio", "video", etc.</p>
             </dd>
-            <dt><dfn><code>clockRate</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>clockRate</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>Codec clock rate expressed in Hertz. If unset, the codec is applicable
               to any clock rate.</p>
             </dd>
-            <dt><dfn><code>preferredPayloadType</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>preferredPayloadType</code></dfn> of type <span class=
             "idlMemberType"><a>payloadtype</a></span>, required</dt>
             <dd>
               <p>The preferred RTP payload type for the codec denoted by
@@ -5129,43 +5129,43 @@ interface RTCRtpUnhandledEvent : Event {
               preferred RTP payload type for receiving. To avoid payload type conflicts,
               each value of <code>preferredPayloadType</code> MUST be unique.</p>
             </dd>
-            <dt><dfn><code>maxptime</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>maxptime</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The maximum packetization time supported by the
               <code><a>RTCRtpReceiver</a></code>.</p>
             </dd>
-            <dt><dfn><code>ptime</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ptime</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The preferred duration of media represented by a packet in milliseconds
               for the <code><a>RTCRtpSender</a></code> or
               <code><a>RTCRtpReceiver</a></code>.</p>
             </dd>
-            <dt><dfn><code>channels</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>channels</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The number of channels supported (e.g. two for stereo). For video, this
               attribute is unset.</p>
             </dd>
-            <dt><dfn><code>rtcpFeedback</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>rtcpFeedback</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCRtcpFeedback</a>&gt;</span></dt>
             <dd>
               <p>Transport layer and codec-specific feedback messages for this codec.</p>
             </dd>
-            <dt><dfn><code>parameters</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>parameters</code></dfn> of type <span class=
             "idlMemberType"><a>Dictionary</a></span></dt>
             <dd>
               <p>Codec-specific parameters that must be signaled to the remote party.</p>
             </dd>
-            <dt><dfn><code>options</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>options</code></dfn> of type <span class=
             "idlMemberType"><a>Dictionary</a></span></dt>
             <dd>
               <p>Codec-specific parameters that may be optionally signalled and are
               available as additional supported information or settings about the
               codec.</p>
             </dd>
-            <dt><dfn><code>maxTemporalLayers</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>maxTemporalLayers</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, defaulting to
             <code>0</code></dt>
             <dd>
@@ -5173,7 +5173,7 @@ interface RTCRtpUnhandledEvent : Event {
               (e.g. a value of 1 indicates support for up to 2 temporal layers). A value
               of 0 indicates no support for temporal scalability.</p>
             </dd>
-            <dt><dfn><code>maxSpatialLayers</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>maxSpatialLayers</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, defaulting to
             <code>0</code></dt>
             <dd>
@@ -5181,7 +5181,7 @@ interface RTCRtpUnhandledEvent : Event {
               a value of 1 indicates support for up to 2 spatial layers). A value of 0
               indicates no support for spatial scalability.</p>
             </dd>
-            <dt><dfn><code>svcMultiStreamSupport</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>svcMultiStreamSupport</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span></dt>
             <dd>
               <p>Whether the implementation can send/receive SVC layers utilizing
@@ -5509,7 +5509,7 @@ interface RTCRtpUnhandledEvent : Event {
           <h2>Dictionary <a class="idlType">RTCRtpParameters</a> Members</h2>
           <dl data-link-for="RTCRtpParameters" data-dfn-for="RTCRtpParameters" class=
           "dictionary-members">
-            <dt><dfn><code>muxId</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>muxId</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
             <dd>
               <p>The <code>muxId</code> assigned to the RTP stream, if any, empty string
@@ -5527,7 +5527,7 @@ interface RTCRtpUnhandledEvent : Event {
               stream, then multiple <code><a>RTCRtpSender</a></code> objects are
               needed.</p>
             </dd>
-            <dt><dfn><code>codecs</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>codecs</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCRtpCodecParameters</a>&gt;</span>,
             required</dt>
             <dd>
@@ -5536,13 +5536,13 @@ interface RTCRtpUnhandledEvent : Event {
               <code><a>RTCRtpParameters</a></code> object to be a valid argument passed
               to <code>send()</code> or <code>receive()</code>.</p>
             </dd>
-            <dt><dfn><code>headerExtensions</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>headerExtensions</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCRtpHeaderExtensionParameters</a>&gt;</span></dt>
             <dd>
               <p>Configured header extensions. If unset, no header extensions are
               configured.</p>
             </dd>
-            <dt><dfn><code>encodings</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>encodings</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCRtpEncodingParameters</a>&gt;</span></dt>
             <dd>
               <p>The "encodings" or "layers" to be used for things like simulcast,
@@ -5562,13 +5562,13 @@ interface RTCRtpUnhandledEvent : Event {
               unset in a call to <code>receive()</code>, the behavior is described in
               Section 8.3.</p>
             </dd>
-            <dt><dfn><code>rtcp</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>rtcp</code></dfn> of type <span class=
             "idlMemberType"><a>RTCRtcpParameters</a></span></dt>
             <dd>
               <p>Parameters to configure RTCP. If unset, the default values described in
               Section 9.6.1 are assumed.</p>
             </dd>
-            <dt><dfn><code>degradationPreference</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>degradationPreference</code></dfn> of type <span class=
             "idlMemberType"><a>RTCDegradationPreference</a></span></dt>
             <dd>
               <p>When bandwidth is constrained and the <code><a>RTCRtpSender</a></code>
@@ -5639,7 +5639,7 @@ interface RTCRtpUnhandledEvent : Event {
           <h2>Dictionary <a class="idlType">RTCRtcpParameters</a> Members</h2>
           <dl data-link-for="RTCRtcpParameters" data-dfn-for="RTCRtcpParameters" class=
           "dictionary-members">
-            <dt><dfn><code>ssrc</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The SSRC to be used in the "SSRC of packet sender" field defined in
@@ -5660,7 +5660,7 @@ interface RTCRtpUnhandledEvent : Event {
               <code>receive()</code> is called first, a random SSRC value can be
               chosen.</p>
             </dd>
-            <dt><dfn><code>cname</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>cname</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>The Canonical Name (CNAME) used by RTCP (e.g. in SDES messages).
@@ -5672,14 +5672,14 @@ interface RTCRtpUnhandledEvent : Event {
               the CNAME only for an <code><a>RTCRtpReceiver</a></code>; if unset, the
               CNAME is chosen by the browser.</p>
             </dd>
-            <dt><dfn><code>reducedSize</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>reducedSize</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>false</code></dt>
             <dd>
               <p>Whether reduced size RTCP [[!RFC5506]] is configured (if
               <code>true</code>) or compound RTCP as specified in [[!RFC3550]] (if
               <code>false</code>). The default is <code>false</code>.</p>
             </dd>
-            <dt><dfn><code>mux</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>mux</code></dfn> of type <span class=
             "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
             <dd>
               <p>Whether RTP and RTCP are multiplexed, as specified in [[!RFC5761]]. The
