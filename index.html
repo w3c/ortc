@@ -4929,7 +4929,7 @@ interface RTCRtpUnhandledEvent : Event {
       <div>
         <pre class="idl">dictionary RTCRtcpFeedback {
              required DOMString type;
-             required DOMString parameter;
+             DOMString parameter;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCRtcpFeedback</a> Members</h2>
@@ -4943,7 +4943,7 @@ interface RTCRtpUnhandledEvent : Event {
               as "goog-remb" [[REMB]] and "transport-cc" [[TRANSPORT-CC]].</p>
             </dd>
             <dt><dfn><code>parameter</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span>, required</dt>
+            "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>For a <code>type</code> value of "ack" or "nack", valid values for
               <code>parameter</code> are the "ack" and "nack" Attribute Values enumerated
