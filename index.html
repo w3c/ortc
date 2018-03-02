@@ -534,8 +534,8 @@ interface RTCIceGatherer : RTCStatsProvider {
       fragment and password and other ICE-related parameters.</p>
       <div>
         <pre class="idl">dictionary RTCIceParameters {
-             DOMString usernameFragment;
-             DOMString password;
+             required DOMString usernameFragment;
+             required DOMString password;
              boolean   iceLite;
 };</pre>
         <section>
@@ -543,12 +543,12 @@ interface RTCIceGatherer : RTCStatsProvider {
           <dl data-link-for="RTCIceParameters" data-dfn-for="RTCIceParameters" class=
           "dictionary-members">
             <dt><dfn><code>usernameFragment</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>ICE username fragment.</p>
             </dd>
             <dt><dfn><code>password</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>ICE password.</p>
             </dd>
@@ -995,7 +995,7 @@ interface RTCIceGathererIceErrorEvent : Event {
               server on which the failure ocurred.</p>
             </dd>
             <dt><dfn><code>errorCode</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned short</a></span></dt>
+            "idlMemberType"><a>unsigned short</a></span>, required</dt>
             <dd>
               <p>The <code>errorCode</code> attribute is the numeric STUN error code
               returned by the STUN or TURN server [[STUN-PARAMETERS]].</p>
@@ -1089,7 +1089,7 @@ interface RTCIceGathererEvent : Event {
       <p>The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary provides
       information on the <code><a>RTCIceGatherCandidate</a></code>.</p>
         <pre class="idl">dictionary RTCIceGathererEventInit : EventInit {
-             RTCIceGatherCandidate candidate;
+             required RTCIceGatherCandidate candidate;
              DOMString             url;
 };</pre>
         <section>
@@ -1097,7 +1097,7 @@ interface RTCIceGathererEvent : Event {
           <dl data-link-for="RTCIceGathererEventInit" data-dfn-for=
           "RTCIceGathererEventInit" class="dictionary-members">
             <dt><dfn><code>candidate</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceGatherCandidate</a></span></dt>
+            "idlMemberType"><a>RTCIceGatherCandidate</a></span>, required</dt>
             <dd>
               <p>The ICE candidate that caused the event.</p>
             </dd>
@@ -1114,7 +1114,7 @@ interface RTCIceGathererEvent : Event {
       gathering of ICE candidates.</p>
       <div>
         <pre class="idl">dictionary RTCIceGatherOptions {
-             RTCIceGatherPolicy     gatherPolicy;
+             RTCIceGatherPolicy     gatherPolicy = "all";
              sequence&lt;RTCIceServer&gt; iceServers;
 };</pre>
         <section>
@@ -2098,7 +2098,7 @@ interface RTCIceCandidatePairChangedEvent : Event {
       provides information on the newly selected <code>RTCIceCandidatePair</code>.</p>
         <pre class="idl">
         dictionary RTCIceCandidatePairChangedEventInit : EventInit {
-             RTCIceCandidatePair pair;
+             required RTCIceCandidatePair pair;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCIceCandidatePairChangedEventInit</a>
@@ -2106,7 +2106,7 @@ interface RTCIceCandidatePairChangedEvent : Event {
           <dl data-link-for="RTCIceCandidatePairChangedEventInit" data-dfn-for=
           "RTCIceCandidatePairChangedEventInit" class="dictionary-members">
             <dt><dfn><code>pair</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceCandidatePair</a></span></dt>
+            "idlMemberType"><a>RTCIceCandidatePair</a></span>, required</dt>
             <dd>
               <p>The <code>pair</code> attribute is the selected
               <code><a>RTCIceCandidatePair</a></code> that caused the event.</p>
@@ -2121,20 +2121,20 @@ interface RTCIceCandidatePairChangedEvent : Event {
       ICE candidate pair.</p>
       <div>
         <pre class="idl">dictionary RTCIceCandidatePair {
-             RTCIceCandidate local;
-             RTCIceCandidate remote;
+             required RTCIceCandidate local;
+             required RTCIceCandidate remote;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCIceCandidatePair</a> Members</h2>
           <dl data-link-for="RTCIceCandidatePair" data-dfn-for="RTCIceCandidatePair"
           class="dictionary-members">
             <dt><dfn><code>local</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceCandidate</a></span></dt>
+            "idlMemberType"><a>RTCIceCandidate</a></span>, required</dt>
             <dd>
               <p>The local ICE candidate.</p>
             </dd>
             <dt><dfn><code>remote</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCIceCandidate</a></span></dt>
+            "idlMemberType"><a>RTCIceCandidate</a></span>, required</dt>
             <dd>
               <p>The remote ICE candidate.</p>
             </dd>
@@ -2507,7 +2507,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
       <div>
         <pre class="idl">dictionary RTCDtlsParameters {
              RTCDtlsRole                  role = "auto";
-             sequence&lt;RTCDtlsFingerprint&gt; fingerprints;
+             required sequence&lt;RTCDtlsFingerprint&gt; fingerprints;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCDtlsParameters</a> Members</h2>
@@ -2520,7 +2520,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <p>The DTLS role, with a default of <code>auto</code>.</p>
             </dd>
             <dt><dfn><code>fingerprints</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span></dt>
+            "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span>, required</dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
             </dd>
@@ -2534,15 +2534,15 @@ interface RTCDtlsTransport : RTCStatsProvider  {
       algorithm and certificate fingerprint as described in [[!RFC4572]].</p>
       <div>
         <pre class="idl">dictionary RTCDtlsFingerprint {
-             DOMString algorithm;
-             DOMString value;
+             required DOMString algorithm;
+             required DOMString value;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCDtlsFingerprint</a> Members</h2>
           <dl data-link-for="RTCDtlsFingerprint" data-dfn-for="RTCDtlsFingerprint" class=
           "dictionary-members">
             <dt><dfn><code>algorithm</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>One of the the hash function algorithms defined in the 'Hash function
               Textual Names' registry, initially specified in [[!RFC4572]] Section 8. As
@@ -2550,7 +2550,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               fingerprint matches that used in the certificate signature.</p>
             </dd>
             <dt><dfn><code>value</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
             </dd>
           </dl>
@@ -3515,14 +3515,14 @@ interface RTCSsrcConflictEvent : Event {
       includes the <code>ssrc</code> attribute representing the conflicting SSRC
       that caused the event.</p>
         <pre class="idl">dictionary RTCSsrcConflictEventInit : EventInit {
-             unsigned long ssrc;
+             required unsigned long ssrc;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCSsrcConflictEventInit</a> Members</h2>
           <dl data-link-for="RTCSsrcConflictEventInit" data-dfn-for=
           "RTCSsrcConflictEventInit" class="dictionary-members">
             <dt><dfn><code>ssrc</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The <code>ssrc</code> attribute represents the conflicting SSRC that
               caused the event.</p>
@@ -4844,8 +4844,8 @@ interface RTCRtpUnhandledEvent : Event {
         <pre class="idl">dictionary RTCRtpUnhandledEventInit : EventInit {
              DOMString     muxId;
              DOMString     rid;
-             payloadtype   payloadType;
-             unsigned long ssrc;
+             required payloadtype   payloadType;
+             required unsigned long ssrc;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCRtpUnhandledEventInit</a> Members</h2>
@@ -4865,13 +4865,13 @@ interface RTCRtpUnhandledEvent : Event {
               the RTP stream triggering the <code><a>unhandledrtp</a></code> event.</p>
             </dd>
             <dt><dfn><code>payloadType</code></dfn> of type <span class=
-            "idlMemberType"><a>payloadtype</a></span></dt>
+            "idlMemberType"><a>payloadtype</a></span>, required</dt>
             <dd>
               <p>The Payload Type value in the RTP stream triggering the
               <code><a>unhandledrtp</a></code> event.</p>
             </dd>
             <dt><dfn><code>ssrc</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned long</a></span></dt>
+            "idlMemberType"><a>unsigned long</a></span>, required</dt>
             <dd>
               <p>The SSRC in the RTP stream triggering the
               <code><a>unhandledrtp</a></code> event.</p>
@@ -4916,7 +4916,7 @@ interface RTCRtpUnhandledEvent : Event {
       set via <code><a>RTCRtpParameters</a></code>.</p>
       <div>
         <pre class="idl">dictionary RTCRtpCapabilities {
-             sequence&lt;RTCRtpCodecCapability&gt; codecs;
+             required sequence&lt;RTCRtpCodecCapability&gt; codecs;
              sequence&lt;RTCRtpHeaderExtension&gt; headerExtensions;
              sequence&lt;DOMString&gt;             fecMechanisms;
 };</pre>
@@ -4925,7 +4925,7 @@ interface RTCRtpUnhandledEvent : Event {
           <dl data-link-for="RTCRtpCapabilities" data-dfn-for="RTCRtpCapabilities" class=
           "dictionary-members">
             <dt><dfn><code>codecs</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>RTCRtpCodecCapability</a>&gt;</span></dt>
+            "idlMemberType">sequence&lt;<a>RTCRtpCodecCapability</a>&gt;</span>, required</dt>
             <dd>
               <p>Supported codecs.</p>
             </dd>
@@ -4953,7 +4953,7 @@ interface RTCRtpUnhandledEvent : Event {
       <p><code>RTCRtcpFeedback</code> provides information on RTCP feedback messages.</p>
       <div>
         <pre class="idl">dictionary RTCRtcpFeedback {
-             DOMString type;
+             required DOMString type;
              DOMString parameter;
 };</pre>
         <section>
@@ -4961,7 +4961,7 @@ interface RTCRtpUnhandledEvent : Event {
           <dl data-link-for="RTCRtcpFeedback" data-dfn-for="RTCRtcpFeedback" class=
           "dictionary-members">
             <dt><dfn><code>type</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>Valid values for <code>type</code> are the "RTCP Feedback" Attribute
               Values enumerated in [[!IANA-SDP-14]] ("ack", "ccm", "nack", etc.), as well
@@ -4997,11 +4997,11 @@ interface RTCRtpUnhandledEvent : Event {
       </ol>
       <div>
         <pre class="idl">dictionary RTCRtpCodecCapability {
-             DOMString                 name;
+             required DOMString                 name;
              DOMString                 mimeType;
-             DOMString                 kind;
+             required DOMString                 kind;
              unsigned long             clockRate;
-             payloadtype               preferredPayloadType;
+             required payloadtype               preferredPayloadType;
              unsigned long             maxptime;
              unsigned long             ptime;
              unsigned long             channels;
@@ -5017,7 +5017,7 @@ interface RTCRtpUnhandledEvent : Event {
           <dl data-link-for="RTCRtpCodecCapability" data-dfn-for="RTCRtpCodecCapability"
           class="dictionary-members">
             <dt><dfn><code>name</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The MIME media subtype. Valid subtypes are listed in
               [[!IANA-RTP-2]].</p>
@@ -5029,7 +5029,7 @@ interface RTCRtpUnhandledEvent : Event {
               listed in [[IANA-RTP-2]].</p>
             </dd>
             <dt><dfn><code>kind</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The media supported by the codec: "audio", "video", etc.</p>
             </dd>
@@ -5040,7 +5040,7 @@ interface RTCRtpUnhandledEvent : Event {
               to any clock rate.</p>
             </dd>
             <dt><dfn><code>preferredPayloadType</code></dfn> of type <span class=
-            "idlMemberType"><a>payloadtype</a></span></dt>
+            "idlMemberType"><a>payloadtype</a></span>, required</dt>
             <dd>
               <p>The preferred RTP payload type for the codec denoted by
               <code>RTCRtpCodecCapability.name</code>. This attribute was added to make
@@ -6548,7 +6548,7 @@ var encodings = [{
       <div>
         <pre class="idl">dictionary RTCRtpFecParameters {
              unsigned long ssrc;
-             DOMString     mechanism;
+             required DOMString     mechanism;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCRtpFecParameters</a> Members</h2>
@@ -6561,7 +6561,7 @@ var encodings = [{
               object, the browser will choose.</p>
             </dd>
             <dt><dfn><code>mechanism</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The Forward Error Correction (FEC) mechanism to use: "red", "red+ulpfec"
               or "flexfec".</p>
@@ -6729,9 +6729,9 @@ var encodings = [
       information relating to supported header extensions.</p>
       <div>
         <pre class="idl">dictionary RTCRtpHeaderExtension {
-             DOMString      kind;
-             DOMString      uri;
-             unsigned short preferredId;
+             required DOMString      kind;
+             required DOMString      uri;
+             required unsigned short preferredId;
              boolean        preferredEncrypt = false;
 };</pre>
         <section>
@@ -6739,18 +6739,18 @@ var encodings = [
           <dl data-link-for="RTCRtpHeaderExtension" data-dfn-for="RTCRtpHeaderExtension"
           class="dictionary-members">
             <dt><dfn><code>kind</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The media supported by the header extension: "audio" for an audio codec,
               "video" for a video codec, etc.</p>
             </dd>
             <dt><dfn><code>uri</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
+            "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>The URI of the RTP header extension, as defined in [[!RFC5285]].</p>
             </dd>
             <dt><dfn><code>preferredId</code></dfn> of type <span class=
-            "idlMemberType"><a>unsigned short</a></span></dt>
+            "idlMemberType"><a>unsigned short</a></span>, required</dt>
             <dd>
               <p>The preferred ID value that goes in the packet.</p>
             </dd>
@@ -8384,14 +8384,14 @@ interface RTCSctpTransport : RTCDataTransport {
         about the capabilities of the <code><a>RTCSctpTransport</a></code>.
         <div>
           <pre class="idl">dictionary RTCSctpCapabilities {
-             unsigned long maxMessageSize;
+             required unsigned long maxMessageSize;
 };</pre>
           <section>
             <h2>Dictionary <a class="idlType">RTCSctpCapabilities</a> Members</h2>
             <dl data-link-for="RTCSctpCapabilities" data-dfn-for="RTCSctpCapabilities"
             class="dictionary-members">
               <dt><dfn><code>maxMessageSize</code></dfn> of type <span class=
-              "idlMemberType"><a>unsigned long</a></span></dt>
+              "idlMemberType"><a>unsigned long</a></span>, required</dt>
               <dd>
                 <p>The maximum size of data that the implementation can send
                 or 0 if the implementation can handle messages of any size.</p>
@@ -8474,14 +8474,14 @@ interface RTCDataChannelEvent : Event {
           <p>The <dfn><code>RTCDataChannelEventInit</code></dfn> dictionary includes
           information on the configuration of the data channel.</p>
         <pre class="idl">dictionary RTCDataChannelEventInit : EventInit {
-             RTCDataChannel channel;
+             required RTCDataChannel channel;
 };</pre>
         <section>
           <h2>Dictionary RTCDataChannelEventInit Members</h2>
           <dl data-link-for="RTCDataChannelEventInit" data-dfn-for=
           "RTCDataChannelEventInit" class="dictionary-members">
             <dt><dfn><code>channel</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCDataChannel</a></span></dt>
+            "idlMemberType"><a>RTCDataChannel</a></span>, required</dt>
             <dd>
               <p>The <code><a>RTCDataChannel</a></code> object associated with the
               event.</p>
@@ -8997,7 +8997,7 @@ interface RTCQuicTransport : RTCStatsProvider {
       <div>
         <pre class="idl">dictionary RTCQuicParameters {
              RTCQuicRole                  role = "auto";
-             sequence&lt;RTCDtlsFingerprint&gt; fingerprints;
+             required sequence&lt;RTCDtlsFingerprint&gt; fingerprints;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCQuicParameters</a> Members</h2>
@@ -9010,7 +9010,7 @@ interface RTCQuicTransport : RTCStatsProvider {
               <p>The QUIC role, with a default of <code>auto</code>.</p>
             </dd>
             <dt><dfn><code>fingerprints</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span></dt>
+            "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span>, required</dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
             </dd>
@@ -9091,14 +9091,14 @@ interface RTCQuicStreamEvent : Event {
           <p>The <dfn><code>RTCQuicStreamEventInit</code></dfn> dictionary includes
           information on the configuration of the QUIC stream.</p>
         <pre class="idl">dictionary RTCQuicStreamEventInit : EventInit {
-             RTCQuicStream stream;
+             required RTCQuicStream stream;
 };</pre>
         <section>
           <h2>Dictionary RTCQuicStreamEventInit Members</h2>
           <dl data-link-for="RTCQuicStreamEventInit" data-dfn-for=
           "RTCQuicStreamEventInit" class="dictionary-members">
             <dt><dfn><code>stream</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCQuicStream</a></span></dt>
+            "idlMemberType"><a>RTCQuicStream</a></span>, required</dt>
             <dd>
               <p>The <code><a>RTCQuicStream</a></code> object associated with the
               event.</p>
