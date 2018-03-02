@@ -830,14 +830,14 @@ interface RTCIceGatherer : RTCStatsProvider {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCIceGathererState.new">new</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCIceGathererState.new">new</code></dfn></td>
               <td>
                 <p>The object has been created but <code>gather()</code> has not been
                 called.</p>
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceGathererState.gathering">gathering</code></dfn></td>
               <td>
                 <p><code>gather()</code> has been called, and the
@@ -847,7 +847,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceGathererState.complete">complete</code></dfn></td>
               <td>
                 <p>The <code><a>RTCIceGatherer</a></code> has completed gathering. Events
@@ -858,7 +858,7 @@ interface RTCIceGatherer : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceGathererState.closed">closed</code></dfn></td>
               <td>
                 <p>The <code>closed</code> state can only be entered when
@@ -1153,7 +1153,7 @@ interface RTCIceGathererEvent : Event {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCIceGatherPolicy.all">all</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCIceGatherPolicy.all">all</code></dfn></td>
               <td>
                   <p>
                     The <code><a>RTCIceGatherer</a></code> MAY gather any type of
@@ -1167,7 +1167,7 @@ interface RTCIceGathererEvent : Event {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceGatherPolicy.relay">relay</code></dfn></td>
               <td>
                   <p>
@@ -1911,7 +1911,7 @@ interface RTCIceTransport : RTCStatsProvider {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCIceTransportState.new">new</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCIceTransportState.new">new</code></dfn></td>
               <td>
                 <p>The <code><a>RTCIceTransport</a></code> object is waiting for remote
                 candidates to be supplied. In this state the
@@ -1920,7 +1920,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceTransportState.checking">checking</code></dfn></td>
               <td>
                 <p>The <code><a>RTCIceTransport</a></code> has received at least one
@@ -1933,7 +1933,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceTransportState.connected">connected</code></dfn></td>
               <td>
                 <p>The <code><a>RTCIceTransport</a></code> has received a response to an
@@ -1950,7 +1950,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceTransportState.completed">completed</code></dfn></td>
               <td>
                 <p>A local and remote <code><a>RTCIceCandidateComplete</a></code>
@@ -1962,7 +1962,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceTransportState.disconnected">disconnected</code></dfn></td>
               <td>
                 <p>Connectivity is currently lost for this <code><a>RTCIceTransport</a></code>.
@@ -1980,7 +1980,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceTransportState.failed">failed</code></dfn></td>
               <td>
                 <p>A local and remote <code><a>RTCIceCandidateComplete</a></code>
@@ -1990,7 +1990,7 @@ interface RTCIceTransport : RTCStatsProvider {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCIceTransportState.closed">closed</code></dfn></td>
               <td>
                 <p>The <code><a>RTCIceTransport</a></code> has shut down and is no longer
@@ -2581,7 +2581,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCDtlsRole.auto">auto</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCDtlsRole.auto">auto</code></dfn></td>
               <td>
                 <p>The DLTS role is determined based on the resolved ICE role:
                 the ICE <code>controlled</code> role acts as the DTLS client and
@@ -2589,13 +2589,13 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCDtlsRole.client">client</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCDtlsRole.client">client</code></dfn></td>
               <td>
                 <p>The DTLS client role.</p>
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCDtlsRole.server">server</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCDtlsRole.server">server</code></dfn></td>
               <td>
                 <p>The DTLS server role.</p>
               </td>
@@ -9195,7 +9195,7 @@ interface RTCQuicStreamEvent : Event {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCQuicRole.auto">auto</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCQuicRole.auto">auto</code></dfn></td>
               <td>
                 <p>The QUIC role is determined based on the resolved ICE role:
                 the ICE <code>controlled</code> role acts as the QUIC client and
@@ -9203,13 +9203,13 @@ interface RTCQuicStreamEvent : Event {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCQuicRole.client">client</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCQuicRole.client">client</code></dfn></td>
               <td>
                 <p>The QUIC client role.</p>
               </td>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCQuicRole.server">server</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCQuicRole.server">server</code></dfn></td>
               <td>
                 <p>The QUIC server role.</p>
               </td>
