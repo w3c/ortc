@@ -199,7 +199,7 @@
     </section>
   </section>
   <section id="rtcicegatherer*">
-    <h2><dfn data-idl>RTCIceGatherer</dfn> Interface</h2>
+    <h2><dfn>RTCIceGatherer</dfn> Interface</h2>
     <p>The <code>RTCIceGatherer</code> gathers local host, server reflexive
     and relay candidates, as well as enabling the retrieval of local Interactive
     Connectivity Establishment (ICE) parameters which can be exchanged in signaling. By
@@ -238,7 +238,7 @@
     <section id="rtcicegatherer-interface-definition*">
       <h3>Interface Definition</h3>
       <div>
-        <pre class="idl">[ Constructor (RTCIceGatherOptions options), Exposed=Window]
+<pre class="idl">[ Constructor (RTCIceGatherOptions options), Exposed=Window]
 interface RTCIceGatherer : RTCStatsProvider {
     readonly        attribute RTCIceComponent     component;
     readonly        attribute RTCIceGathererState state;
@@ -533,7 +533,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       <p>The <code>RTCIceParameters</code> dictionary includes the ICE username
       fragment and password and other ICE-related parameters.</p>
       <div>
-        <pre class="idl">dictionary RTCIceParameters {
+<pre class="idl">dictionary RTCIceParameters {
              required DOMString usernameFragment;
              required DOMString password;
              boolean   iceLite;
@@ -587,7 +587,7 @@ interface RTCIceGatherer : RTCStatsProvider {
         <div class="idlTypedefDesc"></div>
       </div>
       <div>
-        <pre class="idl">dictionary RTCIceCandidate {
+<pre class="idl">dictionary RTCIceCandidate {
              required DOMString              foundation;
              required unsigned long          priority;
              required DOMString              ip;
@@ -664,7 +664,7 @@ interface RTCIceGatherer : RTCStatsProvider {
         <p>The <code>RTCIceProtocol</code> includes the protocol of the ICE
         candidate.</p>
         <div>
-          <pre class="idl">enum RTCIceProtocol {
+<pre class="idl">enum RTCIceProtocol {
     "udp",
     "tcp"
 };</pre>
