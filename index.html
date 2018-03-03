@@ -2401,9 +2401,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code>sequence&lt;RTCCertificate&gt;</code>
               </div>
             </dd>
-            <dt><dfn data-idl><code>getLocalParameters</code></dfn></dt>
+            <dt><code>getLocalParameters</code></dt>
             <dd>
-              <p><code>getLocalParameters</code> obtains the DTLS parameters of
+              <p><dfn>getLocalParameters()</dfn> obtains the DTLS parameters of
               the local <code><a>RTCDtlsTransport</a></code> upon construction.
               If multiple certificates were provided in the constructor, then
               multiple fingerprints will be returned, one for each certificate.
