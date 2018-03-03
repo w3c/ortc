@@ -583,7 +583,7 @@ interface RTCIceGatherer : RTCStatsProvider {
         <code><a>RTCIceCandidate</a></code> or an <code><a>RTCIceCandidateComplete</a></code>
         indication that candidate gathering is complete.</p>
         <pre class="idl">
-        typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate;</pre>
+typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate;</pre>
         <div class="idlTypedefDesc"></div>
       </div>
       <div>
@@ -697,7 +697,7 @@ interface RTCIceGatherer : RTCStatsProvider {
         candidates and only active TCP candidates. Servers and other endpoints MAY gather
         active, passive or so candidates.</p>
         <div>
-          <pre class="idl">enum RTCIceTcpCandidateType {
+<pre class="idl">enum RTCIceTcpCandidateType {
     "active",
     "passive",
     "so"
@@ -742,7 +742,7 @@ interface RTCIceGatherer : RTCStatsProvider {
         <p>The <code>RTCIceCandidateType</code> includes the type of the ICE
         candidate as defined in [[!RFC5245]] section 15.1.</p>
         <div>
-          <pre class="idl">enum RTCIceCandidateType {
+<pre class="idl">enum RTCIceCandidateType {
     "host",
     "srflx",
     "prflx",
@@ -795,7 +795,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       <p><code>RTCIceCandidateComplete</code> is a dictionary signifying that
       all <code>RTCIceCandidate</code>s are gathered.</p>
       <div>
-        <pre class="idl">dictionary RTCIceCandidateComplete {
+<pre class="idl">dictionary RTCIceCandidateComplete {
              boolean complete = true;
 };</pre>
         <section>
@@ -817,7 +817,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       <p><code>RTCIceGathererState</code> represents the current state of the
       ICE gatherer.</p>
       <div>
-        <pre class="idl">enum RTCIceGathererState {
+<pre class="idl">enum RTCIceGathererState {
     "new",
     "gathering",
     "complete",
@@ -878,7 +878,7 @@ interface RTCIceGatherer : RTCStatsProvider {
       <code><a>RTCIceGathererIceErrorEvent</a></code> interface.</p>
       <div>
         <pre class="idl">
-        [ Constructor (DOMString type, RTCIceGathererIceErrorEventInit eventInitDict), Exposed=Window]
+[ Constructor (DOMString type, RTCIceGathererIceErrorEventInit eventInitDict), Exposed=Window]
 interface RTCIceGathererIceErrorEvent : Event {
     readonly        attribute RTCIceCandidate? hostCandidate;
     readonly        attribute DOMString        url;
@@ -970,8 +970,8 @@ interface RTCIceGathererIceErrorEvent : Event {
       <div>
       <p>The <dfn><code>RTCIceGathererIceErrorEventInit</code></dfn> dictionary
       provides information on ICE gathering errors.</p>
-        <pre class="idl">
-        dictionary RTCIceGathererIceErrorEventInit : EventInit {
+<pre class="idl">
+dictionary RTCIceGathererIceErrorEventInit : EventInit {
              RTCIceCandidate hostCandidate;
              DOMString       url;
              required unsigned short  errorCode;
@@ -1022,8 +1022,8 @@ interface RTCIceGathererIceErrorEvent : Event {
       <code>candidate</code> attribute set to the new ICE candidate, <em class="rfc2119"
       title="MUST">MUST</em> be created and dispatched at the given target.</p>
       <div>
-        <pre class="idl">
-        [ Constructor (DOMString type, RTCIceGathererEventInit eventInitDict), Exposed=Window]
+<pre class="idl">
+[ Constructor (DOMString type, RTCIceGathererEventInit eventInitDict), Exposed=Window]
 interface RTCIceGathererEvent : Event {
     readonly        attribute RTCIceGatherCandidate candidate;
     readonly        attribute DOMString?            url;
@@ -1088,7 +1088,7 @@ interface RTCIceGathererEvent : Event {
       <div>
       <p>The <dfn><code>RTCIceGathererEventInit</code></dfn> dictionary provides
       information on the <code><a>RTCIceGatherCandidate</a></code>.</p>
-        <pre class="idl">dictionary RTCIceGathererEventInit : EventInit {
+<pre class="idl">dictionary RTCIceGathererEventInit : EventInit {
              required RTCIceGatherCandidate candidate;
              DOMString             url;
 };</pre>
