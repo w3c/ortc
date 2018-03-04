@@ -478,9 +478,9 @@ interface RTCIceGatherer : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><code>getLocalParameters</code></dt>
+            <dt><dfn data-idl><code>getLocalParameters()</code></dfn></dt>
             <dd>
-              <p><dfn>getLocalParameters()</dfn> obtains the ICE
+              <p>Obtains the ICE
               parameters of the <code><a>RTCIceGatherer</a></code>.
               If <code>state</code> is <code>closed</code>, <a>throw</a> an
               <code>InvalidStateError</code>.</p>
@@ -640,21 +640,21 @@ typedef (RTCIceCandidate or RTCIceCandidateComplete) RTCIceGatherCandidate;</pre
               <p>The type of TCP candidate. For UDP candidates, this
               attribute is unset.</p>
             </dd>
-            <dt><dfn data-idl>relatedAddress</code> of type <span class=
+            <dt><dfn data-idl><code>relatedAddress</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>For candidates that are derived from others, such as relay or reflexive
-              candidates, the <dfn><code>relatedAddress</code></dfn> refers to the
+              candidates, the <code>relatedAddress</code> refers to the
               candidate that these are derived from. For host candidates, the
-              <code><a>relatedAddress</a></code> is unset.</p>
+              <code>relatedAddress</code> is unset.</p>
             </dd>
-            <dt><dfn data-idl>relatedPort</code> of type <span class="idlMemberType"><a>unsigned
+            <dt><dfn data-idl><code>relatedPort</code></dfn> of type <span class="idlMemberType"><a>unsigned
             short</a></span></dt>
             <dd>
               <p>For candidates that are derived from others, such as relay or reflexive
-              candidates, the <dfn><code>relatedPort</code></dfn> refers to the host
+              candidates, the <code>relatedPort</code> refers to the host
               candidate that these are derived from. For host candidates, the
-              <code><a>relatedPort</a></code> is unset.</p>
+              <code>relatedPort</code> is unset.</p>
             </dd>
           </dl>
         </section>
@@ -1727,10 +1727,9 @@ interface RTCIceTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><code>getRemoteParameters</code></dt>
+            <dt><dfn data-idl><code>getRemoteParameters()</code></dfn></dt>
             <dd>
-              <p><dfn>getRemoteParameters()</dfn> obtains
-              the current ICE parameters of the remote
+              <p>Obtains the current ICE parameters of the remote
               <code><a>RTCIceTransport</a></code>.</p>
               <div>
                 <em>No parameters.</em>
@@ -2390,10 +2389,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Methods</h2>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "methods">
-            <dt><dfn data-idl><code>getCertificates</code></dfn></dt>
             <dd>
-              <p><code>getCertificates</code> returns the certificates provided in
-              the constructor.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -2419,8 +2415,6 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             </dd>
             <dt><code>getRemoteParameters</code></dt>
             <dd>
-              <p><dfn>getRemoteParameters()</dfn> obtains
-              the remote DTLS parameters passed in the
               <code>start()</code> method. Prior to calling
               <code>start()</code>, null is returned.</p>
               <div>
@@ -2434,9 +2428,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             <dd>
               <p><dfn>getRemoteCertificates()</dfn> returns the certificate chain in use
               by the remote side, with each certificate encoded in binary Distinguished
-              Encoding Rules (DER) [[!X690]]. <code><a>getRemoteCertificates</a>()</code>
+              Encoding Rules (DER) [[!X690]]. <code>getRemoteCertificates()</code>
               returns an empty list prior to selection of the remote certificate, which
-              is completed once <code>state</code> transitions to <code>connected</code>.</p>
+              is completed by the time <code>state</code> transitions to <code>connected</code>.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -2444,7 +2438,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code>sequence&lt;ArrayBuffer&gt;</code>
               </div>
             </dd>
-            <dt><dfn><code>start</code></dfn></dt>
+            <dt><dfn data-idl><code>start</code></dfn></dt>
             <dd>
               <p>Start DTLS transport negotiation with the parameters of the remote DTLS
               transport, including verification of the remote fingerprint, then once the
@@ -2492,7 +2486,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn><code>stop</code></dfn></dt>
+            <dt><dfn data-idl><code>stop</code></dfn></dt>
             <dd>
               <p>Stops and closes the <code><a>RTCDtlsTransport</a></code> object.
               Calling <code>stop()</code> when <code>state</code> is <code>closed</code>
@@ -2521,13 +2515,13 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Dictionary <a class="idlType">RTCDtlsParameters</a> Members</h2>
           <dl data-link-for="RTCDtlsParameters" data-dfn-for="RTCDtlsParameters" class=
           "dictionary-members">
-            <dt><dfn><code>role</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>role</code></dfn> of type <span class=
             "idlMemberType"><a>RTCDtlsRole</a></span>, defaulting to
             <code>"auto"</code></dt>
             <dd>
               <p>The DTLS role, with a default of <code>auto</code>.</p>
             </dd>
-            <dt><dfn><code>fingerprints</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>fingerprints</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCDtlsFingerprint</a>&gt;</span>, required</dt>
             <dd>
               <p>Sequence of fingerprints, one fingerprint for each certificate.</p>
@@ -2549,7 +2543,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Dictionary <a class="idlType">RTCDtlsFingerprint</a> Members</h2>
           <dl data-link-for="RTCDtlsFingerprint" data-dfn-for="RTCDtlsFingerprint" class=
           "dictionary-members">
-            <dt><dfn><code>algorithm</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>algorithm</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
               <p>One of the the hash function algorithms defined in the 'Hash function
@@ -2557,7 +2551,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               noted in [[!JSEP]] Section 5.2.1, the digest algorithm used for the
               fingerprint matches that used in the certificate signature.</p>
             </dd>
-            <dt><dfn><code>value</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>value</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, required</dt>
             <dd>
             </dd>
@@ -2655,14 +2649,14 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               <th colspan="2">Enumeration description</th>
             </tr>
             <tr>
-              <td><dfn><code id="idl-def-RTCDtlsTransportState.new">new</code></dfn></td>
+              <td><dfn data-idl><code id="idl-def-RTCDtlsTransportState.new">new</code></dfn></td>
               <td>
                 <p>The <code><a>RTCDtlsTransport</a></code> object has been created and
                 has not started negotiating yet.</p>
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCDtlsTransportState.connecting">connecting</code></dfn></td>
               <td>
                 <p>DTLS is in the process of negotiating a secure connection and
@@ -2673,7 +2667,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCDtlsTransportState.connected">connected</code></dfn></td>
               <td>
                 <p>DTLS has completed negotiation of a secure connection and verified the
@@ -2681,7 +2675,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCDtlsTransportState.closed">closed</code></dfn></td>
               <td>
                 <p>The DTLS connection has been closed intentionally via a call to
@@ -2691,7 +2685,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
               </td>
             </tr>
             <tr>
-              <td><dfn><code id=
+              <td><dfn data-idl><code id=
               "idl-def-RTCDtlsTransportState.failed">failed</code></dfn></td>
               <td>
                 <p>The DTLS connection has been closed as the result of an error (such as
@@ -3019,11 +3013,9 @@ interface RTCRtpSender : RTCStatsProvider {
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
             <dt><code>setTransport</code></dt>
             <dd>
-              <p><dfn data-idl>setTransport()</dfn>
-              attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (if set) and RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> (if used) with the transport(s) provided.</p>
-              <p>When the <code>setTransport()</code> method is invoked, the user
+              <p>When the <code>setTransport</code> method is invoked, the user
               agent MUST run the following steps:</p>
               <ol>
                 <li>
@@ -3200,7 +3192,6 @@ interface RTCRtpSender : RTCStatsProvider {
             </dd>
             <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><dfn data-idl>getCapabilities()</dfn> obtains the sender capabilities,
               based on <code><var>kind</var></code>. Browsers
               MUST support <var>kind</var> values of <code>"audio"</code>
               and <code>"video"</code>. If there are no capabilities
@@ -3749,9 +3740,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
           <h2>Methods</h2>
           <dl data-link-for="RTCRtpReceiver" data-dfn-for="RTCRtpReceiver" class=
           "methods">
-            <dt><dfn data-idl><code>setTransport</code></dfn></dt>
+            <dt><code>setTransport</code></dt>
             <dd>
-              <p>The <code>setTransport</code> method
+              <p><dfn>setTransport()</dfn>
               attempts to replace the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
@@ -3834,9 +3825,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <em>Return type:</em> <code>void</code>
               </div>
             </dd>
-            <dt><dfn data-idl><code>getCapabilities</code></dfn>, static</dt>
+            <dt><code>getCapabilities</code>, static</dt>
             <dd>
-              <p><code>getCapabilities</code> obtains the receiver capabilities,
+              <p><dfn>getCapabilities()</dfn> obtains the receiver capabilities,
               based on <code><var>kind</var></code>. Browsers
               MUST support <var>kind</var> values of <code>"audio"</code>
               and <code>"video"</code>. If there are no capabilities
@@ -8284,9 +8275,7 @@ interface RTCSctpTransport : RTCDataTransport {
           <h2>Methods</h2>
           <dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class=
           "methods">
-            <dt><dfn data-idl><code>getCapabilities</code></dfn>, static</dt>
             <dd>
-              <p><code>getCapabilities</code> retrieves the <code><a>RTCSctpCapabilities</a></code>
               of the <code><a>RTCSctpTransport</a></code>. When the <code>getCapabilities</code>
               method is called the user agent <em class="rfc2119" title="MUST">MUST</em> run the following
               steps:</p>
@@ -8881,9 +8870,9 @@ interface RTCQuicTransport : RTCStatsProvider {
           <h2>Methods</h2>
           <dl data-link-for="RTCQuicTransport" data-dfn-for="RTCQuicTransport" class=
           "methods">
-            <dt><dfn data-idl><code>getLocalParameters</code></dfn></dt>
+            <dt><code>getLocalParameters</code></dt>
             <dd>
-              <p><code>getLocalParameters</code> obtains the QUIC parameters of
+              <p><dfn>getLocalParameters()</dfn> obtains the QUIC parameters of
               the local <code><a>RTCQuicTransport</a></code> upon construction.
               If multiple certificates were provided in the constructor, then
               multiple fingerprints will be returned, one for each certificate.
@@ -8897,12 +8886,11 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code><a>RTCQuicParameters</a></code>
               </div>
             </dd>
-            <dt><dfn data-idl><code>getRemoteParameters</code></dfn></dt>
+            <dt><code>getRemoteParameters</code></dt>
             <dd>
-              <p><code>getRemoteParameters</code> obtains
-              the remote QUIC parameters passed in the
-              <code>start()</code> method. Prior to calling
-              <code>start()</code>, null is returned.</p>
+              <p><dfn>getRemoteParameters()</dfn> obtains the remote QUIC parameters passed in the
+              <code>start</code> method. Prior to calling
+              <code>start</code>, null is returned.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -8910,9 +8898,9 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code><a>RTCQuicParameters</a></code>, nullable
               </div>
             </dd>
-            <dt><dfn data-idl><code>getCertificates</code></dfn></dt>
+            <dt><code>getCertificates</code></dt>
             <dd>
-              <p><code>getCertificates</code> returns the certificates provided in
+              <p><dfn>getCertificates()</dfn> returns the certificates provided in
               the constructor.</p>
               <div>
                 <em>No parameters.</em>
@@ -8921,9 +8909,9 @@ interface RTCQuicTransport : RTCStatsProvider {
                 <em>Return type:</em> <code>sequence&lt;RTCCertificate&gt;</code>
               </div>
             </dd>
-            <dt><dfn data-idl><code>getRemoteCertificates</code></dfn></dt>
+            <dt><code>getRemoteCertificates</code></dt>
             <dd>
-              <p><code>getRemoteCertificates</code> returns the certificate chain in use by the remote side, with each
+              <p><dfn>getRemoteCertificates()</dfn> returns the certificate chain in use by the remote side, with each
               certificate encoded in binary Distinguished Encoding Rules (DER) [[!X690]].
               <code><a>getRemoteCertificates()</a></code> returns an empty list prior to
               selection of the remote certificate, which is completed once
