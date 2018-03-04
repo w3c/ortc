@@ -2389,7 +2389,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
           <h2>Methods</h2>
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "methods">
+            <dt><dfn data-idl><code>getCertificates()</code></dfn></dt>
             <dd>
+              <p>Returns the certificates provided in the constructor.</p>
               <div>
                 <em>No parameters.</em>
               </div>
@@ -2397,9 +2399,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code>sequence&lt;RTCCertificate&gt;</code>
               </div>
             </dd>
-            <dt><code>getLocalParameters</code></dt>
+            <dt><dfn data-idl><code>getLocalParameters()</code></dfn></dt>
             <dd>
-              <p><dfn>getLocalParameters()</dfn> obtains the DTLS parameters of
+              <p>Obtains the DTLS parameters of
               the local <code><a>RTCDtlsTransport</a></code> upon construction.
               If multiple certificates were provided in the constructor, then
               multiple fingerprints will be returned, one for each certificate.
@@ -2413,8 +2415,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code><a>RTCDtlsParameters</a></code>
               </div>
             </dd>
-            <dt><code>getRemoteParameters</code></dt>
+            <dt><dfn data-idl><code>getRemoteParameters()</code></dfn></dt>
             <dd>
+              <p>Obtains the remote DTLS parameters passed in the
               <code>start()</code> method. Prior to calling
               <code>start()</code>, null is returned.</p>
               <div>
@@ -2424,9 +2427,9 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>Return type:</em> <code><a>RTCDtlsParameters</a></code>, nullable
               </div>
             </dd>
-            <dt><code>getRemoteCertificates</code></dt>
+            <dt><dfn data-idl><code>getRemoteCertificates()</code></dfn></dt>
             <dd>
-              <p><dfn>getRemoteCertificates()</dfn> returns the certificate chain in use
+              <p>Returns the certificate chain in use
               by the remote side, with each certificate encoded in binary Distinguished
               Encoding Rules (DER) [[!X690]]. <code>getRemoteCertificates()</code>
               returns an empty list prior to selection of the remote certificate, which
@@ -3011,8 +3014,9 @@ interface RTCRtpSender : RTCStatsProvider {
         <section>
           <h2>Methods</h2>
           <dl data-link-for="RTCRtpSender" data-dfn-for="RTCRtpSender" class="methods">
-            <dt><code>setTransport</code></dt>
+            <dt><dfn data-idl><code>setTransport()</code></dfn></dt>
             <dd>
+              <p>Attempts to replace the the RTP <code><a>RTCDtlsTransport</a></code>
               <code>transport</code> (if set) and RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> (if used) with the transport(s) provided.</p>
               <p>When the <code>setTransport</code> method is invoked, the user
@@ -3190,8 +3194,9 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>Return type:</em> <code>Promise&lt;void&gt;</code>
               </div>
             </dd>
-            <dt><code>getCapabilities</code>, static</dt>
+            <dt><dfn data-idl><code>getCapabilities()</code></dfn>, static</dt>
             <dd>
+              <p>Obtains the sender capabilities,
               based on <code><var>kind</var></code>. Browsers
               MUST support <var>kind</var> values of <code>"audio"</code>
               and <code>"video"</code>. If there are no capabilities
@@ -8275,7 +8280,9 @@ interface RTCSctpTransport : RTCDataTransport {
           <h2>Methods</h2>
           <dl data-link-for="RTCSctpTransport" data-dfn-for="RTCSctpTransport" class=
           "methods">
+            <dt><dfn data-idl><code>getCapabilities()</code></dfn>, static</dt>
             <dd>
+              <p>Retrieves the <code><a>RTCSctpCapabilities</a></code>
               of the <code><a>RTCSctpTransport</a></code>. When the <code>getCapabilities</code>
               method is called the user agent <em class="rfc2119" title="MUST">MUST</em> run the following
               steps:</p>
