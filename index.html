@@ -11655,29 +11655,44 @@ function signalAssertion(assertion) {
       <pre class="example"></pre>
     </section>
     <section id="js-library-example*">
-      <h3>myCapsToSendParams Example</h3>
+      <h3>myCapsToSendParams</h3>
+      <p>Several of the examples reference <dfn>myCapsToSendParams</dfn>, which 
+      returns sender parameters based on the intersection of sender and receiver
+      capabilities.  This section provides an example of what such a library
+      function might do.</p>
       <pre class="example highlight">
-      RTCRtpParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
+      RTCRtpParameters function myCapsIntersection(RTCRtpCapabilities sendCaps,
   RTCRtpCapabilities remoteRecvCaps) {
-  // Function returning the sender RTCRtpParameters, based on the local
-  // sender and remote receiver capabilities.
-  // The goal is to enable a single stream audio and video call with minimum fuss.
+  // Function returning the intersecting RTCRtpParameters, based on the local
+  // sender and remote receiver capabilities. The goal is to enable a call with
+  // one audio and one video track with minimum fuss.
   //
-  // Steps to be followed:
-  // 1. Determine the RTP features that the receiver and sender have in common.
-  // 2. Determine the codecs that the sender and receiver have in common.
-  // 3. Within each common codec, determine the common formats, header extensions
-  //    and rtcpFeedback mechanisms.
-  // 4. Determine the payloadType to be used, based on the receiver preferredPayloadType.
-  // 5. Set RTCRtcpParameters such as mux to their default values.
-  // 6. Return RTCRtpParameters enablig the jointly supported features and codecs.
+  // Steps to be followed to determine the features that the receive and sender have in common:
+  // 1. Determine the codecs that the sender and receiver have in common.
+  // 2. For each common codec, determine the common formats, header extensions
+  //    and RTCP feedback mechanisms.
+  // 3. Determine the payloadType to be used, based on the receiver preferredPayloadType.
+  // 4. Set RTCRtcpParameters such as mux to their default values.
+  // 5. Return RTCRtpParameters enabling the jointly supported features and codecs.
 }
 
-RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
+      RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
+  RTCRtpCapabilities remoteRecvCaps) {
+  // Find the intersecting capabilities
+     var intersection = myCapsIntersection(sendCaps, remoteRecvCaps); 
+  // Add settings unique to the sender
+     intersection.encodings = {};
+     intersection.degradationPreference = "balanced"; 
+     return intersection ;  
+}
+
+RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
   RTCRtpCapabilities remoteSendCaps) {
-  // Function returning the receiver RTCRtpParameters, based on the local
-  // receiver and remote sender capabilities.
-  return myCapsToSendParams(remoteSendCaps, recvCaps);
+  // Find the intersecting capabilities
+  var intersection = myCapsIntersection(remoteSendCaps, recvCaps); 
+  // Add settings unique to the receiver
+  intersection.encodings = {}; 
+  return intersection ;
 }
             </pre>
     </section>
