@@ -6252,7 +6252,7 @@ interface RTCRtpUnhandledEvent : Event {
       codec-specific constraints.</p>
       <div>
         <pre class="idl">dictionary RTCRtpEncodingParameters : RTCRtpCodingParameters {
-             RTCDtxStatus        dtx = "enabled";
+             RTCDtxStatus        dtx;
              RTCPriorityType     priority = "low";
              unsigned long       maxBitrate;
              double              resolutionScale;
@@ -6264,14 +6264,15 @@ interface RTCRtpUnhandledEvent : Event {
           <dl data-link-for="RTCRtpEncodingParameters" data-dfn-for=
           "RTCRtpEncodingParameters" class="dictionary-members">
             <dt><dfn data-idl><code>dtx</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCDtxStatus</a></span>, defaulting to <code>enabled</code></dt>
+            "idlMemberType"><a>RTCDtxStatus</a></span></dt>
             <dd>
-              <p>Indicates whether discontinuous transmission will be used.
-              Setting it to <code>disabled</code> causes discontinuous
-              transmission to be turned off. Setting it to <code>enabled</code>
-              causes discontinuous transmission to be turned on only when
-              enabling either codec-specific functionality or the CN codec.
-              This attribute is typically ignored by a video sender.</p>
+              <p>This member is typically only used if the sender's
+              <code>kind</code> is <code>audio</code>. Indicates whether
+              discontinuous transmission will be used. Setting it to
+              <code>disabled</code> causes discontinuous transmission to
+              be turned off. Setting it to <code>enabled</code> causes
+              discontinuous transmission to be turned on only when enabling
+              enabling codec-specific DTX functionality or the CN codec.</p>
             </dd>
             <dt><dfn data-idl><code>priority</code></dfn> of type <span class=
             "idlMemberType"><a>RTCPriorityType</a></span>, defaulting to
