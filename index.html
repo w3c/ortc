@@ -2870,7 +2870,7 @@ interface RTCRtpSender : RTCStatsProvider {
     Promise&lt;void&gt;             setTrack (MediaStreamTrack? track);  // deprecated
     Promise&lt;void&gt;             replaceTrack (MediaStreamTrack? track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
-    Promise&lt;void&gt;             send (RTCRtpParameters parameters);
+    Promise&lt;void&gt;             send (RTCRtpSendParameters parameters);
     void                      stop ();
                     attribute EventHandler      onssrcconflict;
 };</pre>
@@ -3287,7 +3287,7 @@ interface RTCRtpSender : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">parameters</td>
-                    <td class="prmType"><code><a>RTCRtpParameters</a></code></td>
+                    <td class="prmType"><code><a>RTCRtpSendParameters</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -3345,7 +3345,7 @@ interface RTCRtpSender : RTCStatsProvider {
     </section>
     <section id="rtcrtpparameter-validation*">
       <h3>Parameters validation</h3>
-          <p>To <dfn>Complete validation checks</dfn> on <code><a>RTCRtpParameters</a></code> <var>withParameters</var>
+          <p>To <dfn>Complete validation checks</dfn> on <var>withParameters</var>
           passed as an argument to <code>send</code> or <code>receive</code>, the <a>User Agent</a> MUST run
           the following steps:</p>
           <ol>
@@ -3610,7 +3610,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     void            setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     static RTCRtpCapabilities     getCapabilities (DOMString kind);
-    Promise&lt;void&gt;                      receive (RTCRtpParameters parameters);
+    Promise&lt;void&gt;                      receive (RTCRtpReceiveParameters parameters);
     sequence&lt;RTCRtpContributingSource&gt; getContributingSources ();
     sequence&lt;RTCRtpSynchronizationSource&gt; getSynchronizationSources ();
     void                               stop ();
@@ -3940,7 +3940,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   </tr>
                   <tr>
                     <td class="prmName">parameters</td>
-                    <td class="prmType"><code><a>RTCRtpParameters</a></code></td>
+                    <td class="prmType"><code><a>RTCRtpReceiveParameters</a></code></td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
                     <td class="prmOptFalse"><span role="img" aria-label=
@@ -4983,8 +4983,8 @@ interface RTCRtpUnhandledEvent : Event {
       Features which are mandatory to implement in [[!RTP-USAGE]], such as RTP/RTCP
       multiplexing [[!RFC5761]], audio/video multiplexing [[!RTP-MULTI-STREAM]] and
       reduced size RTCP [[!RFC5506]] are assumed to be available and are therefore not
-      included in <code><a>RTCRtpCapabilities</a></code>, although these features can be
-      set via <code><a>RTCRtpParameters</a></code>.</p>
+      included in <code><a>RTCRtpCapabilities</a></code>, although these parameters
+      may be set via <code>send()</code> or <code>receive()</code>.</p>
       <div>
         <pre class="idl">dictionary RTCRtpCapabilities {
              required sequence&lt;RTCRtpCodecCapability&gt; codecs;
@@ -5491,15 +5491,13 @@ interface RTCRtpUnhandledEvent : Event {
     </section>
     <section id="rtcrtpparameters*">
       <h3><dfn>RTCRtpParameters</dfn> Dictionary</h3>
-      <p><code>RTCRtpParameters</code> contains the RTP stack settings.</p>
+      <p><code>RTCRtpParameters</code> contains the RTP stack settings used by both senders and receivers.</p>
       <div>
         <pre class="idl">dictionary RTCRtpParameters {
              DOMString                                 muxId = "";
     required sequence&lt;RTCRtpCodecParameters&gt;           codecs;
-             sequence&lt;RTCRtpHeaderExtensionParameters&gt; headerExtensions;
-             sequence&lt;RTCRtpEncodingParameters&gt;        encodings;
-             RTCRtcpParameters                         rtcp;
-             RTCDegradationPreference                  degradationPreference;
+    required sequence&lt;RTCRtpHeaderExtensionParameters&gt; headerExtensions;
+    required RTCRtcpParameters                         rtcp;
 };</pre>
         <section>
           <h2>Dictionary <a class="idlType">RTCRtpParameters</a> Members</h2>
@@ -5508,17 +5506,16 @@ interface RTCRtpUnhandledEvent : Event {
             <dt><dfn data-idl><code>muxId</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span>, defaulting to <code>""</code></dt>
             <dd>
-              <p>The <code>muxId</code> assigned to the RTP stream, if any, empty string
-              if unset. In an <code><a>RTCRtpReceiver</a></code> or
-              <code><a>RTCRtpSender</a></code> object, this corresponds to <a>MID</a> RTP
-              header extension defined in [[!BUNDLE]]. This is a stable identifier that
-              permits the track corresponding to an RTP stream to be identified, rather
-              than relying on an SSRC. An SSRC is randomly generated and can change
-              arbitrarily due to conflicts with other SSRCs, whereas the
-              <code>muxId</code> has a value whose meaning can be defined in advance
-              between RTP sender and receiver, assisting in RTP demultiplexing. Since
-              <code>muxId</code> is included in <code><a>RTCRtpParameters</a></code> but
-              not in <code><a>RTCRtpEncodingParameters</a></code>, if it is desired to
+              <p>The <code>muxId</code> assigned to the RTP stream, if any.
+              In an <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code>,
+              this corresponds to <a>MID</a> RTP header extension defined in [[!BUNDLE]].
+              This is a stable identifier that permits the track corresponding to an
+              RTP stream to be identified, rather than relying on an SSRC. An SSRC is
+              randomly generated and can change arbitrarily due to conflicts with
+              other SSRCs, whereas the <code>muxId</code> has a value whose meaning
+              can be defined in advance between RTP sender and receiver, assisting in
+              RTP demultiplexing. Since <code>muxId</code> is included in
+              <code><a>RTCRtpParameters</a></code>, if it is desired to
               send simulcast streams with different <code>muxId</code> values for each
               stream, then multiple <code><a>RTCRtpSender</a></code> objects are
               needed.</p>
@@ -5533,11 +5530,33 @@ interface RTCRtpUnhandledEvent : Event {
               to <code>send()</code> or <code>receive()</code>.</p>
             </dd>
             <dt><dfn data-idl><code>headerExtensions</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>RTCRtpHeaderExtensionParameters</a>&gt;</span></dt>
+            "idlMemberType">sequence&lt;<a>RTCRtpHeaderExtensionParameters</a>&gt;</span>,
+            required</dt>
             <dd>
               <p>Configured header extensions. If unset, no header extensions are
               configured.</p>
             </dd>
+            <dt><dfn data-idl><code>rtcp</code></dfn> of type <span class=
+            "idlMemberType"><a>RTCRtcpParameters</a></span>, required</dt>
+            <dd>
+              <p>Parameters to configure RTCP. If unset, the default values described in
+              Section 9.6.1 are assumed.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+   <section id="rtcrtpsendparameters*">
+      <h3><dfn>RTCRtpSendParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpSendParameters</code> contains the RTP stack settings used by senders.</p>
+      <div>
+        <pre class="idl">dictionary RTCRtpSendParameters : RTCRtpParameters {
+             required sequence&lt;RTCRtpEncodingParameters&gt;        encodings;
+             RTCDegradationPreference                  degradationPreference = "balanced";
+};</pre>
+        <section>
+          <h2>Dictionary <a class="idlType">RTCRtpSendParameters</a> Members</h2>
+          <dl data-link-for="RTCRtpSendParameters" data-dfn-for="RTCRtpSendParameters" class=
+          "dictionary-members">
             <dt><dfn data-idl><code>encodings</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>RTCRtpEncodingParameters</a>&gt;</span></dt>
             <dd>
@@ -5558,24 +5577,68 @@ interface RTCRtpUnhandledEvent : Event {
               unset in a call to <code>receive()</code>, the behavior is described in
               Section 8.3.</p>
             </dd>
-            <dt><dfn data-idl><code>rtcp</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCRtcpParameters</a></span></dt>
-            <dd>
-              <p>Parameters to configure RTCP. If unset, the default values described in
-              Section 9.6.1 are assumed.</p>
-            </dd>
             <dt><dfn data-idl><code>degradationPreference</code></dfn> of type <span class=
             "idlMemberType"><a>RTCDegradationPreference</a></span></dt>
             <dd>
               <p>When bandwidth is constrained and the <code><a>RTCRtpSender</a></code>
               needs to choose between degrading resolution or degrading framerate,
-              <code>degradationPreference</code> indicates which is preferred.
-              <code>degradationPreference</code> is ignored in an
-              <code><a>RTCRtpReceiver</a></code> object. If unset, "balanced" is
-              assumed.</p>
+              <code>degradationPreference</code> indicates which is preferred.</p>
             </dd>
           </dl>
         </section>
+      </div>
+    </section>
+   <section id="rtcrtpreceiveparameters*">
+      <h3><dfn>RTCRtpReceiveParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpReceiveParameters</code> contains the RTP stack settings used by receivers.</p>
+      <div>
+        <pre class="idl">dictionary RTCRtpReceiveParameters : RTCRtpParameters {
+             required sequence&lt;RTCRtpDecodingParameters&gt;        encodings;
+};</pre>
+        <section>
+          <h2>Dictionary <a class="idlType">RTCRtpReceiveParameters</a> Members</h2>
+          <dl data-link-for="RTCRtpReceiveParameters" data-dfn-for="RTCRtpReceiveParameters" class=
+          "dictionary-members">
+            <dt><dfn data-idl><code>encodings</code></dfn> of type <span class=
+            "idlMemberType">sequence&lt;<a>RTCRtpDecodingParameters</a>&gt;</span>, required</dt>
+            <dd>
+              <p>The "encodings" or "layers" to be used for things like simulcast,
+              Scalable Video Coding, RTX, FEC, etc.  When unset in a call to
+              <code>receive()</code>, the behavior is described in
+              Section 8.3.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
+    </section>
+    <section id="rtcdtxstatus">
+      <h3><dfn>RTCDtxStatus</dfn> Enum</h3>
+      <div>
+        <pre class="idl">enum RTCDtxStatus {
+         "disabled",
+         "enabled"
+         };</pre>
+        <table data-link-for="RTCDtxStatus" data-dfn-for="RTCDtxStatus" class=
+        "simple">
+          <tbody>
+            <tr>
+              <th colspan="2">Enumeration description</th>
+            </tr>
+            <tr>
+              <td><dfn data-idl><code>disabled</code></dfn></td>
+              <td>
+                <p>Discontinuous transmission is disabled.</p>
+              </td>
+            </tr>
+            <tr>
+              <td><dfn data-idl><code>enabled</code></dfn></td>
+              <td>
+                <p>Discontinuous transmission is enabled if negotiated.</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
     <section id="rtcdegradationpreference*">
@@ -6076,52 +6139,43 @@ interface RTCRtpUnhandledEvent : Event {
         </section>
       </section>
     </section>
-    <section id="rtcrtpencodingparameters*">
-      <h3><dfn>RTCRtpEncodingParameters</dfn> Dictionary</h3>
-      <p><code>RTCRtpEncodingParameters</code> provides information relating to
-      an encoding. Note that all encoding parameters (such as <var>maxBitrate</var>,
-      <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to
-      codec-specific constraints.</p>
+    <section id="rtcrtpcodingparameters*">
+      <h3><dfn>RTCRtpCodingParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpCodingParameters</code> provides information relating to
+      both encoding and decoding.</p>
       <div>
-        <pre class="idl">dictionary RTCRtpEncodingParameters {
+        <pre class="idl">dictionary RTCRtpCodingParameters {
              unsigned long       ssrc;
              payloadtype         codecPayloadType;
              RTCRtpFecParameters fec;
              RTCRtpRtxParameters rtx;
-             RTCPriorityType     priority;
-             unsigned long       maxBitrate;
-             double              resolutionScale;
-             double              framerateScale;
-             double              maxFramerate;
              boolean             active = true;
              DOMString           encodingId;
              sequence&lt;DOMString&gt; dependencyEncodingIds;
 };</pre>
         <section>
-          <h2>Dictionary <a class="idlType">RTCRtpEncodingParameters</a> Members</h2>
-          <dl data-link-for="RTCRtpEncodingParameters" data-dfn-for=
-          "RTCRtpEncodingParameters" class="dictionary-members">
+          <h2>Dictionary <a class="idlType">RTCRtpCodingParameters</a> Members</h2>
+          <dl data-link-for="RTCRtpCodingParameters" data-dfn-for=
+          "RTCRtpCodingParameters" class="dictionary-members">
             <dt><dfn data-idl><code>ssrc</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
               <p>The SSRC for this layering/encoding. Multiple
-              <code><a>RTCRtpEncodingParameters</a></code> objects can share the same
+              <code><a>RTCRtpCodingParameters</a></code> dictionaries can share the same
               <code>ssrc</code> value (useful, for example, to indicate that different
               RTX payload types associated to different codecs are carried over the same
-              stream). If <code>ssrc</code> is unset in a
-              <code><a>RTCRtpEncodingParameters</a></code> object passed to the
-              <code><a>receive</a>()</code> method, the next unhandled SSRC will match,
+              stream). If <code>ssrc</code> is unset in the <var>parameters</var>
+              argument to <code><a>receive</a>()</code>, the next unhandled SSRC will match,
               and an <code><a>RTCRtpUnhandledEvent</a></code> will not be fired. If
-              <code>ssrc</code> is unset in a
-              <code><a>RTCRtpEncodingParameters</a></code> object passed to the
-              <code>send()</code> method, the browser will choose, and the chosen value
-              is not reflected in <code><a>RTCRtpEncodingParameters</a>.ssrc</code>. If
+              <code>ssrc</code> is unset in the <var>parameters</var> argument to
+              <code>send()</code>, the browser will choose, and the chosen value
+              is not reflected in <code>ssrc</code>. If
               the browser chooses the <code>ssrc</code>, it may change it due to a
               collision without firing an <code><a>RTCSsrcConflictEvent</a></code>. If
-              <code>ssrc</code> is set in an <code><a>RTCRtpEncodingParameters</a></code>
-              object passed to the <code>send()</code> method and an SSRC conflict is
-              detected within the RTP session, then an
-              <code><a>RTCSsrcConflictEvent</a></code> is fired (see Section 5.4).</p>
+              <code>ssrc</code> is set in the <var>parameters</var> argument to
+              <code>send()</code> and an SSRC conflict is detected within the RTP
+              session, then an <code><a>RTCSsrcConflictEvent</a></code> is fired 
+              (see Section 5.4).</p>
             </dd>
             <dt><dfn data-idl><code>codecPayloadType</code></dfn> of type <span class=
             "idlMemberType"><a>payloadtype</a></span></dt>
@@ -6140,25 +6194,105 @@ interface RTCRtpUnhandledEvent : Event {
             <dd>
               <p>Specifies the RTX [[!RFC4588]] parameters if set.</p>
             </dd>
+            <dt><dfn data-idl><code>active</code></dfn> of type <span class=
+            "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
+            <dd>
+              <p>For an <code><a>RTCRtpSender</a></code>, indicates whether this
+              encoding is actively being sent. Setting it to <code>false</code>
+              causes this encoding to no longer be sent. Setting it to <code>true</code>
+              causes this encoding to be sent. For an <code><a>RTCRtpReceiver</a></code>,
+              indicates that this encoding is being decoded. Setting it to
+              <code>false</code> causes this encoding to no longer be decoded.
+              Setting it to <code>true</code> causes this encoding to be decoded.
+              Setting <code>active</code> to <code>false</code> is different than
+              omitting the encoding, since it can keep resources available to
+              re-activate more quickly than re-adding the encoding. As noted
+              in [[RFC3264]] Section 5.1, RTCP is still sent, regardless
+              of the value of the <code>active</code> attribute.</p>
+            </dd>
+            <dt><dfn data-idl><code>encodingId</code></dfn> of type <span class=
+            "idlMemberType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>An identifier for the encoding object. This identifier should be unique
+              within the scope of the localized sequence of 
+              <code><a>RTCRtpCodingParameters</a></code> for any given
+              <code><a>RTCRtpParameters</a></code> object. Values MUST be composed only
+              of alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
+              of 16 characters. An <code><a>RTCRtpSender</a></code> places the value of
+              <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
+              and an <code><a>RTCRtpReceiver</a></code> determines the
+              <code>encodingId</code> that an RTP packet belongs to based on the value
+              of the <a>RID</a> header extension. For a codec (such as VP8) using
+              <a>SRST</a> transport which requires a compliant decoder to be able to
+              decode anything that an encoder can send, it is not required that the
+              <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
+              in order to enable a receiver to decode scalable video coding, and if
+              set, they are ignored by the receiver.</p>
+            </dd>
+            <dt><dfn data-idl><code>dependencyEncodingIds</code></dfn> of type <span class=
+            "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
+            <dd>
+              <p>The <code><a>encodingId</a></code>s on which this layer depends. Within
+              this specification <code><a>encodingId</a></code>s are permitted only
+              within the same <code><a>RTCRtpCodingParameters</a></code> sequence. In
+              the future if <a>MST</a> were to be supported, then if searching within an
+              <code>encodings[]</code> sequence did not produce a match, then a global
+              search would be carried out. In order to send scalable video coding
+              (<a>SVC</a>), both the <code>encodingId</code> and
+              <code>dependencyEncodingIds</code> are required.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    <section id="rtcrtpencodingparameters*">
+      <h3><dfn>RTCRtpEncodingParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpEncodingParameters</code> provides information relating to
+      an encoding. Note that all encoding parameters (such as <var>maxBitrate</var>,
+      <var>maxFramerate</var> and <var>resolutionScale</var>) are applied prior to
+      codec-specific constraints.</p>
+      <div>
+        <pre class="idl">dictionary RTCRtpEncodingParameters : RTCRtpCodingParameters {
+             RTCDtxStatus        dtx;
+             RTCPriorityType     priority = "low";
+             unsigned long       maxBitrate;
+             double              resolutionScale;
+             double              framerateScale;
+             double              maxFramerate;
+};</pre>
+        <section>
+          <h2>Dictionary <a class="idlType">RTCRtpEncodingParameters</a> Members</h2>
+          <dl data-link-for="RTCRtpEncodingParameters" data-dfn-for=
+          "RTCRtpEncodingParameters" class="dictionary-members">
+            <dt><dfn data-idl><code>dtx</code></dfn> of type <span class=
+            "idlMemberType"><a>RTCDtxStatus</a></span></dt>
+            <dd>
+              <p>This member is typically only used if the sender's
+              <code>kind</code> is <code>audio</code>. Indicates whether
+              discontinuous transmission will be used. Setting it to
+              <code>disabled</code> causes discontinuous transmission to
+              be turned off. Setting it to <code>enabled</code> causes
+              discontinuous transmission to be turned on only when enabling
+              enabling codec-specific DTX functionality or the CN codec.</p>
+            </dd>
             <dt><dfn data-idl><code>priority</code></dfn> of type <span class=
-            "idlMemberType"><a>RTCPriorityType</a></span></dt>
+            "idlMemberType"><a>RTCPriorityType</a></span>, defaulting to
+            <code>low</code></dt>
             <dd>
               <p>Indicates the priority of this encoding. It is specified in
               [[RTCWEB-TRANSPORT]], Section 4. For scalable video coding, this parameter
-              is only relevant for the base layer. This parameter is ignored in an
-              <code><a>RTCRtpReceiver</a></code> object.</p>
+              is only relevant for the base layer.</p>
             </dd>
             <dt><dfn data-idl><code>maxBitrate</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned long</a></span></dt>
             <dd>
-              <p>Ramp up resolution/quality/framerate until this bitrate, 
+              <p>Ramp up resolution/quality/framerate until this bitrate,
               if set; if unset, there is no maximum bitrate.
               <code>maxBitrate</code> is computed the same way as the
               Transport Independent Application Specific Maximum (TIAS)
               bandwidth defined in [[RFC3890]] Section 6.2.2, which is the maximum
               bandwidth needed without counting IP or other transport layers like TCP or
               UDP. Summed when using dependent layers. This attribute is ignored in
-              scalable video coding, or for an <code><a>RTCRtpReceiver</a></code>.</p>
+              scalable video coding.</p>
             </dd>
             <dt><dfn data-idl><code>resolutionScale</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
@@ -6177,8 +6311,7 @@ interface RTCRtpUnhandledEvent : Event {
               promise with <code>RangeError</code> when <code>send()</code>
               or <code><a>receive</a>()</code> is called.  If
               <code><var>sender</var>.track.kind</code> is "audio", the value is
-              ignored. This attribute is ignored for an
-              <code><a>RTCRtpReceiver</a></code>.</p>
+              ignored.</p>
             </dd>
             <dt><dfn data-idl><code>framerateScale</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
@@ -6187,8 +6320,7 @@ interface RTCRtpUnhandledEvent : Event {
               full framerate, 2.0 = one half of the full framerate. For scalable video
               coding, <code>framerateScale</code> refers to the inverse of the aggregate
               fraction of input framerate achieved by this layer when combined with all
-              dependent layers. This attribute is ignored for an
-              <code><a>RTCRtpReceiver</a></code>.</p>
+              dependent layers.</p>
             </dd>
             <dt><dfn data-idl><code>maxFramerate</code></dfn> of type <span class=
             "idlMemberType"><a>double</a></span></dt>
@@ -6196,60 +6328,27 @@ interface RTCRtpUnhandledEvent : Event {
               <p>The maximum framerate to use for this encoding, in frames per
               second. This attribute is not used for scalable video coding. If
               <code><a>framerateScale</a></code> is set, then
-              <code>maxFramerate</code> is ignored. This attribute is ignored
-              for an <code><a>RTCRtpReceiver</a></code>.</p>
+              <code>maxFramerate</code> is ignored.</p>
             </dd>
-            <dt><dfn data-idl><code>active</code></dfn> of type <span class=
-            "idlMemberType"><a>boolean</a></span>, defaulting to <code>true</code></dt>
-            <dd>
-              <p>For an <code><a>RTCRtpSender</a></code>, indicates whether this encoding
-              is actively being sent. Setting it to <code>false</code> causes this
-              encoding to no longer be sent. Setting it to <code>true</code> causes this
-              encoding to be sent. If unset, the default (<code>true</code>) is assumed.
-              For an <code><a>RTCRtpReceiver</a></code>, indicates that this encoding is
-              being decoded. Setting it to <code>false</code> causes this encoding to no
-              longer be decoded. Setting it to <code>true</code> causes this encoding to
-              be decoded. If unset, the default (<code>true</code>) is assumed. Setting
-              <code>active</code> to <code>false</code> is different than omitting the
-              encoding, since it can keep resources available to re-activate more quickly
-              than re-adding the encoding. As noted in [[RFC3264]] Section 5.1, RTCP is
-              still sent, regardless of the value of the <code>active</code>
-              attribute.</p>
-            </dd>
-            <dt><dfn data-idl><code>encodingId</code></dfn> of type <span class=
-            "idlMemberType"><a>DOMString</a></span></dt>
-            <dd>
-              <p>An identifier for the encoding object. This identifier should be unique
-              within the scope of the localized sequence of
-              <code><a>RTCRtpEncodingParameters</a></code> for any given
-              <code><a>RTCRtpParameters</a></code> object. Values MUST be composed only
-              of alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
-              of 16 characters. An <code><a>RTCRtpSender</a></code> places the value of
-              <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
-              and an <code><a>RTCRtpReceiver</a></code> determines the
-              <code>encodingId</code> that an RTP packet belongs to based on the value
-              of the <a>RID</a> header extension.  For a codec (such as VP8) using
-              <a>SRST</a> transport which requires a compliant decoder to be able to
-              decode anything that an encoder can send, it is not required that the
-              <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
-              in order to enable a receiver to decode scalable video coding, and if
-              set, they are ignored by the receiver.</p>
-            </dd>
-            <dt><dfn data-idl><code>dependencyEncodingIds</code></dfn> of type <span class=
-            "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
-            <dd>
-              <p>The <code><a>encodingId</a></code>s on which this layer depends. Within
-              this specification <code><a>encodingId</a></code>s are permitted only
-              within the same <code><a>RTCRtpEncodingParameters</a></code> sequence. In
-              the future if <a>MST</a> were to be supported, then if searching within an
-              <code>encodings[]</code> sequence did not produce a match, then a global
-              search would be carried out. In order to send scalable video coding
-              (<a>SVC</a>), both the <code>encodingId</code> and
-              <code>dependencyEncodingIds</code> are required.</p>
-            </dd>
+          </dl>
+      </section> 
+      </div>
+    </section>
+    <section id="rtcrtpdecodingparameters*">
+      <h3><dfn>RTCRtpDecodingParameters</dfn> Dictionary</h3>
+      <p><code>RTCRtpDecodingParameters</code> provides information used in
+      decoding.</p>
+      <div>
+        <pre class="idl">dictionary RTCRtpDecodingParameters: RTCRtpCodingParameters {
+};</pre>
+        <section>
+          <h2>Dictionary <a class="idlType">RTCRtpDecodingParameters</a> Members</h2>
+          <dl data-link-for="RTCRtpDecodingParameters" data-dfn-for=
+          "RTCRtpDecodingParameters" class="dictionary-members">
           </dl>
         </section>
       </div>
+      <h3>Summary Table</h3>
       <p>Usage of the attributes is defined in the table below:</p>
       <table class="simple">
         <thead>
@@ -6279,6 +6378,11 @@ interface RTCRtpUnhandledEvent : Event {
             <td><dfn data-idl><code>rtx</code></dfn></td>
             <td><code><a>RTCRtpRtxParameters</a></code></td>
             <td>Receiver/Sender</td>
+          </tr>
+          <tr id="def-dtx*">
+            <td><dfn data-idl><code>dtx</code></dfn></td>
+            <td><code><a>RTCDtxStatus</a></code></td>
+            <td>Sender</td>
           </tr>
           <tr id="def-priority*">
             <td><dfn data-idl><code>priority</code></dfn></td>
@@ -6322,6 +6426,8 @@ interface RTCRtpUnhandledEvent : Event {
           </tr>
         </tbody>
       </table>
+      </section>
+      </section>
       <section id="rtcrtpencodingparameters-example*">
         <h3>Examples</h3>
         <section id="rtcrtpencodingparameters-basicexample*">
@@ -6553,7 +6659,6 @@ var encodings = [{
           </figure>
         </section>
       </section>
-    </section>
     <section id="rtcprioritytype*">
       <h3><dfn>RTCPriorityType</dfn> Enum</h3>
       <p><code>RTCPriorityType</code> can be used to indicate the relative
@@ -11551,29 +11656,49 @@ function signalAssertion(assertion) {
       <pre class="example"></pre>
     </section>
     <section id="js-library-example*">
-      <h3>myCapsToSendParams Example</h3>
+      <h3>myCapsToSendParams</h3>
+      <p>Several of the examples reference <dfn>myCapsToSendParams</dfn>, which 
+      returns sender parameters based on the intersection of sender and receiver
+      capabilities. This section provides an example of what such a library
+      function might do.</p>
       <pre class="example highlight">
-      RTCRtpParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
-  RTCRtpCapabilities remoteRecvCaps) {
-  // Function returning the sender RTCRtpParameters, based on the local
-  // sender and remote receiver capabilities.
-  // The goal is to enable a single stream audio and video call with minimum fuss.
-  //
-  // Steps to be followed:
-  // 1. Determine the RTP features that the receiver and sender have in common.
-  // 2. Determine the codecs that the sender and receiver have in common.
-  // 3. Within each common codec, determine the common formats, header extensions
-  //    and rtcpFeedback mechanisms.
-  // 4. Determine the payloadType to be used, based on the receiver preferredPayloadType.
-  // 5. Set RTCRtcpParameters such as mux to their default values.
-  // 6. Return RTCRtpParameters enablig the jointly supported features and codecs.
+RTCRtpParameters function myCapsIntersection(RTCRtpCapabilities sendCaps,
+   RTCRtpCapabilities remoteRecvCaps) {
+// Function returning the intersecting RTCRtpParameters, based on
+// the sender and remote receiver capabilities. The goal is to enable
+// a call with one audio and one video track with minimum fuss.
+//
+// Steps to be followed to determine the features that the receiver
+// and sender have in common:
+// 1. Determine the codecs that the sender and receiver have in common.
+// 2. For each common codec, determine the common formats, header
+//    extensions and RTCP feedback mechanisms.
+// 3. Determine the common robustness (forward error correction and 
+//    retransmission) mechanisms. 
+// 4. Determine the payloadType to be used, based on the receiver
+//    preferredPayloadType.
+// 5. Set RTCRtcpParameters such as mux to their default values.
+// 6. Return RTCRtpParameters enabling the jointly supported features
+//    and codecs.
 }
 
-RTCRtpParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
-  RTCRtpCapabilities remoteSendCaps) {
-  // Function returning the receiver RTCRtpParameters, based on the local
-  // receiver and remote sender capabilities.
-  return myCapsToSendParams(remoteSendCaps, recvCaps);
+RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
+   RTCRtpCapabilities remoteRecvCaps) {
+// Find the intersecting capabilities
+   var intersection = myCapsIntersection(sendCaps, remoteRecvCaps); 
+// Fill in additional attributes for RTCRtpSendParameters
+   intersection.encodings = {};
+   intersection.degradationPreference = "balanced"; 
+   return intersection;  
+}
+
+RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
+   RTCRtpCapabilities remoteSendCaps) {
+// Find the intersecting capabilities
+   var intersection = myCapsIntersection(remoteSendCaps, recvCaps); 
+// Fill in additional attributes for RTCRtpReceiveParameters
+   intersection.encodings = {}; 
+   return intersection;
 }
             </pre>
     </section>
