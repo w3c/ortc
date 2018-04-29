@@ -3463,11 +3463,16 @@ interface RTCRtpSender : RTCStatsProvider {
                    <p>Let <var>headerExtension</var> be
                     <code><var>withParameters</var>.headerExtensions[<var>i</var>]</code>.</p>
                  </li>
+                 <li>
+                   <p>Let <var>transport</var> be the <code><a>RTCDtlsTransport</a></code> utilized
+                   by the <code><a>RTCRtpSender</a></code> (if <code>send()</code> is called) or
+                   by the <code><a>RTCRtpReceiver</a></code> (if <code>receive()</code> is called).</p>
+                 </li>
                  <li><p>Let <var>uri</var> be <code><var>headerExtension</var>.uri</code>.</p></li>
                  <li><p>Let <var>id</var> be <code><var>headerExtension</var>.id</code>.</p></li>
                 <li>
-                  <p>If <var>uri</var> or <var>id</var> is unset, <a>throw</a>
-                  a <code>TypeError</code> and abort all of these steps.</p>
+                  <p>If <var>uri</var> or <var>id</var> is unset, <a>reject</a> <var>p</var>
+                  with a newly created <code>TypeError</code> and abort all of these steps.</p>
                 </li>
                 <li>
                   <p>Check whether <var>uri</var> is equal to
@@ -3476,7 +3481,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If no match is found, <a>reject</a> <var>p</var> with a newly created
-                  <code>InvalidParameters</code> and abort all of these steps.</p>
+                  <code>OperationError</code> and abort all of these steps.</p>
                 </li>
                 <li>
                   <p>Check whether <var>id</var> is equal to
@@ -3485,9 +3490,19 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If a match is found and <var>j</var> != <var>i</var>, <a>reject</a>
-                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort
+                  <var>p</var> with a newly created <code>OperationError</code> and abort
                   all of these steps.</p>
                 </li>
+                <li>
+                  <p>Check whether <code>transport_table[<var>transport</var>, <var>id</var>]</code>
+                  is set and whether the value is not equal to <var>uri</var>. If a header extension
+                  conflict is found, <a>reject</a> <var>p</var> with a newly created
+                  <code>OperationError</code> and abort all of these steps.</p>
+                </li>
+                <li>
+                  <p>If <code>transport_table[<var>transport</var>, <var>id</var>]</code> is unset,
+                  set it to <var>uri</var>.</p>
+                </li
               </ol>
             </li>
           </ol>
