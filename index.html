@@ -3481,7 +3481,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If no match is found, <a>reject</a> <var>p</var> with a newly created
-                  <code>OperationError</code> and abort all of these steps.</p>
+                  <code>InvalidParameters</code> and abort all of these steps.</p>
                 </li>
                 <li>
                   <p>Check whether <var>id</var> is equal to
@@ -3490,7 +3490,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>If a match is found and <var>j</var> != <var>i</var>, <a>reject</a>
-                  <var>p</var> with a newly created <code>OperationError</code> and abort
+                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort
                   all of these steps.</p>
                 </li>
                 <li>
@@ -4664,8 +4664,8 @@ mySignaller.myOfferTracks({
       is called, all entries referencing <code><var>receiver</var></code> are removed.</p>
       <p>When multiple <code><a>RTCRtpReceiver</a></code> or <code><a>RTCRtpSender</a></code>
       objects share a <code><a>RTCDtlsTransport</a></code>, this implies that they also
-      share a single SSRC numbering space [[!RFC3550]]. The restrictions arising from
-      this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>      
+      share a single SSRC [[!RFC3550]] and header extension [[!RFC5285]] numbering space. The
+      restrictions arising from this are described in [[!BUNDLE]] Sections 10.1 and 10.1.1.</p>      
       <section class="informative" id="rtppackethandling*">
       <h4>ORTC routing tables</h4>
       <p>Since ORTC does not utilize <code>RTCRtpTransceiver</code> objects, 
