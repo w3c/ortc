@@ -3494,15 +3494,29 @@ interface RTCRtpSender : RTCStatsProvider {
                   all of these steps.</p>
                 </li>
                 <li>
-                  <p>Check whether <code>transport_table[<var>transport</var>, <var>id</var>]</code>
-                  is set and whether the value is not equal to <var>uri</var>. If a header extension
-                  conflict is found, <a>reject</a> <var>p</var> with a newly created
+                  <p>If <var>transport</var> is unset, <a>reject</a> <var>p</var> with a
+                  newly created <code>TypeError</code> and abort all of these steps.</p>
+                </li>
+                <li>    
+                  For <code>send()</code>, check whether
+                  <code>sender_transport_table[<var>transport</var>, <var>id</var>]</code>
+                  is set and whether the value is not equal to <var>uri</var>. For
+                  <code>receive()</code>, check whether
+                  <code>receiver_transport_table[<var>transport</var>, <var>id</var>]</code>
+                  is set and whether the value is not equal to <var>uri</var>. If a header
+                  extension conflict is found, <a>reject</a> <var>p</var> with a newly created
                   <code>OperationError</code> and abort all of these steps.</p>
                 </li>
                 <li>
-                  <p>If <code>transport_table[<var>transport</var>, <var>id</var>]</code> is unset,
+                  <p>For <code>send()</code>, if
+                  <code>sender_transport_table[<var>transport</var>, <var>id</var>]</code> is unset,
                   set it to <var>uri</var>.</p>
-                </li
+                </li>
+                <li>
+                  <p>For <code>receive()</code>, if
+                  <code>receiver_transport_table[<var>transport</var>, <var>id</var>]</code> is unset,
+                  set it to <var>uri</var>.</p>
+                </li>
               </ol>
             </li>
           </ol>
