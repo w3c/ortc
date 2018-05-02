@@ -3459,58 +3459,58 @@ interface RTCRtpSender : RTCStatsProvider {
             <li>
               <p>For each value of <var>i</var> from 0 to the number of header extensions:</p>
               <ol>
-                 <li>
+                <li>
                    <p>Let <var>headerExtension</var> be
                    <code><var>withParameters</var>.headerExtensions[<var>i</var>]</code>.</p>
-                 </li>
-                 <li>
+                </li>
+                <li>
                    <p>Let <var>transport</var> be <code><var>sender</var>.transport</code> if
                    <code>send()</code> is called, or <code><var>receiver</var>.transport</code> if
                    <code>receive()</code> is called.</p>
-                 </li>
-                 <li>
+                </li>
+                <li>
                    <p>If <var>transport</var> is unset, <a>reject</a> <var>p</var> with a
                    newly created <code>TypeError</code> and abort all of these steps.</p>
-                 </li>
-                 <li><p>Let <var>uri</var> be <code><var>headerExtension</var>.uri</code>.</p></li>
-                 <li><p>Let <var>id</var> be <code><var>headerExtension</var>.id</code>.</p></li>
-                 <li>
+                </li>
+                <li><p>Let <var>uri</var> be <code><var>headerExtension</var>.uri</code>.</p></li>
+                <li><p>Let <var>id</var> be <code><var>headerExtension</var>.id</code>.</p></li>
+                <li>
                    <p>If <var>uri</var> or <var>id</var> is unset, <a>reject</a> <var>p</var>
                    with a newly created <code>TypeError</code> and abort all of these steps.</p>
-                 </li>
-                 <li>
+                </li>
+                <li>
                    <p>Check whether <var>uri</var> is equal to
                    <code>getCapabilities(<var>kind</var>).headerExtensions[<var>j</var>].uri</code>
                    for any value of <var>j</var> from 0 to the number of header extensions.</p>
-                 </li>
-                 <li>
+                </li>
+                <li>
                   <p>If no match is found, <a>reject</a> <var>p</var> with a newly created
                   <code>InvalidParameters</code> and abort all of these steps.</p>
-                 </li>
-                 <li>
+                </li>
+                <li>
                    <p>Check whether <var>id</var> is equal to
                    <code><var>withParameters</var>.headerExtensions[<var>j</var>].id</code>
                    for any value of <var>j</var> from 0 to the number of header extensions.</p>
-                 </li>
-                 <li>
+                </li>
+                <li>
                    <p>If a match is found and <var>j</var> != <var>i</var>, <a>reject</a>
                    <var>p</var> with a newly created <code>InvalidParameters</code> and abort
                    all of these steps.</p>
-                 </li>
-                 <li>    
+                </li>
+                <li>    
                    <p>For <code>send()</code>, check whether
                    <code>send_transport_table[<var>transport</var>, <var>id</var>]</code>
                    is set. If it is unset, set it to <var>uri</var> else if the value
                    is not equal to <var>uri</var>, <a>reject</a> <var>p</var> with a newly
                    created <code>OperationError</code> and abort all of these steps.</p>
-                 </li>
-                 <li>    
+                </li>
+                <li>    
                    <p>For <code>receive()</code>, check whether
                    <code>receive_transport_table[<var>transport</var>, <var>id</var>]</code>
                    is set. If it is unset, set it to <var>uri</var> else if the value
                    is not equal to <var>uri</var>, <a>reject</a> <var>p</var> with a newly
                    created <code>OperationError</code> and abort all of these steps.</p>
-                 </li>
+                </li>
               </ol>
             </li>
           </ol>
