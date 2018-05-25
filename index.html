@@ -1245,7 +1245,10 @@ interface RTCIceGathererEvent : Event {
           </dl>
         </section>
       </div>
-      <p>An example array of <code><a>RTCIceServer</a></code> objects is:</p>
+    </section>
+    <section class="informative" id="rtcicegatherer-initial-example*">
+      <h3>Example</h3>
+       <p>An example array of <code><a>RTCIceServer</a></code> objects is:</p>
       <pre class="example highlight"><code>[
 { urls: "stun:stun1.example.net" },
 { urls: ["turns:turn.example.org", "turn:turn.example.net"],
@@ -1260,9 +1263,7 @@ interface RTCIceGathererEvent : Event {
                      },
        credentialType: "oauth" },
      }
-]</code></pre>
-    </section>
-    <section class="informative" id="rtcicegatherer-initial-example*">
+]</code></pre>      
       <h3>Example</h3>
       <pre class="example highlight">
       // Example to demonstrate use of RTCIceCandidateComplete
