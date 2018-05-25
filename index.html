@@ -1247,7 +1247,7 @@ interface RTCIceGathererEvent : Event {
       </div>
     </section>
     <section class="informative" id="rtcicegatherer-initial-example*">
-      <h3>Example</h3>
+      <h3>Examples</h3>
        <p>An example array of <code><a>RTCIceServer</a></code> objects is:</p>
       <pre class="example highlight"><code>[
 { urls: "stun:stun1.example.net" },
@@ -1264,7 +1264,6 @@ interface RTCIceGathererEvent : Event {
        credentialType: "oauth" },
      }
 ]</code></pre>      
-      <h3>Example</h3>
       <pre class="example highlight">
       // Example to demonstrate use of RTCIceCandidateComplete
 // Include some helper functions
@@ -4348,7 +4347,7 @@ interface RTCIceTransportController {
       </div>
     </section>
     <section class="informative" id="rtcicetransportcontroller-example1*">
-      <h3>Examples</h3>
+      <h3>Example</h3>
       <pre class="example highlight">
       // This is an example of how to utilize distinct ICE transports for Audio and Video
 // as well as for RTP and RTCP. If both sides can multiplex audio/video
@@ -6429,9 +6428,9 @@ interface RTCRtpUnhandledEvent : Event {
       </table>
       </section>
       </section>
-      <section class="informative" id="rtcrtpencodingparameters-example*">
+      <section id="rtcrtpencodingparameters-example*">
         <h3>Examples</h3>
-        <section id="rtcrtpencodingparameters-basicexample*">
+        <section class="informative" id="rtcrtpencodingparameters-basicexample*">
           <h4>Basic Example</h4>
           <pre class="example highlight">
           // Send a thumbnail along with regular size, prioritizing the thumbnail (ssrc: 2)
@@ -6462,7 +6461,7 @@ var encodings = [{ maxBitrate: 10000000 }];
 var encodings = [{ maxBitrate: 100000 }];
                     </pre>
         </section>
-        <section id="rtcrtpencodingtemporal-example*">
+        <section class="informative" id="rtcrtpencodingtemporal-example*">
           <h4>Temporal Scalability</h4>
           <pre class="example highlight">
           // Example of 3-layer temporal scalability encoding
@@ -6510,7 +6509,7 @@ var encodings = [{
             </figcaption>
           </figure>
         </section>
-        <section id="rtcrtpencodingspatialsim-example*">
+        <section class="informative" id="rtcrtpencodingspatialsim-example*">
           <h4>Spatial Simulcast</h4>
           <pre class="example highlight">
           // Example of 3-layer spatial simulcast
@@ -6582,7 +6581,7 @@ var encodings = [{
             </figcaption>
           </figure>
         </section>
-        <section id="rtcrtpencodingspatialscal-example*">
+        <section class="informative" id="rtcrtpencodingspatialscal-example*">
           <h4>Spatial Scalability</h4>
           <pre class="example highlight">
           // Example of 3-layer spatial scalability encoding
@@ -7436,7 +7435,7 @@ interface RTCDTMFToneChangeEvent : Event {
     </section>
     </section>
     <section class="informative">
-      <h3>DTMF Example</h3>
+      <h3>Examples</h3>
       <p>Examples assume that <var>sendObject</var> is an
       <code><a>RTCRtpSender</a></code> object.</p>
       <p>Sending the DTMF signal "1234" with 500 ms duration per tone:</p>
@@ -8665,7 +8664,7 @@ interface RTCDataChannelEvent : Event {
       </div>
     </section>
     <section class="informative" id="rtcsctpexample*">
-      <h2>Example</h2>
+      <h2>Examples</h2>
       <pre class="example highlight">
 // Include some helper functions
 import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
@@ -9418,7 +9417,7 @@ interface RTCQuicStreamEvent : Event {
       </div>
     </section>
     <section class="informative" id="rtcquicexample*">
-      <h2>Example</h2>
+      <h2>Examples</h2>
       <pre class="example highlight">
 // Include some helper functions
 import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
