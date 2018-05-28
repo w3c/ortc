@@ -10817,32 +10817,8 @@ interface RTCIdentityProviderRegistrar {
       data-lt="create">created</a> <code>OperationError</code>.</p>
       <section>
         <h4 id="sec.idp-loginneeded">User Login Procedure</h4>
-        <p>An IdP MAY reject an attempt to generate an identity assertion if it
-        is unable to verify that a user is authenticated. This might be due to
-        the IdP not having the necessary authentication information available
-        to it (such as cookies).</p>
-        <p>Rejecting the promise returned by <code><a data-link-for=
-        "RTCIdentityProvider">generateAssertion</a></code> will cause the error
-        to propagate to the application. Login errors are indicated by <a>rejecting</a>
-        the promise with an <code>RTCError</code> with <code>errorDetail</code>
-        set to "idp-need-login".</p>
-        <p>The URL to login at will be passed to the application in the
-        <code>idpLoginUrl</code> attribute of
-        <code>RTCIdentity</code>.</p>
-        <p>An application can load the login URL in an IFRAME or popup window;
-        the resulting page then SHOULD provide the user with an opportunity to
-        enter any information necessary to complete the authorization
-       process.</p>
-        <p>Once the authorization process is complete, the page loaded in the
-        IFRAME or popup sends a message using <var>postMessage</var>
-        [[!webmessaging]] to the page that loaded it (through the <var><a data-cite=
-        "!HTML51/browsers.html#opener">
-        window.opener</a></var> attribute for popups, or through <var><a data-cite=
-        "!HTML51/browsers.html#dom-window-parent">
-        window.parent</a></var> for pages loaded in an IFRAME). The message
-        MUST consist of the <var>DOMString</var> "WEBRTC-LOGINDONE". This message
-        informs the application that another attempt at generating an identity
-        assertion is likely to be successful.</p>
+        <p>User login proceeds as described in [[WEBRTC10]] Section 9.3.1.
+        IdP errors are handled as described in [[WEBRTC10]] Section 9.5.</p>
       </section>
     </section>
     <section>
