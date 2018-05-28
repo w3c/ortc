@@ -2257,7 +2257,7 @@ mySignaller.send({
       title="MUST">MUST</em> listen and respond to incoming DTLS packets before
       <code>start()</code> is called. However, to complete the negotiation it is
       necessary to verify the remote fingerprint, which is an attribute of the
-      <code><var>remoteParameters</var></code> argument passed to <code>start()</code>.        
+      <code><var>remoteParameters</var></code> argument passed to <code>start()</code>.
       To verify the remote fingerprint, compute the fingerprint <var>value</var> for
       the selected remote certificate using the signature digest algorithm, and compare
       it against <code><var>remoteParameters</var>.fingerprints</code>. If the selected
