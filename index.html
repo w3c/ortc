@@ -9833,7 +9833,12 @@ interface RTCQuicStream {
             <dd>
               <p><code>waitForReadable</code> resolves the promise 
               when the data queued in the read buffer increases above
-              a computed threshold. When the <code>waitForReadable</code> method is called,
+              the amount provided as an argument. If <code>waitForReadable</code>
+              is called multiple times, multiple promises could be resolved when
+              the read buffer increases above the amount provided for each promise.
+              Promises won't be rejected, and a promise might never be resolved
+              in the case that the read buffer never increases above the amount
+              specified. When the <code>waitForReadable</code> method is called,                
               the <a>user agent</a> MUST run the following steps:</p>
               <ol>
                 <li>Let <var>stream</var> be the <code><a>RTCQuicStream</a></code>
@@ -9877,7 +9882,11 @@ interface RTCQuicStream {
             <dd>
               <p><code>waitForWritable</code> resolves the promise when
               the data queued in the write buffer falls below a threshold
-              computed from the arguments to the method.
+              computed from the arguments to the method. If <code>waitForWritable</code>
+              is called multiple times, multiple promises could be resolved when the
+              write buffer falls below the threshold for each promise. Promises won't
+              be rejected, and a promise might never be resolved in the case that the
+              write buffer never falls below the threshold.                
               When the <code>waitForWritable</code> method is called,
               the <a>user agent</a> MUST run the following steps:</p>
               <ol>
@@ -9893,7 +9902,7 @@ interface RTCQuicStream {
                 <a>reject</a> <var>p</var> with a newly created <code>OperationError</code>.</li>
                 <li>Let <var>threshold</var> be <var>target</var> minus <var>amount</var>.</li>
                 <li>When <var>stream</var>'s <a>[[\WriteBufferedAmount]]</a> slot decreases
-                from above <var>threshold</var> to less than or equal to it, 
+                from above <var>threshold</var> to less than or equal to it,
                 <a>resolve</a> <var>p</var> with <code>undefined</code>.</li>
               </ol>
               <table class="parameters">
@@ -9944,7 +9953,7 @@ interface RTCQuicStream {
                <li>If <var>amount</var> is greater than the <var>stream</var>'s
                <a>[[\MaxReadBufferedAmount]]</a> slot, <a>throw</a> an
                <code>OperationError</code> and abort these steps.</li>
-               <li>Set <var>stream</var>'s <a>[[\TargetReadBufferedAmount]]</a> slot to 
+               <li>Set <var>stream</var>'s <a>[[\TargetReadBufferedAmount]]</a> slot to
                <var>amount</var>.</li>
                <li>If <var>amount</var> is greater than or equal to <var>stream</var>'s
                <a>[[\ReadBufferedAmount]]</a> slot, set <var>stream</var>'s maximum
