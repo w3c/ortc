@@ -3420,7 +3420,7 @@ interface RTCRtpSender : RTCStatsProvider {
                       <p>Where <var>kind</var> has a value of <code>video</code> and <code>send</code> has been called,
                       check that the number of simulcast streams specified in
                       <code><var>withParameters</var>.encodings[]</code> does not exceed the maximum
-                      specified in <code><var>capabilities</var>.codecs[<var>j</var>].maxSimulcasts</code>.</p>
+                      specified in <code><var>capabilities</var>.codecs[<var>j</var>].maxSimulcastStreams</code>.</p>
                     </li>
                     <li>
                       <p>Where <var>kind</var> has a value of <code>video</code> and <code>send</code> has been called,
@@ -5096,7 +5096,7 @@ interface RTCRtpUnhandledEvent : Event {
              sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback;
              Dictionary                parameters;
              Dictionary                options;
-             unsigned short            maxSimulcasts = 0;
+             unsigned short            maxSimulcastStreams = 0;
              unsigned short            maxTemporalLayers = 0;
              unsigned short            maxSpatialLayers = 0;
              boolean                   svcMultiStreamSupport;
@@ -5179,7 +5179,7 @@ interface RTCRtpUnhandledEvent : Event {
               available as additional supported information or settings about the
               codec.</p>
             </dd>          
-            <dt><dfn data-idl><code>maxSimulcasts</code></dfn> of type <span class=
+            <dt><dfn data-idl><code>maxSimulcastStreams</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, defaulting to
             <code>0</code></dt>
             <dd>
