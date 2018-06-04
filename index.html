@@ -3358,7 +3358,11 @@ interface RTCRtpSender : RTCStatsProvider {
             </li>
             <li>
                <p>For <code>send</code>, let <var>dltsTransport</var> be the value of <code><var>sender</var>.transport</code>.
-               For <code>receive</code>, let <var>dltsTransport</var> be the value of <code><var>receiver</var>.transport</code>.</p>
+               Let <var>capabilities</var> be the value of <code>RTCRtpSender.getCapabilities(<var>kind</var>)</code>.</p>
+            </li>
+            <li>
+              <p>For <code>receive</code>, let <var>dltsTransport</var> be the value of <code><var>receiver</var>.transport</code>.
+              Let <var>capabilities</var> be the value of <code>RTCRtpReceiver.getCapabilities(<var>kind</var>)</code>.</p>
             </li>
             <li>
               <p>For each value of <var>i</var> from 0 to the number of codecs, check
@@ -3382,10 +3386,10 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>If <var>name</var> is not equal to "red", "rtx" or a forward
                   error correction codec ("ulpfec" [[RFC5109]] or "flexfec" [[FLEXFEC]]),
                   check whether <var>name</var> is equal to
-                  <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].name</code> and
-                  if <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].clockRate</code> is set,
+                  <code><var>capabilities</var>.codecs[<var>j</var>].name</code> and
+                  if <code><var>capabilities</var>.codecs[<var>j</var>].clockRate</code> is set,
                   check whether <var>clockRate</var> is equal to
-                  <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].clockRate</code>
+                  <code><var>capabilities</var>.codecs[<var>j</var>].clockRate</code>
                   for any value of <var>j</var> from 0 to the number of codecs.</p>
                 </li>
                 <li>
@@ -3394,20 +3398,20 @@ interface RTCRtpSender : RTCStatsProvider {
                     <li>
                       <p>If <code><var>codec</var>.channels</code> is set, check that it is
                       less than or equal to
-                      <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].channels</code>.
+                      <code><var>capabilities</var>.codecs[<var>j</var>].channels</code>.
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
                     <li>
                       <p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>].type</code>
-                      is included in <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].rtcpFeedback.type</code>
+                      is included in <code><var>capabilities</var>.codecs[<var>j</var>].rtcpFeedback.type</code>
                       where <var>k</var> goes from 0 to the number of feedback mechanisms.
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
                     <li>
                       <p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
-                      is a valid value as indicated by <code>getCapabilities(<var>kind</var>).codecs[<var>j</var>].parameters</code>
+                      is a valid value as indicated by <code><var>capabilities</var>.codecs[<var>j</var>].parameters</code>
                       where <var>k</var> goes from 0 to the number of codecs.
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort all of these steps.</p>
@@ -3471,7 +3475,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </li>
                 <li>
                   <p>Check whether <var>uri</var> is equal to
-                  <code>getCapabilities(<var>kind</var>).headerExtensions[<var>j</var>].uri</code>
+                  <code><var>capabilities</var>.headerExtensions[<var>j</var>].uri</code>
                   for any value of <var>j</var> from 0 to the number of header extensions.</p>
                 </li>
                 <li>
