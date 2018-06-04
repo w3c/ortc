@@ -5078,6 +5078,7 @@ interface RTCRtpUnhandledEvent : Event {
              sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback;
              Dictionary                parameters;
              Dictionary                options;
+             unsigned short            maxSimulcasts = 0;
              unsigned short            maxTemporalLayers = 0;
              unsigned short            maxSpatialLayers = 0;
              boolean                   svcMultiStreamSupport;
@@ -5159,6 +5160,14 @@ interface RTCRtpUnhandledEvent : Event {
               <p>Codec-specific parameters that may be optionally signalled and are
               available as additional supported information or settings about the
               codec.</p>
+            </dd>          
+            <dt><dfn data-idl><code>maxSimulcasts</code></dfn> of type <span class=
+            "idlMemberType"><a>unsigned short</a></span>, defaulting to
+            <code>0</code></dt>
+            <dd>
+              <p>Maximum number of simulcast extension streams supported by this codec.
+              (e.g. a value of 1 indicates support for up to 2 simulcast streams). A value
+              of 0 indicates no support for simulcast.</p>
             </dd>
             <dt><dfn data-idl><code>maxTemporalLayers</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, defaulting to
