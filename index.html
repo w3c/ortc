@@ -3242,9 +3242,6 @@ interface RTCRtpSender : RTCStatsProvider {
                   on which <code><a>send</a>()</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>Let <var>withParameters</var> be the argument to this method.</p>
-                </li>
-                <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
@@ -3257,11 +3254,14 @@ interface RTCRtpSender : RTCStatsProvider {
                   <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
                 <li>
+                  <p>Let <var>withParameters</var> be the argument to this method.</p>
+                </li>
+                <li>
                   <p>If <code>rtcpTransport</code> is unset and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
                   <a>reject</a> <var>p</var> with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
-                <li><a>Complete validation checks</a> on <code><var>withParameters</var></code>.</li>
+                <li><a>Complete validation checks</a> on <var>withParameters</var>.</li>
                 <li>
                   <p>Run the following steps:</p>
                   <ol>
@@ -3345,10 +3345,10 @@ interface RTCRtpSender : RTCStatsProvider {
     </section>
     <section id="rtcrtpparameter-validation*">
       <h3>Parameters validation</h3>
-          <p>To <dfn>Complete validation checks</dfn> on <var>withParameters</var>
-          passed as an argument to <code>send</code> or <code>receive</code>, the <a>User Agent</a> MUST run
-          the following steps:</p>
+          <p>To <dfn>Complete validation checks</dfn> on the argument to <code>send</code> or <code>receive</code>, 
+          the <a>User Agent</a> MUST run the following steps:</p>
           <ol>
+            <li><p>Let <var>withParameters</var> be the argument to <code>send</code> or <code>receive</code>.</p></li>
             <li>
                <p>For <code>send</code>, let <var>kind</var> be the value of <code>track.kind</code> and let
                <var>sender</var> be the <code><a>RTCRtpSender</a></code> on which the <code>send</code> method is invoked.
@@ -3878,9 +3878,6 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   object on which <code>receive</code> is invoked.</p>
                 </li>
                 <li>
-                  <p>Let <var>withParameters</var> be the argument to this method.</p>
-                </li>
-                <li>
                   <p>Let <var>p</var> be a new promise.</p>
                 </li>
                 <li>
@@ -3893,6 +3890,9 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   with a newly created <code>TypeError</code> and abort these steps.</p>
                 </li>
                 <li>
+                  <p>Let <var>withParameters</var> be the argument to this method.</p>
+                </li>
+                <li>
                   <p>If <code>rtcpTransport</code> is not set and
                   <code><var>withParameters</var>.rtcp.mux</code> is set to <code>false</code>,
                   <a>reject</a> <var>p</var> with <code>InvalidParameters</code> and abort
@@ -3903,11 +3903,6 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <code><a>RTCRtpReceiver</a></code> constructor.</p>
                 </li>
                 <li><a>Complete validation checks</a> on <code><var>withParameters</var></code>.</li>
-                <li>
-                  <p>If <var>withParameters</var> is invalid due to SSRC misusage or other
-                  reasons, <a>reject</a> <var>p</var> with <code>InvalidParameters</code> and
-                  abort these steps.</p>
-                </li>
                 <li>
                   <p>As described in Section 8.3.1, fill the <code>ssrc_table</code>,
                    <code>muxId_table</code> and <code>pt_table</code> entries and
