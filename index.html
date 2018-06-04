@@ -3416,6 +3416,24 @@ interface RTCRtpSender : RTCStatsProvider {
                       If not, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
+                    <li>
+                      <p>Where <var>kind</var> has a value of <code>video</code> and <code>send</code> has been called,
+                      check that the number of simulcast streams specified in
+                      <code><var>withParameters</var>.encodings[]</code> does not exceed the maximum
+                      specified in <code><var>capabilities</var>.codecs[<var>j</var>].maxSimulcasts</code>.</p>
+                    </li>
+                    <li>
+                      <p>Where <var>kind</var> has a value of <code>video</code> and <code>send</code> has been called,
+                      check that the number of temporal layers specified in
+                      <code><var>withParameters</var>.encodings[]</code> does not exceed the maximum
+                      specified in <code><var>capabilities</var>.codecs[<var>j</var>].maxTemporalLayers</code>.</p>
+                    </li>
+                    <li>
+                      <p>Where <var>kind</var> has a value of <code>video</code> and <code>send</code> has been called,
+                      check that the number of spatial layers specified in
+                      <code><var>withParameters</var>.encodings[]</code> does not exceed the maximum
+                      specified in <code><var>capabilities</var>.codecs[<var>j</var>].maxSpatialLayers</code>.</p>
+                    </li>
                   </ol>
                 </li>
                 <li>
