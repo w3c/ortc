@@ -89,28 +89,7 @@ var respecConfig = {
         "A. Roach",
         "B. Campen"
       ],
-      "status": "19 July 2017. Internet Draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "QUIC-TRANSPORT": {
-      "title": "QUIC: A UDP-Based Multiplexed and Secure Transport",
-      "href": "https://tools.ietf.org/html/draft-ietf-quic-transport",
-      "authors": [
-        "J. Iyengar",
-        "M. Thomson"
-      ],
-      "status": "05 December 2017. Internet draft (work in progress)",
-      "publisher": "IETF"
-    },
-    "QUIC-MULT": {
-      "title": "QUIC Multiplexing",
-      "href": "https://tools.ietf.org/html/draft-aboba-avtcore-quic-multiplexing",
-      "authors": [
-        "B. Aboba",
-        "P. Thatcher",
-        "C. Perkins"
-      ],
-      "status": "29 October 2017. Internet draft (work in progress)",
+      "status": "15 May 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RID": {
@@ -499,7 +478,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "18 December 2017. Internet Draft (work in progress)",
+      "status": "24 May 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -530,7 +509,7 @@ var respecConfig = {
       "authors": [
         "J. Uberti"
       ],
-      "status": "10 December 2017. Internet Draft (work in progress)",
+      "status": "02 March 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "FLEXFEC": {
@@ -542,7 +521,7 @@ var respecConfig = {
         "M. Zanaty",
         "G. Mandyam" 
       ],
-      "status": "03 July 2017. Internet Draft (work in progress)",
+      "status": "21 March 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "JSEP": {
@@ -580,7 +559,7 @@ var respecConfig = {
       "authors": [
         "E. Rescorla"
       ],
-      "status": "30 October 2017. Internet Draft (work in progress)",
+      "status": "10 March 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "RTP-MULTI-STREAM": {
@@ -613,7 +592,7 @@ var respecConfig = {
         "C. Holmberg",
         "J. Rosenberg"
       ],
-      "status": "24 October 2017. Internet Draft (work in progress)",
+      "status": "08 March 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "STUN-PARAMETERS": {
@@ -644,7 +623,7 @@ var respecConfig = {
         "J. Uberti",
         "P. Saint-Andre"
       ],
-      "status": "13 November 2017. Internet Draft (work in progress)",
+      "status": "15 April 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "TS26.114": {
@@ -656,6 +635,16 @@ var respecConfig = {
       "status": "December 2014",
       "publisher": "3GPP"
     },
+    "WEBRTC-QUIC": {
+      "title": "QUIC API for WebRTC",
+      "href": "https://w3c.github.io/webrtc-quic/",
+      "authors": [
+        "Peter Thatcher",
+        "Bernard Aboba"
+      ],
+      "status": "04 June 2018 (work in progress)",
+      "publisher": "W3C"
+    }, 
     "WEBRTC-STATS": {
       "title": "Identifiers for WebRTC's Statistics API",
       "href": "https://w3c.github.io/webrtc-stats/",
@@ -663,7 +652,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "17 January 2018 (work in progress)",
+      "status": "19 May 2018 (work in progress)",
       "publisher": "W3C"
     }
   }
