@@ -3492,6 +3492,14 @@ interface RTCRtpSender : RTCStatsProvider {
                   <var>p</var> with a newly created <code>InvalidParameters</code> and abort
                   all of these steps.</p>
                 </li>
+                <li>
+                  <p>For <code>receive</code>, check whether a header extension with
+                  identifier <var>id</var> has been configured on any other <code><a>RTCRtpReceiver</a></code>
+                  sharing the <code><a>RTCDtlsTransport</a></code> <var>transport</var>. 
+                  If the <code>uri</code> configured for that header extension != <var>uri</var>, <a>reject</a>
+                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort
+                  all of these steps.</p>
+                </li>
               </ol>
             </li>
           </ol>
