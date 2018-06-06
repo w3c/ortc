@@ -3357,11 +3357,11 @@ interface RTCRtpSender : RTCStatsProvider {
                <code><a>RTCRtpReceiver</a></code> on which the <code>receive</code> method is invoked.</p>
             </li>
             <li>
-               <p>For <code>send</code>, let <var>dltsTransport</var> be the value of <code><var>sender</var>.transport</code>.
+               <p>For <code>send</code>, let <var>transport</var> be the value of <code><var>sender</var>.transport</code>.
                Let <var>capabilities</var> be the value of <code>RTCRtpSender.getCapabilities(<var>kind</var>)</code>.</p>
             </li>
             <li>
-              <p>For <code>receive</code>, let <var>dltsTransport</var> be the value of <code><var>receiver</var>.transport</code>.
+              <p>For <code>receive</code>, let <var>transport</var> be the value of <code><var>receiver</var>.transport</code>.
               Let <var>capabilities</var> be the value of <code>RTCRtpReceiver.getCapabilities(<var>kind</var>)</code>.</p>
             </li>
             <li>
@@ -3463,12 +3463,12 @@ interface RTCRtpSender : RTCStatsProvider {
             <li>
               <p>For each value of <var>i</var> from 0 to the number of header extensions:</p>
               <ol>
-                 <li>
+                <li>
                    <p>Let <var>headerExtension</var> be
                     <code><var>withParameters</var>.headerExtensions[<var>i</var>]</code>.</p>
-                 </li>
-                 <li><p>Let <var>uri</var> be <code><var>headerExtension</var>.uri</code>.</p></li>
-                 <li><p>Let <var>id</var> be <code><var>headerExtension</var>.id</code>.</p></li>
+                </li>
+                <li><p>Let <var>uri</var> be <code><var>headerExtension</var>.uri</code>.</p></li>
+                <li><p>Let <var>id</var> be <code><var>headerExtension</var>.id</code>.</p></li>
                 <li>
                   <p>If <var>uri</var> or <var>id</var> is unset, <a>throw</a>
                   a <code>TypeError</code> and abort all of these steps.</p>
