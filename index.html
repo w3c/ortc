@@ -10633,13 +10633,15 @@ function signalAssertion(assertion) {
     </section>
     <section class="informative" id="rtcquicexample*">
       <h2>QUIC Examples</h2>
+      <p>This example shows how an <code><a>RTCQuicTransport</a></code> can be established
+      between browsers.</p>
       <pre class="example highlight">
 // Include some helper functions
 import {trace, errorHandler, mySendLocalCandidate, myIceGathererStateChange,
   myIceTransportStateChange, myDtlsTransportStateChange} from 'helper';
 
 function initiate(mySignaller) {
-  // Prepare the ICE gatherer
+  // Prepare the IceGatherer
   var gatherOptions = {
     gatherPolicy: "all",
     iceServers: [
@@ -10662,14 +10664,14 @@ function initiate(mySignaller) {
 
   // Start gathering
   iceGatherer.gather();
-  // Create ICE transport
+  // Create the IceTransport
   var ice = new RTCIceTransport(iceGatherer);
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
 
-  // Create the DTLS certificate
+  // Create the certificate
   var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
@@ -10678,17 +10680,17 @@ function initiate(mySignaller) {
     trace('Certificate could not be created');
   });
 
-  // Create DTLS and QUIC transport
-  var dtls = new RTCDtlsTransport(ice, certs);
+  // Create the DtlsTransport and QuicTransport
+  var dlts = new RTCDtlsTransport(ice, certs);
   var quic = new RTCQuicTransport(ice, certs);
 
   mySignaller.sendInitiate({
     ice: iceGatherer.getLocalParameters(),
-    dtls: dtls.getLocalParameters(),
+    dlts: dtls.getLocalParameters(),
     quic: quic.getLocalParameters(),
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   }, function(remote) {
-    // Start the ICE, DTLS and QUIC transports
+    // Start the IceTransport, DtlsTransport and QuicTransport
     ice.start(iceGatherer, remote.ice, RTCIceRole.controlling);
     dtls.start(remote.dtls);
     quic.start(remote.quic);
@@ -10725,14 +10727,14 @@ function accept(mySignaller, remote) {
 
    // Start gathering
   iceGatherer.gather();
-  // Create ICE transport
+  // Create the IceTransport
   var ice = new RTCIceTransport(iceGatherer);
   // Prepare to handle remote ICE candidates
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
 
-   // Create the DTLS certificate
+   // Create the certificate
   var certs;
   var keygenAlgorithm = { name: "ECDSA", namedCurve: "P-256" };
   RTCCertificate.generateCertificate(keygenAlgorithm).then(function(certificate){
@@ -10741,7 +10743,7 @@ function accept(mySignaller, remote) {
     trace('Certificate could not be created');
   });
 
-  // Create DTLS and SCTP transport
+  // Create the DtlsTransport and QuicTransport
   var dtls = new RTCDtlsTransport(ice, certs);
   var quic = new RTCQuicTransport(ice, certs);
 
@@ -10752,7 +10754,7 @@ function accept(mySignaller, remote) {
     // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
   });
 
-   // Start the ICE, DTLS and SCTP transports
+   // Start the IceTransport and DtlsTransport
   ice.start(iceGatherer, remote.ice, RTCIceRole.controlled);
   dtls.start(remote.dtls);
   // Start the QuicTransport
@@ -10764,10 +10766,11 @@ function accept(mySignaller, remote) {
                 </pre>
     </section>
     <section class="informative" id="js-library-example*">
-      <h3>myCapsToSendParams</h3>
+      <h3>Determining common capabilities</h3>
       <p>Several of the examples reference <dfn>myCapsToSendParams</dfn>, which 
-      returns sender parameters based on the intersection of sender and receiver
-      capabilities. This section provides an example of what such a library
+      returns sender parameters based on the intersection of the capabilities of
+      the <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code>.
+      This section provides an example of what such a library
       function might do.</p>
       <pre class="example highlight">
 RTCRtpParameters function myCapsIntersection(RTCRtpCapabilities sendCaps,
