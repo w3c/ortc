@@ -10773,11 +10773,13 @@ function accept(mySignaller, remote) {
       This section provides an example of what such a library
       function might do.</p>
       <pre class="example highlight">
-RTCRtpParameters function myCapsIntersection(RTCRtpCapabilities sendCaps,
-   RTCRtpCapabilities remoteRecvCaps) {
-// Function returning the intersecting RTCRtpParameters, based on
-// the sender and remote receiver capabilities. The goal is to enable
-// a call with one audio and one video track with minimum fuss.
+RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabilities,
+   RTCRtpCapabilities remoteCapabilities) {
+// Function returning the common capabilities, based on the local
+// sender and remote receiver capabilities.
+//
+// An example implementation is available for inspection here:
+// https://webrtc.github.io/adapter/adapter-latest.js
 //
 // Steps to be followed to determine the features that the receiver
 // and sender have in common:
@@ -10788,27 +10790,27 @@ RTCRtpParameters function myCapsIntersection(RTCRtpCapabilities sendCaps,
 //    retransmission) mechanisms. 
 // 4. Determine the payloadType to be used, based on the receiver
 //    preferredPayloadType.
-// 5. Set RTCRtcpParameters such as mux to their default values.
-// 6. Return RTCRtpParameters enabling the jointly supported features
-//    and codecs.
 }
 
 RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
    RTCRtpCapabilities remoteRecvCaps) {
 // Find the intersecting capabilities
-   var intersection = myCapsIntersection(sendCaps, remoteRecvCaps); 
+   var common = getCommonCapabilities(sendCaps, remoteRecvCaps); 
 // Fill in additional attributes for RTCRtpSendParameters
-   intersection.encodings = {};
-   intersection.degradationPreference = "balanced"; 
-   return intersection;  
+// 5. Set RTCRtcpParameters such as mux to their default values.
+// 6. Return RTCRtpParameters enabling the jointly supported features
+//    and codecs.
+   common.encodings = {};
+   common.degradationPreference = "balanced"; 
+   return common;  
 }
 
 RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
    RTCRtpCapabilities remoteSendCaps) {
-// Find the intersecting capabilities
-   var intersection = myCapsIntersection(remoteSendCaps, recvCaps); 
+// Find the common capabilities
+   var common = getCommonCapabilities(remoteSendCaps, recvCaps); 
 // Fill in additional attributes for RTCRtpReceiveParameters
-   intersection.encodings = {}; 
+   common.encodings = {}; 
    return intersection;
 }
             </pre>
