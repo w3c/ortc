@@ -10796,22 +10796,33 @@ RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
    RTCRtpCapabilities remoteRecvCaps) {
 // Find the intersecting capabilities
    var common = getCommonCapabilities(sendCaps, remoteRecvCaps); 
-// Fill in additional attributes for RTCRtpSendParameters
-// 5. Set RTCRtcpParameters such as mux to their default values.
-// 6. Return RTCRtpParameters enabling the jointly supported features
+// Use the common capabilities to build the RTCRtpSendParameters
+// 1. Populate the codecs list
+// 2. Populate the header extensions
+// 3. Set RTCRtcpParameters such as mux to their default values.
+// 4. Return RTCRtpSendParameters enabling the jointly supported features
 //    and codecs.
-   common.encodings = {};
-   common.degradationPreference = "balanced"; 
-   return common;  
+   var sendParams = {};
+// Populate the codecs list and header extensions
+   sendParams.encodings = {};
+   sendParams.degradationPreference = "balanced"; 
+   return sendParams;  
 }
 
 RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
    RTCRtpCapabilities remoteSendCaps) {
 // Find the common capabilities
-   var common = getCommonCapabilities(remoteSendCaps, recvCaps); 
-// Fill in additional attributes for RTCRtpReceiveParameters
-   common.encodings = {}; 
-   return intersection;
+   var common = getCommonCapabilities(remoteSendCaps, recvCaps);
+// Use the common capabilities to build the RTCRtpReceiveParameters
+// 1. Populate the codecs list
+// 2. Populate the header extensions
+// 3 Set RTCRtcpParameters such as mux to their default values.
+// 4. Return RTCRtpReceiveParameters enabling the jointly supported features
+//    and codecs.
+   var receiveParams = {};
+// Populate the codecs list and header extensions
+   receiveParams.encodings = {};
+   return receiveParams; 
 }
             </pre>
     </section>
