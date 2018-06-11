@@ -10782,15 +10782,15 @@ RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabi
 // Steps to determine the common capabilities of the local sender and
 // remote receiver:
 // 1. Determine the common codecs.
-// 2. For each common codec, determine the common header extensions and
-//    RTCP feedback mechanisms.
+// 2. For each common codec, determine the common headerExtensions and
+//    rtcpFeedback mechanisms.
 // 3. For each common audio codec, determine the minimum number of
 //    channels supported.
 // 3. For each common codec, determine the common parameters, such as:
 //    a. For H.264/AVC, the minimum profile-level-id and common
 //       packetization-mode.
-//    b. For Opus, usedtx and useinbandfec set to one if both sides support
-//       it, otherwise zero.
+//    b. For Opus, usedtx and useinbandfec set to one if both sides
+//       support that, otherwise zero.
 // 4. Determine the common robustness (forward error correction and 
 //    retransmission) mechanisms.
 // 5. Determine the payloadType to be used, based on the receiver
@@ -10803,7 +10803,7 @@ RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
    var commonCaps = getCommonCapabilities(sendCaps, remoteRecvCaps); 
 // Use the common capabilities to build the RTCRtpSendParameters
 // 1. Populate the codecs list
-// 2. Populate the header extensions
+// 2. Populate the headerExtensions
 // 3. Set RTCRtcpParameters to their default values.
 // 4. Return RTCRtpSendParameters enabling the jointly supported features
 //    and codecs.
@@ -10825,12 +10825,12 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
    var commonCaps = getCommonCapabilities(remoteSendCaps, recvCaps);
 // Use the common capabilities to build the RTCRtpReceiveParameters
 // 1. Populate the codecs list
-// 2. Populate the header extensions
+// 2. Populate the headerExtensions
 // 3 Set RTCRtcpParameters to their default values.
 // 4. Return RTCRtpReceiveParameters enabling the jointly supported features
 //    and codecs.
    var receiveParams = {};
-// Populate the codecs list and header extensions
+// Populate the codecs list and headerExtensions
    receiveParams.codecs = commonCaps.codecs;
    receiveParams.headerExtensions = commonCaps.headerExtensions;
    receiveParams.rtcp = {reducedSize: false, mux: true};
