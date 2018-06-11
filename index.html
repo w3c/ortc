@@ -10789,7 +10789,8 @@ RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabi
 // 3. For each common codec, determine the common parameters, such as:
 //    a. For H.264/AVC, the minimum profile-level-id and common
 //       packetization-mode.
-//    b. For Opus, usedtx and useinbandfec set to 1 if both sides support it.
+//    b. For Opus, usedtx and useinbandfec set to one if both sides support
+//       it, otherwise zero.
 // 4. Determine the common robustness (forward error correction and 
 //    retransmission) mechanisms.
 // 5. Determine the payloadType to be used, based on the receiver
@@ -10810,7 +10811,6 @@ RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
 // Populate the codecs list and header extensions
    sendParams.codecs = commonCaps.codecs;
    sendParams.headerExtensions = commonCaps.headerExtensions;
-// Set RTCRtcpParameters to the default values
    sendParams.rtcp = {reducedSize: false, mux: true};
 // Do not set any encodings
    sendParams.encodings = {};
@@ -10833,7 +10833,6 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
 // Populate the codecs list and header extensions
    receiveParams.codecs = commonCaps.codecs;
    receiveParams.headerExtensions = commonCaps.headerExtensions;
-// Set RTCRtcpParameters to the default values
    receiveParams.rtcp = {reducedSize: false, mux: true};
 // Do not set any encodings
    receiveParams.encodings = {};
