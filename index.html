@@ -10773,43 +10773,70 @@ function accept(mySignaller, remote) {
       This section provides an example of what such a library
       function might do.</p>
       <pre class="example highlight">
-RTCRtpParameters function myCapsIntersection(RTCRtpCapabilities sendCaps,
-   RTCRtpCapabilities remoteRecvCaps) {
-// Function returning the intersecting RTCRtpParameters, based on
-// the sender and remote receiver capabilities. The goal is to enable
-// a call with one audio and one video track with minimum fuss.
+RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabilities,
+   RTCRtpCapabilities remoteCapabilities) {
+// Function returning the common capabilities, based on the local sender and
+// remote receiver capabilities. An implementation is available here:
+// https://webrtc.github.io/adapter/adapter-latest.js
 //
-// Steps to be followed to determine the features that the receiver
-// and sender have in common:
-// 1. Determine the codecs that the sender and receiver have in common.
-// 2. For each common codec, determine the common formats, header
-//    extensions and RTCP feedback mechanisms.
-// 3. Determine the common robustness (forward error correction and 
-//    retransmission) mechanisms. 
-// 4. Determine the payloadType to be used, based on the receiver
+// Steps to determine the common capabilities of the local sender and
+// remote receiver:
+// 1. Determine the common codecs.
+// 2. For each common codec, determine the common headerExtensions and
+//    rtcpFeedback mechanisms.
+// 3. For each common audio codec, determine the minimum number of
+//    channels supported.
+// 3. For each common codec, determine the common parameters, such as:
+//    a. For H.264/AVC, the minimum profile-level-id and common
+//       packetization-mode.
+//    b. For Opus, usedtx and useinbandfec set to one if both sides
+//       support that, otherwise zero.
+// 4. Determine the common robustness (forward error correction and 
+//    retransmission) mechanisms.
+// 5. Determine the payloadType to be used, based on the receiver
 //    preferredPayloadType.
-// 5. Set RTCRtcpParameters such as mux to their default values.
-// 6. Return RTCRtpParameters enabling the jointly supported features
-//    and codecs.
 }
 
 RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
    RTCRtpCapabilities remoteRecvCaps) {
-// Find the intersecting capabilities
-   var intersection = myCapsIntersection(sendCaps, remoteRecvCaps); 
-// Fill in additional attributes for RTCRtpSendParameters
-   intersection.encodings = {};
-   intersection.degradationPreference = "balanced"; 
-   return intersection;  
+// Find the common capabilities
+   var commonCaps = getCommonCapabilities(sendCaps, remoteRecvCaps); 
+// Use the common capabilities to build the RTCRtpSendParameters
+// 1. Populate the codecs list
+// 2. Populate the headerExtensions
+// 3. Set RTCRtcpParameters to their default values.
+// 4. Return RTCRtpSendParameters enabling the jointly supported features
+//    and codecs.
+   var sendParams = {};
+// Populate the codecs list and header extensions
+   sendParams.codecs = commonCaps.codecs;
+   sendParams.headerExtensions = commonCaps.headerExtensions;
+   sendParams.rtcp = {reducedSize: false, mux: true};
+// Do not set any encodings
+   sendParams.encodings = {};
+// Set degradationPreference to its default value
+   sendParams.degradationPreference = "balanced";
+   return sendParams;
 }
 
 RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
    RTCRtpCapabilities remoteSendCaps) {
-// Find the intersecting capabilities
-   var intersection = myCapsIntersection(remoteSendCaps, recvCaps); 
-// Fill in additional attributes for RTCRtpReceiveParameters
-   intersection.encodings = {}; 
-   return intersection;
+// Find the common capabilities
+   var commonCaps = getCommonCapabilities(remoteSendCaps, recvCaps);
+// Use the common capabilities to build the RTCRtpReceiveParameters
+// 1. Populate the codecs list
+// 2. Populate the headerExtensions
+// 3 Set RTCRtcpParameters to their default values.
+// 4. Return RTCRtpReceiveParameters enabling the jointly supported features
+//    and codecs.
+   var receiveParams = {};
+// Populate the codecs list and headerExtensions
+   receiveParams.codecs = commonCaps.codecs;
+   receiveParams.headerExtensions = commonCaps.headerExtensions;
+   receiveParams.rtcp = {reducedSize: false, mux: true};
+// Do not set any encodings
+   receiveParams.encodings = {};
+   return receiveParams;
 }
             </pre>
     </section>
