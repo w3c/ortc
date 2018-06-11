@@ -10797,8 +10797,8 @@ RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabi
 
 RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
    RTCRtpCapabilities remoteRecvCaps) {
-// Find the intersecting capabilities
-   var common = getCommonCapabilities(sendCaps, remoteRecvCaps); 
+// Find the common capabilities
+   var commonCaps = getCommonCapabilities(sendCaps, remoteRecvCaps); 
 // Use the common capabilities to build the RTCRtpSendParameters
 // 1. Populate the codecs list
 // 2. Populate the header extensions
@@ -10807,15 +10807,18 @@ RTCRtpSendParameters function myCapsToSendParams(RTCRtpCapabilities sendCaps,
 //    and codecs.
    var sendParams = {};
 // Populate the codecs list and header extensions
+   sendParams.codecs = commonCaps.codecs;
+   sendParams.headerExtensions = commonCaps.headerExtensions;
+   sendParams.rtcp = {reducedSize: false, mux: true};
    sendParams.encodings = {};
-   sendParams.degradationPreference = "balanced"; 
-   return sendParams;  
+   sendParams.degradationPreference = "balanced";
+   return sendParams;
 }
 
 RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
    RTCRtpCapabilities remoteSendCaps) {
 // Find the common capabilities
-   var common = getCommonCapabilities(remoteSendCaps, recvCaps);
+   var commonCaps = getCommonCapabilities(remoteSendCaps, recvCaps);
 // Use the common capabilities to build the RTCRtpReceiveParameters
 // 1. Populate the codecs list
 // 2. Populate the header extensions
@@ -10824,8 +10827,11 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
 //    and codecs.
    var receiveParams = {};
 // Populate the codecs list and header extensions
+   receiveParams.codecs = commonCaps.codecs;
+   receiveParams.headerExtensions = commonCaps.headerExtensions;
+   receiveParams.rtcp = {reducedSize: false, mux: true};
    receiveParams.encodings = {};
-   return receiveParams; 
+   return receiveParams;
 }
             </pre>
     </section>
