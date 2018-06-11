@@ -10801,16 +10801,17 @@ RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabi
 // 1. Determine the common codecs.
 // 2. For each common codec, determine the common headerExtensions and
 //    rtcpFeedback mechanisms.
-// 3. For each common audio codec, determine the minimum number of
-//    channels supported.
-// 3. For each common codec, determine the common parameters, such as:
+// 3. For each common audio codec, determine:
+//    a. For channels, the minimum of the local and remote values.
+//    b. For ptime, the maximum of the local ptime and the remote maxptime.
+// 4. For each common codec, determine the common parameters, such as:
 //    a. For H.264/AVC, the minimum profile-level-id and common
 //       packetization-mode.
 //    b. For Opus, usedtx and useinbandfec set to one if both sides
 //       support that, otherwise zero.
-// 4. Determine the common robustness (forward error correction and 
+// 5. Determine the common robustness (forward error correction and 
 //    retransmission) mechanisms.
-// 5. Determine the payloadType to be used, based on the receiver
+// 6. Determine the payloadType to be used, based on the remote
 //    preferredPayloadType.
 }
 
