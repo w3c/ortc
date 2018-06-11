@@ -3761,7 +3761,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
             <dd>
               <p><dfn>setTransport()</dfn>
               attempts to replace the RTP <code><a>RTCDtlsTransport</a></code>
-              <code>transport</code> (and if used) RTCP <code><a>RTCDtlsTransport</a></code>
+              <code>transport</code> (and if used) the RTCP <code><a>RTCDtlsTransport</a></code>
               <code>rtcpTransport</code> with the transport(s) provided.</p>
               <p>When the <code>setTransport()</code> method is invoked, the user
               agent MUST run the following steps:</p>
@@ -3777,7 +3777,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   be the arguments to this method.</p>
                 </li>
                 <li>
-                  <p>If <code><var>withTransport</var></code> is null and
+                  <p>If <code><var>withTransport</var></code> is <code>null</code> and
                   <code><var>withRtcpTransport</var></code> is set, <a>throw</a> an
                   <code>OperationError</code> and abort these steps.</p>
                 </li>
@@ -3805,7 +3805,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <p>If <code>receive</code> has been called, for each header extension configured on
                   <var>receiver</var>, check for conflicts with header extensions configured on
                   other <code><a>RTCRtpReceiver</a></code>s sharing the <code><a>RTCDtlsTransport</a></code>
-                  <var>withTransport</var>. If a header extension with the same <code>id<code> is
+                  <var>withTransport</var>. If a header extension with the same <code>id</code> is
                   configured on another <code><a>RTCRtpReceiver</a></code> but the <code>uri</code>
                   of that configured extension is not the same, <a>throw</a> an
                   <code>InvalidParameters</code> and abort all of these steps.</p> 
