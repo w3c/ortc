@@ -10775,20 +10775,23 @@ function accept(mySignaller, remote) {
       <pre class="example highlight">
 RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabilities,
    RTCRtpCapabilities remoteCapabilities) {
-// Function returning the common capabilities, based on the local
-// sender and remote receiver capabilities.
-//
-// An example implementation is available for inspection here:
+// Function returning the common capabilities, based on the local sender and
+// remote receiver capabilities. An implementation is available here:
 // https://webrtc.github.io/adapter/adapter-latest.js
 //
-// Steps to be followed to determine the features that the receiver
-// and sender have in common:
-// 1. Determine the codecs that the sender and receiver have in common.
-// 2. For each common codec, determine the common formats, header
-//    extensions and RTCP feedback mechanisms.
-// 3. Determine the common robustness (forward error correction and 
-//    retransmission) mechanisms. 
-// 4. Determine the payloadType to be used, based on the receiver
+// Steps to determine the common capabilities of the local sender and
+// remote receiver:
+// 1. Determine the common codecs.
+// 2. For each common codec, determine the common header extensions and
+//    RTCP feedback mechanisms.
+// 3. For each common codec, determine the common formats, such as:
+//    a. For an audio codec, the minimum number of channels supported.
+//    b. For H.264/AVC, the minimum profile-level-id and common
+//       packetization-mode.
+//    c. For Opus, usedtx and useinbandfec set to 1 if both sides support it.
+// 4. Determine the common robustness (forward error correction and 
+//    retransmission) mechanisms.
+// 5. Determine the payloadType to be used, based on the receiver
 //    preferredPayloadType.
 }
 
