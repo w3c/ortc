@@ -5319,16 +5319,21 @@ interface RTCRtpUnhandledEvent : Event {
               <tr id="def-useinbandfec*">
                 <td><dfn><code>useinbandfec</code></dfn></td>
                 <td><code>boolean</code></td>
-                <td>Receiver</td>
-                <td>Specifies if the decoder has the capability to take advantage of Opus
-                in-band fec (if <code>true</code>) or not (if <code>false</code>).</td>
+                <td>Receiver/Sender</td>
+                <td>For a receiver, specifies if the decoder has the capability to take
+                advantage of Opus in-band fec (if <code>true</code>) or not
+                (if <code>false</code>). For a sender, specifies if the encoder
+                supports DTX (if <code>true</code>) or not (if <code>false</code>).
+                </td>
               </tr>
               <tr id="def-usedtx*">
                 <td><dfn><code>usedtx</code></dfn></td>
                 <td><code>boolean</code></td>
-                <td>Receiver</td>
-                <td>Specifies if the decoder prefers the use of DTX (if
-                <code>true</code>) or not (if <code>false</code>).</td>
+                <td>Receiver/Sender</td>
+                <td>For a receiver, specifies if the decoder prefers the use of DTX (if
+                <code>true</code>) or not (if <code>false</code>). For a sender, specifies
+                if the encoder supports DTX (if <code>true</code>) or not (if <code>false</code>).
+                </td>
               </tr>
             </tbody>
           </table>
