@@ -5319,16 +5319,21 @@ interface RTCRtpUnhandledEvent : Event {
               <tr id="def-useinbandfec*">
                 <td><dfn><code>useinbandfec</code></dfn></td>
                 <td><code>boolean</code></td>
-                <td>Receiver</td>
-                <td>Specifies if the decoder has the capability to take advantage of Opus
-                in-band fec (if <code>true</code>) or not (if <code>false</code>).</td>
+                <td>Receiver/Sender</td>
+                <td>For a receiver, specifies if the decoder has the capability to take
+                advantage of Opus in-band fec (if <code>true</code>) or not
+                (if <code>false</code>). For a sender, specifies if the encoder
+                supports DTX (if <code>true</code>) or not (if <code>false</code>).
+                </td>
               </tr>
               <tr id="def-usedtx*">
                 <td><dfn><code>usedtx</code></dfn></td>
                 <td><code>boolean</code></td>
-                <td>Receiver</td>
-                <td>Specifies if the decoder prefers the use of DTX (if
-                <code>true</code>) or not (if <code>false</code>).</td>
+                <td>Receiver/Sender</td>
+                <td>For a receiver, specifies if the decoder prefers the use of DTX (if
+                <code>true</code>) or not (if <code>false</code>). For a sender, specifies
+                if the encoder supports DTX (if <code>true</code>) or not (if <code>false</code>).
+                </td>
               </tr>
             </tbody>
           </table>
@@ -10801,16 +10806,20 @@ RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabi
 // 1. Determine the common codecs.
 // 2. For each common codec, determine the common headerExtensions and
 //    rtcpFeedback mechanisms.
-// 3. For each common audio codec, determine the minimum number of
-//    channels supported.
-// 3. For each common codec, determine the common parameters, such as:
-//    a. For H.264/AVC, the minimum profile-level-id and common
-//       packetization-mode.
+// 3. For each common audio codec, determine:
+//    a. For channels, the minimum of the local and remote values.
+//    b. For maxptime, the minimum of the local and remote maxptime.
+//    c. For ptime, the remote ptime if it is less than the computed maxptime
+//       in step b); otherwise choose the local ptime.
+// 4. For each common codec, determine the common parameters, such as:
+//    a. For H.264/AVC, the minimum of the local and remote
+//       profile-level-id (the packetization-mode must match for it
+//       to be considered a common codec).
 //    b. For Opus, usedtx and useinbandfec set to one if both sides
 //       support that, otherwise zero.
-// 4. Determine the common robustness (forward error correction and 
+// 5. Determine the common robustness (forward error correction and 
 //    retransmission) mechanisms.
-// 5. Determine the payloadType to be used, based on the receiver
+// 6. Determine the payloadType to be used, based on the remote
 //    preferredPayloadType.
 }
 
