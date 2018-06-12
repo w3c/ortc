@@ -10810,10 +10810,11 @@ RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabi
 //    a. For channels, the minimum of the local and remote values.
 //    b. For maxptime, the minimum of the local and remote maxptime.
 //    c. For ptime, the remote ptime if it is less than the computed maxptime
-//       in step b); otherwise chose the local ptime.
+//       in step b); otherwise choose the local ptime.
 // 4. For each common codec, determine the common parameters, such as:
-//    a. For H.264/AVC, the minimum profile-level-id and common
-//       packetization-mode.
+//    a. For H.264/AVC, the minimum of the local and remote
+//       profile-level-id (the packetization-mode must match for it
+//       to be considered a common codec).
 //    b. For Opus, usedtx and useinbandfec set to one if both sides
 //       support that, otherwise zero.
 // 5. Determine the common robustness (forward error correction and 
