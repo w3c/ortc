@@ -4284,7 +4284,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
         or <code>pt_table</code>, fire the <code><a>unhandledrtp</a></code> event.</p>
       </section>
       <section id="rtcpmatchingrules*">
-        <h3>RTCP matching rules</h3>
+        <h3>RTCP packet handling</h3>
         <p>RTCP packets arriving on a <code><a>RTCDtlsTransport</a></code> are decrypted
         and the algorithm described in [[!BUNDLE]] Section 10.2 is used to route the RTCP
         packets to the appropriate <code><a>RTCRtpSender</a></code> and
