@@ -10721,13 +10721,13 @@ function initiate(mySignaller) {
     ice: iceGatherer.getLocalParameters(),
     dlts: dtls.getLocalParameters(),
     quic: quic.getLocalParameters(),
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as in Section 6.6 Examples 8 and 9.
   }, function(remote) {
     // Start the IceTransport, DtlsTransport and QuicTransport
     ice.start(iceGatherer, remote.ice, RTCIceRole.controlling);
     dtls.start(remote.dtls);
     quic.start(remote.quic);
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+    // ... configure RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
   });
 }
 </pre>
@@ -10784,7 +10784,7 @@ function accept(mySignaller, remote) {
     ice: iceGatherer.getLocalParameters(),
     dtls: dtls.getLocalParameters(),
     quic: quic.getLocalParameters(),
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as in Section 6.6 Examples 8 and 9.
   });
 
    // Start the IceTransport and DtlsTransport
@@ -10793,7 +10793,7 @@ function accept(mySignaller, remote) {
   // Start the QuicTransport
   quic.start(remote.quic);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+  // ... configure RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
 
 }
                 </pre>
