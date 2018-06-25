@@ -2765,12 +2765,12 @@ function initiate(mySignaller) {
         transport.addRemoteCandidate(remote.candidate);
       }
     }  };
-  // ... construct RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... construct RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
 
   mySignaller.mySendInitiate({
     ice: iceGatherer.getLocalParameters(),
     dtls: dtlsParameters,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
   }, function(remote) {
     // Create the ICE and DTLS transports
     var iceTransport = new RTCIceTransport(iceGatherer);
@@ -2782,7 +2782,7 @@ function initiate(mySignaller) {
     dtlsTransport.start(remote.dtls);
     dtlsTransports.push(dtlsTransport);
 
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
   });
 }
                 </pre>
@@ -2830,12 +2830,12 @@ function accept(mySignaller, remote) {
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
 
   mySignaller.mySendAccept({
     ice: iceGatherer.getLocalParameters(),
     dtls: dtls.getLocalParameters()
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
   });
 
   // Start the ICE transport with an implicit gather policy of "all"
@@ -2844,7 +2844,7 @@ function accept(mySignaller, remote) {
   // Start the DTLS transport
   dtls.start(remote.dtls);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
 }
                 </pre>
     </section>
@@ -3935,7 +3935,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </li>
                 <li><a>Complete validation checks</a> on <var>withParameters</var>.</li>
                 <li>
-                  <p>As described in Section 8.3.1, fill the <code>ssrc_table</code>,
+                  <p>As described in Section 6.5.1, fill the <code>ssrc_table</code>,
                    <code>muxId_table</code> and <code>pt_table</code> entries and
                    <a>check for conflicts</a>. If conflicts are found,
                    <a>reject</a> <var>p</var> and abort these steps.</p>
@@ -4282,6 +4282,24 @@ interface RTCRtpReceiver : RTCStatsProvider {
          </ol>
         <p>Else if no matches are found in the <code>ssrc_table</code>, <code>muxId_table</code>
         or <code>pt_table</code>, fire the <code><a>unhandledrtp</a></code> event.</p>
+      </section>
+      <section id="rtcpmatchingrules*">
+        <h3>RTCP matching rules</h3>
+        <p>RTCP packets arriving on a <code><a>RTCDtlsTransport</a></code> are decrypted
+        and the algorithm described in [[!BUNDLE]] Section 10.2 is used to route the RTCP
+        packets to the appropriate <code><a>RTCRtpSender</a></code> and
+        <code><a>RTCRtpReceiver</a></code> objects.  The <code><a>RTCRtpSender</a></code>
+        and <code><a>RTCRtpReceiver</a></code> objects then examine the RTCP packets to
+        determine the information relevant to their operation and the statistics maintained
+        by them.</p>
+        <p>RTCP packets should be queued for 30 seconds so that
+        <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> objects on
+        the related <code><a>RTCDTlsTransport</a></code> have access to those packets until
+        the packet is removed from the queue, should the <code><a>RTCRtpSender</a></code>
+        or <code><a>RTCRtpReceiver</a></code> objects need to examine them.</p>
+        <p>Since statistics are retrieved from objects within the ORTC API, and information
+        within RTCP packets is used to maintain some of the statistics, the handling of
+        RTCP packets is important to the operation of the <a href="#statistics-api">Statistics API</a>.</p>
       </section>
     </section>
     <section class="informative" id="rtcrtpreceiver-example*">
@@ -5606,7 +5624,7 @@ interface RTCRtpUnhandledEvent : Event {
               attributes (e.g. <code>fec</code>, <code>rtx</code>, <code>priority</code>,
               <code>maxBitrate</code>, <code>resolutionScale</code>, etc.) unset. When
               unset in a call to <code>receive()</code>, the behavior is described in
-              Section 8.3.</p>
+              Section 6.5.</p>
             </dd>
             <dt><dfn data-idl><code>degradationPreference</code></dfn> of type <span class=
             "idlMemberType"><a>RTCDegradationPreference</a></span></dt>
@@ -5636,7 +5654,7 @@ interface RTCRtpUnhandledEvent : Event {
               <p>The "encodings" or "layers" to be used for things like simulcast,
               Scalable Video Coding, RTX, FEC, etc.  When unset in a call to
               <code>receive()</code>, the behavior is described in
-              Section 8.3.</p>
+              Section 6.5.</p>
             </dd>
           </dl>
         </section>
@@ -8759,7 +8777,7 @@ function initiate(mySignaller) {
     dtls: dtls.getLocalParameters(),
     sctpCapabilities: RTCSctpTransport.getCapabilities(),
     port: sctp.port,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
   }, function(remote) {
     // Start the ICE, DTLS and SCTP transports
     ice.start(iceGatherer, remote.ice, RTCIceRole.controlling);
@@ -8768,7 +8786,7 @@ function initiate(mySignaller) {
     // Create the data channel object
     var channel = new RTCDataChannel(sctp, parameters);
     channel.send("foo");
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
   });
 }
 </pre>
@@ -8826,7 +8844,7 @@ function accept(mySignaller, remote) {
     dtls: dtls.getLocalParameters(),
     sctpCapabilities: RTCSctpTransport.getCapabilities(),
     port: sctp.port,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
   });
 
    // Start the ICE, DTLS and SCTP transports
@@ -8835,7 +8853,7 @@ function accept(mySignaller, remote) {
   // Start the SctpTransport
   sctp.start(remote.sctpCapabilities, remote.port);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
 
   // Assume in-band signalling. We could also have sent
   // RTCDataChannelParameters in signalling and constructed
@@ -9113,24 +9131,6 @@ interface RTCStatsReport {
       other statistic defined in [[!WEBRTC-STATS]], and MAY generate
       statistics that are not documented.</p>
     </section>      
-    <section id="rtcpmatchingrules*">
-      <h3>RTCP matching rules</h3>
-      <p>Since statistics are retrieved from objects within the ORTC API, and information
-      within RTCP packets is used to maintain some of the statistics, the handling of
-      RTCP packets is important to the operation of the statistics API.</p>
-      <p>RTCP packets arriving on a <code><a>RTCDtlsTransport</a></code> are decrypted
-      and the algorithm described in [[!BUNDLE]] Section 10.2 is used to route the RTCP
-      packets to the appropriate <code><a>RTCRtpSender</a></code> and
-      <code><a>RTCRtpReceiver</a></code> objects.  The <code><a>RTCRtpSender</a></code>
-      and <code><a>RTCRtpReceiver</a></code> objects then examine the RTCP packets to
-      determine the information relevant to their operation and the statistics maintained
-      by them.</p>
-      <p>RTCP packets should be queued for 30 seconds so that
-      <code><a>RTCRtpSender</a></code> and <code><a>RTCRtpReceiver</a></code> objects on
-      the related <code><a>RTCDTlsTransport</a></code> have access to those packets until
-      the packet is removed from the queue, should the <code><a>RTCRtpSender</a></code>
-      or <code><a>RTCRtpReceiver</a></code> objects need to examine them.</p>
-    </section>
     <section class="informative">
       <h4>Example</h4>
       <p>Consider the case where the user is experiencing bad sound and the application
@@ -10721,13 +10721,13 @@ function initiate(mySignaller) {
     ice: iceGatherer.getLocalParameters(),
     dlts: dtls.getLocalParameters(),
     quic: quic.getLocalParameters(),
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
   }, function(remote) {
     // Start the IceTransport, DtlsTransport and QuicTransport
     ice.start(iceGatherer, remote.ice, RTCIceRole.controlling);
     dtls.start(remote.dtls);
     quic.start(remote.quic);
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
   });
 }
 </pre>
@@ -10784,7 +10784,7 @@ function accept(mySignaller, remote) {
     ice: iceGatherer.getLocalParameters(),
     dtls: dtls.getLocalParameters(),
     quic: quic.getLocalParameters(),
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.5 Example 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
   });
 
    // Start the IceTransport and DtlsTransport
@@ -10793,7 +10793,7 @@ function accept(mySignaller, remote) {
   // Start the QuicTransport
   quic.start(remote.quic);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.5 Example 9.
+  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
 
 }
                 </pre>
@@ -10806,8 +10806,8 @@ function accept(mySignaller, remote) {
       This section provides an example of what such a library
       function might do.</p>
       <pre class="example highlight">
-RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities localCapabilities,
-   RTCRtpCapabilities remoteCapabilities) {
+RTCRtpCapabilities function getCommonCapabilities(RTCRtpCapabilities 
+   localCapabilities, RTCRtpCapabilities remoteCapabilities) {
 // Function returning the common capabilities, based on the local sender and
 // remote receiver capabilities. An implementation is available here:
 // https://webrtc.github.io/adapter/adapter-latest.js
@@ -11061,7 +11061,7 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <section id="since-02-December-2016*">
       <h3>Changes since 02 December 2016</h3>
       <ol>
-        <li>Updated the RTP matching rules (Section 8.3) to address issues
+        <li>Updated the RTP matching rules (Section 6.5) to address issues
         <a href="https://github.com/w3c/ortc/issues/368">Issue 368</a> and
         <a href="https://github.com/w3c/ortc/issues/547">Issue 547</a>.
         </li>
@@ -11098,7 +11098,7 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <li>Added optional H.264 codec settings, as noted in:
         <a href="https://github.com/w3c/ortc/issues/641">Issue 641</a>
         </li>
-        <li>Updated Section 13.3 to refer to RTCP packet routing specification, as noted in:
+        <li>Updated Section 6.5.3 to refer to RTCP packet routing specification, as noted in:
         <a href="https://github.com/w3c/ortc/issues/643">Issue 643</a>
         </li>
         <li>Updated Examples 21 and 22 to reflect updated <code><a>RTCSctpTransport</a></code> API, as noted in:
@@ -11475,7 +11475,7 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <li>Clarified behavior of <var>resolutionScale</var>, as noted in: <a href=
         "https://github.com/w3c/ortc/issues/362">Issue 362</a>
         </li>
-        <li>Updated RTP matching rules in Section 8.3 to support FEC/RTX/RED, as noted
+        <li>Updated RTP matching rules in Section 6.5 to support FEC/RTX/RED, as noted
         in: <a href="https://github.com/w3c/ortc/issues/368">Issue 368</a>
         </li>
         <li>Clarified certificate checking behavior, as noted in: <a href=
@@ -11699,7 +11699,7 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
     <section id="since-22-January-2015*">
       <h3>Changes since 22 January 2015</h3>
       <ol>
-        <li>Updated Section 8.3 on RTP matching rules, as noted in: <a href=
+        <li>Updated Section 6.5 on RTP matching rules, as noted in: <a href=
         "https://github.com/w3c/ortc/issues/48">Issue 48</a>
         </li>
         <li>Further updates to the Statistics API, reflecting: <a href=
@@ -11714,7 +11714,7 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         <li>Clarified pre-requisites for <code>insertDTMF()</code>, based on: <a href=
         "https://github.com/w3c/ortc/issues/178">Issue 178</a>
         </li>
-        <li>Added Section 13.4 and updated Section 9.5.1 to clarify aspects of RTCP
+        <li>Added Section 6.5.3 and updated Section 9.5.1 to clarify aspects of RTCP
         sending and receiving, based on: <a href=
         "https://github.com/w3c/ortc/issues/180">Issue 180</a>
         </li>
