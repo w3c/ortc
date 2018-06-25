@@ -2765,12 +2765,12 @@ function initiate(mySignaller) {
         transport.addRemoteCandidate(remote.candidate);
       }
     }  };
-  // ... construct RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+  // ... construct RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
 
   mySignaller.mySendInitiate({
     ice: iceGatherer.getLocalParameters(),
     dtls: dtlsParameters,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as in Section 6.6 Examples 8 and 9.
   }, function(remote) {
     // Create the ICE and DTLS transports
     var iceTransport = new RTCIceTransport(iceGatherer);
@@ -2782,7 +2782,7 @@ function initiate(mySignaller) {
     dtlsTransport.start(remote.dtls);
     dtlsTransports.push(dtlsTransport);
 
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+    // ... configure RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
   });
 }
                 </pre>
@@ -2830,12 +2830,12 @@ function accept(mySignaller, remote) {
   mySignaller.onRemoteCandidate = function(remote) {
     ice.addRemoteCandidate(remote.candidate);
   };
-  // ... create RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+  // ... create RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
 
   mySignaller.mySendAccept({
     ice: iceGatherer.getLocalParameters(),
     dtls: dtls.getLocalParameters()
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as in Section 6.6 Examples 8 and 9.
   });
 
   // Start the ICE transport with an implicit gather policy of "all"
@@ -2844,7 +2844,7 @@ function accept(mySignaller, remote) {
   // Start the DTLS transport
   dtls.start(remote.dtls);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+  // ... configure RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
 }
                 </pre>
     </section>
@@ -8777,7 +8777,7 @@ function initiate(mySignaller) {
     dtls: dtls.getLocalParameters(),
     sctpCapabilities: RTCSctpTransport.getCapabilities(),
     port: sctp.port,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as in Section 6.6 Examples 8 and 9.
   }, function(remote) {
     // Start the ICE, DTLS and SCTP transports
     ice.start(iceGatherer, remote.ice, RTCIceRole.controlling);
@@ -8786,7 +8786,7 @@ function initiate(mySignaller) {
     // Create the data channel object
     var channel = new RTCDataChannel(sctp, parameters);
     channel.send("foo");
-    // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+    // ... configure RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
   });
 }
 </pre>
@@ -8844,7 +8844,7 @@ function accept(mySignaller, remote) {
     dtls: dtls.getLocalParameters(),
     sctpCapabilities: RTCSctpTransport.getCapabilities(),
     port: sctp.port,
-    // ... marshall RtpSender/RtpReceiver capabilities as illustrated in Section 6.6 Examples 8 and 9.
+    // ... marshall RtpSender/RtpReceiver capabilities as in Section 6.6 Examples 8 and 9.
   });
 
    // Start the ICE, DTLS and SCTP transports
@@ -8853,7 +8853,7 @@ function accept(mySignaller, remote) {
   // Start the SctpTransport
   sctp.start(remote.sctpCapabilities, remote.port);
 
-  // ... configure RtpSender/RtpReceiver objects as illustrated in Section 6.6 Examples 8 and 9.
+  // ... configure RtpSender/RtpReceiver objects as in Section 6.6 Examples 8 and 9.
 
   // Assume in-band signalling. We could also have sent
   // RTCDataChannelParameters in signalling and constructed
