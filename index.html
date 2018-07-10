@@ -183,13 +183,13 @@
       (<dfn>MRST</dfn>), also defined in [[RFC7656]] Section 3.7, refers to an
       implementation that transmits all layers within a single transport, using
       multiple RTP streams with a distinct SSRC for each layer. This specification
-      supports SVC codecs that can only utilize <a>SRST</a> transport (such as VP8
-      and VP9) as well as implementations of codecs (such as H.264/SVC or HEVC)
-      that support <a>SRST</a> transport. Also, sending of simulcast
-      is supported. SVC codecs supporting <a>MRST</a> transport
-      (such as H.264/SVC and HEVC) can also be supported, along with reception of
-      simulcast. However, these features should be considered experimental, since
-      implementation experience is limited.</p>
+      supports SVC codecs that can only utilize <a>SRST</a> transport (such as
+      VP8, VP9 and AV1) as well as implementations of codecs (such as H.264/SVC or HEVC)
+      that support <a>SRST</a> transport. Also, sending and receiving of simulcast
+      is supported. Codecs allowing <a>MRST</a> transport (such as H.264/SVC)
+      can also be supported.  However, <a>MRST</a> support and reception of simulcast
+      should be considered experimental features, since implementation experience is
+      limited.</p>
       <div class="note">
         At the time of publication, there were two ORTC implementations supporting
         simulcast reception. Since neither implementation supported [[!RFC6051]],
@@ -6207,6 +6207,7 @@ interface RTCRtpUnhandledEvent : Event {
              RTCRtpFecParameters fec;
              RTCRtpRtxParameters rtx;
              boolean             active = true;
+             DOMString           rid;
              DOMString           encodingId;
              sequence&lt;DOMString&gt; dependencyEncodingIds;
 };</pre>
@@ -6231,7 +6232,7 @@ interface RTCRtpUnhandledEvent : Event {
               collision without firing an <code><a>RTCSsrcConflictEvent</a></code>. If
               <code>ssrc</code> is set in the <var>parameters</var> argument to
               <code>send()</code> and an SSRC conflict is detected within the RTP
-              session, then an <code><a>RTCSsrcConflictEvent</a></code> is fired 
+              session, then an <code><a>RTCSsrcConflictEvent</a></code> is fired
               (see Section 5.4).</p>
             </dd>
             <dt><dfn data-idl><code>codecPayloadType</code></dfn> of type <span class=
@@ -6267,24 +6268,25 @@ interface RTCRtpUnhandledEvent : Event {
               in [[RFC3264]] Section 5.1, RTCP is still sent, regardless
               of the value of the <code>active</code> attribute.</p>
             </dd>
+            <dt><dfn data-idl><code>rid</code></dfn> of type <span class=
+            "idlMemberType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>If set, this RTP encoding will be sent or received with
+              <a>RID</a> header extension as defined by [[!RID]].</p>
+            </dd>
             <dt><dfn data-idl><code>encodingId</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>An identifier for the encoding object. This identifier should be unique
-              within the scope of the localized sequence of 
+              within the scope of the localized sequence of
               <code><a>RTCRtpCodingParameters</a></code> for any given
               <code><a>RTCRtpParameters</a></code> object. Values MUST be composed only
               of alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
-              of 16 characters. An <code><a>RTCRtpSender</a></code> places the value of
-              <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
-              and an <code><a>RTCRtpReceiver</a></code> determines the
-              <code>encodingId</code> that an RTP packet belongs to based on the value
-              of the <a>RID</a> header extension. For a codec (such as VP8) using
+              of 16 characters. For a codec (such as VP8, VP9 or AV1) using
               <a>SRST</a> transport which requires a compliant decoder to be able to
               decode anything that an encoder can send, it is not required that the
               <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
-              in order to enable a receiver to decode scalable video coding, and if
-              set, they are ignored by the receiver.</p>
+              in order to enable a receiver to decode scalable video coding.</p>
             </dd>
             <dt><dfn data-idl><code>dependencyEncodingIds</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
@@ -6471,6 +6473,11 @@ interface RTCRtpUnhandledEvent : Event {
             <td><code>boolean</code></td>
             <td>Receiver/Sender</td>
           </tr>
+          <tr id="def-rid*">
+            <td><dfn data-idl><code>rid</code></dfn></td>
+            <td><code>DOMString</code></td>
+            <td>Receiver/Sender</td>
+          </tr>
           <tr id="def-encodingid*">
             <td><dfn data-idl><code>encodingId</code></dfn></td>
             <td><code>DOMString</code></td>
@@ -6572,28 +6579,28 @@ var encodings = [{
           // Example of 3-layer spatial simulcast
 var encodings = [{
   // Simulcast layer at one quarter scale
-  encodingId: "0",
+  rid: "0",
   resolutionScale: 4.0
 }, {
   // Simulcast layer at one half scale
-  encodingId: "1",
+  rid: "1",
   resolutionScale: 2.0
 }, {
   // Simulcast layer at full scale
-  encodingId: "2",
+  rid: "2",
   resolutionScale: 1.0
 }];
 
 // Example of 3-layer spatial simulcast with all but the lowest resolution layer disabled
 var encodings = [{
-  encodingId: "0",
+  rid: "0",
   resolutionScale: 4.0
 }, {
-  encodingId: "1",
+  rid: "1",
   resolutionScale: 2.0,
   active: false
 }, {
-  encodingId: "2",
+  rid: "2",
   resolutionScale: 1.0,
   active: false
 }];
@@ -6601,22 +6608,26 @@ var encodings = [{
 // Example of 2-layer spatial simulcast combined with 2-layer temporal scalability
 var encodings = [{
   // Low resolution base layer (half the input framerate, half the input resolution)
+  rid: "lores",
   encodingId: "0",
   resolutionScale: 2.0,
   framerateScale: 2.0
 }, {
   // High resolution Base layer (half the input framerate, full input resolution)
+  rid: "hires",
   encodingId: "E0",
   resolutionScale: 1.0,
   framerateScale: 2.0
 }, {
   // Temporal enhancement to the low resolution base layer (full input framerate, half resolution)
+  rid: "lores",
   encodingId: "1",
   dependencyEncodingIds: ["0"],
   resolutionScale: 2.0,
   framerateScale: 1.0
 }, {
   // Temporal enhancement to the high resolution base layer (full input framerate and resolution)
+  rid: "hires",
   encodingId: "E1",
   dependencyEncodingIds: ["E0"],
   resolutionScale: 1.0,
@@ -7138,11 +7149,10 @@ var encodings = [
             the track corresponding to an RTP stream.</td>
           </tr>
           <tr id="def-rid*">
-            <td><dfn>RID</dfn></td>
+            <td>RID</td>
             <td>[[!RID]]</td>
             <td>None</td>
-            <td>This extension defines an identifier used to carry the
-            <code>encodingId</code>.</td>
+            <td>This extension defines an identifier used to carry the <code>rid</code>.</td>
           </tr>
         </tbody>
       </table>
@@ -10937,7 +10947,9 @@ RTCRtpReceiveParameters function myCapsToRecvParams(RTCRtpCapabilities recvCaps,
         and instead reference [[WEBRTC-QUIC]], as noted in:
         <a href="https://github.com/w3c/ortc/issues/853">Issue 853</a>
         </li>
-
+        <li>Address overloading of the <code><a>encodingId</a></code> attribute, as noted in:
+        <a href="https://github.com/w3c/ortc/issues/860">Issue 860</a>
+        </li>
       </ol>
     </section>
     <section id="since-22-September-2017*">
