@@ -3495,20 +3495,30 @@ interface RTCRtpSender : RTCStatsProvider {
                 <li>
                   <p>Check whether <var>id</var> is equal to
                   <code><var>withParameters</var>.headerExtensions[<var>j</var>].id</code>
+                  for each value of <var>j</var> from 0 to the number of header extensions.</p>
+                </li>
+                <li>
+                  <p>If matches are found and <var>j</var> != <var>i</var>, <a>reject</a>
+                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort
+                  all of these steps.</p>
+                </li>
+                <li>
+                  <p>Check whether <var>uri</var> is equal to
+                  <code><var>withParameters</var>.headerExtensions[<var>j</var>].uri</code>
                   for any value of <var>j</var> from 0 to the number of header extensions.</p>
                 </li>
                 <li>
-                  <p>If a match is found and <var>j</var> != <var>i</var>, <a>reject</a>
+                  <p>If matches are found and <var>j</var> != <var>i</var>, <a>reject</a>
                   <var>p</var> with a newly created <code>InvalidParameters</code> and abort
                   all of these steps.</p>
                 </li>
-                <li>
-                  <p>For <code>receive</code>, check whether a header extension with
-                  identifier <var>id</var> has been configured on any other <code><a>RTCRtpReceiver</a></code>
-                  sharing the <code><a>RTCDtlsTransport</a></code> <var>transport</var>. 
-                  If the <code>uri</code> configured for that header extension != <var>uri</var>, <a>reject</a>
-                  <var>p</var> with a newly created <code>InvalidParameters</code> and abort
-                  all of these steps.</p>
+                <li>For <code>receive</code>, check whether MID header extensions
+                  with different values of <code>id</code> have been configured on
+                  other <code><a>RTCRtpReceiver</a></code>s sharing the
+                  <code><a>RTCDtlsTransport</a></code> <var>transport</var>. 
+                  If conflicts are found, <a>reject</a> <var>p</var> with a
+                  newly created <code>InvalidParameters</code> and abort all of
+                  these steps.</p>
                 </li>
               </ol>
             </li>
@@ -3811,14 +3821,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
                   <code><var>withRtcpTransport</var>.state</code> is
                   <code>closed</code>, <a>throw</a> an <code>InvalidStateError</code>.</p>
                 </li>
-                <li> 
-                  <p>If <code>receive</code> has been called, for each header extension configured on
-                  <var>receiver</var>, check for conflicts with header extensions configured on
-                  other <code><a>RTCRtpReceiver</a></code>s sharing the <code><a>RTCDtlsTransport</a></code>
-                  <var>withTransport</var>. If a header extension with the same <code>id</code> is
-                  configured on another <code><a>RTCRtpReceiver</a></code> but the <code>uri</code>
-                  of that configured extension is not the same, <a>throw</a> an
-                  <code>InvalidParameters</code> and abort all of these steps.</p> 
+                <li>Check whether MID header extensions with different values of
+                  <code>id</code> have been configured on other
+                  <code><a>RTCRtpReceiver</a></code>s sharing the
+                  <code><a>RTCDtlsTransport</a></code> <var>withTransport</var>.
+                  If conflicts are found, <a>throw</a> an
+                  <code>InvalidParameters</code> and abort all of these steps.</p>
                 </li> 
                 <li>
                   <p>Set <code>transport</code> to <var>withTransport</var> and
