@@ -635,6 +635,25 @@ var respecConfig = {
       "status": "December 2014",
       "publisher": "3GPP"
     },
+    "WEBRTC-IDENTITY": {
+      "authors": [
+        "Adam Bergkvist",
+        "Daniel Burnett",
+        "Cullen Jennings",
+        "Anant Narayanan",
+        "Bernard Aboba",
+        "Taylor Brandstetter"
+     ],
+      "href": "https://w3c.github.io/webrtc-pc/identity.html",
+        "title": "Identity for WebRTC 1.0",
+        "status": "CR",
+        "publisher": "W3C",
+        "deliveredBy": [
+           "https://www.w3.org/2011/04/webrtc/"
+        ],
+        "rawDate": "2018-06-21",
+        "edDraft": "https://w3c.github.io/webrtc-pc/identity.html"
+    },
     "WEBRTC-QUIC": {
       "title": "QUIC API for WebRTC",
       "href": "https://w3c.github.io/webrtc-quic/",
