@@ -9434,91 +9434,15 @@ interface RTCIdentity {
      </section>
      <section>
         <h4 id="sec.create-identity-proxy">Instantiating an IdP Proxy</h4>
-        <p>In order to communicate with the IdP, the user agent loads the IdP
-        JavaScript from the IdP. The URI for the IdP script is a well-known URI
-        formed from the <q>domain</q> and <q>protocol</q> fields, as specified
-        in [[!RTCWEB-SECURITY-ARCH]].</p>
-        <p>The IdP MAY generate an HTTP redirect to another "https" origin, the
-        browser MUST treat a redirect to any other scheme as a fatal error.</p>
-        <p>The user agent instantiates an isolated interpreted context, a
-        JavaScript <dfn data-cite="!ECMASCRIPT-6.0#sec-code-realms">
-        realm</dfn> that operates in the origin of the loaded JavaScript.
-        Note that a redirect will change the origin of the loaded script.</p>
-        <p>The <a>realm</a> is populated with a global that implements both the
-        <dfn>RTCIdentityProviderGlobalScope</dfn> and
-        <code>WorkerGlobalScope</code> [[!WEBWORKERS]] interfaces.</p>
-        <p>The user agent provides an instance of
-        <code><a>RTCIdentityProviderRegistrar</a></code> named
-        <var>rtcIdentityProvider</var> in the global scope of the <a>realm</a>.
-        This object is used by the IdP to interact with the user agent.</p>
-        <div>
-          <pre class="idl">[Global, Exposed=RTCIdentityProviderGlobalScope]
-interface RTCIdentityProviderGlobalScope : WorkerGlobalScope {
-    readonly        attribute RTCIdentityProviderRegistrar rtcIdentityProvider;
-};</pre>
-          <section>
-            <h2>Attributes</h2>
-            <dl data-link-for="RTCIdentityProviderGlobalScope" data-dfn-for=
-            "RTCIdentityProviderGlobalScope" class="attributes">
-              <dt><dfn data-idl><code>rtcIdentityProvider</code></dfn> of type
-              <span class=
-              "idlAttrType"><a>RTCIdentityProviderRegistrar</a></span>,
-              readonly</dt>
-              <dd>This object is used by the IdP to register an
-              <code><a>RTCIdentityProvider</a></code> instance with the
-              browser.</dd>
-            </dl>
-          </section>
-        </div>
+        <p>Instantiating an IdP proxy is described in [[WEBRTC-IDENTITY]] Section 4.2.</p>  
         <section>
           <h2 id="sec.implement-idp">Implementing an IdP Securely</h2>
-          <p>An environment that mimics the identity provider realm can be
-          provided by any script. However, only scripts running in the origin
-          of the IdP are able to generate an identical environment. Other
-          origins can load and run the IdP proxy code, but they will be unable
-          to replicate data that is unique to the origin of the IdP.</p>
-          <p>This means that it is critical that an IdP use data that is
-          restricted to its own origin when generating identity assertions.
-          Otherwise, another origin could load the IdP script and use it to
-          impersonate users.</p>
-          <p>The data that the IdP script uses could be stored on the client
-          (for example, in [[INDEXEDDB]]) or loaded from
-          servers. Data that is acquired from a server SHOULD require
-          credentials and be protected from cross-origin access.</p>
-          <p>There is no risk to the integrity of identity assertions if an IdP
-          validates an identity assertion without using origin-private
-          data.</p>
+          <p>Aspects of IdP security are described in [[WEBRTC-IDENTITY]] Section 4.2.1.</p>
         </section>
       </section>
     <section>
       <h2 id="sec.register-idp">Registering an IdP Proxy</h2>
-      <p>An IdP proxy implements the <code><a>RTCIdentityProvider</a></code>
-      methods, which are the means by which the user agent is able to request
-      that an identity assertion be generated or validated.</p>
-      <p>Once instantiated, the IdP script is executed. The IdP MUST call the
-      <code>register()</code> function on the
-      <dfn>RTCIdentityProviderRegistrar</dfn> instance during script
-      execution. If an IdP is not registered during this script execution, the
-      user agent cannot use the IdP proxy and MUST fail any future attempt to
-      interact with the IdP.</p>
-      <div>
-        <pre class="idl">[Exposed=RTCIdentityProviderGlobalScope]
-interface RTCIdentityProviderRegistrar {
-    void register (RTCIdentityProvider idp);
-};</pre>
-        <section>
-          <h2>Methods</h2>
-          <dl data-link-for="RTCIdentityProviderRegistrar" data-dfn-for=
-          "RTCIdentityProviderRegistrar" class="methods">
-            <dt><dfn data-idl><code>register</code></dfn></dt>
-            <dd>
-              <p>This method is invoked by the IdP when its script is first
-              executed. This registers <code><a>RTCIdentityProvider</a></code>
-              methods with the user agent.</p>
-            </dd>
-          </dl>
-        </section>
-      </div>
+      <p>Registratoin of an IdP proxy is described in [[WEBRTC-IDENTITY]] Section 5.</p>
       <section>
         <h2>Interface Exposed by Identity Providers</h2>
         <p>The <code><a>RTCIdentityProvider</a></code> callback functions
