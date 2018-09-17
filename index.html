@@ -9657,15 +9657,14 @@ interface RTCIdentityProviderRegistrar {
           the assertion.</p>
         </li>
         <li>
-          <p>The <code>RTCIdentity</code> decodes the <code><a data-link-for=
-          "RTCIdentityValidationResult">contents</a></code> and validates that
-          it contains a fingerprint value for the remote certificate.
+          <p>The <code>RTCIdentity</code> decodes the <code>contents</code>
+          attribute of <code><a>RTCIdentityValidationResult</a></code>
+          and validates that it contains a fingerprint value for the remote certificate.
           This ensures that the certificate used by the remote peer for
           communications is covered by the identity assertion.</p>
           <p class="note">A <a>user agent</a> is required to fail to
           communicate with peers that offer a certificate that doesn't match.</p>
-          <p class="note">The user agent decodes <a data-link-for=
-          "RTCIdentityValidationResult"><code>contents</code></a> using
+          <p class="note">The user agent decodes <code>contents</code> using
           the format described in [[!RTCWEB-SECURITY-ARCH]]. However the IdP
           MUST treat <code>contents</code> as opaque and return the same string
           to allow for future extensions.</p>
