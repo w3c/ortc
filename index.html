@@ -174,7 +174,9 @@
       Section 5.</p>
       <p>The <dfn>RTCIdentityProviderOptions</dfn> dictionary and the
       <dfn>RTCIdentityAssertion</dfn> interface are defined in
-      [[WEBRTC-IDENTITY]] Section 9.</p>
+      [[WEBRTC-IDENTITY]] Section 9. The <dfn>RTCIdentityAssertionResult</dfn>,
+      <dfn>RTCIdentityProviderDetails</dfn> and <dfn>RTCIdentityValidationResult</dfn>
+      dictionaries are defined in [[WEBRTC-IDENTITY]] Section 5.2.</p>
     </section>
     <section>
       <h3>Scope</h3>
@@ -9617,93 +9619,6 @@ interface RTCIdentityProviderRegistrar {
               <code>RTCIdentity</code> that triggered this
               request. An IdP can use this information as input to policy
               decisions about use.</dd>
-            </dl>
-          </section>
-        </div>
-      </section>
-      <section>
-        <h2>Identity Assertion and Validation Results</h2>
-        <div>
-          <pre class="idl">dictionary RTCIdentityAssertionResult {
-    required RTCIdentityProviderDetails idp;
-    required DOMString                  assertion;
-};</pre>
-          <section>
-            <h2>Dictionary <dfn>RTCIdentityAssertionResult</dfn>
-            Members</h2>
-            <dl data-link-for="RTCIdentityAssertionResult" data-dfn-for=
-            "RTCIdentityAssertionResult" class="dictionary-members">
-              <dt><dfn data-idl><code>idp</code></dfn> of type <span class=
-              "idlMemberType"><a>RTCIdentityProviderDetails</a></span>,
-              required</dt>
-              <dd>
-                <p>An IdP provides these details to identify the IdP that
-                validates the identity assertion. This struct contains the same
-                information that is provided to
-                <code><a>setIdentityProvider</a></code>.</p>
-              </dd>
-              <dt><dfn data-idl><code>assertion</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span>, required</dt>
-              <dd>
-                <p>An identity assertion. This is an opaque string that MUST
-                contain all information necessary to assert identity. This
-                value is consumed by the validating IdP.</p>
-              </dd>
-            </dl>
-          </section>
-        </div>
-        <div>
-          <pre class="idl">dictionary RTCIdentityProviderDetails {
-    required DOMString domain;
-             DOMString protocol = "default";
-};</pre>
-          <section>
-            <h2>Dictionary <dfn>RTCIdentityProviderDetails</dfn>
-            Members</h2>
-            <dl data-link-for="RTCIdentityProviderDetails" data-dfn-for=
-            "RTCIdentityProviderDetails" class="dictionary-members">
-              <dt><dfn data-idl><code>domain</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span>, required</dt>
-              <dd>
-                <p>The domain name of the IdP that validated the associated
-                identity assertion.</p>
-              </dd>
-              <dt><dfn data-idl><code>protocol</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span>, defaulting to
-              <code>"default"</code></dt>
-              <dd>
-                <p>The protocol parameter used for the IdP. The string
-                MUST NOT include the character <code>'/'</code> or
-                <code>'\'</code>.</p>
-              </dd>
-            </dl>
-          </section>
-        </div>
-        <div>
-          <pre class="idl">dictionary RTCIdentityValidationResult {
-    required DOMString identity;
-    required DOMString contents;
-};</pre>
-          <section>
-            <h2>Dictionary <dfn>RTCIdentityValidationResult</dfn>
-            Members</h2>
-            <dl data-link-for="RTCIdentityValidationResult" data-dfn-for=
-            "RTCIdentityValidationResult" class="dictionary-members">
-              <dt><dfn data-idl><code>identity</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span>, required</dt>
-              <dd>
-                <p>The validated identity of the peer.</p>
-              </dd>
-              <dt><dfn data-idl><code>contents</code></dfn> of type <span class=
-              "idlMemberType"><a>DOMString</a></span>, required</dt>
-              <dd>
-                <p>The payload of the identity assertion. An IdP that validates
-                an identity assertion MUST return the same string that was
-                provided to the original IdP that generated the assertion.</p>
-                <p>The user agent uses the <var>contents</var> string to
-                determine if the identity assertion matches the session
-                description.</p>
-              </dd>
             </dl>
           </section>
         </div>
