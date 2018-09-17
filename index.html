@@ -2318,17 +2318,18 @@ interface RTCDtlsTransport : RTCStatsProvider  {
             and abort these steps.</p></li>
             <li><p>Let <var>dtlstransport</var> be a newly constructed
             <code><a>RTCDtlsTransport</a></code> object.</p></li>
-            <li><p>Let <var>dtlstransport</var> have a <dfn>[[\DtlsTransportState]]</dfn> internal slot,
-            initialized to <code>new</code>.</p></li>
+            <li><p>Let <var>dtlstransport</var> have a <dfn>[[\DtlsTransportState]]</dfn>
+            internal slot, initialized to <code>new</code>.</p></li>
             <li><p>Let <var>dltsTransport</var> have <dfn>[[\SendHeaderExtensions]]</dfn>
             and <dfn>[[\ReceiveHeaderExtensions]]</dfn> internal slots initialized to
             <code>null</code>.</p></li>
-            <li><p>Let <var>dtlstransport</var> have a <dfn>[[\Certificates]]</dfn> internal slot.</p></li>
-            <li><p>If <var>certificates</var> is non-null and is non-empty,
-            initialize the <a>[[\Certificates]]</a> internal slot to <var>certificates</var>.</p></li>
+            <li><p>Let <var>dtlstransport</var> have a <dfn>[[\Certificates]]</dfn>
+              internal slot.</p></li>
+            <li><p>If <var>certificates</var> is non-null and is non-empty, initialize
+            the <a>[[\Certificates]]</a> internal slot to <var>certificates</var>.</p></li>
             <li><p>If <var>certificates</var> is <code>null</code> or is empty,
-            generate a certificate using the default ciphersuite and store this in the
-            the <a>[[\Certificates]]</a> internal slot.</p></li>  
+            generate a certificate using the default key generation algorithm and
+            store it in the <a>[[\Certificates]]</a> internal slot.</p></li>
             <li>Return <var>dtlstransport</var>.</li>
          </ol>  
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
