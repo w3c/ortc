@@ -9221,6 +9221,256 @@ function processStats(currentReport) {
       <p>An <code><a>RTCIdentity</a></code> instance is constructed from an
       <code><a>RTCDtlsTransport</a></code> object.</p>
     </section>
+        <section>
+      <h3><dfn>RTCIdentity</dfn> Interface</h3>
+      <p>The Identity API is described below.</p>
+      <div>
+        <pre class="idl">
+[ Constructor (RTCDtlsTransport transport)]
+interface RTCIdentity {
+    void               setIdentityProvider (DOMString provider, optional RTCIdentityProviderOptions options);
+    Promise&lt;DOMString&gt; getIdentityAssertion ();
+    readonly        attribute Promise&lt;RTCIdentityAssertion&gt; peerIdentity;
+    readonly        attribute RTCDtlsTransport              transport;
+    readonly        attribute DOMString?                    idpLoginUrl;
+    readonly        attribute DOMString?                    idpErrorInfo;
+};</pre>
+        <section>
+          <h2>Constructors</h2>
+          <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class=
+          "constructors">
+            <dt><code><a>RTCIdentity</a></code></dt>
+            <dd>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">transport</td>
+                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Attributes</h2>
+          <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes">
+            <dt><dfn data-idl><code>peerIdentity</code></dfn> of type <span class=
+            "idlAttrType">Promise&lt;<a>RTCIdentityAssertion</a>&gt;</span>,
+            readonly</dt>
+            <dd>
+              <p>A promise that <a>resolves</a> with the identity of the peer if the
+              identity is successfully validated.</p>
+              <p>This promise is <a>rejected</a> if an identity assertion is present
+              in a remote session description and validation of that assertion
+              fails for any reason. If the promise is <a>rejected</a>, a new
+              unresolved value is created, unless a <a>target peer identity</a>
+              has been established. If this promise successfully <a>resolves</a>, the
+              value will not change.</p>
+            </dd>
+            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
+            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
+            <dd>
+              <p>The <code><a>RTCDtlsTransport</a></code> to be authenticated.</p>
+            </dd>
+            <dt><dfn data-idl><code>idpLoginUrl</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable</dt>
+            <dd>
+              <p>The URL that an application can navigate to so that the user
+              can login to the IdP, as described in <a href=
+              "#sec.idp-loginneeded"></a>.</p>
+            </dd>
+            <dt><dfn data-idl><code>idpErrorInfo</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span>, readonly, nullable</dt>
+            <dd>
+              <p>An attribute that the IdP can use to pass additional
+              information back to the applications about the
+              error. The format of this string is defined by the IdP
+              and may be JSON.</p>
+            </dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Methods</h2>
+          <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="methods">
+            <dt><code>setIdentityProvider</code></dt>
+            <dd>
+              <p>Sets the identity provider to be used for a given
+              <code>RTCIdentity</code> object. Applications need not make
+              this call; if the browser is already configured for an IdP, then
+              that configured IdP might be used to get an assertion.</p>
+              <p>When the <dfn data-idl><code>setIdentityProvider</code></dfn> method is
+              invoked, the user agent MUST run the following steps:</p>
+              <ol>
+                <li>
+                  <p>If the <code><a>RTCIdentity</a></code> object's
+                  <code><var>transport</var>.state</code> attribute
+                  is <code>closed</code>, <a>throw</a> an
+                  <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p>If <var>options.protocol</var> includes the the character
+                  <code>'/'</code> or <code>'\'</code>, throw a
+                  <code>SyntaxError</code>.</p>
+                </li>
+                <li>
+                  <p>Set the current identity provider values to the tuple
+                  (<code>provider</code>, <code>options</code>).</p>
+                </li>
+                <li>
+                  <p>If any identity provider value has changed, discard any
+                  stored identity assertion.</p>
+                </li>
+              </ol>
+              <p>Identity provider information is not used until an identity
+              assertion is required in response to a call to
+              <code>getIdentityAssertion</code>.</p>
+              <table class="parameters">
+                <tbody>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Nullable</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                  <tr>
+                    <td class="prmName">provider</td>
+                    <td class="prmType"><code>DOMString</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                  <tr>
+                    <td class="prmName">options</td>
+                    <td class="prmType"><code>RTCIdentityProviderOptions</code></td>
+                    <td class="prmNullFalse"><span role="img" aria-label=
+                    "False">&#10008;</span></td>
+                    <td class="prmOptTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
+                    <td class="prmDesc"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <em>Return type:</em> <code>void</code>
+              </div>
+            </dd>
+            <dt><dfn data-idl><code>getIdentityAssertion</code></dfn></dt>
+            <dd>
+              <p>Initiates the process of obtaining an identity assertion.
+              Applications need not make this call. It is merely intended to
+              allow them to start the process of obtaining identity assertions
+              before a call is initiated. If an identity is needed, either
+              because the browser has been configured with a default identity
+              provider or because the <code><a>setIdentityProvider</a></code> method
+              was called, then an identity will be automatically requested when
+              an offer or answer is created.</p>
+              <p>When <code>getIdentityAssertion</code> is invoked, queue a
+              task to run the following steps:</p>
+              <ol>
+                <li>
+                  <p>If the <code>RTCIdentity</code> object's
+                  <code><var>transport</var>.state</code> attribute
+                  is <code>closed</code>, <a>throw</a> an
+                  <code>InvalidStateError</code>.</p>
+                </li>
+                <li>
+                  <p><a href="#sec.identity-proxy-assertion-request">Request an
+                  identity assertion</a> from the IdP.</p>
+                </li>
+                <li>
+                  <p><a>Resolve</a> the promise with the base64 and JSON encoded
+                  assertion.</p>
+                </li>
+              </ol>             
+              <div>
+                <em>No parameters.</em>
+              </div>
+              <div>
+                <em>Return type:</em> <code>Promise&lt;DOMString&gt;</code>
+             </div>          
+            </dd>
+          </dl>
+        </section>
+      </div>
+      <div>
+        <pre class="idl">dictionary RTCIdentityProviderOptions {
+    DOMString protocol = "default";
+    DOMString usernameHint;
+    DOMString peerIdentity;
+};
+        </pre>
+        <section>
+          <h2><dfn>RTCIdentityProviderOptions</dfn> Members</h2>
+          <dl data-link-for="RTCIdentityProviderOptions" data-dfn-for=
+          "RTCIdentityProviderOptions" class="attributes">
+            <dt><dfn data-idl><code>protocol</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>The name of the protocol that is used by the identity
+              provider. This MUST NOT include '/' (U+002F) or '\' (U+005C)
+              characters. This value defaults to "default" if not provided.</p>
+            </dd>
+            <dt><dfn data-idl><code>usernameHint</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>A hint to the identity provider about the identity of the
+              principal for which it should generate an identity assertion. If
+              absent, the value <code>undefined</code> is used.</p>
+            </dd>
+            <dt><dfn data-idl><code>peerIdentity</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>The identity of the peer. For identity providers that bind
+              their assertions to a particular pair of communication peers,
+              this allows them to generate an assertion that includes both
+              local and remote identities.</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+      <div>
+        <pre class="idl">[Constructor(DOMString idp, DOMString name), Exposed=Window]
+interface RTCIdentityAssertion {
+    attribute DOMString idp;
+    attribute DOMString name;
+};</pre>
+        <section>
+          <h2><dfn>RTCIdentityAssertion</dfn> Attributes</h2>
+          <dl data-link-for="RTCIdentityAssertion" data-dfn-for=
+          "RTCIdentityAssertion" class="attributes">
+            <dt><dfn data-idl><code>idp</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>The domain name of the identity provider that validated this
+              identity.</p>
+            </dd>
+            <dt><dfn data-idl><code>name</code></dfn> of type <span class=
+            "idlAttrType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>An RFC5322-conformant [[RFC5322]] representation of the
+              verified peer identity. This identity will have been verified via
+              the procedures described in [[!RTCWEB-SECURITY-ARCH]].</p>
+            </dd>
+          </dl>
+        </section>
+      </div>
+    </section>
     <section>
         <h4 id="sec.identity-proxy-communications">Identity Provider
         Selection</h4>
@@ -9579,8 +9829,8 @@ interface RTCIdentityProviderRegistrar {
       data-lt="create">created</a> <code>OperationError</code>.</p>
       <section>
         <h4 id="sec.idp-loginneeded">User Login Procedure</h4>
-        <p>User login proceeds as described in [[WEBRTC10]] Section 9.3.1.
-        IdP errors are handled as described in [[WEBRTC10]] Section 9.5.</p>
+        <p>User login proceeds as described in [[WEBRTC-IDENTITY]] Section 6.1.
+        IdP errors are handled as described in [[WEBRTC-IDENTITY]] Section 8.</p>
       </section>
     </section>
     <section>
@@ -9694,256 +9944,6 @@ interface RTCIdentityProviderRegistrar {
       unresolved promise instance. This permits the use of renegotiation (or a
       subsequent answer, if the session description was a provisional answer)
       to resolve or reject the identity.</p>
-    </section>
-    <section>
-      <h3><dfn>RTCIdentity</dfn> Interface</h3>
-      <p>The Identity API is described below.</p>
-      <div>
-        <pre class="idl">
-[ Constructor (RTCDtlsTransport transport)]
-interface RTCIdentity {
-    void               setIdentityProvider (DOMString provider, optional RTCIdentityProviderOptions options);
-    Promise&lt;DOMString&gt; getIdentityAssertion ();
-    readonly        attribute Promise&lt;RTCIdentityAssertion&gt; peerIdentity;
-    readonly        attribute RTCDtlsTransport              transport;
-    readonly        attribute DOMString?                    idpLoginUrl;
-    readonly        attribute DOMString?                    idpErrorInfo;
-};</pre>
-        <section>
-          <h2>Constructors</h2>
-          <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class=
-          "constructors">
-            <dt><code><a>RTCIdentity</a></code></dt>
-            <dd>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">transport</td>
-                    <td class="prmType"><code><a>RTCDtlsTransport</a></code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </dd>
-          </dl>
-        </section>
-        <section>
-          <h2>Attributes</h2>
-          <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="attributes">
-            <dt><dfn data-idl><code>peerIdentity</code></dfn> of type <span class=
-            "idlAttrType">Promise&lt;<a>RTCIdentityAssertion</a>&gt;</span>,
-            readonly</dt>
-            <dd>
-              <p>A promise that <a>resolves</a> with the identity of the peer if the
-              identity is successfully validated.</p>
-              <p>This promise is <a>rejected</a> if an identity assertion is present
-              in a remote session description and validation of that assertion
-              fails for any reason. If the promise is <a>rejected</a>, a new
-              unresolved value is created, unless a <a>target peer identity</a>
-              has been established. If this promise successfully <a>resolves</a>, the
-              value will not change.</p>
-            </dd>
-            <dt><dfn data-idl><code>transport</code></dfn> of type <span class=
-            "idlAttrType"><a>RTCDtlsTransport</a></span>, readonly</dt>
-            <dd>
-              <p>The <code><a>RTCDtlsTransport</a></code> to be authenticated.</p>
-            </dd>
-            <dt><dfn data-idl><code>idpLoginUrl</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly, nullable</dt>
-            <dd>
-              <p>The URL that an application can navigate to so that the user
-              can login to the IdP, as described in <a href=
-              "#sec.idp-loginneeded"></a>.</p>
-            </dd>
-            <dt><dfn data-idl><code>idpErrorInfo</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span>, readonly, nullable</dt>
-            <dd>
-              <p>An attribute that the IdP can use to pass additional
-              information back to the applications about the
-              error. The format of this string is defined by the IdP
-              and may be JSON.</p>
-            </dd>
-          </dl>
-        </section>
-        <section>
-          <h2>Methods</h2>
-          <dl data-link-for="RTCIdentity" data-dfn-for="RTCIdentity" class="methods">
-            <dt><code>setIdentityProvider</code></dt>
-            <dd>
-              <p>Sets the identity provider to be used for a given
-              <code>RTCIdentity</code> object. Applications need not make
-              this call; if the browser is already configured for an IdP, then
-              that configured IdP might be used to get an assertion.</p>
-              <p>When the <dfn data-idl><code>setIdentityProvider</code></dfn> method is
-              invoked, the user agent MUST run the following steps:</p>
-              <ol>
-                <li>
-                  <p>If the <code><a>RTCIdentity</a></code> object's
-                  <code><var>transport</var>.state</code> attribute
-                  is <code>closed</code>, <a>throw</a> an
-                  <code>InvalidStateError</code>.</p>
-                </li>
-                <li>
-                  <p>If <var>options.protocol</var> includes the the character
-                  <code>'/'</code> or <code>'\'</code>, throw a
-                  <code>SyntaxError</code>.</p>
-                </li>
-                <li>
-                  <p>Set the current identity provider values to the tuple
-                  (<code>provider</code>, <code>options</code>).</p>
-                </li>
-                <li>
-                  <p>If any identity provider value has changed, discard any
-                  stored identity assertion.</p>
-                </li>
-              </ol>
-              <p>Identity provider information is not used until an identity
-              assertion is required in response to a call to
-              <code>getIdentityAssertion</code>.</p>
-              <table class="parameters">
-                <tbody>
-                  <tr>
-                    <th>Parameter</th>
-                    <th>Type</th>
-                    <th>Nullable</th>
-                    <th>Optional</th>
-                    <th>Description</th>
-                  </tr>
-                  <tr>
-                    <td class="prmName">provider</td>
-                    <td class="prmType"><code>DOMString</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                  <tr>
-                    <td class="prmName">options</td>
-                    <td class="prmType"><code>RTCIdentityProviderOptions</code></td>
-                    <td class="prmNullFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
-                    <td class="prmOptTrue"><span role="img" aria-label=
-                    "True">&#10004;</span></td>
-                    <td class="prmDesc"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <div>
-                <em>Return type:</em> <code>void</code>
-              </div>
-            </dd>
-            <dt><dfn data-idl><code>getIdentityAssertion</code></dfn></dt>
-            <dd>
-              <p>Initiates the process of obtaining an identity assertion.
-              Applications need not make this call. It is merely intended to
-              allow them to start the process of obtaining identity assertions
-              before a call is initiated. If an identity is needed, either
-              because the browser has been configured with a default identity
-              provider or because the <code><a>setIdentityProvider</a></code> method
-              was called, then an identity will be automatically requested when
-              an offer or answer is created.</p>
-              <p>When <code>getIdentityAssertion</code> is invoked, queue a
-              task to run the following steps:</p>
-              <ol>
-                <li>
-                  <p>If the <code>RTCIdentity</code> object's
-                  <code><var>transport</var>.state</code> attribute
-                  is <code>closed</code>, <a>throw</a> an
-                  <code>InvalidStateError</code>.</p>
-                </li>
-                <li>
-                  <p><a href="#sec.identity-proxy-assertion-request">Request an
-                  identity assertion</a> from the IdP.</p>
-                </li>
-                <li>
-                  <p><a>Resolve</a> the promise with the base64 and JSON encoded
-                  assertion.</p>
-                </li>
-              </ol>             
-              <div>
-                <em>No parameters.</em>
-              </div>
-              <div>
-                <em>Return type:</em> <code>Promise&lt;DOMString&gt;</code>
-             </div>          
-            </dd>
-          </dl>
-        </section>
-      </div>
-      <div>
-        <pre class="idl">dictionary RTCIdentityProviderOptions {
-    DOMString protocol = "default";
-    DOMString usernameHint;
-    DOMString peerIdentity;
-};
-        </pre>
-        <section>
-          <h2><dfn>RTCIdentityProviderOptions</dfn> Members</h2>
-          <dl data-link-for="RTCIdentityProviderOptions" data-dfn-for=
-          "RTCIdentityProviderOptions" class="attributes">
-            <dt><dfn data-idl><code>protocol</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span></dt>
-            <dd>
-              <p>The name of the protocol that is used by the identity
-              provider. This MUST NOT include '/' (U+002F) or '\' (U+005C)
-              characters. This value defaults to "default" if not provided.</p>
-            </dd>
-            <dt><dfn data-idl><code>usernameHint</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span></dt>
-            <dd>
-              <p>A hint to the identity provider about the identity of the
-              principal for which it should generate an identity assertion. If
-              absent, the value <code>undefined</code> is used.</p>
-            </dd>
-            <dt><dfn data-idl><code>peerIdentity</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span></dt>
-            <dd>
-              <p>The identity of the peer. For identity providers that bind
-              their assertions to a particular pair of communication peers,
-              this allows them to generate an assertion that includes both
-              local and remote identities.</p>
-            </dd>
-          </dl>
-        </section>
-      </div>
-      <div>
-        <pre class="idl">[Constructor(DOMString idp, DOMString name), Exposed=Window]
-interface RTCIdentityAssertion {
-    attribute DOMString idp;
-    attribute DOMString name;
-};</pre>
-        <section>
-          <h2><dfn>RTCIdentityAssertion</dfn> Attributes</h2>
-          <dl data-link-for="RTCIdentityAssertion" data-dfn-for=
-          "RTCIdentityAssertion" class="attributes">
-            <dt><dfn data-idl><code>idp</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span></dt>
-            <dd>
-              <p>The domain name of the identity provider that validated this
-              identity.</p>
-            </dd>
-            <dt><dfn data-idl><code>name</code></dfn> of type <span class=
-            "idlAttrType"><a>DOMString</a></span></dt>
-            <dd>
-              <p>An RFC5322-conformant [[RFC5322]] representation of the
-              verified peer identity. This identity will have been verified via
-              the procedures described in [[!RTCWEB-SECURITY-ARCH]].</p>
-            </dd>
-          </dl>
-        </section>
-      </div>
     </section>
     <section class="informative">
       <h3>Example</h3>
