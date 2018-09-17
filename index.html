@@ -6574,54 +6574,57 @@ var encodings = [{
           <pre class="example highlight">
           // Example of 3-layer spatial simulcast
 var encodings = [{
-  // Simulcast layer at one quarter scale
-  encodingId: "0",
-  resolutionScale: 4.0
-}, {
+  // Simulcast layer at full scale
+  encodingId: "f",
+  resolutionScale: 1.0
+}, {  
   // Simulcast layer at one half scale
-  encodingId: "1",
+  encodingId: "h",
   resolutionScale: 2.0
 }, {
-  // Simulcast layer at full scale
-  encodingId: "2",
-  resolutionScale: 1.0
+  // Simulcast layer at one quarter scale
+  encodingId: "q",
+  resolutionScale: 4.0
 }];
 
 // Example of 3-layer spatial simulcast with all but the lowest resolution layer disabled
 var encodings = [{
-  encodingId: "0",
-  resolutionScale: 4.0
-}, {
-  encodingId: "1",
+  // Simulcast layer at full scale (inactive)
+  encodingId: "f",
+  resolutionScale: 1.0,
+  active: false
+}, {  
+  // Simulcast layer at one half scale (inactive)
+  encodingId: "h",
   resolutionScale: 2.0,
   active: false
 }, {
-  encodingId: "2",
-  resolutionScale: 1.0,
-  active: false
+  // Simulcast layer at one quarter scale (active)
+  encodingId: "q",
+  resolutionScale: 4.0
 }];
 
 // Example of 2-layer spatial simulcast combined with 2-layer temporal scalability
 var encodings = [{
   // Low resolution base layer (half the input framerate, half the input resolution)
-  encodingId: "0",
+  encodingId: "H0",
   resolutionScale: 2.0,
   framerateScale: 2.0
 }, {
   // High resolution Base layer (half the input framerate, full input resolution)
-  encodingId: "E0",
+  encodingId: "F0",
   resolutionScale: 1.0,
   framerateScale: 2.0
 }, {
   // Temporal enhancement to the low resolution base layer (full input framerate, half resolution)
-  encodingId: "1",
-  dependencyEncodingIds: ["0"],
+  encodingId: "H1",
+  dependencyEncodingIds: ["H0"],
   resolutionScale: 2.0,
   framerateScale: 1.0
 }, {
   // Temporal enhancement to the high resolution base layer (full input framerate and resolution)
-  encodingId: "E1",
-  dependencyEncodingIds: ["E0"],
+  encodingId: "F1",
+  dependencyEncodingIds: ["F0"],
   resolutionScale: 1.0,
   framerateScale: 1.0
 }];
@@ -6647,32 +6650,32 @@ var encodings = [{
           // Example of 3-layer spatial scalability encoding
 var encodings = [{
   // Base layer with one quarter input resolution
-  encodingId: "0",
+  encodingId: "q",
   resolutionScale: 4.0
 }, {
   // Spatial enhancement layer yielding half resolution when combined with the base layer
-  encodingId: "1",
-  dependencyEncodingIds: ["0"],
+  encodingId: "h",
+  dependencyEncodingIds: ["q"],
   resolutionScale: 2.0
 }, {
   // Additional spatial enhancement layer yielding full resolution when combined with all layers
-  encodingId: "2",
-  dependencyEncodingIds: ["0", "1"],
+  encodingId: "f",
+  dependencyEncodingIds: ["q", "h"],
   resolutionScale: 1.0
 }]
 
 // Example of 3-layer spatial scalability with all but the base layer disabled
 var encodings = [{
-  encodingId: "0",
+  encodingId: "q",
   resolutionScale: 4.0
 }, {
-  encodingId: "1",
-  dependencyEncodingIds: ["0"],
+  encodingId: "h",
+  dependencyEncodingIds: ["q"],
   resolutionScale: 2.0,
   active: false
 }, {
-  encodingId: "2",
-  dependencyEncodingIds: ["0", "1"],
+  encodingId: "f",
+  dependencyEncodingIds: ["q", "h"],
   resolutionScale: 1.0,
   active: false
 }];
@@ -6680,25 +6683,25 @@ var encodings = [{
 // Example of 2-layer spatial scalability combined with 2-layer temporal scalability
 var encodings = [{
   // Base layer (half input framerate, half resolution)
-  encodingId: "0",
+  encodingId: "H0",
   resolutionScale: 2.0,
   framerateScale: 2.0
 }, {
   // Temporal enhancement to the base layer (full input framerate, half resolution)
-  encodingId: "1",
-  dependencyEncodingIds: ["0"],
+  encodingId: "H1",
+  dependencyEncodingIds: ["H0"],
   resolutionScale: 2.0,
   framerateScale: 1.0
 }, {
   // Spatial enhancement to the base layer (half input framerate, full resolution)
-  encodingId: "E0",
-  dependencyEncodingIds: ["0"],
+  encodingId: "F0",
+  dependencyEncodingIds: ["H0"],
   resolutionScale: 1.0,
   framerateScale: 2.0
 }, {
   // Temporal enhancement to the spatial enhancement layer (full input framerate, full resolution)
-  encodingId: "E1",
-  dependencyEncodingIds: ["E0", "1"],
+  encodingId: "F1",
+  dependencyEncodingIds: ["F0", "H1"],
   resolutionScale: 1.0,
   framerateScale: 1.0
 }];
