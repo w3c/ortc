@@ -6218,6 +6218,7 @@ interface RTCRtpUnhandledEvent : Event {
              RTCRtpFecParameters fec;
              RTCRtpRtxParameters rtx;
              boolean             active = true;
+             DOMString           rid;
              DOMString           encodingId;
              sequence&lt;DOMString&gt; dependencyEncodingIds;
 };</pre>
@@ -6278,6 +6279,12 @@ interface RTCRtpUnhandledEvent : Event {
               in [[RFC3264]] Section 5.1, RTCP is still sent, regardless
               of the value of the <code>active</code> attribute.</p>
             </dd>
+            <dt><dfn data-idl><code>rid</code></dfn> of type <span class=
+            "idlMemberType"><a>DOMString</a></span></dt>
+            <dd>
+              <p>If set, this RTP encoding will be sent or received with
+              <a>RID</a> header extension as defined by [[!RID]].</p>
+            </dd>
             <dt><dfn data-idl><code>encodingId</code></dfn> of type <span class=
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
@@ -6286,11 +6293,7 @@ interface RTCRtpUnhandledEvent : Event {
               <code><a>RTCRtpCodingParameters</a></code> for any given
               <code><a>RTCRtpParameters</a></code> object. Values MUST be composed only
               of alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
-              of 16 characters. An <code><a>RTCRtpSender</a></code> places the value of
-              <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
-              and an <code><a>RTCRtpReceiver</a></code> determines the
-              <code>encodingId</code> that an RTP packet belongs to based on the value
-              of the <a>RID</a> header extension. For a codec (such as VP8 or VP9) using
+              of 16 characters. For a codec (such as VP8 or VP9) using
               <a>SRST</a> transport which requires a compliant decoder to be able to
               to decode anything that an encoder can send, it is not required that the
               <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
@@ -6479,6 +6482,11 @@ interface RTCRtpUnhandledEvent : Event {
           <tr id="def-active*">
             <td><dfn data-idl><code>active</code></dfn></td>
             <td><code>boolean</code></td>
+            <td>Receiver/Sender</td>
+          </tr>
+          <tr id="def-rid*">
+            <td><dfn data-idl><code>rid</code></dfn></td>
+            <td><code>DOMString</code></td>
             <td>Receiver/Sender</td>
           </tr>
           <tr id="def-encodingid*">
@@ -7070,11 +7078,10 @@ var encodings = [
             the track corresponding to an RTP stream.</td>
           </tr>
           <tr id="def-rid*">
-            <td><dfn>RID</dfn></td>
+            <td>RID</td>
             <td>[[!RID]]</td>
             <td>None</td>
-            <td>This extension defines an identifier used to carry the
-            <code>encodingId</code>.</td>
+            <td>This extension defines an identifier used to carry the <code>rid</code>.</td>
           </tr>
         </tbody>
       </table>
