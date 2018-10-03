@@ -194,13 +194,13 @@
       (<dfn>MRST</dfn>), also defined in [[RFC7656]] Section 3.7, refers to an
       implementation that transmits all layers within a single transport, using
       multiple RTP streams with a distinct SSRC for each layer. This specification
-      supports SVC codecs that can only utilize <a>SRST</a> transport (such as VP8
-      and VP9) as well as implementations of codecs (such as H.264/SVC or HEVC)
-      that support <a>SRST</a> transport. Also, sending of simulcast
-      is supported. SVC codecs supporting <a>MRST</a> transport
-      (such as H.264/SVC and HEVC) can also be supported, along with reception of
-      simulcast. However, these features should be considered experimental, since
-      implementation experience is limited.</p>
+      supports SVC codecs that can only utilize <a>SRST</a> transport (such as VP8,
+      VP9 and AV1) as well as implementations of codecs (such as H.264/SVC or HEVC)
+      that support <a>SRST</a> transport. Also, sending of simulcast is supported.
+      Implementations supporting <a>MRST</a> transport (such as H.264/SVC)
+      can also be supported, along with reception of simulcast. However, these
+      features should be considered experimental, since implementation
+      experience is limited.</p>
       <div class="note">
         At the time of publication, there were two ORTC implementations supporting
         simulcast reception. Since neither implementation supported [[!RFC6051]],
@@ -6242,7 +6242,7 @@ interface RTCRtpUnhandledEvent : Event {
               collision without firing an <code><a>RTCSsrcConflictEvent</a></code>. If
               <code>ssrc</code> is set in the <var>parameters</var> argument to
               <code>send()</code> and an SSRC conflict is detected within the RTP
-              session, then an <code><a>RTCSsrcConflictEvent</a></code> is fired 
+              session, then an <code><a>RTCSsrcConflictEvent</a></code> is fired
               (see Section 5.4).</p>
             </dd>
             <dt><dfn data-idl><code>codecPayloadType</code></dfn> of type <span class=
@@ -6282,7 +6282,7 @@ interface RTCRtpUnhandledEvent : Event {
             "idlMemberType"><a>DOMString</a></span></dt>
             <dd>
               <p>An identifier for the encoding object. This identifier should be unique
-              within the scope of the localized sequence of 
+              within the scope of the localized sequence of
               <code><a>RTCRtpCodingParameters</a></code> for any given
               <code><a>RTCRtpParameters</a></code> object. Values MUST be composed only
               of alphanumeric characters (a-z, A-Z, 0-9) up to a maximum
@@ -6290,12 +6290,11 @@ interface RTCRtpUnhandledEvent : Event {
               <code>encodingId</code> into the <a>RID</a> header extension [[!RID]],
               and an <code><a>RTCRtpReceiver</a></code> determines the
               <code>encodingId</code> that an RTP packet belongs to based on the value
-              of the <a>RID</a> header extension. For a codec (such as VP8) using
+              of the <a>RID</a> header extension. For a codec (such as VP8 or VP9) using
               <a>SRST</a> transport which requires a compliant decoder to be able to
-              decode anything that an encoder can send, it is not required that the
+              to decode anything that an encoder can send, it is not required that the
               <code>encodingId</code> and <code>dependencyEncodingIds</code> be set
-              in order to enable a receiver to decode scalable video coding, and if
-              set, they are ignored by the receiver.</p>
+              in order to enable a receiver to decode scalable video coding.</p>
             </dd>
             <dt><dfn data-idl><code>dependencyEncodingIds</code></dfn> of type <span class=
             "idlMemberType">sequence&lt;<a>DOMString</a>&gt;</span></dt>
@@ -6532,38 +6531,21 @@ var encodings = [{ maxBitrate: 100000 }];
         <section class="informative" id="rtcrtpencodingtemporal-example*">
           <h4>Temporal Scalability</h4>
           <pre class="example highlight">
-          // Example of 3-layer temporal scalability encoding
-var encodings = [{
-  // Base framerate is one quarter of the input framerate
-  encodingId: "0",
-  framerateScale: 4.0
-}, {
-  // Temporal enhancement (half the input framerate when combined with the base layer)
-  encodingId: "1",
-  dependencyEncodingIds: ["0"],
-  framerateScale: 2.0
-}, {
-  // Another temporal enhancement layer (full input framerate when all layers combined)
-  encodingId: "2",
-  dependencyEncodingIds: ["0", "1"],
-  framerateScale: 1.0
-}];
+// Example of 3-layer temporal scalability encoding with base framerate
+// one quarter of the input, and ehancement layers providing one half
+// and all of the input framerate
+var encodings = [
+  {encodingId: 'T0', framerateScale: 4.0},
+  {encodingId: 'T1', framerateScale: 2.0, dependencyEncodingIds: ['T0']},
+  {encodingId: 'T2', dependencyEncodingIds: ['T0', 'T1']} 
+];
 
 // Example of 3-layer temporal scalability with all but the base layer disabled
-var encodings = [{
-  encodingId: "0",
-  framerateScale: 4.0
-}, {
-  encodingId: "1",
-  dependencyEncodingIds: ["0"],
-  framerateScale: 2.0,
-  active: false
-}, {
-  encodingId: "2",
-  dependencyEncodingIds: ["0", "1"],
-  framerateScale: 1.0,
-  active: false
-}];
+var encodings = [
+  {encodingId: 'T0', framerateScale: 4.0, active: true}, 
+  {encodingId: 'T1', framerateScale: 2.0, dependencyEncodingIds: ['T0'], active: false},
+  {encodingId: 'T2', dependencyEncodingIds: ['T0', 'T1'], active: false}
+];
 </pre>
           <p>Below is a representation of a 3-layer temporal scalability encoding. In the
           diagram, I0 is the base layer I-frame, and P0 represents base-layer P-frames.
@@ -6580,62 +6562,30 @@ var encodings = [{
         <section class="informative" id="rtcrtpencodingspatialsim-example*">
           <h4>Spatial Simulcast</h4>
           <pre class="example highlight">
-          // Example of 3-layer spatial simulcast
-var encodings = [{
-  // Simulcast layer at full scale
-  encodingId: "f",
-  resolutionScale: 1.0
-}, {  
-  // Simulcast layer at one half scale
-  encodingId: "h",
-  resolutionScale: 2.0
-}, {
-  // Simulcast layer at one quarter scale
-  encodingId: "q",
-  resolutionScale: 4.0
-}];
-
 // Example of 3-layer spatial simulcast with all but the lowest resolution layer disabled
-var encodings = [{
-  // Simulcast layer at full scale (inactive)
-  encodingId: "f",
-  resolutionScale: 1.0,
-  active: false
-}, {  
-  // Simulcast layer at one half scale (inactive)
-  encodingId: "h",
-  resolutionScale: 2.0,
-  active: false
-}, {
-  // Simulcast layer at one quarter scale (active)
-  encodingId: "q",
-  resolutionScale: 4.0
-}];
+var encodings = [
+  {rid: 'f', active: false},
+  {rid: 'h', active: false, resolutionScale: 2.0},
+  {rid: 'q', active: true, resolutionScale: 4.0}
+];
+
+// Example of 3-layer framerate simulcast with the middle layer disabled
+var encodings = [
+  {rid: 'f', active: true, maxFramerate: 60},
+  {rid: 'h', active: false, maxFramerate: 30},
+  {rid: 'q', active: true, maxFramerate: 15}
+];
 
 // Example of 2-layer spatial simulcast combined with 2-layer temporal scalability
-var encodings = [{
-  // Low resolution base layer (half the input framerate, half the input resolution)
-  encodingId: "H0",
-  resolutionScale: 2.0,
-  framerateScale: 2.0
-}, {
-  // High resolution Base layer (half the input framerate, full input resolution)
-  encodingId: "F0",
-  resolutionScale: 1.0,
-  framerateScale: 2.0
-}, {
-  // Temporal enhancement to the low resolution base layer (full input framerate, half resolution)
-  encodingId: "H1",
-  dependencyEncodingIds: ["H0"],
-  resolutionScale: 2.0,
-  framerateScale: 1.0
-}, {
-  // Temporal enhancement to the high resolution base layer (full input framerate and resolution)
-  encodingId: "F1",
-  dependencyEncodingIds: ["F0"],
-  resolutionScale: 1.0,
-  framerateScale: 1.0
-}];
+// Low resolution base layer has half the input framerate, half the input resolution
+// High resolution base layer has half the input framerate, full resolution
+// Temporal enhancement layers have full input framerate
+var encodings = [
+  {rid: 'H', encodingId: 'H0', resolutionScale: 2.0, framerateScale: 2.0},
+  {rid: 'F', encodingId: 'F0', framerateScale: 2.0}, 
+  {rid: 'H', encodingId: 'H1', resolutionScale: 2.0, dependencyEncodingIds: ['H0']},
+  {rid: 'F', encodingId: 'F1', dependencyEncodingIds: ['F0']}
+];
                     </pre>
           <p>Below is a representation of 2-layer temporal scalability combined with
           2-layer spatial simulcast. Solid arrows represent temporal prediction. In the
@@ -6655,64 +6605,32 @@ var encodings = [{
         <section class="informative" id="rtcrtpencodingspatialscal-example*">
           <h4>Spatial Scalability</h4>
           <pre class="example highlight">
-          // Example of 3-layer spatial scalability encoding
-var encodings = [{
-  // Base layer with one quarter input resolution
-  encodingId: "q",
-  resolutionScale: 4.0
-}, {
-  // Spatial enhancement layer yielding half resolution when combined with the base layer
-  encodingId: "h",
-  dependencyEncodingIds: ["q"],
-  resolutionScale: 2.0
-}, {
-  // Additional spatial enhancement layer yielding full resolution when combined with all layers
-  encodingId: "f",
-  dependencyEncodingIds: ["q", "h"],
-  resolutionScale: 1.0
-}]
+// Example of 3-layer spatial scalability encoding with the base layer having
+// one quarter input resolution and enhancement layers yielding one half and
+// full resolution
+var encodings = [
+  {encodingId: 'q', resolutionScale: 4.0},
+  {encodingId: 'h', resolutionScale: 2.0, dependencyEncodingIds: ['q']},
+  {encodingId: 'f', dependencyEncodingIds: [['q', 'h']}
 
 // Example of 3-layer spatial scalability with all but the base layer disabled
-var encodings = [{
-  encodingId: "q",
-  resolutionScale: 4.0
-}, {
-  encodingId: "h",
-  dependencyEncodingIds: ["q"],
-  resolutionScale: 2.0,
-  active: false
-}, {
-  encodingId: "f",
-  dependencyEncodingIds: ["q", "h"],
-  resolutionScale: 1.0,
-  active: false
-}];
+var encodings = [
+  {encodingId: 'q', resolutionScale: 4.0, active: true},
+  {encodingId: 'h', resolutionScale: 2.0, active: false},
+  {encodingId: 'f', active: false}
+]
 
 // Example of 2-layer spatial scalability combined with 2-layer temporal scalability
-var encodings = [{
-  // Base layer (half input framerate, half resolution)
-  encodingId: "H0",
-  resolutionScale: 2.0,
-  framerateScale: 2.0
-}, {
-  // Temporal enhancement to the base layer (full input framerate, half resolution)
-  encodingId: "H1",
-  dependencyEncodingIds: ["H0"],
-  resolutionScale: 2.0,
-  framerateScale: 1.0
-}, {
-  // Spatial enhancement to the base layer (half input framerate, full resolution)
-  encodingId: "F0",
-  dependencyEncodingIds: ["H0"],
-  resolutionScale: 1.0,
-  framerateScale: 2.0
-}, {
-  // Temporal enhancement to the spatial enhancement layer (full input framerate, full resolution)
-  encodingId: "F1",
-  dependencyEncodingIds: ["F0", "H1"],
-  resolutionScale: 1.0,
-  framerateScale: 1.0
-}];
+// Base layer has one half input framerate and half resolution
+// Temporal enhancement layer has full input framerate, half resolution
+// Spatial enhancement to the base layer has half input framerate, full resolution
+// Temporal enhancement to the spatial enhancement layer has full framerate and resolution
+var encodings = [
+  {encodingId: 'H0', resolutionScale: 2.0, framerateScale: 2.0}, 
+  {encodingId: 'H1', resolutionScale: 2.0, dependencyEncodingIds: ['H0']},
+  {encodingId: 'F0', framerateScale: 2.0, dependencyEncodingIds: ['H0']},
+  {encodingId: 'F1', dependencyEnodingIds: ['F0', 'H1']}
+];
                     </pre>
           <p>Below is a representation of 2-layer temporal scalability combined with
           2-layer spatial scalability. Solid arrows represent temporal prediction and
