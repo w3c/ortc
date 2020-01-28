@@ -1,7 +1,7 @@
 var respecConfig = {
   specStatus: "CG-DRAFT",
   shortName: "ortc-api",
-  publishDate: "2018-10-03",
+  publishDate: "2020-01-28",
   edDraftURI: "https://w3c.github.io/ortc/",
   editors: [
     {
@@ -478,7 +478,7 @@ var respecConfig = {
         "H. Alvestrand",
         "C. Jennings"
       ],
-      "status": "24 May 2018. Internet Draft (work in progress)",
+      "status": "15 December 2018. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "DATA": {
@@ -509,7 +509,7 @@ var respecConfig = {
       "authors": [
         "J. Uberti"
       ],
-      "status": "02 March 2018. Internet Draft (work in progress)",
+      "status": "16 July 2019. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "FLEXFEC": {
@@ -521,7 +521,7 @@ var respecConfig = {
         "M. Zanaty",
         "G. Mandyam" 
       ],
-      "status": "21 March 2018. Internet Draft (work in progress)",
+      "status": "16 May 2019. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "JSEP": {
@@ -532,7 +532,7 @@ var respecConfig = {
         "C. Jennings",
         "E. Rescorla"
       ],
-      "status": "10 October 2017. Internet Draft (work in progress)",
+      "status": "27 February 2019. Internet Draft (work in progress)",
       "publisher": "IETF"
     },
     "REMB": {
@@ -661,7 +661,7 @@ var respecConfig = {
         "Peter Thatcher",
         "Bernard Aboba"
       ],
-      "status": "04 June 2018 (work in progress)",
+      "status": "21 January 2020 (work in progress)",
       "publisher": "W3C"
     }, 
     "WEBRTC-STATS": {
@@ -671,7 +671,7 @@ var respecConfig = {
         "Harald Alvestrand",
         "Varun Singh"
       ],
-      "status": "19 May 2018 (work in progress)",
+      "status": "15 January 2020 (work in progress)",
       "publisher": "W3C"
     }
   }
