@@ -2304,8 +2304,8 @@ interface RTCDtlsTransport : RTCStatsProvider  {
     RTCDtlsParameters     getLocalParameters ();
     RTCDtlsParameters?    getRemoteParameters ();
     sequence&lt;ArrayBuffer&gt; getRemoteCertificates ();
-    void                  start (RTCDtlsParameters remoteParameters);
-    void                  stop ();
+    undefined             start (RTCDtlsParameters remoteParameters);
+    undefined             stop ();
                     attribute EventHandler             onstatechange;
                     attribute EventHandler             onerror;
 };</pre>
@@ -2507,7 +2507,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>stop</code></dfn></dt>
@@ -2519,7 +2519,7 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
           </dl>
@@ -2887,12 +2887,12 @@ interface RTCRtpSender : RTCStatsProvider {
     readonly        attribute RTCDtlsTransport?  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
     readonly        attribute DOMString kind;
-    void                      setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
-    Promise&lt;void&gt;             setTrack (MediaStreamTrack? track);  // deprecated
-    Promise&lt;void&gt;             replaceTrack (MediaStreamTrack? track);
+    undefined                 setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    Promise&lt;undefined&gt;  setTrack (MediaStreamTrack? track);  // deprecated
+    Promise&lt;undefined&gt;  replaceTrack (MediaStreamTrack? track);
     static RTCRtpCapabilities getCapabilities (DOMString kind);
-    Promise&lt;void&gt;             send (RTCRtpSendParameters parameters);
-    void                      stop ();
+    Promise&lt;undefined&gt;  send (RTCRtpSendParameters parameters);
+    undefined                 stop ();
                     attribute EventHandler      onssrcconflict;
 };</pre>
         <section>
@@ -3118,7 +3118,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><code>setTrack</code></dt>
@@ -3147,7 +3147,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+                <em>Return type:</em> <code>Promise&lt;undefined&gt;</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>replaceTrack</code></dfn></dt>
@@ -3212,7 +3212,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+                <em>Return type:</em> <code>Promise&lt;undefined&gt;</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>getCapabilities()</code></dfn>, static</dt>
@@ -3318,7 +3318,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+                <em>Return type:</em> <code>Promise&lt;undefined&gt;</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>stop</code></dfn></dt>
@@ -3357,7 +3357,7 @@ interface RTCRtpSender : RTCStatsProvider {
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
           </dl>
