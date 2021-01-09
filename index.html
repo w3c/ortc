@@ -258,8 +258,8 @@ interface RTCIceGatherer : RTCStatsProvider {
     readonly        attribute RTCIceComponent     component;
     readonly        attribute RTCIceGathererState state;
     static sequence&lt;RTCIceServer&gt; getDefaultIceServers ();
-    void                      close ();
-    void                      gather (optional RTCIceGatherOptions options);
+    undefined                 close ();
+    undefined                 gather (optional RTCIceGatherOptions options);
     RTCIceParameters          getLocalParameters ();
     sequence&lt;RTCIceCandidate&gt; getLocalCandidates ();
     RTCIceGatherer            createAssociatedGatherer ();
@@ -462,7 +462,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>gather</code></dfn></dt>
@@ -492,7 +492,7 @@ interface RTCIceGatherer : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>getLocalParameters()</code></dfn></dt>
