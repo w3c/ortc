@@ -1458,12 +1458,12 @@ interface RTCIceTransport : RTCStatsProvider {
     readonly        attribute RTCIceTransportState state;
     sequence&lt;RTCIceCandidate&gt; getRemoteCandidates ();
     RTCIceCandidatePair?      getSelectedCandidatePair ();
-    void                      start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role = "controlled");
-    void                      stop ();
+    undefined                 start (RTCIceGatherer gatherer, RTCIceParameters remoteParameters, optional RTCIceRole role = "controlled");
+    undefined                 stop ();
     RTCIceParameters?         getRemoteParameters ();
     RTCIceTransport           createAssociatedTransport ();
-    void                      addRemoteCandidate (RTCIceGatherCandidate remoteCandidate);
-    void                      setRemoteCandidates (sequence&lt;RTCIceCandidate&gt; remoteCandidates);
+    undefined                 addRemoteCandidate (RTCIceGatherCandidate remoteCandidate);
+    undefined                 setRemoteCandidates (sequence&lt;RTCIceCandidate&gt; remoteCandidates);
                     attribute EventHandler         onstatechange;
                     attribute EventHandler         oncandidatepairchange;
 };</pre>
@@ -1704,7 +1704,7 @@ interface RTCIceTransport : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>stop</code></dfn></dt>
@@ -1745,7 +1745,7 @@ interface RTCIceTransport : RTCStatsProvider {
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>getRemoteParameters()</code></dfn></dt>
@@ -1805,7 +1805,7 @@ interface RTCIceTransport : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>setRemoteCandidates</code></dfn></dt>
@@ -1835,7 +1835,7 @@ interface RTCIceTransport : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
           </dl>
