@@ -3651,12 +3651,12 @@ interface RTCRtpReceiver : RTCStatsProvider {
     readonly        attribute MediaStreamTrack  track;
     readonly        attribute RTCDtlsTransport?  transport;
     readonly        attribute RTCDtlsTransport? rtcpTransport;
-    void            setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
+    undefined       setTransport (RTCDtlsTransport transport, optional RTCDtlsTransport rtcpTransport);
     static RTCRtpCapabilities     getCapabilities (DOMString kind);
-    Promise&lt;void&gt;                      receive (RTCRtpReceiveParameters parameters);
+    Promise&lt;undefined&gt;      receive (RTCRtpReceiveParameters parameters);
     sequence&lt;RTCRtpContributingSource&gt; getContributingSources ();
     sequence&lt;RTCRtpSynchronizationSource&gt; getSynchronizationSources ();
-    void                               stop ();
+    undefined                     stop ();
 };</pre>
         <section>
           <h2>Constructors</h2>
@@ -3877,7 +3877,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><code>getCapabilities</code>, static</dt>
@@ -3995,7 +3995,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>Promise&lt;void&gt;</code>
+                <em>Return type:</em> <code>Promise&lt;undefined&gt;</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>getContributingSources</code></dfn></dt>
@@ -4061,7 +4061,7 @@ interface RTCRtpReceiver : RTCStatsProvider {
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
           </dl>
@@ -4467,7 +4467,7 @@ function myAccept(mySignaller, remote, transport, audioTrack, videoTrack) {
       <div>
         <pre class="idl">[Constructor(), Exposed=Window]
 interface RTCIceTransportController {
-    void                      addTransport (RTCIceTransport transport, optional unsigned long index);
+    undefined                 addTransport (RTCIceTransport transport, optional unsigned long index);
     sequence&lt;RTCIceTransport&gt; getTransports ();
 };</pre>
         <section>
@@ -4523,7 +4523,7 @@ interface RTCIceTransportController {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>getTransports</code></dfn></dt>
@@ -7108,7 +7108,7 @@ interface RTCDtmfSender {
     readonly        attribute boolean      canInsertDTMF;
     readonly        attribute RTCRtpSender sender;
     readonly        attribute DOMString    toneBuffer;
-    void insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
+    undefined insertDTMF (DOMString tones, optional unsigned long duration = 100, optional unsigned long interToneGap = 70);
                     attribute EventHandler ontonechange;
 };</pre>
         <section>
@@ -7316,7 +7316,7 @@ interface RTCDtmfSender {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
           </dl>
@@ -7580,16 +7580,16 @@ interface RTCDataChannel : EventTarget {
                     attribute unsigned long       bufferedAmountLowThreshold;
                     attribute DOMString           binaryType;
     RTCDataChannelParameters getParameters ();
-    void                     close ();
+    undefined                close ();
                     attribute EventHandler        onopen;
                     attribute EventHandler        onbufferedamountlow;
                     attribute EventHandler        onerror;
                     attribute EventHandler        onclose;
                     attribute EventHandler        onmessage;
-    void                     send (USVString data);
-    void                     send (Blob data);
-    void                     send (ArrayBuffer data);
-    void                     send (ArrayBufferView data);
+    undefined                send (USVString data);
+    undefined                send (Blob data);
+    undefined                send (ArrayBuffer data);
+    undefined                send (ArrayBufferView data);
 };</pre>
     <section>
       <h2>Constructors</h2>
@@ -7899,7 +7899,7 @@ interface RTCDataChannel : EventTarget {
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn><code>send</code></dfn></dt>
@@ -7927,7 +7927,7 @@ interface RTCDataChannel : EventTarget {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-lt="send!overload-1" data-lt-nodefault=
@@ -7956,7 +7956,7 @@ interface RTCDataChannel : EventTarget {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-lt="send!overload-2" data-lt-nodefault=
@@ -7985,7 +7985,7 @@ interface RTCDataChannel : EventTarget {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-lt="send!overload-3" data-lt-nodefault=
@@ -8014,7 +8014,7 @@ interface RTCDataChannel : EventTarget {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
           </dl>
@@ -8278,8 +8278,8 @@ interface RTCSctpTransport : RTCDataTransport {
     readonly        attribute RTCSctpTransportState state;
     readonly        attribute unsigned short        port;
     static RTCSctpCapabilities getCapabilities ();
-    void                       start (RTCSctpCapabilities remoteCaps, optional unsigned short remotePort);
-    void                       stop ();
+    undefined                  start (RTCSctpCapabilities remoteCaps, optional unsigned short remotePort);
+    undefined                  stop ();
                     attribute EventHandler          ondatachannel;
                     attribute EventHandler          onstatechange;
 };</pre>
@@ -8481,7 +8481,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>stop</code></dfn></dt>
@@ -8491,7 +8491,7 @@ interface RTCSctpTransport : RTCDataTransport {
                 <em>No parameters.</em>
               </div>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
           </dl>
@@ -9162,7 +9162,7 @@ function processStats(currentReport) {
         <pre class="idl">
 [ Constructor (RTCDtlsTransport transport)]
 interface RTCIdentity {
-    void               setIdentityProvider (DOMString provider, optional RTCIdentityProviderOptions options);
+    undefined       setIdentityProvider (DOMString provider, optional RTCIdentityProviderOptions options);
     Promise&lt;DOMString&gt; getIdentityAssertion ();
     readonly        attribute Promise&lt;RTCIdentityAssertion&gt; peerIdentity;
     readonly        attribute RTCDtlsTransport              transport;
@@ -9301,7 +9301,7 @@ interface RTCIdentity {
                 </tbody>
               </table>
               <div>
-                <em>Return type:</em> <code>void</code>
+                <em>Return type:</em> <code>undefined</code>
               </div>
             </dd>
             <dt><dfn data-idl><code>getIdentityAssertion</code></dfn></dt>
