@@ -3394,11 +3394,13 @@ interface RTCRtpSender : RTCStatsProvider {
             <li>
              <p>For each value of <var>i</var> from 0 to the number of codecs:</p>
              <ol>
-                <li>
-                  <p>Let <var>codec</var> be <code><var>withParameters</var>.codecs[<var>i</var>]</code>.</p>
-                </li>
+                <li><p>Let <var>codec</var> be <code><var>withParameters</var>.codecs[<var>i</var>]</code>.</p></li>
                 <li><p>Let <var>clockRate</var> be <code><var>codec</var>.clockRate</code>.</p></li>
+                <li><p>Let <var>channels</var> be <code><var>codec</var>.channels</code>.</p></li>
                 <li><p>Let <var>name</var> be <code><var>codec</var>.name</code>.</p></li>
+                <li><p>Let <var>maxTemporalLayers</var> be <code><var>codec</var>.maxTemporalLayers</code>.</p></li>
+                <li><p>Let <var>maxSpatialLayers</var> be <code><var>codec</var>.maxSpatialLayers</code>.</p></li> 
+                <li><p>Let <var>maxSimulcastStreams</var> be <code><var>codec</var>.maxSimulcastStreams</code>.</p></li>
                 <li>
                   <p>If <var>name</var> or <var>clockrate</var> is unset, <a>throw</a> a
                   <code>TypeError</code> and abort all of these steps.</p>
@@ -3417,25 +3419,48 @@ interface RTCRtpSender : RTCStatsProvider {
                   <p>If a match is found for a value of <var>j</var>, check that:
                   <ol>
                     <li>
-                      <p>If <code><var>codec</var>.channels</code> is set, check that it is
-                      less than or equal to
+                      <p><var>channels</var> is set and is less than or equal to
                       <code><var>capabilities</var>.codecs[<var>j</var>].channels</code>.
-                      If not, <a>reject</a> <var>p</var> with a newly created
+                      If this condition is not satisfied, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
                     <li>
                       <p>Each of the values of <code><var>codec</var>.rtcpFeedback[<var>k</var>].type</code>
                       is included in <code><var>capabilities</var>.codecs[<var>j</var>].rtcpFeedback.type</code>
                       where <var>k</var> goes from 0 to the number of feedback mechanisms.
-                      If not, <a>reject</a> <var>p</var> with a newly created
+                      If this condition is not satisfied, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort all of these steps.</p>
                     </li>
                     <li>
                       <p>Each of the values of <code><var>codec</var>.parameters[<var>k</var>]</code>
                       is a valid value as indicated by <code><var>capabilities</var>.codecs[<var>j</var>].parameters</code>
                       where <var>k</var> goes from 0 to the number of codecs.
-                      If not, <a>reject</a> <var>p</var> with a newly created
+                      If this condition is not satisfied, <a>reject</a> <var>p</var> with a newly created
                       <code>NotSupportedError</code> and abort all of these steps.</p>
+                    </li>
+                    <li>
+                      <p>If <var>kind</var> has a value of <code>video</code> and <code>send</code>
+                      has been called, check that the number of simulcast streams for the
+                      codec <var>codec</var> specified in <code><var>withParameters</var>.encodings[]</code>
+                      does not exceed <var>maxSimulcastStreams</var>. If this condition is not satisfied,
+                      <a>reject</a> <var>p</var> with a newly created <code>RangeError</code> and abort
+                      all of these steps.</p>
+                    </li>
+                    <li>
+                      <p>If <var>kind</var> has a value of <code>video</code> and <code>send</code>
+                      has been called, check that the number of temporal layers for the codec
+                      <var>codec</var> specified in <code><var>withParameters</var>.encodings[]</code>
+                      does not exceed <var>maxTemporalLayers</var>. If this condition is not satisfied,
+                      <a>reject</a> <var>p</var> with a newly created <code>RangeError</code> and abort
+                      all of these steps.</p>
+                    </li>
+                    <li>
+                      <p>If <var>kind</var> has a value of <code>video</code> and <code>send</code>
+                      has been called, check that the number of spatial layers for the codec
+                      <var>codec</var> specified in <code><var>withParameters</var>.encodings[]</code>
+                      does not exceed <var>maxSpatialLayers</var>. If this condition is not satisfied,
+                      <a>reject</a> <var>p</var> with a newly created <code>RangeError</code> and abort
+                      all of these steps.</p>
                     </li>
                   </ol>
                 </li>
@@ -5142,6 +5167,7 @@ interface RTCRtpUnhandledEvent : Event {
              sequence&lt;RTCRtcpFeedback&gt; rtcpFeedback;
              Dictionary                parameters;
              Dictionary                options;
+             unsigned short            maxSimulcastStreams = 0;
              unsigned short            maxTemporalLayers = 0;
              unsigned short            maxSpatialLayers = 0;
              boolean                   svcMultiStreamSupport;
@@ -5223,6 +5249,14 @@ interface RTCRtpUnhandledEvent : Event {
               <p>Codec-specific parameters that may be optionally signalled and are
               available as additional supported information or settings about the
               codec.</p>
+            </dd>          
+            <dt><dfn data-idl><code>maxSimulcastStreams</code></dfn> of type <span class=
+            "idlMemberType"><a>unsigned short</a></span>, defaulting to
+            <code>0</code></dt>
+            <dd>
+              <p>Maximum number of simulcast extension streams supported by this codec.
+              (e.g. a value of 1 indicates support for up to 2 simulcast streams). A value
+              of 0 indicates no support for simulcast.</p>
             </dd>
             <dt><dfn data-idl><code>maxTemporalLayers</code></dfn> of type <span class=
             "idlMemberType"><a>unsigned short</a></span>, defaulting to
