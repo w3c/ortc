@@ -2296,7 +2296,7 @@ mySignaller.send({
       <h3>Interface Definition</h3>
       <div>
         <pre class="idl">
-        [ Constructor (RTCIceTransport transport, sequence&lt;RTCCertificate&gt; certificates), Exposed=Window]
+        [ Constructor (RTCIceTransport transport, optional sequence&lt;RTCCertificate&gt; certificates), Exposed=Window]
 interface RTCDtlsTransport : RTCStatsProvider  {
     readonly        attribute RTCIceTransport          transport;
     readonly        attribute RTCDtlsTransportState    state;
@@ -2311,21 +2311,34 @@ interface RTCDtlsTransport : RTCStatsProvider  {
 };</pre>
         <section>
           <h2>Constructors</h2>
-          <p>When the constructor is invoked, the following steps MUST be run:</p>
+          When the <code><a>RTCDtlsTransport</a></code> constructor is invoked,
+          the user agent MUST run the following steps:
           <ol>
             <li><p>Let <var>transport</var> be the first argument.</p></li>
-            <li><p>If <code><var>transport</var>.state</code> is <code>closed</code>
-            <a>throw</a> an <code>InvalidStateError</code> and abort these steps.</p></li>
-            <li>Let <var>certificates</var> be the second argument.</li>
-            <li><p>If <var>certificates</var> is non-null, check that the
-            <code>expires</code> attribute of each <code><a>RTCCertificate</a></code>
-            object is in the future.  If a certificate has expired, <a>throw</a> an
-            <code>InvalidParameters</code> and abort these steps.</p></li>
-            <li><p>Let <var>dtlsTransport</var> be a new <code><a>RTCDtlsTransport</a></code>
-            object with <var>certificates</var>.</p></li>
-            <li><p>Let <var>dltsTransport</var> have
-            <dfn>[[\SendHeaderExtensions]]</dfn> and <dfn>[[\ReceiveHeaderExtensions]]</dfn>
-            internal slots initialized to <code>null</code>.</p></li>
+            <li><p>If <var>transport</var> is in the <code>closed</code>
+            state, <a>throw</a> an <code>InvalidStateError</code> and abort
+            these steps.</p></li>
+            <li><p>Let <var>certificates</var> be the second argument if provided, <code>null</code>
+            otherwise.</p></li>
+            <li><p>If the <var>certificates</var> is not <code>null</code> and is non-empty, check that the
+            <code>expires</code> attribute of each <code><a>RTCCertificate</a></code> object
+            is in the future. If a certificate has expired, <a>throw</a> an <code>InvalidAccessError</code>
+            and abort these steps.</p></li>
+            <li><p>Let <var>dtlstransport</var> be a newly constructed
+            <code><a>RTCDtlsTransport</a></code> object.</p></li>
+            <li><p>Let <var>dtlstransport</var> have a <dfn>[[\DtlsTransportState]]</dfn>
+            internal slot, initialized to <code>new</code>.</p></li>
+            <li><p>Let <var>dltsTransport</var> have <dfn>[[\SendHeaderExtensions]]</dfn>
+            and <dfn>[[\ReceiveHeaderExtensions]]</dfn> internal slots initialized to
+            <code>null</code>.</p></li>
+            <li><p>Let <var>dtlstransport</var> have a <dfn>[[\Certificates]]</dfn>
+              internal slot.</p></li>
+            <li><p>If <var>certificates</var> is non-null and is non-empty, initialize
+            the <a>[[\Certificates]]</a> internal slot to <var>certificates</var>.</p></li>
+            <li><p>If <var>certificates</var> is <code>null</code> or is empty,
+            generate a certificate using the default key generation algorithm and
+            store it in the <a>[[\Certificates]]</a> internal slot.</p></li>
+            <li>Return <var>dtlstransport</var>.</li>
          </ol>  
           <dl data-link-for="RTCDtlsTransport" data-dfn-for="RTCDtlsTransport" class=
           "constructors">
@@ -2355,8 +2368,8 @@ interface RTCDtlsTransport : RTCStatsProvider  {
                     <code>sequence</code>&lt;<code><a>RTCCertificate</a></code>&gt;</td>
                     <td class="prmNullFalse"><span role="img" aria-label=
                     "False">&#10008;</span></td>
-                    <td class="prmOptFalse"><span role="img" aria-label=
-                    "False">&#10008;</span></td>
+                    <td class="prmOptTrue"><span role="img" aria-label=
+                    "True">&#10004;</span></td>
                     <td class="prmDesc"></td>
                   </tr>
                 </tbody>
